@@ -1,0 +1,8 @@
+*.suo
+*.snk
+/bin
+/obj
+Config.ini
+DTXManiaLog.txt
+songlist.db
+songs.db
