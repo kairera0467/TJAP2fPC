@@ -633,6 +633,8 @@ namespace DTXMania
         public bool bSuperHard = false;
         public bool bJust;
 
+        public bool bEndingAnime = false;   // 2017.01.27 etc 「また遊んでね」画面の有効/無効オプション追加
+
         public EWindowMovieMode eWindowMovieMode;
 
 		public STDGBVALUE<E判定文字表示位置> 判定文字表示位置;
@@ -1296,6 +1298,7 @@ namespace DTXMania
             this.bHispeedRandom = false;
             this.nDefaultSongSort = 0;
             this.eGameMode = EGame.OFF;
+            this.bEndingAnime = false;
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;
@@ -1648,6 +1651,9 @@ namespace DTXMania
 			
 			sw.WriteLine();
 			#endregion
+            sw.WriteLine( "; 「また遊んでね」画面(0:OFF, 1:ON)" );
+            sw.WriteLine( "EndingAnime={0}", this.bEndingAnime ? 1 : 0 );
+            sw.WriteLine();
 			sw.WriteLine( ";-------------------" );
 			#endregion
 			#region [ Log ]
@@ -2542,6 +2548,10 @@ namespace DTXMania
                                                 this.bDirectShowMode = C変換.bONorOFF( str4[ 0 ] ); ;
 											}
                                             #endregion
+                                            else if( str3.Equals( "EndingAnime" ) )
+                                            {
+                                                this.bEndingAnime = C変換.bONorOFF( str4[ 0 ] );
+                                            }
 
                                             continue;
 										}

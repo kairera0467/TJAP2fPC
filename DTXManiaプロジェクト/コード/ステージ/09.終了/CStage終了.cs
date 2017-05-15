@@ -79,6 +79,10 @@ namespace DTXMania
 		}
 		public override int On進行描画()
 		{
+            if( !CDTXMania.ConfigIni.bEndingAnime )
+            {
+                return 1;
+            }
             if( this.ds背景 != null )
             {
                 this.ds背景.t再生開始();
