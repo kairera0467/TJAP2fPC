@@ -1186,7 +1186,7 @@ namespace DTXMania
         private int nLineCountCourseTemp; //現在カウント中のコースを記録。
 
         public int n参照中の難易度 = 3;
-        public int nScoreMode = -1;
+        public int nScoreModeTmp = 99; //2017.01.28 DD
         public int[,] nScoreInit = new int[ 2, 5 ]; //[ x, y ] x=通常or真打 y=コース
         public int[] nScoreDiff = new int[ 5 ]; //[y]
 
@@ -1333,7 +1333,7 @@ namespace DTXMania
 			this.nPolyphonicSounds = CDTXMania.ConfigIni.nPoliphonicSounds;
 			this.dbDTXVPlaySpeed = 1.0f;
 
-            this.nScoreMode = 1;
+            //this.nScoreModeTmp = 1;
             for( int y = 0; y < 5; y++ )
             {
                 this.nScoreInit[ 0, y ] = 300;
@@ -4141,7 +4141,7 @@ namespace DTXMania
             {
                 if( !string.IsNullOrEmpty( strCommandParam ) )
                 {
-                    this.nScoreMode = Convert.ToInt16( strCommandParam );
+                    this.nScoreModeTmp = Convert.ToInt16( strCommandParam );
                 }
             }
             else if( strCommandName.Equals( "SCOREINIT" ) )
@@ -4161,6 +4161,11 @@ namespace DTXMania
                 {
                     this.nScoreDiff[ this.n参照中の難易度 ] = Convert.ToInt16( strCommandParam );
                 }
+            }
+
+            if( this.nScoreModeTmp == 99 ) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
+            {
+                this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
         }
 
@@ -4395,7 +4400,7 @@ namespace DTXMania
             {
                 if( !string.IsNullOrEmpty( strCommandParam ) )
                 {
-                    this.nScoreMode = Convert.ToInt16( strCommandParam );
+                    this.nScoreModeTmp = Convert.ToInt16( strCommandParam );
                 }
             }
             else if( strCommandName.Equals( "SCOREINIT" ) )
@@ -4541,6 +4546,11 @@ namespace DTXMania
                 {
                     this.bHIDDENBRANCH = true;
                 }
+            }
+            if( this.nScoreModeTmp == 99 )
+            {
+                //2017.01.28 DD 
+                this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
         }
         /// <summary>

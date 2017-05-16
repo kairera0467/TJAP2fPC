@@ -280,7 +280,9 @@ namespace DTXMania
     						Trace.TraceInformation( "DTX読込所要時間:           {0}", span.ToString() );
                         }
 
-                        switch( CDTXMania.DTX.nScoreMode )
+                        //2017.01.28 DD Config.iniに反映しないように変更
+                        /*
+                        switch( CDTXMania.DTX.nScoreModeTmp )
                         {
                             case 0:
                                 CDTXMania.ConfigIni.nScoreMode = 0;
@@ -295,6 +297,7 @@ namespace DTXMania
                                 CDTXMania.ConfigIni.nScoreMode = 1;
                                 break;
                         }
+                        */
 
 						if ( CDTXMania.bコンパクトモード )
 							CDTXMania.DTX.MIDIレベル = 1;

@@ -1765,7 +1765,7 @@ namespace DTXMania
             sw.WriteLine( "; 譜面分岐のガイド表示(0:OFF, 1:ON)" );
 			sw.WriteLine( "BranchGuide={0}", this.bGraph.Drums ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; スコア計算方法(0:1～7, 1:8～14, 2:15以降)" );
+			sw.WriteLine( "; スコア計算方法(0:1～7, 1:8～14, 2:15以降, 3:真打)" );
 			sw.WriteLine( "ScoreMode={0}", this.nScoreMode );
 			sw.WriteLine();
 			sw.WriteLine( "; 譜面分岐の際に自動でSECTION処理を行う。(0:OFF, 1:ON)" );
@@ -2743,7 +2743,7 @@ namespace DTXMania
 											}
 											else if ( str3.Equals( "ScoreMode" ) )
 											{
-												this.nScoreMode = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nScoreMode );
+												this.nScoreMode = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, this.nScoreMode );
 											}
 											else if ( str3.Equals( "AutoSection" ) )
 											{

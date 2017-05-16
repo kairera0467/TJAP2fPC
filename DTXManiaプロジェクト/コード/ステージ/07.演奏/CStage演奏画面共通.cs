@@ -1042,9 +1042,10 @@ namespace DTXMania
                 this.n合計連打数++;
                 this.actRollChara.Start(0);
 
+                //2017.01.28 DD CDTXから直接呼び出す
                 if( this.bIsGOGOTIME )
                 {
-                    if( CDTXMania.ConfigIni.nScoreMode == 0 || CDTXMania.ConfigIni.nScoreMode == 1 )
+                    if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
                             this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, (long)( 300 * 1.2f ) );
@@ -1061,7 +1062,7 @@ namespace DTXMania
                 }
                 else
                 {
-                    if( CDTXMania.ConfigIni.nScoreMode == 0 || CDTXMania.ConfigIni.nScoreMode == 1 )
+                    if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
                             this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 100L );
@@ -1496,7 +1497,7 @@ namespace DTXMania
                 long nDiff = CDTXMania.DTX.nScoreDiff[ CDTXMania.stage選曲.n確定された曲の難易度 ];
                 long nAddScore = 0;
 
-                if( CDTXMania.ConfigIni.nScoreMode == 3 ) //2016.07.04 kairera0467 真打モード。
+                if( CDTXMania.DTX.nScoreModeTmp == 3 )  //2016.07.04 kairera0467 真打モード。
                 {
                     nAddScore = CDTXMania.DTX.nScoreInit[ 1, CDTXMania.stage選曲.n確定された曲の難易度 ];
                     if( nAddScore == 0 )
@@ -1514,7 +1515,7 @@ namespace DTXMania
                     }
 
                 }
-                else if( CDTXMania.ConfigIni.nScoreMode == 2 )
+                else if( CDTXMania.DTX.nScoreModeTmp == 2 )
                 {
                     if (nCombos < 10)
                     {
@@ -1565,7 +1566,7 @@ namespace DTXMania
                     this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore );
                     //this.actScore.Add( E楽器パート.DRUMS, bIsAutoPlay, nAddScore );
                 }
-                else if( CDTXMania.ConfigIni.nScoreMode == 1 )
+                else if( CDTXMania.DTX.nScoreModeTmp == 1 )
                 {
                     if (nCombos < 10)
                     {
@@ -3870,14 +3871,14 @@ if( CDTXMania.bReiNoAreFlag ){
             int nAddScore = 0;
             int[] n倍率 = { 0, 1, 2, 4, 8 };
 
-            if( CDTXMania.ConfigIni.nScoreMode == 1 )
+            if( CDTXMania.DTX.nScoreModeTmp == 1 )
             {
                 for( int i = 0; i < 11; i++ )
                 {
                     this.nScore[ i ] = (int)( nInit + ( nDiff * ( i ) ) );
                 }
             }
-            else if( CDTXMania.ConfigIni.nScoreMode == 2 )
+            else if( CDTXMania.DTX.nScoreModeTmp == 2 )
             {
                 for( int i = 0; i < 5; i++ )
                 {

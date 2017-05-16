@@ -695,11 +695,11 @@ namespace DTXMania
                 "TYPE-A: 太鼓1～太鼓7\n" +
                 "TYPE-B: 太鼓8～太鼓14\n" +
                 "TYPE-C: 現行の計算方式です。\n" +
-                " \n",
+                "TYPE-D: 真打ちモード \n",
                 " \n" +
                 " \n" +
                 " ",
-                new string[] { "TYPE-A", "TYPE-B", "TYPE-C" });
+                new string[] { "TYPE-A", "TYPE-B", "TYPE-C", "TYPE-D" });
             this.list項目リスト.Add(this.iTaikoScoreMode);
 
             this.iTaikoBranchGuide = new CItemToggle("BranchGuide", CDTXMania.ConfigIni.bBranchGuide,
