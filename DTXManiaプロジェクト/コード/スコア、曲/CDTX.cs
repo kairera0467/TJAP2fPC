@@ -2786,11 +2786,7 @@ namespace DTXMania
 
         private string tコメントを削除する( string input )
         {
-            string strOutput = input;
-            int nPos = input.IndexOf("//");
-
-            if( nPos != -1 )
-                strOutput = input.Remove(nPos);
+            string strOutput = System.Text.RegularExpressions.Regex.Replace( input, @" *//.*", "" ); //2017.01.28 DD コメント前のスペースも削除するように修正
 
             return strOutput;
         }

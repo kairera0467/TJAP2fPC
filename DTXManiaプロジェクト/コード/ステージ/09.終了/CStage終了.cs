@@ -79,7 +79,7 @@ namespace DTXMania
 		}
 		public override int On進行描画()
 		{
-            if( !CDTXMania.ConfigIni.bEndingAnime )
+            if( !CDTXMania.ConfigIni.bEndingAnime ) //2017.01.27 DD
             {
                 return 1;
             }
