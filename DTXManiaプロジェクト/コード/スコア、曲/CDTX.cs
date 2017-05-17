@@ -2972,8 +2972,12 @@ namespace DTXMania
                 for( int n = 1; n < strTemp.Length; n++ )
                 {
                     int nCourse = 0;
-                    string nNC = strTemp[ n ].Substring(0, 1);
-                    strTemp[ n ] = strTemp[ n ].Remove( 0, 1 );
+                    string nNC = "";
+                    while (strTemp[n].Substring(0, 1) != "\n") //2017.01.29 DD COURSE単語表記に対応
+                    {
+                        nNC += strTemp[n].Substring(0, 1);
+                        strTemp[n] = strTemp[n].Remove(0, 1);
+                    }
 
                     if( this.strConvertCourse( nNC ) != -1 )
                     {
