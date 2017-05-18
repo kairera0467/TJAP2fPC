@@ -621,7 +621,8 @@ namespace DTXMania
         public string strCharaMotionList_jump;
 
         public E難易度表示タイプ eDiffShowType;
-        public EScrollMode eScrollMode;
+        public EScrollMode eScrollMode = EScrollMode.Normal;
+        public bool bスクロールモードを上書き = false;
 
         public bool bHispeedRandom;
         public Eステルスモード eSTEALTH;
@@ -1681,10 +1682,12 @@ namespace DTXMania
 			sw.WriteLine( "; DARKモード(0:OFF, 1:HALF, 2:FULL)" );
 			sw.WriteLine( "Dark={0}", (int) this.eDark );
 			sw.WriteLine();
+            /*
             sw.WriteLine( "; スクロール方法(※β版)" );
             sw.WriteLine( "; (0:通常, 1:BMSCROLL, 2:HSSCROLL)" );
             sw.WriteLine( "ScrollMode={0}", (int)this.eScrollMode );
             sw.WriteLine();
+            */
 			#region [ SUDDEN ]
 			sw.WriteLine( "; ドラムSUDDENモード(0:OFF, 1:ON)" );
 			sw.WriteLine( "DrumsSudden={0}", this.bSudden.Drums ? 1 : 0 );
@@ -2599,10 +2602,12 @@ namespace DTXMania
                                             {
                                                 this.eScrollMode = ( EScrollMode )C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, 0 );
                                             }
+                                            /*
 											else if( str3.Equals( "DrumsGraph" ) )  // #24074 2011.01.23 addikanick
 											{
 												this.bGraph.Drums = C変換.bONorOFF( str4[ 0 ] );
 											}
+                                            */
 											#region [ Sudden ]
 											else if( str3.Equals( "DrumsSudden" ) )
 											{

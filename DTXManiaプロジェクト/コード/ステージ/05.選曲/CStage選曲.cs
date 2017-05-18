@@ -188,7 +188,9 @@ namespace DTXMania
 			}
 			finally
 			{
-				Trace.TraceInformation( "選曲ステージの活性化を完了しました。" );
+                CDTXMania.ConfigIni.eScrollMode = EScrollMode.Normal;
+                CDTXMania.ConfigIni.bスクロールモードを上書き = false;
+                Trace.TraceInformation( "選曲ステージの活性化を完了しました。" );
 				Trace.Unindent();
 			}
 		}
@@ -445,6 +447,7 @@ namespace DTXMania
 						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F6 ) )
 						{
 							CDTXMania.Skin.sound変更音.t再生する();
+                            CDTXMania.ConfigIni.bスクロールモードを上書き = true;
                             switch( (int)CDTXMania.ConfigIni.eScrollMode )
                             {
                                 case 0:
@@ -455,6 +458,7 @@ namespace DTXMania
                                     break;
                                 case 2:
                                     CDTXMania.ConfigIni.eScrollMode = EScrollMode.Normal;
+                                    CDTXMania.ConfigIni.bスクロールモードを上書き = false;
                                     break;
                             }
 						}

@@ -3020,7 +3020,7 @@ namespace DTXMania
                 string strInputHeader = strInput.Remove( strInput.IndexOf( "#START" ) );
                 strInput = strInput.Remove(0, strInput.IndexOf( "#START" ) );
                 strInputHeader = Regex.Replace( strInputHeader,
-                    @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE)).+\n",
+                    @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|#HBSCROLL|#BMSCROLL)).+\n",
                 "", RegexOptions.Multiline );
                 strInput = strInputHeader + "\n" + strInput;
 
@@ -4058,6 +4058,16 @@ namespace DTXMania
         /// <param name="InputText"></param>
         private void t難易度別ヘッダ( string InputText )
         {
+            if( InputText.Equals( "#HBSCROLL" ) && CDTXMania.ConfigIni.bスクロールモードを上書き == false )
+            {
+                CDTXMania.ConfigIni.eScrollMode = EScrollMode.HSSCROLL;
+            }
+            if( InputText.Equals( "#BMSCROLL" ) && CDTXMania.ConfigIni.bスクロールモードを上書き == false )
+            {
+                CDTXMania.ConfigIni.eScrollMode = EScrollMode.BMSCROLL;
+            }
+
+
             string[] strArray = InputText.Split( new char[] { ':' } );
             string strCommandName = "";
             string strCommandParam = "";
@@ -6154,6 +6164,20 @@ namespace DTXMania
         //命令と値を分割して配列に格納 (命令と値の間にスペースが無くてもOK) {入力テキスト, 対象配列, 対象命令}
         private void SplitOrder( string argText, out string[] argArray, string argOrder )
         {
+            string regStr;
+            string replStr;
+            if( argOrder == "#BRANCHSTART")
+            {
+                regStr = argOrder + "[^0-9rpsd]+";
+                replStr = argOrder;
+                argText = Regex.Replace(argText, regStr, replStr);
+            }
+            else
+            {
+                regStr = argOrder + "[^0-9-]+";
+                replStr = argOrder;
+                argText = Regex.Replace(argText, regStr, replStr);
+            }
             argArray = argText.Split(new string[] { argOrder }, StringSplitOptions.RemoveEmptyEntries);
             List<string> stringList = new List<string>(argArray);
             stringList.Insert(0, argOrder);
