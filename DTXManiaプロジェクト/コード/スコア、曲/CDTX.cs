@@ -1956,7 +1956,7 @@ namespace DTXMania
 			{
 				try
 				{
-                    if( nReadVersion == 0 )
+                    if( nReadVersion != 0 )
                     {
                         //DTX方式
                         
