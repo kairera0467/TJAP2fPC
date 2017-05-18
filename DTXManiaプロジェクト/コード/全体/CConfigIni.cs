@@ -1136,7 +1136,8 @@ namespace DTXMania
 			this.bフィルイン有効 = true;
 			this.n曲が選択されてからプレビュー音が鳴るまでのウェイトms = 1000;
 			this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = 100;
-			this.bWave再生位置自動調整機能有効 = true;
+			//this.bWave再生位置自動調整機能有効 = true;
+			this.bWave再生位置自動調整機能有効 = false;
 			this.bBGM音を発声する = true;
 			this.b歓声を発声する = true;
 			this.bScoreIniを出力する = true;
@@ -1536,8 +1537,8 @@ namespace DTXMania
 			sw.WriteLine( "PreviewImageWait={0}", this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
 			sw.WriteLine();
 			#endregion
-			sw.WriteLine( "; Waveの再生位置自動補正(0:OFF, 1:ON)" );
-			sw.WriteLine( "AdjustWaves={0}", this.bWave再生位置自動調整機能有効 ? 1 : 0 );
+			//sw.WriteLine( "; Waveの再生位置自動補正(0:OFF, 1:ON)" );
+			//sw.WriteLine( "AdjustWaves={0}", this.bWave再生位置自動調整機能有効 ? 1 : 0 );
 			sw.WriteLine();
 			#region [ BGM/ドラムヒット音の再生 ]
 			sw.WriteLine( "; BGM の再生(0:OFF, 1:ON)" );
@@ -2365,10 +2366,10 @@ namespace DTXMania
 												this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x5f5e0ff, this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
 											}
 											#endregion
-											else if( str3.Equals( "AdjustWaves" ) )
-											{
-												this.bWave再生位置自動調整機能有効 = C変換.bONorOFF( str4[ 0 ] );
-											}
+											//else if( str3.Equals( "AdjustWaves" ) )
+											//{
+											//	this.bWave再生位置自動調整機能有効 = C変換.bONorOFF( str4[ 0 ] );
+											//}
 											#region [ BGM/ドラムのヒット音 ]
 											else if( str3.Equals( "BGMSound" ) )
 											{

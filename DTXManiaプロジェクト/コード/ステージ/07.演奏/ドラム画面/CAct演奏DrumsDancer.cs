@@ -30,8 +30,6 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-if( CDTXMania.bReiNoAreFlag ){
-//#if C_82D982F182AF82CD82A282AF82A2
             this.strList = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16";
             this.strList_登場 = "0,1,2,3,4,5,6,7,8,8,8,8,8,8,8,8";
             this.strList_退場 = "1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3";
@@ -79,18 +77,13 @@ if( CDTXMania.bReiNoAreFlag ){
             {
                 this.st投げ上げ[ i ].ct進行 = new CCounter();
             }
-}
-//#endif
-
             base.OnManagedリソースの作成();
         }
 
         public override void OnManagedリソースの解放()
         {
-//#if C_82D982F182AF82CD82A282AF82A2
             CDTXMania.tテクスチャの解放( ref this.txフッター );
             CDTXMania.tテクスチャの解放( ref this.txモブ );
-//#endif
             base.OnManagedリソースの解放();
         }
 
@@ -101,9 +94,6 @@ if( CDTXMania.bReiNoAreFlag ){
             {
                 this.b初めての進行描画 = true;
             }
-
-//#if C_82D982F182AF82CD82A282AF82A2
-if( CDTXMania.bReiNoAreFlag ){
 
             //レイヤー位置を考えて移動。
             if( this.txフッター != null )
@@ -190,9 +180,6 @@ if( CDTXMania.bReiNoAreFlag ){
                     this.txモブ.t2D描画( CDTXMania.app.Device, 0, (( 780.0f - this.txモブ.szテクスチャサイズ.Height ) - (float)( 60.0f * Math.Sin( Math.PI * num1 / 14.0f ) )) );
                 }
             }
-}
-//#endif
-
             return base.On進行描画();
         }
 

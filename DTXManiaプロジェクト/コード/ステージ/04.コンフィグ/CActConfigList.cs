@@ -146,24 +146,24 @@ namespace DTXMania
 
 
 	
-			this.iSystemAdjustWaves = new CItemToggle( "AdjustWaves", CDTXMania.ConfigIni.bWave再生位置自動調整機能有効,
-			    "サウンド再生位置自動補正：\n" +
-				"ハードウェアやOSに起因するサウン\n" +
-				"ドのずれを強制的に補正します。\n" +
-				"BGM のように再生時間の長い音声\n" +
-				"データが使用されている曲で効果が\n" +
-				"あります。" +
-				"\n" +
-				"※ DirectSound使用時のみ有効です。",
-			    "Automatic wave playing position\n" +
-				" adjustment feature. If you turn it ON,\n" +
-				" it decrease the lag which comes from\n" +
-				" the difference of hardware/OS.\n" +
-				"Usually, you should turn it ON." +
-				"\n"+
-				"Note: This setting is effetive\n" +
-				" only when DirectSound is used.");
-			this.list項目リスト.Add( this.iSystemAdjustWaves );
+			//this.iSystemAdjustWaves = new CItemToggle( "AdjustWaves", CDTXMania.ConfigIni.bWave再生位置自動調整機能有効,
+			//    "サウンド再生位置自動補正：\n" +
+			//	"ハードウェアやOSに起因するサウン\n" +
+			//	"ドのずれを強制的に補正します。\n" +
+			//	"BGM のように再生時間の長い音声\n" +
+			//	"データが使用されている曲で効果が\n" +
+			//	"あります。" +
+			//	"\n" +
+			//	"※ DirectSound使用時のみ有効です。",
+			//    "Automatic wave playing position\n" +
+			//	" adjustment feature. If you turn it ON,\n" +
+			//	" it decrease the lag which comes from\n" +
+			//	" the difference of hardware/OS.\n" +
+			//	"Usually, you should turn it ON." +
+			//	"\n"+
+			//	"Note: This setting is effetive\n" +
+			//	" only when DirectSound is used.");
+			//this.list項目リスト.Add( this.iSystemAdjustWaves );
 			this.iSystemVSyncWait = new CItemToggle( "VSyncWait", CDTXMania.ConfigIni.b垂直帰線待ちを行う,
 				"垂直帰線同期：\n画面の描画をディスプレイの垂直帰\n線中に行なう場合には ON を指定し\nます。ON にすると、ガタつきのない\n滑らかな画面描画が実現されます。",
 				"Turn ON to wait VSync (Vertical\n Synchronizing signal) at every\n drawings. (so FPS becomes 60)\nIf you have enough CPU/GPU power,\n the scroll would become smooth." );
@@ -2084,7 +2084,7 @@ namespace DTXMania
 			CDTXMania.ConfigIni.bSTAGEFAILED有効 = this.iSystemStageFailed.bON;
 			CDTXMania.ConfigIni.bランダムセレクトで子BOXを検索対象とする = this.iSystemRandomFromSubBox.bON;
 
-			CDTXMania.ConfigIni.bWave再生位置自動調整機能有効 = this.iSystemAdjustWaves.bON;
+			//CDTXMania.ConfigIni.bWave再生位置自動調整機能有効 = this.iSystemAdjustWaves.bON;
 			CDTXMania.ConfigIni.b垂直帰線待ちを行う = this.iSystemVSyncWait.bON;
 			CDTXMania.ConfigIni.bバッファ入力を行う = this.iSystemBufferedInput.bON;
 			CDTXMania.ConfigIni.bAVI有効 = this.iSystemAVI.bON;

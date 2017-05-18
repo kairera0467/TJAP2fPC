@@ -2682,14 +2682,9 @@ namespace DTXMania
                                     this.actChara.ctクリア通常モーション = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, ( dbUnit_clear * 2.0 ) / this.actChara.arクリアモーション番号.Length, CSound管理.rc演奏用タイマ );
 
                                     this.actChara.ct通常モーション.db現在の値 = 0;
-
-//#if C_82D982F182AF82CD82A282AF82A2
-if( CDTXMania.bReiNoAreFlag ){
                                     this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
                                     //this.actDancer.ctモブ = new CCounter( 1.0, 16.0, (( dbUnit / 16.0 )), CSound管理.rc演奏用タイマ );
-}
-//#endif
-                                    
+                                   
                                     if( this.actChara.nキャラクターMAX通常モーション枚数 != 0 )
                                     {
                                         double dbUnit_max = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.ar黄色モーション番号.Length );

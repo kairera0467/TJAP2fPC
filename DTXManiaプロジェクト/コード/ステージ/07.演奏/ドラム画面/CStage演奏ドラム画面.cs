@@ -224,14 +224,8 @@ namespace DTXMania
                 double dbUnit_max_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.ar黄色ゴーゴーモーション番号.Length );
                 this.actChara.ctMAXゴーゴーモーション = new CCounter( 0, this.actChara.ar黄色ゴーゴーモーション番号.Length - 1, dbUnit_max_gogo * 2, CSound管理.rc演奏用タイマ );
             }
-
-//#if C_82D982F182AF82CD82A282AF82A2
-if( CDTXMania.bReiNoAreFlag )
-{
             this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
             this.actDancer.ctモブ = new CCounter( 1.0, 16.0, ((60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM / 16.0 )), CSound管理.rc演奏用タイマ );
-}
-//#endif
 
             //try
             //{
@@ -347,44 +341,18 @@ if( CDTXMania.bReiNoAreFlag )
                 {
 				    this.t進行描画_背景();
                 }
-                else if( !CDTXMania.bReiNoAreFlag && !CDTXMania.ConfigIni.bAVI有効 )
-                {
-				    this.t進行描画_背景();
-                }
 
-if( CDTXMania.bReiNoAreFlag )
-{
-    if( CDTXMania.ConfigIni.bAVI有効 )
-    {
-        this.t進行描画_AVI();
-    }
-    else
-    {
-        this.actBackground.On進行描画();
-        this.actRollChara.On進行描画();
-        if( !this.bDoublePlay )
-            this.actDancer.On進行描画();
-    }
-}
-else
-{
-    this.t進行描画_AVI();
-}
-//#if C_82D982F182AF82CD82A282AF82A2
-//                if( CDTXMania.ConfigIni.bAVI有効 )
-//                {
-////#endif
-//                    this.t進行描画_AVI();
-////#if C_82D982F182AF82CD82A282AF82A2
-//                }
-//                else
-//                {
-//                    this.actBackground.On進行描画();
-//                    this.actRollChara.On進行描画();
-//                    if( !this.bDoublePlay )
-//                        this.actDancer.On進行描画();
-//                }
-//#endif
+                if( CDTXMania.ConfigIni.bAVI有効 )
+                {
+                    this.t進行描画_AVI();
+                }
+                else
+                {
+                    this.actBackground.On進行描画();
+                    this.actRollChara.On進行描画();
+                    if( !this.bDoublePlay )
+                        this.actDancer.On進行描画();
+                }
 
                 if( !CDTXMania.ConfigIni.bNoInfo )
                     this.t進行描画_パネル文字列();

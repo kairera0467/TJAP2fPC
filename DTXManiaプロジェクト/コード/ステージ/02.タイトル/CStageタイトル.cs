@@ -187,7 +187,7 @@ namespace DTXMania
 					this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
 
                 #region[ バージョン表示 ]
-                string strVersion = "KTT:J:A:I:2017050800";
+                string strVersion = "KTT:J:A:I:2017051800";
 #if DEBUG
                 strVersion += "  DEBUG";
 #endif

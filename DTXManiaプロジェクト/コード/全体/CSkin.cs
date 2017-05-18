@@ -946,11 +946,6 @@ namespace DTXMania
                             //-----------------------------
                             #endregion
                             #region[ その他 ]
-                            else if( strCommand == "COMMAND" )
-                            {
-                                if( strParam == "817" )
-                                    CDTXMania.bReiNoAreFlag = true;
-                            }
                             #endregion
                         }
                         continue;
