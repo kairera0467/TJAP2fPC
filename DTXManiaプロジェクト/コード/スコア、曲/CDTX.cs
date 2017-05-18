@@ -3020,7 +3020,7 @@ namespace DTXMania
                 string strInputHeader = strInput.Remove( strInput.IndexOf( "#START" ) );
                 strInput = strInput.Remove(0, strInput.IndexOf( "#START" ) );
                 strInputHeader = Regex.Replace( strInputHeader,
-                    @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|#HBSCROLL|#BMSCROLL)).+\n",
+                    @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
                 "", RegexOptions.Multiline );
                 strInput = strInputHeader + "\n" + strInput;
 
