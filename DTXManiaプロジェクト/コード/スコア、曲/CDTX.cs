@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Reflection;
 using System.Globalization;
 using System.Threading;
+using System.Text.RegularExpressions;
 //using System.Windows.Forms;
 using FDK;
 
@@ -2786,7 +2787,7 @@ namespace DTXMania
 
         private string tコメントを削除する( string input )
         {
-            string strOutput = System.Text.RegularExpressions.Regex.Replace( input, @" *//.*", "" ); //2017.01.28 DD コメント前のスペースも削除するように修正
+            string strOutput = Regex.Replace( input, @" *//.*", "" ); //2017.01.28 DD コメント前のスペースも削除するように修正
 
             return strOutput;
         }
@@ -3012,6 +3013,8 @@ namespace DTXMania
         {
             if( !String.IsNullOrEmpty( strInput ) ) //空なら通さない
             {
+                //2017.01.31 DD カンマのみの行を0,に置き換え
+                strInput = Regex.Replace( strInput, @"^,", "0,", RegexOptions.Multiline );
                 //どうせ使わないので先にSplitしてコメントを削除。
                 this.strSplitした譜面 = (string[])this.str改行文字を削除する( strInput, 1 );
                 for (int i = 0; this.strSplitした譜面.Length > i; i++)
