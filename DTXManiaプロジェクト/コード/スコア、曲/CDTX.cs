@@ -3203,7 +3203,7 @@ namespace DTXMania
         private void t命令を挿入する(string InputText)
         {
             char[] chDelimiter = new char[] { ' ' };
-            string[] strArray;
+            string[] strArray = null;
 
             if (InputText.StartsWith("#START"))
             {
@@ -3264,7 +3264,8 @@ namespace DTXMania
 
             else if (InputText.StartsWith("#BPMCHANGE"))
             {
-                strArray = InputText.Split(chDelimiter);
+                //strArray = InputText.Split(chDelimiter);
+                this.SplitOrder( InputText, out strArray, "#BPMCHANGE" );
                 if( InputText.IndexOf( "," ) != -1 )
                     InputText = InputText.Replace( ',', '.' );
 
@@ -3310,7 +3311,8 @@ namespace DTXMania
                 {
                     //iが入っていた場合、複素数スクロールとみなす。
 
-                    strArray = InputText.Split(chDelimiter);
+                    //strArray = InputText.Split(chDelimiter);
+                    this.SplitOrder( InputText, out strArray, "#SCROLL" );
 
                     double[] dbComplexNum = new double[ 2 ];
                     this.tParsedComplexNumber( strArray[ 1 ], ref dbComplexNum );
@@ -3398,7 +3400,8 @@ namespace DTXMania
             }
             else if (InputText.StartsWith("#MEASURE"))
             {
-                strArray = InputText.Split(chDelimiter);
+                //strArray = InputText.Split(chDelimiter);
+                this.SplitOrder( InputText, out strArray, "#MEASURE" );
                 strArray = strArray[1].Split(new char[] { '/' });
 
                 double[] dbLength = new double[2];
@@ -3426,7 +3429,8 @@ namespace DTXMania
             }
             else if( InputText.StartsWith( "#DELAY" ) )
             {
-                strArray = InputText.Split( chDelimiter );
+                //strArray = InputText.Split( chDelimiter );
+                this.SplitOrder( InputText, out strArray, "#DELAY" );
                 float nDELAY = (float)( Convert.ToDouble( strArray[ 1 ] ) * 1000.0 );
 
 
@@ -3497,7 +3501,8 @@ namespace DTXMania
 
                 //分岐:分岐スタート
                 int n条件 = 0;
-                strArray = InputText.Split(chDelimiter);
+                //strArray = InputText.Split(chDelimiter);
+                this.SplitOrder( InputText, out strArray, "#BRANCHSTART" );
                 strArray = strArray[1].Split(',');
 
                 //条件数値。めちゃくちゃ無理やりな実装でスマン。
@@ -6133,6 +6138,15 @@ namespace DTXMania
             }
         }
 
+        //2017.01.31 DD
+        //命令と値を分割して配列に格納 (命令と値の間にスペースが無くてもOK) {入力テキスト, 対象配列, 対象命令}
+        private void SplitOrder( string argText, out string[] argArray, string argOrder )
+        {
+            argArray = argText.Split(new string[] { argOrder }, StringSplitOptions.RemoveEmptyEntries);
+            List<string> stringList = new List<string>(argArray);
+            stringList.Insert(0, argOrder);
+            argArray = stringList.ToArray();
+        }
 
 		/// <summary>
 		/// サウンドミキサーにサウンドを登録・削除する時刻を事前に算出する
