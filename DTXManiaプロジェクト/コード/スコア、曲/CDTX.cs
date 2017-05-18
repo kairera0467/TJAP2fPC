@@ -3015,6 +3015,15 @@ namespace DTXMania
             {
                 //2017.01.31 DD カンマのみの行を0,に置き換え
                 strInput = Regex.Replace( strInput, @"^,", "0,", RegexOptions.Multiline );
+
+                //2017.02.03 DD ヘッダ内にある命令以外の文字列を削除
+                string strInputHeader = strInput.Remove( strInput.IndexOf( "#START" ) );
+                strInput = strInput.Remove(0, strInput.IndexOf( "#START" ) );
+                strInputHeader = Regex.Replace( strInputHeader,
+                    @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE)).+\n",
+                "", RegexOptions.Multiline );
+                strInput = strInputHeader + "\n" + strInput;
+
                 //どうせ使わないので先にSplitしてコメントを削除。
                 this.strSplitした譜面 = (string[])this.str改行文字を削除する( strInput, 1 );
                 for (int i = 0; this.strSplitした譜面.Length > i; i++)
