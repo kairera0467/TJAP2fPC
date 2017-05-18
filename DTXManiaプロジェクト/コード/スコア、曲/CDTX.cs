@@ -4580,7 +4580,7 @@ namespace DTXMania
         		case "6":
         			return 6;
         		case "7":
-        			return 7;
+        			return 7; //2017.01.30 DD 芋連打を風船連打扱いに
         		case "8":
         			return 8;
         		case "9":
