@@ -586,7 +586,7 @@ namespace DTXMania
         public bool bドラムコンボ表示;
         public bool bBranchGuide;
         public int nScoreMode;
-
+        public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
 
         public bool bSession;
 
@@ -1266,6 +1266,7 @@ namespace DTXMania
 
             this.bBranchGuide = false;
             this.nScoreMode = 2;
+            this.nDefaultCourse = 3;
             this.bAutoSection = false;
             this.nBranchAnime = 1;
 
@@ -1762,6 +1763,9 @@ namespace DTXMania
 			sw.WriteLine( "PlaySpeed={0}", this.n演奏速度 );
 			sw.WriteLine();
 
+            sw.WriteLine("; デフォルトで選択される難易度");
+            sw.WriteLine("DefaultCourse={0}", this.nDefaultCourse);
+            sw.WriteLine();
             sw.WriteLine( "; 譜面分岐のガイド表示(0:OFF, 1:ON)" );
 			sw.WriteLine( "BranchGuide={0}", this.bGraph.Drums ? 1 : 0 );
 			sw.WriteLine();
@@ -2741,6 +2745,10 @@ namespace DTXMania
 											{
 												this.bBranchGuide = C変換.bONorOFF( str4[ 0 ] );
 											}
+                                            else if ( str3.Equals( "DefaultCourse" ) ) //2017.01.30 DD
+                                            {
+                                                this.nDefaultCourse = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, this.nDefaultCourse );
+                                            }
 											else if ( str3.Equals( "ScoreMode" ) )
 											{
 												this.nScoreMode = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, this.nScoreMode );

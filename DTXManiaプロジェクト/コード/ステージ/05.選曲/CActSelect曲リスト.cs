@@ -126,7 +126,7 @@ namespace DTXMania
 
 
             this.r現在選択中の曲 = null;
-			this.n現在のアンカ難易度レベル = 0;
+            this.n現在のアンカ難易度レベル = CDTXMania.ConfigIni.nDefaultCourse;
 			base.b活性化してない = true;
 			this.bIsEnumeratingSongs = false;
 		}

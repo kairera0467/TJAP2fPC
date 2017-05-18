@@ -690,6 +690,13 @@ namespace DTXMania
             //    "");
             //this.list項目リスト.Add(this.iTaikoHispeedRandom);
 
+            this.iTaikoDefaultCourse = new CItemList( "DefaultCourse", CItemBase.Eパネル種別.通常, CDTXMania.ConfigIni.nDefaultCourse,
+                "デフォルトで選択される難易度\n" +
+                " \n" +
+                " ",
+                new string[] { "Easy", "Normal", "Hard", "Oni", "Edit" });
+            this.list項目リスト.Add(this.iTaikoDefaultCourse);
+
             this.iTaikoScoreMode = new CItemList("ScoreMode", CItemBase.Eパネル種別.通常, CDTXMania.ConfigIni.nScoreMode,
                 "スコア計算方法\n" +
                 "TYPE-A: 太鼓1～太鼓7\n" +
@@ -1956,6 +1963,7 @@ namespace DTXMania
         private CItemToggle iTaikoAutoPlay;
         private CItemToggle iTaikoAutoRoll;
         private CItemToggle iTaikoBranchGuide;
+        private CItemList iTaikoDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
         private CItemList iTaikoScoreMode;
         private CItemToggle iTaikoAutoSection;
         private CItemToggle iTaikoHispeedRandom;
@@ -2196,6 +2204,7 @@ namespace DTXMania
 			//CDTXMania.ConfigIni.e判定表示優先度.Drums = (E判定表示優先度) this.iDrumsJudgeDispPriority.n現在選択されている項目番号;
 
             CDTXMania.ConfigIni.bBranchGuide = this.iTaikoBranchGuide.bON;
+            CDTXMania.ConfigIni.nDefaultCourse = this.iTaikoDefaultCourse.n現在選択されている項目番号;
             CDTXMania.ConfigIni.nScoreMode = this.iTaikoScoreMode.n現在選択されている項目番号;
             CDTXMania.ConfigIni.nBranchAnime = this.iTaikoBranchAnime.n現在選択されている項目番号;
             //CDTXMania.ConfigIni.bHispeedRandom = this.iTaikoHispeedRandom.bON;
