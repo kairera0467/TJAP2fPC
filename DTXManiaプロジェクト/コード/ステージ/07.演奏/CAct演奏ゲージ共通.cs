@@ -13,8 +13,8 @@ namespace DTXMania
 	/// CAct演奏Drumsゲージ と CAct演奏Gutiarゲージ のbaseクラス。ダメージ計算やDanger/Failed判断もこのクラスで行う。
     /// 
     /// 課題
-    /// ・STAGE FAILED OFF時にゲージ回復を止める
-    /// ・黒→閉店までの差を大きくする。
+    /// _STAGE FAILED OFF時にゲージ回復を止める
+    /// _黒→閉店までの差を大きくする。
 	/// </summary>
 	internal class CAct演奏ゲージ共通 : CActivity
 	{

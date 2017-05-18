@@ -37,7 +37,7 @@ namespace DTXMania
 
                     if ( fAVIアスペクト比 < 1.77f )
                     {
-                        #region[ 旧規格クリップ時の処理。結果的には面倒な処理なんだよな・・・・ ]
+                        #region[ 旧規格クリップ時の処理。結果的には面倒な処理なんだよな____ ]
                         this.n開始サイズW = n開始サイズW;
                         this.n開始サイズH = n開始サイズH;
                         this.n終了サイズW = n終了サイズW;

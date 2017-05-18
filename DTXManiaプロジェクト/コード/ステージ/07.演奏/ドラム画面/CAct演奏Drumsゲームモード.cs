@@ -21,16 +21,16 @@ namespace DTXMania
         
         //叩ききりまショー!
         //<ルール>
-        //・某DAMのやつに似てるやつ。
-        //・演奏可能な残り時間が減っていく。
-        //・複数の項目に対して、一定の条件をクリアしていって延命させていく。
-        //・タイマーが0になったらSTAGE FAILED。
+        //_某DAMのやつに似てるやつ。
+        //_演奏可能な残り時間が減っていく。
+        //_複数の項目に対して、一定の条件をクリアしていって延命させていく。
+        //_タイマーが0になったらSTAGE FAILED。
         //
         //判定要素
-        //・精度
-        //・ミス数
-        //・ズレ時間
-        //・最大コンボ数
+        //_精度
+        //_ミス数
+        //_ズレ時間
+        //_最大コンボ数
         //その他諸々
 
         private long n叩ききりまショー_残り時間タイマー;
@@ -595,9 +595,9 @@ namespace DTXMania
                     }
                 }
                 #region[ 全体 ]
-                if( CDTXMania.stage演奏ドラム画面.nヒット数・Auto含まない.Drums.Perfect != 0 || CDTXMania.stage演奏ドラム画面.nヒット数・Auto含まない.Drums.Great != 0 )
+                if( CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect != 0 || CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great != 0 )
                 {
-                    double db全体精度 = ( (double) ( CDTXMania.stage演奏ドラム画面.nヒット数・Auto含まない.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数・Auto含まない.Drums.Great ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
+                    double db全体精度 = ( (double) ( CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
                     for( int i = 0; i < this.n全体精度ボーナス.Length; i++ )
                     {
                         if( db全体精度 >= this.n全体精度ボーナス[ i ].ret )
@@ -635,7 +635,7 @@ namespace DTXMania
                     }
                 }
 
-                double db全体ミス率 = ( ( (double)CDTXMania.stage演奏ドラム画面.nヒット数・Auto含まない.Drums.Poor + CDTXMania.stage演奏ドラム画面.nヒット数・Auto含まない.Drums.Miss ) / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
+                double db全体ミス率 = ( ( (double)CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Poor + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss ) / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
                 for( int i = 0; i < this.n全体ミス率ボーナス.Length; i++ )
                 {
                     if( db全体ミス率 >= this.n全体ミス率ボーナス[ i ].ret )

@@ -63,7 +63,7 @@ namespace DTXMania
 					return this.rSound[ 1 - this.n次に鳴るサウンド番号 ].b再生中;
 				}
 			}
-			public int n位置・現在のサウンド
+			public int n位置_現在のサウンド
 			{
 				get
 				{
@@ -80,7 +80,7 @@ namespace DTXMania
 						sound.n位置 = value;
 				}
 			}
-			public int n位置・次に鳴るサウンド
+			public int n位置_次に鳴るサウンド
 			{
 				get
 				{
@@ -97,7 +97,7 @@ namespace DTXMania
 						sound.n位置 = value;
 				}
 			}
-			public int n音量・現在のサウンド
+			public int n音量_現在のサウンド
 			{
 				get
 				{
@@ -114,7 +114,7 @@ namespace DTXMania
 						sound.n音量 = value;
 				}
 			}
-			public int n音量・次に鳴るサウンド
+			public int n音量_次に鳴るサウンド
 			{
 				get
 				{
@@ -134,7 +134,7 @@ namespace DTXMania
 					}
 				}
 			}
-			public int n長さ・現在のサウンド
+			public int n長さ_現在のサウンド
 			{
 				get
 				{
@@ -146,7 +146,7 @@ namespace DTXMania
 					return sound.n総演奏時間ms;
 				}
 			}
-			public int n長さ・次に鳴るサウンド
+			public int n長さ_次に鳴るサウンド
 			{
 				get
 				{
@@ -490,22 +490,22 @@ namespace DTXMania
 		}
 
 
-		// スキンの切り替えについて・・・
+		// スキンの切り替えについて___
 		//
-		// ・スキンの種類は大きく分けて2種類。Systemスキンとboxdefスキン。
+		// _スキンの種類は大きく分けて2種類。Systemスキンとboxdefスキン。
 		// 　前者はSystem/フォルダにユーザーが自らインストールしておくスキン。
 		// 　後者はbox.defで指定する、曲データ制作者が提示するスキン。
 		//
-		// ・Config画面で、2種のスキンを区別無く常時使用するよう設定することができる。
-		// ・box.defの#SKINPATH 設定により、boxdefスキンを一時的に使用するよう設定する。
+		// _Config画面で、2種のスキンを区別無く常時使用するよう設定することができる。
+		// _box.defの#SKINPATH 設定により、boxdefスキンを一時的に使用するよう設定する。
 		// 　(box.defの効果の及ばない他のmuxic boxでは、当該boxdefスキンの有効性が無くなる)
 		//
-		// これを実現するために・・・
-		// ・Systemスキンの設定情報と、boxdefスキンの設定情報は、分離して持つ。
+		// これを実現するために___
+		// _Systemスキンの設定情報と、boxdefスキンの設定情報は、分離して持つ。
 		// 　(strSystem～～ と、strBoxDef～～～)
-		// ・Config画面からは前者のみ書き換えできるようにし、
+		// _Config画面からは前者のみ書き換えできるようにし、
 		// 　選曲画面からは後者のみ書き換えできるようにする。(SetCurrent...())
-		// ・読み出しは両者から行えるようにすると共に
+		// _読み出しは両者から行えるようにすると共に
 		// 　選曲画面用に二種の情報を区別しない読み出し方法も提供する(GetCurrent...)
 
 		private object lockBoxDefSkin;

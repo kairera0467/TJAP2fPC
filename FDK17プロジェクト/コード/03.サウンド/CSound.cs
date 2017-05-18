@@ -1432,7 +1432,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		protected int _hTempoStream = 0;
 		protected int _hBassStream = -1;					// ASIO, WASAPI 用
 		protected int hBassStream = 0;						// #31076 2013.4.1 yyagi; プロパティとして実装すると動作が低速になったため、
-															// tBASSサウンドを作成する・ストリーム生成後の共通処理()のタイミングと、
+															// tBASSサウンドを作成する_ストリーム生成後の共通処理()のタイミングと、
 															// 再生速度を変更したタイミングでのみ、
 															// hBassStreamを更新するようにした。
 		//{

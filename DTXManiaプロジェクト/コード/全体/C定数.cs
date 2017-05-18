@@ -271,7 +271,7 @@ namespace DTXMania
 		演奏中断,
 		ステージ失敗,
 		ステージクリア,
-		再読込・再演奏,
+		再読込_再演奏,
 		再演奏
 	}
 	internal enum E曲読込画面の戻り値

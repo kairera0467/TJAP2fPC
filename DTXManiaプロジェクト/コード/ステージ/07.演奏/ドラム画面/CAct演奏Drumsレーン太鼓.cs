@@ -202,7 +202,7 @@ namespace DTXMania
                             this.ct分岐アニメ進行.t停止();
                         }
 
-                        #region[ 普通譜面・レベルアップ ]
+                        #region[ 普通譜面_レベルアップ ]
                         //普通→玄人
                         if( n1 == 0 && n2 == 1 )
                         {
@@ -228,7 +228,7 @@ namespace DTXMania
                             }
                         }
                         #endregion
-                        #region[ 玄人譜面・レベルアップ ]
+                        #region[ 玄人譜面_レベルアップ ]
                         if( n1 == 1 && n2 == 2 )
                         {
                             if( this.tx玄人譜面[ 0 ] != null && this.tx達人譜面[ 0 ] != null )
@@ -239,7 +239,7 @@ namespace DTXMania
                             }
                         }
                         #endregion
-                        #region[ 玄人譜面・レベルダウン ]
+                        #region[ 玄人譜面_レベルダウン ]
                         if( n1 == 1 && n2 == 0 )
                         {
                             if( this.tx玄人譜面[ 0 ] != null && this.tx普通譜面[ 0 ] != null )
@@ -250,7 +250,7 @@ namespace DTXMania
                             }
                         }
                         #endregion
-                        #region[ 達人譜面・レベルダウン ]
+                        #region[ 達人譜面_レベルダウン ]
                         if( n1 == 2 && n2 == 0 )
                         {
                             if( this.tx達人譜面[ 0 ] != null && this.tx普通譜面[ 0 ] != null )
@@ -330,7 +330,7 @@ namespace DTXMania
                     if (this.ct分岐アニメ進行.b進行中)
                     {
 
-                        #region[ 普通譜面・レベルアップ ]
+                        #region[ 普通譜面_レベルアップ ]
                         //普通→玄人
                         if (n1 == 0 && n2 == 1)
                         {
@@ -399,7 +399,7 @@ namespace DTXMania
 
                         }
                         #endregion
-                        #region[ 玄人譜面・レベルアップ ]
+                        #region[ 玄人譜面_レベルアップ ]
                         //玄人→達人
                         if (n1 == 1 && n2 == 2)
                         {
@@ -422,7 +422,7 @@ namespace DTXMania
 
                         }
                         #endregion
-                        #region[ 玄人譜面・レベルダウン ]
+                        #region[ 玄人譜面_レベルダウン ]
                         if (n1 == 1 && n2 == 0)
                         {
                             this.tx普通譜面[1].n透明度 = 255;
@@ -444,7 +444,7 @@ namespace DTXMania
 
                         }
                         #endregion
-                        #region[ 達人譜面・レベルダウン ]
+                        #region[ 達人譜面_レベルダウン ]
                         if (n1 == 2 && n2 == 0)
                         {
                             this.tx普通譜面[1].n透明度 = 255;
@@ -527,7 +527,7 @@ namespace DTXMania
                     if (this.nY座標 != 0)
                     {
 
-                        #region[ 普通譜面・レベルアップ ]
+                        #region[ 普通譜面_レベルアップ ]
                         //普通→玄人
                         if (n1 == 0 && n2 == 1)
                         {
@@ -543,7 +543,7 @@ namespace DTXMania
                             this.tx普通譜面[1].n透明度 = this.nBranchレイヤー透明度;
                         }
                         #endregion
-                        #region[ 玄人譜面・レベルアップ ]
+                        #region[ 玄人譜面_レベルアップ ]
                         //玄人→達人
                         if (n1 == 1 && n2 == 2)
                         {
@@ -553,7 +553,7 @@ namespace DTXMania
                         }
                         #endregion
 
-                        #region[ 玄人譜面・レベルダウン ]
+                        #region[ 玄人譜面_レベルダウン ]
                         if (n1 == 1 && n2 == 0)
                         {
                             this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + nY座標);
@@ -561,7 +561,7 @@ namespace DTXMania
                             this.tx玄人譜面[1].n透明度 = this.nBranchレイヤー透明度;
                         }
                         #endregion
-                        #region[ 達人譜面・レベルダウン ]
+                        #region[ 達人譜面_レベルダウン ]
                         if (n1 == 2 && n2 == 0)
                         {
                             this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + nY座標);
@@ -754,7 +754,7 @@ namespace DTXMania
         }
 
 
-        public void t分岐レイヤー・コース変化( int n現在, int n次回 )
+        public void t分岐レイヤー_コース変化( int n現在, int n次回 )
         {
             if( n現在 == n次回 )
             {
@@ -768,7 +768,7 @@ namespace DTXMania
             this.n1 = n現在;
             this.n2 = n次回;
 
-            CDTXMania.stage演奏ドラム画面.actLane.t分岐レイヤー・コース変化( n現在, n次回 );
+            CDTXMania.stage演奏ドラム画面.actLane.t分岐レイヤー_コース変化( n現在, n次回 );
         }
 
         public void t判定枠移動( double db移動時間, int n移動px, int n移動方向 )

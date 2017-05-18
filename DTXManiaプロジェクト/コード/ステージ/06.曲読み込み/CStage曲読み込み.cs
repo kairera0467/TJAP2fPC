@@ -178,7 +178,7 @@ namespace DTXMania
 				{
 					CDTXMania.Skin.sound曲読込開始音.t再生する();
 					this.nBGM再生開始時刻 = CSound管理.rc演奏用タイマ.n現在時刻;
-					this.nBGMの総再生時間ms = CDTXMania.Skin.sound曲読込開始音.n長さ・現在のサウンド;
+					this.nBGMの総再生時間ms = CDTXMania.Skin.sound曲読込開始音.n長さ_現在のサウンド;
 				}
 				//this.actFI.tフェードイン開始();							// #27787 2012.3.10 yyagi 曲読み込み画面のフェードインの省略
 				base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;

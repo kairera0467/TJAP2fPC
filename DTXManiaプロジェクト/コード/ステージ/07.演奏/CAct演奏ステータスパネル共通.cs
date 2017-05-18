@@ -14,7 +14,7 @@ namespace DTXMania
 		public CAct演奏ステータスパネル共通()
 		{
 			this.stパネルマップ = new STATUSPANEL[ 12 ];		// yyagi: 以下、手抜きの初期化でスマン
-																// { "DTXMANIA", 0 }, { "EXTREME", 1 }, ... みたいに書きたいが・・・
+																// { "DTXMANIA", 0 }, { "EXTREME", 1 }, ... みたいに書きたいが___
 			string[] labels = new string[ 12 ] {
 			    "DTXMANIA", "EXTREME", "ADVANCED", "ADVANCE", "BASIC", "RAW",
 			    "REAL", "EASY", "EX-REAL", "ExREAL", "ExpertReal", "NORMAL"

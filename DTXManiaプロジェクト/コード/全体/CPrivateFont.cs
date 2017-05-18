@@ -290,7 +290,7 @@ namespace DTXMania
 		{
 			if ( this._fontfamily == null || drawstr == null || drawstr == "" )
 			{
-				// nullを返すと、その後bmp→texture処理や、textureのサイズを見て・・の処理で全部例外が発生することになる。
+				// nullを返すと、その後bmp→texture処理や、textureのサイズを見て__の処理で全部例外が発生することになる。
 				// それは非常に面倒なので、最小限のbitmapを返してしまう。
 				// まずはこの仕様で進めますが、問題有れば(上位側からエラー検出が必要であれば)例外を出したりエラー状態であるプロパティを定義するなり検討します。
 				if ( drawstr != "" )
@@ -394,7 +394,7 @@ namespace DTXMania
 		{
 			if ( this._fontfamily == null || drawstr == null || drawstr == "" )
 			{
-				// nullを返すと、その後bmp→texture処理や、textureのサイズを見て・・の処理で全部例外が発生することになる。
+				// nullを返すと、その後bmp→texture処理や、textureのサイズを見て__の処理で全部例外が発生することになる。
 				// それは非常に面倒なので、最小限のbitmapを返してしまう。
 				// まずはこの仕様で進めますが、問題有れば(上位側からエラー検出が必要であれば)例外を出したりエラー状態であるプロパティを定義するなり検討します。
 				if ( drawstr != "" )
@@ -448,7 +448,7 @@ namespace DTXMania
                 {
                     nHeight += ( rect正確なサイズ.Width ) + 3;
                 }
-                else if( strName[ i ] == "・" ){ nHeight += ( rect正確なサイズ.Height ) + 6;  }
+                else if( strName[ i ] == "_" ){ nHeight += ( rect正確なサイズ.Height ) + 6;  }
                 else if( strName[ i ] == " " )
                 { nHeight += ( 12 ); }
                 else { nHeight += ( rect正確なサイズ.Height ) + 6; }
@@ -554,7 +554,7 @@ namespace DTXMania
                         //nNowPos = nNowPos;
                     }
                 }
-                //else if( strName[ i ] == "・" )
+                //else if( strName[ i ] == "_" )
                 //    nNowPos = nNowPos + 20;
                 else if( strName[ i ] == " " )
                     nNowPos = nNowPos + 10;
@@ -612,7 +612,7 @@ namespace DTXMania
         //{
         //    if ( this._fontfamily == null || drawstr == null || drawstr == "" )
         //    {
-        //        // nullを返すと、その後bmp→texture処理や、textureのサイズを見て・・の処理で全部例外が発生することになる。
+        //        // nullを返すと、その後bmp→texture処理や、textureのサイズを見て__の処理で全部例外が発生することになる。
         //        // それは非常に面倒なので、最小限のbitmapを返してしまう。
         //        // まずはこの仕様で進めますが、問題有れば(上位側からエラー検出が必要であれば)例外を出したりエラー状態であるプロパティを定義するなり検討します。
         //        if ( drawstr != "" )
@@ -711,7 +711,7 @@ namespace DTXMania
         //            nNowPos = nNowPos + 8;
         //            n補正 = 2;
         //        }
-        //        else if( strName[ i ] == "・" )
+        //        else if( strName[ i ] == "_" )
         //            nNowPos = nNowPos + 20;
         //        else if( strName[ i ] == " " )
         //            nNowPos = nNowPos + 10;

@@ -15,7 +15,7 @@ namespace DTXMania
 		// コンストラクタ
         /// <summary>
         /// リザルト画像を表示させるクラス。XG化するにあたって動画は廃止。
-        /// また、中央の画像も表示する。(STAGE表示、STANDARD・CLASSICなど)
+        /// また、中央の画像も表示する。(STAGE表示、STANDARD_CLASSICなど)
         /// </summary>
 		public CActResultImage()
 		{

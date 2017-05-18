@@ -838,7 +838,7 @@ namespace FDK
 		/// </summary>
 		public void t3D左上基準描画( Device device, Matrix mat, Rectangle rc画像内の描画領域 )
 		{
-			//とりあえず補正値などは無し。にしても使う機会少なさそうだなー・・・・
+			//とりあえず補正値などは無し。にしても使う機会少なさそうだなー____
 			if( this.texture == null )
 				return;
 

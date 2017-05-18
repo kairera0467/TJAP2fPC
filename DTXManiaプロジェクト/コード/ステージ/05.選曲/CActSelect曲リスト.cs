@@ -1701,20 +1701,20 @@ namespace DTXMania
 			// 百の位の描画。
 
 			if( n百の位 > 0 )
-				this.tスキル値の描画・１桁描画( x, y, n百の位, color );
+				this.tスキル値の描画_１桁描画( x, y, n百の位, color );
 
 
 			// 十の位の描画。
 
 			if( n百の位 != 0 || n十の位 != 0 )
-				this.tスキル値の描画・１桁描画( x + 7, y, n十の位, color );
+				this.tスキル値の描画_１桁描画( x + 7, y, n十の位, color );
 
 
 			// 一の位の描画。
 
-			this.tスキル値の描画・１桁描画( x + 14, y, n一の位, color );
+			this.tスキル値の描画_１桁描画( x + 14, y, n一の位, color );
 		}
-		private void tスキル値の描画・１桁描画( int x, int y, int n数値, int color )
+		private void tスキル値の描画_１桁描画( int x, int y, int n数値, int color )
 		{
 			int dx = ( n数値 % 5 ) * 9;
 			int dy = ( n数値 / 5 ) * 12;
@@ -2043,11 +2043,11 @@ namespace DTXMania
 
 			for ( int p = s.Length - 1; p >= 0; p-- )
 			{
-				tアイテム数の描画・１桁描画( x, y, s[ p ] );
+				tアイテム数の描画_１桁描画( x, y, s[ p ] );
 				x -= 8;
 			}
 		}
-		private void tアイテム数の描画・１桁描画( int x, int y, char s数値 )
+		private void tアイテム数の描画_１桁描画( int x, int y, char s数値 )
 		{
 			int dx, dy;
 			if ( s数値 == '/' )

@@ -192,11 +192,11 @@ namespace DTXMania
 			public int nPerfect数;
 			public int nPoorになる範囲ms;
 			public int nPoor数;
-			public int nPerfect数・Auto含まない;
-			public int nGreat数・Auto含まない;
-			public int nGood数・Auto含まない;
-			public int nPoor数・Auto含まない;
-			public int nMiss数・Auto含まない;
+			public int nPerfect数_Auto含まない;
+			public int nGreat数_Auto含まない;
+			public int nGood数_Auto含まない;
+			public int nPoor数_Auto含まない;
+			public int nMiss数_Auto含まない;
 			public long nスコア;
             public int n連打数;
 			public int n演奏速度分子;
@@ -315,7 +315,7 @@ namespace DTXMania
 			{
 				get
 				{
-					return (this.n全チップ数 - this.nPerfect数・Auto含まない - this.nGreat数・Auto含まない - this.nGood数・Auto含まない - this.nPoor数・Auto含まない - this.nMiss数・Auto含まない) == this.n全チップ数;
+					return (this.n全チップ数 - this.nPerfect数_Auto含まない - this.nGreat数_Auto含まない - this.nGood数_Auto含まない - this.nPoor数_Auto含まない - this.nMiss数_Auto含まない) == this.n全チップ数;
 				}
 			}
 #if false
@@ -1380,7 +1380,7 @@ namespace DTXMania
             //演奏成績 最大60点
             //最大コンボ 最大5点
             //空打ち 最大10点(減点あり)
-            //最大・最小ズレ時間 最大10点
+            //最大_最小ズレ時間 最大10点
             //平均ズレ時間 最大5点
             //ボーナスA 最大5点
             //ボーナスB 最大5点
@@ -1485,11 +1485,11 @@ namespace DTXMania
 		internal static int t総合ランク値を計算して返す( C演奏記録 Drums, C演奏記録 Guitar, C演奏記録 Bass )
 		{
 			int nTotal   = Drums.n全チップ数;
-			int nPerfect = Drums.nPerfect数・Auto含まない;	// #24569 2011.3.1 yyagi: to calculate result rank without AUTO chips
-			int nGreat =   Drums.nGreat数・Auto含まない;		//
-			int nGood =    Drums.nGood数・Auto含まない;		//
-			int nPoor =    Drums.nPoor数・Auto含まない;		//
-			int nMiss =    Drums.nMiss数・Auto含まない;		//
+			int nPerfect = Drums.nPerfect数_Auto含まない;	// #24569 2011.3.1 yyagi: to calculate result rank without AUTO chips
+			int nGreat =   Drums.nGreat数_Auto含まない;		//
+			int nGood =    Drums.nGood数_Auto含まない;		//
+			int nPoor =    Drums.nPoor数_Auto含まない;		//
+			int nMiss =    Drums.nMiss数_Auto含まない;		//
 			return tランク値を計算して返す( nTotal, nPerfect, nGreat, nGood, nPoor, nMiss );
 		}
 

@@ -35,9 +35,9 @@ namespace DTXMania
         /// ゲージの描画クラス。ドラム側。
         /// 
         /// 課題
-        /// ・ゲージの実装。
-        /// ・Danger時にゲージの色が変わる演出の実装。
-        /// ・Danger、MAX時のアニメーション実装。
+        /// _ゲージの実装。
+        /// _Danger時にゲージの色が変わる演出の実装。
+        /// _Danger、MAX時のアニメーション実装。
         /// </summary>
 		public CAct演奏Drumsゲージ()
 		{
