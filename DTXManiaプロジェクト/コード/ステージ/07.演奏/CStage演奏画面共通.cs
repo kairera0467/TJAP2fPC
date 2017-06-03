@@ -1507,6 +1507,10 @@ namespace DTXMania
                         //風船1回
                         nAddScore = 100;
                         //( 100万 - ( ( 風船の打数 - 風船音符の数 * 300 ) + ( 風船音符の数 * 5000 ) ) ) / ノーツ数
+                        //(最大コンボ数＋大音符数)×初項＋(風船の総打数－風船数)×300＋風船数×5000
+                        //int nBallonCount = 0;
+                        //int nBallonNoteCount = CDTXMania.DTX.n風船数[ 2 ] + CDTXMania.DTX.n風船数[ 3 ];
+                        //int test = ( 1000000 - ( ( nBallonCount - nBallonNoteCount * 300 ) + ( nBallonNoteCount * 5000 ) ) ) / ( CDTXMania.DTX.nノーツ数[ 2 ] + CDTXMania.DTX.nノーツ数[ 3 ] );
                     }
 
                     if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)

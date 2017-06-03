@@ -1175,6 +1175,7 @@ namespace DTXMania
 
         private bool b最初の分岐である;
         public int[] nノーツ数 = new int[ 4 ]; //0～2:各コース 3:共通
+        public int[] n風船数 = new int[ 4 ]; //0～2:各コース 3:共通
         private bool b次の小節が分岐である;
 
         private string strTemp;
@@ -4037,6 +4038,13 @@ namespace DTXMania
                                 else
                                     this.nノーツ数[ 3 ]++;
                             }
+                            else if( nObjectNum == 7 )
+                            {
+                                if( this.b最初の分岐である == false )
+                                    this.n風船数[ this.n現在のコース ]++;
+                                else
+                                    this.n風船数[ 3 ]++;
+                            }
 
 
                             this.listChip.Add(chip);
@@ -4197,6 +4205,9 @@ namespace DTXMania
             if( this.nScoreModeTmp == 99 ) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
             {
                 this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
+            }
+            if( CDTXMania.ConfigIni.nScoreMode == 3 && this.nScoreInit[ 1, this.n参照中の難易度 ] == 0 ) {
+                CDTXMania.ConfigIni.nScoreMode = this.nScoreModeTmp; //2017.06.03 kairera0467 真打モードでかつ真打配点が設定されていない場合真打モードを解除する。(自動計算が完成したら消す)
             }
         }
 
