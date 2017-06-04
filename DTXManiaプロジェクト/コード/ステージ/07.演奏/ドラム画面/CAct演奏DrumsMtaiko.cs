@@ -20,7 +20,8 @@ namespace DTXMania
                 @"Graphics\CourseSymbol\normal.png",
                 @"Graphics\CourseSymbol\hard.png",
                 @"Graphics\CourseSymbol\oni.png",
-                @"Graphics\CourseSymbol\edit.png"
+                @"Graphics\CourseSymbol\edit.png",
+                @"Graphics\CourseSymbol\sinuchi.png",
             };
             base.b活性化してない = true;
         }
@@ -61,7 +62,7 @@ namespace DTXMania
             this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
             this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
             
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < 6; i++ )
             {
                 this.txコースシンボル[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( this.strCourseSymbolFileName[ i ] ) );
             }
@@ -93,7 +94,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.txネームプレート );
             CDTXMania.tテクスチャの解放( ref this.txネームプレート2P );
 
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < 6; i++ )
             {
                 CDTXMania.tテクスチャの解放( ref this.txコースシンボル[ i ] );
             }
@@ -347,6 +348,16 @@ namespace DTXMania
                         CDTXMania.Skin.nCourseSymbolP1Y - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Height / 2 )
                         );
                 }
+                if( CDTXMania.DTX.nScoreModeTmp == 3 )
+                {
+                    if( this.txコースシンボル[ 5 ] != null )
+                    {
+                        this.txコースシンボル[ 5 ].t2D描画( CDTXMania.app.Device, 
+                            CDTXMania.Skin.nCourseSymbolP1X - ( this.txコースシンボル[ 5 ].sz画像サイズ.Width / 2 ),
+                            CDTXMania.Skin.nCourseSymbolP1Y - ( this.txコースシンボル[ 5 ].sz画像サイズ.Height / 2 )
+                            );
+                    }
+                }
             }
 
             return base.On進行描画();
@@ -445,7 +456,7 @@ namespace DTXMania
         private CTexture txネームプレート;
         private CTexture txネームプレート2P;
 
-        private CTexture[] txコースシンボル = new CTexture[ 5 ];
+        private CTexture[] txコースシンボル = new CTexture[ 6 ];
         private string[] strCourseSymbolFileName;
 
         [StructLayout(LayoutKind.Sequential)]

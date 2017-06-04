@@ -1517,7 +1517,7 @@ namespace DTXMania
                     {
                         nAddScore = nAddScore / 2;
                     }
-
+                    this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore );
                 }
                 else if( CDTXMania.DTX.nScoreModeTmp == 2 )
                 {

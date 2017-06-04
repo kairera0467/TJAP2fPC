@@ -1191,6 +1191,7 @@ namespace DTXMania
         public int nScoreModeTmp = 99; //2017.01.28 DD
         public int[,] nScoreInit = new int[ 2, 5 ]; //[ x, y ] x=通常or真打 y=コース
         public int[] nScoreDiff = new int[ 5 ]; //[y]
+        public bool[,] b配点が指定されている = new bool[ 3, 5 ]; //2017.06.04 kairera0467 [ x, y ] x=通常(Init)or真打orDiff y=コース
 
         private double dbBarLength;
         public float fNow_Measure_s = 4.0f;
@@ -1341,6 +1342,9 @@ namespace DTXMania
                 this.nScoreInit[ 0, y ] = 300;
                 this.nScoreInit[ 1, y ] = 1000;
                 this.nScoreDiff[ y ] = 120;
+                this.b配点が指定されている[ 0, y ] = false;
+                this.b配点が指定されている[ 1, y ] = false;
+                this.b配点が指定されている[ 2, y ] = false;
             }
 
             this.bBarLine = true;
@@ -3810,7 +3814,7 @@ namespace DTXMania
                         chip.n発声位置 = ( ( this.n現在の小節数 ) * 384 );
                         chip.nチャンネル番号 = 0x50;
                         chip.n発声時刻ms = (int)this.dbNowTime;
-                        chip.n整数値 = 0;
+                        chip.n整数値 = this.n現在の小節数;
                         chip.dbBPM = this.dbNowBPM;
                         chip.dbSCROLL = this.dbNowScroll;
                         chip.dbSCROLL_Y = this.dbNowScrollY;
@@ -4190,8 +4194,11 @@ namespace DTXMania
                     string[] scoreinit = strCommandParam.Split(',');
 
                     this.nScoreInit[ 0, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 0 ] );
-                    if( scoreinit.Length == 2 )
+                    this.b配点が指定されている[ 0, this.n参照中の難易度 ] = true;
+                    if( scoreinit.Length == 2 ){
                         this.nScoreInit[ 1, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 1 ] );
+                        this.b配点が指定されている[ 2, this.n参照中の難易度 ] = true;
+                    }
                 }
             }
             else if( strCommandName.Equals( "SCOREDIFF" ) )
@@ -4199,6 +4206,7 @@ namespace DTXMania
                 if( !string.IsNullOrEmpty( strCommandParam ) )
                 {
                     this.nScoreDiff[ this.n参照中の難易度 ] = Convert.ToInt16( strCommandParam );
+                    this.b配点が指定されている[ 1, this.n参照中の難易度 ] = true;
                 }
             }
 
@@ -4206,8 +4214,8 @@ namespace DTXMania
             {
                 this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
-            if( CDTXMania.ConfigIni.nScoreMode == 3 && this.nScoreInit[ 1, this.n参照中の難易度 ] == 0 ) {
-                CDTXMania.ConfigIni.nScoreMode = this.nScoreModeTmp; //2017.06.03 kairera0467 真打モードでかつ真打配点が設定されていない場合真打モードを解除する。(自動計算が完成したら消す)
+            if( !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
+                this.nScoreModeTmp = 3;
             }
         }
 
