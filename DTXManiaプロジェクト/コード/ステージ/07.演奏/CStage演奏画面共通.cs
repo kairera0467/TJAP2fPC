@@ -1915,13 +1915,7 @@ namespace DTXMania
 			for ( ; nIndex_NearestChip_Past >= 0; nIndex_NearestChip_Past-- )
 			{
 				CDTX.CChip chip = listChip[ nIndex_NearestChip_Past ];
-				if ( (!chip.bHit && chip.b可視 ) &&
-						(
-							(
-								( ( (  0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x1F ) ) )
-							)
-						)
-					)
+				if ( ( !chip.bHit && chip.b可視 ) && ( (  0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x1F ) ) )
 					{
 						break;
 					}

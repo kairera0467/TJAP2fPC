@@ -245,15 +245,16 @@ namespace DTXMania
 
                     if( ( strExt.Equals( ".tja" ) || strExt.Equals( ".dtx" ) ) )
                     {
-                        if( strExt.Equals( ".tja" ) )
-                        {
-                            //tja、dtxが両方存在していた場合、tjaを読み込まずにdtxだけ使う。
-                            string[] dtxscoreini = Directory.GetFiles( str基点フォルダ, "*.dtx");
-                            if(dtxscoreini.Length != 0 )
-                            {
-                                continue;
-                            }
-                        }
+                        // 2017.06.02 kairera0467 廃止。
+                        //if( strExt.Equals( ".tja" ) )
+                        //{
+                        //    //tja、dtxが両方存在していた場合、tjaを読み込まずにdtxだけ使う。
+                        //    string[] dtxscoreini = Directory.GetFiles( str基点フォルダ, "*.dtx");
+                        //    if(dtxscoreini.Length != 0 )
+                        //    {
+                        //        continue;
+                        //    }
+                        //}
 
                         #region[ 新処理 ]
                         CDTX dtx = new CDTX( str基点フォルダ + fileinfo.Name, false, 1.0, 0, 0 );
