@@ -122,7 +122,7 @@ namespace DTXMania
                     }
                 }
 
-			    this.ct進行用 = new CCounter( 0, 3000, 2, CDTXMania.Timer );
+			    this.ct進行用 = new CCounter( 0, 2000, 2, CDTXMania.Timer );
 				this.Start();
 
 
@@ -238,14 +238,8 @@ namespace DTXMania
                 else
                 {
                     #region[ 透明度制御 ]
-                    if( this.ct進行用.n現在の値 < 255 )
-                    {
-                        this.txMusicName.n透明度 = this.ct進行用.n現在の値;
-                        if( this.txGENRE != null )
-                            this.txGENRE.n透明度 = this.ct進行用.n現在の値;
-                        this.tx難易度とステージ数.n透明度 = 255 - this.ct進行用.n現在の値;
-                    }
-                    else if( this.ct進行用.n現在の値 >= 255 && this.ct進行用.n現在の値 < 1245 )
+
+                    if( this.ct進行用.n現在の値 < 745 )
                     {
                         this.bFirst = false;
                         this.txMusicName.n透明度 = 255;
@@ -253,19 +247,26 @@ namespace DTXMania
                             this.txGENRE.n透明度 = 255;
                         this.tx難易度とステージ数.n透明度 = 0;
                     }
-                    else if( this.ct進行用.n現在の値 >= 1245 && this.ct進行用.n現在の値 < 1500 )
+                    else if( this.ct進行用.n現在の値 >= 745 && this.ct進行用.n現在の値 < 1000 )
                     {
-                        this.txMusicName.n透明度 = 255 - ( this.ct進行用.n現在の値 - 1245 );
+                        this.txMusicName.n透明度 = 255 - ( this.ct進行用.n現在の値 - 745 );
                         if( this.txGENRE != null )
-                            this.txGENRE.n透明度 = 255 - ( this.ct進行用.n現在の値 - 1245 );
-                        this.tx難易度とステージ数.n透明度 = this.ct進行用.n現在の値 - 1245;
+                            this.txGENRE.n透明度 = 255 - ( this.ct進行用.n現在の値 - 745 );
+                        this.tx難易度とステージ数.n透明度 = this.ct進行用.n現在の値 - 745;
                     }
-                    else if( this.ct進行用.n現在の値 >= 1500 && this.ct進行用.n現在の値 <= 3000 )
+                    else if( this.ct進行用.n現在の値 >= 1000 && this.ct進行用.n現在の値 <= 1745 )
                     {
                         this.txMusicName.n透明度 = 0;
                         if( this.txGENRE != null )
                             this.txGENRE.n透明度 = 0;
                         this.tx難易度とステージ数.n透明度 = 255;
+                    }
+                    else if( this.ct進行用.n現在の値 >= 1745 )
+                    {
+                        this.txMusicName.n透明度 = this.ct進行用.n現在の値 - 1745;
+                        if( this.txGENRE != null )
+                            this.txGENRE.n透明度 = this.ct進行用.n現在の値 - 1745;
+                        this.tx難易度とステージ数.n透明度 = 255 - ( this.ct進行用.n現在の値 - 1745 );
                     }
                     #endregion
                     if( this.txMusicName != null )

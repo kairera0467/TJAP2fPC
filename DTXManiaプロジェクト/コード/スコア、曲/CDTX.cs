@@ -3684,6 +3684,7 @@ namespace DTXMania
                 chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
                 chip.n発声時刻ms = (int)this.dbNowTime + 1;
                 chip.n整数値_内部番号 = 1;
+                chip.nコース = this.n現在のコース;
                 this.bBARLINECUE[ 0 ] = 1;
 
                 this.listChip.Add(chip);
@@ -3696,6 +3697,7 @@ namespace DTXMania
                 chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
                 chip.n発声時刻ms = (int)this.dbNowTime + 1;
                 chip.n整数値_内部番号 = 2;
+                chip.nコース = this.n現在のコース;
                 this.bBARLINECUE[ 0 ] = 0;
 
                 this.listChip.Add(chip);
@@ -4214,7 +4216,7 @@ namespace DTXMania
             {
                 this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
-            if( !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
+            if( CDTXMania.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
                 this.nScoreModeTmp = 3;
             }
         }
