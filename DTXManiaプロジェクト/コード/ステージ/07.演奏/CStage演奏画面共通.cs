@@ -1349,7 +1349,7 @@ namespace DTXMania
                             CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true );
                             CDTXMania.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult );
 
-                            if( nNowInput == 2 || nNowInput == 3 )
+                            if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
                             {
                                 if( pChip.nチャンネル番号 == 0x13 )
                                     CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0 );
@@ -1361,7 +1361,6 @@ namespace DTXMania
                         {
 						    this.actJudgeString.Start( 0, CDTXMania.ConfigIni.b太鼓パートAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip );
                         }
-
 					}
 					break;
 			}
