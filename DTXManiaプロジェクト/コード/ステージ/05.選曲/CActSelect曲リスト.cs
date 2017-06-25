@@ -1884,6 +1884,7 @@ namespace DTXMania
 	    			//-----------------
 		    		#endregion
                     break;
+                case "ボーカロイド":
                 case "VOCALOID":
 				    #region [ ボカロ ]
     				//-----------------

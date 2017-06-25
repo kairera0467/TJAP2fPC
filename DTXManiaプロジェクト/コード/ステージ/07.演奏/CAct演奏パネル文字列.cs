@@ -111,7 +111,7 @@ namespace DTXMania
                     {
                         this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_variety.png" ) );
                     }
-                    else if( strGenre.Equals( "ボーカロイド" ) )
+                    else if( strGenre.Equals( "ボーカロイド" ) || strGenre.Equals( "VOCALOID" ) )
                     {
                         this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_vocaloid.png" ) );
                     }
