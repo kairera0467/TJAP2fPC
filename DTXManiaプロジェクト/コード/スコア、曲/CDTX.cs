@@ -3055,6 +3055,7 @@ namespace DTXMania
                 #region[譜面]
 
                 int n読み込むコース = 3;
+                int n譜面数 = 0; //2017.07.22 kairera0467 tjaに含まれる譜面の数
 
 
                 bool b新処理 = false;
@@ -3068,13 +3069,11 @@ namespace DTXMania
                     if( !String.IsNullOrEmpty( this.strSplitした譜面[ i ] ) )
                     {
                         this.b譜面が存在する[ i ] = true;
+                        n譜面数++;
                     }
                     else
                         this.b譜面が存在する[ i ] = false;
                 }
-
-                //this.b譜面が存在する[ 3 ] = true; //仮
-
                 #region[ 読み込ませるコースを決定 ]
                 if( this.b譜面が存在する[CDTXMania.stage選曲.n確定された曲の難易度] == false )
                 {
@@ -3106,6 +3105,18 @@ namespace DTXMania
                 string str = "";
                 try
                 {
+                    if( n譜面数 > 0 )
+                    {
+                        //2017.07.22 kairera0467 譜面が2つ以上ある場合はCOURSE以下のBALLOON命令を使う
+                        this.listBalloon.Clear();
+                        this.listBalloon_Normal.Clear();
+                        this.listBalloon_Expert.Clear();
+                        this.listBalloon_Master.Clear();
+                        this.listBalloon_Normal_数値管理 = 0;
+                        this.listBalloon_Expert_数値管理 = 0;
+                        this.listBalloon_Master_数値管理 = 0;
+                    }
+
                     for( int i = 0; i < this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries ).Length; i++ )
                     {
                         if( !String.IsNullOrEmpty( this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries )[ i ] ) )
@@ -3135,7 +3146,7 @@ namespace DTXMania
                 }
                 catch( Exception ex )
                 {
-
+                    Trace.TraceError( ex.StackTrace );
                 }
 
 
