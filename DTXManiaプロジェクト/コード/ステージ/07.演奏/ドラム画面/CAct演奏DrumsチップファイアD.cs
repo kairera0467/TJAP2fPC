@@ -24,8 +24,9 @@ namespace DTXMania
         /// 大音符の花火エフェクト
         /// </summary>
         /// <param name="nLane"></param>
-        public virtual void Start( int nLane )
+        public virtual void Start( int nLane, int nPlayer )
         {
+            nY座標P2 = new int[] { 548, 612, 670, 712, 730, 780, 725, 690, 640 };
             if( this.tx大音符花火[ 0 ] != null && this.tx大音符花火[ 1 ] != null )
             {
                 for (int i = 0; i < 9; i++)
@@ -37,7 +38,7 @@ namespace DTXMania
                             this.st大音符花火[j].b使用中 = true;
                             this.st大音符花火[j].ct進行 = new CCounter(0, 40, 18, CDTXMania.Timer); // カウンタ
                             this.st大音符花火[j].fX = this.nX座標[ i ]; //X座標
-                            this.st大音符花火[j].fY = this.nY座標[ i ];
+                            this.st大音符花火[j].fY = nPlayer == 0 ? this.nY座標[ i ] : this.nY座標P2[ i ];
 
                             switch(nLane)
                             {
@@ -98,30 +99,34 @@ namespace DTXMania
             }
         }
 
-        public virtual void Start( int nLane, E判定 judge )
+        public virtual void Start( int nLane, E判定 judge, int player )
 		{
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < 3 * 4; j++)
             {
-			    for( int n = 0; n < 1; n++ )
+                if( !this.st状態[ j ].b使用中 )
+			    //for( int n = 0; n < 1; n++ )
 			    {
+                    this.st状態[ j ].b使用中 = true;
 		    		//this.st状態[ n ].ct進行 = new CCounter( 0, 9, 20, CDTXMania.Timer );
-	    			this.st状態[ n ].ct進行 = new CCounter( 0, 6, 25, CDTXMania.Timer );
-    				this.st状態[ n ].judge = judge;
-
+	    			this.st状態[ j ].ct進行 = new CCounter( 0, 6, 25, CDTXMania.Timer );
+    				this.st状態[ j ].judge = judge;
+                    this.st状態[ j ].nPlayer = player;
+                    this.st状態_大[ j ].nPlayer = player;
 
                     switch( nLane )
                     {
                         case 0x11:
                         case 0x12:
-                            this.st状態[ n ].nIsBig = 0;
+                            this.st状態[ j ].nIsBig = 0;
                             break;
                         case 0x13:
                         case 0x14:
-                            this.st状態_大[ n ].ct進行 = new CCounter( 0, 9, 20, CDTXMania.Timer );
-                            this.st状態_大[ n ].judge = judge;
-                            this.st状態_大[ n ].nIsBig = 1;
+                            this.st状態_大[ j ].ct進行 = new CCounter( 0, 9, 20, CDTXMania.Timer );
+                            this.st状態_大[ j ].judge = judge;
+                            this.st状態_大[ j ].nIsBig = 1;
                             break;
                     }
+                    break;
 			    }
             }
 		}
@@ -172,9 +177,10 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
-            for( int i = 0; i < 3; i++ )
+            for( int i = 0; i < 3 * 4; i++ )
 			{
 				this.st状態[ i ].ct進行 = new CCounter();
+                this.st状態[ i ].b使用中 = false;
                 this.st状態_大[ i ].ct進行 = new CCounter();
 			}
 			for( int i = 0; i < 256; i++ )
@@ -187,7 +193,7 @@ namespace DTXMania
 		}
 		public override void On非活性化()
 		{
-            for( int i = 0; i < 3; i++ )
+            for( int i = 0; i < 3 * 4; i++ )
 			{
 				this.st状態[ i ].ct進行 = null;
                 this.st状態_大[ i ].ct進行 = null;
@@ -232,41 +238,46 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                for( int i = 0; i < 3; i++ )
+                for( int i = 0; i < 3 * 4; i++ )
 			    {
-				    if( !this.st状態[ i ].ct進行.b停止中 )
-				    {
-                        this.st状態[ i ].ct進行.t進行();
-					    if( this.st状態[ i ].ct進行.b終了値に達した )
-					    {
-						    this.st状態[ i ].ct進行.t停止();
-					    }
-					    if( this.txアタックエフェクトUpper != null )
-					    {
-                            int n = this.st状態[ i ].nIsBig == 1 ? 520 : 0;
-                            int nX = ( CDTXMania.Skin.nScrollFieldX ) - ( ( this.txアタックエフェクトUpper.sz画像サイズ.Width / 7 ) / 2 );
+                    if( this.st状態[ i ].b使用中 )
+                    {
+				        if( !this.st状態[ i ].ct進行.b停止中 )
+				        {
+                            this.st状態[ i ].ct進行.t進行();
+					        if( this.st状態[ i ].ct進行.b終了値に達した )
+					        {
+						        this.st状態[ i ].ct進行.t停止();
+                                this.st状態[ i ].b使用中 = false;
+					        }
+					        if( this.txアタックエフェクトUpper != null )
+					        {
+                                int n = this.st状態[ i ].nIsBig == 1 ? 520 : 0;
+                                int nX = ( CDTXMania.Skin.nScrollFieldX[ this.st状態[ i ].nPlayer ] ) - ( ( this.txアタックエフェクトUpper.sz画像サイズ.Width / 7 ) / 2 );
+                                int nY = ( CDTXMania.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] ) - ( ( this.txアタックエフェクトUpper.sz画像サイズ.Height / 4 ) / 2 );
 
-                            switch( st状態[ i ].judge )
-                            {
-                                case E判定.Perfect:
-                                case E判定.Great:
-                                case E判定.Auto:
-    						        this.txアタックエフェクトUpper.t2D描画( CDTXMania.app.Device, nX, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
-                                    break;
+                                switch( st状態[ i ].judge )
+                                {
+                                    case E判定.Perfect:
+                                    case E判定.Great:
+                                    case E判定.Auto:
+    						            this.txアタックエフェクトUpper.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
+                                        break;
                                     
-                                case E判定.Good:
-	    					        this.txアタックエフェクトUpper.t2D描画( CDTXMania.app.Device, nX, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
-                                    break;
+                                    case E判定.Good:
+	    					            this.txアタックエフェクトUpper.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
+                                        break;
 
-                                case E判定.Miss:
-                                case E判定.Bad:
-                                    break;
-                            }
-					    }
-				    }
+                                    case E判定.Miss:
+                                    case E判定.Bad:
+                                        break;
+                                }
+					        }
+				        }
+                    }
                 }
 
-                for( int i = 0; i < 3; i++ )
+                for( int i = 0; i < 3 * 4; i++ )
 			    {
 				    if( !this.st状態_大[ i ].ct進行.b停止中 )
 				    {
@@ -286,7 +297,8 @@ namespace DTXMania
                                     if( this.st状態_大[ i ].nIsBig == 1 )
                                     {
                                         float fX = 415 - ((this.txアタックエフェクトUpper_big.sz画像サイズ.Width * this.txアタックエフェクトUpper_big.vc拡大縮小倍率.X ) / 2.0f);
-                                        float fY = 257 - ((this.txアタックエフェクトUpper_big.sz画像サイズ.Height * this.txアタックエフェクトUpper_big.vc拡大縮小倍率.Y ) / 2.0f);
+                                        float fY = CDTXMania.Skin.nJudgePointY[ this.st状態_大[ i ].nPlayer ] - ((this.txアタックエフェクトUpper_big.sz画像サイズ.Height * this.txアタックエフェクトUpper_big.vc拡大縮小倍率.Y ) / 2.0f);
+                                        //float fY = 257 - ((this.txアタックエフェクトUpper_big.sz画像サイズ.Height * this.txアタックエフェクトUpper_big.vc拡大縮小倍率.Y ) / 2.0f);
 
                                         ////7
                                         float f倍率 = 0.5f + ( (this.st状態_大[ i ].ct進行.n現在の値 * 0.5f) / 10.0f);
@@ -297,7 +309,7 @@ namespace DTXMania
 
                                         Matrix mat = Matrix.Identity;
                                         mat *= Matrix.Scaling( f倍率, f倍率, f倍率 );
-                                        mat *= Matrix.Translation( CDTXMania.Skin.nScrollFieldX - SampleFramework.GameWindowSize.Width / 2.0f, -(257 - SampleFramework.GameWindowSize.Height / 2.0f), 0f );
+                                        mat *= Matrix.Translation( CDTXMania.Skin.nScrollFieldX[0] - SampleFramework.GameWindowSize.Width / 2.0f, -(CDTXMania.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] - SampleFramework.GameWindowSize.Height / 2.0f), 0f );
                                         //mat *= Matrix.Billboard( new Vector3( 15, 15, 15 ), new Vector3(0, 0, 0), new Vector3( 0, 0, 0 ), new Vector3( 0, 0, 0 ) );
                                         //mat *= Matrix.Translation( 0f, 0f, 0f );
 
@@ -320,7 +332,7 @@ namespace DTXMania
 
                 for (int i = 0; i < 45; i++)
                 {
-                    if( CDTXMania.Skin.nScrollFieldX != 414 )
+                    if( CDTXMania.Skin.nScrollFieldX[0] != 414 )
                         break;
 
                     if (this.st大音符花火[i].b使用中)
@@ -411,20 +423,23 @@ namespace DTXMania
         private CTextureAf[] tx大音符花火 = new CTextureAf[2];
         private CTexture tx紙吹雪;
 
-        protected STSTATUS[] st状態 = new STSTATUS[3];
-        protected STSTATUS_B[] st状態_大 = new STSTATUS_B[3];
+        protected STSTATUS[] st状態 = new STSTATUS[ 3 * 4 ];
+        protected STSTATUS_B[] st状態_大 = new STSTATUS_B[ 3 * 4 ];
         private ST大音符花火[] st大音符花火 = new ST大音符花火[45];
 
         protected int[] nX座標 = new int[] { 450, 521, 596, 686, 778, 863, 970, 1070, 1150 };
         protected int[] nY座標 = new int[] { 172, 108,  50,   8, -10, -60,  -5,   30,   90 };
+        protected int[] nY座標P2 = new int[] { 172, 108,  50,   8, -10, -60,  -5,   30,   90 };
 
         [StructLayout(LayoutKind.Sequential)]
         protected struct STSTATUS
         {
+            public bool b使用中;
             public CCounter ct進行;
             public E判定 judge;
             public int nIsBig;
             public int n透明度;
+            public int nPlayer;
         }
         [StructLayout(LayoutKind.Sequential)]
         protected struct STSTATUS_B
@@ -433,6 +448,7 @@ namespace DTXMania
             public E判定 judge;
             public int nIsBig;
             public int n透明度;
+            public int nPlayer;
         }
 
         [StructLayout(LayoutKind.Sequential)]

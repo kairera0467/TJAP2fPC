@@ -88,13 +88,8 @@ namespace DTXMania
 		#region [ private ]
 		//-----------------
 		private CCounter ct登場用;
-		private int n本体X;
-		private int n本体Y;
 		private CTexture r表示するリザルト画像;
-		private CTexture txパネル本体;
-        private CTexture tx中央パネル;
 		private CTexture txリザルト画像;
-		private CTexture txリザルト画像がないときの画像;
 
 		private bool tプレビュー画像の指定があれば構築する()
 		{

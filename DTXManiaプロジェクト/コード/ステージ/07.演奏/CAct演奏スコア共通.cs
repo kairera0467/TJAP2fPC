@@ -11,10 +11,9 @@ namespace DTXMania
 	{
 		// プロパティ
 
-		protected STDGBVALUE<long> nスコアの増分;
-		protected STDGBVALUE<double> n現在の本当のスコア;
-		protected STDGBVALUE<long> n現在表示中のスコア;
-		protected long n進行用タイマ;
+		protected STDGBVALUE<long>[] nスコアの増分;
+		protected STDGBVALUE<double>[] n現在の本当のスコア;
+		protected STDGBVALUE<long>[] n現在表示中のスコア;
 		protected CTexture txScore;
         protected CTexture txScoreAdd_1P;
         protected CCounter ctTimer;
@@ -30,6 +29,7 @@ namespace DTXMania
             public bool bBonusScore;
             public CCounter ctTimer;
             public int nAddScore;
+            public int nPlayer;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -95,25 +95,25 @@ namespace DTXMania
 
 		// メソッド
 
-		public double Get( E楽器パート part )
+		public double Get( E楽器パート part, int player )
 		{
-			return this.n現在の本当のスコア[ (int) part ];
+			return this.n現在の本当のスコア[ player ][ (int) part ];
 		}
-		public void Set( E楽器パート part, double nScore )
+		public void Set( E楽器パート part, double nScore, int player )
 		{
             //現状、TAIKOパートでの演奏記録を結果ステージに持っていけないので、ドラムパートにも加算することでお茶を濁している。
             if( part == E楽器パート.TAIKO )
                 part = E楽器パート.DRUMS;
 
 			int nPart = (int) part;
-			if( this.n現在の本当のスコア[ nPart ] != nScore )
+			if( this.n現在の本当のスコア[ player ][ nPart ] != nScore )
 			{
-				this.n現在の本当のスコア[ nPart ] = nScore;
-				this.nスコアの増分[ nPart ] = (long) ( ( (double) ( this.n現在の本当のスコア[ nPart ] - this.n現在表示中のスコア[ nPart ] ) ) / 20.0 );
-				this.nスコアの増分.Guitar = (long) ( ( (double) ( this.n現在の本当のスコア[ nPart ] - this.n現在表示中のスコア[ nPart ] ) ) );
-				if( this.nスコアの増分[ nPart ] < 1L )
+				this.n現在の本当のスコア[ player ][ nPart ] = nScore;
+				this.nスコアの増分[ player ][ nPart ] = (long) ( ( (double) ( this.n現在の本当のスコア[ player ][ nPart ] - this.n現在表示中のスコア[ player ][ nPart ] ) ) / 20.0 );
+				this.nスコアの増分[ player ].Guitar = (long) ( ( (double) ( this.n現在の本当のスコア[ player ][ nPart ] - this.n現在表示中のスコア[ player ][ nPart ] ) ) );
+				if( this.nスコアの増分[ player ][ nPart ] < 1L )
 				{
-					this.nスコアの増分[ nPart ] = 1L;
+					this.nスコアの増分[ player ][ nPart ] = 1L;
 				}
 			}
 
@@ -121,14 +121,14 @@ namespace DTXMania
                 part = E楽器パート.TAIKO;
 
 			nPart = (int) part;
-			if( this.n現在の本当のスコア[ nPart ] != nScore )
+			if( this.n現在の本当のスコア[ player ][ nPart ] != nScore )
 			{
-				this.n現在の本当のスコア[ nPart ] = nScore;
-				this.nスコアの増分[ nPart ] = (long) ( ( (double) ( this.n現在の本当のスコア[ nPart ] - this.n現在表示中のスコア[ nPart ] ) ) / 20.0 );
-                this.nスコアの増分.Guitar = (long) ( ( (double) ( this.n現在の本当のスコア[ nPart ] - this.n現在表示中のスコア[ nPart ] ) ) );
-				if( this.nスコアの増分[ nPart ] < 1L )
+				this.n現在の本当のスコア[ player ][ nPart ] = nScore;
+				this.nスコアの増分[ player ][ nPart ] = (long) ( ( (double) ( this.n現在の本当のスコア[ player ][ nPart ] - this.n現在表示中のスコア[ player ][ nPart ] ) ) / 20.0 );
+                this.nスコアの増分[ player ].Guitar = (long) ( ( (double) ( this.n現在の本当のスコア[ player ][ nPart ] - this.n現在表示中のスコア[ player ][ nPart ] ) ) );
+				if( this.nスコアの増分[ player ][ nPart ] < 1L )
 				{
-					this.nスコアの増分[ nPart ] = 1L;
+					this.nスコアの増分[ player ][ nPart ] = 1L;
 				}
 			}
             
@@ -139,7 +139,7 @@ namespace DTXMania
 		/// <param name="part"></param>
 		/// <param name="bAutoPlay"></param>
 		/// <param name="delta"></param>
-		public void Add( E楽器パート part, STAUTOPLAY bAutoPlay, long delta )
+		public void Add( E楽器パート part, STAUTOPLAY bAutoPlay, long delta, int player )
 		{
 			double rev = 1.0;
 			switch ( part )
@@ -161,17 +161,18 @@ namespace DTXMania
                         this.stScore[ i ].b表示中 = true;
                         this.stScore[ i ].nAddScore = (int)delta;
                         this.stScore[ i ].ctTimer = new CCounter( 0, 500, 1, CDTXMania.Timer );
-                        this.stScore[i].bBonusScore = false;
+                        this.stScore[ i ].bBonusScore = false;
+                        this.stScore[ i ].nPlayer = player;
                         this.n現在表示中のAddScore++;
                         break;
                     }
                 }
             }
 
-			this.Set( part, this.Get( part ) + delta * rev );
+			this.Set( part, this.Get( part, player ) + delta * rev, player );
 		}
 
-        public void BonusAdd()
+        public void BonusAdd( int player )
         {
             for( int sc = 0; sc < 1; sc++ )
             {
@@ -183,26 +184,29 @@ namespace DTXMania
                         this.stScore[ i ].b表示中 = true;
                         this.stScore[ i ].nAddScore = 10000;
                         this.stScore[ i ].ctTimer = new CCounter( 0, 500, 1, CDTXMania.Timer );
-                        this.stScore[i].bBonusScore = true;
+                        this.stScore[ i ].bBonusScore = true;
+                        this.stScore[ i ].nPlayer = player;
                         this.n現在表示中のAddScore++;
                         break;
                     }
                 }
             }
 
-            this.Set( E楽器パート.TAIKO, this.Get( E楽器パート.TAIKO ) + 10000 );
+            this.Set( E楽器パート.TAIKO, this.Get( E楽器パート.TAIKO, player ) + 10000, player );
         }
 
 		// CActivity 実装
 
 		public override void On活性化()
 		{
-			this.n進行用タイマ = -1;
+            this.n現在表示中のスコア = new STDGBVALUE<long>[ 4 ];
+            this.n現在の本当のスコア = new STDGBVALUE<double>[ 4 ];
+            this.nスコアの増分 = new STDGBVALUE<long>[ 4 ];
 			for( int i = 0; i < 4; i++ )
 			{
-				this.n現在表示中のスコア[ i ] = 0L;
-				this.n現在の本当のスコア[ i ] = 0L;
-				this.nスコアの増分[ i ] = 0L;
+				this.n現在表示中のスコア[ i ][ i ] = 0L;
+				this.n現在の本当のスコア[ i ][ i ] = 0L;
+				this.nスコアの増分[ i ][ i ] = 0L;
 			}
             for( int sc = 0; sc < 256; sc++ )
             {
@@ -222,7 +226,6 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				this.txScore = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Score_number.png" ) );
-                this.txScoreAdd_1P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Score_number_Add.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -231,7 +234,6 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				CDTXMania.tテクスチャの解放( ref this.txScore );
-                CDTXMania.tテクスチャの解放( ref this.txScoreAdd_1P );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -250,13 +252,24 @@ namespace DTXMania
                             case 0:
                                 if( this.txScore != null )
                                 {
+                                    this.txScore.color4 = new SlimDX.Color4( 1.0f, 1.0f, 1.0f );
                                     this.txScore.t2D描画( CDTXMania.app.Device, x, y, rectangle );
                                 }
                                 break;
                             case 1:
-                                if( this.txScoreAdd_1P != null )
+                                if( this.txScore != null )
                                 {
-                                    this.txScoreAdd_1P.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                                    //this.txScore.color4 = new SlimDX.Color4( 1.0f, 0.5f, 0.4f );
+                                    this.txScore.color4 = CDTXMania.Skin.cScoreColor1P;
+                                    this.txScore.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                                }
+                                break;
+                            case 2:
+                                if( this.txScore != null )
+                                {
+                                    //this.txScore.color4 = new SlimDX.Color4( 0.4f, 0.5f, 1.0f );
+                                    this.txScore.color4 = CDTXMania.Skin.cScoreColor2P;
+                                    this.txScore.t2D描画( CDTXMania.app.Device, x, y, rectangle );
                                 }
                                 break;
                         }

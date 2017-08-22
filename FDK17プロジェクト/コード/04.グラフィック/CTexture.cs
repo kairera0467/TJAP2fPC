@@ -838,7 +838,7 @@ namespace FDK
 		/// </summary>
 		public void t3D左上基準描画( Device device, Matrix mat, Rectangle rc画像内の描画領域 )
 		{
-			//とりあえず補正値などは無し。にしても使う機会少なさそうだなー____
+			//とりあえず補正値などは無し。にしても使う機会少なさそうだなー
 			if( this.texture == null )
 				return;
 
@@ -1033,7 +1033,7 @@ namespace FDK
 		// 2012.3.21 さらなる new の省略作戦
 
 		protected Rectangle rc全画像;								// テクスチャ作ったらあとは不変
-		protected Color4 color4 = new Color4( 1f, 1f, 1f, 1f );	// アルファ以外は不変
+		public Color4 color4 = new Color4( 1f, 1f, 1f, 1f );	// アルファ以外は不変
 		//-----------------
 		#endregion
 	}

@@ -88,7 +88,7 @@ namespace DTXMania
 
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.灰, this.ct進行メイン.n現在の値.ToString() );
 
-                if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値.Taiko >= 80 )
+                if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 80 )
                 {
                     //this.ct進行メイン.n現在の値 = 18;
                     if( this.soundClear != null && !this.b再生済み )

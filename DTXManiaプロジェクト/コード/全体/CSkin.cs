@@ -882,21 +882,36 @@ namespace DTXMania
 
                             #region[ 演奏 ]
                             //-----------------------------
-                            if( strCommand == "ScrollFieldY" )
+                            if( strCommand == "ScrollFieldP1Y" )
                             {
-                                this.nScrollFieldY = C変換.n値を文字列から取得して返す( strParam, 192 );
+                                this.nScrollFieldY[ 0 ] = C変換.n値を文字列から取得して返す( strParam, 192 );
+                            }
+                            else if( strCommand == "ScrollFieldP2Y" )
+                            {
+                                this.nScrollFieldY[ 1 ] = C変換.n値を文字列から取得して返す( strParam, 192 );
                             }
                             else if( strCommand == "SENotesP1Y" )
                             {
-                                this.nSENotesP1Y = C変換.n値を文字列から取得して返す( strParam, this.nSENotesP1Y );
+                                this.nSENotesY[ 0 ] = C変換.n値を文字列から取得して返す( strParam, this.nSENotesY[ 0 ] );
                             }
+                            else if( strCommand == "SENotesP2Y" )
+                            {
+                                this.nSENotesY[ 1 ] = C変換.n値を文字列から取得して返す( strParam, this.nSENotesY[ 1 ] );
+                            }
+                            else if( strCommand == "JudgePointP1Y" ) {
+                                this.nJudgePointY[ 0 ] = C変換.n値を文字列から取得して返す( strParam, this.nJudgePointY[ 0 ] );
+                            }
+                            else if( strCommand == "JudgePointP2Y" ) {
+                                this.nJudgePointY[ 1 ] = C変換.n値を文字列から取得して返す( strParam, this.nJudgePointY[ 1 ] );
+                            }
+
                             else if( strCommand == "PlayerCharacterP1X" )
                             {
-                                this.nPlayerCharacterP1X = C変換.n値を文字列から取得して返す( strParam, 0 );
+                                this.nPlayerCharacterX[0] = C変換.n値を文字列から取得して返す( strParam, 0 );
                             }
                             else if( strCommand == "PlayerCharacterP1Y" )
                             {
-                                this.nPlayerCharacterP1Y = C変換.n値を文字列から取得して返す( strParam, 0 );
+                                this.nPlayerCharacterY[0] = C変換.n値を文字列から取得して返す( strParam, 0 );
                             }
                             else if( strCommand == "CourseSymbolP1X" )
                             {
@@ -915,6 +930,23 @@ namespace DTXMania
                             {
                                 this.b現在のステージ数を表示しない = C変換.bONorOFF( strParam[ 0 ] );
                             }
+                            else if( strCommand == "AddScoreColorP1" )
+                            {
+                                string[] arColor = strParam.Split(',');
+                                if( arColor.Length == 3 )
+                                {
+                                    this.cScoreColor1P = C変換.n255ToColor4( Convert.ToInt16( arColor[ 0 ] ), Convert.ToInt16( arColor[ 1 ] ), Convert.ToInt16( arColor[ 2 ] ) );
+                                }
+                            }
+                            else if( strCommand == "AddScoreColorP2" )
+                            {
+                                string[] arColor = strParam.Split(',');
+                                if( arColor.Length == 3 )
+                                {
+                                    this.cScoreColor2P = C変換.n255ToColor4( Convert.ToInt16( arColor[ 0 ] ), Convert.ToInt16( arColor[ 1 ] ), Convert.ToInt16( arColor[ 2 ] ) );
+                                }
+                            }
+
                             //-----------------------------
                             #endregion
                             #region[ 成績発表 ]
@@ -994,26 +1026,29 @@ namespace DTXMania
 
 
         #region[ 座標 ]
+        //2017.08.11 kairera0467 DP実用化に向けてint配列に変更
+
         //フィールド位置　Xは判定枠部分の位置。Yはフィールドの最上部の座標。
         //現時点ではノーツ画像、Senotes画像、判定枠が連動する。
         //Xは中央基準描画、Yは左上基準描画
-        public int nScrollFieldX = 414;
-        public int nScrollFieldY = 192;
-        
+        public int[] nScrollFieldX = new int[]{414, 414};
+        public int[] nScrollFieldY = new int[]{192, 368};
+
+        //中心座標指定
+        public int[] nJudgePointX = new int[] { 413, 413, 413, 413 };
+        public int[] nJudgePointY = new int[] { 256, 433, 0, 0  };
+                
         //フィールド背景画像
         //ScrollField座標への追従設定が可能。
         //分岐背景、ゴーゴー背景が連動する。(全て同じ大きさ、位置で作成すること。)
         //左上基準描画
         public bool bFieldBgPointOverride = false;
-        public int nScrollFieldBGX = 333;
-        public int nScrollFieldBGY = 192;
-        public int nScrollFieldBranchTextX = 333; //分岐の文字
-        public int nScrollFieldBranchTextY = 192;
+        public int[] nScrollFieldBGX = new int[]{ 333, 333, 333, 333 };
+        public int[] nScrollFieldBGY = new int[]{ 192, 368, 0, 0 };
 
         //SEnotes
         //音符座標に加算
-        public int nSENotesP1Y = 131;
-        public int nSENotesP2Y = 131;
+        public int[] nSENotesY = new int[]{ 131, 131 };
 
         //光る太鼓部分
         public int nMtaikoBackgroundX = 0;
@@ -1023,14 +1058,36 @@ namespace DTXMania
         public int nMtaikoMainX = 0;
         public int nMtaikoMainY = 0;
 
+        //コンボ
+        public int[] nComboNumberX = new int[] { 0, 0, 0, 0 };
+        public int[] nComboNumberY = new int[] { 212, 388, 0, 0 };
+        public int[] nComboNumberTextY = new int[] { 266, 442, 0, 0 };
+        public int[] nComboNumberTextLargeY = new int[] { 263, 439, 0, 0 };
+        public float fComboNumberSpacing = 0;
+        public float fComboNumberSpacing_l = 0;
+
+        //スコア
+        public int[] nScoreX = new int[] { 20, 20, 0, 0 };
+        public int[] nScoreY = new int[] { 190, 495, 0, 0 };
+        public int[] nScoreAddX = new int[] { 20, 20, 0, 0 };
+        public int[] nScoreAddY = new int[] { 150, 538, 0, 0 };
+        public int[] nScoreAddBonusX = new int[] { 20, 20, 0, 0 };
+        public int[] nScoreAddBonusY = new int[] { 118, 570, 0, 0 };
+        public SlimDX.Color4 cScoreColor1P = new SlimDX.Color4( 1.0f, 1.0f, 0.5f, 0.4f );
+        public SlimDX.Color4 cScoreColor2P = new SlimDX.Color4( 1.0f, 0.4f, 0.5f, 1.0f );
+
         //コースシンボル
         //中央基準
         public int nCourseSymbolP1X = 87;
         public int nCourseSymbolP1Y = 292;
 
+        //分岐吹き出し(中央基準)
+        public int[] nBranchBalloonX = new int[] { 0, 0, 0, 0 };
+        public int[] nBranchBalloonY = new int[] { 0, 0, 0, 0 };
+
         //キャラクター画像の位置
-        public int nPlayerCharacterP1X = 0;
-        public int nPlayerCharacterP1Y = 0;
+        public int[] nPlayerCharacterX = new int[]{0};
+        public int[] nPlayerCharacterY = new int[]{0};
 
         public E難易度表示タイプ eDiffDispMode;
         public bool b現在のステージ数を表示しない;

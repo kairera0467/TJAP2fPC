@@ -74,7 +74,7 @@ namespace DTXMania
             int[] nBgY = new int[] { 0, 536 };
             for( int i = 0; i < 2; i++ )
             {
-                if( !CDTXMania.ConfigIni.bSession && i == 1 ) continue;
+                if( CDTXMania.ConfigIni.nPlayerCount == 1 && i == 1 ) continue;
                 
                 if( this.tx上背景メイン != null )
                 {
@@ -87,7 +87,7 @@ namespace DTXMania
                 }
                 if( this.tx上背景クリアメイン != null )
                 {
-                    if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値.Taiko < 80.0 )
+                    if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] < 80.0 )
                         this.tx上背景クリアメイン.n透明度 = 0;
                     else
                         this.tx上背景クリアメイン.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
@@ -104,16 +104,15 @@ namespace DTXMania
 
 
 
-            if( !CDTXMania.ConfigIni.bSession )
+            if( CDTXMania.ConfigIni.nPlayerCount == 1 )
             {
-
                 {
                     if( this.tx下背景メイン != null )
                     {
                         this.tx下背景メイン.t2D描画( CDTXMania.app.Device, 0, 360 );
                     }
                 }
-                if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値.Taiko >= 80.0 )
+                if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 80.0 )
                 {
                     if( this.tx下背景クリアメイン != null && this.tx下背景クリアサブ1 != null )
                     {

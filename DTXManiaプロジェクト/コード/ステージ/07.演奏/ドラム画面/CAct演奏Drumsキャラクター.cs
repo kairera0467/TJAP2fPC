@@ -165,37 +165,37 @@ namespace DTXMania
             {
                 if( !CDTXMania.stage演奏ドラム画面.bIsGOGOTIME )
                 {
-                    if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値.Taiko >= 100.0 && this.nキャラクターMAX通常モーション枚数 != 0 )
+                    if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 100.0 && this.nキャラクターMAX通常モーション枚数 != 0 )
                     {
                         if( this.txキャラクターMax_Normal[ 0 ] != null )
-                            this.txキャラクターMax_Normal[ this.ar黄色モーション番号[ (int)this.ctMAX通常モーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterP1X, CDTXMania.Skin.nPlayerCharacterP1Y );
+                            this.txキャラクターMax_Normal[ this.ar黄色モーション番号[ (int)this.ctMAX通常モーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterX[ 0 ], CDTXMania.Skin.nPlayerCharacterY[ 0 ] );
                     }
-                    else if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値.Taiko >= 80.0 && this.nキャラクタークリアモーション枚数 != 0 )
+                    else if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 80.0 && this.nキャラクタークリアモーション枚数 != 0 )
                     {
                         if( this.txキャラクターClear_Normal[ 0 ] != null )
                         {
-                            this.txキャラクターClear_Normal[ this.arクリアモーション番号[ (int)this.ctクリア通常モーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterP1X, CDTXMania.Skin.nPlayerCharacterP1Y );
+                            this.txキャラクターClear_Normal[ this.arクリアモーション番号[ (int)this.ctクリア通常モーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterX[ 0 ], CDTXMania.Skin.nPlayerCharacterY[ 0 ] );
                         }
                     }
                     else
                     {
                         if( this.txキャラクターNormal[ 0 ] != null )
                         {
-                            this.txキャラクターNormal[ this.arモーション番号[ (int)this.ct通常モーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterP1X, CDTXMania.Skin.nPlayerCharacterP1Y );
+                            this.txキャラクターNormal[ this.arモーション番号[ (int)this.ct通常モーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterX[0], CDTXMania.Skin.nPlayerCharacterY[0] );
                         }
                     }
                 }
                 else
                 {
-                    if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値.Taiko >= 100.0 && this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
+                    if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 100.0 && this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
                     {
                         if( this.txキャラクターMax_Gogo[ 0 ] != null )
-                            this.txキャラクターMax_Gogo[ this.ar黄色ゴーゴーモーション番号[ (int)this.ctMAXゴーゴーモーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterP1X, CDTXMania.Skin.nPlayerCharacterP1Y );
+                            this.txキャラクターMax_Gogo[ this.ar黄色ゴーゴーモーション番号[ (int)this.ctMAXゴーゴーモーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterX[0], CDTXMania.Skin.nPlayerCharacterY[0] );
                     }
                     else
                     {
-                        if( this.txキャラクターGogo[ 0 ] != null )
-                            this.txキャラクターGogo[ this.arゴーゴーモーション番号[ (int)this.ctゴーゴーモーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterP1X, CDTXMania.Skin.nPlayerCharacterP1Y );
+                        if( this.txキャラクターGogo[ this.arゴーゴーモーション番号[ (int)this.ctゴーゴーモーション.db現在の値 ] ] != null )
+                            this.txキャラクターGogo[ this.arゴーゴーモーション番号[ (int)this.ctゴーゴーモーション.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterX[0], CDTXMania.Skin.nPlayerCharacterY[0] );
                     }
                 }
             

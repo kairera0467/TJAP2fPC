@@ -16,7 +16,6 @@ namespace DTXMania
             {
                 if (base.b初めての進行描画)
                 {
-                    base.n進行用タイマ = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
                     base.b初めての進行描画 = false;
                 }
                 long num = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
@@ -47,7 +46,8 @@ namespace DTXMania
                     //base.t小文字表示( 20, 150, string.Format( "{0,7:######0}", this.nスコアの増分.Guitar ) );
                 }
 
-                base.t小文字表示( 20, 190, string.Format( "{0,7:######0}", this.n現在表示中のスコア.Taiko ), 0 );
+                base.t小文字表示( 20, 190, string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 );
+                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 );
 
                 for( int i = 0; i < 256; i++ )
                 {
@@ -58,7 +58,7 @@ namespace DTXMania
                             this.stScore[ i ].ctTimer.t進行();
                             if( this.stScore[ i ].ctTimer.b終了値に達した )
                             {
-                                this.n現在表示中のスコア.Taiko += (long)this.stScore[ i ].nAddScore;
+                                this.n現在表示中のスコア[ this.stScore[ i ].nPlayer ].Taiko += (long)this.stScore[ i ].nAddScore;
                                 if( this.stScore[ i ].b表示中 == true )
                                     this.n現在表示中のAddScore--;
                                 this.stScore[ i ].ctTimer.t停止();
@@ -82,9 +82,9 @@ namespace DTXMania
                             }
 
                             if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
-                                base.t小文字表示( 20 + xAdd, 150 + yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), 1 );
+                                base.t小文字表示( 20 + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 );
                             if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true )
-                                base.t小文字表示( 20 + xAdd, 118, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), 1 );
+                                base.t小文字表示( 20 + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 );
                             else
                             {
                                 this.n現在表示中のAddScore--;

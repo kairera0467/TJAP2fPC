@@ -50,19 +50,39 @@ namespace DTXMania
 		{
 			get
 			{
-				return dtx;
+				return dtx[ 0 ];
 			}
 			set
 			{
-				if( ( dtx != null ) && ( app != null ) )
+				if( ( dtx[ 0 ] != null ) && ( app != null ) )
 				{
-					dtx.On非活性化();
-					app.listトップレベルActivities.Remove( dtx );
+					dtx[ 0 ].On非活性化();
+					app.listトップレベルActivities.Remove( dtx[ 0 ] );
 				}
-				dtx = value;
-				if( ( dtx != null ) && ( app != null ) )
+				dtx[ 0 ] = value;
+				if( ( dtx[ 0 ] != null ) && ( app != null ) )
 				{
-					app.listトップレベルActivities.Add( dtx );
+					app.listトップレベルActivities.Add( dtx[ 0 ] );
+				}
+			}
+		}
+		public static CDTX DTX_2P
+		{
+			get
+			{
+				return dtx[ 1 ];
+			}
+			set
+			{
+				if( ( dtx[ 1 ] != null ) && ( app != null ) )
+				{
+					dtx[ 1 ].On非活性化();
+					app.listトップレベルActivities.Remove( dtx[ 1 ] );
+				}
+				dtx[ 1 ] = value;
+				if( ( dtx[ 1 ] != null ) && ( app != null ) )
+				{
+					app.listトップレベルActivities.Add( dtx[ 1 ] );
 				}
 			}
 		}
@@ -1173,7 +1193,7 @@ for (int i = 0; i < 3; i++) {
 								}
 								else
 								{
-									CDTXMania.stage演奏ドラム画面.t演奏位置の変更( CDTXMania.DTXVmode.nStartBar );
+									CDTXMania.stage演奏ドラム画面.t演奏位置の変更( CDTXMania.DTXVmode.nStartBar, 0 );
 								}
 							}
 						}
@@ -1663,7 +1683,8 @@ for (int i = 0; i < 3; i++) {
 		//-----------------
 		private bool bマウスカーソル表示中 = true;
 		private bool b終了処理完了済み;
-		private static CDTX dtx;
+		private static CDTX[] dtx = new CDTX[ 4 ];
+
 		private List<CActivity> listトップレベルActivities;
 		private int n進行描画の戻り値;
 		private MouseButtons mb = System.Windows.Forms.MouseButtons.Left;

@@ -409,7 +409,7 @@ namespace DTXMania
 				    if( !this.st叩ききりまショー.ct残り時間.b停止中 || this.st叩ききりまショー.b加算アニメ中 == true )
 				    {
                         this.st叩ききりまショー.ct残り時間.t進行();
-					    if( !CDTXMania.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる( CSound管理.rc演奏用タイマ.n現在時刻ms, 0, 5000 ) || this.st叩ききりまショー.b加算アニメ中 == true )
+					    if( !CDTXMania.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる( CSound管理.rc演奏用タイマ.n現在時刻ms, 0, 5000, 0 ) || this.st叩ききりまショー.b加算アニメ中 == true )
 					    {
                             this.st叩ききりまショー.bタイマー使用中 = false;
 						    this.st叩ききりまショー.ct残り時間.t停止();
@@ -419,7 +419,7 @@ namespace DTXMania
 
                 if( !this.st叩ききりまショー.bタイマー使用中 && this.st叩ききりまショー.b加算アニメ中 == false )
                 {
-                    if ((this.st叩ききりまショー.b最初のチップが叩かれた == true && ( CDTXMania.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる(CSound管理.rc演奏用タイマ.n現在時刻ms, 0, 2000 ) ) ) )
+                    if ((this.st叩ききりまショー.b最初のチップが叩かれた == true && ( CDTXMania.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる(CSound管理.rc演奏用タイマ.n現在時刻ms, 0, 2000, 0 ) ) ) )
                     {
                         this.st叩ききりまショー.bタイマー使用中 = true;
                         int nCount = this.st叩ききりまショー.ct残り時間.n現在の値;
@@ -622,9 +622,9 @@ namespace DTXMania
                     }
                 }
                 #endregion
-                if( CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.Drums最高値 != 0 )
+                if( CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.P1最高値 != 0 )
                 {
-                    double db全体コンボ率 = ( (double)CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.Drums最高値 / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
+                    double db全体コンボ率 = ( (double)CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.P1最高値 / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
                     for( int i = 0; i < this.n全体コンボ率ボーナス.Length; i++ )
                     {
                         if( db全体コンボ率 >= this.n全体コンボ率ボーナス[ i ].ret )

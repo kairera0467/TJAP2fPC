@@ -381,6 +381,7 @@ namespace DTXMania
             public double db発声時刻;
             public double db判定終了時刻;//連打系音符で使用
             public double dbProcess_Time;
+            public int nPlayerSide;
 			public bool bBPMチップである
 			{
 				get
@@ -474,12 +475,12 @@ namespace DTXMania
 					"BPM変更(拡張)", "??", "??", "??", "??", "??", "??", "??",
 
                     //太鼓1P(移動予定)
-					"??", "1P ドン", "1P カツ", "1P ドン(大)", "1P カツ(大)", "1P 連打", "1P 連打(大)", "1P ふうせん連打",
-					"1P 連打終点", "??", "??", "??", "??", "??", "??", "1P AD-LIB",
+					"??", "ドン", "カツ", "ドン(大)", "カツ(大)", "連打", "連打(大)", "ふうせん連打",
+					"連打終点", "??", "??", "??", "??", "??", "??", "AD-LIB",
 
-                    //太鼓2P(新設予定)
-					"??", "2P ドン", "2P カツ", "2P ドン(大)", "2P カツ(大)", "2P 連打", "2P 連打(大)", "2P ふうせん連打",
-					"2P 連打終点", "??", "??", "??", "??", "??", "??", "??",
+                    //太鼓予備
+					"??", "??", "??", "??", "??", "??", "??", "??",
+					"??", "??", "??", "??", "??", "??", "??", "??",
 
                     //太鼓予備
 					"??", "??", "??", "??", "??", "??", "??", "??",
@@ -1086,11 +1087,14 @@ namespace DTXMania
 			get; 
 			private set;
 		}
+        public int nPlayerSide; //2017.08.14 kairera0467 引数で指定する
+        public bool bDP譜面が存在する;
+        public bool bSession譜面を読み込む;
+
 		public string ARTIST;
 		public string BACKGROUND;
 		public string BACKGROUND_GR;
 		public double BASEBPM;
-		public bool BLACKCOLORKEY;
 		public double BPM;
 		public STチップがある bチップがある;
 		public string COMMENT;
@@ -1124,15 +1128,12 @@ namespace DTXMania
 
         public Dictionary<int, CDELAY> listDELAY;
         public Dictionary<int, CBRANCH> listBRANCH;
-		public string MIDIFILE;
-		public int MIDIレベル;
 		public STLANEINT n可視チップ数;
 		public const int n最大音数 = 4;
 		public const int n小節の解像度 = 384;
 		public string PANEL;
 		public string PATH_WAV;
 		public string PREIMAGE;
-		public string PREMOVIE;
 		public string PREVIEW;
 		public string strハッシュofDTXファイル;
 		public string strファイル名;
@@ -1258,6 +1259,7 @@ namespace DTXMania
 
 		public CDTX()
 		{
+            this.nPlayerSide = 0;
 			this.TITLE = "";
             this.SUBTITLE = "";
 			this.ARTIST = "";
@@ -1267,13 +1269,10 @@ namespace DTXMania
             this.eジャンル = Eジャンル.None;
 			this.PREVIEW = "";
 			this.PREIMAGE = "";
-			this.PREMOVIE = "";
 			this.BACKGROUND = "";
 			this.BACKGROUND_GR = "";
 			this.PATH_WAV = "";
-			this.MIDIFILE = "";
 			this.BPM = 120.0;
-			this.BLACKCOLORKEY = true;
 			STDGBVALUE<int> stdgbvalue = new STDGBVALUE<int>();
 			stdgbvalue.Drums = 0;
 			stdgbvalue.Guitar = 0;
@@ -1383,13 +1382,19 @@ namespace DTXMania
 			: this()
 		{
 			this.On活性化();
-			this.t入力( strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, 0 );
+			this.t入力( strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, 0, 0, false );
 		}
 		public CDTX( string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion )
 			: this()
 		{
 			this.On活性化();
-			this.t入力( strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, nReadVersion );
+			this.t入力( strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, nReadVersion, 0, false );
+		}
+		public CDTX( string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion, int nPlayerSide, bool bSession )
+			: this()
+		{
+			this.On活性化();
+			this.t入力( strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, nReadVersion, nPlayerSide, bSession );
 		}
 
 
@@ -1918,49 +1923,20 @@ namespace DTXMania
 
 		public void t入力( string strファイル名, bool bヘッダのみ )
 		{
-			this.t入力( strファイル名, bヘッダのみ, 1.0, 0, 0 );
+			this.t入力( strファイル名, bヘッダのみ, 1.0, 0, 0, 0, false );
 		}
-		public void t入力( string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion )
+		public void t入力( string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nReadVersion, int nPlayerSide, bool bSession )
 		{
 			this.bヘッダのみ = bヘッダのみ;
 			this.strファイル名の絶対パス = Path.GetFullPath( strファイル名 );
 			this.strファイル名 = Path.GetFileName( this.strファイル名の絶対パス );
 			this.strフォルダ名 = Path.GetDirectoryName( this.strファイル名の絶対パス ) + @"\";
-			string ext = Path.GetExtension( this.strファイル名 ).ToLower();
-			if ( ext != null )
-			{
-				if ( !( ext == ".dtx" ) )
-				{
-					if ( ext == ".gda" )
-					{
-						this.e種別 = E種別.GDA;
-					}
-					else if ( ext == ".g2d" )
-					{
-						this.e種別 = E種別.G2D;
-					}
-					else if ( ext == ".bms" )
-					{
-						this.e種別 = E種別.BMS;
-					}
-					else if ( ext == ".bme" )
-					{
-						this.e種別 = E種別.BME;
-					}
-					else if ( ext == ".mid" )
-					{
-						this.e種別 = E種別.SMF;
-					}
-				}
-				else
-				{
-					this.e種別 = E種別.DTX;
-				}
-			}
-			if ( this.e種別 != E種別.SMF )
+			//if ( this.e種別 != E種別.SMF )
 			{
 				try
 				{
+                    this.nPlayerSide = nPlayerSide;
+                    this.bSession譜面を読み込む = bSession;
                     if( nReadVersion != 0 )
                     {
                         //DTX方式
@@ -2011,10 +1987,6 @@ namespace DTXMania
                     Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                     Trace.TraceError( "エラー:{0}", ex.StackTrace );
 				}
-			}
-			else
-			{
-				Trace.TraceWarning( "SMF の演奏は未対応です。（検討中）" );
 			}
 		}
 		public void t入力_全入力文字列から( string str全入力文字列 )
@@ -3007,6 +2979,62 @@ namespace DTXMania
         }
 
         /// <summary>
+        /// セッション譜面があるかどうかを判別、あった場合は指定したプレイヤーサイドに従ったrefで切り抜いた譜面を渡す
+        /// </summary>
+        /// <param name="strTJA"></param>
+        /// <param name="strTJA2"></param>
+        /// <returns></returns>
+        private bool tセッション譜面がある( string strTJA, ref string strTJA2, int seqNo )
+        {
+            bool bIsSessionNotes = false;
+            //入力された譜面がnullでないかチェック。
+            if( string.IsNullOrEmpty( strTJA ) ) return false;
+
+            //とりあえず腑分けしてやる
+            //一旦STYLEで分ける
+            string[] str1 = strTJA.Split( new string[]{"STYLE"}, StringSplitOptions.RemoveEmptyEntries );
+            //正常なDP譜面ならLength:3になる。
+            string strSingle = "";
+            string strDoubleP1 = "";
+            string strDoubleP2 = "";
+
+            for( int i = 0; i < str1.Length; i++ )
+            {
+                if( str1[ i ].IndexOf( "#START P1" ) != -1 )
+                {
+                    strDoubleP1 = str1[ i ];
+                    bIsSessionNotes = true;
+                }
+                else if( str1[ i ].IndexOf( "#START P2" ) != -1 )
+                {
+                    strDoubleP2 = str1[ i ];
+                    bIsSessionNotes = true;
+                }
+                else
+                {
+                    strSingle = str1[ i ];
+                }
+            }
+            if( !bIsSessionNotes ) seqNo = 99;
+
+            switch( seqNo )
+            {
+                case 0:
+                case 99:
+                    strTJA2 = strSingle;
+                    break;
+                case 1:
+                    strTJA2 = strDoubleP1;
+                    break;
+                case 2:
+                    strTJA2 = strDoubleP2;
+                    break;
+            }
+
+            return bIsSessionNotes;
+        }
+
+        /// <summary>
         /// 新型。
         /// ○未実装
         /// _「COURSE」定義が無い譜面は未対応
@@ -3062,7 +3090,7 @@ namespace DTXMania
 
                 //まずはコースごとに譜面を分割。
                 this.strSplitした譜面 = this.tコースで譜面を分割する( this.StringArrayToString( this.strSplitした譜面, "\n" ) );
-
+                string strTest = "";
                 //存在するかのフラグ作成。
                 for( int i = 0; i < this.strSplitした譜面.Length; i++ )
                 {
@@ -3095,9 +3123,8 @@ namespace DTXMania
                     n読み込むコース = CDTXMania.stage選曲.n確定された曲の難易度;
                 #endregion
 
-
-
                 //指定したコースの譜面の命令を消去する。
+                this.tセッション譜面がある( this.strSplitした譜面[ n読み込むコース ], ref this.strSplitした譜面[ n読み込むコース ], CDTXMania.ConfigIni.nPlayerCount >= 1 ? ( this.nPlayerSide + 1 ) : 0 );
                 this.str命令消去譜面 = this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
                 this.str命令消去譜面 = this.tコマンド行を削除したTJAを返す( this.str命令消去譜面, 2 );
 
@@ -3935,6 +3962,7 @@ namespace DTXMania
                             chip.e楽器パート = E楽器パート.TAIKO;
                             chip.nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0);
                             chip.nノーツ移動開始時刻ms = (int)(this.db移動待機時刻 * 1000.0);
+                            chip.nPlayerSide = this.nPlayerSide;
 
                             if( nObjectNum == 7 || nObjectNum == 9 )
                             {
@@ -6924,15 +6952,6 @@ namespace DTXMania
 				{
 					this.t入力_パラメータ食い込みチェック( "PREIMAGE", ref strコマンド, ref strパラメータ );
 					this.PREIMAGE = strパラメータ;
-				}
-				//-----------------
-				#endregion
-				#region [ PREMOVIE ]
-				//-----------------
-				else if( strコマンド.StartsWith( "PREMOVIE", StringComparison.OrdinalIgnoreCase ) )
-				{
-					this.t入力_パラメータ食い込みチェック( "PREMOVIE", ref strコマンド, ref strパラメータ );
-					this.PREMOVIE = strパラメータ;
 				}
 				//-----------------
 				#endregion

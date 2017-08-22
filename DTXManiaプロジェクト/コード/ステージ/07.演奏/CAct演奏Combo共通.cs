@@ -24,16 +24,16 @@ namespace DTXMania
 					switch( index )
 					{
 						case 0:
-							return this.Drums;
+							return this.P1;
 
 						case 1:
-							return this.Guitar;
+							return this.P2;
 
 						case 2:
-							return this.Bass;
+							return this.P3;
 
                         case 3:
-                            return this.Taiko;
+                            return this.P4;
 					}
 					throw new IndexOutOfRangeException();
 				}
@@ -42,101 +42,101 @@ namespace DTXMania
 					switch( index )
 					{
 						case 0:
-							this.Drums = value;
+							this.P1 = value;
 							return;
 
 						case 1:
-							this.Guitar = value;
+							this.P2 = value;
 							return;
 
 						case 2:
-							this.Bass = value;
+							this.P3 = value;
 							return;
 
 						case 3:
-							this.Taiko = value;
+							this.P4 = value;
 							return;
 					}
 					throw new IndexOutOfRangeException();
 				}
 			}
-			public int Drums
+			public int P1
 			{
 				get
 				{
-					return this.drums;
+					return this.p1;
 				}
 				set
 				{
-					this.drums = value;
-					if( this.drums > this.Drums最高値 )
+					this.p1 = value;
+					if( this.p1 > this.P1最高値 )
 					{
-						this.Drums最高値 = this.drums;
+						this.P1最高値 = this.p1;
 					}
-					this.act.status.Drums.nCOMBO値 = this.drums;
-					this.act.status.Drums.n最高COMBO値 = this.Drums最高値;
+					this.act.status.P1.nCOMBO値 = this.p1;
+					this.act.status.P1.n最高COMBO値 = this.P1最高値;
 				}
 			}
-			public int Guitar
+			public int P2
 			{
 				get
 				{
-					return this.guitar;
+					return this.p2;
 				}
 				set
 				{
-					this.guitar = value;
-					if( this.guitar > this.Guitar最高値 )
+					this.p2 = value;
+					if( this.p2 > this.P2最高値 )
 					{
-						this.Guitar最高値 = this.guitar;
+						this.P2最高値 = this.p2;
 					}
-					this.act.status.Guitar.nCOMBO値 = this.guitar;
-					this.act.status.Guitar.n最高COMBO値 = this.Guitar最高値;
+					this.act.status.P2.nCOMBO値 = this.p2;
+					this.act.status.P2.n最高COMBO値 = this.P2最高値;
 				}
 			}
-			public int Bass
+			public int P3
 			{
 				get
 				{
-					return this.bass;
+					return this.p3;
 				}
 				set
 				{
-					this.bass = value;
-					if( this.bass > this.Bass最高値 )
+					this.p3 = value;
+					if( this.p3 > this.P3最高値 )
 					{
-						this.Bass最高値 = this.bass;
+						this.P3最高値 = this.p3;
 					}
-					this.act.status.Bass.nCOMBO値 = this.bass;
-					this.act.status.Bass.n最高COMBO値 = this.Bass最高値;
+					this.act.status.P3.nCOMBO値 = this.p3;
+					this.act.status.P3.n最高COMBO値 = this.P3最高値;
 				}
 			}
-			public int Taiko
+			public int P4
 			{
 				get
 				{
-					return this.taiko;
+					return this.p4;
 				}
 				set
 				{
-					this.taiko = value;
-					if( this.taiko > this.Taiko最高値 )
+					this.p4 = value;
+					if( this.p4 > this.P4最高値 )
 					{
-						this.Taiko最高値 = this.taiko;
+						this.P4最高値 = this.p4;
 					}
-					this.act.status.Taiko.nCOMBO値 = this.taiko;
-					this.act.status.Taiko.n最高COMBO値 = this.Taiko最高値;
+					this.act.status.P4.nCOMBO値 = this.p4;
+					this.act.status.P4.n最高COMBO値 = this.P4最高値;
 				}
 			}
-			public int Drums最高値 { get; private set; }
-			public int Guitar最高値 { get; private set; }
-			public int Bass最高値 { get; private set; }
-			public int Taiko最高値 { get; private set; }
+			public int P1最高値 { get; private set; }
+			public int P2最高値 { get; private set; }
+			public int P3最高値 { get; private set; }
+			public int P4最高値 { get; private set; }
 
-			private int drums;
-			private int guitar;
-			private int bass;
-			private int taiko;
+			private int p1;
+			private int p2;
+			private int p3;
+			private int p4;
 		}
 		public C演奏判定ライン座標共通 演奏判定ライン座標
 		{
@@ -153,8 +153,6 @@ namespace DTXMania
 		protected const int nドラムコンボの文字間隔 = -6;
 		protected int[] nジャンプ差分値 = new int[ 180 ];
 		protected CSTATUS status;
-		protected CTexture txCOMBOギター;
-		protected CTexture txCOMBOドラム;
         protected CTexture txCOMBO太鼓;
         protected CTexture txCOMBO太鼓_でかいやつ;
         protected CTexture txコンボラメ;
@@ -177,10 +175,10 @@ namespace DTXMania
 
 		protected class CSTATUS
 		{
-			public CSTAT Bass = new CSTAT();
-			public CSTAT Drums = new CSTAT();
-			public CSTAT Guitar = new CSTAT();
-			public CSTAT Taiko = new CSTAT();
+			public CSTAT P1 = new CSTAT();
+			public CSTAT P2 = new CSTAT();
+			public CSTAT P3 = new CSTAT();
+			public CSTAT P4 = new CSTAT();
 			public CSTAT this[ int index ]
 			{
 				get
@@ -188,16 +186,16 @@ namespace DTXMania
 					switch( index )
 					{
 						case 0:
-							return this.Drums;
+							return this.P1;
 
 						case 1:
-							return this.Guitar;
+                            return this.P2;
 
 						case 2:
-							return this.Bass;
+							return this.P3;
 
 						case 3:
-							return this.Taiko;
+							return this.P4;
 					}
 					throw new IndexOutOfRangeException();
 				}
@@ -206,19 +204,19 @@ namespace DTXMania
 					switch( index )
 					{
 						case 0:
-							this.Drums = value;
+							this.P1 = value;
 							return;
 
 						case 1:
-							this.Guitar = value;
+							this.P2 = value;
 							return;
 
 						case 2:
-							this.Bass = value;
+							this.P3 = value;
 							return;
 
 						case 3:
-							this.Taiko = value;
+							this.P4 = value;
 							return;
 					}
 					throw new IndexOutOfRangeException();
@@ -258,7 +256,7 @@ namespace DTXMania
 		{
 		}
 
-      	protected virtual void tコンボ表示_太鼓( int nCombo値, int nジャンプインデックス )
+      	protected virtual void tコンボ表示_太鼓( int nCombo値, int nジャンプインデックス, int nPlayer )
 		{
             //nCombo値 = 1145;
 			#region [ 事前チェック。]
@@ -295,14 +293,12 @@ namespace DTXMania
 
 
             //X右座標を元にして、右座標 - ( コンボの幅 * 桁数 ) でX座標を求めていく?
-            int nX右端px = 1280;
 
-
-            int nX中央位置px = 1138;
 			int nY上辺位置px = CDTXMania.ConfigIni.bReverse.Drums ? 350 : 10;
 			int n数字とCOMBOを合わせた画像の全長px = ( ( 44 ) * n桁数 );
 			int x = 245 + ( n数字とCOMBOを合わせた画像の全長px / 2 );
-			int y = 212;
+			//int y = 212;
+            int y = CDTXMania.Skin.nComboNumberY[ nPlayer ];
 
             #region[ コンボ文字 ]
             if( n桁数 <= 2 )
@@ -310,7 +306,7 @@ namespace DTXMania
                 if( this.txCOMBO太鼓 != null )
                 {
                     this.txCOMBO太鼓.vc拡大縮小倍率.Y = 1.0f;
-    		        this.txCOMBO太鼓.t2D描画( CDTXMania.app.Device, 211, 266, new Rectangle( 0, 60, 70, 34 ) );
+    		        this.txCOMBO太鼓.t2D描画( CDTXMania.app.Device, 211, CDTXMania.Skin.nComboNumberTextY[ nPlayer ], new Rectangle( 0, 60, 70, 34 ) );
                 }
             }
             else
@@ -318,7 +314,7 @@ namespace DTXMania
                 if( this.txCOMBO太鼓_でかいやつ != null )
                 {
                     this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = 1.0f;
-				    this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, 213, 263, new Rectangle( 0, 70, 70, 34 ) );
+				    this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, 213, CDTXMania.Skin.nComboNumberTextLargeY[ nPlayer ], new Rectangle( 0, 70, 70, 34 ) );
                 }
             }
             #endregion
@@ -338,7 +334,19 @@ namespace DTXMania
                         {1.0f,0},
                 };
 
-                if( n桁数 <= 2 )
+                if( n桁数 <= 1 )
+                {
+                    int nCombo中心X = 245; //仮置き
+                    int nTex横幅 = 44;
+                    int nComboPadding = -2;
+                    int[] arComboX = { nCombo中心X, nCombo中心X };
+				    if( this.txCOMBO太鼓 != null )
+				    {
+                        this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
+			          	this.txCOMBO太鼓.t2D中心基準描画( CDTXMania.app.Device, arComboX[ i ], y + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ] + 26, new Rectangle( n位の数[ i ] * 44, 0, 44, 60 ) );
+				    }
+                }
+                else if( n桁数 <= 2 )
                 {
                     int nCombo中心X = 245; //仮置き
                     int nTex横幅 = 44;
@@ -350,73 +358,74 @@ namespace DTXMania
 			          	this.txCOMBO太鼓.t2D中心基準描画( CDTXMania.app.Device, arComboX[ i ], y + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ] + 26, new Rectangle( n位の数[ i ] * 44, 0, 44, 60 ) );
 				    }
                 }
-                    else if( n桁数 == 3 )
-                    {
-                        x -= 46;
-                        int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
-                        int nラメ基準X座標 = x + ( 25 - 9 );
-				        if( this.txCOMBO太鼓_でかいやつ != null )
-				        {
-                            this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
-				        	this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, x, ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
-                        }
-                        if( this.txコンボラメ != null )
-                        {
-                            this.txコンボラメ.b加算合成 = true;
-                            if( this.ctコンボラメ.n現在の値 > 14 && this.ctコンボラメ.n現在の値 < 26 ) //1
-                            {
-                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 32) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
-                            }
-                            if( this.ctコンボラメ.n現在の値 < 13 ) //2
-                            {
-                                #region[透明度制御]
-                                if( this.ctコンボラメ.n現在の値 <= 7 ) this.txコンボラメ.n透明度 = 255;
-                                else if( this.ctコンボラメ.n現在の値 >= 8 && this.ctコンボラメ.n現在の値 <= 12 ) this.txコンボラメ.n透明度 = (int)(204 - ( 43.35 * this.ctコンボラメ.n現在の値 ));
-                                #endregion
-                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標, nラメ基準Y座標 - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
-                            }
-                            if( this.ctコンボラメ.n現在の値 > 12 && this.ctコンボラメ.n現在の値 < 19 ) //3
-                            {
-                                this.txコンボラメ.n透明度 = 255;
-                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 24) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
-                            }
-                        }
+                else if( n桁数 == 3 )
+                {
+                    x -= 46;
+                    //int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
+                    int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[ nPlayer ] - 13; //2列目のラメの始点を基準とする。
+                    int nラメ基準X座標 = x + ( 25 - 9 );
+				    if( this.txCOMBO太鼓_でかいやつ != null )
+				    {
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
+				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, x, ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
                     }
-                    else
+                    if( this.txコンボラメ != null )
                     {
-                        x -= 42;
-                        int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
-                        int nラメ基準X座標 = x + ( 25 - 9 );
-				        if( this.txCOMBO太鼓_でかいやつ != null )
-				        {
-                            this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 0.95f;
-                            this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
-				        	this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, ( x - 10 ), ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
-                            this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 1.0f;
-                        }
-                        if( this.txコンボラメ != null )
+                        this.txコンボラメ.b加算合成 = true;
+                        if( this.ctコンボラメ.n現在の値 > 14 && this.ctコンボラメ.n現在の値 < 26 ) //1
                         {
-                            this.txコンボラメ.b加算合成 = true;
-                            if( this.ctコンボラメ.n現在の値 > 14 && this.ctコンボラメ.n現在の値 < 26 ) //1
-                            {
-                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 32) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
-                            }
-                            if( this.ctコンボラメ.n現在の値 < 13 ) //2
-                            {
-                                #region[透明度制御]
-                                if( this.ctコンボラメ.n現在の値 <= 7 ) this.txコンボラメ.n透明度 = 255;
-                                else if( this.ctコンボラメ.n現在の値 >= 8 && this.ctコンボラメ.n現在の値 <= 12 ) this.txコンボラメ.n透明度 = (int)(204 - ( 43.35 * this.ctコンボラメ.n現在の値 ));
-                                #endregion
-                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標, nラメ基準Y座標 - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
-                            }
-                            if( this.ctコンボラメ.n現在の値 > 12 && this.ctコンボラメ.n現在の値 < 19 ) //3
-                            {
-                                this.txコンボラメ.n透明度 = 255;
-                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 24) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
-                            }
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 32) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                        }
+                        if( this.ctコンボラメ.n現在の値 < 13 ) //2
+                        {
+                            #region[透明度制御]
+                            if( this.ctコンボラメ.n現在の値 <= 7 ) this.txコンボラメ.n透明度 = 255;
+                            else if( this.ctコンボラメ.n現在の値 >= 8 && this.ctコンボラメ.n現在の値 <= 12 ) this.txコンボラメ.n透明度 = (int)(204 - ( 43.35 * this.ctコンボラメ.n現在の値 ));
+                            #endregion
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標, nラメ基準Y座標 - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                        }
+                        if( this.ctコンボラメ.n現在の値 > 12 && this.ctコンボラメ.n現在の値 < 19 ) //3
+                        {
+                            this.txコンボラメ.n透明度 = 255;
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 24) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
                         }
                     }
                 }
+                else
+                {
+                    x -= 42;
+                    int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
+                    int nラメ基準X座標 = x + ( 25 - 9 );
+				    if( this.txCOMBO太鼓_でかいやつ != null )
+				    {
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 0.95f;
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
+				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, ( x - 10 ), ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 1.0f;
+                    }
+                    if( this.txコンボラメ != null )
+                    {
+                        this.txコンボラメ.b加算合成 = true;
+                        if( this.ctコンボラメ.n現在の値 > 14 && this.ctコンボラメ.n現在の値 < 26 ) //1
+                        {
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 32) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                        }
+                        if( this.ctコンボラメ.n現在の値 < 13 ) //2
+                        {
+                            #region[透明度制御]
+                            if( this.ctコンボラメ.n現在の値 <= 7 ) this.txコンボラメ.n透明度 = 255;
+                            else if( this.ctコンボラメ.n現在の値 >= 8 && this.ctコンボラメ.n現在の値 <= 12 ) this.txコンボラメ.n透明度 = (int)(204 - ( 43.35 * this.ctコンボラメ.n現在の値 ));
+                            #endregion
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標, nラメ基準Y座標 - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                        }
+                        if( this.ctコンボラメ.n現在の値 > 12 && this.ctコンボラメ.n現在の値 < 19 ) //3
+                        {
+                            this.txコンボラメ.n透明度 = 255;
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 24) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                        }
+                    }
+                }
+            }
 
 			//-----------------
 			#endregion
@@ -500,7 +509,8 @@ namespace DTXMania
 			if( this.b活性化してない )
 				return 0;
 
-			for( int i = 3; i >= 0; i-- )
+			//for( int i = 3; i >= 0; i-- )
+			for( int i = 0; i < 4; i++ )
 			{
 				EEvent e今回の状態遷移イベント;
 
@@ -514,7 +524,7 @@ namespace DTXMania
 				{
 					e今回の状態遷移イベント = EEvent.ミス通知;
 				}
-				else if( ( this.status[ i ].n現在表示中のCOMBO値 < CDTXMania.ConfigIni.n表示可能な最小コンボ数[ i ] ) && ( this.status[ i ].nCOMBO値 < CDTXMania.ConfigIni.n表示可能な最小コンボ数[ i ] ) )
+				else if( ( this.status[ i ].n現在表示中のCOMBO値 < CDTXMania.ConfigIni.n表示可能な最小コンボ数.Drums ) && ( this.status[ i ].nCOMBO値 < CDTXMania.ConfigIni.n表示可能な最小コンボ数.Drums ) )
 				{
 					e今回の状態遷移イベント = EEvent.非表示;
 				}
@@ -590,11 +600,11 @@ namespace DTXMania
 						switch( i )
 						{
 							case 0:
-								this.tコンボ表示_ドラム( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値 );
+								this.tコンボ表示_太鼓( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値, 0 );
 								break;
 
 							case 1:
-								this.tコンボ表示_ギター( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値 );
+								this.tコンボ表示_太鼓( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値, 1 );
 								break;
 
 							case 2:

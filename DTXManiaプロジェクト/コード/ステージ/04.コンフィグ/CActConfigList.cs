@@ -87,6 +87,11 @@ namespace DTXMania
             //    new string[] { "OFF", "HALF", "FULL" } );
             //this.list項目リスト.Add( this.iCommonDark );
 
+            this.iTaikoPlayerCount = new CItemInteger( "Player", 1, 2, CDTXMania.ConfigIni.nPlayerCount,
+                "プレイ人数切り替え：\n2にすると演奏画面が2人プレイ専用のレイアウトになり、2P専用譜面を読み込むようになります。",
+                "" );
+            this.list項目リスト.Add( this.iTaikoPlayerCount );
+
 			this.iSystemRisky = new CItemInteger( "Risky", 0, 10, CDTXMania.ConfigIni.nRisky,
 				"Riskyモードの設定:\n1以上の値にすると、その回数分の\nPoor/MissでFAILEDとなります。\n0にすると無効になり、\nDamageLevelに従ったゲージ増減と\nなります。\nStageFailedの設定と併用できます。",
 				"Risky mode:\nSet over 1, in case you'd like to specify\n the number of Poor/Miss times to be\n FAILED.\nSet 0 to disable Risky mode." );
@@ -502,6 +507,13 @@ namespace DTXMania
 				" automatically." );
 			this.list項目リスト.Add( this.iTaikoAutoPlay );
 
+			this.iTaikoAutoPlay2P = new CItemToggle( "AUTO PLAY 2P", CDTXMania.ConfigIni.b太鼓パートAutoPlay,
+				"すべての音符を自動で演奏します。\n" +
+				"",
+				"To play both Taiko\n" +
+				" automatically." );
+			this.list項目リスト.Add( this.iTaikoAutoPlay2P );
+
 			this.iTaikoAutoRoll = new CItemToggle( "AUTO Roll", CDTXMania.ConfigIni.bAuto先生の連打,
 				"OFFにするとAUTO先生が黄色連打を\n" +
 				"叩かなくなります。",
@@ -620,14 +632,15 @@ namespace DTXMania
 
 			this.iTaikoRandom = new CItemList( "Random", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eRandom.Taiko,
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
-				"Guitar chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
+				"Notes come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" } );
 			this.list項目リスト.Add( this.iTaikoRandom );
 
 			this.iTaikoStealth = new CItemList( "Stealth", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eSTEALTH,
 				"DORON:ドロン\n"+
                 "STEALTH:ステルス",
-				"Guitar chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
+				"DORON:Hidden for NoteImage.\n"+
+                "STEALTH:Hidden for NoteImage and SeNotes",
 				new string[] { "OFF", "DORON", "STEALTH" } );
 			this.list項目リスト.Add( this.iTaikoStealth );
 
@@ -736,6 +749,7 @@ namespace DTXMania
 
             this.iTaikoGameMode = new CItemList("GameMode", CItemBase.Eパネル種別.通常, (int)CDTXMania.ConfigIni.eGameMode,
                 "ゲームモード\n" +
+                "(1人プレイ専用)\n" +
                 "TYPE-A: 完走!叩ききりまショー!\n" +
                 "TYPE-B: 完走!叩ききりまショー!(激辛)\n" +
                 " \n",
@@ -995,6 +1009,24 @@ namespace DTXMania
 				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.RBlue );
 			}
 
+            //太鼓のキー設定。2P
+			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed2P )
+			{
+				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LRed2P );
+			}
+			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRRed2P )
+			{
+				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.RRed2P );
+			}
+			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLBlue2P )
+			{
+				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LBlue2P );
+			}
+			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRBlue2P )
+			{
+				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.RBlue2P );
+			}
+
 			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignSystemCapture )
 			{
 				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.SYSTEM, EKeyConfigPad.Capture);
@@ -1229,7 +1261,24 @@ namespace DTXMania
             this.iKeyAssignTaikoRBlue = new CItemBase( "RightBlue",
                 "右側のふちへのキーの\n割り当てを設定します。",
 				"Drums key assign:\nTo assign key/pads for LeftBassDrum\n button." );
-			this.list項目リスト.Add( this.iKeyAssignTaikoRBlue );	
+			this.list項目リスト.Add( this.iKeyAssignTaikoRBlue );
+
+			this.iKeyAssignTaikoLRed2P = new CItemBase( "LeftRed2P",
+				"左側の面へのキーの割り当てを設\n定します。",
+				"Drums key assign:\nTo assign key/pads for RightCymbal\n button.");
+			this.list項目リスト.Add( this.iKeyAssignTaikoLRed2P );
+			this.iKeyAssignTaikoRRed2P = new CItemBase( "RightRed2P",
+			    "右側の面へのキーの割り当て\nを設定します。",
+				"Drums key assign:\nTo assign key/pads for RideCymbal\n button.");
+			this.list項目リスト.Add( this.iKeyAssignTaikoRRed2P );
+			this.iKeyAssignTaikoLBlue2P = new CItemBase( "LeftBlue2P",
+				"左側のふちへのキーの\n割り当てを設定します。",	
+				"Drums key assign:\nTo assign key/pads for HiHatPedal\n button." );
+			this.list項目リスト.Add( this.iKeyAssignTaikoLBlue2P );
+            this.iKeyAssignTaikoRBlue2P = new CItemBase( "RightBlue2P",
+                "右側のふちへのキーの\n割り当てを設定します。",
+				"Drums key assign:\nTo assign key/pads for LeftBassDrum\n button." );
+			this.list項目リスト.Add( this.iKeyAssignTaikoRBlue2P );
 
 
 			this.n現在の選択項目 = 0;
@@ -1829,6 +1878,10 @@ namespace DTXMania
 		private CItemBase iKeyAssignTaikoRRed;
 		private CItemBase iKeyAssignTaikoLBlue;
 		private CItemBase iKeyAssignTaikoRBlue;
+		private CItemBase iKeyAssignTaikoLRed2P;
+		private CItemBase iKeyAssignTaikoRRed2P;
+		private CItemBase iKeyAssignTaikoLBlue2P;
+		private CItemBase iKeyAssignTaikoRBlue2P;
 
 		#endregion
 		private CItemToggle iLogOutputLog;
@@ -1961,6 +2014,7 @@ namespace DTXMania
         private CItemToggle iDrumsComboDisp;
 
         private CItemToggle iTaikoAutoPlay;
+        private CItemToggle iTaikoAutoPlay2P;
         private CItemToggle iTaikoAutoRoll;
         private CItemToggle iTaikoBranchGuide;
         private CItemList iTaikoDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
@@ -1976,6 +2030,7 @@ namespace DTXMania
         private CItemToggle iTaikoJust;
         private CItemToggle iTaikoJudgeCountDisp;
         private CItemToggle iTaikoBigNotesJudge;
+        private CItemInteger iTaikoPlayerCount;
 
 		//private CItemToggle iGuitarAutoPlay;
 		private CItemThreeState iGuitarAutoPlayAll;			// #23886 2012.5.8 yyagi
@@ -2127,6 +2182,7 @@ namespace DTXMania
 			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度 = (E判定表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
             CDTXMania.ConfigIni.bAutoSection = this.iTaikoAutoSection.bON;
+            CDTXMania.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
 		}
 		private void tConfigIniへ記録する_Bass()
 		{
@@ -2169,6 +2225,7 @@ namespace DTXMania
             //CDTXMania.ConfigIni.bAutoPlay.LP = this.iDrumsLeftPedal.bON;
             //CDTXMania.ConfigIni.bAutoPlay.LBD = this.iDrumsLeftBassDrum.bON;
             CDTXMania.ConfigIni.b太鼓パートAutoPlay = this.iTaikoAutoPlay.bON;
+            CDTXMania.ConfigIni.b太鼓パートAutoPlay2P = this.iTaikoAutoPlay2P.bON;
             CDTXMania.ConfigIni.bAuto先生の連打 = this.iTaikoAutoRoll.bON;
 
 			CDTXMania.ConfigIni.n譜面スクロール速度.Drums = this.iDrumsScrollSpeed.n現在の値;

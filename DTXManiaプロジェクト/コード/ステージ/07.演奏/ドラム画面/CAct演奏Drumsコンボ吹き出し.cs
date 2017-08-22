@@ -75,42 +75,43 @@ namespace DTXMania
 
                 if( this.tx吹き出し本体 != null )
                 {
-                    //半透明4f
-                    if( this.ct進行.n現在の値 == 1 || this.ct進行.n現在の値 == 103 )
+                    for( int i = 0; i < 2; i++ )
                     {
-                        this.tx吹き出し本体.n透明度 = 64;
-                        this.tx数字.n透明度 = 64;
-                    }
-                    else if( this.ct進行.n現在の値 == 2 || this.ct進行.n現在の値 == 102 )
-                    {
-                        this.tx吹き出し本体.n透明度 = 128;
-                        this.tx数字.n透明度 = 128;
-                    }
-                    else if( this.ct進行.n現在の値 == 3 || this.ct進行.n現在の値 == 101 )
-                    {
-                        this.tx吹き出し本体.n透明度 = 192;
-                        this.tx数字.n透明度 = 192;
-                    }
-                    else if( this.ct進行.n現在の値 >= 4 && this.ct進行.n現在の値 <= 100 )
-                    {
-                        this.tx吹き出し本体.n透明度 = 255;
-                        this.tx数字.n透明度 = 255;
-                    }
-
-
-
-                    if( this.ct進行.b進行中 )
-                    {
-                        this.tx吹き出し本体.t2D描画( CDTXMania.app.Device, 253, -11 );
-                        if( this.nCombo_渡 < 1000 ) //2016.08.23 kairera0467 仮実装。
+                        //半透明4f
+                        if( this.ct進行.n現在の値 == 1 || this.ct進行.n現在の値 == 103 )
                         {
-                            this.t小文字表示( 312, 34, string.Format( "{0,4:###0}", this.nCombo_渡 ) );
-                            this.tx数字.t2D描画( CDTXMania.app.Device, 471, 55, new Rectangle( 0, 54, 77, 32 ) );
+                            this.tx吹き出し本体.n透明度 = 64;
+                            this.tx数字.n透明度 = 64;
                         }
-                        else
+                        else if( this.ct進行.n現在の値 == 2 || this.ct進行.n現在の値 == 102 )
                         {
-                            this.t小文字表示( 335, 34, string.Format( "{0,4:###0}", this.nCombo_渡 ) );
-                            this.tx数字.t2D描画( CDTXMania.app.Device, 494, 55, new Rectangle( 0, 54, 77, 32 ) );
+                            this.tx吹き出し本体.n透明度 = 128;
+                            this.tx数字.n透明度 = 128;
+                        }
+                        else if( this.ct進行.n現在の値 == 3 || this.ct進行.n現在の値 == 101 )
+                        {
+                            this.tx吹き出し本体.n透明度 = 192;
+                            this.tx数字.n透明度 = 192;
+                        }
+                        else if( this.ct進行.n現在の値 >= 4 && this.ct進行.n現在の値 <= 100 )
+                        {
+                            this.tx吹き出し本体.n透明度 = 255;
+                            this.tx数字.n透明度 = 255;
+                        }
+
+                        if( this.ct進行.b進行中 )
+                        {
+                            this.tx吹き出し本体.t2D描画( CDTXMania.app.Device, 253, -11 );
+                            if( this.nCombo_渡 < 1000 ) //2016.08.23 kairera0467 仮実装。
+                            {
+                                this.t小文字表示( 312, 34, string.Format( "{0,4:###0}", this.nCombo_渡 ) );
+                                this.tx数字.t2D描画( CDTXMania.app.Device, 471, 55, new Rectangle( 0, 54, 77, 32 ) );
+                            }
+                            else
+                            {
+                                this.t小文字表示( 335, 34, string.Format( "{0,4:###0}", this.nCombo_渡 ) );
+                                this.tx数字.t2D描画( CDTXMania.app.Device, 494, 55, new Rectangle( 0, 54, 77, 32 ) );
+                            }
                         }
                     }
                 }

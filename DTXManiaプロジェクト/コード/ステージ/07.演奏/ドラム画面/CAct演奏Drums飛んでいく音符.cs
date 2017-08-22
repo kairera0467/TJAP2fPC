@@ -19,7 +19,7 @@ namespace DTXMania
 		
 		
 		// メソッド
-        public virtual void Start( int nLane )
+        public virtual void Start( int nLane, int nPlayer )
 		{
             if (this.tx音符 != null)
             {
@@ -33,12 +33,13 @@ namespace DTXMania
                             int n回転初期値 = 1;
                             double num7 = 1.1 + (1 / 100.0); // 拡散の大きさ
                             this.st飛び散るチップ[j].nLane = (int)nLane;
+                            this.st飛び散るチップ[j].nPlayer = nPlayer;
                             this.st飛び散るチップ[j].ct進行 = new CCounter(0, 82, 5, CDTXMania.Timer); // カウンタ
 
                             this.st飛び散るチップ[j].fXL = (414 - 640) + (130 / 2); //X座標
                             this.st飛び散るチップ[j].fXR = (414 - 640) + (130 / 2); //X座標
 
-                            this.st飛び散るチップ[j].fY = (257 - 360);
+                            this.st飛び散るチップ[j].fY = nPlayer == 0 ? (257 - 360) : ( 470 - 360 );
                             this.st飛び散るチップ[j].f加速度X = (float)(num7 * Math.Cos((Math.PI * 2 * n回転初期値) / 360.0) + 2.53);
                             this.st飛び散るチップ[j].f加速度Y = (float)(num7 * (Math.Sin((Math.PI * 2 * n回転初期値) / 360.0) - 1.3));
                             this.st飛び散るチップ[j].f加速度の加速度X = 1.00145f;
@@ -162,8 +163,6 @@ namespace DTXMania
                             this.st虹[f].b使用中 = false;
                         }
 
-
-
                         if (this.tx虹 != null)
                         {
                             //this.st虹[f].ct進行.n現在の値 = 164;
@@ -186,9 +185,9 @@ namespace DTXMania
 
                 for (int i = 0; i < 64; i++)
                 {
-                    if( CDTXMania.Skin.nScrollFieldX > 414 + 4 )
+                    if( CDTXMania.Skin.nScrollFieldX[0] > 414 + 4 )
                         break;
-                    if( CDTXMania.Skin.nScrollFieldX < 414 - 4 )
+                    if( CDTXMania.Skin.nScrollFieldX[0] < 414 - 4 )
                         break;
 
                     if (this.st飛び散るチップ[i].b使用中)
@@ -202,15 +201,26 @@ namespace DTXMania
                         }
                         for (int n = this.st飛び散るチップ[i].n前回のValue; n < this.st飛び散るチップ[i].ct進行.n現在の値; n++)
                         {
+                            if( this.st飛び散るチップ[i].nPlayer == 0 )
+                            {
+                                this.st飛び散るチップ[i].fXL += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((120.0 * Math.PI / 180.0))) * 5);
+                                this.st飛び散るチップ[i].fXR += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((60.0 * Math.PI / 180.0))) * 5);
 
-                            this.st飛び散るチップ[i].fXL += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((120.0 * Math.PI / 180.0))) * 5);
-                            this.st飛び散るチップ[i].fXR += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((60.0 * Math.PI / 180.0))) * 5);
+                                this.st飛び散るチップ[i].fY += (float)((this.st飛び散るチップ[i].f加速度Y * Math.Sin((60.0 * Math.PI / 180.0))) * 10.0f - Math.Exp(this.st飛び散るチップ[i].f重力加速度 * 2.0f) / 2.0f);
+                                this.st飛び散るチップ[i].f加速度X *= this.st飛び散るチップ[i].f加速度の加速度X;
+                                //this.st飛び散るチップ[i].fY *= this.st飛び散るチップ[i].f加速度Y;
+                                this.st飛び散るチップ[i].f加速度Y += this.st飛び散るチップ[i].f重力加速度;
+                            }
+                            else if( this.st飛び散るチップ[i].nPlayer == 1 )
+                            {
+                                this.st飛び散るチップ[i].fXL += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((120.0 * Math.PI / 180.0))) * 5);
+                                this.st飛び散るチップ[i].fXR += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((60.0 * Math.PI / 180.0))) * 5);
 
-                            this.st飛び散るチップ[i].fY += (float)((this.st飛び散るチップ[i].f加速度Y * Math.Sin((60.0 * Math.PI / 180.0))) * 10.0f - Math.Exp(this.st飛び散るチップ[i].f重力加速度 * 2.0f) / 2.0f);
-                            this.st飛び散るチップ[i].f加速度X *= this.st飛び散るチップ[i].f加速度の加速度X;
-                            //this.st飛び散るチップ[i].fY *= this.st飛び散るチップ[i].f加速度Y;
-                            this.st飛び散るチップ[i].f加速度Y += this.st飛び散るチップ[i].f重力加速度;
-
+                                this.st飛び散るチップ[i].fY -= (float)((this.st飛び散るチップ[i].f加速度Y * Math.Sin((60.0 * Math.PI / 180.0))) * 10.0f - Math.Exp(this.st飛び散るチップ[i].f重力加速度 * 2.0f) / 2.0f);
+                                this.st飛び散るチップ[i].f加速度X *= this.st飛び散るチップ[i].f加速度の加速度X;
+                                //this.st飛び散るチップ[i].fY *= this.st飛び散るチップ[i].f加速度Y;
+                                this.st飛び散るチップ[i].f加速度Y += this.st飛び散るチップ[i].f重力加速度;
+                            }
                         }
 
                         //Matrix mat = Matrix.Identity;
@@ -229,7 +239,7 @@ namespace DTXMania
 
                         if( this.st飛び散るチップ[ i ].ct進行.b終了値に達した )
                         {
-                            CDTXMania.stage演奏ドラム画面.actGauge.Start( this.st飛び散るチップ[i].nLane, E判定.Perfect );
+                            CDTXMania.stage演奏ドラム画面.actGauge.Start( this.st飛び散るチップ[i].nLane, E判定.Perfect, this.st飛び散るチップ[i].nPlayer );
                         }
                     }
 
@@ -294,6 +304,7 @@ namespace DTXMania
         private struct ST飛び散るチップ
         {
             public int nLane;
+            public int nPlayer;
             public bool b使用中;
             public CCounter ct進行;
             public int n前回のValue;
@@ -317,6 +328,7 @@ namespace DTXMania
         private struct ST虹
         {
             public bool b使用中;
+            public int nPlayer;
             public CCounter ct進行;
             public float fX;
         }

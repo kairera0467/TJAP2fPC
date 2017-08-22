@@ -92,18 +92,33 @@ namespace DTXMania
 		{
 			get
 			{
-				return this.db現在のゲージ値.Drums;
+				return this.db現在のゲージ値[ 0 ];
 			}
 			set
 			{
-				this.db現在のゲージ値.Drums = value;
-				if ( this.db現在のゲージ値.Drums > GAUGE_MAX )
+				this.db現在のゲージ値[ 0 ] = value;
+				if ( this.db現在のゲージ値[ 0 ] > GAUGE_MAX )
 				{
-					this.db現在のゲージ値.Drums = GAUGE_MAX;
+					this.db現在のゲージ値[ 0 ] = GAUGE_MAX;
 				}
 			}
 		}
 
+		public double dbゲージ値2P	// Drums専用
+		{
+			get
+			{
+				return this.db現在のゲージ値[ 1 ];
+			}
+			set
+			{
+				this.db現在のゲージ値[ 1 ] = value;
+				if ( this.db現在のゲージ値[ 1 ] > GAUGE_MAX )
+				{
+					this.db現在のゲージ値[ 1 ] = GAUGE_MAX;
+				}
+			}
+		}
 
 		/// <summary>
 		/// ゲージの初期化
@@ -289,10 +304,10 @@ namespace DTXMania
 #endregion
 #endif
 
-		public void Damage( E楽器パート screenmode, E楽器パート part, E判定 e今回の判定 )
+		public void Damage( E楽器パート screenmode, E楽器パート part, E判定 e今回の判定, int player )
 		{
 			float fDamage;
-            int nコース = CDTXMania.stage演奏ドラム画面.n現在のコース;
+            int nコース = CDTXMania.stage演奏ドラム画面.n現在のコース[ player ];
 
 
 #if true	// DAMAGELEVELTUNING
@@ -347,7 +362,7 @@ namespace DTXMania
 
 				default:
                     {
-                        if( CDTXMania.ConfigIni.b太鼓パートAutoPlay )
+                        if( player == 0 ? CDTXMania.ConfigIni.b太鼓パートAutoPlay : CDTXMania.ConfigIni.b太鼓パートAutoPlay2P )
                         {
                             if( CDTXMania.DTX.bチップがある.Branch )
                             {
@@ -407,24 +422,24 @@ namespace DTXMania
 #endif
             
 
-			if( this.db現在のゲージ値[ (int) part ] > 100.0 )
-				this.db現在のゲージ値[ (int) part ] = 100.0;
-            else if( this.db現在のゲージ値[ (int) part ] < 0.0 )
-                this.db現在のゲージ値[ (int) part ] = 0.0;
+			if( this.db現在のゲージ値[ player ] > 100.0 )
+				this.db現在のゲージ値[ player ] = 100.0;
+            else if( this.db現在のゲージ値[ player ] < 0.0 )
+                this.db現在のゲージ値[ player ] = 0.0;
 
-            this.db現在のゲージ値.Taiko = Math.Round(this.db現在のゲージ値.Taiko + fDamage, 5, MidpointRounding.ToEven);
+            this.db現在のゲージ値[ player ] = Math.Round(this.db現在のゲージ値[ player ] + fDamage, 5, MidpointRounding.ToEven);
             CDTXMania.stage演奏ドラム画面.nGauge = fDamage;
 
 		}
 
-        public virtual void Start(int nLane, E判定 judge)
+        public virtual void Start(int nLane, E判定 judge, int player)
         {
         }
 
 		//-----------------
 		#endregion
 
-		public STDGBVALUE<double> db現在のゲージ値;
+		public double[] db現在のゲージ値 = new double[ 4 ];
 		protected CCounter ct本体移動;
 		protected CCounter ct本体振動;
         protected CCounter ctマスク透明度タイマー;
@@ -432,6 +447,8 @@ namespace DTXMania
         protected CCounter ct虹アニメ;
 		protected CTexture txゲージ;
         protected CTexture txゲージ背景;
+		protected CTexture txゲージ2P;
+        protected CTexture txゲージ背景2P;
         protected CTexture txゲージマスクMAX;
         protected CTexture txゲージマスクDANGER;
         protected CTexture tx魂;
@@ -439,6 +456,8 @@ namespace DTXMania
         protected CTexture tx魂花火;
 
         protected CTexture[] txゲージ虹 = new CTexture[ 12 ];
+        protected CTexture[] txゲージ虹2P = new CTexture[ 12 ];
         protected CTexture txゲージ線;
+        protected CTexture txゲージ線2P;
 	}
 }

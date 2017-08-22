@@ -66,8 +66,13 @@ namespace DTXMania
 
         public override void On活性化()
         {
-            this.ct連打枠カウンター = new CCounter();
-            this.b表示 = false;
+            this.ct連打枠カウンター = new CCounter[ 4 ];
+            for( int i = 0; i < 4; i++ )
+            {
+                this.ct連打枠カウンター[ i ] = new CCounter();
+            }
+            this.b表示 = new bool[]{ false, false, false, false };
+            this.n連打数 = new int[ 4 ];
             base.On活性化();
         }
 
@@ -97,30 +102,31 @@ namespace DTXMania
             return base.On進行描画();
         }
 
-        public int On進行描画( int n連打数 )
+        public int On進行描画( int n連打数, int player )
         {
-            this.ct連打枠カウンター.t進行();
+            this.ct連打枠カウンター[ player ].t進行();
 
-            if( this.ct連打枠カウンター.b終了値に達してない | this.b表示 )
+            //1PY:-3 2PY:514
+
+            if( this.ct連打枠カウンター[ player ].b終了値に達してない | this.b表示[ player ] )
             {
-                this.tx連打枠.t2D描画( CDTXMania.app.Device, 217, -3 );
+                this.tx連打枠.t2D描画( CDTXMania.app.Device, 217, player == 0 ? -3 : 514 );
                 this.t文字表示( 330 + 62, 48, n連打数.ToString(), n連打数 );
             }
-
 
 
             return base.On進行描画();
         }
 
-        public void t枠表示時間延長()
+        public void t枠表示時間延長( int player )
         {
-            this.ct連打枠カウンター = new CCounter( 0, 999, 2, CDTXMania.Timer );
+            this.ct連打枠カウンター[ player ] = new CCounter( 0, 999, 2, CDTXMania.Timer );
         }
 
 
-        public bool b表示;
-        public int n連打数;
-        public CCounter ct連打枠カウンター;
+        public bool[] b表示;
+        public int[] n連打数;
+        public CCounter[] ct連打枠カウンター;
         private CTexture tx連打枠;
         private CTexture tx連打数字;
         private readonly ST文字位置[] st文字位置;

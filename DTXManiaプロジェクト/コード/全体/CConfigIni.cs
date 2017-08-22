@@ -282,6 +282,50 @@ namespace DTXMania
 						this.padRBlue = value;
 					}
                 }
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed2P
+				{
+					get
+					{
+						return this.padLRed2P;
+					}
+					set
+					{
+						this.padLRed2P = value;
+					}
+				}
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed2P
+				{
+					get
+					{
+						return this.padRRed2P;
+					}
+					set
+					{
+						this.padRRed2P = value;
+					}
+				}
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue2P
+				{
+					get
+					{
+						return this.padLBlue2P;
+					}
+					set
+					{
+						this.padLBlue2P = value;
+					}
+				}
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue2P
+				{
+					get
+					{
+						return this.padRBlue2P;
+					}
+					set
+					{
+						this.padRBlue2P = value;
+					}
+                }
 				public CConfigIni.CKeyAssign.STKEYASSIGN[] this[ int index ]
 				{
 					get
@@ -335,6 +379,18 @@ namespace DTXMania
 
 							case (int) EKeyConfigPad.RBlue:
 								return this.padRBlue;
+
+							case (int) EKeyConfigPad.LRed2P:
+								return this.padLRed2P;
+
+							case (int) EKeyConfigPad.RRed2P:
+								return this.padRRed2P;
+
+							case (int) EKeyConfigPad.LBlue2P:
+								return this.padLBlue2P;
+
+							case (int) EKeyConfigPad.RBlue2P:
+								return this.padRBlue2P;
 
 							case (int) EKeyConfigPad.Capture:
 								return this.padCapture;
@@ -409,6 +465,22 @@ namespace DTXMania
                                 this.padRBlue = value;
                                 return;
 
+                            case (int) EKeyConfigPad.LRed2P:
+                                this.padLRed2P = value;
+                                return;
+
+                            case (int) EKeyConfigPad.RRed2P:
+                                this.padRRed2P = value;
+                                return;
+                                
+                            case (int) EKeyConfigPad.LBlue2P:
+                                this.padLBlue2P = value;
+                                return;
+
+                            case (int) EKeyConfigPad.RBlue2P:
+                                this.padRBlue2P = value;
+                                return;
+
 							case (int) EKeyConfigPad.Capture:
 								this.padCapture = value;
 								return;
@@ -435,6 +507,11 @@ namespace DTXMania
 				private CConfigIni.CKeyAssign.STKEYASSIGN[] padLBlue;
 				private CConfigIni.CKeyAssign.STKEYASSIGN[] padRRed;
 				private CConfigIni.CKeyAssign.STKEYASSIGN[] padRBlue;
+				private CConfigIni.CKeyAssign.STKEYASSIGN[] padLRed2P;
+				private CConfigIni.CKeyAssign.STKEYASSIGN[] padLBlue2P;
+				private CConfigIni.CKeyAssign.STKEYASSIGN[] padRRed2P;
+				private CConfigIni.CKeyAssign.STKEYASSIGN[] padRBlue2P;
+
 				private CConfigIni.CKeyAssign.STKEYASSIGN[] padCapture;
 				//-----------------
 				#endregion
@@ -588,9 +665,10 @@ namespace DTXMania
         public int nScoreMode;
         public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
 
-        public bool bSession;
 
+        public int nPlayerCount; //2017.08.18 kairera0467 マルチプレイ対応
         public bool b太鼓パートAutoPlay;
+        public bool b太鼓パートAutoPlay2P; //2017.08.16 kairera0467 マルチプレイ対応
         public bool bAuto先生の連打;
         public bool bAutoSection;
         public bool b大音符判定;
@@ -1187,28 +1265,9 @@ namespace DTXMania
 			this.n演奏速度 = 20;
 			#region [ AutoPlay ]
 			this.bAutoPlay = new STAUTOPLAY();
-			this.bAutoPlay.HH = false;
-			this.bAutoPlay.SD = false;
-			this.bAutoPlay.BD = false;
-			this.bAutoPlay.HT = false;
-			this.bAutoPlay.LT = false;
-			this.bAutoPlay.FT = false;
-			this.bAutoPlay.CY = false;
-			this.bAutoPlay.LC = false;
-			//this.bAutoPlay.Guitar = true;
-			//this.bAutoPlay.Bass = true;
-			this.bAutoPlay.GtR = true;
-			this.bAutoPlay.GtG = true;
-			this.bAutoPlay.GtB = true;
-			this.bAutoPlay.GtPick = true;
-			this.bAutoPlay.GtW = true;
-			this.bAutoPlay.BsR = true;
-			this.bAutoPlay.BsG = true;
-			this.bAutoPlay.BsB = true;
-			this.bAutoPlay.BsPick = true;
-			this.bAutoPlay.BsW = true;
 
             this.b太鼓パートAutoPlay = true;
+            this.b太鼓パートAutoPlay2P = true;
             this.bAuto先生の連打 = true;
 			#endregion
 			this.nヒット範囲ms = new STRANGE();
@@ -1302,6 +1361,7 @@ namespace DTXMania
             this.nDefaultSongSort = 0;
             this.eGameMode = EGame.OFF;
             this.bEndingAnime = false;
+            this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;
@@ -1895,6 +1955,7 @@ namespace DTXMania
 			sw.WriteLine();
 			sw.WriteLine( "; 自動演奏(0:OFF, 1:ON)" );
             sw.WriteLine( "Taiko={0}", this.b太鼓パートAutoPlay ? 1 : 0 );
+            sw.WriteLine( "Taiko2P={0}", this.b太鼓パートAutoPlay2P ? 1 : 0 );
             sw.WriteLine( "TaikoAutoRoll={0}", this.bAuto先生の連打 ? 1 : 0 );
             sw.WriteLine();
 			sw.WriteLine( ";-------------------" );
@@ -1989,6 +2050,18 @@ namespace DTXMania
 			sw.WriteLine();											//
 			sw.Write( "RightBlue=" );										// #27029 2012.1.4 from
 			this.tキーの書き出し( sw, this.KeyAssign.Drums.RightBlue );	//
+			sw.WriteLine();
+			sw.Write( "LeftRed2P=" );
+			this.tキーの書き出し( sw, this.KeyAssign.Drums.LeftRed2P );
+			sw.WriteLine();
+			sw.Write( "RightRed2P=" );
+			this.tキーの書き出し( sw, this.KeyAssign.Drums.RightRed2P );
+			sw.WriteLine();
+			sw.Write( "LeftBlue2P=" );										// #27029 2012.1.4 from
+			this.tキーの書き出し( sw, this.KeyAssign.Drums.LeftBlue2P );	//
+			sw.WriteLine();											        //
+			sw.Write( "RightBlue2P=" );										// #27029 2012.1.4 from
+			this.tキーの書き出し( sw, this.KeyAssign.Drums.RightBlue2P );	//
 			sw.WriteLine();
 			sw.WriteLine();
 			#endregion
@@ -2992,6 +3065,10 @@ namespace DTXMania
 										{
 											this.b太鼓パートAutoPlay = C変換.bONorOFF( str4[ 0 ] );
 										}
+										else if ( str3.Equals( "Taiko2P" ) )
+										{
+											this.b太鼓パートAutoPlay2P = C変換.bONorOFF( str4[ 0 ] );
+										}
 										else if ( str3.Equals( "TaikoAutoRoll" ) )
 										{
 											this.bAuto先生の連打 = C変換.bONorOFF( str4[ 0 ] );
@@ -3102,6 +3179,23 @@ namespace DTXMania
 											else if( str3.Equals( "RightBlue" ) )										// #27029 2012.1.4 from
 											{																	//
 												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.RightBlue );	//
+											}
+
+											else if( str3.Equals( "LeftRed2P" ) )
+											{
+												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.LeftRed2P );
+											}
+											else if( str3.Equals( "RightRed2P" ) )
+											{
+												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.RightRed2P );
+											}
+											else if( str3.Equals( "LeftBlue2P" ) )										// #27029 2012.1.4 from
+											{																	//
+												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.LeftBlue2P );	//
+											}																	//
+											else if( str3.Equals( "RightBlue2P" ) )										// #27029 2012.1.4 from
+											{																	//
+												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.RightBlue2P );	//
 											}
 
 											continue;
@@ -3387,6 +3481,10 @@ LeftRed=K015
 RightRed=K019
 LeftBlue=K013
 RightBlue=K020
+LeftRed2P=
+RightRed2P=
+LeftBlue2P=
+RightBlue2P=
 
 [GuitarKeyAssign]
 

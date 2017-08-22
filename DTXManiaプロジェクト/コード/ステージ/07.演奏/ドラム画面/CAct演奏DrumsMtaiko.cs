@@ -28,7 +28,7 @@ namespace DTXMania
 
         public override void On活性化()
         {
-			for( int i = 0; i < 4; i++ )
+			for( int i = 0; i < 16; i++ )
 			{
 				STパッド状態 stパッド状態 = new STパッド状態();
 				stパッド状態.n明るさ = 0;
@@ -66,9 +66,15 @@ namespace DTXMania
             {
                 this.txコースシンボル[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( this.strCourseSymbolFileName[ i ] ) );
             }
+            this.ctレベルアップダウン = new CCounter[ 4 ];
+            this.After = new int[ 4 ];
+            this.Before = new int[ 4 ];
+            for( int i = 0; i < 4; i++ )
+            {
+                //this.ctレベルアップダウン = new CCounter( 0, 1000, 1, CDTXMania.Timer );
+                this.ctレベルアップダウン[ i ] = new CCounter();
+            }
 
-            //this.ctレベルアップダウン = new CCounter( 0, 1000, 1, CDTXMania.Timer );
-            this.ctレベルアップダウン = new CCounter();
 
             base.OnManagedリソースの作成();
         }
@@ -119,7 +125,7 @@ namespace DTXMania
 			}
 			while( ( num - this.nフラッシュ制御タイマ ) >= 30 )
 			{
-				for( int j = 0; j < 4; j++ )
+				for( int j = 0; j < 16; j++ )
 				{
 					if( this.stパッド状態[ j ].n明るさ > 0 )
 					{
@@ -164,206 +170,168 @@ namespace DTXMania
                 this.tx太鼓_面R.t2D描画( CDTXMania.app.Device, 169 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
             }
 
+            if( this.tx太鼓_面L != null && this.tx太鼓_面R != null && this.tx太鼓_ふちL != null && this.tx太鼓_ふちR != null )
+            {
+                this.tx太鼓_ふちL.n透明度 = this.stパッド状態[4].n明るさ * 43;
+                this.tx太鼓_ふちR.n透明度 = this.stパッド状態[5].n明るさ * 43;
+                this.tx太鼓_面L.n透明度 = this.stパッド状態[6].n明るさ * 43;
+                this.tx太鼓_面R.n透明度 = this.stパッド状態[7].n明るさ * 43;
+            
+                this.tx太鼓_ふちL.t2D描画( CDTXMania.app.Device, 169, 366, new Rectangle( 0, 0, 76, 164 ) );
+                this.tx太鼓_ふちR.t2D描画( CDTXMania.app.Device, 169 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
+                this.tx太鼓_面L.t2D描画( CDTXMania.app.Device, 169, 366, new Rectangle( 0, 0, 76, 164 ) );
+                this.tx太鼓_面R.t2D描画( CDTXMania.app.Device, 169 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
+            }
+
+            int[] nLVUPY = new int[] { 127, 127, 0, 0 };
+
             //if( this.txネームプレート != null )
             //    this.txネームプレート.t2D描画( CDTXMania.app.Device, 314, 19 );
-            
-            if( !this.ctレベルアップダウン.b停止中 )
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                this.ctレベルアップダウン.t進行();
-                if( this.ctレベルアップダウン.b終了値に達した )
+                if( !this.ctレベルアップダウン[ i ].b停止中 )
                 {
-                    this.ctレベルアップダウン.t停止();
+                    this.ctレベルアップダウン[ i ].t進行();
+                    if( this.ctレベルアップダウン[ i ].b終了値に達した ) {
+                        this.ctレベルアップダウン[ i ].t停止();
+                    }
                 }
-            }
-            if( ( this.ctレベルアップダウン.b進行中 && ( this.txレベルアップ != null && this.txレベルダウン != null ) ) && !CDTXMania.ConfigIni.bNoInfo )
-            {
-                //this.ctレベルアップダウン.n現在の値 = 110;
-
-                if (this.After - this.Before >= 0)
+                if( ( this.ctレベルアップダウン[ i ].b進行中 && ( this.txレベルアップ != null && this.txレベルダウン != null ) ) && !CDTXMania.ConfigIni.bNoInfo )
                 {
-                    //レベルアップ
-                    int x;
-                    int y;
+                    //this.ctレベルアップダウン[ i ].n現在の値 = 110;
 
-                    if( this.ctレベルアップダウン.n現在の値 >= 0 && this.ctレベルアップダウン.n現在の値 <= 20 )
+                    //2017.08.21 kairera0467 t3D描画に変更。
+                    float fScale = 1.0f;
+                    int nAlpha = 255;
+                    float[] fY = new float[] { 206, -206, 0, 0 };
+                    if( this.ctレベルアップダウン[ i ].n現在の値 >= 0 && this.ctレベルアップダウン[ i ].n現在の値 <= 20 )
                     {
-                        this.txレベルアップ.n透明度 = 60;
-                        x = 141;
-                        y = 123;
-                        this.txレベルアップ.vc拡大縮小倍率.X = 1.14f;
-                        this.txレベルアップ.vc拡大縮小倍率.Y = 1.14f;
+                        nAlpha = 60;
+                        fScale = 1.14f;
                     }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 21 && this.ctレベルアップダウン.n現在の値 <= 40 )
+                    else if( this.ctレベルアップダウン[ i ].n現在の値 >= 21 && this.ctレベルアップダウン[ i ].n現在の値 <= 40 )
                     {
-                        this.txレベルアップ.n透明度 = 180;
-                        x = 136;
-                        y = 122;
-                        this.txレベルアップ.vc拡大縮小倍率.X = 1.19f;
-                        this.txレベルアップ.vc拡大縮小倍率.Y = 1.19f;
+                        nAlpha = 60;
+                        fScale = 1.19f;
                     }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 41 && this.ctレベルアップダウン.n現在の値 <= 60 )
+                    else if( this.ctレベルアップダウン[ i ].n現在の値 >= 41 && this.ctレベルアップダウン[ i ].n現在の値 <= 60 )
                     {
-                        this.txレベルアップ.n透明度 = 220;
-                        x = 133;
-                        y = 121;
-                        this.txレベルアップ.vc拡大縮小倍率.X = 1.23f;
-                        this.txレベルアップ.vc拡大縮小倍率.Y = 1.23f;
+                        nAlpha = 220;
+                        fScale = 1.23f;
                     }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 61 && this.ctレベルアップダウン.n現在の値 <= 80 )
+                    else if( this.ctレベルアップダウン[ i ].n現在の値 >= 61 && this.ctレベルアップダウン[ i ].n現在の値 <= 80 )
                     {
-                        this.txレベルアップ.n透明度 = 230;
-                        x = 136;
-                        y = 122;
-                        this.txレベルアップ.vc拡大縮小倍率.X = 1.19f;
-                        this.txレベルアップ.vc拡大縮小倍率.Y = 1.19f;
+                        nAlpha = 230;
+                        fScale = 1.19f;
                     }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 81 && this.ctレベルアップダウン.n現在の値 <= 100 )
+                    else if( this.ctレベルアップダウン[ i ].n現在の値 >= 81 && this.ctレベルアップダウン[ i ].n現在の値 <= 100 )
                     {
-                        this.txレベルアップ.n透明度 = 240;
-                        x = 141;
-                        y = 123;
-                        this.txレベルアップ.vc拡大縮小倍率.X = 1.14f;
-                        this.txレベルアップ.vc拡大縮小倍率.Y = 1.14f;
+                        nAlpha = 240;
+                        fScale = 1.14f;
                     }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 101 && this.ctレベルアップダウン.n現在の値 <= 120 )
+                    else if( this.ctレベルアップダウン[ i ].n現在の値 >= 101 && this.ctレベルアップダウン[ i ].n現在の値 <= 120 )
                     {
-                        this.txレベルアップ.n透明度 = 255;
-                        x = 150;
-                        y = 126;
-                        this.txレベルアップ.vc拡大縮小倍率.X = 1.04f;
-                        this.txレベルアップ.vc拡大縮小倍率.Y = 1.04f;
+                        nAlpha = 255;
+                        fScale = 1.04f;
                     }
                     else
                     {
-                        this.txレベルアップ.n透明度 = 255;
-                        x = 154;
-                        y = 127;
-                        this.txレベルアップ.vc拡大縮小倍率.X = 1f;
-                        this.txレベルアップ.vc拡大縮小倍率.Y = 1f;
+                        nAlpha = 255;
+                        fScale = 1.0f;
                     }
 
-                    this.txレベルアップ.t2D描画( CDTXMania.app.Device, x, y );
-                }
-                else
-                {
-                    //レベルダウン
-                    int x;
-                    int y;
-
-                    if( this.ctレベルアップダウン.n現在の値 >= 0 && this.ctレベルアップダウン.n現在の値 <= 20 )
+                    SlimDX.Matrix mat = SlimDX.Matrix.Identity;
+                    mat *= SlimDX.Matrix.Scaling( fScale, fScale, 1.0f );
+                    mat *= SlimDX.Matrix.Translation( -329, fY[ i ], 0 );
+                    if( this.After[ i ] - this.Before[ i ] >= 0 )
                     {
-                        this.txレベルダウン.n透明度 = 60;
-                        x = 141;
-                        y = 123;
-                        this.txレベルダウン.vc拡大縮小倍率.X = 1.14f;
-                        this.txレベルダウン.vc拡大縮小倍率.Y = 1.14f;
-                    }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 21 && this.ctレベルアップダウン.n現在の値 <= 40 )
-                    {
-                        this.txレベルダウン.n透明度 = 180;
-                        x = 136;
-                        y = 122;
-                        this.txレベルダウン.vc拡大縮小倍率.X = 1.19f;
-                        this.txレベルダウン.vc拡大縮小倍率.Y = 1.19f;
-                    }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 41 && this.ctレベルアップダウン.n現在の値 <= 60 )
-                    {
-                        this.txレベルダウン.n透明度 = 220;
-                        x = 133;
-                        y = 121;
-                        this.txレベルダウン.vc拡大縮小倍率.X = 1.23f;
-                        this.txレベルダウン.vc拡大縮小倍率.Y = 1.23f;
-                    }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 61 && this.ctレベルアップダウン.n現在の値 <= 80 )
-                    {
-                        this.txレベルダウン.n透明度 = 230;
-                        x = 136;
-                        y = 122;
-                        this.txレベルダウン.vc拡大縮小倍率.X = 1.19f;
-                        this.txレベルダウン.vc拡大縮小倍率.Y = 1.19f;
-                    }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 81 && this.ctレベルアップダウン.n現在の値 <= 100 )
-                    {
-                        this.txレベルアップ.n透明度 = 240;
-                        x = 141;
-                        y = 123;
-                        this.txレベルダウン.vc拡大縮小倍率.X = 1.14f;
-                        this.txレベルダウン.vc拡大縮小倍率.Y = 1.14f;
-                    }
-                    else if( this.ctレベルアップダウン.n現在の値 >= 101 && this.ctレベルアップダウン.n現在の値 <= 120 )
-                    {
-                        this.txレベルダウン.n透明度 = 255;
-                        x = 150;
-                        y = 126;
-                        this.txレベルダウン.vc拡大縮小倍率.X = 1.04f;
-                        this.txレベルダウン.vc拡大縮小倍率.Y = 1.04f;
+                        //レベルアップ
+                        this.txレベルアップ.n透明度 = nAlpha;
+                        this.txレベルアップ.t3D描画( CDTXMania.app.Device, mat );
                     }
                     else
                     {
-                        this.txレベルダウン.n透明度 = 255;
-                        x = 154;
-                        y = 127;
-                        this.txレベルダウン.vc拡大縮小倍率.X = 1f;
-                        this.txレベルダウン.vc拡大縮小倍率.Y = 1f;
+                        this.txレベルダウン.n透明度 = nAlpha;
+                        this.txレベルダウン.t3D描画( CDTXMania.app.Device, mat );
+                    }
+                }
+            }
+
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            {
+                if( !CDTXMania.ConfigIni.bNoInfo && CDTXMania.Skin.eDiffDispMode != E難易度表示タイプ.mtaikoに画像で表示 )
+                {
+                    this.txオプションパネル_HS.t2D描画( CDTXMania.app.Device, 0, 230, new Rectangle( 0, this.nHS * 44, 162, 44 ) );
+                    switch( CDTXMania.ConfigIni.eRandom.Taiko )
+                    {
+                        case Eランダムモード.RANDOM:
+                            if( this.txオプションパネル_RANMIR != null )
+                                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 0, 162, 44 ) );
+                            break;
+                        case Eランダムモード.HYPERRANDOM:
+                            if( this.txオプションパネル_RANMIR != null )
+                                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 88, 162, 44 ) );
+                            break;
+                        case Eランダムモード.SUPERRANDOM:
+                            if( this.txオプションパネル_RANMIR != null )
+                                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 132, 162, 44 ) );
+                            break;
+                        case Eランダムモード.MIRROR:
+                            if( this.txオプションパネル_RANMIR != null )
+                                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 44, 162, 44 ) );
+                            break;
                     }
 
-                    this.txレベルダウン.t2D描画(CDTXMania.app.Device, x, y);
+                    if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.STEALTH )
+                        this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 0, 162, 44 ) );
+                    else if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.DORON )
+                        this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 44, 162, 44 ) );
                 }
-            }
-
-            if( !CDTXMania.ConfigIni.bNoInfo && CDTXMania.Skin.eDiffDispMode != E難易度表示タイプ.mtaikoに画像で表示 )
-            {
-                this.txオプションパネル_HS.t2D描画( CDTXMania.app.Device, 0, 230, new Rectangle( 0, this.nHS * 44, 162, 44 ) );
-                switch( CDTXMania.ConfigIni.eRandom.Taiko )
+                else if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.mtaikoに画像で表示 )
                 {
-                    case Eランダムモード.RANDOM:
-                        if( this.txオプションパネル_RANMIR != null )
-                            this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 0, 162, 44 ) );
-                        break;
-                    case Eランダムモード.HYPERRANDOM:
-                        if( this.txオプションパネル_RANMIR != null )
-                            this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 88, 162, 44 ) );
-                        break;
-                    case Eランダムモード.SUPERRANDOM:
-                        if( this.txオプションパネル_RANMIR != null )
-                            this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 132, 162, 44 ) );
-                        break;
-                    case Eランダムモード.MIRROR:
-                        if( this.txオプションパネル_RANMIR != null )
-                            this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 44, 162, 44 ) );
-                        break;
-                }
-
-                if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.STEALTH )
-                    this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 0, 162, 44 ) );
-                else if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.DORON )
-                    this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 44, 162, 44 ) );
-            }
-            else if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.mtaikoに画像で表示 )
-            {
-                if( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ] != null )
-                {
-                    this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].t2D描画( CDTXMania.app.Device, 
-                        CDTXMania.Skin.nCourseSymbolP1X - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Width / 2 ),
-                        CDTXMania.Skin.nCourseSymbolP1Y - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Height / 2 )
-                        );
-                }
-                if( CDTXMania.DTX.nScoreModeTmp == 3 )
-                {
-                    if( this.txコースシンボル[ 5 ] != null )
+                    if( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ] != null )
                     {
-                        this.txコースシンボル[ 5 ].t2D描画( CDTXMania.app.Device, 
-                            CDTXMania.Skin.nCourseSymbolP1X - ( this.txコースシンボル[ 5 ].sz画像サイズ.Width / 2 ),
-                            CDTXMania.Skin.nCourseSymbolP1Y - ( this.txコースシンボル[ 5 ].sz画像サイズ.Height / 2 )
+                        this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].t2D描画( CDTXMania.app.Device, 
+                            CDTXMania.Skin.nCourseSymbolP1X - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Width / 2 ),
+                            CDTXMania.Skin.nCourseSymbolP1Y - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Height / 2 )
                             );
                     }
+                    if( CDTXMania.DTX.nScoreModeTmp == 3 )
+                    {
+                        if( this.txコースシンボル[ 5 ] != null )
+                        {
+                            this.txコースシンボル[ 5 ].t2D描画( CDTXMania.app.Device, 
+                                CDTXMania.Skin.nCourseSymbolP1X - ( this.txコースシンボル[ 5 ].sz画像サイズ.Width / 2 ),
+                                CDTXMania.Skin.nCourseSymbolP1Y - ( this.txコースシンボル[ 5 ].sz画像サイズ.Height / 2 )
+                                );
+                        }
+                    }
                 }
             }
+
+
+            //if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.V))
+            //{
+            //    this.tMtaikoEvent( 0x11, 0, 1 );
+            //}
+            //if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.N))
+            //{
+            //    this.tMtaikoEvent( 0x11, 1, 1 );
+            //}
+            //if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.C))
+            //{
+            //    this.tMtaikoEvent( 0x12, 0, 1 );
+            //}
+            //if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.M))
+            //{
+            //    this.tMtaikoEvent( 0x12, 1, 1 );
+            //}
+
 
             return base.On進行描画();
         }
 
-        public void tMtaikoEvent( int nChannel, int nHand )
+        public void tMtaikoEvent( int nChannel, int nHand, int nPlayer )
         {
             if( !CDTXMania.ConfigIni.b太鼓パートAutoPlay )
             {
@@ -375,13 +343,13 @@ namespace DTXMania
                     case 0x16:
                     case 0x17:
                         {
-                            this.stパッド状態[ 2 + nHand ].n明るさ = 6;
+                            this.stパッド状態[ 2 + nHand + ( 4 * nPlayer ) ].n明るさ = 6;
                         }
                         break;
                     case 0x12:
                     case 0x14:
                         {
-                            this.stパッド状態[ nHand ].n明るさ = 6;
+                            this.stパッド状態[ nHand + ( 4 * nPlayer ) ].n明るさ = 6;
                         }
                         break;
 
@@ -396,27 +364,27 @@ namespace DTXMania
                     case 0x16:
                     case 0x17:
                         {
-                            this.stパッド状態[ 2 + nHand ].n明るさ = 6;
+                            this.stパッド状態[ 2 + nHand + ( 4 * nPlayer ) ].n明るさ = 6;
                         }
                         break;
                             
                     case 0x13:
                         {
-                            this.stパッド状態[ 2 ].n明るさ = 6;
-                            this.stパッド状態[ 3 ].n明るさ = 6;
+                            this.stパッド状態[ 2 + ( 4 * nPlayer ) ].n明るさ = 6;
+                            this.stパッド状態[ 3 + ( 4 * nPlayer ) ].n明るさ = 6;
                         }
                         break;
 
                     case 0x12:
                         {
-                            this.stパッド状態[ nHand ].n明るさ = 6;
+                            this.stパッド状態[ nHand + ( 4 * nPlayer ) ].n明るさ = 6;
                         }
                         break;
 
                     case 0x14:
                         {
-                            this.stパッド状態[ 0 ].n明るさ = 6;
-                            this.stパッド状態[ 1 ].n明るさ = 6;
+                            this.stパッド状態[ 0 + ( 4 * nPlayer ) ].n明るさ = 6;
+                            this.stパッド状態[ 1 + ( 4 * nPlayer ) ].n明るさ = 6;
                         }
                         break;
                 }
@@ -424,19 +392,25 @@ namespace DTXMania
 
         }
 
-        public void tBranchEvent( int Before, int After )
+        public void tBranchEvent( int Before, int After, int player )
         {
             if( After != Before )
-                this.ctレベルアップダウン = new CCounter( 0, 1000, 1, CDTXMania.Timer );
+                this.ctレベルアップダウン[ player ] = new CCounter( 0, 1000, 1, CDTXMania.Timer );
 
-            this.After = After;
-            this.Before = Before;
+            this.After[ player ] = After;
+            this.Before[ player ] = Before;
         }
 
         #region[ private ]
         //-----------------
-        private int nHS;
+        //構造体
+        [StructLayout(LayoutKind.Sequential)]
+        private struct STパッド状態
+        {
+            public int n明るさ;
+        }
 
+        //太鼓
         private CTexture txMtaiko枠;
         private CTexture txMtaiko下敷き;
 
@@ -446,31 +420,28 @@ namespace DTXMania
         private CTexture tx太鼓_面R;
         private CTexture tx太鼓_ふちR;
 
-        private CTexture txオプションパネル_HS;
-        private CTexture txオプションパネル_RANMIR;
-        private CTexture txオプションパネル_特殊;
-
-        private CTexture txレベルアップ;
-        private CTexture txレベルダウン;
-
-        private CTexture txネームプレート;
-        private CTexture txネームプレート2P;
+        private STパッド状態[] stパッド状態 = new STパッド状態[ 4 * 4 ];
+        private long nフラッシュ制御タイマ;
 
         private CTexture[] txコースシンボル = new CTexture[ 6 ];
         private string[] strCourseSymbolFileName;
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct STパッド状態
-        {
-            public int n明るさ;
-        }
+        //オプション
+        private CTexture txオプションパネル_HS;
+        private CTexture txオプションパネル_RANMIR;
+        private CTexture txオプションパネル_特殊;
+        private int nHS;
 
-        private int After;
-        private int Before;
+        //ネームプレート
+        private CTexture txネームプレート;
+        private CTexture txネームプレート2P;
 
-        private STパッド状態[] stパッド状態 = new STパッド状態[4];
-        private long nフラッシュ制御タイマ;
-        private CCounter ctレベルアップダウン;
+        //譜面分岐
+        private CCounter[] ctレベルアップダウン;
+        private int[] After;
+        private int[] Before;
+        private CTexture txレベルアップ;
+        private CTexture txレベルダウン;
         //-----------------
         #endregion
     }

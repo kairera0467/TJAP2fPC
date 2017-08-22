@@ -267,9 +267,16 @@ namespace DTXMania
 
                         //if( CDTXMania.DTX == null )
                         {
-						    CDTXMania.DTX = new CDTX( str, false, ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0, ini.stファイル.BGMAdjust, 0 );
+						    CDTXMania.DTX = new CDTX( str, false, ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0, ini.stファイル.BGMAdjust, 0, 0, true );
+                            if( CDTXMania.ConfigIni.nPlayerCount == 2 )
+						        CDTXMania.DTX_2P = new CDTX( str, false, ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0, ini.stファイル.BGMAdjust, 0, 1, true );
                             if( File.Exists( CDTXMania.DTX.strフォルダ名 + @"\\set.def" ) )
-						        CDTXMania.DTX = new CDTX( str, false, ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0, ini.stファイル.BGMAdjust, 1 );
+                            {
+						        CDTXMania.DTX = new CDTX( str, false, ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0, ini.stファイル.BGMAdjust, 0, 1, true );
+                                if( CDTXMania.ConfigIni.nPlayerCount == 2 )
+						            CDTXMania.DTX_2P = new CDTX( str, false, ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0, ini.stファイル.BGMAdjust, 0, 1, true );
+                            }
+
 
 					    	Trace.TraceInformation( "----曲情報-----------------" );
 				    		Trace.TraceInformation( "TITLE: {0}", CDTXMania.DTX.TITLE );
@@ -298,11 +305,6 @@ namespace DTXMania
                                 break;
                         }
                         */
-
-						if ( CDTXMania.bコンパクトモード )
-							CDTXMania.DTX.MIDIレベル = 1;
-						else
-							CDTXMania.DTX.MIDIレベル = ( CDTXMania.stage選曲.r確定された曲.eノード種別 == C曲リストノード.Eノード種別.SCORE_MIDI ) ? CDTXMania.stage選曲.n現在選択中の曲の難易度 : 0;
 
 						base.eフェーズID = CStage.Eフェーズ.NOWLOADING_WAV読み込み待機;
 						timeBeginLoadWAV = DateTime.Now;

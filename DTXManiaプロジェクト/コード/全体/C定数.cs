@@ -78,6 +78,10 @@ namespace DTXMania
         RRed    = 13,
         LBlue   = 14,
         RBlue   = 15,
+        LRed2P  = 16,
+        RRed2P  = 17,
+        LBlue2P = 18,
+        RBlue2P = 19,
 		MAX,			// 門番用として定義
 		UNKNOWN = 99
 	}
@@ -106,6 +110,10 @@ namespace DTXMania
         RRed    = Eパッド.RRed,
         LBlue   = Eパッド.LBlue,
         RBlue   = Eパッド.RBlue,
+        LRed2P  = Eパッド.LRed2P,
+        RRed2P  = Eパッド.RRed2P,
+        LBlue2P = Eパッド.LBlue2P,
+        RBlue2P = Eパッド.RBlue2P,
 		Capture,
 		UNKNOWN = Eパッド.UNKNOWN
 	}
@@ -136,6 +144,10 @@ namespace DTXMania
         RRed    = 1,
         LBlue   = 2,
         RBlue   = 4,
+        LRed2P  = 8,
+        RRed2P  = 16,
+        LBlue2P = 32,
+        RBlue2P = 64,
 		UNKNOWN = 4096
 	}
 	public enum Eランダムモード

@@ -338,9 +338,11 @@ namespace DTXMania
                 #region[ 下部テキスト ]
                 if( this.tx下部テキスト != null )
                 {
-                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay )
-                    {
+                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ) {
                         this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 250 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
+                    }
+                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay2P ) {
+                        this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 1030 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
                     }
                     if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
                         CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL" );

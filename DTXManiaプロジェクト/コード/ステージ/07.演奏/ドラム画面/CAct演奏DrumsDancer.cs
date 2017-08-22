@@ -155,7 +155,7 @@ namespace DTXMania
                         break;
                     case EMotion.通常:
                         {
-                            if( this.tx踊り子1_通常[ (int)this.ct通常モーション.db現在の値 ] != null && CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値.Taiko >= dbGauge[ i ] )
+                            if( this.tx踊り子1_通常[ (int)this.ct通常モーション.db現在の値 ] != null && CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= dbGauge[ i ] )
                             {
                                 int nTexSize = this.tx踊り子1_通常[ (int)this.ct通常モーション.db現在の値 ].szテクスチャサイズ.Width;
                                 this.tx踊り子1_通常[ (int)this.ct通常モーション.db現在の値 ].t2D描画( CDTXMania.app.Device, nX[ i ] - (nTexSize / 2), 360 );
@@ -166,7 +166,7 @@ namespace DTXMania
 
             }
 
-            if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値.Taiko >= 100.0 )
+            if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 100.0 )
             {
                 if( this.txモブ != null )
                 {

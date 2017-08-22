@@ -24,6 +24,7 @@ namespace DTXMania
 			public int n相対Y座標;
 			public int n透明度;
 			public int nLag;								// #25370 2011.2.1 yyagi
+            public int nPlayer;                             // 2017.08.15 kairera0467
 		}
 
 		protected readonly ST判定文字列[] st判定文字列;
@@ -84,9 +85,9 @@ namespace DTXMania
 
 		// メソッド
 
-		public virtual void Start( int nLane, E判定 judge, int lag, CDTX.CChip pChip )
+		public virtual void Start( int nLane, E判定 judge, int lag, CDTX.CChip pChip, int player )
 		{
-            if( pChip.nチャンネル番号 >= 0x97 && pChip.nチャンネル番号 != 0xAF )
+            if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 != 0x1F )
             {
                 return;
             }
@@ -108,6 +109,7 @@ namespace DTXMania
 		            		this.st状態[ j ].n相対Y座標 = 0;
 				            this.st状態[ j ].n透明度 = 0xff;
 				            this.st状態[ j ].nLag = lag;
+                            this.st状態[ j ].nPlayer = player;
                             break;
                         }
 

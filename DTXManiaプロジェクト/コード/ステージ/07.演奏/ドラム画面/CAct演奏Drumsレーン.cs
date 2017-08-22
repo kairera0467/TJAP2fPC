@@ -26,363 +26,162 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.tx普通譜面[0] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal_base.png"));
-            this.tx玄人譜面[0] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert_base.png"));
-            this.tx達人譜面[0] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master_base.png"));
-            this.tx普通譜面[1] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal.png"));
-            this.tx玄人譜面[1] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert.png"));
-            this.tx達人譜面[1] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master.png"));
-            this.ct分岐アニメ進行 = new CCounter();
-            this.tx普通譜面[0].n透明度 = 255;
+            this.tx普通譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal_base.png"));
+            this.tx玄人譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert_base.png"));
+            this.tx達人譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master_base.png"));
+            this.tx普通譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal.png"));
+            this.tx玄人譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert.png"));
+            this.tx達人譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master.png"));
+            this.ct分岐アニメ進行 = new CCounter[ 4 ];
+            this.nBefore = new int[ 4 ];
+            this.nAfter = new int[ 4 ];
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            {
+                this.ct分岐アニメ進行[ i ] = new CCounter();
+                this.nBefore[ i ] = 0;
+                this.nAfter[ i ] = 0;
+                this.bState[ i ] = false;
+            }
+            this.tx普通譜面[ 0 ].n透明度 = 255;
 
             base.OnManagedリソースの作成();
         }
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放(ref this.tx普通譜面[0]);
-            CDTXMania.tテクスチャの解放(ref this.tx玄人譜面[0]);
-            CDTXMania.tテクスチャの解放(ref this.tx達人譜面[0]);
-            CDTXMania.tテクスチャの解放(ref this.tx普通譜面[1]);
-            CDTXMania.tテクスチャの解放(ref this.tx玄人譜面[1]);
-            CDTXMania.tテクスチャの解放(ref this.tx達人譜面[1]);
+            CDTXMania.tテクスチャの解放( ref this.tx普通譜面[ 0 ] );
+            CDTXMania.tテクスチャの解放( ref this.tx玄人譜面[ 0 ] );
+            CDTXMania.tテクスチャの解放( ref this.tx達人譜面[ 0 ] );
+            CDTXMania.tテクスチャの解放( ref this.tx普通譜面[ 1 ] );
+            CDTXMania.tテクスチャの解放( ref this.tx玄人譜面[ 1 ] );
+            CDTXMania.tテクスチャの解放( ref this.tx達人譜面[ 1 ] );
 
             base.OnManagedリソースの解放();
         }
 
         public override int On進行描画()
         {
-            if( !this.ct分岐アニメ進行.b停止中 )
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                this.ct分岐アニメ進行.t進行();
-                if( this.ct分岐アニメ進行.b終了値に達した )
+                if( !this.ct分岐アニメ進行[ i ].b停止中 )
                 {
-                    this.bState = false;
-                    this.ct分岐アニメ進行.t停止();
+                    this.ct分岐アニメ進行[ i ].t進行();
+                    if( this.ct分岐アニメ進行[ i ].b終了値に達した )
+                    {
+                        this.bState[ i ] = false;
+                        this.ct分岐アニメ進行[ i ].t停止();
+                    }
                 }
             }
 
-            //if( this.bState == true )
-            //{
-            //    if( this.ct分岐アニメ進行.b進行中 == false )
-            //    {
-            //        this.ct分岐アニメ進行.n現在の値 = 0;
-            //    }
-            //        this.ct分岐アニメ進行.t進行();
-            //    if( this.ct分岐アニメ進行.b終了値に達した )
-            //    {
-            //        this.bState = false;
-            //    }
-            //}
 
-
-
-            if( CDTXMania.stage演奏ドラム画面.bUseBranch == true )
+            //アニメーション中の分岐レイヤー(背景)の描画を行う。
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                //switch (CDTXMania.stage演奏ドラム画面.n次回のコース)
-                //{
-                //    case 0:
-                //        this.tx普通譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                //        break;
-                //    case 1:
-                //        this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                //        break;
-                //    case 2:
-                //        this.tx達人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                //        break;
-                //}
-
-
-                if (this.ct分岐アニメ進行.b進行中)
+                if( CDTXMania.stage演奏ドラム画面.bUseBranch == true )
                 {
-
-                    #region[ 普通譜面_レベルアップ ]
-                    //普通→玄人
-                    if (n1 == 0 && n2 == 1)
+                    if( this.ct分岐アニメ進行[ i ].b進行中 )
                     {
-                        this.tx普通譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        this.tx玄人譜面[0].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                    }
-                    //普通→達人
-                    if (n1 == 0 && n2 == 2)
-                    {
-                        this.tx普通譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        if( this.ct分岐アニメ進行.n現在の値 < 100 )
+                        #region[ 普通譜面_レベルアップ ]
+                        //普通→玄人
+                        if( nBefore[ i ] == 0 && nAfter[ i ] == 1 )
                         {
-                            this.n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                            this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                            this.tx玄人譜面[0].n透明度 = this.n透明度;
+                            this.tx玄人譜面[ 0 ].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                            this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                         }
-                        else if( this.ct分岐アニメ進行.n現在の値 >= 100 && this.ct分岐アニメ進行.n現在の値 < 150 )
+                        //普通→達人
+                        if( nBefore[ i ] == 0 && nAfter[ i ] == 2)
                         {
-                            this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                            this.tx玄人譜面[0].n透明度 = 255;
+                            this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            if( this.ct分岐アニメ進行[ i ].n現在の値 < 100 )
+                            {
+                                this.tx玄人譜面[ 0 ].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                                this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            }
+                            else if( this.ct分岐アニメ進行[ i ].n現在の値 >= 100 && this.ct分岐アニメ進行[ i ].n現在の値 < 150 )
+                            {
+                                this.tx玄人譜面[ 0 ].n透明度 = 255;
+                                this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            }
+                            else if( this.ct分岐アニメ進行[ i ].n現在の値 >= 150 )
+                            {
+                                this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                this.tx達人譜面[ 0 ].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 250 ? 255 : ( ( (this.ct分岐アニメ進行[ i ].n現在の値 - 150) * 0xff ) / 100 );
+                                this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            }
                         }
-                        else if( this.ct分岐アニメ進行.n現在の値 >= 150 )
+                        #endregion
+                        #region[ 玄人譜面_レベルアップ ]
+                        if( nBefore[ i ] == 1 && nAfter[ i ] == 2 )
                         {
-                            this.n透明度 = this.ct分岐アニメ進行.n現在の値 > 250 ? 255 : ( ( ( (this.ct分岐アニメ進行.n現在の値 - 150) * 0xff ) / 100 ) );
-                            this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                            this.tx達人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                            this.tx達人譜面[0].n透明度 = this.n透明度;
+                            this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            this.tx達人譜面[ 0 ].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                            this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                         }
-                    }
-                    #endregion
-                    #region[ 玄人譜面_レベルアップ ]
-                    if (n1 == 1 && n2 == 2)
-                    {
-                        this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        this.tx達人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        this.tx達人譜面[0].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                    }
-                    #endregion
-
-                    #region[ 玄人譜面_レベルダウン ]
-                    if (n1 == 1 && n2 == 0)
-                    {
-                        this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        this.tx普通譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        this.tx普通譜面[0].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                    }
-                    #endregion
-                    #region[ 達人譜面_レベルダウン ]
-                    if (n1 == 2 && n2 == 0)
-                    {
-                        this.tx達人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        if( this.ct分岐アニメ進行.n現在の値 < 100 )
+                        #endregion
+                        #region[ 玄人譜面_レベルダウン ]
+                        if( nBefore[ i ] == 1 && nAfter[ i ] == 0)
                         {
-                            this.n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                            this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                            this.tx玄人譜面[0].n透明度 = this.n透明度;
+                            this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            this.tx普通譜面[ 0 ].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                            this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                         }
-                        else if( this.ct分岐アニメ進行.n現在の値 >= 100 && this.ct分岐アニメ進行.n現在の値 < 150 )
+                        #endregion
+                        #region[ 達人譜面_レベルダウン ]
+                        if( nBefore[ i ] == 2 && nAfter[ i ] == 0)
                         {
-                            this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                            this.tx玄人譜面[0].n透明度 = 255;
+                            this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            if( this.ct分岐アニメ進行[ i ].n現在の値 < 100 )
+                            {
+                                this.tx玄人譜面[ 0 ].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                                this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            }
+                            else if( this.ct分岐アニメ進行[ i ].n現在の値 >= 100 && this.ct分岐アニメ進行[ i ].n現在の値 < 150 )
+                            {
+                                this.tx玄人譜面[ 0 ].n透明度 = 255;
+                                this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            }
+                            else if( this.ct分岐アニメ進行[ i ].n現在の値 >= 150 )
+                            {
+                                this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                this.tx普通譜面[ 0 ].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 250 ? 255 : ( ( ( this.ct分岐アニメ進行[ i ].n現在の値 - 150 ) * 0xff ) / 100 );
+                                this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            }
                         }
-                        else if( this.ct分岐アニメ進行.n現在の値 >= 150 )
+                        if( nBefore[ i ] == 2 && nAfter[ i ] == 1 )
                         {
-                            this.n透明度 = this.ct分岐アニメ進行.n現在の値 > 250 ? 255 : ( ( ( (this.ct分岐アニメ進行.n現在の値 - 150) * 0xff ) / 100 ) );
-                            this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                            this.tx普通譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                            this.tx普通譜面[0].n透明度 = this.n透明度;
+                            this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            this.tx玄人譜面[ 0 ].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                            this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                         }
+                        #endregion
                     }
-                    if( n1 == 2 && n2 == 1 )
-                    {
-                        this.tx達人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        this.tx玄人譜面[0].t2D描画(CDTXMania.app.Device, 333, 192);
-                        this.tx玄人譜面[0].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                    }
-                    #endregion
                 }
-
-                    //if( !this.ct分岐アニメ進行.b進行中 )
-                    //{
-
-                    //    switch (CDTXMania.stage演奏ドラム画面.n次回のコース)
-                    //    {
-                    //        case 0:
-                    //            this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 192);
-                    //            break;
-                    //        case 1:
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192);
-                    //            break;
-                    //        case 2:
-                    //            this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192);
-                    //            break;
-                    //    }
-                    //}
-
-                    
-
-                //if( this.nY != 0 )
-                    
-                    //if (this.ct分岐アニメ進行.b進行中)
-                    //{
-
-                    //    #region[ 普通譜面_レベルアップ ]
-                    //    //普通→玄人
-                    //    if (n1 == 0 && n2 == 1)
-                    //    {
-                    //        this.tx普通譜面[1].n透明度 = 255;
-                    //        this.tx玄人譜面[1].n透明度 = 255;
-                    //        this.tx達人譜面[1].n透明度 = 255;
-
-                    //        this.tx普通譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 0 : ( 255 - ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 60 ) );
-                    //        //this.tx玄人譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 60 ) );
-                    //        if (this.ct分岐アニメ進行.n現在の値 < 60)
-                    //        {
-                    //            this.nY = this.ct分岐アニメ進行.n現在の値 / 2;
-                    //            this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + nY);
-                    //        }
-
-                    //        this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 162 + nY);
-                    //    }
-                    //    //普通→達人
-                    //    if (n1 == 0 && n2 == 2)
-                    //    {
-                    //        this.tx普通譜面[1].n透明度 = 255;
-                    //        this.tx玄人譜面[1].n透明度 = 255;
-                    //        this.tx達人譜面[1].n透明度 = 255;
-
-                    //        if (this.ct分岐アニメ進行.n現在の値 < 60)
-                    //        {
-                    //            this.nY = this.ct分岐アニメ進行.n現在の値 / 2;
-                    //            this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + nY);
-                    //            this.tx普通譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 0 : ( 255 - ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 172 + nY);
-                    //        }
-                    //        else if( this.ct分岐アニメ進行.n現在の値 >= 60 && this.ct分岐アニメ進行.n現在の値 < 150 )
-                    //        {
-                    //            this.nY = 21;
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192);
-                    //            this.tx玄人譜面[1].n透明度 = 255;
-                    //            this.tx達人譜面[1].n透明度 = 255;
-                    //        }
-                    //        else if( this.ct分岐アニメ進行.n現在の値 >= 150 && this.ct分岐アニメ進行.n現在の値 < 210 )
-                    //        {
-                    //            this.nY = ((this.ct分岐アニメ進行.n現在の値 - 150) / 2);
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + nY);
-                    //            this.tx玄人譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 0 : ( 255 - ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                    //            this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 172 + nY);
-                    //        }
-                    //        else
-                    //        {
-                    //            this.tx達人譜面[1].n透明度 = 255;
-                    //            this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192);
-                    //        }
-
-
-                    //        //this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + nY);
-                    //        //this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 172 + nY);
-
-                    //    }
-                    //    #endregion
-                    //    #region[ 玄人譜面_レベルアップ ]
-                    //    //玄人→達人
-                    //    if (n1 == 1 && n2 == 2)
-                    //    {
-                    //        this.tx普通譜面[1].n透明度 = 255;
-                    //        this.tx玄人譜面[1].n透明度 = 255;
-                    //        this.tx達人譜面[1].n透明度 = 255;
-
-                    //        this.tx玄人譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                    //        if (this.ct分岐アニメ進行.n現在の値 < 60)
-                    //        {
-                    //            this.nY = this.ct分岐アニメ進行.n現在の値 / 2;
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + nY);
-                    //        }
-
-                    //        this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 162 + nY);
-                    //    }
-                    //    #endregion
-                    //    #region[ 玄人譜面_レベルダウン ]
-                    //    if (n1 == 1 && n2 == 0)
-                    //    {
-                    //        this.tx普通譜面[1].n透明度 = 255;
-                    //        this.tx玄人譜面[1].n透明度 = 255;
-                    //        this.tx達人譜面[1].n透明度 = 255;
-
-                    //        this.tx玄人譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                    //        if (this.ct分岐アニメ進行.n現在の値 < 60)
-                    //        {
-                    //            this.nY = this.ct分岐アニメ進行.n現在の値 / 2;
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 - nY);
-                    //        }
-
-                    //        this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 222 - nY);  
-                    //    }
-                    //    #endregion
-                    //    #region[ 達人譜面_レベルダウン ]
-                    //    if (n1 == 2 && n2 == 0)
-                    //    {
-                    //        this.tx普通譜面[1].n透明度 = 255;
-                    //        this.tx玄人譜面[1].n透明度 = 255;
-                    //        this.tx達人譜面[1].n透明度 = 255;
-
-                    //        if (this.ct分岐アニメ進行.n現在の値 < 60)
-                    //        {
-                    //            this.nY = this.ct分岐アニメ進行.n現在の値 / 2;
-                    //            this.tx達人譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                    //            this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 - nY);
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 222 - nY);
-                    //        }
-                    //        else if (this.ct分岐アニメ進行.n現在の値 >= 60 && this.ct分岐アニメ進行.n現在の値 < 150)
-                    //        {
-                    //            this.nY = 21;
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192);
-                    //            this.tx玄人譜面[1].n透明度 = 255;
-                    //            this.tx達人譜面[1].n透明度 = 255;
-                    //        }
-                    //        else if (this.ct分岐アニメ進行.n現在の値 >= 150 && this.ct分岐アニメ進行.n現在の値 < 210)
-                    //        {
-                    //            this.nY = ((this.ct分岐アニメ進行.n現在の値 - 150) / 2);
-                    //            this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 - nY);
-                    //            this.tx玄人譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.ct分岐アニメ進行.n現在の値 * 0xff) / 100));
-                    //            this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 222 - nY);
-                    //        }
-                    //        else
-                    //        {
-                    //            this.tx普通譜面[1].n透明度 = 255;
-                    //            this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 192);
-                    //        }
-                    //    }
-                    //    if (n1 == 2 && n2 == 1)
-                    //    {
-                    //        this.tx普通譜面[1].n透明度 = 255;
-                    //        this.tx玄人譜面[1].n透明度 = 255;
-                    //        this.tx達人譜面[1].n透明度 = 255;
-
-                    //        this.tx達人譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                    //        if (this.ct分岐アニメ進行.n現在の値 < 60)
-                    //        {
-                    //            this.nY = this.ct分岐アニメ進行.n現在の値 / 2;
-                    //            this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 - nY);
-                    //        }
-
-                    //        this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 222 - nY);
-                    //    }
-                    //    #endregion
-                    //}
-
-
-
-
-
             }
-            //CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.白, this.ct分岐アニメ進行.n現在の値.ToString());
-            //CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.白, this.nY.ToString());
-
-
-
             return base.On進行描画();
         }
 
-        public virtual void t分岐レイヤー_コース変化(int n現在, int n次回)
+        public virtual void t分岐レイヤー_コース変化( int n現在, int n次回, int player )
         {
-            if (n現在 == n次回)
-            {
+            if( n現在 == n次回 ) {
                 return;
             }
+            this.ct分岐アニメ進行[ player ] = new CCounter( 0, 300, 2, CDTXMania.Timer );
+            this.bState[ player ] = true;
 
-
-            this.ct分岐アニメ進行 = new CCounter(0, 300, 2, CDTXMania.Timer);
-            this.bState = true;
-            //this.ct分岐アニメ進行.n現在の値 = 0;
-
-            this.n1 = n現在;
-            this.n2 = n次回;
+            this.nBefore[ player ] = n現在;
+            this.nAfter[ player ] = n次回;
 
         }
 
         #region[ private ]
         //-----------------
-        public bool bState;
-        public CCounter ct分岐アニメ進行;
-        private int n1;
-        private int n2;
-        private int n透明度;
+        public bool[] bState = new bool[4];
+        public CCounter[] ct分岐アニメ進行 = new CCounter[4];
+        private int[] nBefore;
+        private int[] nAfter;
+        private int[] n透明度 = new int[4];
         private int nY;
         private CTexture[] tx普通譜面 = new CTexture[2];
         private CTexture[] tx玄人譜面 = new CTexture[2];
