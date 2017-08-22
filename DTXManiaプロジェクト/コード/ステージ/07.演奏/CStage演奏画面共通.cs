@@ -1316,19 +1316,10 @@ namespace DTXMania
                         }
                         else if( pChip.nチャンネル番号 == 0x17 )
                         {
+                            #region[ 風船 ]
                             this.b連打中 = true;
                             this.actChara.b風船連打中 = true;
-
-                            //if( pChip.n発声時刻ms > CSound管理.rc演奏用タイマ.n現在時刻ms && pChip.nノーツ終了時刻ms < CSound管理.rc演奏用タイマ.n現在時刻ms )
-                            //{
-                            //    this.b連打中 = false;
-                            //    this.n現在の連打数 = 0;
-                            //    break;
-                            //}
-
-
-                            //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult );
-
+                            
                             if( bAutoPlay )
                             {
                                 if( pChip.nBalloon != 0 )
@@ -1351,9 +1342,8 @@ namespace DTXMania
                             {
                                 this.tBalloonProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, 0 );
                             }
-
-
                             break;
+                            #endregion
                         }
                         else if( pChip.nチャンネル番号 == 0x18 )
                         {
@@ -1391,9 +1381,9 @@ namespace DTXMania
 
                             if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
                             {
-                                if( pChip.nチャンネル番号 == 0x13 )
+                                if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
                                     CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
-                                else if( pChip.nチャンネル番号 == 0x14 )
+                                else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
                                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
                             }
                         }
@@ -1511,13 +1501,13 @@ namespace DTXMania
 						}
 					}
                     #region[ コンボ音声 ]
-                    if( pChip.nチャンネル番号 < 0x15 )
+                    if( pChip.nチャンネル番号 < 0x15 || ( pChip.nチャンネル番号 >= 0x1A ) )
                     {
-                        if( this.actCombo.n現在のコンボ数.P1 % 100 == 0 && this.actCombo.n現在のコンボ数.P1 > 0 )
+                        if( this.actCombo.n現在のコンボ数[ nPlayer ] % 100 == 0 && this.actCombo.n現在のコンボ数[ nPlayer ] > 0 )
                         {
-                            this.actComboBalloon.Start( this.actCombo.n現在のコンボ数.P1 );
+                            this.actComboBalloon.Start( this.actCombo.n現在のコンボ数[ nPlayer ] );
                         }
-                        this.actComboVoice.t再生( this.actCombo.n現在のコンボ数.P1 );
+                        this.actComboVoice.t再生( this.actCombo.n現在のコンボ数[ nPlayer ] );
 
                         this.t紙吹雪_開始();
                     }
@@ -1529,7 +1519,7 @@ namespace DTXMania
 				default:
 					break;
 			}
-			if ( ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) ) && ( eJudgeResult != E判定.Miss ) && ( eJudgeResult != E判定.Bad ) && ( eJudgeResult != E判定.Poor ) && ( pChip.nチャンネル番号 <= 0x14 ) )
+			if ( ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) ) && ( eJudgeResult != E判定.Miss ) && ( eJudgeResult != E判定.Bad ) && ( eJudgeResult != E判定.Poor ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
 			{
 				int nCombos = this.actCombo.n現在のコンボ数[ nPlayer ];
                 long nInit = CDTXMania.DTX.nScoreInit[ 0, CDTXMania.stage選曲.n確定された曲の難易度 ];
@@ -1807,7 +1797,7 @@ namespace DTXMania
 				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
 				if ( !chip.bHit && chip.b可視 )
 				{
-					if ( ( ( 0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x18 ) ) || chip.nチャンネル番号 == 0x1F )
+					if ( ( ( 0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x18 ) ) || chip.nチャンネル番号 == 0x1A || chip.nチャンネル番号 == 0x1B || chip.nチャンネル番号 == 0x1F )
 					{
 						if ( chip.n発声時刻ms > nTime )
 						{
@@ -1835,7 +1825,7 @@ namespace DTXMania
 			{
 				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
 				//if ( (!chip.bHit && chip.b可視 ) && ( (  0x93 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x99 ) ) )
-                if ( (!chip.bHit && chip.b可視 ) && ( (  0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x17 ) ) || chip.nチャンネル番号 == 0x1F )
+                if ( (!chip.bHit && chip.b可視 ) && ( (  0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x17 ) ) || chip.nチャンネル番号 == 0x1A || chip.nチャンネル番号 == 0x1B || chip.nチャンネル番号 == 0x1F )
 					{
 						break;
 					}
@@ -2071,7 +2061,7 @@ namespace DTXMania
 				if ( (!chip.bHit) &&
 						(
 							(
-                                ( ( ( ( nChannel >= 0x11 ) && ( nChannel <= 0x14 ) ) || nChannel == 0x1F ) && ( chip.nチャンネル番号 == nChannel ) )
+                                ( ( ( ( nChannel >= 0x11 ) && ( nChannel <= 0x14 ) ) || nChannel == 0x1A || nChannel == 0x1B || nChannel == 0x1F ) && ( chip.nチャンネル番号 == nChannel ) )
 							)
 							||
 							(
@@ -2145,7 +2135,7 @@ namespace DTXMania
 				CDTX.CChip chip = listChip[ nPlayer ][ i ];
 				if ( !chip.bHit )
 				{
-					if ( ( ( 0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x14 ) ) )
+					if ( ( ( 0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x14 ) ) || chip.nチャンネル番号 == 0x1A || chip.nチャンネル番号 == 0x1B )
 					{
 						if ( chip.n発声時刻ms < nTime + n検索範囲時間ms )
 						{
@@ -2545,7 +2535,7 @@ namespace DTXMania
 
 				int instIndex = (int) pChip.e楽器パート;
 
-                if( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 )//|| pChip.nチャンネル番号 == 0x9A )
+                if( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )//|| pChip.nチャンネル番号 == 0x9A )
                 {
 				    if ( ( !pChip.bHit ) && ( ( pChip.n発声時刻ms + 120 ) < CSound管理.rc演奏用タイマ.n現在時刻ms )
                         && ( this.e指定時刻からChipのJUDGEを返す( CSound管理.rc演奏用タイマ.n現在時刻, pChip, nInputAdjustTime ) == E判定.Miss ) )
@@ -2558,7 +2548,7 @@ namespace DTXMania
 
                 if( pChip.nバーからの距離dot[ instIndex ] < -150 )
                 {
-                    if( !( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 ) )
+                    if( !( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 ) || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
                     {
                         //2016.02.11 kairera0467
                         //太鼓の単音符の場合は座標による判定を行わない。
@@ -2683,13 +2673,13 @@ namespace DTXMania
 
                         break;
 					case 0x19:
-					case 0x1a:
-                    case 0x1b:
                     case 0x1c:
                     case 0x1d:
                     case 0x1e:
                         break;
 
+					case 0x1a:
+                    case 0x1b:
 					case 0x1f:
                         {
                             this.t進行描画_チップ_Taiko( configIni, ref dTX, ref pChip, nPlayer );

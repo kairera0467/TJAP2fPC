@@ -476,7 +476,7 @@ namespace DTXMania
 
                     //太鼓1P(移動予定)
 					"??", "ドン", "カツ", "ドン(大)", "カツ(大)", "連打", "連打(大)", "ふうせん連打",
-					"連打終点", "??", "??", "??", "??", "??", "??", "AD-LIB",
+					"連打終点", "芋", "ドン(手)", "カッ(手)", "??", "??", "??", "AD-LIB",
 
                     //太鼓予備
 					"??", "??", "??", "??", "??", "??", "??", "??",
@@ -2791,8 +2791,18 @@ namespace DTXMania
                 {
                     if( !string.IsNullOrEmpty( input[ n ] ) && ( input[ n ].Substring( 0, 1 ) == "#" || this.CharConvertNote( input[ n ].Substring( 0, 1 ) ) != -1 ) )
                     {
-                        strTemp += ( input[ n ] + "\n" );
+                        //2017.08.22 kairera0467 A～Fのノートを追加した結果うまく行削除ができなくなったので、A～Fで始まる命令をさらに削除する処理を追加
+                        if( input[ n ].StartsWith( "BALLOON:" ) )
+                        {
+                            input[ n ] = "";
+                        }
+                        else
+                        {
+                            strTemp += ( input[ n ] + "\n" );
+                        }
                     }
+
+
                 }
                 else if( nMode == 2 )
                 {
@@ -2993,21 +3003,24 @@ namespace DTXMania
             //とりあえず腑分けしてやる
             //一旦STYLEで分ける
             string[] str1 = strTJA.Split( new string[]{"STYLE"}, StringSplitOptions.RemoveEmptyEntries );
-            //正常なDP譜面ならLength:3になる。
+            if( str1.Length < 2 ) return false;
+            //さらにDPと思われる譜面をSTARTで腑分け
+            string[] str2 = str1[ 1 ].Split( new string[]{"#START"}, StringSplitOptions.RemoveEmptyEntries );
+            //正常なDP譜面ならLength:2になる。
             string strSingle = "";
             string strDoubleP1 = "";
             string strDoubleP2 = "";
 
-            for( int i = 0; i < str1.Length; i++ )
+            for( int i = 1; i < 3; i++ )
             {
-                if( str1[ i ].IndexOf( "#START P1" ) != -1 )
+                if( str2[ i ].IndexOf( "P1" ) != -1 )
                 {
-                    strDoubleP1 = str1[ i ];
+                    strDoubleP1 = str2[ i ];
                     bIsSessionNotes = true;
                 }
-                else if( str1[ i ].IndexOf( "#START P2" ) != -1 )
+                else if( str2[ i ].IndexOf( "P2" ) != -1 )
                 {
-                    strDoubleP2 = str1[ i ];
+                    strDoubleP2 = str2[ i ];
                     bIsSessionNotes = true;
                 }
                 else
@@ -3124,7 +3137,7 @@ namespace DTXMania
                 #endregion
 
                 //指定したコースの譜面の命令を消去する。
-                this.tセッション譜面がある( this.strSplitした譜面[ n読み込むコース ], ref this.strSplitした譜面[ n読み込むコース ], CDTXMania.ConfigIni.nPlayerCount >= 1 ? ( this.nPlayerSide + 1 ) : 0 );
+                this.tセッション譜面がある( this.strSplitした譜面[ n読み込むコース ], ref this.strSplitした譜面[ n読み込むコース ], CDTXMania.ConfigIni.nPlayerCount > 1 ? ( this.nPlayerSide + 1 ) : 0 );
                 this.str命令消去譜面 = this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
                 this.str命令消去譜面 = this.tコマンド行を削除したTJAを返す( this.str命令消去譜面, 2 );
 
@@ -4073,6 +4086,12 @@ namespace DTXMania
                                     case 9:
                                         chip.nSenote = 0xD;
                                         break;
+                                    case 10:
+                                        chip.nSenote = 0xE;
+                                        break;
+                                    case 11:
+                                        chip.nSenote = 0xF;
+                                        break;
                                 }
                                 #endregion
 
@@ -4672,8 +4691,10 @@ namespace DTXMania
         			return 8;
         		case "9":
         			return 7; //2017.01.30 DD 芋連打を風船連打扱いに
-                case "A": //近日実装予定。
+                case "A": //2017.08.22 kairera0467 手つなぎ
                     return 10;
+                case "B":
+                    return 11;
                 case "F":
                     return 15;
         		default:

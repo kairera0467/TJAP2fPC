@@ -234,7 +234,14 @@ namespace DTXMania
 
                         if (this.tx音符 != null)
                         {
-                            this.tx音符.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( this.st飛び散るチップ[i].nLane * 130, 0, 130, 130));
+                            if( this.st飛び散るチップ[i].nLane == 0xA || this.st飛び散るチップ[i].nLane == 0xB )
+                            {
+                                this.tx音符.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( ( this.st飛び散るチップ[i].nLane + 3 ) * 130, 0, 130, 130));
+                            }
+                            else
+                            {
+                                this.tx音符.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( this.st飛び散るチップ[i].nLane * 130, 0, 130, 130));
+                            }
                         }
 
                         if( this.st飛び散るチップ[ i ].ct進行.b終了値に達した )

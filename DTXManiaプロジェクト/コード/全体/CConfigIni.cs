@@ -1898,6 +1898,8 @@ namespace DTXMania
             sw.WriteLine( "; 判定数の表示(0:OFF, 1:ON)" );
 			sw.WriteLine( "JudgeCountDisplay={0}", this.bJudgeCountDisplay ? 1 : 0 );
 			sw.WriteLine();
+            sw.WriteLine( "; プレイ人数" );
+            sw.WriteLine( "PlayerCount={0}", this.nPlayerCount );
             //sw.WriteLine( "; 選曲画面の初期選択難易度(ベータ版)" );
 			//sw.WriteLine( "DifficultPriority={0}", this.bJudgeCountDisplay ? 1 : 0 );
 			//sw.WriteLine();
@@ -2924,6 +2926,10 @@ namespace DTXMania
 											{
 												this.bJust = C変換.bONorOFF( str4[ 0 ] );
 											}
+                                            else if( str3.Equals( "PlayerCount" ) )
+                                            {
+                                                this.nPlayerCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
+                                            }
 											continue;
 										}
 									//-----------------------------

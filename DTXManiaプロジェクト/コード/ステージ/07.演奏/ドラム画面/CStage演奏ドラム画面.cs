@@ -227,6 +227,8 @@ namespace DTXMania
             this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
             this.actDancer.ctモブ = new CCounter( 1.0, 16.0, ((60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM / 16.0 )), CSound管理.rc演奏用タイマ );
 
+            this.ct手つなぎ = new CCounter( 0, 60, 20, CDTXMania.Timer );
+
             //try
             //{
             //    this.stream = new StreamWriter("noteTest.txt", false);
@@ -240,6 +242,7 @@ namespace DTXMania
 		}
 		public override void On非活性化()
 		{
+            this.ct手つなぎ = null;
 			base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
@@ -248,6 +251,7 @@ namespace DTXMania
 			{
 				//this.t背景テクスチャの生成();
 				this.tx太鼓ノーツ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_taiko_notes.png" ) );
+				this.txHand = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_taiko_notes_arm.png" ) );
 				this.txSenotes = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_senotes.png" ) );
 				this.tx小節線 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_bar_line.png" ) );
 				this.tx小節線_branch = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_bar_line_branch.png" ) );
@@ -273,6 +277,7 @@ namespace DTXMania
 				CDTXMania.tテクスチャの解放( ref this.txヒットバーGB );
 				CDTXMania.tテクスチャの解放( ref this.txチップ );
                 CDTXMania.tテクスチャの解放( ref this.tx太鼓ノーツ );
+                CDTXMania.tテクスチャの解放( ref this.txHand );
                 CDTXMania.tテクスチャの解放( ref this.txSenotes );
                 CDTXMania.tテクスチャの解放( ref this.tx小節線 );
                 CDTXMania.tテクスチャの解放( ref this.tx小節線_branch );
@@ -485,9 +490,11 @@ namespace DTXMania
             Eパッド.LP, Eパッド.LBD
 		};
         private int[] nチャンネルtoX座標 = new int[] { 370, 470, 582, 527, 645, 748, 694, 373, 815, 298, 419, 419 };
-		private CTexture txヒットバーGB;
+        private CCounter ct手つなぎ;
+        private CTexture txヒットバーGB;
 		private CTexture txレーンフレームGB;
         private CTexture tx太鼓ノーツ;
+        private CTexture txHand;
         private CTexture txSenotes;
         private CTexture tx小節線;
         private CTexture tx小節線_branch;
@@ -595,6 +602,10 @@ namespace DTXMania
 			{
 				index -= 0x13;
 			}
+			else if ( ( index >= 0x1A ) && ( index <= 0x1B ) )
+			{
+				index -= 0x1A;
+			}
             else if( index == 0x1F )
             {
 				index = 0x11 - 0x11;
@@ -636,9 +647,11 @@ namespace DTXMania
                         nFly = 2;
                         break;
                     case 0x13:
+                    case 0x1A:
                         nFly = b両手入力 ? 3 : 1;
                         break;
                     case 0x14:
+                    case 0x1B:
                         nFly = b両手入力 ? 4 : 2;
                         break;
                     case 0x1F:
@@ -876,14 +889,14 @@ namespace DTXMania
 									this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 									bHitted = true;
 								}
-                                if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x13 && !CDTXMania.ConfigIni.b大音符判定 )
+                                if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A ) && !CDTXMania.ConfigIni.b大音符判定 )
 								{
                                     this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                     bHitted = true;
                                     this.nWaitButton = 0;
                                     break;
                                 }
-                                if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x13 && CDTXMania.ConfigIni.b大音符判定 )
+                                if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A ) && CDTXMania.ConfigIni.b大音符判定 )
 								{
                                     if( chipNoHit.eNoteState == ENoteState.none )
                                     {
@@ -935,14 +948,14 @@ namespace DTXMania
 									this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 									bHitted = true;
 								}
-                                if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x13 && !CDTXMania.ConfigIni.b大音符判定 )
+                                if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A ) && !CDTXMania.ConfigIni.b大音符判定 )
 								{
                                     this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                     bHitted = true;
                                     this.nWaitButton = 0;
                                     break;
                                 }
-                                if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x13 && CDTXMania.ConfigIni.b大音符判定 )
+                                if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A ) && CDTXMania.ConfigIni.b大音符判定 )
                                 {
                                     if( chipNoHit.eNoteState == ENoteState.none )
                                     {
@@ -959,7 +972,7 @@ namespace DTXMania
                                     {
                                         float time = chipNoHit.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻ms;
                                         int nWaitTime = CDTXMania.ConfigIni.n両手判定の待ち時間;
-                                        if( this.nWaitButton == 2 && time < 110 && chipNoHit.nProcessTime + nWaitTime > (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
+                                        if( this.nWaitButton == 2 && time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
                                         {
                                             this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                             bHitted = true;
@@ -997,14 +1010,14 @@ namespace DTXMania
 									this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 									bHitted = true;
 								}
-                                if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x14 && !CDTXMania.ConfigIni.b大音符判定 )
+                                if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B ) && !CDTXMania.ConfigIni.b大音符判定 )
 								{
                                     this.tドラムヒット処理(nTime, Eパッド.LBlue, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                     bHitted = true;
                                     this.nWaitButton = 0;
                                     break;
                                 }
-                                if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x14 && CDTXMania.ConfigIni.b大音符判定 )
+                                if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B ) && CDTXMania.ConfigIni.b大音符判定 )
 								{
                                     if( chipNoHit.eNoteState == ENoteState.none )
                                     {
@@ -1056,14 +1069,14 @@ namespace DTXMania
 									this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 									bHitted = true;
 								}
-                                if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x14 && !CDTXMania.ConfigIni.b大音符判定 )
+                                if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B ) && !CDTXMania.ConfigIni.b大音符判定 )
 								{
                                     this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                     bHitted = true;
                                     this.nWaitButton = 0;
                                     break;
                                 }
-                                if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x14 && CDTXMania.ConfigIni.b大音符判定 )
+                                if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B ) && CDTXMania.ConfigIni.b大音符判定 )
 								{
                                     if( chipNoHit.eNoteState == ENoteState.none )
                                     {
@@ -1303,6 +1316,10 @@ namespace DTXMania
                                 num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
                             }
 
+                            this.ct手つなぎ.t進行Loop();
+                            int nHand = this.ct手つなぎ.n現在の値 < 30 ? this.ct手つなぎ.n現在の値 : 60 - this.ct手つなぎ.n現在の値;
+
+
                             x = ( x ) - ( ( int ) ( ( 130.0 * pChip.dbチップサイズ倍率 ) / 2.0 ) );
                             switch ( pChip.nチャンネル番号 )
                             {
@@ -1348,6 +1365,50 @@ namespace DTXMania
                                             this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 520, num9, 130, 130 ) );
                                         this.txSenotes.t2D描画( CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
                                         //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
+                                    }
+                                    nLane = 1;
+                                    break;
+
+                                case 0x1A:
+                                    if( this.tx太鼓ノーツ != null )
+                                    {
+                                        if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
+                                        {
+                                            if( nPlayer == 0 )
+                                            {
+                                                this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 25, ( y + 74 ) + nHand );
+                                                this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 60, ( y + 104 ) - nHand );
+                                            }
+                                            else if( nPlayer == 1 )
+                                            {
+                                                this.txHand.t2D描画( CDTXMania.app.Device, x + 25, ( y - 44 ) + nHand );
+                                                this.txHand.t2D描画( CDTXMania.app.Device, x + 60, ( y - 14 ) - nHand );
+                                            }
+                                            this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 1690, num9, 130, 130 ) );
+                                            //this.tx太鼓ノーツ.t3D描画( CDTXMania.app.Device, mat, new Rectangle( 390, num9, 130, 130 ) );
+                                        }
+                                        this.txSenotes.t2D描画( CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle( 0, 390, 136, 30 ) );
+                                    }
+                                    break;
+
+                                case 0x1B:
+                                    if( this.tx太鼓ノーツ != null )
+                                    {
+                                        if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
+                                        {
+                                            if( nPlayer == 0 )
+                                            {
+                                                this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 25, ( y + 74 ) + nHand );
+                                                this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 60, ( y + 104 ) - nHand );
+                                            }
+                                            else if( nPlayer == 1 )
+                                            {
+                                                this.txHand.t2D描画( CDTXMania.app.Device, x + 25, ( y - 44 ) + nHand );
+                                                this.txHand.t2D描画( CDTXMania.app.Device, x + 60, ( y - 14 ) - nHand );
+                                            }
+                                            this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 1820, num9, 130, 130 ) );
+                                        }
+                                        this.txSenotes.t2D描画( CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
                                     }
                                     nLane = 1;
                                     break;
@@ -1801,7 +1862,7 @@ namespace DTXMania
                 CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( ( int ) CSound管理.rc演奏用タイマ.n現在時刻ms, 0, i );
                 E判定 e判定 = (chipNoHit != null) ? this.e指定時刻からChipのJUDGEを返す(chipNoHit.nProcessTime, chipNoHit, 0) : E判定.Miss;
 
-                if( chipNoHit != null && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 ) )
+                if( chipNoHit != null && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B ) )
                 {
                     float timeC = chipNoHit.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻ms;
                     int nWaitTime = CDTXMania.ConfigIni.n両手判定の待ち時間;

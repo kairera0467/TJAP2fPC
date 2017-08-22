@@ -87,7 +87,7 @@ namespace DTXMania
 
 		public virtual void Start( int nLane, E判定 judge, int lag, CDTX.CChip pChip, int player )
 		{
-            if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 != 0x1F )
+            if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 )
             {
                 return;
             }
