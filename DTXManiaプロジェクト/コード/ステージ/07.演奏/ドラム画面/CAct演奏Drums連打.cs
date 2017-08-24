@@ -107,13 +107,17 @@ namespace DTXMania
             this.ct連打枠カウンター[ player ].t進行();
 
             //1PY:-3 2PY:514
-
-            if( this.ct連打枠カウンター[ player ].b終了値に達してない | this.b表示[ player ] )
+            //仮置き
+            int[] nRollBalloon = new int[] { -3, 514, 0, 0 };
+            int[] nRollNumber = new int[] { 48, 559, 0, 0 };
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                this.tx連打枠.t2D描画( CDTXMania.app.Device, 217, player == 0 ? -3 : 514 );
-                this.t文字表示( 330 + 62, 48, n連打数.ToString(), n連打数 );
+                if( this.ct連打枠カウンター[ player ].b終了値に達してない || this.b表示[ player ] )
+                {
+                    this.tx連打枠.t2D描画( CDTXMania.app.Device, 217, nRollBalloon[ player ] );
+                    this.t文字表示( 330 + 62, nRollNumber[ player ], n連打数.ToString(), n連打数 );
+                }
             }
-
 
             return base.On進行描画();
         }

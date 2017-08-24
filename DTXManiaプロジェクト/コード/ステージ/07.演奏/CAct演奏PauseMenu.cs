@@ -159,10 +159,8 @@ namespace DTXMania
 			Default = 99
 		};
 
-		private Font ft表示用フォント;
 		private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
-        private CTexture tx説明文1;
         private Stopwatch sw;
         private bool bやり直しを選択した;
 		//-----------------

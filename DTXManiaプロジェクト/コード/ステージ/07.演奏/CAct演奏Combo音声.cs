@@ -14,23 +14,39 @@ namespace DTXMania
 
 		public CAct演奏Combo音声()
 		{
-
 			base.b活性化してない = true;
 		}
 		
 		
 		// メソッド
-        public void t再生( int nCombo )
+        public void t再生( int nCombo, int player )
         {
-            if( this.nVoiceIndex < this.listComboVoice.Count )
+            if( player == 0 )
             {
-                if( nCombo == this.listComboVoice[ this.nVoiceIndex ].nCombo )
+                if( this.nVoiceIndex < this.listComboVoice.Count )
                 {
-                    if( this.listComboVoice[ this.nVoiceIndex ].soundComboVoice != null )
+                    if( nCombo == this.listComboVoice[ this.nVoiceIndex ].nCombo )
                     {
-                        this.listComboVoice[ this.nVoiceIndex ].soundComboVoice.tサウンドを先頭から再生する(); //2017.4.16 kairera0467 一度再生したコンボ音声が鳴らせなくなっていたので対策
+                        if( this.listComboVoice[ this.nVoiceIndex ].soundComboVoice != null )
+                        {
+                            this.listComboVoice[ this.nVoiceIndex ].soundComboVoice.tサウンドを先頭から再生する(); //2017.4.16 kairera0467 一度再生したコンボ音声が鳴らせなくなっていたので対策
+                        }
+                        this.nVoiceIndex++;
                     }
-                    this.nVoiceIndex++;
+                }
+            }
+            else if( player == 1 )
+            {
+                if( this.nVoiceIndexP2 < this.listComboVoiceP2.Count )
+                {
+                    if( nCombo == this.listComboVoiceP2[ this.nVoiceIndexP2 ].nCombo )
+                    {
+                        if( this.listComboVoiceP2[ this.nVoiceIndexP2 ].soundComboVoice != null )
+                        {
+                            this.listComboVoiceP2[ this.nVoiceIndexP2 ].soundComboVoice.tサウンドを先頭から再生する();
+                        }
+                        this.nVoiceIndexP2++;
+                    }
                 }
             }
 
@@ -43,6 +59,7 @@ namespace DTXMania
         public void tリセット()
         {
             this.nVoiceIndex = 0;
+            this.nVoiceIndexP2 = 0;
         }
 
 
@@ -51,7 +68,9 @@ namespace DTXMania
 		public override void On活性化()
 		{
             this.listComboVoice = new List<CComboVoice>();
+            this.listComboVoiceP2 = new List<CComboVoice>();
             this.nVoiceIndex = 0;
+            this.nVoiceIndexP2 = 0;
 			base.On活性化();
 		}
 		public override void OnManagedリソースの作成()
@@ -65,7 +84,11 @@ namespace DTXMania
                     if( this.listComboVoice[ i ].bFileFound )
                         this.listComboVoice[ i ].soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\" + this.listComboVoice[ i ].strFilePath ) );
                 }
-
+                for( int i = 0; i < this.listComboVoiceP2.Count; i++ )
+                {
+                    if( this.listComboVoiceP2[ i ].bFileFound )
+                        this.listComboVoiceP2[ i ].soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\" + this.listComboVoiceP2[ i ].strFilePath ) );
+                }
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -76,6 +99,10 @@ namespace DTXMania
                 for( int i = 0; i < this.listComboVoice.Count; i++ )
                 {
                     CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoice[ i ].soundComboVoice );
+                }
+                for( int i = 0; i < this.listComboVoiceP2.Count; i++ )
+                {
+                    CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoiceP2[ i ].soundComboVoice );
                 }
 				base.OnManagedリソースの解放();
 			}
@@ -97,6 +124,7 @@ namespace DTXMania
 
             //ここでコンボ数をキーにしてソート。
             this.listComboVoice.Sort();
+            this.listComboVoiceP2.Sort();
         }
 
         private void t文字列から読み込み( string strAllSettings )
@@ -114,15 +142,29 @@ namespace DTXMania
 
                 if( strArray.Length != 4 )
                     continue;
-                if( strArray[ 0 ] != "#SE" && strArray[ 1 ] != "COMBOVOICE" )
+                if( strArray[ 0 ] != "#SE" && ( strArray[ 1 ] != "COMBOVOICE" || strArray[ 1 ] != "COMBOVOICE_P2" ) )
                     continue;
 
-                var voice = new CComboVoice();
-                voice.strFilePath = strArray[ 2 ];
-                voice.nCombo = Convert.ToInt32( strArray[ 3 ] );
-                voice.bFileFound = File.Exists( CSkin.Path( @"Sounds\" + strArray[ 2 ] ) );
+                if( strArray[ 1 ] == "COMBOVOICE" )
+                {
+                    var voice = new CComboVoice();
+                    voice.strFilePath = strArray[ 2 ];
+                    voice.nCombo = Convert.ToInt32( strArray[ 3 ] );
+                    voice.bFileFound = File.Exists( CSkin.Path( @"Sounds\" + strArray[ 2 ] ) );
+                    voice.nPlayer = 0;
 
-                this.listComboVoice.Add( voice );
+                    this.listComboVoice.Add( voice );
+                }
+                else if( strArray[ 1 ] == "COMBOVOICE_P2" )
+                {
+                    var voice = new CComboVoice();
+                    voice.strFilePath = strArray[ 2 ];
+                    voice.nCombo = Convert.ToInt32( strArray[ 3 ] );
+                    voice.bFileFound = File.Exists( CSkin.Path( @"Sounds\" + strArray[ 2 ] ) );
+                    voice.nPlayer = 1;
+
+                    this.listComboVoiceP2.Add( voice );
+                }
             }
         }
 
@@ -130,7 +172,9 @@ namespace DTXMania
 		#region [ private ]
 		//-----------------
         private List<CComboVoice> listComboVoice;
+        private List<CComboVoice> listComboVoiceP2;
         private int nVoiceIndex;
+        private int nVoiceIndexP2;
 		//-----------------
 		#endregion
 	}
@@ -139,6 +183,7 @@ namespace DTXMania
     {
         public bool bFileFound;
         public int nCombo;
+        public int nPlayer;
         public string strFilePath;
         public CSound soundComboVoice;
 
@@ -146,6 +191,7 @@ namespace DTXMania
         {
             bFileFound = false;
             nCombo = 0;
+            nPlayer = 0;
             strFilePath = "";
             soundComboVoice = null;
         }

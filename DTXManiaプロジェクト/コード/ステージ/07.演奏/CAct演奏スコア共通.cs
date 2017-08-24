@@ -15,7 +15,6 @@ namespace DTXMania
 		protected STDGBVALUE<double>[] n現在の本当のスコア;
 		protected STDGBVALUE<long>[] n現在表示中のスコア;
 		protected CTexture txScore;
-        protected CTexture txScoreAdd_1P;
         protected CCounter ctTimer;
 
         protected STスコア[] stScore;

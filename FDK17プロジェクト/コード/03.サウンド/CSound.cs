@@ -410,8 +410,11 @@ namespace FDK
 
 		public void tサウンドを破棄する( CSound csound )
 		{
-			csound.t解放する( true );			// インスタンスは存続→破棄にする。
-			csound = null;
+            if( csound != null )
+            {
+			    csound.t解放する( true );			// インスタンスは存続→破棄にする。
+			    csound = null;
+            }
 		}
 
 		public float GetCPUusage()

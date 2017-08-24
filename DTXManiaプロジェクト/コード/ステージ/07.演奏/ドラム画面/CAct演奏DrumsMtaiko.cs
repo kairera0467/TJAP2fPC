@@ -45,7 +45,9 @@ namespace DTXMania
         public override void OnManagedリソースの作成()
         {
             this.txMtaiko枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_A.png" ) );
-            this.txMtaiko下敷き = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C.png" ) );
+            this.txMtaiko下敷き[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C.png" ) );
+            this.txMtaiko下敷き[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C_2P.png" ) );
+
             this.txオプションパネル_HS = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_HiSpeed.png" ) );
             this.txオプションパネル_RANMIR = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RANMIR.png" ) );
             this.txオプションパネル_特殊 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_SpecialOption.png" ) );
@@ -82,7 +84,8 @@ namespace DTXMania
         public override void OnManagedリソースの解放()
         {
             CDTXMania.tテクスチャの解放( ref this.txMtaiko枠 );
-            CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き );
+            CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 0 ] );
+            CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 1 ] );
             
 		    CDTXMania.tテクスチャの解放( ref this.tx太鼓_土台 );
             CDTXMania.tテクスチャの解放( ref this.txオプションパネル_HS );
@@ -138,15 +141,15 @@ namespace DTXMania
 
             this.nHS = CDTXMania.ConfigIni.n譜面スクロール速度.Drums < 8 ? CDTXMania.ConfigIni.n譜面スクロール速度.Drums : 7;
 
-            if( this.txMtaiko下敷き != null )
-                this.txMtaiko下敷き.t2D描画( CDTXMania.app.Device, 0, 184 );
+            if( this.txMtaiko下敷き[ 0 ] != null )
+                this.txMtaiko下敷き[ 0 ].t2D描画( CDTXMania.app.Device, 0, 184 );
             if( this.txMtaiko枠 != null )
                 this.txMtaiko枠.t2D描画( CDTXMania.app.Device, 0, 184 );
 
             if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
             {
-                if( this.txMtaiko下敷き != null )
-                    this.txMtaiko下敷き.t2D描画( CDTXMania.app.Device, 0, 360 );
+                if( this.txMtaiko下敷き[ 1 ] != null )
+                    this.txMtaiko下敷き[ 1 ].t2D描画( CDTXMania.app.Device, 0, 360 );
                 if( this.txMtaiko枠 != null )
                     this.txMtaiko枠.t2D上下反転描画( CDTXMania.app.Device, 0, 360 );
             }
@@ -292,8 +295,8 @@ namespace DTXMania
                     if( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ] != null )
                     {
                         this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].t2D描画( CDTXMania.app.Device, 
-                            CDTXMania.Skin.nCourseSymbolP1X - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Width / 2 ),
-                            CDTXMania.Skin.nCourseSymbolP1Y - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Height / 2 )
+                            CDTXMania.Skin.nCourseSymbolX[ i ] - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Width / 2 ),
+                            CDTXMania.Skin.nCourseSymbolY[ i ] - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Height / 2 )
                             );
                     }
                     if( CDTXMania.DTX.nScoreModeTmp == 3 )
@@ -301,8 +304,8 @@ namespace DTXMania
                         if( this.txコースシンボル[ 5 ] != null )
                         {
                             this.txコースシンボル[ 5 ].t2D描画( CDTXMania.app.Device, 
-                                CDTXMania.Skin.nCourseSymbolP1X - ( this.txコースシンボル[ 5 ].sz画像サイズ.Width / 2 ),
-                                CDTXMania.Skin.nCourseSymbolP1Y - ( this.txコースシンボル[ 5 ].sz画像サイズ.Height / 2 )
+                                CDTXMania.Skin.nCourseSymbolX[ i ] - ( this.txコースシンボル[ 5 ].sz画像サイズ.Width / 2 ),
+                                CDTXMania.Skin.nCourseSymbolY[ i ] - ( this.txコースシンボル[ 5 ].sz画像サイズ.Height / 2 )
                                 );
                         }
                     }
@@ -412,7 +415,7 @@ namespace DTXMania
 
         //太鼓
         private CTexture txMtaiko枠;
-        private CTexture txMtaiko下敷き;
+        private CTexture[] txMtaiko下敷き = new CTexture[ 4 ];
 
         private CTexture tx太鼓_土台;
         private CTexture tx太鼓_面L;

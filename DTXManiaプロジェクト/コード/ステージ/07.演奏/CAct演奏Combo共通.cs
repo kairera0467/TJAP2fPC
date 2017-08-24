@@ -156,7 +156,7 @@ namespace DTXMania
         protected CTexture txCOMBO太鼓;
         protected CTexture txCOMBO太鼓_でかいやつ;
         protected CTexture txコンボラメ;
-        public CCounter ctコンボ加算;
+        public CCounter[] ctコンボ加算;
         public CCounter ctコンボラメ;
 
         protected float[,] nコンボ拡大率_座標 = new float[,]{
@@ -272,7 +272,7 @@ namespace DTXMania
 			int[] n位の数 = new int[ 10 ];	// 表示は10桁もあれば足りるだろう
 
             this.ctコンボラメ.t進行Loop();
-            this.ctコンボ加算.t進行();
+            this.ctコンボ加算[ nPlayer ].t進行();
 
 			#region [ nCombo値を桁数ごとに n位の数[] に格納する。（例：nCombo値=125 のとき n位の数 = { 5,2,1,0,0,0,0,0,0,0 } ） ]
 			//-----------------
@@ -342,8 +342,8 @@ namespace DTXMania
                     int[] arComboX = { nCombo中心X, nCombo中心X };
 				    if( this.txCOMBO太鼓 != null )
 				    {
-                        this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
-			          	this.txCOMBO太鼓.t2D中心基準描画( CDTXMania.app.Device, arComboX[ i ], y + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ] + 26, new Rectangle( n位の数[ i ] * 44, 0, 44, 60 ) );
+                        this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+			          	this.txCOMBO太鼓.t2D中心基準描画( CDTXMania.app.Device, arComboX[ i ], y + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ] + 26, new Rectangle( n位の数[ i ] * 44, 0, 44, 60 ) );
 				    }
                 }
                 else if( n桁数 <= 2 )
@@ -354,8 +354,8 @@ namespace DTXMania
                     int[] arComboX = { nCombo中心X + ( 22 - 1 ), nCombo中心X - ( 22 - 1 ) };
 				    if( this.txCOMBO太鼓 != null )
 				    {
-                        this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
-			          	this.txCOMBO太鼓.t2D中心基準描画( CDTXMania.app.Device, arComboX[ i ], y + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ] + 26, new Rectangle( n位の数[ i ] * 44, 0, 44, 60 ) );
+                        this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+			          	this.txCOMBO太鼓.t2D中心基準描画( CDTXMania.app.Device, arComboX[ i ], y + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ] + 26, new Rectangle( n位の数[ i ] * 44, 0, 44, 60 ) );
 				    }
                 }
                 else if( n桁数 == 3 )
@@ -366,8 +366,8 @@ namespace DTXMania
                     int nラメ基準X座標 = x + ( 25 - 9 );
 				    if( this.txCOMBO太鼓_でかいやつ != null )
 				    {
-                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
-				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, x, ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, x, ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
                     }
                     if( this.txコンボラメ != null )
                     {
@@ -399,8 +399,8 @@ namespace DTXMania
 				    if( this.txCOMBO太鼓_でかいやつ != null )
 				    {
                         this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 0.95f;
-                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 0 ];
-				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, ( x - 10 ), ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算.n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, ( x - 10 ), ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
                         this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 1.0f;
                     }
                     if( this.txコンボラメ != null )
@@ -456,6 +456,7 @@ namespace DTXMania
 		{
 			this.n現在のコンボ数 = new STCOMBO() { act = this };
 			this.status = new CSTATUS();
+            this.ctコンボ加算 = new CCounter[ 4 ];
 			for( int i = 0; i < 4; i++ )
 			{
 				this.status[ i ].e現在のモード = EMode.非表示中;
@@ -466,8 +467,8 @@ namespace DTXMania
 				this.status[ i ].nジャンプインデックス値 = 99999;
 				this.status[ i ].n前回の時刻_ジャンプ用 = -1;
 				this.status[ i ].nコンボが切れた時刻 = -1;
+                this.ctコンボ加算[ i ] = new CCounter( 0, 8, 6, CDTXMania.Timer );
 			}
-            this.ctコンボ加算 = new CCounter( 0, 8, 6, CDTXMania.Timer );
             this.ctコンボラメ = new CCounter( 0, 29, 20, CDTXMania.Timer );
 			base.On活性化();
 		}

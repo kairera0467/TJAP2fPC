@@ -187,11 +187,9 @@ namespace DTXMania
 			{
 				var score = new Cスコア();
 				CDTXMania.Songs管理.tScoreIniを読み込んで譜面情報を設定する( CDTXMania.strコンパクトモードファイル + ".score.ini", ref score );
-				this.actGraph.dbグラフ値目標_渡 = score.譜面情報.最大スキル[ 0 ];
 			}
 			else
 			{
-				this.actGraph.dbグラフ値目標_渡 = CDTXMania.stage選曲.r確定されたスコア.譜面情報.最大スキル[ 0 ];	// #24074 2011.01.23 add ikanick
 			}
 			// MODIFY_END #25398
 			dtLastQueueOperation = DateTime.MinValue;
@@ -372,7 +370,7 @@ namespace DTXMania
                     this.actChara.On進行描画();
                 if( CDTXMania.ConfigIni.eGameMode != EGame.OFF )
                     this.actGame.On進行描画();
-                this.actComboBalloon.On進行描画();
+
 				this.t進行描画_譜面スクロール速度();
 				this.t進行描画_チップアニメ();
                 this.actLaneTaiko.On進行描画();
@@ -380,7 +378,7 @@ namespace DTXMania
 				//this.t進行描画_レーンフラッシュD();
                 this.t進行描画_リアルタイム判定数表示();
 
-                if( CDTXMania.ConfigIni.eClipDispType == EClipDispType.ウィンドウのみ || CDTXMania.ConfigIni.eClipDispType == EClipDispType.両方 )
+                if( ( CDTXMania.ConfigIni.eClipDispType == EClipDispType.ウィンドウのみ || CDTXMania.ConfigIni.eClipDispType == EClipDispType.両方 ) && CDTXMania.ConfigIni.nPlayerCount == 1 )
                     this.actAVI.t窓表示();
 
 				if( !CDTXMania.ConfigIni.bNoInfo )
@@ -406,17 +404,21 @@ namespace DTXMania
 
                 for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
                 {
-                    this.actRoll.On進行描画( this.n現在の連打数, i );
+                    this.actRoll.On進行描画( this.n現在の連打数[ i ], i );
                 }
 
 
                 if( !CDTXMania.ConfigIni.bNoInfo )
                     this.t進行描画_判定文字列1_通常位置指定の場合();
+
                 this.t進行描画_演奏情報();
                 this.actPanel.t歌詞テクスチャを描画する();
+                this.actComboBalloon.On進行描画();
                 this.t全体制御メソッド();
-                this.actPauseMenu.t進行描画();
 
+
+                
+                this.actPauseMenu.t進行描画();
                 //this.actEnd.On進行描画();
 				this.t進行描画_STAGEFAILED();
 
@@ -541,7 +543,6 @@ namespace DTXMania
 		{
 			E判定 eJudgeResult = tチップのヒット処理( nHitTime, pChip, E楽器パート.DRUMS, bCorrectLane, 0 );
 			// #24074 2011.01.23 add ikanick
-			this.actGraph.dbグラフ値現在_渡 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS,  bIsAutoPlay );
             if( pChip.nコース == this.n現在のコース[ 0 ] && ( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 ) && pChip.bShow == true && eJudgeResult != E判定.Auto )
                 this.actGame.t叩ききりまショー_判定から各数値を増加させる( eJudgeResult, (int)( nHitTime - pChip.n発声時刻ms ) );
 			return eJudgeResult;
@@ -859,9 +860,9 @@ namespace DTXMania
                     CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( nLane, 127, nUsePlayer );
                     CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent(nChannel, nHand, nUsePlayer );
 
-                    if( this.b連打中 )
+                    if( this.b連打中[ nUsePlayer ] )
                     {
-                        chipNoHit = this.chip現在処理中の連打チップ;
+                        chipNoHit = this.chip現在処理中の連打チップ[ nUsePlayer ];
                         e判定 = E判定.Perfect;
                     }
 
@@ -1240,31 +1241,31 @@ namespace DTXMania
                             x += ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] );
                             break;
                         case 1:
-                            x = ( CDTXMania.Skin.nScrollFieldX[0] );
-                            y = CDTXMania.Skin.nScrollFieldY[0] - xTemp;
+                            x = ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] );
+                            y = CDTXMania.Skin.nScrollFieldY[ nPlayer ] - xTemp;
                             break;
                         case 2:
-                            x = ( CDTXMania.Skin.nScrollFieldX[0] + 3 );
-                            y = CDTXMania.Skin.nScrollFieldY[0] + xTemp;
+                            x = ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] + 3 );
+                            y = CDTXMania.Skin.nScrollFieldY[ nPlayer ] + xTemp;
                             break;
                         case 3:
-                            x += ( CDTXMania.Skin.nScrollFieldX[0] );
-                            y = CDTXMania.Skin.nScrollFieldY[0] - xTemp;
+                            x += ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] );
+                            y = CDTXMania.Skin.nScrollFieldY[ nPlayer ] - xTemp;
                             break;
                         case 4:
-                            x += ( CDTXMania.Skin.nScrollFieldX[0] );
-                            y = CDTXMania.Skin.nScrollFieldY[0] + xTemp;
+                            x += ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] );
+                            y = CDTXMania.Skin.nScrollFieldY[ nPlayer ] + xTemp;
                             break;
                         case 5:
-                            x = ( CDTXMania.Skin.nScrollFieldX[0] + 10 ) - xTemp;
+                            x = ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] + 10 ) - xTemp;
                             break;
                         case 6:
-                            x = ( CDTXMania.Skin.nScrollFieldX[0] ) - xTemp;
-                            y = CDTXMania.Skin.nScrollFieldY[0] - xTemp;
+                            x = ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] ) - xTemp;
+                            y = CDTXMania.Skin.nScrollFieldY[ nPlayer ] - xTemp;
                             break;
                         case 7:
-                            x = ( CDTXMania.Skin.nScrollFieldX[0] ) - xTemp;
-                            y = CDTXMania.Skin.nScrollFieldY[0] + xTemp;
+                            x = ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] ) - xTemp;
+                            y = CDTXMania.Skin.nScrollFieldY[ nPlayer ] + xTemp;
                             break;
                     }
                     #endregion
@@ -1408,7 +1409,7 @@ namespace DTXMania
                                             }
                                             this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 1820, num9, 130, 130 ) );
                                         }
-                                        this.txSenotes.t2D描画( CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
+                                        this.txSenotes.t2D描画( CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle( 0, 420, 136, 30 ) );
                                     }
                                     nLane = 1;
                                     break;
@@ -1445,7 +1446,8 @@ namespace DTXMania
                     if( bAutoPlay )
                     {
                         pChip.bHit = true;
-                        this.actChipFireTaiko.Start( pChip.nチャンネル番号 - 0x10, nPlayer );
+                        if( pChip.nチャンネル番号 != 0x1F )
+                            this.actChipFireTaiko.Start( pChip.nチャンネル番号 < 0x1A ? ( pChip.nチャンネル番号 - 0x10 ) : ( pChip.nチャンネル番号 - 0x17 ), nPlayer );
                         this.actLaneFlushD.Start( nLane, 127f, nPlayer );
                         this.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
 
@@ -1679,8 +1681,8 @@ namespace DTXMania
             if( pChip.n発声時刻ms < CSound管理.rc演奏用タイマ.n現在時刻ms && pChip.nノーツ終了時刻ms > CSound管理.rc演奏用タイマ.n現在時刻ms )
             {
                 //時間内でかつ0x9Aじゃないならならヒット処理
-                if( pChip.nチャンネル番号 != 0x18 && CDTXMania.ConfigIni.b太鼓パートAutoPlay )
-                    this.tチップのヒット処理( pChip.n発声時刻ms, pChip );
+                if( pChip.nチャンネル番号 != 0x18 && ( nPlayer == 0 ? CDTXMania.ConfigIni.b太鼓パートAutoPlay : CDTXMania.ConfigIni.b太鼓パートAutoPlay2P ) )
+                    this.tチップのヒット処理( pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer );
             }
             #endregion
 		}
@@ -1764,23 +1766,27 @@ namespace DTXMania
             int t = (int)CSound管理.rc演奏用タイマ.n現在時刻ms;
             //CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.白, t.ToString() );
 
-            if( this.chip現在処理中の連打チップ != null )
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                int n = this.chip現在処理中の連打チップ.nチャンネル番号;
-
-
-                if( this.chip現在処理中の連打チップ.nチャンネル番号 == 0x17 && this.b連打中 == true )
+                if( this.chip現在処理中の連打チップ[ i ] != null )
                 {
-                    //if (this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms >= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
-                    if( this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms + 500 >= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
+                    int n = this.chip現在処理中の連打チップ[ i ].nチャンネル番号;
+
+
+                    if( this.chip現在処理中の連打チップ[ i ].nチャンネル番号 == 0x17 && this.b連打中[ i ] == true )
                     {
-                        this.chip現在処理中の連打チップ.bShow = false;
-                        this.actBalloon.On進行描画( this.chip現在処理中の連打チップ.nBalloon, this.n風船残り );
+                        //if (this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms >= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
+                        if( this.chip現在処理中の連打チップ[ i ].n発声時刻ms <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ[ i ].nノーツ終了時刻ms + 500 >= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
+                        {
+                            this.chip現在処理中の連打チップ[ i ].bShow = false;
+                            this.actBalloon.On進行描画( this.chip現在処理中の連打チップ[ i ].nBalloon, this.n風船残り[ i ], i );
+                        }
+                        else
+                            this.n現在の連打数[ i ] = 0;
                     }
-                    else
-                        this.n現在の連打数 = 0;
                 }
             }
+
 
             #region[ 譜面分岐ガイド建設予定地 ]
             //現在実験状態です。
@@ -1895,12 +1901,11 @@ namespace DTXMania
                 }
 
             }
-            if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F8 ) )
-            {
+            //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F8 ) )
+            //{
                 //this.actChipFireD.Start紙吹雪();
                 //this.actDancer.t入退場( 0, 0, 0.4 );
-                this.actMtaiko.tBranchEvent( 0, 1, 0 );
-            }
+            //}
         }
 
         private void t進行描画_ネームプレート()

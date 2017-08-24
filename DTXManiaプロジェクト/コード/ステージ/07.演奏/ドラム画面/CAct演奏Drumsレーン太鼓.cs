@@ -182,7 +182,7 @@ namespace DTXMania
             #region[ 分岐レイヤー ]
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                if( CDTXMania.stage演奏ドラム画面.bUseBranch == true )
+                if( CDTXMania.stage演奏ドラム画面.bUseBranch[ i ] == true )
                 {
                     #region[ 動いていない ]
                     switch( CDTXMania.stage演奏ドラム画面.n次回のコース[ i ] )
@@ -293,7 +293,7 @@ namespace DTXMania
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 #region[ ゴーゴータイムレーン背景レイヤー ]
-                if( this.txゴーゴー != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME )
+                if( this.txゴーゴー != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[ i ] )
                 {
                     if( !this.ctゴーゴー.b停止中 )
                     {
@@ -330,7 +330,7 @@ namespace DTXMania
             }
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                if( CDTXMania.stage演奏ドラム画面.bUseBranch == true )
+                if( CDTXMania.stage演奏ドラム画面.bUseBranch[ i ] == true )
                 {
                     if( CDTXMania.ConfigIni.nBranchAnime == 0 )
                     {
@@ -628,7 +628,7 @@ namespace DTXMania
             #region[ ゴーゴー炎 ]
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                if( CDTXMania.stage演奏ドラム画面.bIsGOGOTIME )
+                if( CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[ i ] )
                 {
                     this.ctゴーゴー炎.t進行Loop();
 

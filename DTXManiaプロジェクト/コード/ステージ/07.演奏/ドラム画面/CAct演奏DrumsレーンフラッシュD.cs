@@ -137,18 +137,7 @@ namespace DTXMania
 
 		#region [ private ]
 		//-----------------
-		[StructLayout( LayoutKind.Sequential )]
-		private struct STレーンサイズ
-		{
-			public int x;
-			public int w;
-		}
-
 		private CCounter[] ct進行 = new CCounter[ 3 * 4 ];
-		private readonly string[] strファイル名;
-		private readonly STレーンサイズ[] stレーンサイズ;
-		private CTexture[] txFlush = new CTexture[ 0x16 ];
-
         private CTexture txRed;
         private CTexture txBlue;
         private CTexture txYellow;

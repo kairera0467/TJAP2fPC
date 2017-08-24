@@ -44,13 +44,6 @@ namespace DTXMania
 
 		
 		protected CTexture tx判定文字列;
-		protected CTexture txlag数値 = new CTexture();		// #25370 2011.2.1 yyagi
-
-		public int nShowLagType							// #25370 2011.6.3 yyagi
-		{
-			get;
-			set;
-		}
 
 		// コンストラクタ
 
@@ -130,7 +123,6 @@ namespace DTXMania
                 this.st状態[ i ].b使用中 = false;
 			}
 			base.On活性化();
-			this.nShowLagType = CDTXMania.ConfigIni.nShowLagType;
 		}
 		public override void On非活性化()
 		{
@@ -145,7 +137,6 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				this.tx判定文字列 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_judgement.png" ) );
-				this.txlag数値 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenSelect level numbers.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -154,7 +145,6 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				CDTXMania.tテクスチャの解放( ref this.tx判定文字列 );
-				CDTXMania.tテクスチャの解放( ref this.txlag数値 );
 				base.OnManagedリソースの解放();
 			}
 		}

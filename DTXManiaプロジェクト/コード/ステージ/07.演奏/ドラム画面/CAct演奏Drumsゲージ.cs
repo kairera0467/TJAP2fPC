@@ -46,9 +46,9 @@ namespace DTXMania
 
         public override void Start(int nLane, E判定 judge, int player)
         {
-            for (int j = 0; j < 16; j++)
+            for (int j = 0; j < 32; j++)
             {
-                for (int i = 0; i < 1; i++ )
+                if( player == 0 )
                 {
                     if( !this.st花火状態[ j ].b使用中 )
                     {
@@ -71,6 +71,33 @@ namespace DTXMania
                         }
 
                         this.st花火状態[j].b使用中 = true;
+                        break;
+                    }
+                }
+                if( player == 1 )
+                {
+                    if( !this.st花火状態2P[ j ].b使用中 )
+                    {
+                        this.st花火状態2P[ j ].ct進行 = new CCounter(0, 10, 20, CDTXMania.Timer);
+                        this.st花火状態2P[ j ].nPlayer = player;
+
+                        switch (nLane)
+                        {
+                            case 0x11:
+                            case 0x12:
+                            case 0x15:
+                                this.st花火状態2P[ j ].isBig = false;
+                                break;
+                            case 0x13:
+                            case 0x14:
+                            case 0x16:
+                            case 0x17:
+                                this.st花火状態2P[ j ].isBig = true;
+                                break;
+                        }
+
+                        this.st花火状態2P[ j ].b使用中 = true;
+                        break;
                     }
                 }
             }
@@ -80,24 +107,21 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
-			// CAct演奏ゲージ共通.Init()に移動
-			// this.dbゲージ値 = ( CDTXMania.ConfigIni.nRisky > 0 ) ? 1.0 : 0.66666666666666663;
-            this.ctマスク透明度タイマー = new CCounter(0, 1500, 2, CDTXMania.Timer);
             this.ct炎 = new CCounter( 0, 6, 50, CDTXMania.Timer );
 
-            for (int i = 0; i < 16; i++ )
+            for (int i = 0; i < 32; i++ )
             {
                 this.st花火状態[i].ct進行 = new CCounter();
+                this.st花火状態2P[i].ct進行 = new CCounter();
             }
 			base.On活性化();
 		}
 		public override void On非活性化()
 		{
-            this.ct本体振動 = null;
-            this.ct本体移動 = null;
-            for (int i = 0; i < 16; i++ )
+            for (int i = 0; i < 32; i++ )
             {
                 this.st花火状態[i].ct進行 = null;
+                this.st花火状態2P[i].ct進行 = null;
             }
             this.ct炎 = null;
 		}
@@ -132,14 +156,13 @@ namespace DTXMania
 				CDTXMania.tテクスチャの解放( ref this.txゲージ背景 );
 				CDTXMania.tテクスチャの解放( ref this.txゲージ2P );
 				CDTXMania.tテクスチャの解放( ref this.txゲージ背景2P );
-                CDTXMania.tテクスチャの解放( ref this.txゲージマスクDANGER );
-                CDTXMania.tテクスチャの解放( ref this.txゲージマスクMAX );
+                CDTXMania.tテクスチャの解放( ref this.txゲージ線 );
+                CDTXMania.tテクスチャの解放( ref this.txゲージ線2P );
                 CDTXMania.tテクスチャの解放( ref this.tx魂 );
                 CDTXMania.tテクスチャの解放( ref this.tx炎 );
                 CDTXMania.tテクスチャの解放( ref this.tx魂花火 );
 
-                CDTXMania.tテクスチャの解放( ref this.txゲージ線 );
-                CDTXMania.tテクスチャの解放( ref this.txゲージ線2P );
+
                 for( int i = 0; i < 12; i++ )
                 {
                     CDTXMania.tテクスチャの解放( ref this.txゲージ虹[ i ] );
@@ -267,25 +290,42 @@ namespace DTXMania
 
                 //仮置き
                 int[] nSoulExplosion = new int[] { 73, 468, 0, 0 };
-                //for( int i = 0; i < 1; i++ )
+                for( int d = 0; d < 32; d++ )
                 {
-                    for( int d = 0; d < 16; d++ )
+                    if( this.st花火状態[d].b使用中 )
                     {
-                        if (this.st花火状態[d].b使用中)
+                        this.st花火状態[d].ct進行.t進行();
+                        if (this.st花火状態[d].ct進行.b終了値に達した)
                         {
-                            this.st花火状態[d].ct進行.t進行();
-                            if (this.st花火状態[d].ct進行.b終了値に達した)
-                            {
-                                this.st花火状態[d].ct進行.t停止();
-                                this.st花火状態[d].b使用中 = false;
-                            }
-                            
-                            
-                            if( this.tx魂花火 != null )
-                            {
-                                this.tx魂花火.t2D描画( CDTXMania.app.Device, 1140, nSoulExplosion[ this.st花火状態[d].nPlayer ], new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
-                            }
+                            this.st花火状態[d].ct進行.t停止();
+                            this.st花火状態[d].b使用中 = false;
                         }
+                            
+                            
+                        if( this.tx魂花火 != null )
+                        {
+                            this.tx魂花火.t2D描画( CDTXMania.app.Device, 1140, 73, new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
+                        }
+                        break;
+                    }
+                }
+                for( int d = 0; d < 32; d++ )
+                {
+                    if (this.st花火状態2P[d].b使用中)
+                    {
+                        this.st花火状態2P[d].ct進行.t進行();
+                        if (this.st花火状態2P[d].ct進行.b終了値に達した)
+                        {
+                            this.st花火状態2P[d].ct進行.t停止();
+                            this.st花火状態2P[d].b使用中 = false;
+                        }
+                            
+                            
+                        if( this.tx魂花火 != null )
+                        {
+                            this.tx魂花火.t2D描画( CDTXMania.app.Device, 1140, 468, new Rectangle( this.st花火状態2P[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
+                        }
+                        break;
                     }
                 }
 			}
@@ -297,7 +337,8 @@ namespace DTXMania
 
 		#region [ private ]
 		//-----------------
-        protected STSTATUS[] st花火状態 = new STSTATUS[16];
+        protected STSTATUS[] st花火状態 = new STSTATUS[ 32 ];
+        protected STSTATUS[] st花火状態2P = new STSTATUS[ 32 ];
         [StructLayout(LayoutKind.Sequential)]
         protected struct STSTATUS
         {

@@ -163,7 +163,7 @@ namespace DTXMania
             
             if( this.b風船連打中 != true )
             {
-                if( !CDTXMania.stage演奏ドラム画面.bIsGOGOTIME )
+                if( !CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[ 0 ] )
                 {
                     if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 100.0 && this.nキャラクターMAX通常モーション枚数 != 0 )
                     {

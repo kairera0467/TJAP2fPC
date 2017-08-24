@@ -78,7 +78,7 @@ namespace DTXMania
             //アニメーション中の分岐レイヤー(背景)の描画を行う。
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                if( CDTXMania.stage演奏ドラム画面.bUseBranch == true )
+                if( CDTXMania.stage演奏ドラム画面.bUseBranch[ i ] == true )
                 {
                     if( this.ct分岐アニメ進行[ i ].b進行中 )
                     {
@@ -182,7 +182,6 @@ namespace DTXMania
         private int[] nBefore;
         private int[] nAfter;
         private int[] n透明度 = new int[4];
-        private int nY;
         private CTexture[] tx普通譜面 = new CTexture[2];
         private CTexture[] tx玄人譜面 = new CTexture[2];
         private CTexture[] tx達人譜面 = new CTexture[2];

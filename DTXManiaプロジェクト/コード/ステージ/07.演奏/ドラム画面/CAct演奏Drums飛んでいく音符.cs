@@ -69,16 +69,24 @@ namespace DTXMania
             }
 		}
 
-        public virtual void t虹()
+        public virtual void t虹( int player )
 		{
             if (this.tx虹 != null)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    if (!this.st虹[i].b使用中)
+                    if (!this.st虹[i].b使用中 && player == 0)
                     {
                         this.st虹[i].b使用中 = true;
                         this.st虹[i].ct進行 = new CCounter(0, 164, 5, CDTXMania.Timer); // カウンタ
+                        this.st虹[i].nPlayer = player;
+                        break;
+                    }
+                    if (!this.st虹2[i].b使用中 && player == 1)
+                    {
+                        this.st虹2[i].b使用中 = true;
+                        this.st虹2[i].ct進行 = new CCounter(0, 164, 5, CDTXMania.Timer); // カウンタ
+                        this.st虹2[i].nPlayer = player;
                         break;
                     }
                 }
@@ -93,10 +101,8 @@ namespace DTXMania
             for( int i = 0; i < 2; i++ )
 			{
 				this.st状態[ i ].ct進行 = new CCounter();
-			}
-            for( int i = 0; i < 2; i++ )
-			{
 				this.st虹[ i ].ct進行 = new CCounter();
+				this.st虹2[ i ].ct進行 = new CCounter();
 			}
             for (int i = 0; i < 64; i++)
             {
@@ -115,10 +121,8 @@ namespace DTXMania
             for( int i = 0; i < 2; i++ )
 			{
 				this.st状態[ i ].ct進行 = null;
-			}
-            for( int i = 0; i < 2; i++ )
-			{
 				this.st虹[ i ].ct進行 = null;
+				this.st虹2[ i ].ct進行 = null;
 			}
 
             for (int i = 0; i < 64; i++)
@@ -163,7 +167,7 @@ namespace DTXMania
                             this.st虹[f].b使用中 = false;
                         }
 
-                        if (this.tx虹 != null)
+                        if( this.tx虹 != null && this.st虹[f].nPlayer == 0 ) //画像が出来るまで
                         {
                             //this.st虹[f].ct進行.n現在の値 = 164;
 
@@ -176,6 +180,36 @@ namespace DTXMania
                             {
                                 int nRectX = (((this.st虹[f].ct進行.n現在の値 - 82) * 920) / 85);
                                 this.tx虹.t2D描画(CDTXMania.app.Device, 360 + nRectX, -100, new Rectangle(nRectX, 0, 920 - nRectX, 410));
+                            }
+
+                        }
+
+                    }
+                }
+                for (int f = 0; f < 2; f++)
+                {
+                    if (this.st虹2[f].b使用中)
+                    {
+                        this.st虹2[f].ct進行.t進行();
+                        if (this.st虹2[f].ct進行.b終了値に達した)
+                        {
+                            this.st虹2[f].ct進行.t停止();
+                            this.st虹2[f].b使用中 = false;
+                        }
+
+                        if( this.tx虹 != null && this.st虹2[f].nPlayer == 1 ) //画像が出来るまで
+                        {
+                            //this.st虹[f].ct進行.n現在の値 = 164;
+
+                            if (this.st虹2[f].ct進行.n現在の値 < 82)
+                            {
+                                int nRectX = ((this.st虹2[f].ct進行.n現在の値 * 920) / 85);
+                                this.tx虹.t2D上下反転描画(CDTXMania.app.Device, 360, 410, new Rectangle(0, 0, nRectX, 410));
+                            }
+                            else if (this.st虹2[f].ct進行.n現在の値 >= 82)
+                            {
+                                int nRectX = (((this.st虹2[f].ct進行.n現在の値 - 82) * 920) / 85);
+                                this.tx虹.t2D上下反転描画(CDTXMania.app.Device, 360 + nRectX, 410, new Rectangle(nRectX, 0, 920 - nRectX, 410));
                             }
 
                         }
@@ -295,7 +329,6 @@ namespace DTXMania
 		//-----------------
         private CTexture tx音符;
         private CTexture tx虹;
-
         protected STSTATUS[] st状態 = new STSTATUS[2];
 
         [StructLayout(LayoutKind.Sequential)]
@@ -341,6 +374,7 @@ namespace DTXMania
         }
 
         private ST虹[] st虹 = new ST虹[2];
+        private ST虹[] st虹2 = new ST虹[2];
         private ST飛び散るチップ[] st飛び散るチップ = new ST飛び散るチップ[64];
         private ST飛び散るチップ[] st飛んで行く音符 = new ST飛び散るチップ[64]; //2016.08.30 kairera0467 新メソッド
 

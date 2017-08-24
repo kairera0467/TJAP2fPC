@@ -183,8 +183,8 @@ namespace DTXMania
 		{
 			CDTXMania.tテクスチャの解放( ref this.txPanel );
             CDTXMania.tテクスチャの解放( ref this.tx歌詞テクスチャ );
-            this.pfMusicName.Dispose();
-            this.pf歌詞フォント.Dispose();
+            CDTXMania.t安全にDisposeする( ref this.pfMusicName );
+            CDTXMania.t安全にDisposeする( ref this.pf歌詞フォント );
 			this.ct進行用 = null;
 			base.On非活性化();
 		}
@@ -193,8 +193,6 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				this.SetPanelString( this.strパネル文字列 );
-
-
 				base.OnManagedリソースの作成();
 			}
 		}

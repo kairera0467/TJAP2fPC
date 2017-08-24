@@ -440,17 +440,12 @@ namespace DTXMania
 		#endregion
 
 		public double[] db現在のゲージ値 = new double[ 4 ];
-		protected CCounter ct本体移動;
-		protected CCounter ct本体振動;
-        protected CCounter ctマスク透明度タイマー;
         protected CCounter ct炎;
         protected CCounter ct虹アニメ;
 		protected CTexture txゲージ;
         protected CTexture txゲージ背景;
 		protected CTexture txゲージ2P;
         protected CTexture txゲージ背景2P;
-        protected CTexture txゲージマスクMAX;
-        protected CTexture txゲージマスクDANGER;
         protected CTexture tx魂;
         protected CTexture tx炎;
         protected CTexture tx魂花火;

@@ -915,11 +915,11 @@ namespace DTXMania
                             }
                             else if( strCommand == "CourseSymbolP1X" )
                             {
-                                this.nCourseSymbolP1X = C変換.n値を文字列から取得して返す( strParam, this.nCourseSymbolP1X );
+                                this.nCourseSymbolX[0] = C変換.n値を文字列から取得して返す( strParam, this.nCourseSymbolX[0] );
                             }
                             else if( strCommand == "CourseSymbolP1Y" )
                             {
-                                this.nCourseSymbolP1Y = C変換.n値を文字列から取得して返す( strParam, this.nCourseSymbolP1Y );
+                                this.nCourseSymbolY[0] = C変換.n値を文字列から取得して返す( strParam, this.nCourseSymbolY[0] );
                             }
 
                             else if( strCommand == "DiffDispMode" )
@@ -1066,6 +1066,18 @@ namespace DTXMania
         public float fComboNumberSpacing = 0;
         public float fComboNumberSpacing_l = 0;
 
+        //コンボ吹き出し(2Pまで)
+        public int[] nComboBalloonX = new int[] { 253, 253 };
+        public int[] nComboBalloonY = new int[] { -11, 498 };
+        public int[] nComboBalloonNumberX = new int[] { 312, 312 };
+        public int[] nComboBalloonNumberY = new int[] { 34, 540 };
+        public int[] nComboBalloonNumber_1000X = new int[] { 335, 335 };
+        public int[] nComboBalloonNumber_1000Y = new int[] { 34, 540 };
+        public int[] nComboBalloonTextX = new int[] { 471, 471 };
+        public int[] nComboBalloonTextY = new int[] { 55, 561 };
+        public int[] nComboBalloonText_1000X = new int[] { 253, 253 };
+        public int[] nComboBalloonText_1000Y = new int[] { 55, 561 };
+
         //スコア
         public int[] nScoreX = new int[] { 20, 20, 0, 0 };
         public int[] nScoreY = new int[] { 190, 495, 0, 0 };
@@ -1076,10 +1088,19 @@ namespace DTXMania
         public SlimDX.Color4 cScoreColor1P = new SlimDX.Color4( 1.0f, 1.0f, 0.5f, 0.4f );
         public SlimDX.Color4 cScoreColor2P = new SlimDX.Color4( 1.0f, 0.4f, 0.5f, 1.0f );
 
+        //風船
+        //次郎とは違い、風船画像はBalloon、吹き出しはFrameという名前にしています。
+        public int[] nBurstBalloonX = new int[] { 398, 398, 0, 0 };
+        public int[] nBurstBalloonY = new int[] { 115, 412, 0, 0 };
+        public int[] nBurstFrameX = new int[] { 383, 383, 0, 0 };
+        public int[] nBurstFrameY = new int[] { 31, 329, 0, 0 };
+        public int[] nBurstNumberX = new int[] { 486, 486, 0, 0 };
+        public int[] nBurstNumberY = new int[] { 58, 356, 0, 0 };
+
         //コースシンボル
         //中央基準
-        public int nCourseSymbolP1X = 87;
-        public int nCourseSymbolP1Y = 292;
+        public int[] nCourseSymbolX = new int[]{ 87, 87, 0, 0 };
+        public int[] nCourseSymbolY = new int[]{ 292, 428, 0, 0 };
 
         //分岐吹き出し(中央基準)
         public int[] nBranchBalloonX = new int[] { 0, 0, 0, 0 };
@@ -1088,6 +1109,8 @@ namespace DTXMania
         //キャラクター画像の位置
         public int[] nPlayerCharacterX = new int[]{0};
         public int[] nPlayerCharacterY = new int[]{0};
+        public int[] nPlayerCharacterBalloonX = new int[] { 240, 240, 0, 0 };
+        public int[] nPlayerCharacterBalloonY = new int[] { 0, 297, 0, 0 };
 
         public E難易度表示タイプ eDiffDispMode;
         public bool b現在のステージ数を表示しない;
