@@ -121,6 +121,8 @@ namespace DTXMania
                             break;
                         case 0x13:
                         case 0x14:
+                        case 0x1A:
+                        case 0x1B:
                             this.st状態_大[ j ].ct進行 = new CCounter( 0, 9, 20, CDTXMania.Timer );
                             this.st状態_大[ j ].judge = judge;
                             this.st状態_大[ j ].nIsBig = 1;

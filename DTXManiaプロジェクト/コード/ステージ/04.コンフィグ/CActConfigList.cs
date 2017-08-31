@@ -76,7 +76,7 @@ namespace DTXMania
 				"Return to left menu." );
 			this.list項目リスト.Add( this.iSystemReturnToMenu );
 
-			this.iSystemReloadDTX = new CItemBase( "Reload Songs", CItemBase.Eパネル種別.通常,
+			this.iSystemReloadDTX = new CItemBase( "曲データ再読込み", CItemBase.Eパネル種別.通常,
 				"曲データの一覧情報を取得し直します。",
 				"Reload song data." );
 			this.list項目リスト.Add( this.iSystemReloadDTX );
@@ -87,7 +87,7 @@ namespace DTXMania
             //    new string[] { "OFF", "HALF", "FULL" } );
             //this.list項目リスト.Add( this.iCommonDark );
 
-            this.iTaikoPlayerCount = new CItemInteger( "Player", 1, 2, CDTXMania.ConfigIni.nPlayerCount,
+            this.iTaikoPlayerCount = new CItemInteger( "プレイ人数", 1, 2, CDTXMania.ConfigIni.nPlayerCount,
                 "プレイ人数切り替え：\n2にすると演奏画面が2人プレイ専用のレイアウトになり、2P専用譜面を読み込むようになります。",
                 "" );
             this.list項目リスト.Add( this.iTaikoPlayerCount );
@@ -97,7 +97,7 @@ namespace DTXMania
 				"Risky mode:\nSet over 1, in case you'd like to specify\n the number of Poor/Miss times to be\n FAILED.\nSet 0 to disable Risky mode." );
 			this.list項目リスト.Add( this.iSystemRisky );
 
-			this.iCommonPlaySpeed = new CItemInteger("PlaySpeed", 5, 40, CDTXMania.ConfigIni.n演奏速度,
+			this.iCommonPlaySpeed = new CItemInteger("再生速度", 5, 40, CDTXMania.ConfigIni.n演奏速度,
 				"曲の演奏速度を、速くしたり遅くした\n" +
 				"りすることができます。\n" +
 				"（※一部のサウンドカードでは正しく\n" +
@@ -201,10 +201,10 @@ namespace DTXMania
 				"BGMの再生：\nこれをOFFにすると、BGM を再生しな\nくなります。",
 				"Turn OFF if you don't want to play\n BGM." );
 			this.list項目リスト.Add( this.iSystemBGMSound );
-			this.iSystemAudienceSound = new CItemToggle( "Audience", CDTXMania.ConfigIni.b歓声を発声する,
-				"歓声の再生：\nこれをOFFにすると、歓声を再生しな\nくなります。",
-				"Turn ON if you want to be cheered\n at the end of fill-in zone or not." );
-			this.list項目リスト.Add( this.iSystemAudienceSound );
+            //this.iSystemAudienceSound = new CItemToggle( "Audience", CDTXMania.ConfigIni.b歓声を発声する,
+            //    "歓声の再生：\nこれをOFFにすると、歓声を再生しな\nくなります。",
+            //    "Turn ON if you want to be cheered\n at the end of fill-in zone or not." );
+            //this.list項目リスト.Add( this.iSystemAudienceSound );
             //this.iSystemDamageLevel = new CItemList( "DamageLevel", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eダメージレベル,
             //    "ゲージ減少割合：\nMiss ヒット時のゲージの減少度合い\nを指定します。\nRiskyが1以上の場合は無効となります",
             //    "Damage level at missing (and\n recovering level) at playing.\nThis setting is ignored when Risky >= 1.",
@@ -228,11 +228,11 @@ namespace DTXMania
             //    "ストイック（禁欲）モード：\n以下をまとめて表示ON/OFFします。\n_プレビュー画像/動画\n_リザルト画像/動画\n_NowLoading画像\n_演奏画面の背景画像\n_BGA 画像 / AVI 動画\n_グラフ画像\n",
             //    "Turn ON to disable drawing\n * preview image / movie\n * result image / movie\n * nowloading image\n * wallpaper (in playing screen)\n * BGA / AVI (in playing screen)" );
             //this.list項目リスト.Add( this.iSystemStoicMode );
-			this.iSystemShowLag = new CItemList( "ShowLagTime", CItemBase.Eパネル種別.通常, CDTXMania.ConfigIni.nShowLagType,
-				"ズレ時間表示：\nジャストタイミングからのズレ時間(ms)\nを表示します。\n  OFF: ズレ時間を表示しません。\n  ON: ズレ時間を表示します。\n  GREAT-: PERFECT以外の時のみ\n表示します。",
-				"About displaying the lag from\n the \"just timing\".\n  OFF: Don't show it.\n  ON: Show it.\n  GREAT-: Show it except you've\n  gotten PERFECT.",
-				new string[] { "OFF", "ON", "GREAT-" } );
-			this.list項目リスト.Add( this.iSystemShowLag );
+            //this.iSystemShowLag = new CItemList( "ShowLagTime", CItemBase.Eパネル種別.通常, CDTXMania.ConfigIni.nShowLagType,
+            //    "ズレ時間表示：\nジャストタイミングからのズレ時間(ms)\nを表示します。\n  OFF: ズレ時間を表示しません。\n  ON: ズレ時間を表示します。\n  GREAT-: PERFECT以外の時のみ\n表示します。",
+            //    "About displaying the lag from\n the \"just timing\".\n  OFF: Don't show it.\n  ON: Show it.\n  GREAT-: Show it except you've\n  gotten PERFECT.",
+            //    new string[] { "OFF", "ON", "GREAT-" } );
+            //this.list項目リスト.Add( this.iSystemShowLag );
 			this.iSystemAutoResultCapture = new CItemToggle( "Autosaveresult", CDTXMania.ConfigIni.bIsAutoResultCapture,
 				"リザルト画像自動保存機能：\nONにすると、ハイスコア/ハイスキル時に\n自動でリザルト画像を曲データと同じ\nフォルダに保存します。",
 				"AutoSaveResult:\nTurn ON to save your result screen\n image automatically when you get\n hiscore/hiskill." );
@@ -390,7 +390,7 @@ namespace DTXMania
                 "");
             this.list項目リスト.Add( this.iTaikoAutoSection );
 
-			this.iSystemSkinSubfolder = new CItemList( "Skin (General)", CItemBase.Eパネル種別.通常, nSkinIndex,
+			this.iSystemSkinSubfolder = new CItemList( "Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
 				"スキン切替：\n" +
 				"スキンを切り替えます。\n",
 				//"CONFIGURATIONを抜けると、設定した\n" +
@@ -418,7 +418,7 @@ namespace DTXMania
 			"Settings for the system key/pad inputs." );
 			this.list項目リスト.Add( this.iSystemGoToKeyAssign );
 
-			
+            OnListMenuの初期化();
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.System;
 		}
@@ -766,9 +766,9 @@ namespace DTXMania
 
             this.iTaikoJudgeCountDisp = new CItemToggle( "JudgeCountDisp", CDTXMania.ConfigIni.bJudgeCountDisplay,
                 "左下に判定数を表示します。\n" +
-                "",
-                "\n" +
-                "");
+                "(1人プレイ専用)",
+                "Show the JudgeCount\n" +
+                "(SinglePlay Only)");
             this.list項目リスト.Add( this.iTaikoJudgeCountDisp );
             
 			this.iDrumsGoToKeyAssign = new CItemBase( "KEY CONFIG", CItemBase.Eパネル種別.通常,
@@ -777,6 +777,7 @@ namespace DTXMania
 				"Settings for the drums key/pad inputs." );
 			this.list項目リスト.Add( this.iDrumsGoToKeyAssign );
 
+            OnListMenuの初期化();
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.Drums;
 		}
@@ -793,6 +794,8 @@ namespace DTXMania
 				"左側のメニューに戻ります。",
 				"Return to left menu." );
 			this.list項目リスト.Add( this.iGuitarReturnToMenu );
+
+            OnListMenuの初期化();
             this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.Guitar;
 		}
@@ -810,6 +813,7 @@ namespace DTXMania
 				"Return to left menu." );
 			this.list項目リスト.Add( this.iBassReturnToMenu );
 
+            OnListMenuの初期化();
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.Bass;
 		}
@@ -1182,6 +1186,7 @@ namespace DTXMania
 				"Capture key assign:\nTo assign key for screen capture.\n (You can use keyboard only. You can't\nuse pads to capture screenshot." );
 			this.list項目リスト.Add( this.iKeyAssignSystemCapture );
 
+            OnListMenuの初期化();
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.KeyAssignSystem;
 		}
@@ -1280,7 +1285,7 @@ namespace DTXMania
 				"Drums key assign:\nTo assign key/pads for LeftBassDrum\n button." );
 			this.list項目リスト.Add( this.iKeyAssignTaikoRBlue2P );
 
-
+            OnListMenuの初期化();
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.KeyAssignDrums;
 		}
@@ -1323,6 +1328,8 @@ namespace DTXMania
             //    "ギターのキー設定：\nキャンセルボタンへのキーの割り当\nてを設定します。",
             //    "Guitar key assign:\nTo assign key/pads for Cancel button.");
             //this.list項目リスト.Add(this.iKeyAssignGuitarCancel);
+
+            OnListMenuの初期化();
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.KeyAssignGuitar;
 		}
@@ -1365,6 +1372,7 @@ namespace DTXMania
             //    "ベースのキー設定：\nキャンセルボタンへのキーの割り当\nてを設定します。",
             //    "Bass key assign:\nTo assign key/pads for Cancel button." );
             //this.list項目リスト.Add( this.iKeyAssignBassCancel );
+            OnListMenuの初期化();
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.KeyAssignBass;
 		}
@@ -1437,6 +1445,9 @@ namespace DTXMania
 			nSkinSampleIndex = -1;
 			#endregion
 
+			this.prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\fonts\mplus-1p-heavy.ttf" ), 20 );	// t項目リストの設定 の前に必要
+//			this.listMenu = new List<stMenuItemRight>();
+
 			this.t項目リストの設定_Bass();		// #27795 2012.3.11 yyagi; System設定の中でDrumsの設定を参照しているため、
 			this.t項目リストの設定_Guitar();	// 活性化の時点でDrumsの設定も入れ込んでおかないと、System設定中に例外発生することがある。
 			this.t項目リストの設定_Drums();	// 
@@ -1462,7 +1473,8 @@ namespace DTXMania
 			this.tConfigIniへ記録する();
 			this.list項目リスト.Clear();
 			this.ct三角矢印アニメ = null;
-			
+            
+			prvFont.Dispose();
 			base.On非活性化();
 			#region [ Skin変更 ]
 			if ( CDTXMania.Skin.GetCurrentSkinSubfolderFullName( true ) != this.skinSubFolder_org )
@@ -1532,6 +1544,33 @@ namespace DTXMania
 			CDTXMania.tテクスチャの解放( ref this.tx三角矢印 );
 		
 			base.OnManagedリソースの解放();
+		}
+		private void OnListMenuの初期化()
+		{
+			OnListMenuの解放();
+			this.listMenu = new stMenuItemRight[ this.list項目リスト.Count ];
+		}
+
+		/// <summary>
+		/// 事前にレンダリングしておいたテクスチャを解放する。
+		/// </summary>
+		private void OnListMenuの解放()
+		{
+			if ( listMenu != null )
+			{
+				for ( int i = 0; i < listMenu.Length; i++ )
+				{
+					if ( listMenu[ i ].txParam != null )
+					{
+						listMenu[ i ].txParam.Dispose();
+					}
+					if ( listMenu[ i ].txMenuItemRight != null )
+					{
+						listMenu[ i ].txMenuItemRight.Dispose();
+					}
+				}
+				this.listMenu = null;
+			}
 		}
 		public override int On進行描画()
 		{
@@ -1695,61 +1734,81 @@ namespace DTXMania
 				#endregion
 				#region [ 現在の行の項目名を描画。]
 				//-----------------
-				CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 56, y + 19, this.list項目リスト[ nItem ].str項目名 );
+				if ( listMenu[ nItem ].txMenuItemRight != null )	// 自前のキャッシュに含まれているようなら、再レンダリングせずキャッシュを使用
+				{
+					listMenu[ nItem ].txMenuItemRight.t2D描画( CDTXMania.app.Device, x + 20, y + 12 );
+				}
+				else
+				{
+					Bitmap bmpItem = prvFont.DrawPrivateFont( this.list項目リスト[ nItem ].str項目名, Color.White, Color.Black );
+					listMenu[ nItem ].txMenuItemRight = CDTXMania.tテクスチャの生成( bmpItem );
+					//					ctItem.t2D描画( CDTXMania.app.Device, ( x + 0x12 ) * Scale.X, ( y + 12 ) * Scale.Y - 20 );
+					//					CDTXMania.tテクスチャの解放( ref ctItem );
+					CDTXMania.t安全にDisposeする( ref bmpItem );
+				}
+				//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 0x12, y + 12, this.list項目リスト[ nItem ].str項目名 );
 				//-----------------
 				#endregion
 				#region [ 現在の行の項目の要素を描画。]
 				//-----------------
-				switch( this.list項目リスト[ nItem ].e種別 )
+				string strParam = null;
+				bool b強調 = false;
+				switch ( this.list項目リスト[ nItem ].e種別 )
 				{
 					case CItemBase.E種別.ONorOFFトグル:
 						#region [ *** ]
 						//-----------------
-						CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 420, y + 25, ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF" );
+						//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF" );
+						strParam = ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF";
 						break;
-						//-----------------
+					//-----------------
 						#endregion
 
 					case CItemBase.E種別.ONorOFFor不定スリーステート:
 						#region [ *** ]
 						//-----------------
-						switch( ( (CItemThreeState) this.list項目リスト[ nItem ] ).e現在の状態 )
+						switch ( ( (CItemThreeState) this.list項目リスト[ nItem ] ).e現在の状態 )
 						{
 							case CItemThreeState.E状態.ON:
-								CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 420, y + 25, "ON" );
+								strParam = "ON";
 								break;
 
 							case CItemThreeState.E状態.不定:
-								CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 420, y + 25, "- -" );
+								strParam = "- -";
 								break;
 
 							default:
-								CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 420, y + 25, "OFF" );
+								strParam = "OFF";
 								break;
 						}
+						//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, "ON" );
 						break;
-						//-----------------
+					//-----------------
 						#endregion
 
 					case CItemBase.E種別.整数:		// #24789 2011.4.8 yyagi: add PlaySpeed supports (copied them from OPTION)
 						#region [ *** ]
 						//-----------------
-						if( this.list項目リスト[ nItem ] == this.iCommonPlaySpeed )
+						if ( this.list項目リスト[ nItem ] == this.iCommonPlaySpeed )
 						{
 							double d = ( (double) ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 ) / 20.0;
-							CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 420, y + 25, d.ToString( "0.000" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, d.ToString( "0.000" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							strParam = d.ToString( "0.000" );
 						}
-						else if( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed || this.list項目リスト[ nItem ] == this.iGuitarScrollSpeed || this.list項目リスト[ nItem ] == this.iBassScrollSpeed )
+						else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed || this.list項目リスト[ nItem ] == this.iGuitarScrollSpeed || this.list項目リスト[ nItem ] == this.iBassScrollSpeed )
 						{
 							float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 + 1 ) * 0.5f;
-							CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 420, y + 25, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							strParam = f.ToString( "x0.0" );
 						}
 						else
 						{
-							CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 420, y + 25, ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString(), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString(), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							strParam = ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString();
 						}
+						b強調 = ( n行番号 == 0 ) && this.b要素値にフォーカス中;
 						break;
-						//-----------------
+					//-----------------
 						#endregion
 
 					case CItemBase.E種別.リスト:	// #28195 2012.5.2 yyagi: add Skin supports
@@ -1757,22 +1816,52 @@ namespace DTXMania
 						//-----------------
 						{
 							CItemList list = (CItemList) this.list項目リスト[ nItem ];
-							CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 420, y + 25, list.list項目値[ list.n現在選択されている項目番号 ] );
+							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, list.list項目値[ list.n現在選択されている項目番号 ] );
+							strParam = list.list項目値[ list.n現在選択されている項目番号 ];
 
-							#region [ 必要な場合に、Skinのサンプルを生成_描画する。#28195 2012.5.2 yyagi ]
+							#region [ 必要な場合に、Skinのサンプルを生成・描画する。#28195 2012.5.2 yyagi ]
 							if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemSkinSubfolder )
 							{
 								tGenerateSkinSample();		// 最初にSkinの選択肢にきたとき(Enterを押す前)に限り、サンプル生成が発生する。
 								if ( txSkinSample1 != null )
 								{
-									txSkinSample1.t2D描画( CDTXMania.app.Device, 56, 300 );
+									txSkinSample1.t2D描画( CDTXMania.app.Device, 124, 409 );
 								}
 							}
 							#endregion
 							break;
 						}
-						//-----------------
+					//-----------------
 						#endregion
+				}
+				if ( b強調 )
+				{
+					Bitmap bmpStr = b強調 ?
+						prvFont.DrawPrivateFont( strParam, Color.White, Color.Black, Color.Yellow, Color.OrangeRed ) :
+						prvFont.DrawPrivateFont( strParam, Color.White, Color.Black );
+					CTexture txStr = CDTXMania.tテクスチャの生成( bmpStr, false );
+					txStr.t2D描画( CDTXMania.app.Device, x + 400, y + 12 );
+					CDTXMania.tテクスチャの解放( ref txStr );
+					CDTXMania.t安全にDisposeする( ref bmpStr );
+				}
+				else
+				{
+					int nIndex = this.list項目リスト[ nItem ].GetIndex();
+					if ( listMenu[ nItem ].nParam != nIndex || listMenu[ nItem ].txParam == null )
+					{
+						stMenuItemRight stm = listMenu[ nItem ];
+						stm.nParam = nIndex;
+						object o = this.list項目リスト[ nItem ].obj現在値();
+						stm.strParam = ( o == null ) ? "" : o.ToString();
+
+						Bitmap bmpStr =
+							prvFont.DrawPrivateFont( strParam, Color.White, Color.Black );
+						stm.txParam = CDTXMania.tテクスチャの生成( bmpStr, false );
+						CDTXMania.t安全にDisposeする( ref bmpStr );
+
+						listMenu[ nItem ] = stm;
+					}
+					listMenu[ nItem ].txParam.t2D描画( CDTXMania.app.Device, ( x + 400 ), y + 12 );
 				}
 				//-----------------
 				#endregion
@@ -1956,6 +2045,18 @@ namespace DTXMania
 		private CTexture txその他項目行パネル;
 		private CTexture tx三角矢印;
 		private CTexture tx通常項目行パネル;
+
+		private CPrivateFastFont prvFont;
+		//private List<string> list項目リスト_str最終描画名;
+		private struct stMenuItemRight
+		{
+			//	public string strMenuItem;
+			public CTexture txMenuItemRight;
+			public int nParam;
+			public string strParam;
+			public CTexture txParam;
+		}
+		private stMenuItemRight[] listMenu;
 
 		private CTexture txSkinSample1;				// #28195 2012.5.2 yyagi
 		private string[] skinSubFolders;			//

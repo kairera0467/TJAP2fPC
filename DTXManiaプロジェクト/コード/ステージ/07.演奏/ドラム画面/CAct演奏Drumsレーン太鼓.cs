@@ -760,6 +760,8 @@ namespace DTXMania
                         break;
                     case 0x13:
                     case 0x14:
+                    case 0x1A:
+                    case 0x1B:
                         {
                             if( b両手入力 )
                                 this.st状態[ nPlayer ].nIsBig = 1;

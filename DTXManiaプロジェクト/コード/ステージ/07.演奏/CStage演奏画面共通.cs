@@ -1548,6 +1548,12 @@ namespace DTXMania
                     {
                         nAddScore = nAddScore / 2;
                     }
+
+                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
+                    {
+                        nAddScore = nAddScore * 2;
+                    }
+
                     this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
                 }
                 else if( CDTXMania.DTX.nScoreModeTmp == 2 )
@@ -1593,7 +1599,7 @@ namespace DTXMania
                     nAddScore = (int)( nAddScore * 10 );
 
                     //大音符のボーナス
-                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 )
+                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
                     {
                         nAddScore = nAddScore * 2;
                     }
@@ -1661,7 +1667,7 @@ namespace DTXMania
                     nAddScore = (int)( nAddScore * 10 );
 
                     //大音符のボーナス
-                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 )
+                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
                     {
                         nAddScore = nAddScore * 2;
                     }

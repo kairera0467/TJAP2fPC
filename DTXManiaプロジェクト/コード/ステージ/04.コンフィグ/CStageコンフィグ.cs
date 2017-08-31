@@ -114,6 +114,19 @@ namespace DTXMania
 				this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_header panel.png" ) );
 				this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_footer panel.png" ) );
 				this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ) );
+				prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\fonts\mplus-1p-heavy.ttf" ), 20 );
+				string[] strMenuItem = { "System", "Drums", "Guitar", "Bass", "Exit" };
+				txMenuItemLeft = new CTexture[ strMenuItem.Length, 2 ];
+				for ( int i = 0; i < strMenuItem.Length; i++ )
+				{
+					Bitmap bmpStr;
+					bmpStr = prvFont.DrawPrivateFont( strMenuItem[ i ], Color.White, Color.Black );
+					txMenuItemLeft[ i, 0 ] = CDTXMania.tテクスチャの生成( bmpStr, false );
+					bmpStr.Dispose();
+					bmpStr = prvFont.DrawPrivateFont( strMenuItem[ i ], Color.White, Color.Black, Color.Yellow, Color.OrangeRed );
+					txMenuItemLeft[ i, 1 ] = CDTXMania.tテクスチャの生成( bmpStr, false );
+					bmpStr.Dispose();
+				}
 				if( this.bメニューにフォーカス中 )
 				{
 					this.t説明文パネルに現在選択されているメニューの説明を描画する();
@@ -134,6 +147,15 @@ namespace DTXMania
 				CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
 				CDTXMania.tテクスチャの解放( ref this.txMenuカーソル );
 				CDTXMania.tテクスチャの解放( ref this.tx説明文パネル );
+				prvFont.Dispose();
+				for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
+				{
+					txMenuItemLeft[ i, 0 ].Dispose();
+					txMenuItemLeft[ i, 0 ] = null;
+					txMenuItemLeft[ i, 1 ].Dispose();
+					txMenuItemLeft[ i, 1 ] = null;
+				}
+				txMenuItemLeft = null;
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -184,43 +206,20 @@ namespace DTXMania
 			#endregion
 			#region [ メニュー ]
 			//---------------------
-			string str = "System";
-			int num4 = this.actFont.n文字列長dot( str );
-			bool flag = this.n現在のメニュー番号 == 0;
-			this.actFont.t文字列描画( 282 - ( num4 / 2 ), 155, str, flag );
-			//str = "Drums Keys";
-			//num4 = this.actFont.n文字列長dot( str );
-			//flag = this.n現在のメニュー番号 == 1;
-			//this.actFont.t文字列描画( 0x8a - ( num4 / 2 ), 0x7d, str, flag );
-			//str = "Guitar Keys";
-			//num4 = this.actFont.n文字列長dot( str );
-			//flag = this.n現在のメニュー番号 == 2;
-			//this.actFont.t文字列描画( 0x8a - ( num4 / 2 ), 150, str, flag );
-			//str = "Bass Keys";
-			//num4 = this.actFont.n文字列長dot( str );
-			//flag = this.n現在のメニュー番号 == 3;
-			//this.actFont.t文字列描画( 0x8a - ( num4 / 2 ), 0xaf, str, flag );
-			//str = "Exit";
-			//num4 = this.actFont.n文字列長dot( str );
-			//flag = this.n現在のメニュー番号 == 4;
-			//this.actFont.t文字列描画( 0x8a - ( num4 / 2 ), 200, str, flag );
-			str = "Drums";
-			num4 = this.actFont.n文字列長dot( str );
-			flag = this.n現在のメニュー番号 == 1;
-			this.actFont.t文字列描画( 282 - ( num4 / 2 ), 192, str, flag );
-			str = "Guitar";
-			num4 = this.actFont.n文字列長dot( str );
-			flag = this.n現在のメニュー番号 == 2;
-			this.actFont.t文字列描画( 282 - ( num4 / 2 ), 230, str, flag );
-			str = "Bass";
-			num4 = this.actFont.n文字列長dot( str );
-			flag = this.n現在のメニュー番号 == 3;
-			this.actFont.t文字列描画( 282 - ( num4 / 2 ), 267, str, flag );
-			str = "Exit";
-			num4 = this.actFont.n文字列長dot( str );
-			flag = this.n現在のメニュー番号 == 4;
-			this.actFont.t文字列描画( 282 - ( num4 / 2 ), 305, str, flag );
-
+			int menuY = 162 - 22;
+			int stepY = 39;
+			for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
+			{
+				//Bitmap bmpStr = (this.n現在のメニュー番号 == i) ?
+				//      prvFont.DrawPrivateFont( strMenuItem[ i ], Color.White, Color.Black, Color.Yellow, Color.OrangeRed ) :
+				//      prvFont.DrawPrivateFont( strMenuItem[ i ], Color.White, Color.Black );
+				//txMenuItemLeft = CDTXMania.tテクスチャの生成( bmpStr, false );
+				int flag = ( this.n現在のメニュー番号 == i ) ? 1 : 0;
+				int num4 = txMenuItemLeft[ i, flag ].sz画像サイズ.Width;
+				txMenuItemLeft[ i, flag ].t2D描画( CDTXMania.app.Device, 282 - ( num4 / 2 ), menuY ); //55
+				//txMenuItem.Dispose();
+				menuY += stepY;
+			}
 			//---------------------
 			#endregion
 			#region [ 説明文パネル ]
@@ -451,6 +450,8 @@ namespace DTXMania
 		private CTexture tx上部パネル;
 		private CTexture tx説明文パネル;
 		private CTexture tx背景;
+        private CPrivateFastFont prvFont;
+		private CTexture[ , ] txMenuItemLeft;
 
 		private void tカーソルを下へ移動する()
 		{
