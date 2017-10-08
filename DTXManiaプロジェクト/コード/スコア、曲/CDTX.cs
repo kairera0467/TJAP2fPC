@@ -2791,9 +2791,9 @@ namespace DTXMania
                 {
                     if( !string.IsNullOrEmpty( input[ n ] ) && ( input[ n ].Substring( 0, 1 ) == "#" || this.CharConvertNote( input[ n ].Substring( 0, 1 ) ) != -1 ) )
                     {
-                        if( input[ n ].StartsWith( "BALLOON" ) )
+                        if( input[ n ].StartsWith( "BALLOON" ) || input[ n ].StartsWith( "BPM" ) )
                         {
-                            //何もしない
+                            //A～Fで始まる命令が削除されない不具合の対策
                         }
                         else
                         {
@@ -2805,9 +2805,9 @@ namespace DTXMania
                 {
                     if( !string.IsNullOrEmpty( input[ n ] ) && this.CharConvertNote( input[ n ].Substring( 0, 1 ) ) != -1 )
                     {
-                        if( input[ n ].StartsWith( "BALLOON" ) )
+                        if( input[ n ].StartsWith( "BALLOON" ) || input[ n ].StartsWith( "BPM" ) )
                         {
-                            //何もしない
+                            //A～Fで始まる命令が削除されない不具合の対策
                         }
                         else
                         {

@@ -2251,7 +2251,7 @@ namespace DTXMania
 			CDTXMania.ConfigIni.b演奏情報を表示する = this.iSystemDebugInfo.bON;
 			CDTXMania.ConfigIni.n背景の透過度 = this.iSystemBGAlpha.n現在の値;
 			CDTXMania.ConfigIni.bBGM音を発声する = this.iSystemBGMSound.bON;
-			CDTXMania.ConfigIni.b歓声を発声する = this.iSystemAudienceSound.bON;
+			//CDTXMania.ConfigIni.b歓声を発声する = this.iSystemAudienceSound.bON;
 			//CDTXMania.ConfigIni.eダメージレベル = (Eダメージレベル) this.iSystemDamageLevel.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.bScoreIniを出力する = this.iSystemSaveScore.bON;
 
@@ -2260,7 +2260,7 @@ namespace DTXMania
 			//CDTXMania.ConfigIni.n自動再生音量 = this.iSystemAutoChipVolume.n現在の値;
 			//CDTXMania.ConfigIni.bストイックモード = this.iSystemStoicMode.bON;
 
-			CDTXMania.ConfigIni.nShowLagType = this.iSystemShowLag.n現在選択されている項目番号;				// #25370 2011.6.3 yyagi
+			//CDTXMania.ConfigIni.nShowLagType = this.iSystemShowLag.n現在選択されている項目番号;				// #25370 2011.6.3 yyagi
 			CDTXMania.ConfigIni.bIsAutoResultCapture = this.iSystemAutoResultCapture.bON;					// #25399 2011.6.9 yyagi
 
 			CDTXMania.ConfigIni.nRisky = this.iSystemRisky.n現在の値;										// #23559 2011.7.27 yyagi
