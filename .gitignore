@@ -6,3 +6,7 @@ Config.ini
 DTXManiaLog.txt
 songlist.db
 songs.db
+/.vs
+/DTXManiaプロジェクト/bin/x86/Debug
+/DTXManiaプロジェクト/obj/x86
+/実行時フォルダ/System/Default/Graphics/7_PlayerNumber.png

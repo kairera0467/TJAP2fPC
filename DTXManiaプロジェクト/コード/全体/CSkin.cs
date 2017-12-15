@@ -1061,8 +1061,8 @@ namespace DTXMania
         //コンボ
         public int[] nComboNumberX = new int[] { 0, 0, 0, 0 };
         public int[] nComboNumberY = new int[] { 212, 388, 0, 0 };
-        public int[] nComboNumberTextY = new int[] { 266, 442, 0, 0 };
-        public int[] nComboNumberTextLargeY = new int[] { 263, 439, 0, 0 };
+        public int[] nComboNumberTextY = new int[] { 271, 447, 0, 0 };
+        public int[] nComboNumberTextLargeY = new int[] { 270, 446, 0, 0 };
         public float fComboNumberSpacing = 0;
         public float fComboNumberSpacing_l = 0;
 

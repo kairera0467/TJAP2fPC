@@ -156,9 +156,9 @@ namespace DTXMania
             
             if( this.tx太鼓_土台 != null )
             {
-                this.tx太鼓_土台.t2D描画( CDTXMania.app.Device, 169, 190 );
+                this.tx太鼓_土台.t2D描画( CDTXMania.app.Device, 190, 190 );
                 if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
-                    this.tx太鼓_土台.t2D描画( CDTXMania.app.Device, 169, 366 );
+                    this.tx太鼓_土台.t2D描画( CDTXMania.app.Device, 190, 366 );
             }
             if( this.tx太鼓_面L != null && this.tx太鼓_面R != null && this.tx太鼓_ふちL != null && this.tx太鼓_ふちR != null )
             {
@@ -167,10 +167,10 @@ namespace DTXMania
                 this.tx太鼓_面L.n透明度 = this.stパッド状態[2].n明るさ * 43;
                 this.tx太鼓_面R.n透明度 = this.stパッド状態[3].n明るさ * 43;
             
-                this.tx太鼓_ふちL.t2D描画( CDTXMania.app.Device, 169, 190, new Rectangle( 0, 0, 76, 164 ) );
-                this.tx太鼓_ふちR.t2D描画( CDTXMania.app.Device, 169 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
-                this.tx太鼓_面L.t2D描画( CDTXMania.app.Device, 169, 190, new Rectangle( 0, 0, 76, 164 ) );
-                this.tx太鼓_面R.t2D描画( CDTXMania.app.Device, 169 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
+                this.tx太鼓_ふちL.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
+                this.tx太鼓_ふちR.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
+                this.tx太鼓_面L.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
+                this.tx太鼓_面R.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
             }
 
             if( this.tx太鼓_面L != null && this.tx太鼓_面R != null && this.tx太鼓_ふちL != null && this.tx太鼓_ふちR != null )
@@ -180,10 +180,10 @@ namespace DTXMania
                 this.tx太鼓_面L.n透明度 = this.stパッド状態[6].n明るさ * 43;
                 this.tx太鼓_面R.n透明度 = this.stパッド状態[7].n明るさ * 43;
             
-                this.tx太鼓_ふちL.t2D描画( CDTXMania.app.Device, 169, 366, new Rectangle( 0, 0, 76, 164 ) );
-                this.tx太鼓_ふちR.t2D描画( CDTXMania.app.Device, 169 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
-                this.tx太鼓_面L.t2D描画( CDTXMania.app.Device, 169, 366, new Rectangle( 0, 0, 76, 164 ) );
-                this.tx太鼓_面R.t2D描画( CDTXMania.app.Device, 169 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
+                this.tx太鼓_ふちL.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
+                this.tx太鼓_ふちR.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
+                this.tx太鼓_面L.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
+                this.tx太鼓_面R.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
             }
 
             int[] nLVUPY = new int[] { 127, 127, 0, 0 };
