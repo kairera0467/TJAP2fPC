@@ -256,6 +256,7 @@ namespace DTXMania
                 this.tx判定数小文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_number_s.png" ) );
                 this.txNamePlate = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
                 this.txNamePlate2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
+                this.txPlayerNumber = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_PlayerNumber.png"));
 
                 this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
 
@@ -286,6 +287,7 @@ namespace DTXMania
                 CDTXMania.tテクスチャの解放( ref this.tx判定数小文字 );
                 CDTXMania.tテクスチャの解放( ref this.txNamePlate );
                 CDTXMania.tテクスチャの解放( ref this.txNamePlate2P );
+                CDTXMania.tテクスチャの解放( ref this.txPlayerNumber);
 
                 if( this.soundRed != null )
                     this.soundRed.t解放する();
@@ -373,6 +375,7 @@ namespace DTXMania
 
 				this.t進行描画_譜面スクロール速度();
 				this.t進行描画_チップアニメ();
+
                 this.actLaneTaiko.On進行描画();
                 //this.t進行描画_レーン();
 				//this.t進行描画_レーンフラッシュD();
@@ -422,6 +425,15 @@ namespace DTXMania
                 //this.actEnd.On進行描画();
 				this.t進行描画_STAGEFAILED();
 
+                if (this.txNamePlate != null)
+                {
+                    this.txNamePlate.t2D描画(CDTXMania.app.Device, 0, 288);
+                }
+                if (this.txPlayerNumber != null)
+                {
+                    this.txPlayerNumber.t2D描画(CDTXMania.app.Device, 5, 233);
+                }
+
                 bIsFinishedEndAnime = this.actEnd.On進行描画() == 1 ? true : false;
 				bIsFinishedFadeout = this.t進行描画_フェードイン_アウト();
 
@@ -458,6 +470,7 @@ namespace DTXMania
 
 				if( CDTXMania.act現在入力を占有中のプラグイン == null )
 					this.tキー入力();
+
 			}
 			base.sw.Stop();
 			return 0;
@@ -505,6 +518,7 @@ namespace DTXMania
         private CTexture tx判定数小文字;
         private CTexture txNamePlate; //ちょっと描画順で都合が悪くなるので移動。
         private CTexture txNamePlate2P; //ちょっと描画順で都合が悪くなるので移動。
+        private CTexture txPlayerNumber;
 
         private CTexture txMovie; //2016.08.30 kairera0467 ウィンドウ表示
 
@@ -1910,8 +1924,8 @@ namespace DTXMania
 
         private void t進行描画_ネームプレート()
         {
-            if( this.txNamePlate != null )
-                this.txNamePlate.t2D描画( CDTXMania.app.Device, 314, 19 );
+            //if( this.txNamePlate != null )
+                //this.txNamePlate.t2D描画( CDTXMania.app.Device, 0, 100 );
 
             if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
             {

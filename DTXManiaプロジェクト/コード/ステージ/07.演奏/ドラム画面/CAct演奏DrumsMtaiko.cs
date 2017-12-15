@@ -146,7 +146,7 @@ namespace DTXMania
             if( this.txMtaiko枠 != null )
                 this.txMtaiko枠.t2D描画( CDTXMania.app.Device, 0, 184 );
 
-            if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
+            if ( CDTXMania.stage演奏ドラム画面.bDoublePlay )
             {
                 if( this.txMtaiko下敷き[ 1 ] != null )
                     this.txMtaiko下敷き[ 1 ].t2D描画( CDTXMania.app.Device, 0, 360 );
@@ -188,9 +188,7 @@ namespace DTXMania
 
             int[] nLVUPY = new int[] { 127, 127, 0, 0 };
 
-            //if( this.txネームプレート != null )
-            //    this.txネームプレート.t2D描画( CDTXMania.app.Device, 314, 19 );
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            for ( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 if( !this.ctレベルアップダウン[ i ].b停止中 )
                 {
@@ -295,17 +293,18 @@ namespace DTXMania
                     if( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ] != null )
                     {
                         this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].t2D描画( CDTXMania.app.Device, 
-                            CDTXMania.Skin.nCourseSymbolX[ i ] - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Width / 2 ),
-                            CDTXMania.Skin.nCourseSymbolY[ i ] - ( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].sz画像サイズ.Height / 2 )
+                            60,
+                            233
                             );
                     }
-                    if( CDTXMania.DTX.nScoreModeTmp == 3 )
+
+                    if ( CDTXMania.DTX.nScoreModeTmp == 3 )
                     {
                         if( this.txコースシンボル[ 5 ] != null )
                         {
                             this.txコースシンボル[ 5 ].t2D描画( CDTXMania.app.Device, 
-                                CDTXMania.Skin.nCourseSymbolX[ i ] - ( this.txコースシンボル[ 5 ].sz画像サイズ.Width / 2 ),
-                                CDTXMania.Skin.nCourseSymbolY[ i ] - ( this.txコースシンボル[ 5 ].sz画像サイズ.Height / 2 )
+                                60,
+                                233
                                 );
                         }
                     }
@@ -330,6 +329,7 @@ namespace DTXMania
             //    this.tMtaikoEvent( 0x12, 1, 1 );
             //}
 
+            
 
             return base.On進行描画();
         }
@@ -404,6 +404,7 @@ namespace DTXMania
             this.Before[ player ] = Before;
         }
 
+
         #region[ private ]
         //-----------------
         //構造体
@@ -447,5 +448,6 @@ namespace DTXMania
         private CTexture txレベルダウン;
         //-----------------
         #endregion
+
     }
 }

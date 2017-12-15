@@ -204,6 +204,7 @@ namespace DTXMania
                 this.txゲージ土台 = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\8_ResultGauge_base.png") );
                 this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul.png" ) );
                 this.tx炎 = CDTXMania.tテクスチャの生成Af( CSkin.Path(@"Graphics\7_Soul_fire.png") );
+                //this.txプレイヤーナンバー = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_PlayerNumber.png"));
                 this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
 				base.OnManagedリソースの作成();
 			}
@@ -224,6 +225,7 @@ namespace DTXMania
                 CDTXMania.tテクスチャの解放( ref this.txゲージ土台 );
                 CDTXMania.tテクスチャの解放( ref this.tx魂 );
                 CDTXMania.tテクスチャの解放( ref this.tx炎 );
+                //CDTXMania.tテクスチャの解放( ref this.txプレイヤーナンバー);
                 CDTXMania.tテクスチャの解放( ref this.txネームプレート );
 				base.OnManagedリソースの解放();
 			}
@@ -388,7 +390,8 @@ namespace DTXMania
             //CDTXMania.act文字コンソール.tPrint( 1150, 200, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.n最大コンボ数.ToString()) );
 			int num = this.ct表示用.n現在の値;
 
-            this.txネームプレート.t2D描画( CDTXMania.app.Device, 254, 93 );
+            //this.txプレイヤーナンバー.t2D描画(CDTXMania.app.Device, 254, 93);
+            //this.txネームプレート.t2D描画( CDTXMania.app.Device, 254, 93 );
 
 			if( !this.ct表示用.b終了値に達した )
 			{
@@ -428,6 +431,7 @@ namespace DTXMania
         private CTexture tx魂;
         private CTextureAf tx炎;
 		private CTexture tx文字;
+        //private CTexture txプレイヤーナンバー;
         private CTexture txネームプレート;
 
 		private void t小文字表示( int x, int y, string str )

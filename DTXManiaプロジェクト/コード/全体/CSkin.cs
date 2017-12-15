@@ -1099,8 +1099,8 @@ namespace DTXMania
 
         //コースシンボル
         //中央基準
-        public int[] nCourseSymbolX = new int[]{ 87, 87, 0, 0 };
-        public int[] nCourseSymbolY = new int[]{ 292, 428, 0, 0 };
+        public int[] nCourseSymbolX = new int[]{ 72, 72, 0, 0 };
+        public int[] nCourseSymbolY = new int[]{ 180, 230, 0, 0 };
 
         //分岐吹き出し(中央基準)
         public int[] nBranchBalloonX = new int[] { 0, 0, 0, 0 };
