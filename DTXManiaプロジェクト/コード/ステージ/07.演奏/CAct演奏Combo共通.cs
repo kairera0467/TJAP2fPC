@@ -170,10 +170,21 @@ namespace DTXMania
                         {1.04f,-2},
                         {1.0f,0},
                     };
+        protected float[,] nコンボ拡大率_座標_1000combo = new float[,]{
+                        {1.11f,-7},
+                        {1.22f,-14},
+                        {1.2f,-12},
+                        {1.15f,-9},
+                        {1.13f,-8},
+                        {1.11f,-7},
+                        {1.06f,-3},
+                        {1.04f,-2},
+                        {1.0f,0},
+                    };
 
-		// 内部クラス
+        // 内部クラス
 
-		protected class CSTATUS
+        protected class CSTATUS
 		{
 			public CSTAT P1 = new CSTAT();
 			public CSTAT P2 = new CSTAT();
@@ -258,7 +269,8 @@ namespace DTXMania
 
       	protected virtual void tコンボ表示_太鼓( int nCombo値, int nジャンプインデックス, int nPlayer )
 		{
-            //nCombo値 = 1145;
+            //テスト用コンボ数
+            //nCombo値 = 114514;
 			#region [ 事前チェック。]
 			//-----------------
 			if( CDTXMania.ConfigIni.bドラムコンボ表示 == false )
@@ -335,8 +347,19 @@ namespace DTXMania
                         {0.84f,-2},
                         {0.8f,0},
                 };
+                this.nコンボ拡大率_座標_1000combo = new float[,]{
+                        {0.71f,-7},
+                        {0.82f,-14},
+                        {0.8f,-12},
+                        {0.75f,-9},
+                        {0.73f,-8},
+                        {0.71f,-7},
+                        {0.66f,-3},
+                        {0.64f,-2},
+                        {0.6f,0},
+                };
 
-                if( n桁数 <= 1 )
+                if ( n桁数 <= 1 )
                 {
                     int nCombo中心X = 271; //仮置き
                     
@@ -365,19 +388,19 @@ namespace DTXMania
                 {
                     x -= 33;
                     //int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
-                    int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[ nPlayer ] - 13; //2列目のラメの始点を基準とする。
+                    int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[ nPlayer ] - 4; //2列目のラメの始点を基準とする。
                     int nラメ基準X座標 = x + ( 16 - 9 );
 				    if( this.txCOMBO太鼓_でかいやつ != null )
 				    {
                         this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
-				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, x, ( y + 9 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
+				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, x, ( y + 10 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
                     }
                     if( this.txコンボラメ != null )
                     {
                         this.txコンボラメ.b加算合成 = true;
                         if( this.ctコンボラメ.n現在の値 > 14 && this.ctコンボラメ.n現在の値 < 26 ) //1
                         {
-                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 32) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 42)- (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
                         }
                         if( this.ctコンボラメ.n現在の値 < 13 ) //2
                         {
@@ -385,48 +408,86 @@ namespace DTXMania
                             if( this.ctコンボラメ.n現在の値 <= 7 ) this.txコンボラメ.n透明度 = 255;
                             else if( this.ctコンボラメ.n現在の値 >= 8 && this.ctコンボラメ.n現在の値 <= 12 ) this.txコンボラメ.n透明度 = (int)(204 - ( 43.35 * this.ctコンボラメ.n現在の値 ));
                             #endregion
-                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標, nラメ基準Y座標 - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標, (nラメ基準Y座標 + 20) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
                         }
                         if( this.ctコンボラメ.n現在の値 > 12 && this.ctコンボラメ.n現在の値 < 19 ) //3
                         {
                             this.txコンボラメ.n透明度 = 255;
-                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 24) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 38) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
                         }
                     }
                 }
                 else
                 {
-                    x -= 42;
-                    int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
-                    int nラメ基準X座標 = x + ( 25 - 9 );
-				    if( this.txCOMBO太鼓_でかいやつ != null )
-				    {
-                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 0.95f;
-                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
-				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, ( x - 10 ), ( y - 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
-                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 1.0f;
+                    x -= 26;
+                    //int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
+                    int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[nPlayer] - 4; //2列目のラメの始点を基準とする。
+                    int nラメ基準X座標 = x + (16 - 9);
+                    if (this.txCOMBO太鼓_でかいやつ != null)
+                    {
+                        // this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標_1000combo[this.ctコンボ加算[nPlayer].n現在の値, 0];
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 0.6f;
+                        this.txCOMBO太鼓_でかいやつ.t2D描画(CDTXMania.app.Device, (x - 18), (y + 20) + (int)this.nコンボ拡大率_座標_1000combo[this.ctコンボ加算[nPlayer].n現在の値, 1], new Rectangle(n位の数[i] * 50, 0, 50, 70));
                     }
-                    if( this.txコンボラメ != null )
+                    if (this.txコンボラメ != null)
                     {
                         this.txコンボラメ.b加算合成 = true;
-                        if( this.ctコンボラメ.n現在の値 > 14 && this.ctコンボラメ.n現在の値 < 26 ) //1
+                        if (this.ctコンボラメ.n現在の値 > 14 && this.ctコンボラメ.n現在の値 < 26) //1
                         {
-                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 32) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            this.txコンボラメ.t2D描画(CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 42) - (int)(1.1 * this.ctコンボラメ.n現在の値));
                         }
-                        if( this.ctコンボラメ.n現在の値 < 13 ) //2
+                        if (this.ctコンボラメ.n現在の値 < 13) //2
                         {
                             #region[透明度制御]
-                            if( this.ctコンボラメ.n現在の値 <= 7 ) this.txコンボラメ.n透明度 = 255;
-                            else if( this.ctコンボラメ.n現在の値 >= 8 && this.ctコンボラメ.n現在の値 <= 12 ) this.txコンボラメ.n透明度 = (int)(204 - ( 43.35 * this.ctコンボラメ.n現在の値 ));
+                            if (this.ctコンボラメ.n現在の値 <= 7) this.txコンボラメ.n透明度 = 255;
+                            else if (this.ctコンボラメ.n現在の値 >= 8 && this.ctコンボラメ.n現在の値 <= 12) this.txコンボラメ.n透明度 = (int)(204 - (43.35 * this.ctコンボラメ.n現在の値));
                             #endregion
-                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標, nラメ基準Y座標 - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            this.txコンボラメ.t2D描画(CDTXMania.app.Device, nラメ基準X座標, (nラメ基準Y座標 + 20) - (int)(1.1 * this.ctコンボラメ.n現在の値));
                         }
-                        if( this.ctコンボラメ.n現在の値 > 12 && this.ctコンボラメ.n現在の値 < 19 ) //3
+                        if (this.ctコンボラメ.n現在の値 > 12 && this.ctコンボラメ.n現在の値 < 19) //3
                         {
                             this.txコンボラメ.n透明度 = 255;
-                            this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 24) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            this.txコンボラメ.t2D描画(CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 38) - (int)(1.1 * this.ctコンボラメ.n現在の値));
                         }
+                        /*
+                        x -= 33;
+                        int nCombo中心X = 271; //仮置き
+                        //int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
+                        int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[nPlayer] - 4;
+                        int nラメ基準X座標 = x + ( 16 - 9 );
+                        if( this.txCOMBO太鼓_でかいやつ != null )
+                        {
+                            this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 0.6f;
+                            this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = 0.6f;
+                            int[] arComboX = { nCombo中心X + (16 - 1), nCombo中心X - (16 - 1) };
+                            //this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                            this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, ( x - 9 ), ( y + 12 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
+
+                        }
+                        if( this.txコンボラメ != null )
+                        {
+                            this.txコンボラメ.b加算合成 = true;
+                            if( this.ctコンボラメ.n現在の値 > 14 && this.ctコンボラメ.n現在の値 < 26 ) //1
+                            {
+                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 - 13, (nラメ基準Y座標 + 32) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            }
+                            if( this.ctコンボラメ.n現在の値 < 13 ) //2
+                            {
+                                #region[透明度制御]
+                                if( this.ctコンボラメ.n現在の値 <= 7 ) this.txコンボラメ.n透明度 = 255;
+                                else if( this.ctコンボラメ.n現在の値 >= 8 && this.ctコンボラメ.n現在の値 <= 12 ) this.txコンボラメ.n透明度 = (int)(204 - ( 43.35 * this.ctコンボラメ.n現在の値 ));
+                                #endregion
+                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標, nラメ基準Y座標 - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            }
+                            if( this.ctコンボラメ.n現在の値 > 12 && this.ctコンボラメ.n現在の値 < 19 ) //3
+                            {
+                                this.txコンボラメ.n透明度 = 255;
+                                this.txコンボラメ.t2D描画( CDTXMania.app.Device, nラメ基準X座標 + 15, (nラメ基準Y座標 + 24) - (int)( 1.1 * this.ctコンボラメ.n現在の値 ) );
+                            }
+                            */
                     }
+
                 }
             }
 
