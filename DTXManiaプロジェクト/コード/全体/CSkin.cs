@@ -1075,7 +1075,7 @@ namespace DTXMania
         public int[] nComboBalloonNumber_1000Y = new int[] { 34, 540 };
         public int[] nComboBalloonTextX = new int[] { 471, 471 };
         public int[] nComboBalloonTextY = new int[] { 55, 561 };
-        public int[] nComboBalloonText_1000X = new int[] { 253, 253 };
+        public int[] nComboBalloonText_1000X = new int[] { 491, 491 };
         public int[] nComboBalloonText_1000Y = new int[] { 55, 561 };
 
         //スコア
