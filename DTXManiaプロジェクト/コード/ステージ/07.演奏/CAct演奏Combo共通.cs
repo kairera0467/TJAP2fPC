@@ -408,7 +408,7 @@ namespace DTXMania
                 }
                 else if( n桁数 == 3 )
                 {
-                    x -= 30;
+                    x -= 31;
                     //int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
                     int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[ nPlayer ] - 4; //2列目のラメの始点を基準とする。
                     int nラメ基準X座標 = x + ( 16 - 9 );

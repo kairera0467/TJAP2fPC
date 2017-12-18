@@ -2752,10 +2752,18 @@ namespace DTXMania
                                     this.actChara.ctクリア通常モーション = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, ( dbUnit_clear * 2.0 ) / this.actChara.arクリアモーション番号.Length, CSound管理.rc演奏用タイマ );
 
                                     this.actChara.ct通常モーション.db現在の値 = 0;
-                                    this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
+                                    
+                                    //this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
+
+                                    // ↓踊り子・モブ↓
+                                    this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, (dbUnit * 2) / this.actChara.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
+                                    this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
+                                    this.actChara.ct踊り子モーション.db現在の値 = 0;
+                                    this.actChara.ctモブモーション.db現在の値 = 0;
+                                    // ↑踊り子・モブ↑
                                     //this.actDancer.ctモブ = new CCounter( 1.0, 16.0, (( dbUnit / 16.0 )), CSound管理.rc演奏用タイマ );
-                                   
-                                    if( this.actChara.nキャラクターMAX通常モーション枚数 != 0 )
+
+                                    if ( this.actChara.nキャラクターMAX通常モーション枚数 != 0 )
                                     {
                                         double dbUnit_max = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.ar黄色モーション番号.Length );
                                         this.actChara.ctMAX通常モーション = new CCounter( 0, this.actChara.ar黄色モーション番号.Length - 1, dbUnit_max * 2, CSound管理.rc演奏用タイマ );
@@ -2893,8 +2901,11 @@ namespace DTXMania
                                 this.actChara.ct通常モーション = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbUnit / this.actChara.arモーション番号.Length, CSound管理.rc演奏用タイマ );
                                 this.actChara.ctゴーゴーモーション = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, ( dbUnit * 2 ) / this.actChara.arゴーゴーモーション番号.Length, CSound管理.rc演奏用タイマ );
 
+                                this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, (dbUnit * 4) / this.actChara.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
+                                this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
 
-                                if( this.actChara.nキャラクタークリアモーション枚数 != 0 )
+
+                                if ( this.actChara.nキャラクタークリアモーション枚数 != 0 )
                                 {
                                     double dbUnit_clear = ( ( ( 60.0 / ( bpm ) ) ));
                                     this.actChara.ctクリア通常モーション = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, ( dbUnit_clear * 2.0 ) / this.actChara.arクリアモーション番号.Length, CSound管理.rc演奏用タイマ );
@@ -2910,12 +2921,14 @@ namespace DTXMania
                                     this.actChara.ctMAXゴーゴーモーション = new CCounter( 0, this.actChara.ar黄色ゴーゴーモーション番号.Length - 1, dbUnit_max_gogo * 2, CSound管理.rc演奏用タイマ );
                                 }
 //#if C_82D982F182AF82CD82A282AF82A2
-                                for( int dancer = 0; dancer < 5; dancer++ )
+                                /*
+                                 * for( int dancer = 0; dancer < 5; dancer++ )
                                     this.actDancer.st投げ上げ[ dancer ].ct進行 = new CCounter( 0, this.actDancer.arモーション番号_登場.Length - 1, dbUnit / this.actDancer.arモーション番号_登場.Length, CSound管理.rc演奏用タイマ );
 
                                 this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4 ) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
                                 this.actDancer.ctモブ = new CCounter( 1.0, 16.0, (int)((60.0 / bpm / 16.0 ) * 1000 ), CSound管理.rc演奏用タイマ );
 //#endif
+                               */
                             }
 
 						}
