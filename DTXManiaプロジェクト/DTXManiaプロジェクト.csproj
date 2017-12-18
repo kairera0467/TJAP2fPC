@@ -52,7 +52,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>..\実行時フォルダ\</OutputPath>
+    <OutputPath>D:\info\Documents\TJAPlayer2 forPC  ver.16\</OutputPath>
     <DefineConstants>TRACE;TEST_ENGLISH_ TEST_Direct3D9Ex_ _WindowedFullscreen</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>

@@ -170,7 +170,18 @@ namespace DTXMania
                         {1.04f,-2},
                         {1.0f,0},
                     };
-        protected float[,] nコンボ拡大率_座標_1000combo = new float[,]{
+        protected float[,] nコンボ拡大率_座標_100combo = new float[,]{
+                        {0.81f,-7},
+                        {0.92f,-14},
+                        {0.9f,-12},
+                        {0.85f,-9},
+                        {0.83f,-8},
+                        {0.81f,-7},
+                        {0.78f,-3},
+                        {0.74f,-2},
+                        {0.7f,0},
+                };
+    protected float[,] nコンボ拡大率_座標_1000combo = new float[,]{
                         {1.11f,-7},
                         {1.22f,-14},
                         {1.2f,-12},
@@ -270,7 +281,7 @@ namespace DTXMania
       	protected virtual void tコンボ表示_太鼓( int nCombo値, int nジャンプインデックス, int nPlayer )
 		{
             //テスト用コンボ数
-            //nCombo値 = 114514;
+            //nCombo値 = 114;
 			#region [ 事前チェック。]
 			//-----------------
 			if( CDTXMania.ConfigIni.bドラムコンボ表示 == false )
@@ -347,6 +358,17 @@ namespace DTXMania
                         {0.84f,-2},
                         {0.8f,0},
                 };
+                this.nコンボ拡大率_座標_100combo = new float[,]{
+                        {0.81f,-7},
+                        {0.92f,-14},
+                        {0.9f,-12},
+                        {0.85f,-9},
+                        {0.83f,-8},
+                        {0.81f,-7},
+                        {0.78f,-3},
+                        {0.74f,-2},
+                        {0.7f,0},
+                };
                 this.nコンボ拡大率_座標_1000combo = new float[,]{
                         {0.71f,-7},
                         {0.82f,-14},
@@ -386,14 +408,15 @@ namespace DTXMania
                 }
                 else if( n桁数 == 3 )
                 {
-                    x -= 33;
+                    x -= 31;
                     //int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
                     int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[ nPlayer ] - 4; //2列目のラメの始点を基準とする。
                     int nラメ基準X座標 = x + ( 16 - 9 );
 				    if( this.txCOMBO太鼓_でかいやつ != null )
 				    {
-                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
-				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, x, ( y + 10 ) + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標_100combo[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                        this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 0.7f;
+				        this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, x, ( y + 14 ) + (int)this.nコンボ拡大率_座標_100combo[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
                     }
                     if( this.txコンボラメ != null )
                     {
