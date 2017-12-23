@@ -172,6 +172,9 @@ namespace DTXMania
                 }
             }
 
+            this.ct制御タイマ = new CCounter();
+
+
 			listWAV = CDTXMania.DTX.listWAV;
 
 			this.eフェードアウト完了時の戻り値 = E演奏画面の戻り値.継続;
@@ -318,6 +321,8 @@ namespace DTXMania
 			this.ctチップ模様アニメ.Guitar = null;
 			this.ctチップ模様アニメ.Bass = null;
 			this.ctチップ模様アニメ.Taiko = null;
+
+            this.ct制御タイマ = null;
 			//listWAV.Clear();
 			listWAV = null;
 			listChip = null;
@@ -638,7 +643,7 @@ namespace DTXMania
 
         private int n連打終了時間ms;
 
-        private long n制御タイマ;
+        public CCounter ct制御タイマ;
         protected int n現在の音符の顔番号;
 
         protected int nWaitButton;
@@ -2751,6 +2756,8 @@ namespace DTXMania
                                     this.actChara.ctゴーゴーモーション = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, ( dbUnit_gogo * 2.0 ) / this.actChara.arゴーゴーモーション番号.Length, CSound管理.rc演奏用タイマ );
                                     this.actChara.ctクリア通常モーション = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, ( dbUnit_clear * 2.0 ) / this.actChara.arクリアモーション番号.Length, CSound管理.rc演奏用タイマ );
 
+                                    this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
+
                                     this.actChara.ct通常モーション.db現在の値 = 0;
                                     
                                     //this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
@@ -2900,7 +2907,7 @@ namespace DTXMania
 
                                 this.actChara.ct通常モーション = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbUnit / this.actChara.arモーション番号.Length, CSound管理.rc演奏用タイマ );
                                 this.actChara.ctゴーゴーモーション = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, ( dbUnit * 2 ) / this.actChara.arゴーゴーモーション番号.Length, CSound管理.rc演奏用タイマ );
-
+                                this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
                                 this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, (dbUnit * 2) / this.actChara.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
                                 this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
 
@@ -3847,15 +3854,25 @@ namespace DTXMania
 		{
             if( this.b初めての進行描画 )
             {
-                this.n制御タイマ = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
+                //this.ct制御タイマ = FDK.CSound管理.rc演奏用タイマ;
+                //this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
+                //this.ct制御タイマ.t進行LoopDb();
+            }
+            //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, ct制御タイマ.n現在の値.ToString());
+            if (this.actChara.ctモブモーション.db現在の値 < 10)
+            {
+                this.n現在の音符の顔番号 = 0;
+            } else
+            {
+                this.n現在の音符の顔番号 = 1;
             }
 
-            long num = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
-			if( num < this.n制御タイマ )
+            /*long num = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
+			if( num < this.ct制御タイマ )
 			{
-				this.n制御タイマ = num;
+				this.ct制御タイマ = num;
 			}
-			while( ( num - this.n制御タイマ ) >= 1000 )
+			while( ( num - this.ct制御タイマ ) >= 1000 )
 			{
 				if( this.n現在の音符の顔番号 == 0 )
 				{
@@ -3868,32 +3885,32 @@ namespace DTXMania
 
                 if( this.actCombo.n現在のコンボ数.P1 < 50 )
                 {
-                    this.n制御タイマ += 500;
+                    this.ct制御タイマ += 500;
                 }
                 else if(this.actCombo.n現在のコンボ数.P1 >= 50 && this.actCombo.n現在のコンボ数.P1 < 150)
                 {
-                    this.n制御タイマ += 400;
+                    this.ct制御タイマ += 400;
                 }
                 else if( this.actCombo.n現在のコンボ数.P1 >= 150 && this.actCombo.n現在のコンボ数.P1 < 250 )
                 {
-                    this.n制御タイマ += 300;
+                    this.ct制御タイマ += 300;
                 }
                 else if( this.actCombo.n現在のコンボ数.P1 >= 250 && this.actCombo.n現在のコンボ数.P1 < 300 )
                 {
-                    this.n制御タイマ += 200;
+                    this.ct制御タイマ += 200;
                 }
                 else if( this.actCombo.n現在のコンボ数.P1 >= 300 )
                 {
-                    this.n制御タイマ += 80;
+                    this.ct制御タイマ += 80;
                 }
                 else
                 {
-                    this.n制御タイマ += 500;
+                    this.ct制御タイマ += 500;
                 }
 
-		    }
+		    }*/
 
-            if( this.actChara.ctゴーゴーモーション != null )
+            if ( this.actChara.ctゴーゴーモーション != null )
             {
                 this.actChara.ctゴーゴーモーション.t進行LoopDb();
             }
