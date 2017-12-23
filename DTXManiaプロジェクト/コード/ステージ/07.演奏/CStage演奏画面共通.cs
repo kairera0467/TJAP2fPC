@@ -2901,7 +2901,7 @@ namespace DTXMania
                                 this.actChara.ct通常モーション = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbUnit / this.actChara.arモーション番号.Length, CSound管理.rc演奏用タイマ );
                                 this.actChara.ctゴーゴーモーション = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, ( dbUnit * 2 ) / this.actChara.arゴーゴーモーション番号.Length, CSound管理.rc演奏用タイマ );
 
-                                this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, (dbUnit * 4) / this.actChara.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
+                                this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, (dbUnit * 2) / this.actChara.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
                                 this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
 
 

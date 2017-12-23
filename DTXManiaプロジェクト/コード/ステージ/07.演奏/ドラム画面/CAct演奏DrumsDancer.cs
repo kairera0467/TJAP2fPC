@@ -170,14 +170,14 @@ namespace DTXMania
             {
                 if( this.txモブ != null )
                 {
-                    float num1 = (float)this.ctモブ.db現在の値;
-                    float fSpeed = ( 1.0f - ( 1.0f * (float)this.ctモブ.db現在の値 ) );
+                    //float num1 = (float)this.ctモブ.db現在の値;
+                    //float fSpeed = ( 1.0f - ( 1.0f * (float)this.ctモブ.db現在の値 ) );
 
                     //int mobY = -(int)(this.ctモブ.db現在の値) + 2;
                     //mobY = (int)( 2.0 * this.ctモブ.db現在の値 + ( ( 1.0 * Math.Pow( this.ctモブ.db現在の値, 2.0 ) ) * 0.5 ) );
                     //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, mobY.ToString() );
                     //this.txモブ.t2D描画( CDTXMania.app.Device, 0, ( 720 - this.txモブ.szテクスチャサイズ.Height ) + mobY );
-                    this.txモブ.t2D描画( CDTXMania.app.Device, 0, (( 780.0f - this.txモブ.szテクスチャサイズ.Height ) - (float)( 60.0f * Math.Sin( Math.PI * num1 / 14.0f ) )) );
+                    //this.txモブ.t2D描画( CDTXMania.app.Device, 0, (( 780.0f - this.txモブ.szテクスチャサイズ.Height ) - (float)( 60.0f * Math.Sin( Math.PI * num1 / 14.0f ) )) );
                 }
             }
             return base.On進行描画();
