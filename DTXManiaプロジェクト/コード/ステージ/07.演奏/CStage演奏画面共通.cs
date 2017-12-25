@@ -644,6 +644,8 @@ namespace DTXMania
         private int n連打終了時間ms;
 
         public CCounter ct制御タイマ;
+
+        protected int nタイマ番号;
         protected int n現在の音符の顔番号;
 
         protected int nWaitButton;
@@ -3859,7 +3861,11 @@ namespace DTXMania
                 //this.ct制御タイマ.t進行LoopDb();
             }
             //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, ct制御タイマ.n現在の値.ToString());
-            if (this.actChara.ctモブモーション.db現在の値 < 10)
+            this.nタイマ番号 = (int)this.actChara.ctモブモーション.db現在の値;
+            CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.nタイマ番号.ToString());
+
+
+            if (this.actChara.ctモブモーション.db現在の値 < 13)
             {
                 this.n現在の音符の顔番号 = 0;
             } else
