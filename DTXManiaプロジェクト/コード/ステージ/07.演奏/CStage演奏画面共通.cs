@@ -3862,7 +3862,7 @@ namespace DTXMania
             }
             //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, ct制御タイマ.n現在の値.ToString());
             this.nタイマ番号 = (int)this.actChara.ctモブモーション.db現在の値;
-            CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.nタイマ番号.ToString());
+            //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.nタイマ番号.ToString());
 
 
             if (this.actChara.ctモブモーション.db現在の値 < 13)
