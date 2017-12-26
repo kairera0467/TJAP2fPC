@@ -1698,7 +1698,7 @@ for (int i = 0; i < 3; i++) {
 				}
 				else
 				{
-					return "TJAPlayer2 forPC  feat.DTXMania release " + VERSION;
+					return "TJAPlayer3 feat.DTXMania & TJAPlayer2 forPC";
 				}
 			}
 		}

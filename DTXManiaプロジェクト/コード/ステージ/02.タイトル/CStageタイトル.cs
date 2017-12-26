@@ -187,11 +187,14 @@ namespace DTXMania
 					this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
 
                 #region[ バージョン表示 ]
-                string strVersion = "KTT:J:A:I:2017072200";
+                //string strVersion = "KTT:J:A:I:2017072200";
+                string strVersion = "17_12_26";
+                string strSubTitle = "BIGGER TARMINATION";
 #if DEBUG
                 strVersion += "  DEBUG";
 #endif
-                CDTXMania.act文字コンソール.tPrint( 8, 8, C文字コンソール.Eフォント種別.白, strVersion );
+                CDTXMania.act文字コンソール.tPrint( 4, 4, C文字コンソール.Eフォント種別.白, strVersion );
+                CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, strSubTitle);
                 #endregion
 
 				if( this.txメニュー != null )
