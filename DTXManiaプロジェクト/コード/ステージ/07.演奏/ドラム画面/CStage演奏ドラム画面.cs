@@ -395,9 +395,18 @@ namespace DTXMania
 
 
                 this.actMtaiko.On進行描画();
+                if (this.txNamePlate != null)
+                {
+                    this.txNamePlate.t2D描画(CDTXMania.app.Device, 0, 288);
+                }
+                if (this.txPlayerNumber != null)
+                {
+                    this.txPlayerNumber.t2D描画(CDTXMania.app.Device, 5, 233);
+                }
 
+                this.actLaneTaiko.ゴーゴースプラッシュ();
 
-                if( !CDTXMania.ConfigIni.bNoInfo )
+                if ( !CDTXMania.ConfigIni.bNoInfo )
 			        this.t進行描画_コンボ();
                 if( !CDTXMania.ConfigIni.bNoInfo )
 				    this.t進行描画_スコア();
@@ -425,14 +434,7 @@ namespace DTXMania
                 //this.actEnd.On進行描画();
 				this.t進行描画_STAGEFAILED();
 
-                if (this.txNamePlate != null)
-                {
-                    this.txNamePlate.t2D描画(CDTXMania.app.Device, 0, 288);
-                }
-                if (this.txPlayerNumber != null)
-                {
-                    this.txPlayerNumber.t2D描画(CDTXMania.app.Device, 5, 233);
-                }
+               
 
                 bIsFinishedEndAnime = this.actEnd.On進行描画() == 1 ? true : false;
 				bIsFinishedFadeout = this.t進行描画_フェードイン_アウト();

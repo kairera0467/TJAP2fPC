@@ -790,6 +790,7 @@ namespace DTXMania
                 }
             }
             #endregion */
+            /*
             for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
             {
                 #region[ ゴーゴースプラッシュ ]
@@ -814,7 +815,7 @@ namespace DTXMania
 
                 }
                 #endregion
-            }
+            } */
             return base.On進行描画();
         }
 
@@ -848,6 +849,36 @@ namespace DTXMania
                         break;
                 }
             }
+        }
+
+        public void ゴーゴースプラッシュ()
+        {
+            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            {
+                #region[ ゴーゴースプラッシュ ]
+                if (this.txゴーゴースプラッシュ != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[i])
+                {
+                    if (!this.ctゴーゴースプラッシュ.b停止中)
+                    {
+                        this.ctゴーゴースプラッシュ.t進行();
+                    }
+                    if (this.ctゴーゴースプラッシュ.n現在の値 < 28)
+                    {
+                        for (int v = 0; v < 6; v++)
+                        {
+                            this.txゴーゴースプラッシュ[this.ctゴーゴースプラッシュ.n現在の値].t2D描画(CDTXMania.app.Device, 0 + (v * 213), 260);
+                        }
+
+                    }
+                    else
+                    {
+                        this.txゴーゴースプラッシュ[this.ctゴーゴースプラッシュ.n現在の値].n透明度 = 100;
+                    }
+
+                }
+                #endregion
+            }
+            return;
         }
 
         public void GOGOSTART()
