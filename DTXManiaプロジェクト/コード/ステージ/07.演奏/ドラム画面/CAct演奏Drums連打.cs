@@ -67,12 +67,16 @@ namespace DTXMania
         public override void On活性化()
         {
             this.ct連打枠カウンター = new CCounter[ 4 ];
-            for( int i = 0; i < 4; i++ )
+            this.ct連打アニメ = new CCounter[4];
+            for ( int i = 0; i < 4; i++ )
             {
                 this.ct連打枠カウンター[ i ] = new CCounter();
+                this.ct連打アニメ[i] = new CCounter();
             }
             this.b表示 = new bool[]{ false, false, false, false };
             this.n連打数 = new int[ 4 ];
+
+
             base.On活性化();
         }
 
@@ -105,7 +109,7 @@ namespace DTXMania
         public int On進行描画( int n連打数, int player )
         {
             this.ct連打枠カウンター[ player ].t進行();
-
+            this.ct連打アニメ[player].t進行();
             //1PY:-3 2PY:514
             //仮置き
             int[] nRollBalloon = new int[] { -3, 514, 0, 0 };
@@ -115,7 +119,7 @@ namespace DTXMania
                 if( this.ct連打枠カウンター[ player ].b終了値に達してない || this.b表示[ player ] )
                 {
                     this.tx連打枠.t2D描画( CDTXMania.app.Device, 217, nRollBalloon[ player ] );
-                    this.t文字表示( 330 + 62, nRollNumber[ player ], n連打数.ToString(), n連打数 );
+                    this.t文字表示( 330 + 62, nRollNumber[ player ], n連打数.ToString(), n連打数, player );
                 }
             }
 
@@ -134,6 +138,19 @@ namespace DTXMania
         private CTexture tx連打枠;
         private CTexture tx連打数字;
         private readonly ST文字位置[] st文字位置;
+        public CCounter[] ct連打アニメ;
+        private float[,] n連打アニメ拡大率_座標 = new float[,]
+        {
+                        {1.11f,-7},
+                        {1.22f,-14},
+                        {1.2f,-12},
+                        {1.15f,-9},
+                        {1.13f,-8},
+                        {1.11f,-7},
+                        {1.06f,-3},
+                        {1.04f,-2},
+                        {1.0f,0},
+        };
 
         [StructLayout(LayoutKind.Sequential)]
         private struct ST文字位置
@@ -142,10 +159,12 @@ namespace DTXMania
             public Point pt;
         }
 
-        private void t文字表示( int x, int y, string str, int n連打 )
+        private void t文字表示( int x, int y, string str, int n連打, int nPlayer)
 		{
             int n桁数 = n連打.ToString().Length;
-			foreach( char ch in str )
+            
+            //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, ct連打アニメ[nPlayer].n現在の値.ToString());
+            foreach ( char ch in str )
 			{
 				for( int i = 0; i < this.st文字位置.Length; i++ )
 				{
@@ -155,7 +174,8 @@ namespace DTXMania
 
 						if( this.tx連打数字 != null )
 						{
-							this.tx連打数字.t2D描画( CDTXMania.app.Device, x - ( ( 62 * n桁数 ) / 2 ), y, rectangle );
+                            this.tx連打数字.vc拡大縮小倍率.Y = this.n連打アニメ拡大率_座標[this.ct連打アニメ[nPlayer].n現在の値, 0];
+							this.tx連打数字.t2D描画( CDTXMania.app.Device, x - ( ( 62 * n桁数 ) / 2 ), y + (int)this.n連打アニメ拡大率_座標[ this.ct連打アニメ[nPlayer].n現在の値, 1], rectangle );
 						}
 						break;
 					}

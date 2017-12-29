@@ -68,6 +68,11 @@ namespace DTXMania
         {
             this.ct風船終了 = new CCounter();
             this.ct風船ふきだしアニメ = new CCounter();
+            this.ct風船アニメ = new CCounter[4];
+            for (int i = 0; i < 4; i++)
+            {
+                this.ct風船アニメ[i] = new CCounter();
+            }
             base.On活性化();
         }
 
@@ -119,6 +124,7 @@ namespace DTXMania
         public int On進行描画( int n連打ノルマ, int n連打数, int player )
         {
                 this.ct風船ふきだしアニメ.t進行Loop();
+                this.ct風船アニメ[player].t進行();
 
                 //CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.赤, this.ct風船終了.n現在の値.ToString() );
                 int[] n残り打数 = new int[] { 0, 0, 0, 0, 0 };
@@ -156,7 +162,7 @@ namespace DTXMania
                     //1P:31 2P:329
                     if( this.tx連打枠 != null )
                         this.tx連打枠.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nBurstFrameX[ player ], CDTXMania.Skin.nBurstFrameY[ player ] );
-                    this.t文字表示( CDTXMania.Skin.nBurstNumberX[ player ], CDTXMania.Skin.nBurstNumberY[ player ], n連打数.ToString(), n連打数 );
+                this.t文字表示(CDTXMania.Skin.nBurstNumberX[player], CDTXMania.Skin.nBurstNumberY[player], n連打数.ToString(), n連打数, player );
                     //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, n連打数.ToString() );
                 }
                 if( n連打数 == 0 && CDTXMania.stage演奏ドラム画面.actChara.b風船連打中 )
@@ -226,6 +232,20 @@ namespace DTXMania
         private CCounter ct風船終了;
         private CCounter ct風船ふきだしアニメ;
 
+        public CCounter[] ct風船アニメ;
+        private float[,] n風船アニメ拡大率_座標 = new float[,]
+        {
+                        {1.11f,-7},
+                        {1.22f,-14},
+                        {1.2f,-12},
+                        {1.15f,-9},
+                        {1.13f,-8},
+                        {1.11f,-7},
+                        {1.06f,-3},
+                        {1.04f,-2},
+                        {1.0f,0},
+        };
+
         [StructLayout(LayoutKind.Sequential)]
         private struct ST文字位置
         {
@@ -233,7 +253,7 @@ namespace DTXMania
             public Point pt;
         }
 
-        private void t文字表示( int x, int y, string str, int n連打 )
+        private void t文字表示( int x, int y, string str, int n連打, int nPlayer )
 		{
             int n桁数 = n連打.ToString().Length;
 			foreach( char ch in str )
@@ -246,7 +266,8 @@ namespace DTXMania
 
 						if( this.tx連打数字 != null )
 						{
-							this.tx連打数字.t2D描画( CDTXMania.app.Device, x - ( ( 62 * n桁数 ) / 2 ), y, rectangle );
+                            this.tx連打数字.vc拡大縮小倍率.Y = this.n風船アニメ拡大率_座標[this.ct風船アニメ[nPlayer].n現在の値, 0];
+							this.tx連打数字.t2D描画( CDTXMania.app.Device, x - ( ( 62 * n桁数 ) / 2 ), y + (int)this.n風船アニメ拡大率_座標[this.ct風船アニメ[nPlayer].n現在の値, 1], rectangle );
 						}
 						break;
 					}
