@@ -188,7 +188,7 @@ namespace DTXMania
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
-                string strVersion = "17_12_29";
+                string strVersion = "18_01_02";
                 string strSubTitle = "BIGGER TARMINATION";
 #if DEBUG
                 strVersion += "  DEBUG";
