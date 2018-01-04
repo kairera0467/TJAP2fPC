@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using FDK;
 
 namespace DTXMania
 {
@@ -45,9 +46,17 @@ namespace DTXMania
 
                     //base.t小文字表示( 20, 150, string.Format( "{0,7:######0}", this.nスコアの増分.Guitar ) );
                 }
-
-                base.t小文字表示( 20, 190, string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 );
-                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 );
+                if( !this.ct点数アニメタイマ.b停止中)
+                {
+                    this.ct点数アニメタイマ.t進行();
+                    if(this.ct点数アニメタイマ.b終了値に達した)
+                    {
+                        this.ct点数アニメタイマ.t停止();
+                    }
+                }
+                
+                base.t小文字表示( 20, 190, string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256);
+                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256);
 
                 for( int i = 0; i < 256; i++ )
                 {
@@ -67,24 +76,101 @@ namespace DTXMania
 
                             int xAdd = 0;
                             int yAdd = 0;
+                            int alpha = 0;
 
-                            if( this.stScore[ i ].ctTimer.n現在の値 < 50 )
+                            if ( this.stScore[i].ctTimer.n現在の値 < 10)
                             {
-                                xAdd = 30 - this.stScore[i].ctTimer.n現在の値;
-                            }
-                            else
+                                xAdd = 25;
+                                alpha = 100;
+                            } else if (this.stScore[i].ctTimer.n現在の値 < 20)
+                            {
+                                xAdd = 10;
+                                alpha = 150;
+                            } else if (this.stScore[i].ctTimer.n現在の値 < 30)
+                            {
+                                xAdd = -5;
+                                alpha = 250;
+                            } else if (this.stScore[i].ctTimer.n現在の値 < 40)
+                            {
+                                xAdd = -9;
+                                alpha = 256;
+                            } else if (this.stScore[i].ctTimer.n現在の値 < 50)
+                            {
+                                xAdd = -10;
+                                alpha = 256;
+                            } else if (this.stScore[i].ctTimer.n現在の値 < 60)
+                            {
+                                xAdd = -9;
+                                alpha = 256;
+                            } else if (this.stScore[i].ctTimer.n現在の値 < 70)
+                            {
+                                xAdd = -5;
+                                alpha = 256;
+                            } else if (this.stScore[i].ctTimer.n現在の値 < 80)
+                            {
+                                xAdd = -3;
+                                alpha = 256;
+                            } else
                             {
                                 xAdd = 0;
-                            }
-                            if( this.stScore[ i ].ctTimer.n現在の値 >= 460 )
-                            {
-                                yAdd = 500 - this.stScore[i].ctTimer.n現在の値;
+                                alpha = 256;
                             }
 
-                            if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
-                                base.t小文字表示( 20 + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 );
+
+
+                            if ( this.stScore[ i ].ctTimer.n現在の値 > 300 )
+                            {
+                                yAdd = -1;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 310)
+                            {
+                                yAdd = -5;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 320)
+                            {
+                                yAdd = -8;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 330)
+                            {
+                                yAdd = -10;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 340)
+                            {
+                                yAdd = -8;
+                                alpha = 256;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 350)
+                            {
+                                yAdd = -5;
+                                alpha = 256;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 360)
+                            {
+                                yAdd = 0;
+                                alpha = 200;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 370)
+                            {
+                                yAdd = 5;
+                                alpha = 200;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 380)
+                            {
+                                yAdd = 12;
+                                alpha = 100;
+                            }
+                            if (this.stScore[i].ctTimer.n現在の値 > 390)
+                            {
+                                yAdd = 20;
+                                alpha = 0;
+                                this.ct点数アニメタイマ = new CCounter(0, 5, 12, CDTXMania.Timer);
+                            }
+
+
+                            if ( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
+                                base.t小文字表示( 25 + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha );
                             if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true )
-                                base.t小文字表示( 20 + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 );
+                                base.t小文字表示( 25 + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ] - 20, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha);
                             else
                             {
                                 this.n現在表示中のAddScore--;

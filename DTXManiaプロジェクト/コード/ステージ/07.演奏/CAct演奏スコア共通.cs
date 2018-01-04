@@ -16,6 +16,7 @@ namespace DTXMania
 		protected STDGBVALUE<long>[] n現在表示中のスコア;
 		protected CTexture txScore;
         protected CCounter ctTimer;
+        public CCounter ct点数アニメタイマ;
 
         protected STスコア[] stScore;
         protected int n現在表示中のAddScore;
@@ -92,9 +93,20 @@ namespace DTXMania
 		}
 
 
-		// メソッド
+        // メソッド
 
-		public double Get( E楽器パート part, int player )
+        private float[,] n点数アニメ拡大率_座標 = new float[,]
+{
+                        {1.04f,-3},
+                        {1.15f,-6},
+                        {1.13f,-5},
+                        {1.08f,-4},
+                        {1.04f,-3},
+                        {1.02f,-2},
+                        {1f, 0}
+        };
+
+        public double Get( E楽器パート part, int player )
 		{
 			return this.n現在の本当のスコア[ player ][ (int) part ];
 		}
@@ -218,6 +230,7 @@ namespace DTXMania
             this.n現在表示中のAddScore = 0;
 
             this.ctTimer = new CCounter();
+            this.ct点数アニメタイマ = new CCounter();
 			base.On活性化();
 		}
 		public override void OnManagedリソースの作成()
@@ -237,7 +250,7 @@ namespace DTXMania
 			}
 		}
 
-        protected void t小文字表示( int x, int y, string str, int mode )
+        protected void t小文字表示( int x, int y, string str, int mode , int alpha )
         {
             foreach( char ch in str )
             {
@@ -252,7 +265,10 @@ namespace DTXMania
                                 if( this.txScore != null )
                                 {
                                     this.txScore.color4 = new SlimDX.Color4( 1.0f, 1.0f, 1.0f );
-                                    this.txScore.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                                    this.txScore.n透明度 = alpha;
+                                    this.txScore.vc拡大縮小倍率.Y = this.n点数アニメ拡大率_座標[this.ct点数アニメタイマ.n現在の値, 0];
+                                    this.txScore.t2D描画( CDTXMania.app.Device, x , y + (int)this.n点数アニメ拡大率_座標[this.ct点数アニメタイマ.n現在の値, 1], rectangle );
+                                    
                                 }
                                 break;
                             case 1:
@@ -260,6 +276,8 @@ namespace DTXMania
                                 {
                                     //this.txScore.color4 = new SlimDX.Color4( 1.0f, 0.5f, 0.4f );
                                     this.txScore.color4 = CDTXMania.Skin.cScoreColor1P;
+                                    this.txScore.n透明度 = alpha;
+                                    this.txScore.vc拡大縮小倍率.Y = 1;
                                     this.txScore.t2D描画( CDTXMania.app.Device, x, y, rectangle );
                                 }
                                 break;
@@ -268,6 +286,8 @@ namespace DTXMania
                                 {
                                     //this.txScore.color4 = new SlimDX.Color4( 0.4f, 0.5f, 1.0f );
                                     this.txScore.color4 = CDTXMania.Skin.cScoreColor2P;
+                                    this.txScore.n透明度 = alpha;
+                                    this.txScore.vc拡大縮小倍率.Y = 1;
                                     this.txScore.t2D描画( CDTXMania.app.Device, x, y, rectangle );
                                 }
                                 break;

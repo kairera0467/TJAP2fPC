@@ -10,12 +10,12 @@ C:\Users\info\Source\Repos\TJAP2fPC\FDK17プロジェクト\obj\x86\Debug\FDK.dl
 C:\Users\info\Source\Repos\TJAP2fPC\FDK17プロジェクト\obj\x86\Debug\FDK.pdb
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Debug\FDK.dll
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Debug\FDK.pdb
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Debug\Bass.Net.dll
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Debug\DirectShowLib-2005.dll
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Debug\SlimDXc_net20x86_Jun2010.dll
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK19.csprojResolveAssemblyReference.cache
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK.コード._01.フレームワーク.Properties.Resources.resources
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK19.csproj.GenerateResource.Cache
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK19.csproj.CoreCompileInputs.cache
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK.dll
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK.pdb
+C:\Users\info\source\repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Debug\Bass.Net.dll
+C:\Users\info\source\repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Debug\DirectShowLib-2005.dll
+C:\Users\info\source\repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Debug\SlimDXc_net20x86_Jun2010.dll
