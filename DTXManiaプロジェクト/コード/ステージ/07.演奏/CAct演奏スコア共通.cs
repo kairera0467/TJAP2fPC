@@ -160,7 +160,7 @@ namespace DTXMania
 					throw new ArgumentException();
 				#endregion
 			}
-            this.ctTimer = new CCounter( 0, 500, 1, CDTXMania.Timer );
+            this.ctTimer = new CCounter( 0, 400, 1, CDTXMania.Timer );
 
             for( int sc = 0; sc < 1; sc++ )
             {
@@ -171,7 +171,7 @@ namespace DTXMania
                         this.stScore[ i ].b使用中 = true;
                         this.stScore[ i ].b表示中 = true;
                         this.stScore[ i ].nAddScore = (int)delta;
-                        this.stScore[ i ].ctTimer = new CCounter( 0, 500, 1, CDTXMania.Timer );
+                        this.stScore[ i ].ctTimer = new CCounter( 0, 400, 1, CDTXMania.Timer );
                         this.stScore[ i ].bBonusScore = false;
                         this.stScore[ i ].nPlayer = player;
                         this.n現在表示中のAddScore++;
@@ -194,7 +194,7 @@ namespace DTXMania
                         this.stScore[ i ].b使用中 = true;
                         this.stScore[ i ].b表示中 = true;
                         this.stScore[ i ].nAddScore = 10000;
-                        this.stScore[ i ].ctTimer = new CCounter( 0, 500, 1, CDTXMania.Timer );
+                        this.stScore[ i ].ctTimer = new CCounter( 0, 400, 1, CDTXMania.Timer );
                         this.stScore[ i ].bBonusScore = true;
                         this.stScore[ i ].nPlayer = player;
                         this.n現在表示中のAddScore++;

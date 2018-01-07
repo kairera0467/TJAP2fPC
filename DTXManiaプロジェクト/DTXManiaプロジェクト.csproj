@@ -63,15 +63,20 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bass.Net">
+      <HintPath>..\FDK17プロジェクト\bin\x86\Debug\Bass.Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FDK17プロジェクト\bin\x86\Debug\DirectShowLib-2005.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="SlimDXc_net20x86_Jun2010, Version=1002.0.10.43, Culture=neutral, PublicKeyToken=53d0e4ef1f1579f5, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FDK17プロジェクト\bin\x86\Debug\SlimDXc_net20x86_Jun2010.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -246,6 +251,7 @@
     <ProjectReference Include="..\FDK17プロジェクト\FDK19.csproj">
       <Project>{BCD40908-F3E2-4707-BFAA-1DD99DF6357D}</Project>
       <Name>FDK19</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -257,11 +263,11 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)\実行時フォルダ"
-move /Y "$(TargetDir)\Bass.Net.dll" "$(TargetDir)dll"
-move /Y "$(TargetDir)\DirectShowLib-2005.dll" "$(TargetDir)dll"
-move /Y "$(TargetDir)\FDK.dll" "$(TargetDir)dll"
-move /Y "$(TargetDir)\SlimDXc_net20x86_Jun2010.dll" "$(TargetDir)dll"
+    <PostBuildEvent>:copy /Y "$(TargetPath)" "$(SolutionDir)\実行時フォルダ"
+:move /Y "$(TargetDir)\Bass.Net.dll" "$(TargetDir)dll"
+:move /Y "$(TargetDir)\DirectShowLib-2005.dll" "$(TargetDir)dll"
+:move /Y "$(TargetDir)\FDK.dll" "$(TargetDir)dll"
+:move /Y "$(TargetDir)\SlimDXc_net20x86_Jun2010.dll" "$(TargetDir)dll"
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" />

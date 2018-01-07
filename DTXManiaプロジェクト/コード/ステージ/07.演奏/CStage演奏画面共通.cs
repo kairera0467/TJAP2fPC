@@ -11,6 +11,7 @@ using System.Threading;
 using SlimDX;
 using SlimDX.Direct3D9;
 using FDK;
+using System.Timers;
 
 namespace DTXMania
 {
@@ -173,7 +174,6 @@ namespace DTXMania
             }
 
             this.ct制御タイマ = new CCounter();
-
 
 			listWAV = CDTXMania.DTX.listWAV;
 
@@ -710,6 +710,10 @@ namespace DTXMania
             public bool b譜面分岐中;
             public int n分岐した回数;
         }
+
+        //
+        private System.Timers.Timer combot;
+        //
 
 		public void AddMixer( CSound cs, bool _b演奏終了後も再生が続くチップである )
 		{
@@ -1601,7 +1605,17 @@ namespace DTXMania
                     //100コンボ毎のボーナス
                     if( nCombos % 100 == 0 && nCombos > 99 )
                     {
-                        this.actScore.BonusAdd( nPlayer );
+                        combot = new System.Timers.Timer();
+                        if(nPlayer == 0)
+                        {
+                            combot.Elapsed += new System.Timers.ElapsedEventHandler(combotimer_event_1);
+                        } else
+                        {
+                            combot.Elapsed += new System.Timers.ElapsedEventHandler(combotimer_event_2);
+                        }
+                        
+                        combot.Interval = 2000; // ミリ秒単位で指定
+                        combot.Enabled = true;
                     }
 
                     nAddScore = (int)( nAddScore / 10 );
@@ -1726,6 +1740,18 @@ namespace DTXMania
 			}
 			return eJudgeResult;
 		}
+
+        private void combotimer_event_2(object sender, ElapsedEventArgs e)
+        {
+            this.actScore.BonusAdd(1);
+            this.combot.Stop();
+        }
+
+        private void combotimer_event_1(object sender, EventArgs e)
+        {
+            this.actScore.BonusAdd(0);
+            this.combot.Stop();
+        }
 
         protected void t分岐状況チェック( int n現在時刻, int nPlayer )
         {

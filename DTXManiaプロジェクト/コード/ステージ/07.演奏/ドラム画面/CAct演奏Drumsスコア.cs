@@ -81,11 +81,11 @@ namespace DTXMania
                             if ( this.stScore[i].ctTimer.n現在の値 < 10)
                             {
                                 xAdd = 25;
-                                alpha = 100;
+                                alpha = 150;
                             } else if (this.stScore[i].ctTimer.n現在の値 < 20)
                             {
                                 xAdd = 10;
-                                alpha = 150;
+                                alpha = 200;
                             } else if (this.stScore[i].ctTimer.n現在の値 < 30)
                             {
                                 xAdd = -5;
@@ -128,11 +128,11 @@ namespace DTXMania
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 320)
                             {
-                                yAdd = -8;
+                                yAdd = -7;
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 330)
                             {
-                                yAdd = -10;
+                                yAdd = -8;
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 340)
                             {
@@ -141,13 +141,13 @@ namespace DTXMania
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 350)
                             {
-                                yAdd = -5;
+                                yAdd = -6;
                                 alpha = 256;
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 360)
                             {
                                 yAdd = 0;
-                                alpha = 200;
+                                alpha = 256;
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 370)
                             {
@@ -157,13 +157,13 @@ namespace DTXMania
                             if (this.stScore[i].ctTimer.n現在の値 > 380)
                             {
                                 yAdd = 12;
-                                alpha = 100;
+                                alpha = 150;
+                                this.ct点数アニメタイマ = new CCounter(0, 6, 12, CDTXMania.Timer);
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 390)
                             {
                                 yAdd = 20;
                                 alpha = 0;
-                                this.ct点数アニメタイマ = new CCounter(0, 5, 12, CDTXMania.Timer);
                             }
 
 

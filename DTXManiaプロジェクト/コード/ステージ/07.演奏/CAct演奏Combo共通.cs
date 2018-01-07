@@ -554,7 +554,7 @@ namespace DTXMania
 				this.status[ i ].nジャンプインデックス値 = 99999;
 				this.status[ i ].n前回の時刻_ジャンプ用 = -1;
 				this.status[ i ].nコンボが切れた時刻 = -1;
-                this.ctコンボ加算[ i ] = new CCounter( 0, 8, 6, CDTXMania.Timer );
+                this.ctコンボ加算[ i ] = new CCounter( 0, 8, 12, CDTXMania.Timer );
 			}
             this.ctコンボラメ = new CCounter( 0, 29, 20, CDTXMania.Timer );
 			base.On活性化();
