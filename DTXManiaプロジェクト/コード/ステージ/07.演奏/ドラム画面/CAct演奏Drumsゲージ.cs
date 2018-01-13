@@ -131,10 +131,13 @@ namespace DTXMania
 			{
 				this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge.png" ) );
 				this.txゲージ背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base.png" ) );
-				this.txゲージ2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_2P.png" ) );
-				this.txゲージ背景2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base_2P.png" ) );
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    this.txゲージ2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_2P.png" ) );
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    this.txゲージ背景2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base_2P.png" ) );
                 this.txゲージ線 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line.png" ) );
-                this.txゲージ線2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line_2P.png" ) );
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    this.txゲージ線2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line_2P.png" ) );
 
                 this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul.png" ) );
                 this.tx炎 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul_fire.png" ) );
@@ -154,10 +157,13 @@ namespace DTXMania
 			{
 				CDTXMania.tテクスチャの解放( ref this.txゲージ );
 				CDTXMania.tテクスチャの解放( ref this.txゲージ背景 );
-				CDTXMania.tテクスチャの解放( ref this.txゲージ2P );
-				CDTXMania.tテクスチャの解放( ref this.txゲージ背景2P );
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    CDTXMania.tテクスチャの解放( ref this.txゲージ2P );
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    CDTXMania.tテクスチャの解放( ref this.txゲージ背景2P );
                 CDTXMania.tテクスチャの解放( ref this.txゲージ線 );
-                CDTXMania.tテクスチャの解放( ref this.txゲージ線2P );
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    CDTXMania.tテクスチャの解放( ref this.txゲージ線2P );
                 CDTXMania.tテクスチャの解放( ref this.tx魂 );
                 CDTXMania.tテクスチャの解放( ref this.tx炎 );
                 CDTXMania.tテクスチャの解放( ref this.tx魂花火 );

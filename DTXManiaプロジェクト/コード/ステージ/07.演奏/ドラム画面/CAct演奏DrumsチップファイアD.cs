@@ -135,6 +135,7 @@ namespace DTXMania
 		public void Start紙吹雪()
 		{
             return;
+            /*
             if (this.tx紙吹雪 != null)
             {
                 for (int i = 0; i < 256; i++)
@@ -172,7 +173,7 @@ namespace DTXMania
                         }
                     }
                 }
-            }
+            }  */
 		}
 
 		// CActivity 実装
@@ -220,7 +221,7 @@ namespace DTXMania
                 this.tx大音符花火[0].b加算合成 = true;
                 this.tx大音符花火[1] = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics\7_explosion_bignotes_blue.png" ) );
                 this.tx大音符花火[1].b加算合成 = true;
-                this.tx紙吹雪 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_particle paper.png" ) );
+                //this.tx紙吹雪 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_particle paper.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -232,7 +233,7 @@ namespace DTXMania
 				CDTXMania.tテクスチャの解放( ref this.txアタックエフェクトUpper_big );
                 CDTXMania.tテクスチャの解放( ref this.tx大音符花火[ 0 ] );
                 CDTXMania.tテクスチャの解放( ref this.tx大音符花火[ 1 ] );
-                CDTXMania.tテクスチャの解放( ref this.tx紙吹雪 );
+                //CDTXMania.tテクスチャの解放( ref this.tx紙吹雪 );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -403,11 +404,11 @@ namespace DTXMania
                         mat *= Matrix.Scaling(x, x, 1f);
                         mat *= Matrix.Translation(this.st紙吹雪[i].fX - SampleFramework.GameWindowSize.Width / 2, -(this.st紙吹雪[i].fY - SampleFramework.GameWindowSize.Height / 2), 0f);
 
-                        if (this.tx紙吹雪 != null)
+                        /*if (this.tx紙吹雪 != null)
                         {
                             this.tx紙吹雪.t3D描画(CDTXMania.app.Device, mat, new Rectangle( 32 * this.st紙吹雪[ i ].nGraphic, 32 * this.st紙吹雪[ i ].nColor, 32, 32 ));
 
-                        }
+                        } */
                     }
 
                 }
@@ -423,7 +424,7 @@ namespace DTXMania
         private CTextureAf txアタックエフェクトUpper;
         private CTexture txアタックエフェクトUpper_big;
         private CTextureAf[] tx大音符花火 = new CTextureAf[2];
-        private CTexture tx紙吹雪;
+        //private CTexture tx紙吹雪;
 
         protected STSTATUS[] st状態 = new STSTATUS[ 3 * 4 ];
         protected STSTATUS_B[] st状態_大 = new STSTATUS_B[ 3 * 4 ];

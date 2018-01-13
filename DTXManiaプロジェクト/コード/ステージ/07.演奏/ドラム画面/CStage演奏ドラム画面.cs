@@ -45,7 +45,7 @@ namespace DTXMania
 			base.list子Activities.Add( this.actFOClear = new CActFIFOResult() );
             base.list子Activities.Add( this.actLane = new CAct演奏Drumsレーン() );
             base.list子Activities.Add( this.actEnd = new CAct演奏Drums演奏終了演出() );
-            base.list子Activities.Add( this.actDancer = new CAct演奏DrumsDancer() );
+            //base.list子Activities.Add( this.actDancer = new CAct演奏DrumsDancer() );
             base.list子Activities.Add( this.actMtaiko = new CAct演奏DrumsMtaiko() );
             base.list子Activities.Add( this.actLaneTaiko = new CAct演奏Drumsレーン太鼓() );
             base.list子Activities.Add( this.actRoll = new CAct演奏Drums連打() );
@@ -222,8 +222,8 @@ namespace DTXMania
                 double dbUnit_max_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.ar黄色ゴーゴーモーション番号.Length );
                 this.actChara.ctMAXゴーゴーモーション = new CCounter( 0, this.actChara.ar黄色ゴーゴーモーション番号.Length - 1, dbUnit_max_gogo * 2, CSound管理.rc演奏用タイマ );
             }
-            this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
-            this.actDancer.ctモブ = new CCounter( 1.0, 16.0, ((60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM / 16.0 )), CSound管理.rc演奏用タイマ );
+            //this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
+            //this.actDancer.ctモブ = new CCounter( 1.0, 16.0, ((60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM / 16.0 )), CSound管理.rc演奏用タイマ );
 
             this.ct手つなぎ = new CCounter( 0, 60, 20, CDTXMania.Timer );
 
@@ -255,7 +255,8 @@ namespace DTXMania
 				this.tx小節線_branch = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_bar_line_branch.png" ) );
                 this.tx判定数小文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_number_s.png" ) );
                 this.txNamePlate = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
-                this.txNamePlate2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    this.txNamePlate2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
                 this.txPlayerNumber = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_PlayerNumber.png"));
 
                 this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
@@ -286,7 +287,8 @@ namespace DTXMania
                 CDTXMania.tテクスチャの解放( ref this.tx判定数表示パネル );
                 CDTXMania.tテクスチャの解放( ref this.tx判定数小文字 );
                 CDTXMania.tテクスチャの解放( ref this.txNamePlate );
-                CDTXMania.tテクスチャの解放( ref this.txNamePlate2P );
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    CDTXMania.tテクスチャの解放( ref this.txNamePlate2P );
                 CDTXMania.tテクスチャの解放( ref this.txPlayerNumber);
 
                 if( this.soundRed != null )
@@ -355,8 +357,8 @@ namespace DTXMania
                 {
                     this.actBackground.On進行描画();
                     this.actRollChara.On進行描画();
-                    if( !this.bDoublePlay )
-                        this.actDancer.On進行描画();
+                    //if( !this.bDoublePlay )
+                        //this.actDancer.On進行描画();
                 }
 
                 if( !CDTXMania.ConfigIni.bNoInfo )

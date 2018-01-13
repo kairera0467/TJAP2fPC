@@ -175,7 +175,14 @@ namespace DTXMania
 			Trace.Indent();
 			try
 			{
-				this.eフェードアウト完了時の戻り値 = E戻り値.継続;
+                Trace.TraceInformation("前" + GC.GetTotalMemory(false).ToString());
+                System.GC.Collect(); // アクセス不可能なオブジェクトを除去
+                Trace.TraceInformation("中" + GC.GetTotalMemory(false).ToString());
+                System.GC.WaitForPendingFinalizers(); // ファイナライゼーションが終わるまでスレッド待機
+                System.GC.Collect(); // ファイナライズされたばかりのオブジェクトに関連するメモリを開放
+                Trace.TraceInformation("終" + GC.GetTotalMemory(false).ToString());
+
+                this.eフェードアウト完了時の戻り値 = E戻り値.継続;
 				this.bBGM再生済み = false;
 				this.ftフォント = new Font( "MS PGothic", 26f, GraphicsUnit.Pixel );
 				for( int i = 0; i < 4; i++ )

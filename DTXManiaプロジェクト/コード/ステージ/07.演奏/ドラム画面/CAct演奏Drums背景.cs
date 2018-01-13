@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using FDK;
+using System.Diagnostics;
 
 namespace DTXMania
 {
@@ -62,6 +63,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.tx下背景メイン );
             CDTXMania.tテクスチャの解放( ref this.tx下背景クリアメイン );
             CDTXMania.tテクスチャの解放( ref this.tx下背景クリアサブ1 );
+            Trace.TraceInformation("CActDrums背景 リソースの開放");
             base.OnManagedリソースの解放();
         }
 

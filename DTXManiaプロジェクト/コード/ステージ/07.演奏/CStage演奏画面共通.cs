@@ -347,7 +347,8 @@ namespace DTXMania
 			if ( !base.b活性化してない )
 			{
 				CDTXMania.tテクスチャの解放( ref this.tx背景 );
-				base.OnManagedリソースの解放();
+                Trace.TraceInformation("CStage演奏画面共通 リソースの開放");
+                base.OnManagedリソースの解放();
 			}
 		}
 
@@ -547,7 +548,7 @@ namespace DTXMania
 		protected CActFIFOResult actFOClear;
 		public    CAct演奏ゲージ共通 actGauge;
 
-        public CAct演奏DrumsDancer actDancer;
+        //public CAct演奏DrumsDancer actDancer;
 		protected CAct演奏判定文字列共通 actJudgeString;
 		public CAct演奏DrumsレーンフラッシュD actLaneFlushD;
 		protected CAct演奏レーンフラッシュGB共通 actLaneFlushGB;

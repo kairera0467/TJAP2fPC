@@ -46,7 +46,8 @@ namespace DTXMania
         {
             this.txMtaiko枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_A.png" ) );
             this.txMtaiko下敷き[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C.png" ) );
-            this.txMtaiko下敷き[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C_2P.png" ) );
+            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                this.txMtaiko下敷き[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C_2P.png" ) );
 
             this.txオプションパネル_HS = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_HiSpeed.png" ) );
             this.txオプションパネル_RANMIR = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RANMIR.png" ) );
@@ -62,7 +63,8 @@ namespace DTXMania
             this.txレベルダウン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_LevelDown.png" ) );
 
             this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
-            this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
+            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
             
             for( int i = 0; i < 6; i++ )
             {
@@ -85,7 +87,8 @@ namespace DTXMania
         {
             CDTXMania.tテクスチャの解放( ref this.txMtaiko枠 );
             CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 0 ] );
-            CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 1 ] );
+            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 1 ] );
             
 		    CDTXMania.tテクスチャの解放( ref this.tx太鼓_土台 );
             CDTXMania.tテクスチャの解放( ref this.txオプションパネル_HS );
@@ -101,7 +104,8 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.txレベルダウン );
 
             CDTXMania.tテクスチャの解放( ref this.txネームプレート );
-            CDTXMania.tテクスチャの解放( ref this.txネームプレート2P );
+            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                CDTXMania.tテクスチャの解放( ref this.txネームプレート2P );
 
             for( int i = 0; i < 6; i++ )
             {

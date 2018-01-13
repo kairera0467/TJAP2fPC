@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using FDK;
+using System.Diagnostics;
 
 namespace DTXMania
 {
@@ -100,7 +101,7 @@ namespace DTXMania
                 this.txモブ[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\mob\mob_" + i.ToString() + ".png"));
             }
 
-
+            this.txフッター = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer_BG\footer\01.png"));
             // ↑踊り子・モブ↑
 
             this.txキャラクターNormal = new CTexture[ this.nキャラクター通常モーション枚数 ];
@@ -236,6 +237,10 @@ namespace DTXMania
                 }
             }
             // ↑踊り子・モブ↑
+
+            CDTXMania.tテクスチャの解放(ref this.txフッター);
+
+            Trace.TraceInformation("CA リソースの開放");
             base.OnManagedリソースの解放();
         }
 
@@ -329,6 +334,12 @@ namespace DTXMania
                     }
                 }
             }
+            if (this.txフッター != null)
+            {
+                this.txフッター.t2D描画(CDTXMania.app.Device, 0, 676);
+            }
+
+
             //モブの登場処理(魂ゲージMAX)
             if (this.nモブモーション枚数 != 0)
             {
@@ -338,12 +349,14 @@ namespace DTXMania
                 }
             }
 
-            
+
             // ↑踊り子・モブ↑
 
 
             return base.On進行描画();
         }
+
+        private CTexture txフッター;
 
         //---------------------------
         private CTexture[] txキャラクターNormal; //キャラクター画像 通常モーション

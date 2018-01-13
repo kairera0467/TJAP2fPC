@@ -584,12 +584,12 @@ namespace DTXMania
 			if( this.b活性化してない )
 				return;
 
-			this.tx曲名バー.Score = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar score.png" ), false );
-			this.tx曲名バー.Box = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar box.png" ), false );
-			this.tx曲名バー.Other = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar other.png" ), false );
-			this.tx選曲バー.Score = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar score selected.png" ), false );
-			this.tx選曲バー.Box = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar box selected.png" ), false );
-			this.tx選曲バー.Other = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar other selected.png" ), false );
+			//this.tx曲名バー.Score = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar score.png" ), false );
+			//this.tx曲名バー.Box = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar box.png" ), false );
+			//this.tx曲名バー.Other = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar other.png" ), false );
+			//this.tx選曲バー.Score = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar score selected.png" ), false );
+			//this.tx選曲バー.Box = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar box selected.png" ), false );
+			//this.tx選曲バー.Other = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar other selected.png" ), false );
 			//this.txスキル数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_skill number on list.png" ), false );
 
             this.tx曲バー_JPOP = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false );
@@ -698,12 +698,12 @@ namespace DTXMania
 			//CDTXMania.t安全にDisposeする( ref this.txスキル数字 );
 			CDTXMania.t安全にDisposeする( ref this.txEnumeratingSongs );
 			CDTXMania.t安全にDisposeする( ref this.txSongNotFound );
-			CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Score );
-			CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Box );
-			CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Other );
-			CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Score );
-			CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Box );
-			CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Other );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Score );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Box );
+			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Other );
+			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Score );
+			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Box );
+			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Other );
 
 			CDTXMania.t安全にDisposeする( ref this.tx曲バー_JPOP );
 			CDTXMania.t安全にDisposeする( ref this.tx曲バー_アニメ );

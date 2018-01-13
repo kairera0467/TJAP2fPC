@@ -49,7 +49,7 @@ namespace DTXMania
                 this.e現在のモーション[ i ] = EMotion.非表示;
             }
 
-            this.tx踊り子1_通常 = new CTexture[ this.nテクスチャ枚数_通常 ];
+            /*this.tx踊り子1_通常 = new CTexture[ this.nテクスチャ枚数_通常 ];
             for( int i = 0; i < this.nテクスチャ枚数_通常; i++ )
             {
                 this.tx踊り子1_通常[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\0\dance_1_" + i.ToString() + ".png" ) );
@@ -63,15 +63,15 @@ namespace DTXMania
             for( int i = 0; i < this.nテクスチャ枚数_退場; i++ )
             {
                 this.tx踊り子1_退場[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\0\leave_1_" + i.ToString() + ".png" ) );
-            }
+            } */
 
-            this.ct通常モーション = new CCounter( 0, this.arモーション番号_通常.Length - 1, 0.4, CSound管理.rc演奏用タイマ );
-            this.ct登場モーション = new CCounter( 0, this.arモーション番号_登場.Length - 1, 0.4, CSound管理.rc演奏用タイマ );
+           // this.ct通常モーション = new CCounter( 0, this.arモーション番号_通常.Length - 1, 0.4, CSound管理.rc演奏用タイマ );
+            //this.ct登場モーション = new CCounter( 0, this.arモーション番号_登場.Length - 1, 0.4, CSound管理.rc演奏用タイマ );
 
-            this.ctモブ = new CCounter( 1, 16, 0.025, CSound管理.rc演奏用タイマ );
+            //this.ctモブ = new CCounter( 1, 16, 0.025, CSound管理.rc演奏用タイマ );
 
             this.txフッター = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\footer\01.png" ) );
-            this.txモブ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\mob\1.png" ) );
+            //this.txモブ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\mob\1.png" ) );
 
             for( int i = 0; i < 5; i++ )
             {
