@@ -872,7 +872,7 @@ namespace DTXMania
                     }
                     else
                     {
-                        this.txゴーゴースプラッシュ[this.ctゴーゴースプラッシュ.n現在の値].n透明度 = 100;
+                        this.txゴーゴースプラッシュ[this.ctゴーゴースプラッシュ.n現在の値].n透明度 = 0;
                     }
 
                 }

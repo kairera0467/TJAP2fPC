@@ -116,10 +116,27 @@ namespace DTXMania
             int[] nRollNumber = new int[] { 48, 559, 0, 0 };
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                if( this.ct連打枠カウンター[ player ].b終了値に達してない || this.b表示[ player ] )
+                //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ct連打枠カウンター[player].n現在の値.ToString());
+                if ( this.ct連打枠カウンター[ player ].b終了値に達してない)
                 {
-                    this.tx連打枠.t2D描画( CDTXMania.app.Device, 217, nRollBalloon[ player ] );
-                    this.t文字表示( 330 + 62, nRollNumber[ player ], n連打数.ToString(), n連打数, player );
+                    this.tx連打枠.t2D描画(CDTXMania.app.Device, 217, nRollBalloon[player]);
+                    this.t文字表示(330 + 62, nRollNumber[player], n連打数.ToString(), n連打数, player);
+                    this.tx連打枠.n透明度 = 256;
+                    this.tx連打数字.n透明度 = 256;
+                    if ((int)this.ct連打枠カウンター[player].n現在の値 > 96)
+                    {
+                        this.tx連打枠.n透明度 = 50;
+                        this.tx連打数字.n透明度 = 50;
+                    } else if((int)this.ct連打枠カウンター[player].n現在の値 > 92)
+                    {
+                        this.tx連打枠.n透明度 = 125;
+                        this.tx連打数字.n透明度 = 125;
+                    } else if ((int)this.ct連打枠カウンター[player].n現在の値 > 88)
+                    {
+                        this.tx連打枠.n透明度 = 200;
+                        this.tx連打数字.n透明度 = 200;
+                    }
+
                 }
             }
 
@@ -128,7 +145,7 @@ namespace DTXMania
 
         public void t枠表示時間延長( int player )
         {
-            this.ct連打枠カウンター[ player ] = new CCounter( 0, 999, 2, CDTXMania.Timer );
+            this.ct連打枠カウンター[ player ] = new CCounter( 0, 100, 10, CDTXMania.Timer );
         }
 
 

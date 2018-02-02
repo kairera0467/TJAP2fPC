@@ -1091,7 +1091,7 @@ namespace DTXMania
                     this.n現在の連打数[ nPlayer ] = 0;
                     this.actRoll.t枠表示時間延長( nPlayer );
                 }
-
+                this.actRoll.t枠表示時間延長(nPlayer);
                 this.b連打中[ nPlayer ] = true;
                 this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 8, 12, CDTXMania.Timer);
                 if ( pChip.nチャンネル番号 == 0x15 )
