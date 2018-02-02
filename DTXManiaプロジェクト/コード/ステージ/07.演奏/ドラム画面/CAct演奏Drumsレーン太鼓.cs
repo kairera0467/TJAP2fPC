@@ -853,10 +853,10 @@ namespace DTXMania
 
         public void ゴーゴースプラッシュ()
         {
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            if (CDTXMania.ConfigIni.nPlayerCount == 1)
             {
                 #region[ ゴーゴースプラッシュ ]
-                if (this.txゴーゴースプラッシュ != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[i])
+                if (this.txゴーゴースプラッシュ != null)
                 {
                     if (!this.ctゴーゴースプラッシュ.b停止中)
                     {
