@@ -856,7 +856,7 @@ namespace DTXMania
             if (CDTXMania.ConfigIni.nPlayerCount == 1)
             {
                 #region[ ゴーゴースプラッシュ ]
-                if (this.txゴーゴースプラッシュ != null)
+                if (this.txゴーゴースプラッシュ != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[0])
                 {
                     if (!this.ctゴーゴースプラッシュ.b停止中)
                     {
