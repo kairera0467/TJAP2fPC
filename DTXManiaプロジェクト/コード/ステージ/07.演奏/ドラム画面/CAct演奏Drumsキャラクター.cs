@@ -299,53 +299,59 @@ namespace DTXMania
             // ↓踊り子・モブ↓
             // 踊り子の登場処理(魂ゲージ0,20,40,60,80のとき)
             // 640, 430, 856, 215, 1070
-            if (this.n踊り子モーション枚数 != 0)
+            if (CDTXMania.ConfigIni.nPlayerCount == 1)
             {
-                if(this.tx踊り子_1 != null)
+                if (!CDTXMania.ConfigIni.bAVI有効)
                 {
-                    this.tx踊り子_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 640, 500);
-                }
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 20)
-                {
-                    if(this.tx踊り子_2 != null)
+                    if (this.n踊り子モーション枚数 != 0)
                     {
-                        this.tx踊り子_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 430, 500);
+                        if (this.tx踊り子_1 != null)
+                        {
+                            this.tx踊り子_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 640, 500);
+                        }
+                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 20)
+                        {
+                            if (this.tx踊り子_2 != null)
+                            {
+                                this.tx踊り子_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 430, 500);
+                            }
+                        }
+                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 40)
+                        {
+                            if (this.tx踊り子_3 != null)
+                            {
+                                this.tx踊り子_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 856, 500);
+                            }
+                        }
+                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 60)
+                        {
+                            if (this.tx踊り子_4 != null)
+                            {
+                                this.tx踊り子_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 215, 500);
+                            }
+                        }
+                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80)
+                        {
+                            if (this.tx踊り子_5 != null)
+                            {
+                                this.tx踊り子_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 1070, 500);
+                            }
+                        }
                     }
-                }
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 40)
-                {
-                    if (this.tx踊り子_3 != null)
+                    if (this.txフッター != null)
                     {
-                        this.tx踊り子_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 856, 500);
+                        this.txフッター.t2D描画(CDTXMania.app.Device, 0, 676);
                     }
-                }
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 60)
-                {
-                    if (this.tx踊り子_4 != null)
-                    {
-                        this.tx踊り子_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 215, 500);
-                    }
-                }
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80)
-                {
-                    if (this.tx踊り子_5 != null)
-                    {
-                        this.tx踊り子_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 1070, 500);
-                    }
-                }
-            }
-            if (this.txフッター != null)
-            {
-                this.txフッター.t2D描画(CDTXMania.app.Device, 0, 676);
-            }
 
 
-            //モブの登場処理(魂ゲージMAX)
-            if (this.nモブモーション枚数 != 0)
-            {
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
-                {
-                    this.txモブ[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].t2D描画(CDTXMania.app.Device, 0, 0);
+                    //モブの登場処理(魂ゲージMAX)
+                    if (this.nモブモーション枚数 != 0)
+                    {
+                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
+                        {
+                            this.txモブ[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].t2D描画(CDTXMania.app.Device, 0, 0);
+                        }
+                    }
                 }
             }
 

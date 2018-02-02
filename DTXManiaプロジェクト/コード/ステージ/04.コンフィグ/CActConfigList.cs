@@ -1145,7 +1145,7 @@ namespace DTXMania
 			if ( nSkinSampleIndex != nSkinIndex )
 			{
 				string path = skinSubFolders[ nSkinIndex ];
-				path = System.IO.Path.Combine( path, @"Graphics\2_background.jpg" );
+				path = System.IO.Path.Combine( path, @"Graphics\2_background.png" );
 				Bitmap bmSrc = new Bitmap( path );
 				Bitmap bmDest = new Bitmap( bmSrc.Width / 4, bmSrc.Height / 4 );
 				Graphics g = Graphics.FromImage( bmDest );

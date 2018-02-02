@@ -71,8 +71,8 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\2_background.jpg" ), false );
-				this.txメニュー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\2_menu.png" ), false );
+				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\2_background.png"));
+				this.txメニュー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\2_menu.png" ));
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -188,13 +188,14 @@ namespace DTXMania
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
-                string strVersion = "18_01_07";
+                string strVersion = "18_02_02";
                 string strSubTitle = "ANIMATION UPDATE";
 #if DEBUG
                 strVersion += "  DEBUG";
 #endif
                 CDTXMania.act文字コンソール.tPrint( 4, 4, C文字コンソール.Eフォント種別.白, strVersion );
                 CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, strSubTitle);
+                CDTXMania.act文字コンソール.tPrint(4, (720 - 24), C文字コンソール.Eフォント種別.白, "TJAPlayer3 forked TJAPlayer2 forPC(kairera0467)");
                 #endregion
 
 				if( this.txメニュー != null )

@@ -36,7 +36,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>D:\info\Documents\TJAPlayer3%28創作譜面%29\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DocumentationFile>
     </DocumentationFile>
@@ -166,7 +166,7 @@ echo ビルド後イベントを開始します。
 
 echo.
 echo (1) 出力フォルダ から ソリューション出力フォルダ へコピーします。（日付の新しいファイルのみ）
-set DESTDIR="$(SolutionDir)$(OutDir)dll"
+set DESTDIR="$(OutDir)dll"
 if not exist %25DESTDIR%25 mkdir %25DESTDIR%25
 xcopy "$(TargetDir)*.dll" %25DESTDIR%25 /Y /D /EXCLUDE:$(TargetFileName)
 
@@ -178,7 +178,7 @@ xcopy "$(TargetDir)*.dll"  %25DESTDIR%25 /Y /D
 
 echo.
 echo (3) 実行時フォルダ から ソリューション出力フォルダ にコピーします。（日付の新しいファイルのみ）
-set DESTDIR="$(SolutionDir)$(OutDir)dll"
+set DESTDIR="$(OutDir)dll"
 if not exist %25DESTDIR%25 mkdir %25DESTDIR%25
 xcopy "$(SolutionDir)実行時フォルダ\dll" %25DESTDIR%25 /Y /D
 

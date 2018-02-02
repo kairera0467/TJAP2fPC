@@ -330,7 +330,7 @@ namespace DTXMania
                 {
                     this.txCOMBO太鼓.vc拡大縮小倍率.Y = 0.8f;
                     this.txCOMBO太鼓.vc拡大縮小倍率.X = 0.8f;
-                    this.txCOMBO太鼓.t2D描画(CDTXMania.app.Device, 240, CDTXMania.Skin.nComboNumberTextY[nPlayer], new Rectangle(0, 60, 70, 34));
+                    this.txCOMBO太鼓.t2D描画(CDTXMania.app.Device, 240, CDTXMania.Skin.nComboNumberTextY[nPlayer] + 1, new Rectangle(0, 60, 70, 34));
                 }
             }
             else
@@ -339,7 +339,7 @@ namespace DTXMania
                 {
                     this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.Y = 0.8f;
                     this.txCOMBO太鼓_でかいやつ.vc拡大縮小倍率.X = 0.8f;
-				    this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, 241, CDTXMania.Skin.nComboNumberTextLargeY[ nPlayer ], new Rectangle( 0, 70, 70, 34 ) );
+				    this.txCOMBO太鼓_でかいやつ.t2D描画( CDTXMania.app.Device, 242, CDTXMania.Skin.nComboNumberTextLargeY[ nPlayer ], new Rectangle( 0, 70, 70, 34 ) );
                 }
             }
             #endregion

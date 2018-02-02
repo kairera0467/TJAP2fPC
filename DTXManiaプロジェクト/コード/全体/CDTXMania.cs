@@ -1292,7 +1292,8 @@ for (int i = 0; i < 3; i++) {
 
 									this.tガベージコレクションを実行する();
 								}
-								break;
+                                this.tガベージコレクションを実行する();
+                                break;
 								//-----------------------------
 								#endregion
 
@@ -1439,7 +1440,8 @@ for (int i = 0; i < 3; i++) {
 							DTX.t全チップの再生一時停止();
 							DTX.On非活性化();
 							r現在のステージ.On非活性化();
-							if( !bコンパクトモード )
+                            this.tガベージコレクションを実行する();
+                            if ( !bコンパクトモード )
 							{
 								Trace.TraceInformation( "----------------------" );
 								Trace.TraceInformation( "■ 選曲" );
@@ -2579,7 +2581,6 @@ for (int i = 0; i < 3; i++) {
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
 			GC.Collect();
-			GC.WaitForPendingFinalizers();
 		}
 		private void tプラグイン検索と生成()
 		{
@@ -2710,25 +2711,6 @@ for (int i = 0; i < 3; i++) {
 			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? base.Window.ClientSize.Height : currentClientSize.Height;
 		}
 		#endregion
-
-		//internal sealed class GCBeep	// GC発生の度にbeep
-		//{
-		//    ~GCBeep()
-		//    {
-		//        Console.Beep();
-		//        if ( !AppDomain.CurrentDomain.IsFinalizingForUnload()
-		//            && !Environment.HasShutdownStarted )
-		//        {
-		//            new GCBeep();
-		//        }
-		//    }
-		//}
-	
-		//-----------------
-
-		//Stopwatch sw = new Stopwatch();
-		//List<int> swlist1, swlist2, swlist3, swlist4, swlist5;
-
 		#endregion
 	}
 }
