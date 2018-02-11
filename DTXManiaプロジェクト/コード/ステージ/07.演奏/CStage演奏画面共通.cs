@@ -1093,12 +1093,14 @@ namespace DTXMania
                 }
                 this.actRoll.t枠表示時間延長(nPlayer);
                 this.b連打中[ nPlayer ] = true;
-                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 8, 12, CDTXMania.Timer);
+                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 8, 18, CDTXMania.Timer);
                 if ( pChip.nチャンネル番号 == 0x15 )
                     this.eRollState = E連打State.roll;
                 else
                     this.eRollState = E連打State.rollB;
+
                 pChip.nRollCount++;
+                
                 this.n現在の連打数[ nPlayer ]++;
                 this.nBranch_roll[ nPlayer ]++;
                 this.n合計連打数[ nPlayer ]++;
@@ -1191,7 +1193,7 @@ namespace DTXMania
                 }
 
                 this.b連打中[ player ] = true;
-                this.actBalloon.ct風船アニメ[player] = new CCounter(0, 8, 12, CDTXMania.Timer);
+                this.actBalloon.ct風船アニメ[player] = new CCounter(0, 8, 18, CDTXMania.Timer);
                 this.eRollState = E連打State.balloon;
                 pChip.nRollCount++;
                 this.n風船残り[ player ]--;

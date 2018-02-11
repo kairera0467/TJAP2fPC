@@ -389,6 +389,8 @@ namespace DTXMania
 				if( !CDTXMania.ConfigIni.bNoInfo )
                     this.t進行描画_ゲージ();
 
+                this.actLaneTaiko.ゴーゴー炎();
+
                 for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
                 {
 				    bIsFinishedPlaying = this.t進行描画_チップ( E楽器パート.DRUMS, i );

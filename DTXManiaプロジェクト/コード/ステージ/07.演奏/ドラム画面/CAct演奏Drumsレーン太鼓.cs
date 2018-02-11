@@ -644,40 +644,6 @@ namespace DTXMania
                 }
             }
 
-            #region[ ゴーゴー炎 ]
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
-            {
-                if (CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[i])
-                {
-                    this.ctゴーゴー炎.t進行Loop();
-
-                    if (this.txゴーゴー炎 != null)
-                    {
-                        float f倍率 = 1.0f;
-
-                        float[] ar倍率 = new float[] { 0.8f, 1.2f, 1.7f, 2.5f, 2.3f, 2.2f, 2.0f, 1.8f, 1.7f, 1.6f, 1.6f, 1.5f, 1.5f, 1.4f, 1.3f, 1.2f, 1.1f, 1.0f };
-
-                        f倍率 = ar倍率[this.ctゴーゴー.n現在の値];
-
-                        Matrix mat = Matrix.Identity;
-                        mat *= Matrix.Scaling(f倍率, f倍率, 1.0f);
-                        mat *= Matrix.Translation(CDTXMania.Skin.nScrollFieldX[i] - SampleFramework.GameWindowSize.Width / 2.0f, -(CDTXMania.Skin.nJudgePointY[i] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
-
-                        this.txゴーゴー炎.b加算合成 = true;
-
-                        //this.ctゴーゴー.n現在の値 = 6;
-                        if (this.ctゴーゴー.b終了値に達した)
-                        {
-                            this.txゴーゴー炎.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[i] - 180, CDTXMania.Skin.nJudgePointY[i] - (this.txゴーゴー炎.szテクスチャサイズ.Height / 2), new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
-                        }
-                        else
-                        {
-                            this.txゴーゴー炎.t3D描画(CDTXMania.app.Device, mat, new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
-                        }
-                    }
-                }
-            }
-            #endregion
 
             if (this.n総移動時間 != -1)
             {
@@ -749,9 +715,9 @@ namespace DTXMania
 
             if (CDTXMania.ConfigIni.bAVI有効)
             {
-                this.txLane.n透明度 = 240;
-                this.txLaneB.n透明度 = 240;
-                this.txゴーゴー.n透明度 = 240;
+                this.txLane.n透明度 = 200;
+                this.txLaneB.n透明度 = 200;
+                this.txゴーゴー.n透明度 = 200;
             }
 
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.nBranchレイヤー透明度.ToString());
@@ -819,6 +785,44 @@ namespace DTXMania
             return base.On進行描画();
         }
 
+        public void ゴーゴー炎()
+        {
+            #region[ ゴーゴー炎 ]
+            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            {
+                if (CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[i])
+                {
+                    this.ctゴーゴー炎.t進行Loop();
+
+                    if (this.txゴーゴー炎 != null)
+                    {
+                        float f倍率 = 1.0f;
+
+                        float[] ar倍率 = new float[] { 0.8f, 1.2f, 1.7f, 2.5f, 2.3f, 2.2f, 2.0f, 1.8f, 1.7f, 1.6f, 1.6f, 1.5f, 1.5f, 1.4f, 1.3f, 1.2f, 1.1f, 1.0f };
+
+                        f倍率 = ar倍率[this.ctゴーゴー.n現在の値];
+
+                        Matrix mat = Matrix.Identity;
+                        mat *= Matrix.Scaling(f倍率, f倍率, 1.0f);
+                        mat *= Matrix.Translation(CDTXMania.Skin.nScrollFieldX[i] - SampleFramework.GameWindowSize.Width / 2.0f, -(CDTXMania.Skin.nJudgePointY[i] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
+
+                        this.txゴーゴー炎.b加算合成 = true;
+
+                        //this.ctゴーゴー.n現在の値 = 6;
+                        if (this.ctゴーゴー.b終了値に達した)
+                        {
+                            this.txゴーゴー炎.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[i] - 180, CDTXMania.Skin.nJudgePointY[i] - (this.txゴーゴー炎.szテクスチャサイズ.Height / 2), new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
+                        }
+                        else
+                        {
+                            this.txゴーゴー炎.t3D描画(CDTXMania.app.Device, mat, new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
+                        }
+                    }
+                }
+            }
+            #endregion
+
+        }
 
         public virtual void Start(int nLane, E判定 judge, bool b両手入力, int nPlayer)
         {
