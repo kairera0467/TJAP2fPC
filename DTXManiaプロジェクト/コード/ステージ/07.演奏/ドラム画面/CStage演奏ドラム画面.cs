@@ -389,7 +389,7 @@ namespace DTXMania
 				if( !CDTXMania.ConfigIni.bNoInfo )
                     this.t進行描画_ゲージ();
 
-                this.actLaneTaiko.ゴーゴー炎();
+                
 
                 for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
                 {
@@ -430,6 +430,7 @@ namespace DTXMania
                 this.t進行描画_演奏情報();
                 this.actPanel.t歌詞テクスチャを描画する();
                 this.actComboBalloon.On進行描画();
+                this.actLaneTaiko.ゴーゴー炎();
                 this.t全体制御メソッド();
 
 
