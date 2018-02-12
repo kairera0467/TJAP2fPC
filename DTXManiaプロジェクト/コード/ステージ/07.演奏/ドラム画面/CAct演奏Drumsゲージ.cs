@@ -69,6 +69,7 @@ namespace DTXMania
                                 this.st花火状態[j].isBig = true;
                                 break;
                         }
+                        this.st花火状態[j].nLane = nLane;
 
                         this.st花火状態[j].b使用中 = true;
                         break;
@@ -95,7 +96,7 @@ namespace DTXMania
                                 this.st花火状態2P[ j ].isBig = true;
                                 break;
                         }
-
+                        this.st花火状態2P[j].nLane = nLane;
                         this.st花火状態2P[ j ].b使用中 = true;
                         break;
                     }
@@ -148,7 +149,9 @@ namespace DTXMania
                     this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\Gauge\Gauge_rainbow_" + i.ToString() + ".png") );
                 }
                 this.ct虹アニメ = new CCounter( 0, 11, 80, CDTXMania.Timer );
-				base.OnManagedリソースの作成();
+
+                this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_taiko_notes.png"));
+                base.OnManagedリソースの作成();
 			}
 		}
 		public override void OnManagedリソースの解放()
@@ -174,7 +177,9 @@ namespace DTXMania
                     CDTXMania.tテクスチャの解放( ref this.txゲージ虹[ i ] );
                 }
                 this.ct虹アニメ = null;
-				base.OnManagedリソースの解放();
+
+                CDTXMania.tテクスチャの解放(ref this.tx音符);
+                base.OnManagedリソースの解放();
 			}
 		}
 		public override int On進行描画()
@@ -312,6 +317,13 @@ namespace DTXMania
                         {
                             this.tx魂花火.t2D描画( CDTXMania.app.Device, 1140, 73, new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
                         }
+                        if (this.tx音符 != null)
+                        {
+                            this.tx音符.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
+                            this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
+                            //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, this.st花火状態[d].ct進行.n現在の値.ToString());
+                            //CDTXMania.act文字コンソール.tPrint(60, 160, C文字コンソール.Eフォント種別.白, (this.st花火状態[d].ct進行.n現在の値 / 10f).ToString());
+                        }
                         break;
                     }
                 }
@@ -352,6 +364,7 @@ namespace DTXMania
             public bool isBig;
             public bool b使用中;
             public int nPlayer;
+            public int nLane;
         }
 		//-----------------
 		#endregion

@@ -449,6 +449,7 @@ namespace DTXMania
         protected CTexture tx魂;
         protected CTexture tx炎;
         protected CTexture tx魂花火;
+        protected CTexture tx音符;
 
         protected CTexture[] txゲージ虹 = new CTexture[ 12 ];
         protected CTexture[] txゲージ虹2P = new CTexture[ 12 ];
