@@ -222,8 +222,17 @@ namespace DTXMania
                 double dbUnit_max_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.ar黄色ゴーゴーモーション番号.Length );
                 this.actChara.ctMAXゴーゴーモーション = new CCounter( 0, this.actChara.ar黄色ゴーゴーモーション番号.Length - 1, dbUnit_max_gogo * 2, CSound管理.rc演奏用タイマ );
             }
+
+            //if (this.actChara.ctキャラクターアクションタイマ != null) this.actChara.ctキャラクターアクションタイマ = new CCounter();
+
             //this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
             //this.actDancer.ctモブ = new CCounter( 1.0, 16.0, ((60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM / 16.0 )), CSound管理.rc演奏用タイマ );
+
+            if(this.actChara.ct踊り子モーション != null)
+            {
+                double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actChara.ar踊り子モーション番号.Length);
+                this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, dbUnit_dancer * 2, CSound管理.rc演奏用タイマ);
+            }
 
             this.ct手つなぎ = new CCounter( 0, 60, 20, CDTXMania.Timer );
 
@@ -449,6 +458,15 @@ namespace DTXMania
                 {
                     base.eフェーズID = CStage.Eフェーズ.演奏_演奏終了演出;
                     this.actEnd.Start();
+                    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
+                    {
+                        double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
+                        this.actChara.アクションタイマーリセット();
+                        this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボMAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボ枚数) * 2, CSound管理.rc演奏用タイマ);
+                        this.actChara.ctキャラクターアクション_10コンボMAX.t進行db();
+                        this.actChara.ctキャラクターアクション_10コンボMAX.db現在の値 = 0D;
+                        this.actChara.bマイどんアクション中 = true;
+                    }
                 }
                 else if( bIsFinishedEndAnime && base.eフェーズID == Eフェーズ.演奏_演奏終了演出 )
                 {

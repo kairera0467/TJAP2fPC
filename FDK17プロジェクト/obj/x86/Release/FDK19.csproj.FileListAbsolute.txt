@@ -16,3 +16,4 @@ C:\Users\info\source\repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Release\Ba
 C:\Users\info\source\repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Release\DirectShowLib-2005.dll
 C:\Users\info\source\repos\TJAPlayer3\FDK17プロジェクト\bin\x86\Release\SlimDXc_net20x86_Jun2010.dll
 D:\info\Documents\TJAPlayer3(創作譜面)\FDK.dll
+C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Release\FDK19.csprojResolveAssemblyReference.cache

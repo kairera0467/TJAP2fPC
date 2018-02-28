@@ -691,6 +691,14 @@ namespace DTXMania
         public int nCharaMotionLoopBeats_max;
         public int nCharaMotionLoopBeats_maxgogo;
 
+        public int nCharaAction_10combo;
+        public int nCharaAction_10combo_max;
+        public int nCharaAction_gogostart;
+        public int nCharaAction_gogostart_max;
+        public int nCharaAction_clearstart;
+        public int nCharaAction_fullgauge;
+
+
         public string strCharaMotionList;
         public string strCharaMotionList_gogo;
         public string strCharaMotionList_clear;
@@ -1343,6 +1351,14 @@ namespace DTXMania
             this.nCharaMotionCount_max = 0;
             this.nCharaMotionCount_maxgogo = 0;
 
+            this.nCharaAction_10combo = 0;
+            this.nCharaAction_10combo_max = 0;
+            this.nCharaAction_gogostart = 0;
+            this.nCharaAction_gogostart_max = 0;
+            this.nCharaAction_clearstart = 0;
+            this.nCharaAction_fullgauge = 0;
+
+
             this.strCharaMotionList = "5,4,3,2,1,0,0,0,0,0,0,1,2,3,4,5";
             this.strCharaMotionList_gogo = "0,1,2,3,4,5,6,7,8,9,10,10,11,12,13,14,15,16,17,18,19,20,21";
             this.strCharaMotionList_clear = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22";
@@ -1870,7 +1886,16 @@ namespace DTXMania
             sw.WriteLine( "CharaMotionCountMaxGogo={0}", this.nCharaMotionCount_maxgogo );
 			sw.WriteLine();
 
-			sw.WriteLine( "; キャラクターのコマパターン" );
+            sw.WriteLine("; キャラクター画像数(アクション)");
+            sw.WriteLine("nCharaAction_10combo={0}", this.nCharaAction_10combo);
+            sw.WriteLine("nCharaAction_10combo_max={0}", this.nCharaAction_10combo_max);
+            sw.WriteLine("nCharaAction_gogostart={0}", nCharaAction_gogostart);
+            sw.WriteLine("nCharaAction_gogostart_max={0}", this.nCharaAction_gogostart_max);
+            sw.WriteLine("nCharaAction_clearstart={0}", this.nCharaAction_clearstart);
+            sw.WriteLine("nCharaAction_fullgauge={0}", this.nCharaAction_fullgauge);
+            sw.WriteLine();
+
+            sw.WriteLine( "; キャラクターのコマパターン" );
 			sw.WriteLine( "CharaMotionList={0}", this.strCharaMotionList );
             sw.WriteLine( "CharaMotionListGogo={0}", this.strCharaMotionList_gogo );
             sw.WriteLine( "CharaMotionListClear={0}", this.strCharaMotionList_clear );
@@ -2882,6 +2907,30 @@ namespace DTXMania
 											{
 												this.nCharaMotionCount_maxgogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_maxgogo );
 											}
+                                            else if ( str3.Equals("nCharaAction_10combo"))
+                                            {
+                                                this.nCharaAction_10combo = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo);
+                                            }
+                                            else if (str3.Equals("nCharaAction_10combo_max"))
+                                            {
+                                                this.nCharaAction_10combo_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo_max);
+                                            }
+                                            else if (str3.Equals("nCharaAction_gogostart"))
+                                            {
+                                                this.nCharaAction_gogostart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart);
+                                            }
+                                            else if (str3.Equals("nCharaAction_gogostart_max"))
+                                            {
+                                                this.nCharaAction_gogostart_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart_max);
+                                            }
+                                            else if (str3.Equals("nCharaAction_clearstart"))
+                                            {
+                                                this.nCharaAction_clearstart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_clearstart);
+                                            }
+                                            else if (str3.Equals("nCharaAction_gogostart_fullgauge"))
+                                            {
+                                                this.nCharaAction_fullgauge = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_fullgauge);
+                                            }
                                             else if ( str3.Equals( "CharaMotionList" ) )
 											{
 												this.strCharaMotionList = str4;
