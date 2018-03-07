@@ -319,32 +319,72 @@ namespace DTXMania
 			}
 		}
 
-		#region [ IDisposable 実装 ]
-		//-----------------
-		public new void Dispose()
-		{
-			if ( !this.bDispose完了済み_CPrivateFastFont )
-			{
-				if ( listFontCache != null )
-				{
-					//Debug.WriteLine( "Disposing CPrivateFastFont()" );
-					#region [ キャッシュしている画像を破棄する ]
-					foreach ( FontCache bc in listFontCache )
+        #region [ IDisposable 実装 ]
+        //-----------------
+        private bool disposedValue = false;
+        ~CPrivateFastFont()
+        {
+            Dispose(false);
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (!this.bDispose完了済み_CPrivateFastFont)
+                    {
+                        if (listFontCache != null)
+                        {
+                            //Debug.WriteLine( "Disposing CPrivateFastFont()" );
+                            #region [ キャッシュしている画像を破棄する ]
+                            foreach (FontCache bc in listFontCache)
 
-					{
-						if ( bc.bmp != null )
-						{
-						    bc.bmp.Dispose();
-						}
-					}
-					#endregion
-					listFontCache.Clear();
-					listFontCache = null;
-				}
-				this.bDispose完了済み_CPrivateFastFont = true;
-			}
-			base.Dispose();
-		}
+                            {
+                                if (bc.bmp != null)
+                                {
+                                    bc.bmp.Dispose();
+                                }
+                            }
+                            #endregion
+                            listFontCache.Clear();
+                            listFontCache = null;
+                        }
+                        this.bDispose完了済み_CPrivateFastFont = true;
+                    }
+                }
+                disposedValue = true;
+            }
+        }
+        public override void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        //      public new void Dispose()
+		//{
+		//	if ( !this.bDispose完了済み_CPrivateFastFont )
+		//	{
+		//		if ( listFontCache != null )
+		//		{
+		//			//Debug.WriteLine( "Disposing CPrivateFastFont()" );
+		//			#region [ キャッシュしている画像を破棄する ]
+		//			foreach ( FontCache bc in listFontCache )
+
+		//			{
+		//				if ( bc.bmp != null )
+		//				{
+		//				    bc.bmp.Dispose();
+		//				}
+		//			}
+		//			#endregion
+		//			listFontCache.Clear();
+		//			listFontCache = null;
+		//		}
+		//		this.bDispose完了済み_CPrivateFastFont = true;
+		//	}
+		//	base.Dispose();
+		//}
 		//-----------------
 		#endregion
 

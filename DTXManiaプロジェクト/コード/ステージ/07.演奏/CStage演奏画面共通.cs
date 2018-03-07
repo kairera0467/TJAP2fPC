@@ -325,7 +325,7 @@ namespace DTXMania
             this.ct制御タイマ = null;
 			listWAV.Clear();
 			listWAV = null;
-			listChip = null;
+            listChip = null;
 			queueMixerSound.Clear();
 			queueMixerSound = null;
 			cInvisibleChip.Dispose();
@@ -567,6 +567,8 @@ namespace DTXMania
         protected CAct演奏Combo音声 actComboVoice;
         protected CAct演奏PauseMenu actPauseMenu;
 		public bool bPAUSE;
+        public bool bIsAlreadyCleared;
+        public bool bIsAlreadyMaxed;
 		protected STDGBVALUE<bool> b演奏にMIDI入力を使った;
 		protected STDGBVALUE<bool> b演奏にキーボードを使った;
 		protected STDGBVALUE<bool> b演奏にジョイパッドを使った;
@@ -1415,10 +1417,42 @@ namespace DTXMania
 
             if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
             {
-                if( actGauge.db現在のゲージ値[ 0 ] < 80.0 )
+                double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
+                if (actGauge.db現在のゲージ値[0] < 80.0)
                 {
                     CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
                 }
+
+                if (actGauge.db現在のゲージ値[0] > 80)
+                {
+                    
+                    //if(bIsAlreadyCleared == false)
+                    //{
+                    //    this.actChara.アクションタイマーリセット();
+                    //    this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数) * 2, CSound管理.rc演奏用タイマ);
+                    //    this.actChara.ctキャラクターアクション_魂MAX.t進行db();
+                    //    this.actChara.ctキャラクターアクション_魂MAX.db現在の値 = 0D;
+                    //    this.actChara.bマイどんアクション中 = true;
+                    //    this.bIsAlreadyCleared = true;
+                    //}
+                    
+
+                }
+                if (actGauge.db現在のゲージ値[0] >= 100)
+                {
+                    //if (bIsAlreadyMaxed == false)
+                    //{
+                    //    this.actChara.アクションタイマーリセット();
+                    //    this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数) * 2, CSound管理.rc演奏用タイマ);
+                    //    this.actChara.ctキャラクターアクション_魂MAX.t進行db();
+                    //    this.actChara.ctキャラクターアクション_魂MAX.db現在の値 = 0D;
+                    //    this.actChara.bマイどんアクション中 = true;
+                    //    this.bIsAlreadyMaxed = true;
+                    //}
+                    
+                }
+
+
             }
 
 			if ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) )
@@ -1435,6 +1469,14 @@ namespace DTXMania
 			if ( eJudgeResult == E判定.Poor || eJudgeResult == E判定.Miss || eJudgeResult == E判定.Bad )
 			{
 				cInvisibleChip.ShowChipTemporally( pChip.e楽器パート );
+                if(actGauge.db現在のゲージ値[0] < 100)
+                {
+                    this.bIsAlreadyMaxed = false;
+                }
+                if(actGauge.db現在のゲージ値[0] < 80)
+                {
+                    this.bIsAlreadyCleared = true;
+                }
 			}
 			switch ( pChip.e楽器パート )
 			{
@@ -1528,23 +1570,10 @@ namespace DTXMania
                         this.actComboVoice.t再生( this.actCombo.n現在のコンボ数[ nPlayer ], nPlayer );
 
                         double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
-                        /*
-                            if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] <= 100)
-                            {
-                                this.actChara.アクションタイマーリセット();
-                                this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数) * 2, CSound管理.rc演奏用タイマ);
-                                this.actChara.ctキャラクターアクション_魂MAX.t進行db();
-                                this.actChara.ctキャラクターアクション_魂MAX.db現在の値 = 0D;
-                                this.actChara.bマイどんアクション中 = true;
-                            } else if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] <= 80)
-                            {
-                                this.actChara.アクションタイマーリセット();
-                                this.actChara.ctキャラクターアクション_ノルマ = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_ノルマ枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_ノルマ枚数) * 2, CSound管理.rc演奏用タイマ);
-                                this.actChara.ctキャラクターアクション_ノルマ.t進行db();
-                                this.actChara.ctキャラクターアクション_ノルマ.db現在の値 = 0D;
-                                this.actChara.bマイどんアクション中 = true;
-                            }
-                        */
+
+                        //CDTXMania.act文字コンソール.tPrint(620, 80, C文字コンソール.Eフォント種別.白, "BPM: " + dbUnit.ToString());
+
+
                         if (this.actCombo.n現在のコンボ数[nPlayer] % 10 == 0 && this.actCombo.n現在のコンボ数[nPlayer] > 0)
                         {
                             //if (this.actChara.bマイどんアクション中 == false)
@@ -1582,6 +1611,24 @@ namespace DTXMania
                                 //CDTXMania.stage演奏ドラム画面.actChara.マイどん_アクション_タイマーリセット();
                                 //CDTXMania.stage演奏ドラム画面.actChara.マイどん_アクション_スタート(CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボMAX枚数, 2);
                             }
+
+                            /*
+                                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] <= 100)
+                                {
+                                    this.actChara.アクションタイマーリセット();
+                                    this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数) * 2, CSound管理.rc演奏用タイマ);
+                                    this.actChara.ctキャラクターアクション_魂MAX.t進行db();
+                                    this.actChara.ctキャラクターアクション_魂MAX.db現在の値 = 0D;
+                                    this.actChara.bマイどんアクション中 = true;
+                                } else if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] <= 80)
+                                {
+                                    this.actChara.アクションタイマーリセット();
+                                    this.actChara.ctキャラクターアクション_ノルマ = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_ノルマ枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_ノルマ枚数) * 2, CSound管理.rc演奏用タイマ);
+                                    this.actChara.ctキャラクターアクション_ノルマ.t進行db();
+                                    this.actChara.ctキャラクターアクション_ノルマ.db現在の値 = 0D;
+                                    this.actChara.bマイどんアクション中 = true;
+                                }
+                            */
                         }
 
                         this.t紙吹雪_開始();
@@ -3976,7 +4023,7 @@ namespace DTXMania
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.nタイマ番号.ToString());
 
 
-            if (this.actChara.ctモブモーション.db現在の値 < 13)
+            if (this.actChara.ctモブモーション.db現在の値 <= 30)
             {
                 this.n現在の音符の顔番号 = 0;
             } else

@@ -924,26 +924,43 @@ namespace DTXMania
 			}
 		}
 
-		#region [ IDisposable 実装 ]
-		//-----------------
-		public void Dispose()
-		{
-			if ( !this.bDispose完了済み )
-			{
-				if ( this._font != null )
-				{
-					this._font.Dispose();
-					this._font = null;
-				}
-				if ( this._pfc != null )
-				{
-					this._pfc.Dispose();
-					this._pfc = null;
-				}
+        #region [ IDisposable 実装 ]
+        //-----------------
+        private bool disposedValue = false;
+        ~CPrivateFont()
+        {
+            Dispose(false);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if(!disposedValue)
+            {
+                if(disposing)
+                {
+                    if (!this.bDispose完了済み)
+                    {
+                        if (this._font != null)
+                        {
+                            this._font.Dispose();
+                            this._font = null;
+                        }
+                        if (this._pfc != null)
+                        {
+                            this._pfc.Dispose();
+                            this._pfc = null;
+                        }
 
-				this.bDispose完了済み = true;
-			}
-		}
+                        this.bDispose完了済み = true;
+                    }
+                }
+                disposedValue = true;
+            }
+        }
+		public virtual void Dispose()
+		{
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 		//-----------------
 		#endregion
 

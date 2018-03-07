@@ -1445,7 +1445,7 @@ namespace DTXMania
 			nSkinSampleIndex = -1;
 			#endregion
 
-			this.prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\fonts\mplus-1p-heavy.ttf" ), 20 );	// t項目リストの設定 の前に必要
+			this.prvFont = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.strPrivateFontで使うフォント名), 20 );	// t項目リストの設定 の前に必要
 //			this.listMenu = new List<stMenuItemRight>();
 
 			this.t項目リストの設定_Bass();		// #27795 2012.3.11 yyagi; System設定の中でDrumsの設定を参照しているため、
@@ -1837,8 +1837,8 @@ namespace DTXMania
 				if ( b強調 )
 				{
 					Bitmap bmpStr = b強調 ?
-						prvFont.DrawPrivateFont( strParam, Color.White, Color.Black, Color.Yellow, Color.OrangeRed ) :
-						prvFont.DrawPrivateFont( strParam, Color.White, Color.Black );
+						prvFont.DrawPrivateFont( strParam, Color.Black, Color.White, Color.Yellow, Color.OrangeRed ) :
+						prvFont.DrawPrivateFont( strParam, Color.Black, Color.White );
 					CTexture txStr = CDTXMania.tテクスチャの生成( bmpStr, false );
 					txStr.t2D描画( CDTXMania.app.Device, x + 400, y + 12 );
 					CDTXMania.tテクスチャの解放( ref txStr );

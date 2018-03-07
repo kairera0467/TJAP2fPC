@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Drawing;
-using FDK;
 using System.Diagnostics;
+using FDK;
 
 namespace DTXMania
 {
@@ -67,7 +68,7 @@ namespace DTXMania
             this.ctキャラクターアクション_ゴーゴースタートMAX = null;
             this.ctキャラクターアクション_ノルマ = null;
             this.ctキャラクターアクション_魂MAX = null;
-
+       
             base.On非活性化();
         }
 
@@ -83,10 +84,10 @@ namespace DTXMania
 
             // ↓踊り子・モブ↓
             this.n踊り子モーション枚数 = 28;
-            this.nモブモーション枚数 = 10;
+            this.nモブモーション枚数 = 30;
 
             this.str踊り子リスト = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27";//,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1";
-            this.strモブ = "4,5,6,7,8,9,8,7,6,5,4,3,3,2,2,2,1,1,0,0,0,1,1,2,2,3,3";
+            this.strモブ = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0";
 
             this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(str踊り子リスト);
             this.arモブモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(strモブ);
@@ -119,7 +120,7 @@ namespace DTXMania
             this.txモブ = new CTexture[this.nモブモーション枚数];
             for (int i = 0; i < this.nモブモーション枚数; i++)
             {
-                this.txモブ[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\mob\mob_" + i.ToString() + ".png"));
+                this.txモブ[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\mob\" + i.ToString() + ".png"));
             }
 
             this.txフッター = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer_BG\footer\01.png"));
@@ -235,7 +236,7 @@ namespace DTXMania
             this.arモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList );
             this.arゴーゴーモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListGogo );
             this.arクリアモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListClear );
-            this.ar黄色モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListGogo );
+            this.ar黄色モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListClear );
             this.ar黄色ゴーゴーモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListMAXGogo );
 
             this.ct通常モーション = new CCounter( 0, this.arモーション番号.Length - 1, 0.02, CSound管理.rc演奏用タイマ );
@@ -290,21 +291,9 @@ namespace DTXMania
                 for(int i = 0; i < this.n踊り子モーション枚数; i++)
                 {
                     CDTXMania.tテクスチャの解放(ref this.tx踊り子_1[i]);
-                }
-                for (int i = 0; i < this.n踊り子モーション枚数; i++)
-                {
                     CDTXMania.tテクスチャの解放(ref this.tx踊り子_2[i]);
-                }
-                for (int i = 0; i < this.n踊り子モーション枚数; i++)
-                {
                     CDTXMania.tテクスチャの解放(ref this.tx踊り子_3[i]);
-                }
-                for (int i = 0; i < this.n踊り子モーション枚数; i++)
-                {
                     CDTXMania.tテクスチャの解放(ref this.tx踊り子_4[i]);
-                }
-                for (int i = 0; i < this.n踊り子モーション枚数; i++)
-                {
                     CDTXMania.tテクスチャの解放(ref this.tx踊り子_5[i]);
                 }
             }
@@ -387,6 +376,7 @@ namespace DTXMania
             // ↑踊り子・モブ↑
 
             // ↓マイどんアクション↓
+            /*
             CDTXMania.act文字コンソール.tPrint(380, 0, C文字コンソール.Eフォント種別.白, this.bマイどんアクション中.ToString());
             CDTXMania.act文字コンソール.tPrint(380, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_10コンボ.db現在の値.ToString());
             CDTXMania.act文字コンソール.tPrint(380, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_10コンボ.b進行中db.ToString());
@@ -400,6 +390,11 @@ namespace DTXMania
             CDTXMania.act文字コンソール.tPrint(540, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_ノルマ.b進行中db.ToString());
             CDTXMania.act文字コンソール.tPrint(580, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_魂MAX.db現在の値.ToString());
             CDTXMania.act文字コンソール.tPrint(580, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_魂MAX.b進行中db.ToString());
+
+
+            CDTXMania.act文字コンソール.tPrint(620, 40, C文字コンソール.Eフォント種別.白, "bIsAlreadyCleared: " + CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared.ToString());
+            CDTXMania.act文字コンソール.tPrint(620, 60, C文字コンソール.Eフォント種別.白, "bIsAlreadyMaxed: " + CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed.ToString());
+            */
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.n前回のコンボ数.ToString());
             //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, this.db前回のゲージ値.ToString());
             //CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクションタイマ.db現在の値.ToString());
@@ -450,7 +445,7 @@ namespace DTXMania
             // ↑マイどんアクション↑
 
             //this.n前回のコンボ数 = CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数[0];
-            this.db前回のゲージ値 = CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0];
+            //this.db前回のゲージ値 = CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0];
 
             if ( this.b風船連打中 != true && this.bマイどんアクション中 != true)
             {
@@ -642,7 +637,7 @@ namespace DTXMania
                     {
                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                         {
-                            this.txモブ[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].t2D描画(CDTXMania.app.Device, 0, 0);
+                            this.txモブ[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].t2D描画(CDTXMania.app.Device, 0, 720 - 260);
                         }
                     }
                 }

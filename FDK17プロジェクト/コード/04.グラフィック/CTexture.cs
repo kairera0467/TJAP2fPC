@@ -893,22 +893,39 @@ namespace FDK
 			device.DrawUserPrimitives( PrimitiveType.TriangleStrip, 2, this.cvPositionColoredVertexies );
 		}
 
-		#region [ IDisposable 実装 ]
-		//-----------------
-		public void Dispose()
-		{
-			if( !this.bDispose完了済み )
-			{
-				// テクスチャの破棄
-				if( this.texture != null )
-				{
-					this.texture.Dispose();
-					this.texture = null;
-				}
+        #region [ IDisposable 実装 ]
+        //-----------------
+        private bool disposedValue = false;
+        ~CTexture()
+        {
+            Dispose(false);
+        }
+        public virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    if (!this.bDispose完了済み)
+                    {
+                        // テクスチャの破棄
+                        if (this.texture != null)
+                        {
+                            this.texture.Dispose();
+                            this.texture = null;
+                        }
 
-				this.bDispose完了済み = true;
-			}
-		}
+                        this.bDispose完了済み = true;
+                    }
+                }
+                disposedValue = true;
+            }
+        }
+
+        public virtual void Dispose()
+		{
+            Dispose(true);
+        }
 		//-----------------
 		#endregion
 

@@ -1437,8 +1437,9 @@ for (int i = 0; i < 3; i++) {
 						//-----------------------------
 						if( this.n進行描画の戻り値 != 0 )
 						{
-							DTX.t全チップの再生一時停止();
-							DTX.On非活性化();
+							//DTX.t全チップの再生一時停止();
+                            DTX.t全チップの再生停止とミキサーからの削除();
+                            DTX.On非活性化();
 							r現在のステージ.On非活性化();
                             this.tガベージコレクションを実行する();
                             if ( !bコンパクトモード )
@@ -1600,7 +1601,12 @@ for (int i = 0; i < 3; i++) {
 			{
 				return null;
 			}
-			try
+            if (bitmap == null)
+            {
+                Trace.TraceError("テクスチャの生成に失敗しました。(bitmap==null)");
+                return null;
+            }
+            try
 			{
 				return new CTexture( app.Device, bitmap, TextureFormat, b黒を透過する );
 			}
@@ -1665,25 +1671,28 @@ for (int i = 0; i < 3; i++) {
             return ds;
         }
 
-		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
-		public static void t安全にDisposeする<T>( ref T obj )
-		{
-			if ( obj == null )
-				return;
+        /// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
+        public static void t安全にDisposeする<T>(ref T obj)
+        {
+            if (obj == null)
+                return;
 
-			var d = obj as IDisposable;
+            var d = obj as IDisposable;
 
-			if ( d != null )
-				d.Dispose();
+            if (d != null)
+                d.Dispose();
 
-			obj = default( T );
-		}
-		//-----------------
-		#endregion
+            GC.SuppressFinalize(obj);
 
-		#region [ private ]
-		//-----------------
-		private bool bマウスカーソル表示中 = true;
+            obj = default(T);
+        }
+
+        //-----------------
+        #endregion
+
+        #region [ private ]
+        //-----------------
+        private bool bマウスカーソル表示中 = true;
 		private bool b終了処理完了済み;
 		private static CDTX[] dtx = new CDTX[ 4 ];
 
@@ -2578,9 +2587,9 @@ for (int i = 0; i < 3; i++) {
 		}
 		private void tガベージコレクションを実行する()
 		{
-			GC.Collect();
+			GC.Collect(GC.MaxGeneration);
 			GC.WaitForPendingFinalizers();
-			GC.Collect();
+			GC.Collect(GC.MaxGeneration);
 		}
 		private void tプラグイン検索と生成()
 		{
