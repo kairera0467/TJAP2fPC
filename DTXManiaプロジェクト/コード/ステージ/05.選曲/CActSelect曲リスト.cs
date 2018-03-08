@@ -1951,37 +1951,43 @@ namespace DTXMania
         }
         private CTexture t曲名テクスチャを生成する( string str文字 )
         {
-            Bitmap bmp;
-            
-            bmp = pfMusicName.DrawPrivateFont( str文字, Color.White, Color.Black, true );
-
-            CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成( bmp, false );
-
-            if( tx文字テクスチャ.szテクスチャサイズ.Height > 380 )
+            //Bitmap bmp;
+            using (var bmp = new Bitmap(pfMusicName.DrawPrivateFont(str文字, Color.White, Color.Black, true)))
             {
-                tx文字テクスチャ.vc拡大縮小倍率.Y = (float)( 380.0f / tx文字テクスチャ.szテクスチャサイズ.Height );
+                CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成(bmp, false);
+                if (tx文字テクスチャ.szテクスチャサイズ.Height > 380)
+                {
+                    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(380.0f / tx文字テクスチャ.szテクスチャサイズ.Height);
+                }
+                return tx文字テクスチャ;
             }
+            //bmp = pfMusicName.DrawPrivateFont(str文字, Color.White, Color.Black, true);
+            //using (var bmp = new Bitmap(pfSubtitle.DrawPrivateFont(str文字, Color.White, Color.Black, true)));
+            //bmp.Dispose();
+            //bmp = null;
 
-            bmp.Dispose();
-
-            return tx文字テクスチャ;
         }
         private CTexture tサブタイトルテクスチャを生成する( string str文字 )
         {
-            Bitmap bmp;
-            
-            bmp = pfSubtitle.DrawPrivateFont( str文字, Color.White, Color.Black, true );
-
-            CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成( bmp, false );
-
-            if( tx文字テクスチャ.szテクスチャサイズ.Height > 360 )
+            //Bitmap bmp;
+            //bmp = pfSubtitle.DrawPrivateFont( str文字, Color.White, Color.Black, true );
+            //CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成( bmp, false );
+            //if( tx文字テクスチャ.szテクスチャサイズ.Height > 360 )
+            //{
+            //    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)( 360.0f / tx文字テクスチャ.szテクスチャサイズ.Height );
+            //}
+            //bmp.Dispose();
+            //bmp = null;
+            //return tx文字テクスチャ;
+            using (var bmp = new Bitmap(pfSubtitle.DrawPrivateFont(str文字, Color.White, Color.Black, true)))
             {
-                tx文字テクスチャ.vc拡大縮小倍率.Y = (float)( 360.0f / tx文字テクスチャ.szテクスチャサイズ.Height );
+                CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成(bmp, false);
+                if (tx文字テクスチャ.szテクスチャサイズ.Height > 360)
+                {
+                    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(360.0f / tx文字テクスチャ.szテクスチャサイズ.Height);
+                }
+                return tx文字テクスチャ;
             }
-
-            bmp.Dispose();
-
-            return tx文字テクスチャ;
         }
 
 		private void t曲名バーの生成( int nバー番号, string str曲名, Color color )

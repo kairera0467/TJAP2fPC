@@ -45,7 +45,7 @@ namespace DTXMania
 			base.list子Activities.Add( this.actFOClear = new CActFIFOResult() );
             base.list子Activities.Add( this.actLane = new CAct演奏Drumsレーン() );
             base.list子Activities.Add( this.actEnd = new CAct演奏Drums演奏終了演出() );
-            //base.list子Activities.Add( this.actDancer = new CAct演奏DrumsDancer() );
+            base.list子Activities.Add( this.actDancer = new CAct演奏DrumsDancer() );
             base.list子Activities.Add( this.actMtaiko = new CAct演奏DrumsMtaiko() );
             base.list子Activities.Add( this.actLaneTaiko = new CAct演奏Drumsレーン太鼓() );
             base.list子Activities.Add( this.actRoll = new CAct演奏Drums連打() );
@@ -228,10 +228,10 @@ namespace DTXMania
             //this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
             //this.actDancer.ctモブ = new CCounter( 1.0, 16.0, ((60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM / 16.0 )), CSound管理.rc演奏用タイマ );
 
-            if(this.actChara.ct踊り子モーション != null)
+            if(this.actDancer.ct踊り子モーション != null)
             {
-                double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actChara.ar踊り子モーション番号.Length);
-                this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, dbUnit_dancer * 2, CSound管理.rc演奏用タイマ);
+                double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
+                this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * 8, CSound管理.rc演奏用タイマ);
             }
 
             this.ct手つなぎ = new CCounter( 0, 60, 20, CDTXMania.Timer );
@@ -366,8 +366,8 @@ namespace DTXMania
                 {
                     this.actBackground.On進行描画();
                     this.actRollChara.On進行描画();
-                    //if( !this.bDoublePlay )
-                        //this.actDancer.On進行描画();
+                    if( !this.bDoublePlay )
+                        this.actDancer.On進行描画();
                 }
 
                 if( !CDTXMania.ConfigIni.bNoInfo )

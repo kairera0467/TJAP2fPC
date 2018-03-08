@@ -574,8 +574,8 @@ namespace DTXMania
                 }
                 nNowPos += bmpV.Size.Height - 3;
 
-                if( bmpV != null ) bmpV.Dispose();
-                if( gCal != null ) gCal.Dispose();
+                if( bmpV != null ) bmpV.Dispose(); bmpV = null;
+                if( gCal != null ) gCal.Dispose(); gCal = null;
 
                 //bmpCambus.Save( "test.png" );
                 //if( this._pt < 20 )
@@ -948,6 +948,11 @@ namespace DTXMania
                         {
                             this._pfc.Dispose();
                             this._pfc = null;
+                        }
+                        if (this._fontfamily != null)
+                        {
+                            this._fontfamily.Dispose();
+                            this._fontfamily = null;
                         }
 
                         this.bDispose完了済み = true;

@@ -706,6 +706,10 @@ namespace DTXMania
         public string strCharaMotionList_maxgogo;
         public string strCharaMotionList_jump;
 
+        public bool bDancer;
+        public int nDancerMotionCount;
+        public string strDancerMotionList;
+
         public E難易度表示タイプ eDiffShowType;
         public EScrollMode eScrollMode = EScrollMode.Normal;
         public bool bスクロールモードを上書き = false;
@@ -1367,6 +1371,10 @@ namespace DTXMania
 
             this.nCharaMotionLoopBeats_clear = 2;
 
+            this.bDancer = true;
+            this.nDancerMotionCount = 28;
+            this.strDancerMotionList = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27";
+
             this.eSTEALTH = Eステルスモード.OFF;
             this.bNoInfo = false;
             
@@ -1907,8 +1915,19 @@ namespace DTXMania
             sw.WriteLine( "; 1拍単位で指定できます。" );
 			sw.WriteLine( "CharaMotionLoopBeats={0}", this.nCharaMotionLoopBeats );
 			sw.WriteLine( "CharaMotionLoopBeatsClear={0}", this.nCharaMotionLoopBeats_clear );
+            sw.WriteLine();
 
-			sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirorr 3:SuperRandom, 4:HyperRandom)" );
+            sw.WriteLine("; 踊り子(ダンサー)を有効にするか");
+            sw.WriteLine("Dancer={0}", this.bDancer ? 1 : 0);
+            sw.WriteLine();
+
+            sw.WriteLine("; 踊り子(ダンサー)の画像数");
+            sw.WriteLine("nDancerMotionCount={0}", this.nDancerMotionCount);
+            sw.WriteLine("strDancerMotionList={0}", this.strDancerMotionList);
+            sw.WriteLine();
+
+
+            sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirorr 3:SuperRandom, 4:HyperRandom)" );
 			sw.WriteLine( "TaikoRandom={0}", (int) this.eRandom.Taiko );
 			sw.WriteLine();
             sw.WriteLine( "; STEALTHモード(0:OFF, 1:ドロン, 2:ステルス)" );
@@ -2951,6 +2970,18 @@ namespace DTXMania
 											{
 												this.strCharaMotionList_maxgogo = str4;
 											}
+                                            else if (str3.Equals("Dancer"))
+                                            {
+                                                this.bDancer = C変換.bONorOFF(str4[0]);
+                                            }
+                                            else if (str3.Equals("nDancerMotionCount"))
+                                            {
+                                                this.nDancerMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nDancerMotionCount);
+                                            }
+                                            else if (str3.Equals("strDancerMotionList"))
+                                            {
+                                                this.strDancerMotionList = str4;
+                                            }
                                             else if ( str3.Equals( "DefaultSongSort" ) )
                                             {
                                                 this.nDefaultSongSort = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nDefaultSongSort );

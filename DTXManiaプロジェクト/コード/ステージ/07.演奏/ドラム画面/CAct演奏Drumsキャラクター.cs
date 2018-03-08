@@ -29,8 +29,8 @@ namespace DTXMania
             this.ct通常モーション = new CCounter();
             this.ctゴーゴーモーション = new CCounter();
             this.ctクリア通常モーション = new CCounter();
-            // ↓踊り子・モブ↓
-            this.ct踊り子モーション = new CCounter();
+            //// ↓踊り子・モブ↓
+            //this.ct踊り子モーション = new CCounter();
             this.ctモブモーション = new CCounter();
             // ↑踊り子・モブ↑
 
@@ -56,8 +56,8 @@ namespace DTXMania
             this.ct通常モーション = null;
             this.ctゴーゴーモーション = null;
             this.ctクリア通常モーション = null;
-            // ↓踊り子・モブ↓
-            this.ct踊り子モーション = null;
+            //// ↓踊り子・モブ↓
+            //this.ct踊り子モーション = null;
             this.ctモブモーション = null;
             // ↑踊り子・モブ↑
 
@@ -83,40 +83,40 @@ namespace DTXMania
             this.nキャラクターMAXゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_maxgogo;
 
             // ↓踊り子・モブ↓
-            this.n踊り子モーション枚数 = 28;
+            //this.n踊り子モーション枚数 = 28;
             this.nモブモーション枚数 = 30;
 
-            this.str踊り子リスト = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27";//,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1";
+            //this.str踊り子リスト = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27";//,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1";
             this.strモブ = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0";
 
-            this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(str踊り子リスト);
+            //this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(str踊り子リスト);
             this.arモブモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(strモブ);
 
-            this.tx踊り子_1 = new CTexture[this.n踊り子モーション枚数];
-            for (int i = 0; i < this.n踊り子モーション枚数; i++)
-            {
-                this.tx踊り子_1[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\0\" + i.ToString() + ".png"));
-            }
-            this.tx踊り子_2 = new CTexture[this.n踊り子モーション枚数];
-            for (int i = 0; i < this.n踊り子モーション枚数; i++)
-            {
-                this.tx踊り子_2[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\1\" + i.ToString() + ".png"));
-            }
-            this.tx踊り子_3 = new CTexture[this.n踊り子モーション枚数];
-            for (int i = 0; i < this.n踊り子モーション枚数; i++)
-            {
-                this.tx踊り子_3[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\2\" + i.ToString() + ".png"));
-            }
-            this.tx踊り子_4 = new CTexture[this.n踊り子モーション枚数];
-            for (int i = 0; i < this.n踊り子モーション枚数; i++)
-            {
-                this.tx踊り子_4[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\3\" + i.ToString() + ".png"));
-            }
-            this.tx踊り子_5 = new CTexture[this.n踊り子モーション枚数];
-            for (int i = 0; i < this.n踊り子モーション枚数; i++)
-            {
-                this.tx踊り子_5[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\4\" + i.ToString() + ".png"));
-            }
+            //this.tx踊り子_1 = new CTexture[this.n踊り子モーション枚数];
+            //for (int i = 0; i < this.n踊り子モーション枚数; i++)
+            //{
+            //    this.tx踊り子_1[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\0\" + i.ToString() + ".png"));
+            //}
+            //this.tx踊り子_2 = new CTexture[this.n踊り子モーション枚数];
+            //for (int i = 0; i < this.n踊り子モーション枚数; i++)
+            //{
+            //    this.tx踊り子_2[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\1\" + i.ToString() + ".png"));
+            //}
+            //this.tx踊り子_3 = new CTexture[this.n踊り子モーション枚数];
+            //for (int i = 0; i < this.n踊り子モーション枚数; i++)
+            //{
+            //    this.tx踊り子_3[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\2\" + i.ToString() + ".png"));
+            //}
+            //this.tx踊り子_4 = new CTexture[this.n踊り子モーション枚数];
+            //for (int i = 0; i < this.n踊り子モーション枚数; i++)
+            //{
+            //    this.tx踊り子_4[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\3\" + i.ToString() + ".png"));
+            //}
+            //this.tx踊り子_5 = new CTexture[this.n踊り子モーション枚数];
+            //for (int i = 0; i < this.n踊り子モーション枚数; i++)
+            //{
+            //    this.tx踊り子_5[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\4\" + i.ToString() + ".png"));
+            //}
             this.txモブ = new CTexture[this.nモブモーション枚数];
             for (int i = 0; i < this.nモブモーション枚数; i++)
             {
@@ -247,7 +247,7 @@ namespace DTXMania
                 this.ctMAX通常モーション = new CCounter( 0, this.ar黄色モーション番号.Length - 1, 50, CDTXMania.Timer );
             if( this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
                 this.ctMAXゴーゴーモーション = new CCounter( 0, this.ar黄色ゴーゴーモーション番号.Length - 1, 50, CDTXMania.Timer );
-            this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.04, CSound管理.rc演奏用タイマ);
+            //this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.04, CSound管理.rc演奏用タイマ);
             this.ctモブモーション = new CCounter(0, this.arモブモーション番号.Length - 1, 0.04, CSound管理.rc演奏用タイマ);
 
             base.OnManagedリソースの作成();
@@ -286,17 +286,17 @@ namespace DTXMania
             }
 
             // ↓踊り子・モブ↓
-            if(this.n踊り子モーション枚数 != 0)
-            {
-                for(int i = 0; i < this.n踊り子モーション枚数; i++)
-                {
-                    CDTXMania.tテクスチャの解放(ref this.tx踊り子_1[i]);
-                    CDTXMania.tテクスチャの解放(ref this.tx踊り子_2[i]);
-                    CDTXMania.tテクスチャの解放(ref this.tx踊り子_3[i]);
-                    CDTXMania.tテクスチャの解放(ref this.tx踊り子_4[i]);
-                    CDTXMania.tテクスチャの解放(ref this.tx踊り子_5[i]);
-                }
-            }
+            //if(this.n踊り子モーション枚数 != 0)
+            //{
+            //    for(int i = 0; i < this.n踊り子モーション枚数; i++)
+            //    {
+            //        CDTXMania.tテクスチャの解放(ref this.tx踊り子_1[i]);
+            //        CDTXMania.tテクスチャの解放(ref this.tx踊り子_2[i]);
+            //        CDTXMania.tテクスチャの解放(ref this.tx踊り子_3[i]);
+            //        CDTXMania.tテクスチャの解放(ref this.tx踊り子_4[i]);
+            //        CDTXMania.tテクスチャの解放(ref this.tx踊り子_5[i]);
+            //    }
+            //}
             if(this.nモブモーション枚数 != 0)
             {
                 for(int i = 0; i < this.nモブモーション枚数; i++)
@@ -371,7 +371,7 @@ namespace DTXMania
             if (this.ctキャラクターアクション_魂MAX != null) this.ctキャラクターアクション_魂MAX.t進行db();
 
             // ↓踊り子・モブ↓
-            if (this.ct踊り子モーション != null) this.ct踊り子モーション.t進行LoopDb();
+            //if (this.ct踊り子モーション != null) this.ct踊り子モーション.t進行LoopDb();
             if (this.ctモブモーション != null) this.ctモブモーション.t進行LoopDb();
             // ↑踊り子・モブ↑
 
@@ -487,7 +487,7 @@ namespace DTXMania
                 }
             
             }
-            if (bマイどんアクション中 == true)
+            if (this.b風船連打中 != true && bマイどんアクション中 == true)
             {
 
                 if (this.ctキャラクターアクション_10コンボ.b進行中db)
@@ -591,41 +591,41 @@ namespace DTXMania
             {
                 if (!CDTXMania.ConfigIni.bAVI有効)
                 {
-                    if (this.n踊り子モーション枚数 != 0)
-                    {
-                        if (this.tx踊り子_1 != null)
-                        {
-                            this.tx踊り子_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 640, 500);
-                        }
-                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 20)
-                        {
-                            if (this.tx踊り子_2 != null)
-                            {
-                                this.tx踊り子_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 430, 500);
-                            }
-                        }
-                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 40)
-                        {
-                            if (this.tx踊り子_3 != null)
-                            {
-                                this.tx踊り子_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 856, 500);
-                            }
-                        }
-                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 60)
-                        {
-                            if (this.tx踊り子_4 != null)
-                            {
-                                this.tx踊り子_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 215, 500);
-                            }
-                        }
-                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80)
-                        {
-                            if (this.tx踊り子_5 != null)
-                            {
-                                this.tx踊り子_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 1070, 500);
-                            }
-                        }
-                    }
+                    //if (this.n踊り子モーション枚数 != 0)
+                    //{
+                    //    if (this.tx踊り子_1 != null)
+                    //    {
+                    //        this.tx踊り子_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 640, 500);
+                    //    }
+                    //    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 20)
+                    //    {
+                    //        if (this.tx踊り子_2 != null)
+                    //        {
+                    //            this.tx踊り子_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 430, 500);
+                    //        }
+                    //    }
+                    //    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 40)
+                    //    {
+                    //        if (this.tx踊り子_3 != null)
+                    //        {
+                    //            this.tx踊り子_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 856, 500);
+                    //        }
+                    //    }
+                    //    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 60)
+                    //    {
+                    //        if (this.tx踊り子_4 != null)
+                    //        {
+                    //            this.tx踊り子_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 215, 500);
+                    //        }
+                    //    }
+                    //    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80)
+                    //    {
+                    //        if (this.tx踊り子_5 != null)
+                    //        {
+                    //            this.tx踊り子_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 1070, 500);
+                    //        }
+                    //    }
+                    //}
                     if (this.txフッター != null)
                     {
                         this.txフッター.t2D描画(CDTXMania.app.Device, 0, 676);
@@ -702,20 +702,20 @@ namespace DTXMania
         public string strListMAX;
         public string strListMAXGogo;
 
-        // ↓踊り子・モブ↓
-        private CTexture[] tx踊り子_1;
-        private CTexture[] tx踊り子_2;
-        private CTexture[] tx踊り子_3;
-        private CTexture[] tx踊り子_4;
-        private CTexture[] tx踊り子_5;
+        //// ↓踊り子・モブ↓
+        //private CTexture[] tx踊り子_1;
+        //private CTexture[] tx踊り子_2;
+        //private CTexture[] tx踊り子_3;
+        //private CTexture[] tx踊り子_4;
+        //private CTexture[] tx踊り子_5;
 
-        public int n踊り子モーション枚数;
+        //public int n踊り子モーション枚数;
 
-        public int[] ar踊り子モーション番号;
+        //public int[] ar踊り子モーション番号;
 
-        public CCounter ct踊り子モーション;
+        //public CCounter ct踊り子モーション;
 
-        public string str踊り子リスト;
+        //public string str踊り子リスト;
 
         private CTexture[] txモブ;
         public int nモブモーション枚数;

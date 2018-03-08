@@ -548,7 +548,7 @@ namespace DTXMania
 		protected CActFIFOResult actFOClear;
 		public    CAct演奏ゲージ共通 actGauge;
 
-        //public CAct演奏DrumsDancer actDancer;
+        public CAct演奏DrumsDancer actDancer;
 		protected CAct演奏判定文字列共通 actJudgeString;
 		public CAct演奏DrumsレーンフラッシュD actLaneFlushD;
 		protected CAct演奏レーンフラッシュGB共通 actLaneFlushGB;
@@ -2901,9 +2901,9 @@ namespace DTXMania
                                     //this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
 
                                     // ↓踊り子・モブ↓
-                                    this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, (dbUnit * 2) / this.actChara.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
+                                    this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * 8) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
                                     this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
-                                    this.actChara.ct踊り子モーション.db現在の値 = 0;
+                                    this.actDancer.ct踊り子モーション.db現在の値 = 0;
                                     this.actChara.ctモブモーション.db現在の値 = 0;
                                     // ↑踊り子・モブ↑
                                     //this.actDancer.ctモブ = new CCounter( 1.0, 16.0, (( dbUnit / 16.0 )), CSound管理.rc演奏用タイマ );
@@ -3046,7 +3046,7 @@ namespace DTXMania
                                 this.actChara.ct通常モーション = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbUnit / this.actChara.arモーション番号.Length, CSound管理.rc演奏用タイマ );
                                 this.actChara.ctゴーゴーモーション = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, ( dbUnit * 2 ) / this.actChara.arゴーゴーモーション番号.Length, CSound管理.rc演奏用タイマ );
                                 this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
-                                this.actChara.ct踊り子モーション = new CCounter(0, this.actChara.ar踊り子モーション番号.Length - 1, (dbUnit * 2) / this.actChara.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
+                                this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * 8) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
                                 this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
 
 
