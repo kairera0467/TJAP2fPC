@@ -84,6 +84,9 @@ namespace DTXMania
 					this.ftタイトル表示用フォント = null;
 				}
 
+                CDTXMania.t安全にDisposeする( ref this.pfTITLE );
+                CDTXMania.t安全にDisposeする( ref this.pfSUBTITLE );
+
 				base.On非活性化();
 			}
 			finally
@@ -108,13 +111,15 @@ namespace DTXMania
 						Graphics graphics = Graphics.FromImage( image );
 						SizeF ef = graphics.MeasureString( this.str曲タイトル, this.ftタイトル表示用フォント );
 						Size size = new Size( (int) Math.Ceiling( (double) ef.Width ), (int) Math.Ceiling( (double) ef.Height ) );
-						graphics.Dispose();
-						image.Dispose();
+
 						image = new Bitmap( size.Width, size.Height );
 						graphics = Graphics.FromImage( image );
 						graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 						graphics.DrawString( this.str曲タイトル, this.ftタイトル表示用フォント, Brushes.White, ( float ) 0f, ( float ) 0f );
-						graphics.Dispose();
+
+                        CDTXMania.t安全にDisposeする( ref image );
+                        CDTXMania.t安全にDisposeする( ref graphics );
+
 						//this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
 						//this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 
@@ -125,17 +130,20 @@ namespace DTXMania
                         bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( this.strサブタイトル, Color.White, Color.Black );
 						this.txサブタイトル = new CTexture( CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false );
 
-						image.Dispose();
+                        CDTXMania.t安全にDisposeする( ref bmpSongTitle );
+                        CDTXMania.t安全にDisposeする( ref bmpSongSubTitle );
 					}
 					else
 					{
 						this.txタイトル = null;
+                        this.txサブタイトル = null;
 					}
 				}
 				catch( CTextureCreateFailedException )
 				{
 					Trace.TraceError( "テクスチャの生成に失敗しました。({0})", new object[] { this.strSTAGEFILE } );
 					this.txタイトル = null;
+                    this.txサブタイトル = null;
 					this.tx背景 = null;
 				}
 				base.OnManagedリソースの作成();

@@ -1092,7 +1092,8 @@ namespace DTXMania
                 this.actRollChara.Start(0);
 
                 //2017.01.28 DD CDTXから直接呼び出す
-                if( this.bIsGOGOTIME[ nPlayer ] )
+                //if( this.bIsGOGOTIME[ nPlayer ] )
+                if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                 {
                     if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
                     {
@@ -1584,7 +1585,8 @@ namespace DTXMania
                         nAddScore = nAddScore / 2;
                     }
 
-                    if( this.bIsGOGOTIME[ nPlayer ] )
+                    //if( this.bIsGOGOTIME[ nPlayer ] )
+                    if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                     {
                         nAddScore = (int)(nAddScore * 1.2f);
                     }
@@ -1660,7 +1662,8 @@ namespace DTXMania
                     }
 
 
-                    if( this.bIsGOGOTIME[ nPlayer ] )
+                    //if( this.bIsGOGOTIME[ nPlayer ] )
+                    if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                         nAddScore = (int)( nAddScore * 1.2f );
 
                     nAddScore = (int)( nAddScore / 10.0 );
@@ -1699,7 +1702,8 @@ namespace DTXMania
                         }
                     }
 
-                    if( this.bIsGOGOTIME[ nPlayer ] )
+                    //if( this.bIsGOGOTIME[ nPlayer ] )
+                    if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                         nAddScore = (int)(nAddScore * 1.2f);
 
                     //大音符のボーナス

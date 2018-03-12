@@ -316,7 +316,7 @@ namespace DTXMania
                                         //mat *= Matrix.Translation( 0f, 0f, 0f );
 
 
-                                        this.txアタックエフェクトUpper_big.n透明度 = 255;
+                                        //this.txアタックエフェクトUpper_big.n透明度 = 255; //17.11.13 kairera0467 白背景対策?
                                         this.txアタックエフェクトUpper_big.t3D描画( CDTXMania.app.Device, mat );
                                     }
                                     break;

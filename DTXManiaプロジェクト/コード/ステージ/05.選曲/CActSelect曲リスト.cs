@@ -523,6 +523,18 @@ namespace DTXMania
 			if( this.b活性化してる )
 				return;
 
+            //「tバーの初期化」より先に生成すること
+            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ) )
+            {
+                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 22 );
+                this.pfSubtitle = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 14 );
+            }
+            else
+            {
+                this.pfMusicName = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 22 );
+                this.pfSubtitle = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 14 );
+            }
+
 			this.e楽器パート = E楽器パート.DRUMS;
 			this.b登場アニメ全部完了 = false;
 			this.n目標のスクロールカウンタ = 0;
@@ -542,18 +554,6 @@ namespace DTXMania
 
 			if( ( this.r現在選択中の曲 == null ) && ( CDTXMania.Songs管理.list曲ルート.Count > 0 ) )
 				this.r現在選択中の曲 = CDTXMania.Songs管理.list曲ルート[ 0 ];
-
-            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ) )
-            {
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 22 );
-                this.pfSubtitle = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 14 );
-            }
-            else
-            {
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 22 );
-                this.pfSubtitle = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 14 );
-            }
-
 
 			// バー情報を初期化する。
 
@@ -732,6 +732,9 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.txカーソル右 );
 
             CDTXMania.tテクスチャの解放( ref this.txMusicName );
+
+            CDTXMania.t安全にDisposeする( ref this.pfMusicName );
+            CDTXMania.t安全にDisposeする( ref this.pfSubtitle );
 
 			base.OnManagedリソースの解放();
 		}
@@ -1978,8 +1981,8 @@ namespace DTXMania
             {
                 tx文字テクスチャ.vc拡大縮小倍率.Y = (float)( 360.0f / tx文字テクスチャ.szテクスチャサイズ.Height );
             }
-
-            bmp.Dispose();
+            
+            CDTXMania.t安全にDisposeする( ref bmp );
 
             return tx文字テクスチャ;
         }

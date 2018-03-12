@@ -50,6 +50,7 @@ namespace DTXMania
 			{
 				this.ct登場用 = null;
 			}
+            CDTXMania.t安全にDisposeする( ref this.pfMusicName );
 			base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
