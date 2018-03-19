@@ -33,14 +33,24 @@ namespace DTXMania
             if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ) )
             {
                 this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 30 );
+                this.pfStageText = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.strPrivateFontで使うフォント名), 30);
             }
             else
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 30 );
+            {
+                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS PGothic"), 30);
+                this.pfStageText = new CPrivateFastFont(new FontFamily("MS PGothic"), 30);
+            }
 
 
             Bitmap bmpSongTitle = new Bitmap(1, 1);
+            Bitmap bmpStageText = new Bitmap(1, 1);
             bmpSongTitle = pfMusicName.DrawPrivateFont( CDTXMania.DTX.TITLE, Color.White, Color.Black );
+
+            bmpStageText = pfStageText.DrawPrivateFont(CDTXMania.Skin.str曲数テキスト, Color.White, Color.Black);
+            this.txStageText = CDTXMania.tテクスチャの生成(bmpStageText, false);
+
             this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
+            
 
 			base.On活性化();
 		}
@@ -63,8 +73,12 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
+                CDTXMania.t安全にDisposeする(ref this.pfMusicName);
                 CDTXMania.tテクスチャの解放( ref this.txMusicName );
-				base.OnManagedリソースの解放();
+
+                CDTXMania.t安全にDisposeする(ref this.pfStageText);
+                CDTXMania.tテクスチャの解放(ref this.txStageText);
+                base.OnManagedリソースの解放();
 			}
 		}
 		public override int On進行描画()
@@ -82,6 +96,8 @@ namespace DTXMania
 
 			this.txMusicName.t2D描画( CDTXMania.app.Device, 1268 - this.txMusicName.szテクスチャサイズ.Width, 6 );
 
+            this.txStageText.t2D描画(CDTXMania.app.Device, 230, 6);
+
 			if( !this.ct登場用.b終了値に達した )
 			{
 				return 0;
@@ -98,7 +114,10 @@ namespace DTXMania
 
         private CTexture txMusicName;
         private CPrivateFastFont pfMusicName;
-		//-----------------
+
+        private CTexture txStageText;
+        private CPrivateFont pfStageText;
+        //-----------------
 		#endregion
 	}
 }

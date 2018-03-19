@@ -1563,7 +1563,7 @@ for (int i = 0; i < 3; i++) {
 				return null;
 			}
 		}
-		public static void tテクスチャの解放( ref CTexture tx )
+		public static void tテクスチャの解放(ref CTexture tx )
 		{
 			CDTXMania.t安全にDisposeする( ref tx );
 		}
@@ -1681,8 +1681,6 @@ for (int i = 0; i < 3; i++) {
 
             if (d != null)
                 d.Dispose();
-
-            GC.SuppressFinalize(obj);
 
             obj = default(T);
         }

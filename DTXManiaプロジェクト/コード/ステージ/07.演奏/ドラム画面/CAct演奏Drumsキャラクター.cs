@@ -117,10 +117,10 @@ namespace DTXMania
             //{
             //    this.tx踊り子_5[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\4\" + i.ToString() + ".png"));
             //}
-            this.txモブ = new CTexture[this.nモブモーション枚数];
+            this.txモブ = new CTextureAf[this.nモブモーション枚数];
             for (int i = 0; i < this.nモブモーション枚数; i++)
             {
-                this.txモブ[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\mob\" + i.ToString() + ".png"));
+                this.txモブ[i] = CDTXMania.tテクスチャの生成Af(CSkin.Path(@"Graphics\Dancer\mob\" + i.ToString() + ".png"));
             }
 
             this.txフッター = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer_BG\footer\01.png"));
@@ -717,7 +717,7 @@ namespace DTXMania
 
         //public string str踊り子リスト;
 
-        private CTexture[] txモブ;
+        private CTextureAf[] txモブ;
         public int nモブモーション枚数;
         public int[] arモブモーション番号;
         public CCounter ctモブモーション;

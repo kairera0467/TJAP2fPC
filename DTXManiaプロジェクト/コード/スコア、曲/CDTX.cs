@@ -382,7 +382,8 @@ namespace DTXMania
             public double db判定終了時刻;//連打系音符で使用
             public double dbProcess_Time;
             public int nPlayerSide;
-			public bool bBPMチップである
+            public bool bGOGOTIME = false; //2018.03.11 kairera0467 ゴーゴータイム内のチップであるか
+            public bool bBPMチップである
 			{
 				get
 				{
@@ -1247,6 +1248,7 @@ namespace DTXMania
         public string strBGM_PATH;
 
         public bool bHIDDENBRANCH; //2016.04.01 kairera0467 選曲画面上、譜面分岐開始前まで譜面分岐の表示を隠す
+        public bool bGOGOTIME; //2018.03.11 kairera0467
 
 
 #if TEST_NOTEOFFMODE
@@ -1255,9 +1257,9 @@ namespace DTXMania
 //		public bool bGUITAR演奏で直前のGUITARを消音する;
 //		public bool bBASS演奏で直前のBASSを消音する;
 #endif
-		// コンストラクタ
+        // コンストラクタ
 
-		public CDTX()
+        public CDTX()
 		{
             this.nPlayerSide = 0;
 			this.TITLE = "";
@@ -3590,7 +3592,7 @@ namespace DTXMania
                 chip.dbBPM = this.dbNowBPM;
                 chip.n発声時刻ms = (int)this.dbNowTime;
                 chip.n整数値_内部番号 = 1;
-
+                this.bGOGOTIME = true;
 
                 // チップを配置。
                 this.listChip.Add(chip);
@@ -3604,6 +3606,7 @@ namespace DTXMania
                 chip.n発声時刻ms = (int)this.dbNowTime;
                 chip.dbBPM = this.dbNowBPM;
                 chip.n整数値_内部番号 = 1;
+                this.bGOGOTIME = false;
 
                 // チップを配置。
                 this.listChip.Add(chip);
@@ -4035,8 +4038,9 @@ namespace DTXMania
                             chip.nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0);
                             chip.nノーツ移動開始時刻ms = (int)(this.db移動待機時刻 * 1000.0);
                             chip.nPlayerSide = this.nPlayerSide;
+                            chip.bGOGOTIME = this.bGOGOTIME;
 
-                            if( nObjectNum == 7 || nObjectNum == 9 )
+                            if ( nObjectNum == 7 || nObjectNum == 9 )
                             {
                                 switch( this.n現在のコース )
                                 {
@@ -6613,7 +6617,7 @@ namespace DTXMania
 				{
 					cwav.Dispose();
 				}
-				this.listWAV = null;
+                this.listWAV = null;
 			}
 			if( this.listAVI != null )
 			{

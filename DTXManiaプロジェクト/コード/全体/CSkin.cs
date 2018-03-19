@@ -930,6 +930,14 @@ namespace DTXMania
                             {
                                 this.b現在のステージ数を表示しない = C変換.bONorOFF( strParam[ 0 ] );
                             }
+                            else if( strCommand == "StageText")
+                            {
+                                this.str曲数テキスト = strParam;
+                            }
+                            else if( strCommand == "IsStageTextRed")
+                            {
+                                this.b曲数テキストを赤くする = C変換.bONorOFF(strParam[0]);
+                            }
                             else if( strCommand == "AddScoreColorP1" )
                             {
                                 string[] arColor = strParam.Split(',');
@@ -1114,6 +1122,9 @@ namespace DTXMania
 
         public E難易度表示タイプ eDiffDispMode;
         public bool b現在のステージ数を表示しない;
+
+        public string str曲数テキスト = "1曲目";
+        public bool b曲数テキストを赤くする = false;
 
         //リザルト画面
         //現在のデフォルト値はダミーです。

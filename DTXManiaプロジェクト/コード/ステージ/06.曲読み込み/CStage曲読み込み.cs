@@ -83,8 +83,9 @@ namespace DTXMania
 					this.ftタイトル表示用フォント.Dispose();
 					this.ftタイトル表示用フォント = null;
 				}
-
-				base.On非活性化();
+                CDTXMania.t安全にDisposeする(ref this.pfTITLE);
+                CDTXMania.t安全にDisposeする(ref this.pfSUBTITLE);
+                base.On非活性化();
 			}
 			finally
 			{
@@ -114,9 +115,11 @@ namespace DTXMania
 						graphics = Graphics.FromImage( image );
 						graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 						graphics.DrawString( this.str曲タイトル, this.ftタイトル表示用フォント, Brushes.White, ( float ) 0f, ( float ) 0f );
-						graphics.Dispose();
-						//this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
-						//this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
+                        //graphics.Dispose();
+                        CDTXMania.t安全にDisposeする(ref image);
+                        CDTXMania.t安全にDisposeする(ref graphics);
+                        //this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
+                        //this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 
                         Bitmap bmpSongTitle = new Bitmap(1, 1);
                         bmpSongTitle = this.pfTITLE.DrawPrivateFont( this.str曲タイトル, Color.White, Color.Black );
@@ -125,18 +128,23 @@ namespace DTXMania
                         bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( this.strサブタイトル, Color.White, Color.Black );
 						this.txサブタイトル = new CTexture( CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false );
 
-						image.Dispose();
-					}
+                        //image.Dispose();
+                        CDTXMania.t安全にDisposeする( ref bmpSongTitle );
+                        CDTXMania.t安全にDisposeする( ref bmpSongSubTitle );
+                        
+                    }
 					else
 					{
 						this.txタイトル = null;
-					}
+                        this.txサブタイトル = null;
+                    }
 				}
 				catch( CTextureCreateFailedException )
 				{
 					Trace.TraceError( "テクスチャの生成に失敗しました。({0})", new object[] { this.strSTAGEFILE } );
 					this.txタイトル = null;
-					this.tx背景 = null;
+                    this.txサブタイトル = null;
+                    this.tx背景 = null;
 				}
 				base.OnManagedリソースの作成();
 			}

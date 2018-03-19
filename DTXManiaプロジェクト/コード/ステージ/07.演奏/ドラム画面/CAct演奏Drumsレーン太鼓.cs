@@ -659,58 +659,6 @@ namespace DTXMania
             }
 
 
-            if (this.tx判定枠 != null)
-            {
-                int nJudgeX = CDTXMania.Skin.nScrollFieldX[0] - (130 / 2); //元の値は349なんだけど...
-                int nJudgeY = CDTXMania.Skin.nScrollFieldY[0]; //元の値は349なんだけど...
-                this.tx判定枠.b加算合成 = true;
-                this.tx判定枠.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY, new Rectangle(0, 0, 130, 130));
-
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    this.tx判定枠.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY + 176, new Rectangle(0, 0, 130, 130));
-            }
-
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
-            {
-                if (!this.st状態[i].ct進行.b停止中)
-                {
-                    this.st状態[i].ct進行.t進行();
-                    if (this.st状態[i].ct進行.b終了値に達した)
-                    {
-                        this.st状態[i].ct進行.t停止();
-                    }
-                    //if( this.txアタックエフェクトLower != null )
-                    {
-                        //this.txアタックエフェクトLower.b加算合成 = true;
-                        int n = this.st状態[i].nIsBig == 1 ? 520 : 0;
-
-                        switch (st状態[i].judge)
-                        {
-                            case E判定.Perfect:
-                            case E判定.Great:
-                            case E判定.Auto:
-                                //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
-                                if (this.st状態[i].nIsBig == 1)
-                                    this.txArアタックエフェクトLower_C[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - this.txArアタックエフェクトLower_C[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - this.txArアタックエフェクトLower_C[0].szテクスチャサイズ.Width / 2);
-                                else
-                                    this.txArアタックエフェクトLower_A[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - this.txArアタックエフェクトLower_A[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - this.txArアタックエフェクトLower_A[0].szテクスチャサイズ.Width / 2);
-                                break;
-
-                            case E判定.Good:
-                                //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
-                                if (this.st状態[i].nIsBig == 1)
-                                    this.txArアタックエフェクトLower_D[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - this.txArアタックエフェクトLower_D[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - this.txArアタックエフェクトLower_D[0].szテクスチャサイズ.Width / 2);
-                                else
-                                    this.txArアタックエフェクトLower_B[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - this.txArアタックエフェクトLower_B[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - this.txArアタックエフェクトLower_B[0].szテクスチャサイズ.Width / 2);
-                                break;
-
-                            case E判定.Miss:
-                            case E判定.Bad:
-                                break;
-                        }
-                    }
-                }
-            }
 
 
             if (CDTXMania.ConfigIni.bAVI有効)
@@ -787,6 +735,18 @@ namespace DTXMania
 
         public void ゴーゴー炎()
         {
+            if (this.tx判定枠 != null)
+            {
+                int nJudgeX = CDTXMania.Skin.nScrollFieldX[0] - (130 / 2); //元の値は349なんだけど...
+                int nJudgeY = CDTXMania.Skin.nScrollFieldY[0]; //元の値は349なんだけど...
+                this.tx判定枠.b加算合成 = true;
+                this.tx判定枠.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY, new Rectangle(0, 0, 130, 130));
+
+                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                    this.tx判定枠.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY + 176, new Rectangle(0, 0, 130, 130));
+            }
+
+
             #region[ ゴーゴー炎 ]
             for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
             {
@@ -821,6 +781,48 @@ namespace DTXMania
                 }
             }
             #endregion
+            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            {
+                if (!this.st状態[i].ct進行.b停止中)
+                {
+                    this.st状態[i].ct進行.t進行();
+                    if (this.st状態[i].ct進行.b終了値に達した)
+                    {
+                        this.st状態[i].ct進行.t停止();
+                    }
+                    //if( this.txアタックエフェクトLower != null )
+                    {
+                        //this.txアタックエフェクトLower.b加算合成 = true;
+                        int n = this.st状態[i].nIsBig == 1 ? 520 : 0;
+
+                        switch (st状態[i].judge)
+                        {
+                            case E判定.Perfect:
+                            case E判定.Great:
+                            case E判定.Auto:
+                                //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
+                                if (this.st状態[i].nIsBig == 1)
+                                    this.txArアタックエフェクトLower_C[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - this.txArアタックエフェクトLower_C[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - this.txArアタックエフェクトLower_C[0].szテクスチャサイズ.Width / 2);
+                                else
+                                    this.txArアタックエフェクトLower_A[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - this.txArアタックエフェクトLower_A[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - this.txArアタックエフェクトLower_A[0].szテクスチャサイズ.Width / 2);
+                                break;
+
+                            case E判定.Good:
+                                //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
+                                if (this.st状態[i].nIsBig == 1)
+                                    this.txArアタックエフェクトLower_D[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - this.txArアタックエフェクトLower_D[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - this.txArアタックエフェクトLower_D[0].szテクスチャサイズ.Width / 2);
+                                else
+                                    this.txArアタックエフェクトLower_B[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - this.txArアタックエフェクトLower_B[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - this.txArアタックエフェクトLower_B[0].szテクスチャサイズ.Width / 2);
+                                break;
+
+                            case E判定.Miss:
+                            case E判定.Bad:
+                                break;
+                        }
+                    }
+                }
+            }
+
 
         }
 

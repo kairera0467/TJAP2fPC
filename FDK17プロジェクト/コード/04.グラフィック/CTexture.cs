@@ -895,46 +895,35 @@ namespace FDK
 
         #region [ IDisposable 実装 ]
         //-----------------
-        private bool disposedValue = false;
         ~CTexture()
         {
-            Dispose(false);
-        }
-        public virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
+            if(!this.bDispose完了済み)
             {
-                if (disposing)
-                {
-                    if (!this.bDispose完了済み)
-                    {
-                        // テクスチャの破棄
-                        if (this.texture != null)
-                        {
-                            this.texture.Dispose();
-                            this.texture = null;
-                        }
-
-                        this.bDispose完了済み = true;
-                    }
-                }
-                disposedValue = true;
+                this.texture = null;
             }
         }
-
         public virtual void Dispose()
-		{
-            Dispose(true);
+        {
+            if (!this.bDispose完了済み)
+            {
+                // テクスチャの破棄
+                if (this.texture != null)
+                {
+                    this.texture.Dispose();
+                    this.texture = null;
+                }
+                this.bDispose完了済み = true;
+            }
         }
-		//-----------------
-		#endregion
+        //-----------------
+        #endregion
 
 
-		// その他
+        // その他
 
-		#region [ private ]
-		//-----------------
-		private int _透明度;
+        #region [ private ]
+        //-----------------
+        private int _透明度;
 		private bool bDispose完了済み;
 		private PositionColoredTexturedVertex[] cvPositionColoredVertexies;
         protected TransformedColoredTexturedVertex[] cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[]

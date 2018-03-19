@@ -523,7 +523,18 @@ namespace DTXMania
 			if( this.b活性化してる )
 				return;
 
-			this.e楽器パート = E楽器パート.DRUMS;
+            if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.strPrivateFontで使うフォント名))
+            {
+                this.pfMusicName = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.strPrivateFontで使うフォント名), 22);
+                this.pfSubtitle = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.strPrivateFontで使うフォント名), 14);
+            }
+            else
+            {
+                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS PGothic"), 22);
+                this.pfSubtitle = new CPrivateFastFont(new FontFamily("MS PGothic"), 14);
+            }
+
+            this.e楽器パート = E楽器パート.DRUMS;
 			this.b登場アニメ全部完了 = false;
 			this.n目標のスクロールカウンタ = 0;
 			this.n現在のスクロールカウンタ = 0;
@@ -543,16 +554,7 @@ namespace DTXMania
 			if( ( this.r現在選択中の曲 == null ) && ( CDTXMania.Songs管理.list曲ルート.Count > 0 ) )
 				this.r現在選択中の曲 = CDTXMania.Songs管理.list曲ルート[ 0 ];
 
-            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ) )
-            {
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 22 );
-                this.pfSubtitle = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 14 );
-            }
-            else
-            {
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 22 );
-                this.pfSubtitle = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 14 );
-            }
+
 
 
 			// バー情報を初期化する。
@@ -691,34 +693,34 @@ namespace DTXMania
 
 			for( int i = 0; i < 13; i++ )
             {
-				CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル名 );
-                CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル );
+                CDTXMania.tテクスチャの解放( ref this.stバー情報[ i ].txタイトル名 );
+                CDTXMania.tテクスチャの解放( ref this.stバー情報[ i ].txタイトル );
             }
 
-			//CDTXMania.t安全にDisposeする( ref this.txスキル数字 );
-			CDTXMania.t安全にDisposeする( ref this.txEnumeratingSongs );
-			CDTXMania.t安全にDisposeする( ref this.txSongNotFound );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Score );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Box );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Other );
-			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Score );
-			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Box );
-			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Other );
+            //CDTXMania.t安全にDisposeする( ref this.txスキル数字 );
+            CDTXMania.tテクスチャの解放( ref this.txEnumeratingSongs );
+            CDTXMania.tテクスチャの解放( ref this.txSongNotFound );
+            //CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Score );
+            //CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Box );
+            //CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Other );
+            //CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Score );
+            //CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Box );
+            //CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Other );
 
-			CDTXMania.t安全にDisposeする( ref this.tx曲バー_JPOP );
-			CDTXMania.t安全にDisposeする( ref this.tx曲バー_アニメ );
-			CDTXMania.t安全にDisposeする( ref this.tx曲バー_ゲーム );
-			CDTXMania.t安全にDisposeする( ref this.tx曲バー_ナムコ );
-			CDTXMania.t安全にDisposeする( ref this.tx曲バー_クラシック );
-			CDTXMania.t安全にDisposeする( ref this.tx曲バー_どうよう );
-			CDTXMania.t安全にDisposeする( ref this.tx曲バー_バラエティ );
-			CDTXMania.t安全にDisposeする( ref this.tx曲バー_ボカロ );
-            CDTXMania.t安全にDisposeする( ref this.tx曲バー );
-            CDTXMania.t安全にDisposeする( ref this.tx譜面分岐曲バー用 );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー_JPOP );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー_アニメ );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー_ゲーム );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー_ナムコ );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー_クラシック );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー_どうよう );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー_バラエティ );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー_ボカロ );
+            CDTXMania.tテクスチャの解放( ref this.tx曲バー );
+            CDTXMania.tテクスチャの解放( ref this.tx譜面分岐曲バー用 );
 
        		for( int i = 0; i < 5; i++ )
             {
-				CDTXMania.t安全にDisposeする( ref this.tx曲バー_難易度[ i ] );
+                CDTXMania.tテクスチャの解放( ref this.tx曲バー_難易度[ i ] );
             }
 
             CDTXMania.tテクスチャの解放( ref this.tx難易度パネル );
@@ -732,6 +734,10 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.txカーソル右 );
 
             CDTXMania.tテクスチャの解放( ref this.txMusicName );
+            //CDTXMania.t安全にDisposeする(ref this.pfMusicName);
+            //CDTXMania.t安全にDisposeする(ref this.pfSubtitle);
+            CDTXMania.t安全にDisposeする(ref pfMusicName);
+            CDTXMania.t安全にDisposeする(ref pfSubtitle);
 
 			base.OnManagedリソースの解放();
 		}

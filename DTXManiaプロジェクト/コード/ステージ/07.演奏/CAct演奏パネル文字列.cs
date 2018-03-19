@@ -40,34 +40,40 @@ namespace DTXMania
                         this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
                         Bitmap bmpDiff = new Bitmap(1, 1);
                         string strDiff = "";
-                        if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示 )
+                        //if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示 )
+                        //{
+                        //    switch( CDTXMania.stage選曲.n確定された曲の難易度 )
+                        //    {
+                        //        case 0:
+                        //            strDiff = "かんたん ";
+                        //            break;
+                        //        case 1:
+                        //            strDiff = "ふつう ";
+                        //            break;
+                        //        case 2:
+                        //            strDiff = "むずかしい ";
+                        //            break;
+                        //        case 3:
+                        //            strDiff = "おに ";
+                        //            break;
+                        //        case 4:
+                        //            strDiff = "えでぃと ";
+                        //            break;
+                        //        default:
+                        //            strDiff = "おに ";
+                        //            break;
+                        //    }
+                        //    bmpDiff = pfMusicName.DrawPrivateFont( strDiff + "1曲目", Color.White, Color.Black );
+                        //}
+                        //else
                         {
-                            switch( CDTXMania.stage選曲.n確定された曲の難易度 )
+                            if(CDTXMania.Skin.b曲数テキストを赤くする)
                             {
-                                case 0:
-                                    strDiff = "かんたん ";
-                                    break;
-                                case 1:
-                                    strDiff = "ふつう ";
-                                    break;
-                                case 2:
-                                    strDiff = "むずかしい ";
-                                    break;
-                                case 3:
-                                    strDiff = "おに ";
-                                    break;
-                                case 4:
-                                    strDiff = "えでぃと ";
-                                    break;
-                                default:
-                                    strDiff = "おに ";
-                                    break;
+                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.str曲数テキスト, Color.White, Color.Red);
+                            } else
+                            {
+                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.str曲数テキスト, Color.White, Color.Black);
                             }
-                            bmpDiff = pfMusicName.DrawPrivateFont( strDiff + "1 曲目", Color.White, Color.Black );
-                        }
-                        else
-                        {
-                            bmpDiff = pfMusicName.DrawPrivateFont( "1曲目", Color.White, Color.Black );
                         }
                         this.tx難易度とステージ数 = CDTXMania.tテクスチャの生成( bmpDiff, false );
 
@@ -181,10 +187,6 @@ namespace DTXMania
 		}
 		public override void On非活性化()
 		{
-			CDTXMania.tテクスチャの解放( ref this.txPanel );
-            CDTXMania.tテクスチャの解放( ref this.tx歌詞テクスチャ );
-            CDTXMania.t安全にDisposeする( ref this.pfMusicName );
-            CDTXMania.t安全にDisposeする( ref this.pf歌詞フォント );
 			this.ct進行用 = null;
 			base.On非活性化();
 		}
@@ -203,7 +205,11 @@ namespace DTXMania
 				CDTXMania.tテクスチャの解放( ref this.txPanel );
 				CDTXMania.tテクスチャの解放( ref this.txMusicName );
                 CDTXMania.tテクスチャの解放( ref this.txGENRE );
-				base.OnManagedリソースの解放();
+                CDTXMania.tテクスチャの解放(ref this.txPanel);
+                CDTXMania.tテクスチャの解放(ref this.tx歌詞テクスチャ);
+                CDTXMania.t安全にDisposeする(ref this.pfMusicName);
+                CDTXMania.t安全にDisposeする(ref this.pf歌詞フォント);
+                base.OnManagedリソースの解放();
 			}
 		}
 		public override int On進行描画()
