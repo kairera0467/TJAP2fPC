@@ -897,10 +897,8 @@ namespace FDK
         //-----------------
         ~CTexture()
         {
-            if(!this.bDispose完了済み)
-            {
-                this.texture = null;
-            }
+            this.Dispose();
+            GC.SuppressFinalize(this);
         }
         public virtual void Dispose()
         {
@@ -910,7 +908,6 @@ namespace FDK
                 if (this.texture != null)
                 {
                     this.texture.Dispose();
-                    this.texture = null;
                 }
                 this.bDispose完了済み = true;
             }

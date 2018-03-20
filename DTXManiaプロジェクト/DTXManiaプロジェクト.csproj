@@ -54,7 +54,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>D:\info\Documents\TJAPlayer3%28創作譜面%29\</OutputPath>
     <DefineConstants>TRACE;TEST_ENGLISH_ TEST_Direct3D9Ex_ _WindowedFullscreen</DefineConstants>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>

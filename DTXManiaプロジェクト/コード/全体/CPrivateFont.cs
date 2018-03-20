@@ -926,52 +926,29 @@ namespace DTXMania
 
         #region [ IDisposable 実装 ]
         //-----------------
-        private bool disposedValue = false;
-        ~CPrivateFont()
+        public void Dispose()
         {
-            Dispose(false);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if(!disposedValue)
+            if (!this.bDispose完了済み)
             {
-                if(disposing)
+                if (this._font != null)
                 {
-                    if (!this.bDispose完了済み)
-                    {
-                        if (this._font != null)
-                        {
-                            this._font.Dispose();
-                            this._font = null;
-                        }
-                        if (this._pfc != null)
-                        {
-                            this._pfc.Dispose();
-                            this._pfc = null;
-                        }
-                        if (this._fontfamily != null)
-                        {
-                            this._fontfamily.Dispose();
-                            this._fontfamily = null;
-                        }
-
-                        this.bDispose完了済み = true;
-                    }
+                    this._font.Dispose();
+                    this._font = null;
                 }
-                disposedValue = true;
+                if (this._pfc != null)
+                {
+                    this._pfc.Dispose();
+                    this._pfc = null;
+                }
+
+                this.bDispose完了済み = true;
             }
         }
-		public virtual void Dispose()
-		{
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-		//-----------------
-		#endregion
-
-		#region [ private ]
-		//-----------------
-		protected bool bDispose完了済み;
+        //-----------------
+        #endregion
+        #region [ private ]
+        //-----------------
+        protected bool bDispose完了済み;
 		protected Font _font;
 
 		private System.Drawing.Text.PrivateFontCollection _pfc;
