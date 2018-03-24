@@ -832,7 +832,7 @@ namespace DTXMania
 
             //for( int n = 0; n < 1; n++ )
             {
-                this.st状態[nPlayer].ct進行 = new CCounter(0, 14, 10, CDTXMania.Timer);
+                this.st状態[nPlayer].ct進行 = new CCounter(0, 14, 20, CDTXMania.Timer);
                 this.st状態[nPlayer].judge = judge;
                 this.st状態[nPlayer].nPlayer = nPlayer;
 

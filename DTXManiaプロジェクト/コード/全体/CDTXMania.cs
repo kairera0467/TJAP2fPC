@@ -316,11 +316,11 @@ namespace DTXMania
 			set;
 		}
 
-		#endregion
+        #endregion
 
-		// コンストラクタ
+        // コンストラクタ
 
-		public CDTXMania()
+        public CDTXMania()
 		{
 			CDTXMania.app = this;
 			this.t起動処理();
@@ -1694,6 +1694,8 @@ for (int i = 0; i < 3; i++) {
 		private bool b終了処理完了済み;
 		private static CDTX[] dtx = new CDTX[ 4 ];
 
+        public static TextureLoader Tx = new TextureLoader();
+
 		private List<CActivity> listトップレベルActivities;
 		private int n進行描画の戻り値;
 		private MouseButtons mb = System.Windows.Forms.MouseButtons.Left;
@@ -2178,14 +2180,16 @@ for (int i = 0; i < 3; i++) {
 				}
 			}
 
-			//---------------------
-			#endregion
+            //---------------------
+            #endregion
+
 
 			Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
-			
-			#region [ 最初のステージの起動 ]
-			//---------------------
-			Trace.TraceInformation( "----------------------" );
+
+
+            #region [ 最初のステージの起動 ]
+            //---------------------
+            Trace.TraceInformation( "----------------------" );
 			Trace.TraceInformation( "■ 起動" );
 
 			if ( CDTXMania.bコンパクトモード )
@@ -2197,6 +2201,7 @@ for (int i = 0; i < 3; i++) {
 				r現在のステージ = stage起動;
 			}
 			r現在のステージ.On活性化();
+
 			//---------------------
 			#endregion
 		}
@@ -2307,11 +2312,14 @@ for (int i = 0; i < 3; i++) {
 					}
 				}
 				CAvi.t終了();
-				//---------------------
-				#endregion
-				#region [ スキンの終了処理 ]
-				//---------------------
-				if (Skin != null)
+                //---------------------
+                #endregion
+                #region TextureLoaderの処理
+                Tx.DisposeTexture();
+                #endregion
+                #region [ スキンの終了処理 ]
+                //---------------------
+                if (Skin != null)
 				{
 					Trace.TraceInformation( "スキンの終了処理を行います。" );
 					Trace.Indent();

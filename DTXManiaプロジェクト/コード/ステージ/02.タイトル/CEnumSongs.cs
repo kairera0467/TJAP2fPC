@@ -281,7 +281,7 @@ namespace DTXMania
 					}
 					lock ( CDTXMania.stage起動.list進行文字列 )
 					{
-						CDTXMania.stage起動.list進行文字列.Add( "Loading system sounds ... OK " );
+						CDTXMania.stage起動.list進行文字列.Add( "SYSTEM SOUND...OK" );
 					}
 				}
 				finally
@@ -319,7 +319,7 @@ namespace DTXMania
 						Trace.TraceInformation( "songlist.db の読み込みを完了しました。[{0}スコア]", scores );
 						lock ( CDTXMania.stage起動.list進行文字列 )
 						{
-							CDTXMania.stage起動.list進行文字列.Add( "Loading songlist.db ... OK" );
+							CDTXMania.stage起動.list進行文字列.Add( "SONG LIST...OK" );
 						}
 					}
 					else
@@ -327,7 +327,7 @@ namespace DTXMania
 						Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songlist.db の読み込みをスキップします。" );
 						lock ( CDTXMania.stage起動.list進行文字列 )
 						{
-							CDTXMania.stage起動.list進行文字列.Add( "Loading songlist.db ... Skip" );
+							CDTXMania.stage起動.list進行文字列.Add( "SONG LIST...SKIPPED" );
 						}
 					}
 				}
@@ -362,7 +362,7 @@ namespace DTXMania
 						Trace.TraceInformation( "songs.db の読み込みを完了しました。[{0}スコア]", scores );
 						lock ( CDTXMania.stage起動.list進行文字列 )
 						{
-							CDTXMania.stage起動.list進行文字列.Add( "Loading songs.db ... OK" );
+							CDTXMania.stage起動.list進行文字列.Add( "SONG DATABASE...OK" );
 						}
 					}
 					else
@@ -370,7 +370,7 @@ namespace DTXMania
 						Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songs.db の読み込みをスキップします。" );
 						lock ( CDTXMania.stage起動.list進行文字列 )
 						{
-							CDTXMania.stage起動.list進行文字列.Add( "Loading songs.db ... Skip" );
+							CDTXMania.stage起動.list進行文字列.Add( "SONG DATABASE...SKIPPED" );
 						}
 					}
 				}

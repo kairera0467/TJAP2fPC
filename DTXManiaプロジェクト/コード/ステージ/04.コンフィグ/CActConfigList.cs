@@ -1145,7 +1145,7 @@ namespace DTXMania
 			if ( nSkinSampleIndex != nSkinIndex )
 			{
 				string path = skinSubFolders[ nSkinIndex ];
-				path = System.IO.Path.Combine( path, @"Graphics\2_background.png" );
+				path = System.IO.Path.Combine( path, @"Graphics\1_Title\Background.png" );
 				Bitmap bmSrc = new Bitmap( path );
 				Bitmap bmDest = new Bitmap( bmSrc.Width / 4, bmSrc.Height / 4 );
 				Graphics g = Graphics.FromImage( bmDest );
@@ -1527,9 +1527,9 @@ namespace DTXMania
 			if( this.b活性化してない )
 				return;
 
-			this.tx通常項目行パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_itembox.png" ), false );
-			this.txその他項目行パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_itembox other.png" ), false );
-			this.tx三角矢印 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_triangle arrow.png" ), false );
+			//this.tx通常項目行パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_itembox.png" ), false );
+			//this.txその他項目行パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_itembox other.png" ), false );
+			//this.tx三角矢印 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_triangle arrow.png" ), false );
 			this.txSkinSample1 = null;		// スキン選択時に動的に設定するため、ここでは初期化しない
 			base.OnManagedリソースの作成();
 		}
@@ -1539,9 +1539,9 @@ namespace DTXMania
 				return;
 
 			CDTXMania.tテクスチャの解放( ref this.txSkinSample1 );
-			CDTXMania.tテクスチャの解放( ref this.tx通常項目行パネル );
-			CDTXMania.tテクスチャの解放( ref this.txその他項目行パネル );
-			CDTXMania.tテクスチャの解放( ref this.tx三角矢印 );
+			//CDTXMania.tテクスチャの解放( ref this.tx通常項目行パネル );
+			//CDTXMania.tテクスチャの解放( ref this.txその他項目行パネル );
+			//CDTXMania.tテクスチャの解放( ref this.tx三角矢印 );
 		
 			base.OnManagedリソースの解放();
 		}
@@ -1721,13 +1721,9 @@ namespace DTXMania
 				switch( this.list項目リスト[ nItem ].eパネル種別 )
 				{
 					case CItemBase.Eパネル種別.通常:
-						if( this.tx通常項目行パネル != null )
-							this.tx通常項目行パネル.t2D描画( CDTXMania.app.Device, x, y );
-						break;
-
-					case CItemBase.Eパネル種別.その他:
-						if( this.txその他項目行パネル != null )
-							this.txその他項目行パネル.t2D描画( CDTXMania.app.Device, x, y );
+                    case CItemBase.Eパネル種別.その他:
+                        if ( CDTXMania.Tx.Config_ItemBox != null )
+                            CDTXMania.Tx.Config_ItemBox.t2D描画( CDTXMania.app.Device, x, y );
 						break;
 				}
 				//-----------------
@@ -1896,10 +1892,10 @@ namespace DTXMania
 
 				// 描画。
 				
-				if( this.tx三角矢印 != null )
+				if( CDTXMania.Tx.Config_Arrow != null )
 				{
-					this.tx三角矢印.t2D描画( CDTXMania.app.Device, x, y_upper, new Rectangle( 0, 0, 0x40, 0x18 ) );
-					this.tx三角矢印.t2D描画( CDTXMania.app.Device, x, y_lower, new Rectangle( 0, 0x18, 0x40, 0x18 ) );
+                    CDTXMania.Tx.Config_Arrow.t2D描画( CDTXMania.app.Device, x, y_upper, new Rectangle( 0, 0, 0x40, 0x18 ) );
+                    CDTXMania.Tx.Config_Arrow.t2D描画( CDTXMania.app.Device, x, y_lower, new Rectangle( 0, 0x18, 0x40, 0x18 ) );
 				}
 			}
 			//-----------------
@@ -2042,9 +2038,9 @@ namespace DTXMania
 		private int n現在のスクロールカウンタ;
 		private int n目標のスクロールカウンタ;
         private Point[] ptパネルの基本座標 = new Point[] { new Point(0x25a, 4), new Point(0x25a, 0x4f), new Point(0x25a, 0x9a), new Point(0x25a, 0xe5), new Point(0x228, 0x130), new Point(0x25a, 0x17b), new Point(0x25a, 0x1c6), new Point(0x25a, 0x211), new Point(0x25a, 0x25c), new Point(0x25a, 0x2a7) };
-		private CTexture txその他項目行パネル;
-		private CTexture tx三角矢印;
-		private CTexture tx通常項目行パネル;
+		//private CTexture txその他項目行パネル;
+		//private CTexture tx三角矢印;
+		//private CTexture tx通常項目行パネル;
 
 		private CPrivateFastFont prvFont;
 		//private List<string> list項目リスト_str最終描画名;

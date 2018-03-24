@@ -117,10 +117,10 @@ namespace DTXMania
             //{
             //    this.tx踊り子_5[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\4\" + i.ToString() + ".png"));
             //}
-            this.txモブ = new CTextureAf[this.nモブモーション枚数];
+            this.txモブ = new CTexture[this.nモブモーション枚数];
             for (int i = 0; i < this.nモブモーション枚数; i++)
             {
-                this.txモブ[i] = CDTXMania.tテクスチャの生成Af(CSkin.Path(@"Graphics\Dancer\mob\" + i.ToString() + ".png"));
+                this.txモブ[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\mob\" + i.ToString() + ".png"));
             }
 
             this.txフッター = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer_BG\footer\01.png"));
@@ -390,11 +390,11 @@ namespace DTXMania
             CDTXMania.act文字コンソール.tPrint(540, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_ノルマ.b進行中db.ToString());
             CDTXMania.act文字コンソール.tPrint(580, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_魂MAX.db現在の値.ToString());
             CDTXMania.act文字コンソール.tPrint(580, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_魂MAX.b進行中db.ToString());
-
+            */
 
             CDTXMania.act文字コンソール.tPrint(620, 40, C文字コンソール.Eフォント種別.白, "bIsAlreadyCleared: " + CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared.ToString());
             CDTXMania.act文字コンソール.tPrint(620, 60, C文字コンソール.Eフォント種別.白, "bIsAlreadyMaxed: " + CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed.ToString());
-            */
+            
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.n前回のコンボ数.ToString());
             //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, this.db前回のゲージ値.ToString());
             //CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクションタイマ.db現在の値.ToString());
@@ -717,7 +717,7 @@ namespace DTXMania
 
         //public string str踊り子リスト;
 
-        private CTextureAf[] txモブ;
+        private CTexture[] txモブ;
         public int nモブモーション枚数;
         public int[] arモブモーション番号;
         public CCounter ctモブモーション;

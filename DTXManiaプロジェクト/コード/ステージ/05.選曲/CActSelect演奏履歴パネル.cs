@@ -119,12 +119,12 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.txパネル本体 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_play history panel.png" ) );
-                this.txスコアボード[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_0.png" ) );
-                this.txスコアボード[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_1.png" ) );
-                this.txスコアボード[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_2.png" ) );
-                this.txスコアボード[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_3.png" ) );
-                this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_number.png" ) );
+				//this.txパネル本体 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_play history panel.png" ) );
+                //this.txスコアボード[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_0.png" ) );
+                //this.txスコアボード[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_1.png" ) );
+                //this.txスコアボード[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_2.png" ) );
+                //this.txスコアボード[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_3.png" ) );
+                //this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_number.png" ) );
 				this.t選択曲が変更された();
 				base.OnManagedリソースの作成();
 			}
@@ -133,13 +133,13 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
-				CDTXMania.tテクスチャの解放( ref this.tx文字列パネル );
-                CDTXMania.tテクスチャの解放( ref this.txスコアボード[0] );
-                CDTXMania.tテクスチャの解放( ref this.txスコアボード[1] );
-                CDTXMania.tテクスチャの解放( ref this.txスコアボード[2] );
-                CDTXMania.tテクスチャの解放( ref this.txスコアボード[3] );
-                CDTXMania.tテクスチャの解放( ref this.tx文字 );
+				//CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
+				//CDTXMania.tテクスチャの解放( ref this.tx文字列パネル );
+    //            CDTXMania.tテクスチャの解放( ref this.txスコアボード[0] );
+    //            CDTXMania.tテクスチャの解放( ref this.txスコアボード[1] );
+    //            CDTXMania.tテクスチャの解放( ref this.txスコアボード[2] );
+    //            CDTXMania.tテクスチャの解放( ref this.txスコアボード[3] );
+    //            CDTXMania.tテクスチャの解放( ref this.tx文字 );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -153,18 +153,18 @@ namespace DTXMania
 					base.b初めての進行描画 = false;
 				}
 				this.ct登場アニメ用.t進行();
-				if( this.ct登場アニメ用.b終了値に達した || ( this.txパネル本体 == null ) )
-				{
-					this.n本体X = 810;
-					this.n本体Y = 558;
-				}
-				else
-				{
-					double num = ( (double) this.ct登場アニメ用.n現在の値 ) / 100.0;
-					double num2 = Math.Cos( ( 1.5 + ( 0.5 * num ) ) * Math.PI );
-					this.n本体X = 810;
-					this.n本体Y = 558 + ( (int) ( this.txパネル本体.sz画像サイズ.Height * ( 1.0 - ( num2 * num2 ) ) ) );
-				}
+				//if( this.ct登場アニメ用.b終了値に達した || ( this.txパネル本体 == null ) )
+				//{
+				//	this.n本体X = 810;
+				//	this.n本体Y = 558;
+				//}
+				//else
+				//{
+				//	double num = ( (double) this.ct登場アニメ用.n現在の値 ) / 100.0;
+				//	double num2 = Math.Cos( ( 1.5 + ( 0.5 * num ) ) * Math.PI );
+				//	this.n本体X = 810;
+				//	this.n本体Y = 558 + ( (int) ( this.txパネル本体.sz画像サイズ.Height * ( 1.0 - ( num2 * num2 ) ) ) );
+				//}
                 //if( this.txパネル本体 != null )
                 //{
                 //    this.txパネル本体.t2D描画( CDTXMania.app.Device, this.n本体X, this.n本体Y );
@@ -177,35 +177,35 @@ namespace DTXMania
 
                 if( CDTXMania.stage選曲.r現在選択中のスコア != null )
                 {
-    				if( this.txスコアボード[0] != null && this.ct登場アニメ用.n現在の値 >= 2000 )
+    				if( CDTXMania.Tx.SongSelect_ScoreWindow[0] != null && this.ct登場アニメ用.n現在の値 >= 2000 )
 	    			{
-		    			this.txスコアボード[0].t2D描画( CDTXMania.app.Device, 10, 60 );
+                        CDTXMania.Tx.SongSelect_ScoreWindow[0].t2D描画( CDTXMania.app.Device, 10, 60 );
                         this.t小文字表示( 66, 220, string.Format( "{0,7:######0}", CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nハイスコア[ 0 ].ToString() ) );
-                        this.tx文字.t2D描画( CDTXMania.app.Device, 246, 226, new Rectangle( 0, 36, 32, 30 ) );
+                        CDTXMania.Tx.SongSelect_ScoreWindow_Text.t2D描画( CDTXMania.app.Device, 246, 226, new Rectangle( 0, 36, 32, 30 ) );
     				}
                     
-    				if( this.txスコアボード[1] != null && this.ct登場アニメ用.n現在の値 >= 2000 )
+    				if(CDTXMania.Tx.SongSelect_ScoreWindow[1] != null && this.ct登場アニメ用.n現在の値 >= 2000 )
 	    			{
-		    			this.txスコアボード[1].t2D描画( CDTXMania.app.Device, 10, 420 );
+                        CDTXMania.Tx.SongSelect_ScoreWindow[1].t2D描画( CDTXMania.app.Device, 10, 420 );
                         this.t小文字表示( 66, 580, string.Format( "{0,7:######0}", CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nハイスコア[ 1 ].ToString() ) );
-                        this.tx文字.t2D描画( CDTXMania.app.Device, 246, 586, new Rectangle( 0, 36, 32, 30 ) );
+                        CDTXMania.Tx.SongSelect_ScoreWindow_Text.t2D描画( CDTXMania.app.Device, 246, 586, new Rectangle( 0, 36, 32, 30 ) );
     				}
                         
-    				if( this.txスコアボード[2] != null && this.ct登場アニメ用.n現在の値 >= 2000 )
+    				if(CDTXMania.Tx.SongSelect_ScoreWindow[2] != null && this.ct登場アニメ用.n現在の値 >= 2000 )
 	    			{
-		    			this.txスコアボード[2].t2D描画( CDTXMania.app.Device, 980, 90 );
+                        CDTXMania.Tx.SongSelect_ScoreWindow[2].t2D描画( CDTXMania.app.Device, 980, 90 );
                         this.t小文字表示( 1036, 250, string.Format( "{0,7:######0}", CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nハイスコア[ 2 ].ToString() ) );
-                        this.tx文字.t2D描画( CDTXMania.app.Device, 1216, 256, new Rectangle( 0, 36, 32, 30 ) );
+                        CDTXMania.Tx.SongSelect_ScoreWindow_Text.t2D描画( CDTXMania.app.Device, 1216, 256, new Rectangle( 0, 36, 32, 30 ) );
     				}
 
-	    			if( this.txスコアボード[3] != null && this.ct登場アニメ用.n現在の値 >= 2000 )
+	    			if(CDTXMania.Tx.SongSelect_ScoreWindow[3] != null && this.ct登場アニメ用.n現在の値 >= 2000 )
 		    		{
                         int nスコア3 = CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nハイスコア[ 3 ] == 0 ? CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.ハイスコア : CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nハイスコア[ 3 ];
                         if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ 3 ] == null )
                             nスコア3 = 0;
-				    	this.txスコアボード[3].t2D描画( CDTXMania.app.Device, 980, 430 );
+                        CDTXMania.Tx.SongSelect_ScoreWindow[3].t2D描画( CDTXMania.app.Device, 980, 430 );
                         this.t小文字表示( 1036, 590, string.Format( "{0,7:######0}", nスコア3.ToString() ) );
-                        this.tx文字.t2D描画( CDTXMania.app.Device, 1216, 596, new Rectangle( 0, 36, 32, 30 ) );
+                        CDTXMania.Tx.SongSelect_ScoreWindow_Text.t2D描画( CDTXMania.app.Device, 1216, 596, new Rectangle( 0, 36, 32, 30 ) );
 	    			}
 
                     //this.t小文字表示( 1036, 556, string.Format( "{0,7:######0}", CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nデモBGMオフセット.ToString() ) );
@@ -226,10 +226,10 @@ namespace DTXMania
 		private Font ft表示用フォント;
 		private int n本体X;
 		private int n本体Y;
-		private CTexture txパネル本体;
+		//private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
-        private CTexture[] txスコアボード = new CTexture[4];
-        private CTexture tx文字;
+  //      private CTexture[] txスコアボード = new CTexture[4];
+  //      private CTexture tx文字;
 		//-----------------
 
         [StructLayout(LayoutKind.Sequential)]
@@ -248,9 +248,9 @@ namespace DTXMania
                     if (this.st小文字位置[i].ch == ch)
                     {
                         Rectangle rectangle = new Rectangle( this.st小文字位置[i].pt.X, this.st小文字位置[i].pt.Y, 26, 36 );
-                        if (this.tx文字 != null)
+                        if (CDTXMania.Tx.SongSelect_ScoreWindow_Text != null)
                         {
-                            this.tx文字.t2D描画(CDTXMania.app.Device, x, y, rectangle);
+                            CDTXMania.Tx.SongSelect_ScoreWindow_Text.t2D描画(CDTXMania.app.Device, x, y, rectangle);
                         }
                         break;
                     }

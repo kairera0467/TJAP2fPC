@@ -68,7 +68,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\1_background.png" ), false );
+				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\1_Title\Background.png" ), false );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -90,7 +90,12 @@ namespace DTXMania
 					this.list進行文字列.Add( "Product by.kairera0467\n" );
 					this.list進行文字列.Add( "Release: " + CDTXMania.VERSION + " [" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "]" );
 
-					es = new CEnumSongs();
+                    this.list進行文字列.Add("");
+                    this.list進行文字列.Add("TJAPlayer3 forked TJAPlayer2 forPC(kairera0467)");
+                    this.list進行文字列.Add("TJAPlayer3 edited by AioiLight(@aioilight)");
+                    this.list進行文字列.Add("");
+
+                    es = new CEnumSongs();
 					es.StartEnumFromCache();										// 曲リスト取得(別スレッドで実行される)
 					base.b初めての進行描画 = false;
 					return 0;
@@ -98,23 +103,23 @@ namespace DTXMania
 
 				// CSongs管理 s管理 = CDTXMania.Songs管理;
 
-				if( this.tx背景 != null )
-					this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+				//if( this.tx背景 != null )
+				//	this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
 
 				#region [ this.str現在進行中 の決定 ]
 				//-----------------
 				switch( base.eフェーズID )
 				{
 					case CStage.Eフェーズ.起動0_システムサウンドを構築:
-						this.str現在進行中 = "Loading system sounds ... ";
+						this.str現在進行中 = "SYSTEM SOUND...";
 						break;
 
 					case CStage.Eフェーズ.起動00_songlistから曲リストを作成する:
-						this.str現在進行中 = "Loading songlist.db ... ";
+						this.str現在進行中 = "SONG LIST...";
 						break;
 
 					case CStage.Eフェーズ.起動1_SongsDBからスコアキャッシュを構築:
-						this.str現在進行中 = "Loading songs.db ... ";
+						this.str現在進行中 = "SONG DATABASE...";
 						break;
 
 					case CStage.Eフェーズ.起動2_曲を検索してリストを作成する:
@@ -139,7 +144,10 @@ namespace DTXMania
 
 					case CStage.Eフェーズ.起動7_完了:
 						this.str現在進行中 = "Setup done.";
-						break;
+                        this.list進行文字列.Add("LOADING TEXTURE...");
+                        CDTXMania.Tx.LoadTexture();
+                        this.list進行文字列.Add("LOADING TEXTURE...OK");
+                        break;
 				}
 				//-----------------
 				#endregion
@@ -147,14 +155,14 @@ namespace DTXMania
 				//-----------------
 				lock( this.list進行文字列 )
 				{
-					int x = 0;
-					int y = 0;
+					int x = 320;
+					int y = 20;
 					foreach( string str in this.list進行文字列 )
 					{
-						CDTXMania.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.灰細, str );
-						y += 14;
+						CDTXMania.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, str );
+						y += 24;
 					}
-					CDTXMania.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.灰細, this.str現在進行中 );
+					CDTXMania.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, this.str現在進行中 );
 				}
 				//-----------------
 				#endregion

@@ -118,6 +118,7 @@
     <Compile Include="コード\スコア、曲\CDTX.cs" />
     <Compile Include="コード\スコア、曲\CScoreIni.cs" />
     <Compile Include="コード\スコア、曲\CSetDef.cs" />
+    <Compile Include="コード\ステージ\01.起動\TextureLoader.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CEnumSongs.cs" />
     <Compile Include="コード\スコア、曲\CSong管理.cs" />
     <Compile Include="コード\スコア、曲\Cスコア.cs" />

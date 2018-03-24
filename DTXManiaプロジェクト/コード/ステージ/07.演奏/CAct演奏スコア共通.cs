@@ -15,6 +15,8 @@ namespace DTXMania
 		protected STDGBVALUE<double>[] n現在の本当のスコア;
 		protected STDGBVALUE<long>[] n現在表示中のスコア;
 		protected CTexture txScore;
+
+        protected CTexture txScore_1P;
         protected CCounter ctTimer;
         public CCounter ct点数アニメタイマ;
 
@@ -97,12 +99,17 @@ namespace DTXMania
 
         private float[,] n点数アニメ拡大率_座標 = new float[,]
 {
-                        {1.04f,-3},
-                        {1.15f,-6},
-                        {1.13f,-5},
+                        {1.14f,-5},
+                        {1.20f,-6},
+                        {1.23f,-8},
+                        {1.25f,-9},
+                        {1.23f,-8},
+                        {1.20f,-6},
+                        {1.14f,-5},
                         {1.08f,-4},
-                        {1.04f,-3},
-                        {1.02f,-2},
+                        {1.04f,-2},
+                        {1.02f,-1},
+                        {1.01f,-1},
                         {1f, 0}
         };
 
@@ -238,6 +245,7 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				this.txScore = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Score_number.png" ) );
+                this.txScore_1P = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_Score_number_1P.png"));
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -246,6 +254,7 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				CDTXMania.tテクスチャの解放( ref this.txScore );
+                CDTXMania.tテクスチャの解放(ref this.txScore_1P);
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -272,20 +281,20 @@ namespace DTXMania
                                 }
                                 break;
                             case 1:
-                                if( this.txScore != null )
+                                if( this.txScore_1P != null )
                                 {
                                     //this.txScore.color4 = new SlimDX.Color4( 1.0f, 0.5f, 0.4f );
-                                    this.txScore.color4 = CDTXMania.Skin.cScoreColor1P;
-                                    this.txScore.n透明度 = alpha;
-                                    this.txScore.vc拡大縮小倍率.Y = 1;
-                                    this.txScore.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                                    //this.txScore.color4 = CDTXMania.Skin.cScoreColor1P;
+                                    this.txScore_1P.n透明度 = alpha;
+                                    this.txScore_1P.vc拡大縮小倍率.Y = 1;
+                                    this.txScore_1P.t2D描画( CDTXMania.app.Device, x, y, rectangle );
                                 }
                                 break;
                             case 2:
                                 if( this.txScore != null )
                                 {
                                     //this.txScore.color4 = new SlimDX.Color4( 0.4f, 0.5f, 1.0f );
-                                    this.txScore.color4 = CDTXMania.Skin.cScoreColor2P;
+                                    //this.txScore.color4 = CDTXMania.Skin.cScoreColor2P;
                                     this.txScore.n透明度 = alpha;
                                     this.txScore.vc拡大縮小倍率.Y = 1;
                                     this.txScore.t2D描画( CDTXMania.app.Device, x, y, rectangle );

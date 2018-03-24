@@ -92,9 +92,9 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.txフォント8x16[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Console font 8x16.png" ) );
-				this.txフォント8x16[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Console font 2 8x16.png" ) );
-				base.OnManagedリソースの作成();
+				this.txフォント8x16[ 0 ] = CDTXMania.Tx.TxC(@"Console_Font.png");
+				this.txフォント8x16[ 1 ] = CDTXMania.Tx.TxC(@"Console_Font_Small.png");
+                base.OnManagedリソースの作成();
 			}
 		}
 		public override void OnManagedリソースの解放()

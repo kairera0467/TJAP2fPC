@@ -69,21 +69,21 @@ namespace DTXMania
 		}
 		public override void OnManagedリソースの作成()
 		{
-			if( !base.b活性化してない )
-			{
-				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\2_background.png"));
-				this.txメニュー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\2_menu.png" ));
-				base.OnManagedリソースの作成();
-			}
+			//if( !base.b活性化してない )
+			//{
+			//	this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\2_background.png"));
+			//	this.txメニュー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\2_menu.png" ));
+			//	base.OnManagedリソースの作成();
+			//}
 		}
 		public override void OnManagedリソースの解放()
 		{
-			if( !base.b活性化してない )
-			{
-				CDTXMania.tテクスチャの解放( ref this.tx背景 );
-				CDTXMania.tテクスチャの解放( ref this.txメニュー );
-				base.OnManagedリソースの解放();
-			}
+			//if( !base.b活性化してない )
+			//{
+			//	CDTXMania.tテクスチャの解放( ref this.tx背景 );
+			//	CDTXMania.tテクスチャの解放( ref this.txメニュー );
+			//	base.OnManagedリソースの解放();
+			//}
 		}
 		public override int On進行描画()
 		{
@@ -183,8 +183,8 @@ namespace DTXMania
 
 				// 描画
 
-				if( this.tx背景 != null )
-					this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+				if(CDTXMania.Tx.Title_Background != null )
+                    CDTXMania.Tx.Title_Background.t2D描画( CDTXMania.app.Device, 0, 0 );
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
@@ -198,7 +198,8 @@ namespace DTXMania
                 CDTXMania.act文字コンソール.tPrint(4, (720 - 24), C文字コンソール.Eフォント種別.白, "TJAPlayer3 forked TJAPlayer2 forPC(kairera0467)");
                 #endregion
 
-				if( this.txメニュー != null )
+                
+				if( CDTXMania.Tx.Title_Menu != null )
 				{
 					int x = MENU_X;
 					int y = MENU_Y + ( this.n現在のカーソル行 * MENU_H );
@@ -213,24 +214,24 @@ namespace DTXMania
 					if( this.ctカーソルフラッシュ用.n現在の値 <= 100 )
 					{
 						float nMag = (float) ( 1.0 + ( ( ( (double) this.ctカーソルフラッシュ用.n現在の値 ) / 100.0 ) * 0.5 ) );
-						this.txメニュー.vc拡大縮小倍率.X = nMag;
-						this.txメニュー.vc拡大縮小倍率.Y = nMag;
-						this.txメニュー.n透明度 = (int) ( 255.0 * ( 1.0 - ( ( (double) this.ctカーソルフラッシュ用.n現在の値 ) / 100.0 ) ) );
+                        CDTXMania.Tx.Title_Menu.vc拡大縮小倍率.X = nMag;
+                        CDTXMania.Tx.Title_Menu.vc拡大縮小倍率.Y = nMag;
+                        CDTXMania.Tx.Title_Menu.n透明度 = (int) ( 255.0 * ( 1.0 - ( ( (double) this.ctカーソルフラッシュ用.n現在の値 ) / 100.0 ) ) );
 						int x_magnified = x + ( (int) ( ( MENU_W * ( 1.0 - nMag ) ) / 2.0 ) );
 						int y_magnified = y + ( (int) ( ( MENU_H * ( 1.0 - nMag ) ) / 2.0 ) );
-						this.txメニュー.t2D描画( CDTXMania.app.Device, x_magnified, y_magnified, new Rectangle( 0, MENU_H * 5, MENU_W, MENU_H ) );
+                        CDTXMania.Tx.Title_Menu.t2D描画( CDTXMania.app.Device, x_magnified, y_magnified, new Rectangle( 0, MENU_H * 5, MENU_W, MENU_H ) );
 					}
-					this.txメニュー.vc拡大縮小倍率.X = 1f;
-					this.txメニュー.vc拡大縮小倍率.Y = 1f;
-					this.txメニュー.n透明度 = 0xff;
-					this.txメニュー.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 0, MENU_H * 4, MENU_W, MENU_H ) );
+                    CDTXMania.Tx.Title_Menu.vc拡大縮小倍率.X = 1f;
+                    CDTXMania.Tx.Title_Menu.vc拡大縮小倍率.Y = 1f;
+                    CDTXMania.Tx.Title_Menu.n透明度 = 0xff;
+                    CDTXMania.Tx.Title_Menu.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 0, MENU_H * 4, MENU_W, MENU_H ) );
 				}
-				if( this.txメニュー != null )
+				if( CDTXMania.Tx.Title_Menu != null )
 				{
-					//this.txメニュー.t2D描画( CDTXMania.app.Device, 0xce, 0xcb, new Rectangle( 0, 0, MENU_W, MWNU_H ) );
-					// #24525 2011.3.16 yyagi: "OPTION"を省いて描画。従来スキンとの互換性確保のため。
-					this.txメニュー.t2D描画( CDTXMania.app.Device, MENU_X, MENU_Y, new Rectangle( 0, 0, MENU_W, MENU_H ) );
-					this.txメニュー.t2D描画( CDTXMania.app.Device, MENU_X, MENU_Y + MENU_H, new Rectangle( 0, MENU_H * 2, MENU_W, MENU_H * 2 ) );
+                    //this.txメニュー.t2D描画( CDTXMania.app.Device, 0xce, 0xcb, new Rectangle( 0, 0, MENU_W, MWNU_H ) );
+                    // #24525 2011.3.16 yyagi: "OPTION"を省いて描画。従来スキンとの互換性確保のため。
+                    CDTXMania.Tx.Title_Menu.t2D描画( CDTXMania.app.Device, MENU_X, MENU_Y, new Rectangle( 0, 0, MENU_W, MENU_H ) );
+                    CDTXMania.Tx.Title_Menu.t2D描画( CDTXMania.app.Device, MENU_X, MENU_Y + MENU_H, new Rectangle( 0, MENU_H * 2, MENU_W, MENU_H * 2 ) );
 				}
 				CStage.Eフェーズ eフェーズid = base.eフェーズID;
 				switch( eフェーズid )
@@ -352,8 +353,8 @@ namespace DTXMania
 		private const int MENU_X = 506;
 		private const int MENU_Y = 513;
 		private int n現在のカーソル行;
-		private CTexture txメニュー;
-		private CTexture tx背景;
+		//private CTexture txメニュー;
+		//private CTexture tx背景;
 	
 		private void tカーソルを下へ移動する()
 		{

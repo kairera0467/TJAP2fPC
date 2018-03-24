@@ -1095,7 +1095,7 @@ namespace DTXMania
                 }
                 this.actRoll.t枠表示時間延長(nPlayer);
                 this.b連打中[ nPlayer ] = true;
-                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 8, 18, CDTXMania.Timer);
+                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 10, 14, CDTXMania.Timer);
                 if ( pChip.nチャンネル番号 == 0x15 )
                     this.eRollState = E連打State.roll;
                 else
@@ -1195,7 +1195,7 @@ namespace DTXMania
                 }
 
                 this.b連打中[ player ] = true;
-                this.actBalloon.ct風船アニメ[player] = new CCounter(0, 8, 18, CDTXMania.Timer);
+                this.actBalloon.ct風船アニメ[player] = new CCounter(0, 10, 14, CDTXMania.Timer);
                 this.eRollState = E連打State.balloon;
                 pChip.nRollCount++;
                 this.n風船残り[ player ]--;
@@ -1216,6 +1216,7 @@ namespace DTXMania
                     //this.b連打中 = false;
                     //this.actChara.b風船連打中 = false;
                     pChip.b可視 = false;
+                    this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
                     this.eRollState = E連打State.none;
                 }
                 else
@@ -1423,6 +1424,16 @@ namespace DTXMania
                     CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
                 }
 
+                if (actGauge.db現在のゲージ値[0] >= 100)
+                {
+                    this.bIsAlreadyMaxed = true;
+                }
+                if (actGauge.db現在のゲージ値[0] >= 80)
+                {
+                    this.bIsAlreadyCleared = true;
+                }
+
+
                 if (actGauge.db現在のゲージ値[0] > 80)
                 {
                     
@@ -1469,14 +1480,6 @@ namespace DTXMania
 			if ( eJudgeResult == E判定.Poor || eJudgeResult == E判定.Miss || eJudgeResult == E判定.Bad )
 			{
 				cInvisibleChip.ShowChipTemporally( pChip.e楽器パート );
-                if(actGauge.db現在のゲージ値[0] < 100)
-                {
-                    this.bIsAlreadyMaxed = false;
-                }
-                if(actGauge.db現在のゲージ値[0] < 80)
-                {
-                    this.bIsAlreadyCleared = true;
-                }
 			}
 			switch ( pChip.e楽器パート )
 			{
@@ -1570,6 +1573,7 @@ namespace DTXMania
                         this.actComboVoice.t再生( this.actCombo.n現在のコンボ数[ nPlayer ], nPlayer );
 
                         double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
+                        dbUnit = (((60.0 / pChip.dbBPM)));
 
                         //CDTXMania.act文字コンソール.tPrint(620, 80, C文字コンソール.Eフォント種別.白, "BPM: " + dbUnit.ToString());
 
@@ -3096,6 +3100,7 @@ namespace DTXMania
                             pChip.bHit = true;
                             this.bIsGOGOTIME[ nPlayer ] = true;
                             double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
+                            dbUnit = (((60.0 / pChip.dbBPM)));
                             if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                             {
                                 // 魂ゲージMAXではない

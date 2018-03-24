@@ -71,8 +71,10 @@ namespace DTXMania
 				Trace.WriteLine( "Current Directory: " + Environment.CurrentDirectory );
 				Trace.WriteLine( "EXEのあるフォルダ: " + Path.GetDirectoryName( Application.ExecutablePath ) );
 
-				#region [DLLの存在チェック]
-				if ( !tDLLの存在チェック( "dll\\SlimDX" + CDTXMania.SLIMDXDLL + ".dll",
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+                #region [DLLの存在チェック]
+                if ( !tDLLの存在チェック( "dll\\SlimDX" + CDTXMania.SLIMDXDLL + ".dll",
 					"SlimDX" + CDTXMania.SLIMDXDLL + ".dll またはその依存するdllが存在しません。" + newLine + "DTXManiaをダウンロードしなおしてください。",
 					"SlimDX" + CDTXMania.SLIMDXDLL + ".dll, or its depended DLL, is not found." + newLine + "Please download DTXMania again."
 					) ) bDLLnotfound = true;

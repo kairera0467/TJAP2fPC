@@ -41,7 +41,7 @@ namespace DTXMania
                         if( base.st状態[ i ].judge != E判定.Great )
                         {
 							base.st状態[ i ].n相対X座標 = 0;
-							base.st状態[ i ].n相対Y座標 = 10;
+							base.st状態[ i ].n相対Y座標 = 15;
 							base.st状態[ i ].n透明度 = 0xff;
                         }
 						if( ( base.st状態[ i ].judge != E判定.Miss ) && ( base.st状態[ i ].judge != E判定.Bad ) )
@@ -55,19 +55,19 @@ namespace DTXMania
 							else if( num2 < 40 )
 							{
 								base.st状態[ i ].n相対X座標 = 0;
-								base.st状態[ i ].n相対Y座標 = 3;
+								base.st状態[ i ].n相対Y座標 = 5;
 								base.st状態[ i ].n透明度 = 0xff;
 							}
 							else if( num2 >= 60 )
 							{
 								base.st状態[ i ].n相対X座標 = 0;
-								base.st状態[ i ].n相対Y座標 = 6;
+								base.st状態[ i ].n相対Y座標 = 10;
 								base.st状態[ i ].n透明度 = 0xff;
 							}
 							else
 							{
 								base.st状態[ i ].n相対X座標 = 0;
-								base.st状態[ i ].n相対Y座標 = 9;
+								base.st状態[ i ].n相対Y座標 = 15;
 								base.st状態[ i ].n透明度 = 0xff;
 							}
 						}
@@ -80,19 +80,19 @@ namespace DTXMania
 						else if( num2 < 40 )
 						{
 							base.st状態[ i ].n相対X座標 = 0;
-							base.st状態[ i ].n相対Y座標 = 4;
+							base.st状態[ i ].n相対Y座標 = 5;
 							base.st状態[ i ].n透明度 = 0xff;
 						}
 						else if( num2 >= 60 )
 						{
 							base.st状態[ i ].n相対X座標 = 0;
-							base.st状態[ i ].n相対Y座標 = 7;
+							base.st状態[ i ].n相対Y座標 = 10;
 							base.st状態[ i ].n透明度 = 0xff;
 						}
 						else
 						{
 							base.st状態[ i ].n相対X座標 = 0;
-							base.st状態[ i ].n相対Y座標 = 10;
+							base.st状態[ i ].n相対Y座標 = 15;
 							base.st状態[ i ].n透明度 = 0xff;
 						}
 					}
@@ -103,7 +103,7 @@ namespace DTXMania
 					{
 						int baseX = 370;
                         //int baseY = 135;
-                        int baseY = CDTXMania.Skin.nScrollFieldY[base.st状態[j].nPlayer] - 50;
+                        int baseY = CDTXMania.Skin.nScrollFieldY[base.st状態[j].nPlayer] - 53;
 						int x = CDTXMania.Skin.nScrollFieldX[ 0 ] - base.tx判定文字列.szテクスチャサイズ.Width / 2;
 						int y = ( baseY + base.st状態[ j ].n相対Y座標 );
 						if( base.tx判定文字列 != null )

@@ -221,28 +221,28 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background.jpg" ), false );
-				this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_header_panel.png" ), false );
-				this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer panel.png" ) );
+				//this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background.jpg" ), false );
+				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_header_panel.png" ), false );
+				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer panel.png" ) );
 
 				//this.txFLIP = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_skill number on gauge etc.png" ), false );
-                this.tx難易度名 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_difficulty name.png" ) );
-                this.txジャンル別背景[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Anime.png" ) );
-                this.txジャンル別背景[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_JPOP.png" ) );
-                this.txジャンル別背景[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Game.png" ) );
-                this.txジャンル別背景[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Namco.png" ) );
-                this.txジャンル別背景[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Classic.png" ) );
-                this.txジャンル別背景[5] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Child.png" ) );
-                this.txジャンル別背景[6] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Variety.png" ) );
-                this.txジャンル別背景[7] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_VOCALID.png" ) );
-                this.txジャンル別背景[8] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Other.png" ) );
+                //this.tx難易度名 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_difficulty name.png" ) );
+                //this.txジャンル別背景[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Anime.png" ) );
+                //this.txジャンル別背景[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_JPOP.png" ) );
+                //this.txジャンル別背景[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Game.png" ) );
+                //this.txジャンル別背景[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Namco.png" ) );
+                //this.txジャンル別背景[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Classic.png" ) );
+                //this.txジャンル別背景[5] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Child.png" ) );
+                //this.txジャンル別背景[6] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Variety.png" ) );
+                //this.txジャンル別背景[7] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_VOCALID.png" ) );
+                //this.txジャンル別背景[8] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Other.png" ) );
 
-                this.tx難易度別背景[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Easy.png" ) );
-                this.tx難易度別背景[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Normal.png" ) );
-                this.tx難易度別背景[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Hard.png" ) );
-                this.tx難易度別背景[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Master.png" ) );
-                this.tx難易度別背景[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Edit.png" ) );
-                this.tx下部テキスト = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer text.png" ) );
+                //this.tx難易度別背景[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Easy.png" ) );
+                //this.tx難易度別背景[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Normal.png" ) );
+                //this.tx難易度別背景[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Hard.png" ) );
+                //this.tx難易度別背景[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Master.png" ) );
+                //this.tx難易度別背景[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Edit.png" ) );
+                //this.tx下部テキスト = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer text.png" ) );
 
 				base.OnManagedリソースの作成();
 			}
@@ -251,20 +251,20 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.tx背景 );
-				CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
-				CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
+				//CDTXMania.tテクスチャの解放( ref this.tx背景 );
+				//CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
+				//CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
 				//CDTXMania.tテクスチャの解放( ref this.txFLIP );
-                CDTXMania.tテクスチャの解放( ref this.tx難易度名 );
-                CDTXMania.tテクスチャの解放( ref this.tx下部テキスト );
-                for( int j = 0; j < 9; j++ )
-                {
-                    CDTXMania.tテクスチャの解放( ref this.txジャンル別背景[ j ] );
-                }
-                for( int j = 0; j < 5; j++ )
-                {
-                    CDTXMania.tテクスチャの解放( ref this.tx難易度別背景[ j ] );
-                }
+                //CDTXMania.tテクスチャの解放( ref this.tx難易度名 );
+                //CDTXMania.tテクスチャの解放( ref this.tx下部テキスト );
+                //for( int j = 0; j < 9; j++ )
+                //{
+                //    CDTXMania.tテクスチャの解放( ref this.txジャンル別背景[ j ] );
+                //}
+                //for( int j = 0; j < 5; j++ )
+                //{
+                //    CDTXMania.tテクスチャの解放( ref this.tx難易度別背景[ j ] );
+                //}
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -295,24 +295,24 @@ namespace DTXMania
 
 				this.ct登場時アニメ用共通.t進行();
 
-				if( this.tx背景 != null )
-					this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+				if( CDTXMania.Tx.SongSelect_Background != null )
+                    CDTXMania.Tx.SongSelect_Background.t2D描画( CDTXMania.app.Device, 0, 0 );
 
                 if( this.r現在選択中の曲 != null )
                 {
                     if( CDTXMania.stage選曲.actSortSongs.e現在のソート != CActSortSongs.EOrder.Title )
                     {
-                        if( this.txジャンル別背景[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
+                        if (CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
                         {
-                            this.txジャンル別背景[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ].t2D描画( CDTXMania.app.Device, 0, 0 );
+                            CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ].t2D描画( CDTXMania.app.Device, 0, 0 );
                         }
                     }
                     else
                     {
-                        if( this.tx難易度別背景[ this.n現在選択中の曲の難易度 ] != null )
-                        {
-                            this.tx難易度別背景[ this.n現在選択中の曲の難易度 ].t2D描画( CDTXMania.app.Device, 0, 0 );
-                        }
+                        //if( this.tx難易度別背景[ this.n現在選択中の曲の難易度 ] != null )
+                        //{
+                        //    this.tx難易度別背景[ this.n現在選択中の曲の難易度 ].t2D描画( CDTXMania.app.Device, 0, 0 );
+                        //}
                     }
                 }
 
@@ -326,23 +326,23 @@ namespace DTXMania
 				{
 					double db登場割合 = ( (double) this.ct登場時アニメ用共通.n現在の値 ) / 100.0;	// 100が最終値
 					double dbY表示割合 = Math.Sin( Math.PI / 2 * db登場割合 );
-					y = ( (int) ( this.tx上部パネル.sz画像サイズ.Height * dbY表示割合 ) ) - this.tx上部パネル.sz画像サイズ.Height;
+					y = ( (int) (CDTXMania.Tx.SongSelect_Header.sz画像サイズ.Height * dbY表示割合 ) ) - CDTXMania.Tx.SongSelect_Header.sz画像サイズ.Height;
 				}
-				if( this.tx上部パネル != null )
-					this.tx上部パネル.t2D描画( CDTXMania.app.Device, 0, 0 );
+				if( CDTXMania.Tx.SongSelect_Header != null )
+                    CDTXMania.Tx.SongSelect_Header.t2D描画( CDTXMania.app.Device, 0, 0 );
 
 				this.actInformation.On進行描画();
-				if( this.tx下部パネル != null )
-					this.tx下部パネル.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.sz画像サイズ.Height );
+				if( CDTXMania.Tx.SongSelect_Footer != null )
+                    CDTXMania.Tx.SongSelect_Footer.t2D描画( CDTXMania.app.Device, 0, 720 - CDTXMania.Tx.SongSelect_Footer.sz画像サイズ.Height );
 
                 #region[ 下部テキスト ]
-                if( this.tx下部テキスト != null )
+                if(CDTXMania.Tx.SongSelect_Auto != null )
                 {
                     if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ) {
-                        this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 250 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
+                        CDTXMania.Tx.SongSelect_Auto.t2D描画( CDTXMania.app.Device, 250 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
                     }
                     if( CDTXMania.ConfigIni.b太鼓パートAutoPlay2P ) {
-                        this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 1030 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
+                        CDTXMania.Tx.SongSelect_Auto.t2D描画( CDTXMania.app.Device, 1030 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
                     }
                     if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
                         CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL" );
@@ -370,7 +370,7 @@ namespace DTXMania
 				this.actShowCurrentPosition.On進行描画();								// #27648 2011.3.28 yyagi
 
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
-                this.tx難易度名.t2D描画( CDTXMania.app.Device, 980, 30, new Rectangle( 0, 70 * this.n現在選択中の曲の難易度, 260, 70 ) );
+                CDTXMania.Tx.SongSelect_Difficulty.t2D描画( CDTXMania.app.Device, 980, 30, new Rectangle( 0, 70 * this.n現在選択中の曲の難易度, 260, 70 ) );
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
 				{
@@ -740,13 +740,13 @@ namespace DTXMania
 		public CCounter ct登場時アニメ用共通;
 		private E戻り値 eフェードアウト完了時の戻り値;
 		private Font ftフォント;
-		private CTexture tx下部パネル;
-		private CTexture tx上部パネル;
-		private CTexture tx背景;
-        private CTexture[] txジャンル別背景 = new CTexture[9];
-        private CTexture[] tx難易度別背景 = new CTexture[5];
-        private CTexture tx難易度名;
-        private CTexture tx下部テキスト;
+		//private CTexture tx下部パネル;
+		//private CTexture tx上部パネル;
+		//private CTexture tx背景;
+  //      private CTexture[] txジャンル別背景 = new CTexture[9];
+  //      private CTexture[] tx難易度別背景 = new CTexture[5];
+  //      private CTexture tx難易度名;
+  //      private CTexture tx下部テキスト;
         private CCounter ctDiffSelect移動待ち;
 
 		private struct STCommandTime		// #24063 2011.1.16 yyagi コマンド入力時刻の記録用
@@ -990,32 +990,32 @@ namespace DTXMania
             switch( strジャンル )
             {
                 case "アニメ":
-                    nGenre = 0;
+                    nGenre = 2;
                     break;
                 case "J-POP":
                     nGenre = 1;
                     break;
                 case "ゲームミュージック":
-                    nGenre = 2;
-                    break;
-                case "ナムコオリジナル":
                     nGenre = 3;
                     break;
-                case "クラシック":
+                case "ナムコオリジナル":
                     nGenre = 4;
                     break;
-                case "どうよう":
+                case "クラシック":
                     nGenre = 5;
+                    break;
+                case "どうよう":
+                    nGenre = 7;
                     break;
                 case "バラエティ":
                     nGenre = 6;
                     break;
                 case "ボーカロイド":
                 case "VOCALOID":
-                    nGenre = 7;
+                    nGenre = 8;
                     break;
                 default:
-                    nGenre = 8;
+                    nGenre = 0;
                     break;
 
             }

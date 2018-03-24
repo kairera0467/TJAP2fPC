@@ -110,10 +110,10 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_background.jpg" ), false );
-				this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_header panel.png" ) );
-				this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_footer panel.png" ) );
-				this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ) );
+				//this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_background.jpg" ), false );
+				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_header panel.png" ) );
+				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_footer panel.png" ) );
+				//this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ) );
 				prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\fonts\mplus-1p-heavy.ttf" ), 20 );
 				string[] strMenuItem = { "System", "Drums", "Guitar", "Bass", "Exit" };
 				txMenuItemLeft = new CTexture[ strMenuItem.Length, 2 ];
@@ -142,10 +142,10 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.tx背景 );
-				CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
-				CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
-				CDTXMania.tテクスチャの解放( ref this.txMenuカーソル );
+				//CDTXMania.tテクスチャの解放( ref this.tx背景 );
+				//CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
+				//CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
+				//CDTXMania.tテクスチャの解放( ref this.txMenuカーソル );
 				CDTXMania.tテクスチャの解放( ref this.tx説明文パネル );
 				prvFont.Dispose();
 				for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
@@ -175,21 +175,21 @@ namespace DTXMania
 
 			#region [ 背景 ]
 			//---------------------
-			if( this.tx背景 != null )
-				this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+			if(CDTXMania.Tx.Config_Background != null )
+                CDTXMania.Tx.Config_Background.t2D描画( CDTXMania.app.Device, 0, 0 );
 			//---------------------
 			#endregion
 			#region [ メニューカーソル ]
 			//---------------------
-			if( this.txMenuカーソル != null )
+			if( CDTXMania.Tx.Config_Cursor != null )
 			{
 				Rectangle rectangle;
-				this.txMenuカーソル.n透明度 = this.bメニューにフォーカス中 ? 255 : 128;
+                CDTXMania.Tx.Config_Cursor.n透明度 = this.bメニューにフォーカス中 ? 255 : 128;
 				int x = 110;
 				int y = (int)( 145.5 + ( this.n現在のメニュー番号 * 37.5 ) );
 				int num3 = 340;
-				this.txMenuカーソル.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 0, 0, 32, 48 ) );
-				this.txMenuカーソル.t2D描画( CDTXMania.app.Device, ( x + num3 ) - 32, y, new Rectangle( 20, 0, 32, 48 ) );
+                CDTXMania.Tx.Config_Cursor.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 0, 0, 32, 48 ) );
+                CDTXMania.Tx.Config_Cursor.t2D描画( CDTXMania.app.Device, ( x + num3 ) - 32, y, new Rectangle( 20, 0, 32, 48 ) );
 				x += 32;
 				for( num3 -= 64; num3 > 0; num3 -= rectangle.Width )
 				{
@@ -198,7 +198,7 @@ namespace DTXMania
 					{
 						rectangle.Width -= 32 - num3;
 					}
-					this.txMenuカーソル.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                    CDTXMania.Tx.Config_Cursor.t2D描画( CDTXMania.app.Device, x, y, rectangle );
 					x += rectangle.Width;
 				}
 			}
@@ -242,18 +242,18 @@ namespace DTXMania
 			}
 			//---------------------
 			#endregion
-			#region [ 上部パネル ]
-			//---------------------
-			if( this.tx上部パネル != null )
-				this.tx上部パネル.t2D描画( CDTXMania.app.Device, 0, 0 );
-			//---------------------
-			#endregion
-			#region [ 下部パネル ]
-			//---------------------
-			if( this.tx下部パネル != null )
-				this.tx下部パネル.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.szテクスチャサイズ.Height );
-			//---------------------
-			#endregion
+			//#region [ 上部パネル ]
+			////---------------------
+			//if( this.tx上部パネル != null )
+			//	this.tx上部パネル.t2D描画( CDTXMania.app.Device, 0, 0 );
+			////---------------------
+			//#endregion
+			//#region [ 下部パネル ]
+			////---------------------
+			//if( this.tx下部パネル != null )
+			//	this.tx下部パネル.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.szテクスチャサイズ.Height );
+			////---------------------
+			//#endregion
 			#region [ オプションパネル ]
 			//---------------------
             //this.actオプションパネル.On進行描画();
@@ -445,11 +445,11 @@ namespace DTXMania
 		private EItemPanelモード eItemPanelモード;
 		private Font ftフォント;
 		private int n現在のメニュー番号;
-		private CTexture txMenuカーソル;
-		private CTexture tx下部パネル;
-		private CTexture tx上部パネル;
+		//private CTexture txMenuカーソル;
+		//private CTexture tx下部パネル;
+		//private CTexture tx上部パネル;
 		private CTexture tx説明文パネル;
-		private CTexture tx背景;
+		//private CTexture tx背景;
         private CPrivateFastFont prvFont;
 		private CTexture[ , ] txMenuItemLeft;
 

@@ -60,7 +60,7 @@ namespace DTXMania
 
 		public void Initialize( List<CItemBase> menulist, bool showAllItems, string title, int defaultPos )
 		{
-			prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\fonts\ipag.ttf" ), 18 );
+			prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\ipag.ttf" ), 18 );
 
 			stqMenuTitle = new stQuickMenuItem();
 			stqMenuTitle.cItem = new CItemBase();
