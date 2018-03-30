@@ -21,7 +21,7 @@ namespace DTXMania
 		// メソッド
         public virtual void Start( int nLane )
 		{
-            if( this.txChara != null )
+            if( CDTXMania.Tx.Effects_Roll[0] != null )
             {
                 int[] arXseed = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };
                 for (int i = 0; i < 1; i++)
@@ -74,12 +74,12 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
                 this.nTex枚数 = 4;
-                this.txChara = new CTexture[ this.nTex枚数 ];
+                //this.txChara = new CTexture[ this.nTex枚数 ];
 
-                for (int i = 0; i < this.nTex枚数; i++)
-                {
-                    this.txChara[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\RollEffect\00\" + i.ToString() + ".png" ) );
-                }
+                //for (int i = 0; i < this.nTex枚数; i++)
+                //{
+                //    this.txChara[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\RollEffect\00\" + i.ToString() + ".png" ) );
+                //}
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -87,10 +87,10 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                for (int i = 0; i < this.nTex枚数; i++)
-                {
-				    CDTXMania.tテクスチャの解放( ref this.txChara[ i ] );
-                }
+        //        for (int i = 0; i < this.nTex枚数; i++)
+        //        {
+				    //CDTXMania.tテクスチャの解放( ref this.txChara[ i ] );
+        //        }
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -115,9 +115,9 @@ namespace DTXMania
                             this.st連打キャラ[i].fY -= this.st連打キャラ[i].fY加速度;
                         }
 
-                        if( this.txChara[ this.st連打キャラ[ i ].nColor ] != null )
+                        if(CDTXMania.Tx.Effects_Roll[ this.st連打キャラ[ i ].nColor ] != null )
                         {
-                            this.txChara[ this.st連打キャラ[ i ].nColor ].t2D描画( CDTXMania.app.Device, (int)this.st連打キャラ[i].fX, (int)this.st連打キャラ[i].fY, new Rectangle( this.st連打キャラ[i].nColor * 0, 0, 128, 128 ) );
+                            CDTXMania.Tx.Effects_Roll[ this.st連打キャラ[ i ].nColor ].t2D描画( CDTXMania.app.Device, (int)this.st連打キャラ[i].fX, (int)this.st連打キャラ[i].fY, new Rectangle( this.st連打キャラ[i].nColor * 0, 0, 128, 128 ) );
                         }
                     }
 
@@ -131,7 +131,7 @@ namespace DTXMania
 
 		#region [ private ]
 		//-----------------
-        private CTexture[] txChara;
+        //private CTexture[] txChara;
         private int nTex枚数;
 
         [StructLayout(LayoutKind.Sequential)]

@@ -62,7 +62,7 @@ namespace DTXMania
 
 				this.str曲タイトル = cdtx.TITLE;
                 this.strサブタイトル = cdtx.SUBTITLE;
-				this.strSTAGEFILE = CSkin.Path( @"Graphics\\6_background.jpg" );
+				this.strSTAGEFILE = CSkin.Path(@"Graphics\4_SongLoading\Background.png");
 				cdtx.On非活性化();
 				base.On活性化();
 			}
@@ -98,7 +98,7 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				this.tx背景 = CDTXMania.tテクスチャの生成( this.strSTAGEFILE, false );
-                this.txSongnamePlate = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_SongnamePlate.png" ) );
+                //this.txSongnamePlate = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_SongnamePlate.png" ) );
                 this.ct待機 = new CCounter( 0, 600, 5, CDTXMania.Timer );
                 this.ct曲名表示 = new CCounter( 1, 30, 30, CDTXMania.Timer );
 				try
@@ -155,7 +155,7 @@ namespace DTXMania
 			{
 				CDTXMania.tテクスチャの解放( ref this.tx背景 );
 				CDTXMania.tテクスチャの解放( ref this.txタイトル );
-				CDTXMania.tテクスチャの解放( ref this.txSongnamePlate );
+				//CDTXMania.tテクスチャの解放( ref this.txSongnamePlate );
                 CDTXMania.tテクスチャの解放( ref this.txサブタイトル );
 				base.OnManagedリソースの解放();
 			}
@@ -223,11 +223,11 @@ namespace DTXMania
 				this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
             //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.灰, this.ct曲名表示.n現在の値.ToString() );
 
-            if( this.txSongnamePlate != null )
+            if( CDTXMania.Tx.SongLoading_Plate != null )
             {
-                this.txSongnamePlate.bスクリーン合成 = true; //あまりにも出番が無い
-                this.txSongnamePlate.n透明度 = C変換.nParsentTo255( ( this.ct曲名表示.n現在の値 / 30.0 ) );
-				this.txSongnamePlate.t2D描画( CDTXMania.app.Device, 640 - ( this.txSongnamePlate.sz画像サイズ.Width / 2 ), 360 - ( this.txSongnamePlate.sz画像サイズ.Height / 2 ) );
+                CDTXMania.Tx.SongLoading_Plate.bスクリーン合成 = true; //あまりにも出番が無い
+                CDTXMania.Tx.SongLoading_Plate.n透明度 = C変換.nParsentTo255( ( this.ct曲名表示.n現在の値 / 30.0 ) );
+                CDTXMania.Tx.SongLoading_Plate.t2D描画( CDTXMania.app.Device, 640 - (CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Width / 2 ), 360 - (CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Height / 2 ) );
             }
             //CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.灰, C変換.nParsentTo255( ( this.ct曲名表示.n現在の値 / 30.0 ) ).ToString() );
 
@@ -482,7 +482,7 @@ namespace DTXMania
 		private CTexture txタイトル;
         private CTexture txサブタイトル;
 		private CTexture tx背景;
-        private CTexture txSongnamePlate;
+        //private CTexture txSongnamePlate;
 		private DateTime timeBeginLoad;
 		private DateTime timeBeginLoadWAV;
 		private int nWAVcount;

@@ -60,9 +60,9 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                this.txRed = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\7_LaneFlush_Red.png") );
-                this.txBlue = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\7_LaneFlush_Blue.png") );
-                this.txYellow = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\7_LaneFlush_Yellow.png") );
+                //this.txRed = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\7_LaneFlush_Red.png") );
+                //this.txBlue = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\7_LaneFlush_Blue.png") );
+                //this.txYellow = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\7_LaneFlush_Yellow.png") );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -70,9 +70,9 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                CDTXMania.tテクスチャの解放( ref this.txRed );
-                CDTXMania.tテクスチャの解放( ref this.txBlue );
-                CDTXMania.tテクスチャの解放( ref this.txYellow );
+                //CDTXMania.tテクスチャの解放( ref this.txRed );
+                //CDTXMania.tテクスチャの解放( ref this.txBlue );
+                //CDTXMania.tテクスチャの解放( ref this.txYellow );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -97,32 +97,32 @@ namespace DTXMania
                     if( this.ct進行[ i * 3 ].b進行中 )
                     {
 	                    int num8 = ( ( ( 100 - this.ct進行[i * 3].n現在の値 ) * 0xff ) / 100 );
-					    if( this.txRed != null && this.txYellow != null )
+					    if( CDTXMania.Tx.Lane_Red != null && CDTXMania.Tx.Lane_Yellow != null )
 					    {
-                            this.txRed.n透明度 = ( num8 );
-						    this.txRed.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
-                            this.txYellow.n透明度 = ( num8 );
-						    this.txYellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
+                            CDTXMania.Tx.Lane_Red.n透明度 = ( num8 );
+                            CDTXMania.Tx.Lane_Red.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
+                            CDTXMania.Tx.Lane_Yellow.n透明度 = ( num8 );
+                            CDTXMania.Tx.Lane_Yellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
 					    }
                     }
                     if( this.ct進行[ 1 + ( i * 3 ) ].b進行中 )
                     {
 	                    int num8 = ( ( ( 100 - this.ct進行[ 1 + ( i * 3 ) ].n現在の値 ) * 0xff ) / 100 );
-					    if( this.txBlue != null && this.txYellow != null )
+					    if( CDTXMania.Tx.Lane_Blue != null && CDTXMania.Tx.Lane_Yellow != null )
 					    {
-                            this.txBlue.n透明度 = ( num8 );
-						    this.txBlue.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
-                            this.txYellow.n透明度 = ( num8 );
-						    this.txYellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
+                            CDTXMania.Tx.Lane_Blue.n透明度 = ( num8 );
+                            CDTXMania.Tx.Lane_Blue.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
+                            CDTXMania.Tx.Lane_Yellow.n透明度 = ( num8 );
+                            CDTXMania.Tx.Lane_Yellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
 					    }
                     }
                     if( this.ct進行[ 2 + ( i * 3 ) ].b進行中 )
                     {
 	                    int num8 = ( ( ( 100 - this.ct進行[ 2 + ( i * 3 ) ].n現在の値 ) * 0xff ) / 100 );
-					    if( this.txYellow != null )
+					    if(CDTXMania.Tx.Lane_Yellow != null )
 					    {
-                            this.txYellow.n透明度 = ( num8 );
-						    this.txYellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
+                            CDTXMania.Tx.Lane_Yellow.n透明度 = ( num8 );
+                            CDTXMania.Tx.Lane_Yellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
 					    }
                     }
                 }
@@ -138,9 +138,9 @@ namespace DTXMania
 		#region [ private ]
 		//-----------------
 		private CCounter[] ct進行 = new CCounter[ 3 * 4 ];
-        private CTexture txRed;
-        private CTexture txBlue;
-        private CTexture txYellow;
+        //private CTexture txRed;
+        //private CTexture txBlue;
+        //private CTexture txYellow;
 		//-----------------
 		#endregion
 	}

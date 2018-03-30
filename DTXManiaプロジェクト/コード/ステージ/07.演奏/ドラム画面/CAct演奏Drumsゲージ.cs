@@ -130,27 +130,27 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge.png" ) );
-				this.txゲージ背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base.png" ) );
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    this.txゲージ2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_2P.png" ) );
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    this.txゲージ背景2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base_2P.png" ) );
-                this.txゲージ線 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line.png" ) );
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    this.txゲージ線2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line_2P.png" ) );
+				//this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge.png" ) );
+				//this.txゲージ背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base.png" ) );
+    //            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+    //                this.txゲージ2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_2P.png" ) );
+    //            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+    //                this.txゲージ背景2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base_2P.png" ) );
+    //            this.txゲージ線 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line.png" ) );
+    //            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+    //                this.txゲージ線2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line_2P.png" ) );
 
-                this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul.png" ) );
-                this.tx炎 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul_fire.png" ) );
+    //            this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul.png" ) );
+    //            this.tx炎 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul_fire.png" ) );
 
-                this.tx魂花火 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_explosion_soul.png" ) );
-                for( int i = 0; i < 12; i++ )
-                {
-                    this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\Gauge\Gauge_rainbow_" + i.ToString() + ".png") );
-                }
+    //            this.tx魂花火 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_explosion_soul.png" ) );
+                //for( int i = 0; i < 12; i++ )
+                //{
+                //    this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\Gauge\Gauge_rainbow_" + i.ToString() + ".png") );
+                //}
                 this.ct虹アニメ = new CCounter( 0, 11, 80, CDTXMania.Timer );
 
-                this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_taiko_notes.png"));
+                //this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_taiko_notes.png"));
                 base.OnManagedリソースの作成();
 			}
 		}
@@ -158,27 +158,27 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txゲージ );
-				CDTXMania.tテクスチャの解放( ref this.txゲージ背景 );
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    CDTXMania.tテクスチャの解放( ref this.txゲージ2P );
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    CDTXMania.tテクスチャの解放( ref this.txゲージ背景2P );
-                CDTXMania.tテクスチャの解放( ref this.txゲージ線 );
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    CDTXMania.tテクスチャの解放( ref this.txゲージ線2P );
-                CDTXMania.tテクスチャの解放( ref this.tx魂 );
-                CDTXMania.tテクスチャの解放( ref this.tx炎 );
-                CDTXMania.tテクスチャの解放( ref this.tx魂花火 );
+				//CDTXMania.tテクスチャの解放( ref this.txゲージ );
+				//CDTXMania.tテクスチャの解放( ref this.txゲージ背景 );
+    //            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+    //                CDTXMania.tテクスチャの解放( ref this.txゲージ2P );
+    //            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+    //                CDTXMania.tテクスチャの解放( ref this.txゲージ背景2P );
+    //            CDTXMania.tテクスチャの解放( ref this.txゲージ線 );
+    //            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+    //                CDTXMania.tテクスチャの解放( ref this.txゲージ線2P );
+    //            CDTXMania.tテクスチャの解放( ref this.tx魂 );
+    //            CDTXMania.tテクスチャの解放( ref this.tx炎 );
+    //            CDTXMania.tテクスチャの解放( ref this.tx魂花火 );
 
 
-                for( int i = 0; i < 12; i++ )
-                {
-                    CDTXMania.tテクスチャの解放( ref this.txゲージ虹[ i ] );
-                }
+    //            for( int i = 0; i < 12; i++ )
+    //            {
+    //                CDTXMania.tテクスチャの解放( ref this.txゲージ虹[ i ] );
+    //            }
                 this.ct虹アニメ = null;
 
-                CDTXMania.tテクスチャの解放(ref this.tx音符);
+                //CDTXMania.tテクスチャの解放(ref this.tx音符);
                 base.OnManagedリソースの解放();
 			}
 		}
@@ -199,48 +199,48 @@ namespace DTXMania
                 int nRectX = (int)( this.db現在のゲージ値[ 0 ] / 2 ) * 14;
                 int nRectX2P = (int)( this.db現在のゲージ値[ 1 ] / 2 ) * 14;
 
-                if( this.txゲージ背景 != null )
+                if( CDTXMania.Tx.Gauge_Base[0] != null )
                 {
-                    this.txゲージ背景.t2D描画( CDTXMania.app.Device, 492, 144, new Rectangle( 0, 0, 700, 44 ) );
+                    CDTXMania.Tx.Gauge_Base[0].t2D描画( CDTXMania.app.Device, 492, 144, new Rectangle( 0, 0, 700, 44 ) );
                 }
-                if( CDTXMania.ConfigIni.nPlayerCount == 2 && this.txゲージ背景2P != null )
+                if( CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Gauge_Base[1] != null )
                 {
-                    this.txゲージ背景2P.t2D描画( CDTXMania.app.Device, 492, 532, new Rectangle( 0, 0, 700, 44 ) );
+                    CDTXMania.Tx.Gauge_Base[1].t2D描画( CDTXMania.app.Device, 492, 532, new Rectangle( 0, 0, 700, 44 ) );
                 }
                 #region[ ゲージ1P ]
-                if( this.txゲージ != null )
+                if( CDTXMania.Tx.Gauge[0] != null )
                 {
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 492, 144, new Rectangle( 0, 0, nRectX, 44 ) );
+                    CDTXMania.Tx.Gauge[0].t2D描画( CDTXMania.app.Device, 492, 144, new Rectangle( 0, 0, nRectX, 44 ) );
 
-                    if( this.txゲージ線 != null )
+                    if(CDTXMania.Tx.Gauge_Line[0] != null )
                     {
                         if( this.db現在のゲージ値[ 0 ] >= 100.0 )
                         {
                             this.ct虹アニメ.t進行Loop();
-                            if( this.txゲージ虹[ this.ct虹アニメ.n現在の値 ] != null )
+                            if(CDTXMania.Tx.Gauge_Rainbow[ this.ct虹アニメ.n現在の値 ] != null )
                             {
-                                this.txゲージ虹[ this.ct虹アニメ.n現在の値 ].t2D描画( CDTXMania.app.Device, 492, 144 );
+                                CDTXMania.Tx.Gauge_Rainbow[ this.ct虹アニメ.n現在の値 ].t2D描画( CDTXMania.app.Device, 492, 144 );
                             }
 
                         }
-                        this.txゲージ線.t2D描画( CDTXMania.app.Device, 492, 144 );
+                        CDTXMania.Tx.Gauge_Line[0].t2D描画( CDTXMania.app.Device, 492, 144 );
                     }
                     #region[ 「クリア」文字 ]
                     if( this.db現在のゲージ値[ 0 ] >= 80.0 )
                     {
-                        this.txゲージ.t2D描画( CDTXMania.app.Device, 1038, 144, new Rectangle( 0, 44, 58, 24 ) );
+                        CDTXMania.Tx.Gauge[0].t2D描画( CDTXMania.app.Device, 1038, 144, new Rectangle( 0, 44, 58, 24 ) );
                     }
                     else
                     {
-                        this.txゲージ.t2D描画( CDTXMania.app.Device, 1038, 144, new Rectangle( 58, 44, 58, 24 ) );
+                        CDTXMania.Tx.Gauge[0].t2D描画( CDTXMania.app.Device, 1038, 144, new Rectangle( 58, 44, 58, 24 ) );
                     }
                     #endregion
                 }
                 #endregion
                 #region[ ゲージ2P ]
-                if( CDTXMania.ConfigIni.nPlayerCount == 2 && this.txゲージ2P != null )
+                if( CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Gauge[1] != null )
                 {
-                    this.txゲージ2P.t2D描画( CDTXMania.app.Device, 492, 532, new Rectangle( 0, 0, nRectX2P, 44 ) );
+                    CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 492, 532, new Rectangle( 0, 0, nRectX2P, 44 ) );
 
                     if( this.txゲージ線2P != null )
                     {
@@ -253,23 +253,23 @@ namespace DTXMania
                         //    }
 
                         //}
-                        this.txゲージ線2P.t2D描画( CDTXMania.app.Device, 492, 532 );
+                        CDTXMania.Tx.Gauge_Line[1].t2D描画( CDTXMania.app.Device, 492, 532 );
                     }
                     #region[ 「クリア」文字 ]
                     if( this.db現在のゲージ値[ 1 ] >= 80.0 )
                     {
-                        this.txゲージ2P.t2D描画( CDTXMania.app.Device, 1038, 554, new Rectangle( 0, 44, 58, 24 ) );
+                        CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 1038, 554, new Rectangle( 0, 44, 58, 24 ) );
                     }
                     else
                     {
-                        this.txゲージ2P.t2D描画( CDTXMania.app.Device, 1038, 554, new Rectangle( 58, 44, 58, 24 ) );
+                        CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 1038, 554, new Rectangle( 58, 44, 58, 24 ) );
                     }
                     #endregion
                 }
                 #endregion
 
 
-                if( this.tx炎 != null )
+                if(CDTXMania.Tx.Gauge_Soul_Fire != null )
                 {
                     //仮置き
                     int[] nSoulFire = new int[] { 52, 443, 0, 0 };
@@ -278,11 +278,11 @@ namespace DTXMania
                         if( this.db現在のゲージ値[ i ] >= 100.0 )
                         {
                             this.ct炎.t進行Loop();
-                            this.tx炎.t2D描画( CDTXMania.app.Device, 1112, nSoulFire[ i ], new Rectangle( 230 * ( this.ct炎.n現在の値 ), 0, 230, 230 ) );
+                            CDTXMania.Tx.Gauge_Soul_Fire.t2D描画( CDTXMania.app.Device, 1112, nSoulFire[ i ], new Rectangle( 230 * ( this.ct炎.n現在の値 ), 0, 230, 230 ) );
                         }
                     }
                 }
-                if( this.tx魂 != null )
+                if(CDTXMania.Tx.Gauge_Soul != null )
                 {
                     //仮置き
                     int[] nSoulY = new int[] { 125, 516, 0, 0 };
@@ -290,11 +290,11 @@ namespace DTXMania
                     {
                         if( this.db現在のゲージ値[ i ] >= 80.0 )
                         {
-                            this.tx魂.t2D描画( CDTXMania.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 0, 80, 80 ) );
+                            CDTXMania.Tx.Gauge_Soul.t2D描画( CDTXMania.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 0, 80, 80 ) );
                         }
                         else
                         {
-                            this.tx魂.t2D描画( CDTXMania.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 80, 80, 80 ) );
+                            CDTXMania.Tx.Gauge_Soul.t2D描画( CDTXMania.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 80, 80, 80 ) );
                         }
                     }
                 }
@@ -313,14 +313,14 @@ namespace DTXMania
                         }
                             
                             
-                        if( this.tx魂花火 != null )
+                        if(CDTXMania.Tx.Gauge_Soul_Explosion != null )
                         {
-                            this.tx魂花火.t2D描画( CDTXMania.app.Device, 1140, 73, new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
+                            CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 73, new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
                         }
-                        if (this.tx音符 != null)
+                        if (CDTXMania.Tx.Notes != null)
                         {
-                            this.tx音符.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
-                            this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
+                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
+                            //this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
                             //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, this.st花火状態[d].ct進行.n現在の値.ToString());
                             //CDTXMania.act文字コンソール.tPrint(60, 160, C文字コンソール.Eフォント種別.白, (this.st花火状態[d].ct進行.n現在の値 / 10f).ToString());
                         }
@@ -339,9 +339,16 @@ namespace DTXMania
                         }
                             
                             
-                        if( this.tx魂花火 != null )
+                        if(CDTXMania.Tx.Gauge_Soul_Explosion != null )
                         {
-                            this.tx魂花火.t2D描画( CDTXMania.app.Device, 1140, 468, new Rectangle( this.st花火状態2P[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
+                            CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 468, new Rectangle( this.st花火状態2P[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
+                        }
+                        if (CDTXMania.Tx.Notes != null)
+                        {
+                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
+                            //this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
+                            //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, this.st花火状態[d].ct進行.n現在の値.ToString());
+                            //CDTXMania.act文字コンソール.tPrint(60, 160, C文字コンソール.Eフォント種別.白, (this.st花火状態[d].ct進行.n現在の値 / 10f).ToString());
                         }
                         break;
                     }

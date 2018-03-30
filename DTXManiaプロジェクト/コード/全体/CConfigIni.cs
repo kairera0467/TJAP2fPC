@@ -2946,7 +2946,7 @@ namespace DTXMania
                                             {
                                                 this.nCharaAction_clearstart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_clearstart);
                                             }
-                                            else if (str3.Equals("nCharaAction_gogostart_fullgauge"))
+                                            else if (str3.Equals("nCharaAction_fullgauge"))
                                             {
                                                 this.nCharaAction_fullgauge = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_fullgauge);
                                             }

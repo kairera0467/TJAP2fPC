@@ -249,8 +249,8 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_background.png" ) );
-				this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_header.png" ) );
+				//this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_background.png" ) );
+				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_header.png" ) );
 				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_footer panel.png" ), true );
 				//this.txオプションパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen option panels.png" ) );
 				base.OnManagedリソースの作成();
@@ -264,8 +264,8 @@ namespace DTXMania
 				{
 					this.ct登場用 = null;
 				}
-				CDTXMania.tテクスチャの解放( ref this.tx背景 );
-				CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
+				//CDTXMania.tテクスチャの解放( ref this.tx背景 );
+				//CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
 				//CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
 				//CDTXMania.tテクスチャの解放( ref this.txオプションパネル );
 				base.OnManagedリソースの解放();
@@ -303,23 +303,23 @@ namespace DTXMania
 
 				// 描画
 
-				if( this.tx背景 != null )
+				if(CDTXMania.Tx.Result_Background != null )
 				{
-					this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+                    CDTXMania.Tx.Result_Background.t2D描画( CDTXMania.app.Device, 0, 0 );
 				}
-				if( this.ct登場用.b進行中 && ( this.tx上部パネル != null ) )
+				if( this.ct登場用.b進行中 && ( CDTXMania.Tx.Result_Header != null ) )
 				{
 					double num2 = ( (double) this.ct登場用.n現在の値 ) / 100.0;
 					double num3 = Math.Sin( Math.PI / 2 * num2 );
-					num = ( (int) ( this.tx上部パネル.sz画像サイズ.Height * num3 ) ) - this.tx上部パネル.sz画像サイズ.Height;
+					num = ( (int) ( CDTXMania.Tx.Result_Header.sz画像サイズ.Height * num3 ) ) - CDTXMania.Tx.Result_Header.sz画像サイズ.Height;
 				}
 				else
 				{
 					num = 0;
 				}
-				if( this.tx上部パネル != null )
+				if(CDTXMania.Tx.Result_Header != null )
 				{
-					this.tx上部パネル.t2D描画( CDTXMania.app.Device, 0, 0 );
+                    CDTXMania.Tx.Result_Header.t2D描画( CDTXMania.app.Device, 0, 0 );
 				}
 				if( this.actResultImage.On進行描画() == 0 )
 				{
@@ -423,10 +423,10 @@ namespace DTXMania
 		private int n最後に再生したHHのWAV番号;
 		private int n最後に再生したHHのチャンネル番号;
 		private CSound rResultSound;
-		private CTexture txオプションパネル;
-		private CTexture tx下部パネル;
-		private CTexture tx上部パネル;
-		private CTexture tx背景;
+		//private CTexture txオプションパネル;
+		//private CTexture tx下部パネル;
+		//private CTexture tx上部パネル;
+		//private CTexture tx背景;
 
 		#region [ #24609 リザルト画像をpngで保存する ]		// #24609 2011.3.14 yyagi; to save result screen in case BestRank or HiSkill.
 		/// <summary>

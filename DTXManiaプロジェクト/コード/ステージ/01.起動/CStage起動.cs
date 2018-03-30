@@ -143,10 +143,10 @@ namespace DTXMania
 						break;
 
 					case CStage.Eフェーズ.起動7_完了:
-						this.str現在進行中 = "Setup done.";
-                        this.list進行文字列.Add("LOADING TEXTURE...");
+                        this.list進行文字列.Add("LOADING TEXTURES...");
                         CDTXMania.Tx.LoadTexture();
-                        this.list進行文字列.Add("LOADING TEXTURE...OK");
+                        this.list進行文字列.Add("LOADING TEXTURES...OK");
+                        this.str現在進行中 = "Setup done.";
                         break;
 				}
 				//-----------------

@@ -91,35 +91,35 @@ namespace DTXMania
                     string strGenre = CDTXMania.DTX.GENRE;
                     if( strGenre.Equals( "アニメ" ) )
                     {
-                        this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_anime.png" ) );
+                        this.txGENRE = CDTXMania.Tx.TxCGen("Anime");
                     }
                     else if( strGenre.Equals( "J-POP" ) )
                     {
-                        this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_JPOP.png" ) );
+                        this.txGENRE = CDTXMania.Tx.TxCGen("J-POP");
                     }
                     else if( strGenre.Equals( "ゲームミュージック" ) )
                     {
-                        this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_game.png" ) );
+                        this.txGENRE = CDTXMania.Tx.TxCGen("Game");
                     }
                     else if( strGenre.Equals( "ナムコオリジナル" ) )
                     {
-                        this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_namco.png" ) );
+                        this.txGENRE = CDTXMania.Tx.TxCGen("Namco");
                     }
                     else if( strGenre.Equals( "クラシック" ) )
                     {
-                        this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_classic.png" ) );
+                        this.txGENRE = CDTXMania.Tx.TxCGen("Classic");
                     }
                     else if( strGenre.Equals( "どうよう" ) )
                     {
-                        this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_child.png" ) );
+                        this.txGENRE = CDTXMania.Tx.TxCGen("Child");
                     }
                     else if( strGenre.Equals( "バラエティ" ) )
                     {
-                        this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_variety.png" ) );
+                        this.txGENRE = CDTXMania.Tx.TxCGen("Variety");
                     }
                     else if( strGenre.Equals( "ボーカロイド" ) || strGenre.Equals( "VOCALOID" ) )
                     {
-                        this.txGENRE = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Genre_vocaloid.png" ) );
+                        this.txGENRE = CDTXMania.Tx.TxCGen("Vocaloid");
                     }
                     else
                     {

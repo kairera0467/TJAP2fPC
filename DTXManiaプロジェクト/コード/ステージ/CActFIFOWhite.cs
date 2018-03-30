@@ -31,7 +31,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.tx白タイル64x64 );
+				//CDTXMania.tテクスチャの解放( ref this.tx白タイル64x64 );
 				base.On非活性化();
 			}
 		}
@@ -39,7 +39,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx白タイル64x64 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile white 64x64.png" ), false );
+				//this.tx白タイル64x64 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile white 64x64.png" ), false );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -52,14 +52,14 @@ namespace DTXMania
 			this.counter.t進行();
 
 			// Size clientSize = CDTXMania.app.Window.ClientSize;	// #23510 2010.10.31 yyagi: delete as of no one use this any longer.
-			if (this.tx白タイル64x64 != null)
+			if (CDTXMania.Tx.Tile_White != null)
 			{
-				this.tx白タイル64x64.n透明度 = ( this.mode == EFIFOモード.フェードイン ) ? ( ( ( 100 - this.counter.n現在の値 ) * 0xff ) / 100 ) : ( ( this.counter.n現在の値 * 0xff ) / 100 );
+                CDTXMania.Tx.Tile_White.n透明度 = ( this.mode == EFIFOモード.フェードイン ) ? ( ( ( 100 - this.counter.n現在の値 ) * 0xff ) / 100 ) : ( ( this.counter.n現在の値 * 0xff ) / 100 );
 				for (int i = 0; i <= (SampleFramework.GameWindowSize.Width / 64); i++)		// #23510 2010.10.31 yyagi: change "clientSize.Width" to "640" to fix FIFO drawing size
 				{
 					for (int j = 0; j <= (SampleFramework.GameWindowSize.Height / 64); j++)	// #23510 2010.10.31 yyagi: change "clientSize.Height" to "480" to fix FIFO drawing size
 					{
-						this.tx白タイル64x64.t2D描画( CDTXMania.app.Device, i * 64, j * 64 );
+                        CDTXMania.Tx.Tile_White.t2D描画( CDTXMania.app.Device, i * 64, j * 64 );
 					}
 				}
 			}
@@ -77,7 +77,7 @@ namespace DTXMania
 		//-----------------
 		private CCounter counter;
 		private EFIFOモード mode;
-		private CTexture tx白タイル64x64;
+		//private CTexture tx白タイル64x64;
 		//-----------------
 		#endregion
 	}

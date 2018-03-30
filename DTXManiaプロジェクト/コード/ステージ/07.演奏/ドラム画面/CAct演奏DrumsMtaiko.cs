@@ -44,32 +44,32 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.txMtaiko枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_A.png" ) );
-            this.txMtaiko下敷き[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C.png" ) );
-            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                this.txMtaiko下敷き[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C_2P.png" ) );
+            //this.txMtaiko枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_A.png" ) );
+            //this.txMtaiko下敷き[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C.png" ) );
+            //if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+            //    this.txMtaiko下敷き[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_C_2P.png" ) );
 
-            this.txオプションパネル_HS = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_HiSpeed.png" ) );
-            this.txオプションパネル_RANMIR = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RANMIR.png" ) );
-            this.txオプションパネル_特殊 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_SpecialOption.png" ) );
+            //this.txオプションパネル_HS = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_HiSpeed.png" ) );
+            //this.txオプションパネル_RANMIR = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RANMIR.png" ) );
+            //this.txオプションパネル_特殊 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_SpecialOption.png" ) );
             
-            this.tx太鼓_土台 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_main.png" ) );
-            this.tx太鼓_面L = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_red.png" ) );
-            this.tx太鼓_ふちL = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_blue.png" ) );
-            this.tx太鼓_面R = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_red.png" ) );
-            this.tx太鼓_ふちR = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_blue.png" ) );
+            //this.tx太鼓_土台 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_main.png" ) );
+            //this.tx太鼓_面L = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_red.png" ) );
+            //this.tx太鼓_ふちL = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_blue.png" ) );
+            //this.tx太鼓_面R = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_red.png" ) );
+            //this.tx太鼓_ふちR = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_mtaiko_blue.png" ) );
 
-            this.txレベルアップ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_LevelUp.png" ) );
-            this.txレベルダウン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_LevelDown.png" ) );
+            //this.txレベルアップ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_LevelUp.png" ) );
+            //this.txレベルダウン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_LevelDown.png" ) );
 
-            this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
-            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
+            //this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
+            //if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+            //    this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate2P.png" ) );
             
-            for( int i = 0; i < 6; i++ )
-            {
-                this.txコースシンボル[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( this.strCourseSymbolFileName[ i ] ) );
-            }
+            //for( int i = 0; i < 6; i++ )
+            //{
+            //    this.txコースシンボル[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( this.strCourseSymbolFileName[ i ] ) );
+            //}
             this.ctレベルアップダウン = new CCounter[ 4 ];
             this.After = new int[ 4 ];
             this.Before = new int[ 4 ];
@@ -85,32 +85,32 @@ namespace DTXMania
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放( ref this.txMtaiko枠 );
-            CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 0 ] );
-            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 1 ] );
+      //      CDTXMania.tテクスチャの解放( ref this.txMtaiko枠 );
+      //      CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 0 ] );
+      //      if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+      //          CDTXMania.tテクスチャの解放( ref this.txMtaiko下敷き[ 1 ] );
             
-		    CDTXMania.tテクスチャの解放( ref this.tx太鼓_土台 );
-            CDTXMania.tテクスチャの解放( ref this.txオプションパネル_HS );
-            CDTXMania.tテクスチャの解放( ref this.txオプションパネル_RANMIR );
-            CDTXMania.tテクスチャの解放( ref this.txオプションパネル_特殊 );
+		    //CDTXMania.tテクスチャの解放( ref this.tx太鼓_土台 );
+      //      CDTXMania.tテクスチャの解放( ref this.txオプションパネル_HS );
+      //      CDTXMania.tテクスチャの解放( ref this.txオプションパネル_RANMIR );
+      //      CDTXMania.tテクスチャの解放( ref this.txオプションパネル_特殊 );
 
-            CDTXMania.tテクスチャの解放( ref this.tx太鼓_面L );
-            CDTXMania.tテクスチャの解放( ref this.tx太鼓_面R );
-		    CDTXMania.tテクスチャの解放( ref this.tx太鼓_ふちL );
-            CDTXMania.tテクスチャの解放( ref this.tx太鼓_ふちR );
+      //      CDTXMania.tテクスチャの解放( ref this.tx太鼓_面L );
+      //      CDTXMania.tテクスチャの解放( ref this.tx太鼓_面R );
+		    //CDTXMania.tテクスチャの解放( ref this.tx太鼓_ふちL );
+      //      CDTXMania.tテクスチャの解放( ref this.tx太鼓_ふちR );
 
-		    CDTXMania.tテクスチャの解放( ref this.txレベルアップ );
-            CDTXMania.tテクスチャの解放( ref this.txレベルダウン );
+		    //CDTXMania.tテクスチャの解放( ref this.txレベルアップ );
+      //      CDTXMania.tテクスチャの解放( ref this.txレベルダウン );
 
-            CDTXMania.tテクスチャの解放( ref this.txネームプレート );
-            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                CDTXMania.tテクスチャの解放( ref this.txネームプレート2P );
+      //      CDTXMania.tテクスチャの解放( ref this.txネームプレート );
+      //      if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+      //          CDTXMania.tテクスチャの解放( ref this.txネームプレート2P );
 
-            for( int i = 0; i < 6; i++ )
-            {
-                CDTXMania.tテクスチャの解放( ref this.txコースシンボル[ i ] );
-            }
+      //      for( int i = 0; i < 6; i++ )
+      //      {
+      //          CDTXMania.tテクスチャの解放( ref this.txコースシンボル[ i ] );
+      //      }
 
             this.ctレベルアップダウン = null;
 
@@ -145,49 +145,49 @@ namespace DTXMania
 
             this.nHS = CDTXMania.ConfigIni.n譜面スクロール速度.Drums < 8 ? CDTXMania.ConfigIni.n譜面スクロール速度.Drums : 7;
 
-            if( this.txMtaiko下敷き[ 0 ] != null )
-                this.txMtaiko下敷き[ 0 ].t2D描画( CDTXMania.app.Device, 0, 184 );
-            if( this.txMtaiko枠 != null )
-                this.txMtaiko枠.t2D描画( CDTXMania.app.Device, 0, 184 );
+            //if(CDTXMania.Tx.Taiko_Frame[ 0 ] != null )
+               // CDTXMania.Tx.Taiko_Frame[ 0 ].t2D描画( CDTXMania.app.Device, 0, 184 );
+            if(CDTXMania.Tx.Taiko_Background[0] != null )
+                CDTXMania.Tx.Taiko_Background[0].t2D描画( CDTXMania.app.Device, 0, 184 );
 
             if ( CDTXMania.stage演奏ドラム画面.bDoublePlay )
             {
-                if( this.txMtaiko下敷き[ 1 ] != null )
-                    this.txMtaiko下敷き[ 1 ].t2D描画( CDTXMania.app.Device, 0, 360 );
-                if( this.txMtaiko枠 != null )
-                    this.txMtaiko枠.t2D上下反転描画( CDTXMania.app.Device, 0, 360 );
+                //if(CDTXMania.Tx.Taiko_Frame[ 1 ] != null )
+                    //CDTXMania.Tx.Taiko_Frame[ 1 ].t2D描画( CDTXMania.app.Device, 0, 360 );
+                if(CDTXMania.Tx.Taiko_Background[1] != null )
+                    CDTXMania.Tx.Taiko_Background[1].t2D描画( CDTXMania.app.Device, 0, 360 );
             }
             
-            if( this.tx太鼓_土台 != null )
+            if(CDTXMania.Tx.Taiko_Base != null )
             {
-                this.tx太鼓_土台.t2D描画( CDTXMania.app.Device, 190, 190 );
+                CDTXMania.Tx.Taiko_Base.t2D描画( CDTXMania.app.Device, 190, 190 );
                 if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
-                    this.tx太鼓_土台.t2D描画( CDTXMania.app.Device, 190, 366 );
+                    CDTXMania.Tx.Taiko_Base.t2D描画( CDTXMania.app.Device, 190, 366 );
             }
-            if( this.tx太鼓_面L != null && this.tx太鼓_面R != null && this.tx太鼓_ふちL != null && this.tx太鼓_ふちR != null )
+            if( CDTXMania.Tx.Taiko_Don_Left != null && CDTXMania.Tx.Taiko_Don_Right != null && CDTXMania.Tx.Taiko_Ka_Left != null && CDTXMania.Tx.Taiko_Ka_Right != null )
             {
-                this.tx太鼓_ふちL.n透明度 = this.stパッド状態[0].n明るさ * 43;
-                this.tx太鼓_ふちR.n透明度 = this.stパッド状態[1].n明るさ * 43;
-                this.tx太鼓_面L.n透明度 = this.stパッド状態[2].n明るさ * 43;
-                this.tx太鼓_面R.n透明度 = this.stパッド状態[3].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[0].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[1].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[2].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[3].n明るさ * 43;
             
-                this.tx太鼓_ふちL.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
-                this.tx太鼓_ふちR.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
-                this.tx太鼓_面L.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
-                this.tx太鼓_面R.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Don_Left.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Don_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
             }
 
-            if( this.tx太鼓_面L != null && this.tx太鼓_面R != null && this.tx太鼓_ふちL != null && this.tx太鼓_ふちR != null )
+            if( CDTXMania.Tx.Taiko_Don_Left != null && CDTXMania.Tx.Taiko_Don_Right != null && CDTXMania.Tx.Taiko_Ka_Left != null && CDTXMania.Tx.Taiko_Ka_Right != null )
             {
-                this.tx太鼓_ふちL.n透明度 = this.stパッド状態[4].n明るさ * 43;
-                this.tx太鼓_ふちR.n透明度 = this.stパッド状態[5].n明るさ * 43;
-                this.tx太鼓_面L.n透明度 = this.stパッド状態[6].n明るさ * 43;
-                this.tx太鼓_面R.n透明度 = this.stパッド状態[7].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[4].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[5].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[6].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[7].n明るさ * 43;
             
-                this.tx太鼓_ふちL.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
-                this.tx太鼓_ふちR.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
-                this.tx太鼓_面L.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
-                this.tx太鼓_面R.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Don_Left.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Don_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
             }
 
             int[] nLVUPY = new int[] { 127, 127, 0, 0 };
@@ -201,7 +201,7 @@ namespace DTXMania
                         this.ctレベルアップダウン[ i ].t停止();
                     }
                 }
-                if( ( this.ctレベルアップダウン[ i ].b進行中 && ( this.txレベルアップ != null && this.txレベルダウン != null ) ) && !CDTXMania.ConfigIni.bNoInfo )
+                if( ( this.ctレベルアップダウン[ i ].b進行中 && ( CDTXMania.Tx.Taiko_LevelUp != null && CDTXMania.Tx.Taiko_LevelDown != null ) ) && !CDTXMania.ConfigIni.bNoInfo )
                 {
                     //this.ctレベルアップダウン[ i ].n現在の値 = 110;
 
@@ -251,13 +251,13 @@ namespace DTXMania
                     if( this.After[ i ] - this.Before[ i ] >= 0 )
                     {
                         //レベルアップ
-                        this.txレベルアップ.n透明度 = nAlpha;
-                        this.txレベルアップ.t3D描画( CDTXMania.app.Device, mat );
+                        CDTXMania.Tx.Taiko_LevelUp.n透明度 = nAlpha;
+                        CDTXMania.Tx.Taiko_LevelUp.t3D描画( CDTXMania.app.Device, mat );
                     }
                     else
                     {
-                        this.txレベルダウン.n透明度 = nAlpha;
-                        this.txレベルダウン.t3D描画( CDTXMania.app.Device, mat );
+                        CDTXMania.Tx.Taiko_LevelDown.n透明度 = nAlpha;
+                        CDTXMania.Tx.Taiko_LevelDown.t3D描画( CDTXMania.app.Device, mat );
                     }
                 }
             }
@@ -294,9 +294,9 @@ namespace DTXMania
                 }
                 else if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.mtaikoに画像で表示 )
                 {
-                    if( this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ] != null )
+                    if(CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度] != null )
                     {
-                        this.txコースシンボル[ CDTXMania.stage選曲.n確定された曲の難易度 ].t2D描画( CDTXMania.app.Device, 
+                        CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度].t2D描画( CDTXMania.app.Device, 
                             60,
                             233
                             );
@@ -304,17 +304,35 @@ namespace DTXMania
 
                     if ( CDTXMania.DTX.nScoreModeTmp == 3 )
                     {
-                        if( this.txコースシンボル[ 5 ] != null )
+                        if(CDTXMania.Tx.Couse_Symbol[ 5 ] != null )
                         {
-                            this.txコースシンボル[ 5 ].t2D描画( CDTXMania.app.Device, 
+                            CDTXMania.Tx.Couse_Symbol[ 5 ].t2D描画( CDTXMania.app.Device, 
                                 60,
                                 233
                                 );
                         }
                     }
                 }
+
+
+            }
+            if (CDTXMania.Tx.Taiko_NamePlate[0] != null)
+            {
+                CDTXMania.Tx.Taiko_NamePlate[0].t2D描画(CDTXMania.app.Device, 0, 288);
+            }
+            if(CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Taiko_NamePlate[1] != null)
+            {
+                CDTXMania.Tx.Taiko_NamePlate[1].t2D描画(CDTXMania.app.Device, 0, 368);
             }
 
+            if (CDTXMania.Tx.Taiko_PlayerNumber[0] != null)
+            {
+                CDTXMania.Tx.Taiko_PlayerNumber[0].t2D描画(CDTXMania.app.Device, 5, 233);
+            }
+            if (CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Taiko_PlayerNumber[1] != null)
+            {
+                CDTXMania.Tx.Taiko_PlayerNumber[1].t2D描画(CDTXMania.app.Device, 5, 435);
+            }
 
             //if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.V))
             //{
@@ -333,7 +351,7 @@ namespace DTXMania
             //    this.tMtaikoEvent( 0x12, 1, 1 );
             //}
 
-            
+
 
             return base.On進行描画();
         }
@@ -419,19 +437,19 @@ namespace DTXMania
         }
 
         //太鼓
-        private CTexture txMtaiko枠;
-        private CTexture[] txMtaiko下敷き = new CTexture[ 4 ];
+        //private CTexture txMtaiko枠;
+        //private CTexture[] txMtaiko下敷き = new CTexture[ 4 ];
 
-        private CTexture tx太鼓_土台;
-        private CTexture tx太鼓_面L;
-        private CTexture tx太鼓_ふちL;
-        private CTexture tx太鼓_面R;
-        private CTexture tx太鼓_ふちR;
+        //private CTexture tx太鼓_土台;
+        //private CTexture tx太鼓_面L;
+        //private CTexture tx太鼓_ふちL;
+        //private CTexture tx太鼓_面R;
+        //private CTexture tx太鼓_ふちR;
 
         private STパッド状態[] stパッド状態 = new STパッド状態[ 4 * 4 ];
         private long nフラッシュ制御タイマ;
 
-        private CTexture[] txコースシンボル = new CTexture[ 6 ];
+        //private CTexture[] txコースシンボル = new CTexture[ 6 ];
         private string[] strCourseSymbolFileName;
 
         //オプション
@@ -441,15 +459,15 @@ namespace DTXMania
         private int nHS;
 
         //ネームプレート
-        private CTexture txネームプレート;
-        private CTexture txネームプレート2P;
+        //private CTexture txネームプレート;
+        //private CTexture txネームプレート2P;
 
         //譜面分岐
         private CCounter[] ctレベルアップダウン;
         private int[] After;
         private int[] Before;
-        private CTexture txレベルアップ;
-        private CTexture txレベルダウン;
+        //private CTexture txレベルアップ;
+        //private CTexture txレベルダウン;
         //-----------------
         #endregion
 

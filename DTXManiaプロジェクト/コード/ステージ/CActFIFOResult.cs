@@ -31,7 +31,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                CDTXMania.tテクスチャの解放( ref this.tx幕 );
+                //CDTXMania.tテクスチャの解放( ref this.tx幕 );
 				base.On非活性化();
 			}
 		}
@@ -39,7 +39,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_background_mask.png" ) );
+				//this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_background_mask.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -52,19 +52,19 @@ namespace DTXMania
 			this.counter.t進行();
 
 			// Size clientSize = CDTXMania.app.Window.ClientSize;	// #23510 2010.10.31 yyagi: delete as of no one use this any longer.
-			if (this.tx幕 != null)
+			if (CDTXMania.Tx.Result_FadeIn != null)
 			{
                 if( this.mode == EFIFOモード.フェードアウト )
                 {
                     int y =  this.counter.n現在の値 >= 360 ? 360 : this.counter.n現在の値;
-                    this.tx幕.t2D描画( CDTXMania.app.Device, 0, this.counter.n現在の値 >= 360 ? 0 : -360 + y, new Rectangle( 0, 0, 1280, 380 ) );
-                    this.tx幕.t2D描画( CDTXMania.app.Device, 0, 720 - y, new Rectangle( 0, 380, 1280, 360 ) );
+                    CDTXMania.Tx.Result_FadeIn.t2D描画( CDTXMania.app.Device, 0, this.counter.n現在の値 >= 360 ? 0 : -360 + y, new Rectangle( 0, 0, 1280, 380 ) );
+                    CDTXMania.Tx.Result_FadeIn.t2D描画( CDTXMania.app.Device, 0, 720 - y, new Rectangle( 0, 380, 1280, 360 ) );
                 }
                 else
                 {
-                    this.tx幕.n透明度 = (((100 - this.counter.n現在の値) * 0xff) / 100);
-                    this.tx幕.t2D描画( CDTXMania.app.Device, 0, 0, new Rectangle( 0, 0, 1280, 360 ) );
-                    this.tx幕.t2D描画( CDTXMania.app.Device, 0, 360, new Rectangle( 0, 380, 1280, 360 ) );
+                    CDTXMania.Tx.Result_FadeIn.n透明度 = (((100 - this.counter.n現在の値) * 0xff) / 100);
+                    CDTXMania.Tx.Result_FadeIn.t2D描画( CDTXMania.app.Device, 0, 0, new Rectangle( 0, 0, 1280, 360 ) );
+                    CDTXMania.Tx.Result_FadeIn.t2D描画( CDTXMania.app.Device, 0, 360, new Rectangle( 0, 380, 1280, 360 ) );
                 }
 
 
@@ -93,7 +93,7 @@ namespace DTXMania
 		//-----------------
 		private CCounter counter;
 		private EFIFOモード mode;
-        private CTexture tx幕;
+        //private CTexture tx幕;
 		//-----------------
 		#endregion
 	}

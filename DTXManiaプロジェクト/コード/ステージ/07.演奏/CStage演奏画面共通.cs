@@ -1200,10 +1200,11 @@ namespace DTXMania
                 pChip.nRollCount++;
                 this.n風船残り[ player ]--;
 
+                this.n合計連打数[player]++; //  成績発表の連打数に風船を含めるように (AioiLight)
                 //分岐のための処理。実装してない。
 
                 //赤か青かの分岐
-                if( pChip.nBalloon == pChip.nRollCount )
+                if ( pChip.nBalloon == pChip.nRollCount )
                 {
                     //ﾊﾟｧｰﾝ
                     CDTXMania.Skin.soundBalloon.t再生する();

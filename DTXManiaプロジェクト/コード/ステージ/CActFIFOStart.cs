@@ -32,7 +32,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                CDTXMania.tテクスチャの解放( ref this.tx幕 );
+                //CDTXMania.tテクスチャの解放( ref this.tx幕 );
 				base.On非活性化();
 			}
 		}
@@ -40,8 +40,8 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FO.png" ) );
- 				this.tx幕2 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FI.png" ) );
+				//this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FO.png" ) );
+ 			//	this.tx幕2 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FI.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -57,19 +57,19 @@ namespace DTXMania
 
             if( this.mode == EFIFOモード.フェードアウト )
             {
-                if( this.tx幕 != null )
+                if( CDTXMania.Tx.SongLoading_FadeOut != null )
 			    {
                     int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-                    this.tx幕.t2D描画( CDTXMania.app.Device, 0, 720 - y );
+                    CDTXMania.Tx.SongLoading_FadeOut.t2D描画( CDTXMania.app.Device, 0, 720 - y );
                 }
 
 			}
             else
             {
-                if( this.tx幕2 != null )
+                if(CDTXMania.Tx.SongLoading_FadeIn != null )
                 {
                     int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-                    this.tx幕2.t2D描画( CDTXMania.app.Device, 0, 0 - y );
+                    CDTXMania.Tx.SongLoading_FadeIn.t2D描画( CDTXMania.app.Device, 0, 0 - y );
                 }
             }
 
@@ -98,8 +98,8 @@ namespace DTXMania
 		private CCounter counter;
         private CCounter ct待機;
 		private EFIFOモード mode;
-        private CTexture tx幕;
-        private CTexture tx幕2;
+        //private CTexture tx幕;
+        //private CTexture tx幕2;
 		//-----------------
 		#endregion
 	}

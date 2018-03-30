@@ -104,11 +104,11 @@ namespace DTXMania
 						int baseX = 370;
                         //int baseY = 135;
                         int baseY = CDTXMania.Skin.nScrollFieldY[base.st状態[j].nPlayer] - 53;
-						int x = CDTXMania.Skin.nScrollFieldX[ 0 ] - base.tx判定文字列.szテクスチャサイズ.Width / 2;
+						int x = CDTXMania.Skin.nScrollFieldX[ 0 ] - CDTXMania.Tx.Judge.szテクスチャサイズ.Width / 2;
 						int y = ( baseY + base.st状態[ j ].n相対Y座標 );
-						if( base.tx判定文字列 != null )
+						if( CDTXMania.Tx.Judge != null )
 						{
-							base.tx判定文字列.t2D描画( CDTXMania.app.Device, x, y, base.st判定文字列[ (int) base.st状態[ j ].judge ].rc );
+                            CDTXMania.Tx.Judge.t2D描画( CDTXMania.app.Device, x, y, base.st判定文字列[ (int) base.st状態[ j ].judge ].rc );
 						}
 					}
 				}

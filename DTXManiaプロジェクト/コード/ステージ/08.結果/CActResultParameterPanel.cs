@@ -192,20 +192,20 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.txパネル本体 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_panel.png" ) );
-				this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_number_s.png" ) );
-				//this.txFullCombo = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenResult fullcombo.png" ) );
-				this.txWhite = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile white 64x64.png" ) );
-                this.tx判定A = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_judge.png" ) );
-                this.tx判定B = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_judge2.png" ) );
-                this.txScore = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Score_number.png" ) );
-                this.txScoreA = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Score_number_B.png" ) );
-                this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_ResultGauge.png" ) );
-                this.txゲージ土台 = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\8_ResultGauge_base.png") );
-                this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul.png" ) );
-                this.tx炎 = CDTXMania.tテクスチャの生成Af( CSkin.Path(@"Graphics\7_Soul_fire.png") );
-                //this.txプレイヤーナンバー = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_PlayerNumber.png"));
-                this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
+				//this.txパネル本体 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_panel.png" ) );
+				//this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_number_s.png" ) );
+				////this.txFullCombo = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenResult fullcombo.png" ) );
+				//this.txWhite = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile white 64x64.png" ) );
+    //            this.tx判定A = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_judge.png" ) );
+    //            this.tx判定B = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_judge2.png" ) );
+    //            this.txScore = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Score_number.png" ) );
+    //            this.txScoreA = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Score_number_B.png" ) );
+    //            this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_ResultGauge.png" ) );
+    //            this.txゲージ土台 = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\8_ResultGauge_base.png") );
+    //            this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul.png" ) );
+    //            this.tx炎 = CDTXMania.tテクスチャの生成Af( CSkin.Path(@"Graphics\7_Soul_fire.png") );
+    //            //this.txプレイヤーナンバー = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_PlayerNumber.png"));
+    //            this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -213,20 +213,20 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
-				CDTXMania.tテクスチャの解放( ref this.tx文字 );
-				//CDTXMania.tテクスチャの解放( ref this.txFullCombo );
-				CDTXMania.tテクスチャの解放( ref this.txWhite );
-				CDTXMania.tテクスチャの解放( ref this.tx判定A );
-				CDTXMania.tテクスチャの解放( ref this.tx判定B );
-                CDTXMania.tテクスチャの解放( ref this.txScore );
-                CDTXMania.tテクスチャの解放( ref this.txScoreA );
-                CDTXMania.tテクスチャの解放( ref this.txゲージ );
-                CDTXMania.tテクスチャの解放( ref this.txゲージ土台 );
-                CDTXMania.tテクスチャの解放( ref this.tx魂 );
-                CDTXMania.tテクスチャの解放( ref this.tx炎 );
-                //CDTXMania.tテクスチャの解放( ref this.txプレイヤーナンバー);
-                CDTXMania.tテクスチャの解放( ref this.txネームプレート );
+				//CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
+				//CDTXMania.tテクスチャの解放( ref this.tx文字 );
+				////CDTXMania.tテクスチャの解放( ref this.txFullCombo );
+				//CDTXMania.tテクスチャの解放( ref this.txWhite );
+				//CDTXMania.tテクスチャの解放( ref this.tx判定A );
+				//CDTXMania.tテクスチャの解放( ref this.tx判定B );
+    //            CDTXMania.tテクスチャの解放( ref this.txScore );
+    //            CDTXMania.tテクスチャの解放( ref this.txScoreA );
+    //            CDTXMania.tテクスチャの解放( ref this.txゲージ );
+    //            CDTXMania.tテクスチャの解放( ref this.txゲージ土台 );
+    //            CDTXMania.tテクスチャの解放( ref this.tx魂 );
+    //            CDTXMania.tテクスチャの解放( ref this.tx炎 );
+    //            //CDTXMania.tテクスチャの解放( ref this.txプレイヤーナンバー);
+    //            CDTXMania.tテクスチャの解放( ref this.txネームプレート );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -242,138 +242,138 @@ namespace DTXMania
 				base.b初めての進行描画 = false;
 			}
 			this.ct表示用.t進行();
-			if( this.txパネル本体 != null )
+			if(CDTXMania.Tx.Result_Panel != null )
 			{
-				this.txパネル本体.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nResultPanelP1X, CDTXMania.Skin.nResultPanelP1Y );
+                CDTXMania.Tx.Result_Panel.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nResultPanelP1X, CDTXMania.Skin.nResultPanelP1Y );
 			}
-			if( this.txScoreA != null )
+			if(CDTXMania.Tx.Result_Score_Text != null )
 			{
-				this.txScoreA.t2D描画( CDTXMania.app.Device, 753, 249 ); //点
+                CDTXMania.Tx.Result_Score_Text.t2D描画( CDTXMania.app.Device, 753, 249 ); //点
 			}
-            if( this.tx判定A != null )
+            if(CDTXMania.Tx.Result_Judge != null )
             {
-				this.tx判定A.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nResultJudge1_P1X, CDTXMania.Skin.nResultJudge1_P1Y );
+                CDTXMania.Tx.Result_Judge.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nResultJudge1_P1X, CDTXMania.Skin.nResultJudge1_P1Y );
             }
-            if( this.tx判定B != null )
+            if(CDTXMania.Tx.Result_Judge != null )
             {
-				this.tx判定B.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nResultJudge2_P1X, CDTXMania.Skin.nResultJudge2_P1Y );
+                //CDTXMania.Tx.Result_Judge.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nResultJudge2_P1X, CDTXMania.Skin.nResultJudge2_P1Y );
             }
-            if( this.txゲージ土台 != null && this.txゲージ != null )
+            if(CDTXMania.Tx.Result_Gauge_Base != null && CDTXMania.Tx.Result_Gauge != null )
             {
                 //int nRectX = (int)( CDTXMania.stage結果.st演奏記録.Drums.fゲージ / 2) * 12;
                 double Rate = CDTXMania.stage結果.st演奏記録.Drums.fゲージ;
                 //nRectX = CDTXMania.stage結果.st演奏記録.Drums.fゲージ >= 80.0f ? 80 : nRectX;
-                this.txゲージ土台.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nResultGaugeBaseP1X, CDTXMania.Skin.nResultGaugeBaseP1Y, new Rectangle( 0, 0, 691, 47 ) );
+                CDTXMania.Tx.Result_Gauge_Base.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nResultGaugeBaseP1X, CDTXMania.Skin.nResultGaugeBaseP1Y, new Rectangle( 0, 0, 691, 47 ) );
                 #region[ ゲージ本体 ]
                 if( Rate > 2 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 4 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 12, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 12, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 6 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 24, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 24, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 8 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 36, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 36, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 10 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 49, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 49, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 12 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 62, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 62, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 14 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 74, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 74, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 16 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 86, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 86, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 18 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 99, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 99, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 20 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 112, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 112, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 22 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 125, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 125, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 24 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 138, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 138, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 26 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 150, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 150, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 28 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 162, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 162, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 30 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 175, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 175, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 32 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 187, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 187, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 34 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 200, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 200, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 36 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 212, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 212, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 38 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 225, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 225, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 40 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 238, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 238, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 42 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 251, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 251, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 44 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 263, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 263, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 46 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 276, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 276, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 48 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 288, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 288, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 50 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 301, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 301, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 52 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 313, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 313, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 54 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 326, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 326, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 56 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 339, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 339, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 58 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 352, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 352, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 60 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 364, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 364, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 62 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 377, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 377, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 64 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 390, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 390, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 66 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 402, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 402, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 68 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 415, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 415, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 70 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 427, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 427, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 72 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 440, 145, new Rectangle( 0, 20, 12, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 440, 145, new Rectangle( 0, 20, 12, 20 ) );
                 if( Rate > 74 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 452, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 452, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 76 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 465, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 465, 145, new Rectangle( 12, 20, 13, 20 ) );
                 if( Rate > 78 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 478, 145, new Rectangle( 12, 20, 13, 20 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 478, 145, new Rectangle( 12, 20, 13, 20 ) );
 
                 if( Rate > 80 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 491, 125, new Rectangle( 25, 0, 12, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 491, 125, new Rectangle( 25, 0, 12, 40 ) );
                 if( Rate > 82 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 503, 125, new Rectangle( 49, 0, 13, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 503, 125, new Rectangle( 49, 0, 13, 40 ) );
                 if( Rate > 84 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 516, 125, new Rectangle( 37, 0, 12, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 516, 125, new Rectangle( 37, 0, 12, 40 ) );
                 if( Rate > 86 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 528, 125, new Rectangle( 49, 0, 13, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 528, 125, new Rectangle( 49, 0, 13, 40 ) );
                 if( Rate > 88 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 541, 125, new Rectangle( 37, 0, 12, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 541, 125, new Rectangle( 37, 0, 12, 40 ) );
                 if( Rate > 90 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 553, 125, new Rectangle( 49, 0, 13, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 553, 125, new Rectangle( 49, 0, 13, 40 ) );
                 if( Rate > 92 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 566, 125, new Rectangle( 49, 0, 13, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 566, 125, new Rectangle( 49, 0, 13, 40 ) );
                 if( Rate > 94 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 579, 125, new Rectangle( 37, 0, 12, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 579, 125, new Rectangle( 37, 0, 12, 40 ) );
                 if( Rate > 96 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 591, 125, new Rectangle( 49, 0, 13, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 591, 125, new Rectangle( 49, 0, 13, 40 ) );
                 if( Rate > 98 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 604, 125, new Rectangle( 37, 0, 12, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 604, 125, new Rectangle( 37, 0, 12, 40 ) );
                 if( Rate > 100 )
-                    this.txゲージ.t2D描画( CDTXMania.app.Device, 559 + 616, 125, new Rectangle( 49, 0, 10, 40 ) );
+                    CDTXMania.Tx.Result_Gauge.t2D描画( CDTXMania.app.Device, 559 + 616, 125, new Rectangle( 49, 0, 10, 40 ) );
 
                 #endregion
             }
-            if( this.tx魂 != null )
+            if(CDTXMania.Tx.Gauge_Soul != null )
             {
-                if( this.tx炎 != null && CDTXMania.stage結果.st演奏記録.Drums.fゲージ >= 100.0f )
-                    this.tx炎.t2D描画( CDTXMania.app.Device, 1100, 34, new Rectangle( 0, 0, 230, 230 ) );
-                this.tx魂.t2D描画( CDTXMania.app.Device, 1174, 107, new Rectangle( 0, 0, 80, 80 ) );
+                if(CDTXMania.Tx.Gauge_Soul_Fire != null && CDTXMania.stage結果.st演奏記録.Drums.fゲージ >= 100.0f )
+                    CDTXMania.Tx.Gauge_Soul_Fire.t2D描画( CDTXMania.app.Device, 1100, 34, new Rectangle( 0, 0, 230, 230 ) );
+                CDTXMania.Tx.Gauge_Soul.t2D描画( CDTXMania.app.Device, 1174, 107, new Rectangle( 0, 0, 80, 80 ) );
             }
             //演奏中のやつ使いまわせなかった。ファック。
             this.tスコア文字表示( CDTXMania.Skin.nResultScoreP1X, CDTXMania.Skin.nResultScoreP1Y, string.Format( "{0,7:######0}",CDTXMania.stage結果.st演奏記録.Drums.nスコア ) );
@@ -419,20 +419,20 @@ namespace DTXMania
 		private readonly ST文字位置[] st小文字位置;
 		private readonly ST文字位置[] st大文字位置;
         private ST文字位置[] stScoreFont;
-		private CTexture txFullCombo;
-		private CTexture txWhite;
-		private CTexture txパネル本体;
-        private CTexture tx判定A;
-        private CTexture tx判定B;
-        private CTexture txScore;
-        private CTexture txScoreA;
-        private CTexture txゲージ土台;
-        private CTexture txゲージ;
-        private CTexture tx魂;
-        private CTextureAf tx炎;
-		private CTexture tx文字;
-        //private CTexture txプレイヤーナンバー;
-        private CTexture txネームプレート;
+		//private CTexture txFullCombo;
+		//private CTexture txWhite;
+		//private CTexture txパネル本体;
+  //      private CTexture tx判定A;
+  //      private CTexture tx判定B;
+  //      private CTexture txScore;
+  //      private CTexture txScoreA;
+  //      private CTexture txゲージ土台;
+  //      private CTexture txゲージ;
+  //      private CTexture tx魂;
+  //      private CTextureAf tx炎;
+		//private CTexture tx文字;
+  //      //private CTexture txプレイヤーナンバー;
+  //      private CTexture txネームプレート;
 
 		private void t小文字表示( int x, int y, string str )
 		{
@@ -448,9 +448,9 @@ namespace DTXMania
 					if( this.st小文字位置[ i ].ch == ch )
 					{
 						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, this.st小文字位置[ i ].pt.Y, 32, 38 );
-						if( this.tx文字 != null )
+						if(CDTXMania.Tx.Result_Number != null )
 						{
-							this.tx文字.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                            CDTXMania.Tx.Result_Number.t2D描画( CDTXMania.app.Device, x, y, rectangle );
 						}
 						break;
 					}
@@ -476,9 +476,9 @@ namespace DTXMania
 							rectangle.Width -= 2;
 							rectangle.Height -= 2;
 						}
-						if( this.tx文字 != null )
+						if(CDTXMania.Tx.Result_Number != null )
 						{
-							this.tx文字.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                            CDTXMania.Tx.Result_Number.t2D描画( CDTXMania.app.Device, x, y, rectangle );
 						}
 						break;
 					}
@@ -496,9 +496,9 @@ namespace DTXMania
                     if (this.stScoreFont[i].ch == ch)
                     {
                         Rectangle rectangle = new Rectangle(this.stScoreFont[ i ].pt.X, 0, 24, 40);
-                        if (this.txScore != null)
+                        if (CDTXMania.Tx.Result_Score_Number != null)
                         {
-                            this.txScore.t2D描画(CDTXMania.app.Device, x, y, rectangle);
+                            CDTXMania.Tx.Result_Score_Number.t2D描画(CDTXMania.app.Device, x, y, rectangle);
                         }
                         break;
                     }

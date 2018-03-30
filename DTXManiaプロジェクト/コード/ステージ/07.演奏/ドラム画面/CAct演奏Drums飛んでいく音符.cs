@@ -21,7 +21,7 @@ namespace DTXMania
 		// メソッド
         public virtual void Start( int nLane, int nPlayer )
 		{
-            if (this.tx音符 != null)
+            if (CDTXMania.Tx.Notes != null)
             {
                 for (int i = 0; i < 1; i++)
                 {
@@ -71,7 +71,7 @@ namespace DTXMania
 
         public virtual void t虹( int player )
 		{
-            if (this.tx虹 != null)
+            if (CDTXMania.Tx.Effects_Rainbow != null)
             {
                 for (int i = 0; i < 2; i++)
                 {
@@ -137,8 +137,8 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                this.tx音符 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_taiko_notes.png" ) );
-                this.tx虹 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_balloon_rainbow.png" ) );
+                //this.tx音符 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_taiko_notes.png" ) );
+                //this.tx虹 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_balloon_rainbow.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -146,8 +146,8 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.tx音符 );
-                CDTXMania.tテクスチャの解放( ref this.tx虹 );
+				//CDTXMania.tテクスチャの解放( ref this.tx音符 );
+    //            CDTXMania.tテクスチャの解放( ref this.tx虹 );
 
 				base.OnManagedリソースの解放();
 			}
@@ -167,19 +167,19 @@ namespace DTXMania
                             this.st虹[f].b使用中 = false;
                         }
 
-                        if( this.tx虹 != null && this.st虹[f].nPlayer == 0 ) //画像が出来るまで
+                        if(CDTXMania.Tx.Effects_Rainbow != null && this.st虹[f].nPlayer == 0 ) //画像が出来るまで
                         {
                             //this.st虹[f].ct進行.n現在の値 = 164;
 
                             if (this.st虹[f].ct進行.n現在の値 < 82)
                             {
                                 int nRectX = ((this.st虹[f].ct進行.n現在の値 * 920) / 85);
-                                this.tx虹.t2D描画(CDTXMania.app.Device, 360, -100, new Rectangle(0, 0, nRectX, 410));
+                                CDTXMania.Tx.Effects_Rainbow.t2D描画(CDTXMania.app.Device, 360, -100, new Rectangle(0, 0, nRectX, 410));
                             }
                             else if (this.st虹[f].ct進行.n現在の値 >= 82)
                             {
                                 int nRectX = (((this.st虹[f].ct進行.n現在の値 - 82) * 920) / 85);
-                                this.tx虹.t2D描画(CDTXMania.app.Device, 360 + nRectX, -100, new Rectangle(nRectX, 0, 920 - nRectX, 410));
+                                CDTXMania.Tx.Effects_Rainbow.t2D描画(CDTXMania.app.Device, 360 + nRectX, -100, new Rectangle(nRectX, 0, 920 - nRectX, 410));
                             }
 
                         }
@@ -197,19 +197,19 @@ namespace DTXMania
                             this.st虹2[f].b使用中 = false;
                         }
 
-                        if( this.tx虹 != null && this.st虹2[f].nPlayer == 1 ) //画像が出来るまで
+                        if(CDTXMania.Tx.Effects_Rainbow != null && this.st虹2[f].nPlayer == 1 ) //画像が出来るまで
                         {
                             //this.st虹[f].ct進行.n現在の値 = 164;
 
                             if (this.st虹2[f].ct進行.n現在の値 < 82)
                             {
                                 int nRectX = ((this.st虹2[f].ct進行.n現在の値 * 920) / 85);
-                                this.tx虹.t2D上下反転描画(CDTXMania.app.Device, 360, 410, new Rectangle(0, 0, nRectX, 410));
+                                CDTXMania.Tx.Effects_Rainbow.t2D上下反転描画(CDTXMania.app.Device, 360, 410, new Rectangle(0, 0, nRectX, 410));
                             }
                             else if (this.st虹2[f].ct進行.n現在の値 >= 82)
                             {
                                 int nRectX = (((this.st虹2[f].ct進行.n現在の値 - 82) * 920) / 85);
-                                this.tx虹.t2D上下反転描画(CDTXMania.app.Device, 360 + nRectX, 410, new Rectangle(nRectX, 0, 920 - nRectX, 410));
+                                CDTXMania.Tx.Effects_Rainbow.t2D上下反転描画(CDTXMania.app.Device, 360 + nRectX, 410, new Rectangle(nRectX, 0, 920 - nRectX, 410));
                             }
 
                         }
@@ -266,15 +266,15 @@ namespace DTXMania
                         //mat *= Matrix.Translation((this.st飛び散るチップ[i].fXL - 50f), -(this.st飛び散るチップ[i].fY + 257), 0f);
                         mat2 *= Matrix.Translation((this.st飛び散るチップ[i].fXR - 50f), -(this.st飛び散るチップ[i].fY + 0), 0f);
 
-                        if (this.tx音符 != null)
+                        if (CDTXMania.Tx.Notes != null)
                         {
                             if( this.st飛び散るチップ[i].nLane == 0xA || this.st飛び散るチップ[i].nLane == 0xB )
                             {
-                                this.tx音符.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( ( this.st飛び散るチップ[i].nLane + 3 ) * 130, 0, 130, 130));
+                                CDTXMania.Tx.Notes.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( ( this.st飛び散るチップ[i].nLane + 3 ) * 130, 0, 130, 130));
                             }
                             else
                             {
-                                this.tx音符.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( this.st飛び散るチップ[i].nLane * 130, 0, 130, 130));
+                                CDTXMania.Tx.Notes.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( this.st飛び散るチップ[i].nLane * 130, 0, 130, 130));
                             }
                         }
 
@@ -307,7 +307,7 @@ namespace DTXMania
                         mat *= Matrix.Translation( this.st飛んで行く音符[ i ].fXL - 640, -(this.st飛んで行く音符[i].fY - 320), 0f);
                         //mat *= Matrix.Translation( this.st飛んで行く音符[ i ].fXL - 640, 0, 0f);
 
-                        if (this.tx音符 != null)
+                        if (CDTXMania.Tx.Notes != null)
                         {
                             //this.tx音符.t3D描画(CDTXMania.app.Device, mat, new Rectangle( this.st飛んで行く音符[i].nLane * 130, 0, 130, 130));
                         }
@@ -327,8 +327,8 @@ namespace DTXMania
 
 		#region [ private ]
 		//-----------------
-        private CTexture tx音符;
-        private CTexture tx虹;
+        //private CTexture tx音符;
+        //private CTexture tx虹;
         protected STSTATUS[] st状態 = new STSTATUS[2];
 
         [StructLayout(LayoutKind.Sequential)]

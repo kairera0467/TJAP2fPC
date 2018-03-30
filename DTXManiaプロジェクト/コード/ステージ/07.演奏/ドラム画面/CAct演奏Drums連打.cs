@@ -87,16 +87,16 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.tx連打枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Rollballoon.png" ) );
-            this.tx連打数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
+            //this.tx連打枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Rollballoon.png" ) );
+            //this.tx連打数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
 
             base.OnManagedリソースの作成();
         }
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放( ref this.tx連打枠 );
-            CDTXMania.tテクスチャの解放( ref this.tx連打数字 );
+            //CDTXMania.tテクスチャの解放( ref this.tx連打枠 );
+            //CDTXMania.tテクスチャの解放( ref this.tx連打数字 );
 
             base.OnManagedリソースの解放();
         }
@@ -119,22 +119,22 @@ namespace DTXMania
                 //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ct連打枠カウンター[player].n現在の値.ToString());
                 if ( this.ct連打枠カウンター[ player ].b終了値に達してない)
                 {
-                    this.tx連打枠.t2D描画(CDTXMania.app.Device, 217, nRollBalloon[player]);
+                    CDTXMania.Tx.Balloon_Roll.t2D描画(CDTXMania.app.Device, 217, nRollBalloon[player]);
                     this.t文字表示(330 + 62, nRollNumber[player], n連打数.ToString(), n連打数, player);
-                    this.tx連打枠.n透明度 = 256;
-                    this.tx連打数字.n透明度 = 256;
+                    CDTXMania.Tx.Balloon_Roll.n透明度 = 256;
+                    CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 256;
                     if ((int)this.ct連打枠カウンター[player].n現在の値 > 96)
                     {
-                        this.tx連打枠.n透明度 = 50;
-                        this.tx連打数字.n透明度 = 50;
+                        CDTXMania.Tx.Balloon_Roll.n透明度 = 50;
+                        CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 50;
                     } else if((int)this.ct連打枠カウンター[player].n現在の値 > 92)
                     {
-                        this.tx連打枠.n透明度 = 125;
-                        this.tx連打数字.n透明度 = 125;
+                        CDTXMania.Tx.Balloon_Roll.n透明度 = 125;
+                        CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 125;
                     } else if ((int)this.ct連打枠カウンター[player].n現在の値 > 88)
                     {
-                        this.tx連打枠.n透明度 = 200;
-                        this.tx連打数字.n透明度 = 200;
+                        CDTXMania.Tx.Balloon_Roll.n透明度 = 200;
+                        CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 200;
                     }
 
                 }
@@ -152,8 +152,8 @@ namespace DTXMania
         public bool[] b表示;
         public int[] n連打数;
         public CCounter[] ct連打枠カウンター;
-        private CTexture tx連打枠;
-        private CTexture tx連打数字;
+        //private CTexture tx連打枠;
+        //private CTexture tx連打数字;
         private readonly ST文字位置[] st文字位置;
         public CCounter[] ct連打アニメ;
         private float[,] n連打アニメ拡大率_座標 = new float[,]
@@ -194,10 +194,10 @@ namespace DTXMania
 					{
 						Rectangle rectangle = new Rectangle( this.st文字位置[ i ].pt.X, this.st文字位置[ i ].pt.Y, 62, 80 );
 
-						if( this.tx連打数字 != null )
+						if(CDTXMania.Tx.Balloon_Number_Roll != null )
 						{
-                            this.tx連打数字.vc拡大縮小倍率.Y = this.n連打アニメ拡大率_座標[this.ct連打アニメ[nPlayer].n現在の値, 0];
-							this.tx連打数字.t2D描画( CDTXMania.app.Device, x - ( ( 62 * n桁数 ) / 2 ), y + (int)this.n連打アニメ拡大率_座標[ this.ct連打アニメ[nPlayer].n現在の値, 1], rectangle );
+                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = this.n連打アニメ拡大率_座標[this.ct連打アニメ[nPlayer].n現在の値, 0];
+                            CDTXMania.Tx.Balloon_Number_Roll.t2D描画( CDTXMania.app.Device, x - ( ( 62 * n桁数 ) / 2 ), y + (int)this.n連打アニメ拡大率_座標[ this.ct連打アニメ[nPlayer].n現在の値, 1], rectangle );
 						}
 						break;
 					}

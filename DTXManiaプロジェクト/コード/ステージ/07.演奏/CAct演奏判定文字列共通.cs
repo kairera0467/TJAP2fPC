@@ -43,7 +43,7 @@ namespace DTXMania
 		}
 
 		
-		protected CTexture tx判定文字列;
+		//protected CTexture tx判定文字列;
 
 		// コンストラクタ
 
@@ -136,7 +136,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx判定文字列 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_judgement.png" ) );
+				//this.tx判定文字列 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_judgement.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -144,7 +144,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.tx判定文字列 );
+				//CDTXMania.tテクスチャの解放( ref this.tx判定文字列 );
 				base.OnManagedリソースの解放();
 			}
 		}

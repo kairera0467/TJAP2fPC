@@ -85,16 +85,16 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.tx連打枠 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_balloon.png"));
-            this.tx連打数字 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_RollNumber.png"));
+            //this.tx連打枠 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_balloon.png"));
+            //this.tx連打数字 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_RollNumber.png"));
 
-            this.txキャラクター = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon.png"));
-            this.txキャラクター_風船終了 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon_break_0.png"));
+            //this.txキャラクター = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon.png"));
+            //this.txキャラクター_風船終了 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon_break_0.png"));
 
-            for (int i = 0; i < 6; i++)
-            {
-                this.tx風船枠[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon_" + i.ToString() + ".png"));
-            }
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    this.tx風船枠[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon_" + i.ToString() + ".png"));
+            //}
 
             this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, CDTXMania.Timer);
             base.OnManagedリソースの作成();
@@ -102,16 +102,16 @@ namespace DTXMania
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放(ref this.tx連打枠);
-            CDTXMania.tテクスチャの解放(ref this.tx連打数字);
+            //CDTXMania.tテクスチャの解放(ref this.tx連打枠);
+            //CDTXMania.tテクスチャの解放(ref this.tx連打数字);
 
-            CDTXMania.tテクスチャの解放(ref this.txキャラクター);
-            CDTXMania.tテクスチャの解放(ref this.txキャラクター_風船終了);
+            //CDTXMania.tテクスチャの解放(ref this.txキャラクター);
+            //CDTXMania.tテクスチャの解放(ref this.txキャラクター_風船終了);
 
-            for (int i = 0; i < 6; i++)
-            {
-                CDTXMania.tテクスチャの解放(ref this.tx風船枠[i]);
-            }
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    CDTXMania.tテクスチャの解放(ref this.tx風船枠[i]);
+            //}
 
             base.OnManagedリソースの解放();
         }
@@ -133,7 +133,7 @@ namespace DTXMania
             {
                 if (n連打ノルマ < 5)
                 {
-                    n残り打数 = new int[] { 99, 99, 99, 99, 99 };
+                    n残り打数 = new int[] { 4, 3, 2, 1, 0 };
                 }
                 else
                 {
@@ -148,66 +148,74 @@ namespace DTXMania
             if (n連打数 != 0)
             {
                 //1P:0 2P:245
-                if (this.txキャラクター != null)
-                    this.txキャラクター.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterBalloonX[player], CDTXMania.Skin.nPlayerCharacterBalloonY[player]);
+                if (CDTXMania.Tx.Balloon_Balloon != null)
+                    CDTXMania.Tx.Chara_Balloon_Breaking.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterBalloonX[player], CDTXMania.Skin.nPlayerCharacterBalloonY[player]);
                 for (int j = 0; j < 5; j++)
                 {
                     if (n残り打数[j] < n連打数)
                     {
-                        if (this.tx風船枠[j] != null)
-                            this.tx風船枠[j].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nBurstBalloonX[player] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0), CDTXMania.Skin.nBurstBalloonY[player]);
+                        if (CDTXMania.Tx.Balloon_Breaking[j] != null)
+                            CDTXMania.Tx.Balloon_Breaking[j].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nBurstBalloonX[player] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0), CDTXMania.Skin.nBurstBalloonY[player]);
                         break;
                     }
                 }
                 //1P:31 2P:329
-                if (this.tx連打枠 != null)
-                    this.tx連打枠.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nBurstFrameX[player], CDTXMania.Skin.nBurstFrameY[player]);
+                if (CDTXMania.Tx.Balloon_Balloon != null)
+                    CDTXMania.Tx.Balloon_Balloon.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nBurstFrameX[player], CDTXMania.Skin.nBurstFrameY[player]);
                 this.t文字表示(CDTXMania.Skin.nBurstNumberX[player], CDTXMania.Skin.nBurstNumberY[player], n連打数.ToString(), n連打数, player);
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, n連打数.ToString() );
             }
             if (n連打数 == 0 && CDTXMania.stage演奏ドラム画面.actChara.b風船連打中)
             {
-                //this.ct風船終了.n現在の値 = 0;
-                if (!this.ct風船終了.b停止中)
-                {
-                    this.ct風船終了.t進行();
-                    if (this.ct風船終了.b終了値に達した)
-                    {
-                        this.ct風船終了.t停止();
-                    }
-                }
-                else if (this.ct風船終了.b進行中)
-                {
-                    int nY = 0;
-                    int nT = 255;
-
-
-                    if (this.ct風船終了.n現在の値 <= 100)
-                    {
-                        nY = this.ct風船終了.n現在の値;
-                    }
-                    else if (this.ct風船終了.n現在の値 > 100)
-                    {
-                        nY = 100;
-                    }
-                    //else if( this.ct風船終了.n現在の値 > 800 )
-                    {
-                        //nY = 100;
-                        //nT = 0;
-                    }
-
-                    if (this.txキャラクター != null)
-                        this.txキャラクター_風船終了.t2D描画(CDTXMania.app.Device, 240, 140 - nY);
-                    //this.txキャラクター_風船終了.n透明度 = nT;
-                    //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.赤, this.ct風船終了.n現在の値.ToString() );
-
-                    if (this.ct風船終了.b終了値に達した)
-                    {
-                        CDTXMania.stage演奏ドラム画面.actChara.b風船連打中 = false;
-                        CDTXMania.stage演奏ドラム画面.b連打中[player] = false;
-                    }
-                }
                 CDTXMania.stage演奏ドラム画面.actChara.b風船連打中 = false;
+                CDTXMania.stage演奏ドラム画面.b連打中[player] = false;
+                //this.tEnd();
+                ////this.ct風船終了.n現在の値 = 0;
+                //if (this.ct風船終了.b進行中db)
+                //{
+                //    this.ct風船終了.t進行db();
+                //    if (this.ct風船終了.b終了値に達したdb)
+                //    {
+                //        this.ct風船終了.t停止();
+                //        this.ct風船終了.db現在の値 = 0D;
+                //        CDTXMania.stage演奏ドラム画面.actChara.b風船連打中 = false;
+                //        CDTXMania.stage演奏ドラム画面.b連打中[player] = false;
+                //    }
+                //}
+
+                //if (this.ct風船終了.b進行中db)
+                //{
+                //    int nY = 0;
+                //    int nT = 255;
+
+
+                //    if (this.ct風船終了.db現在の値 <= 10)
+                //    {
+                //        nY = (int)this.ct風船終了.db現在の値;
+                //    }
+                //    else if (this.ct風船終了.db現在の値 > 10)
+                //    {
+                //        nY = 100;
+                //    }
+                //    //else if( this.ct風船終了.n現在の値 > 800 )
+                //    {
+                //        //nY = 100;
+                //        //nT = 0;
+                //    }
+
+                //    if (CDTXMania.Tx.Chara_Balloon_Broken != null)
+                //        CDTXMania.Tx.Chara_Balloon_Broken.t2D描画(CDTXMania.app.Device, 240, 140 - nY);
+                //    //this.txキャラクター_風船終了.n透明度 = nT;
+                //    CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.赤, this.ct風船終了.db現在の値.ToString() );
+
+                    
+                //}
+                //if (!this.ct風船終了.b終了値に達してないdb)
+                //{
+                //    //CDTXMania.stage演奏ドラム画面.actChara.b風船連打中 = false;
+                //    //CDTXMania.stage演奏ドラム画面.b連打中[player] = false;
+                //}
+                ////CDTXMania.stage演奏ドラム画面.actChara.b風船連打中 = false;
 
 
             }
@@ -220,14 +228,14 @@ namespace DTXMania
 
 
 
-        private CTexture tx連打枠;
-        private CTexture tx連打数字;
+        //private CTexture tx連打枠;
+        //private CTexture tx連打数字;
         private readonly ST文字位置[] st文字位置;
 
-        private CTexture txキャラクター;
-        private CTexture txキャラクター_風船終了;
+        //private CTexture txキャラクター;
+        //private CTexture txキャラクター_風船終了;
 
-        private CTexture[] tx風船枠 = new CTexture[6];
+        //private CTexture[] tx風船枠 = new CTexture[6];
 
         private CCounter ct風船終了;
         private CCounter ct風船ふきだしアニメ;
@@ -269,10 +277,11 @@ namespace DTXMania
                     {
                         Rectangle rectangle = new Rectangle(this.st文字位置[i].pt.X, this.st文字位置[i].pt.Y, 62, 80);
 
-                        if (this.tx連打数字 != null)
+                        if (CDTXMania.Tx.Balloon_Number_Roll != null)
                         {
-                            this.tx連打数字.vc拡大縮小倍率.Y = this.n風船アニメ拡大率_座標[this.ct風船アニメ[nPlayer].n現在の値, 0];
-                            this.tx連打数字.t2D描画(CDTXMania.app.Device, x - ((62 * n桁数) / 2), y + (int)this.n風船アニメ拡大率_座標[this.ct風船アニメ[nPlayer].n現在の値, 1], rectangle);
+                            CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 255;
+                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = this.n風船アニメ拡大率_座標[this.ct風船アニメ[nPlayer].n現在の値, 0];
+                            CDTXMania.Tx.Balloon_Number_Roll.t2D描画(CDTXMania.app.Device, x - ((62 * n桁数) / 2), y + (int)this.n風船アニメ拡大率_座標[this.ct風船アニメ[nPlayer].n現在の値, 1], rectangle);
                         }
                         break;
                     }
@@ -283,7 +292,7 @@ namespace DTXMania
 
         public void tEnd()
         {
-            this.ct風船終了 = new CCounter(0, 800, 1, CDTXMania.Timer);
+            this.ct風船終了 = new CCounter(0, 80, 10, CSound管理.rc演奏用タイマ);
         }
     }
 }

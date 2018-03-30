@@ -27,7 +27,7 @@ namespace DTXMania
         public virtual void Start( int nLane, int nPlayer )
         {
             nY座標P2 = new int[] { 548, 612, 670, 712, 730, 780, 725, 690, 640 };
-            if( this.tx大音符花火[ 0 ] != null && this.tx大音符花火[ 1 ] != null )
+            if( CDTXMania.Tx.Effects_Hit_FireWorks[0] != null && CDTXMania.Tx.Effects_Hit_FireWorks[1] != null )
             {
                 for (int i = 0; i < 9; i++)
                 {
@@ -211,16 +211,16 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                this.txアタックエフェクトUpper = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics\7_explosion_upper.png" ) );
-                this.txアタックエフェクトUpper_big = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_explosion_upper_big.png" ) );
-				if( this.txアタックエフェクトUpper != null )
-				{
-					this.txアタックエフェクトUpper.b加算合成 = true;
-				}
-                this.tx大音符花火[0] = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics\7_explosion_bignotes_red.png" ) );
-                this.tx大音符花火[0].b加算合成 = true;
-                this.tx大音符花火[1] = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics\7_explosion_bignotes_blue.png" ) );
-                this.tx大音符花火[1].b加算合成 = true;
+    //            this.txアタックエフェクトUpper = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics\7_explosion_upper.png" ) );
+    //            this.txアタックエフェクトUpper_big = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_explosion_upper_big.png" ) );
+				//if( this.txアタックエフェクトUpper != null )
+				//{
+				//	this.txアタックエフェクトUpper.b加算合成 = true;
+				//}
+    //            this.tx大音符花火[0] = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics\7_explosion_bignotes_red.png" ) );
+    //            this.tx大音符花火[0].b加算合成 = true;
+    //            this.tx大音符花火[1] = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics\7_explosion_bignotes_blue.png" ) );
+    //            this.tx大音符花火[1].b加算合成 = true;
                 //this.tx紙吹雪 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_particle paper.png" ) );
 				base.OnManagedリソースの作成();
 			}
@@ -229,10 +229,10 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txアタックエフェクトUpper );
-				CDTXMania.tテクスチャの解放( ref this.txアタックエフェクトUpper_big );
-                CDTXMania.tテクスチャの解放( ref this.tx大音符花火[ 0 ] );
-                CDTXMania.tテクスチャの解放( ref this.tx大音符花火[ 1 ] );
+				//CDTXMania.tテクスチャの解放( ref this.txアタックエフェクトUpper );
+				//CDTXMania.tテクスチャの解放( ref this.txアタックエフェクトUpper_big );
+    //            CDTXMania.tテクスチャの解放( ref this.tx大音符花火[ 0 ] );
+    //            CDTXMania.tテクスチャの解放( ref this.tx大音符花火[ 1 ] );
                 //CDTXMania.tテクスチャの解放( ref this.tx紙吹雪 );
 				base.OnManagedリソースの解放();
 			}
@@ -253,22 +253,22 @@ namespace DTXMania
 						        this.st状態[ i ].ct進行.t停止();
                                 this.st状態[ i ].b使用中 = false;
 					        }
-					        if( this.txアタックエフェクトUpper != null )
+					        if( CDTXMania.Tx.Effects_Hit_Explosion != null )
 					        {
                                 int n = this.st状態[ i ].nIsBig == 1 ? 520 : 0;
-                                int nX = ( CDTXMania.Skin.nScrollFieldX[ this.st状態[ i ].nPlayer ] ) - ( ( this.txアタックエフェクトUpper.sz画像サイズ.Width / 7 ) / 2 );
-                                int nY = ( CDTXMania.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] ) - ( ( this.txアタックエフェクトUpper.sz画像サイズ.Height / 4 ) / 2 );
+                                int nX = ( CDTXMania.Skin.nScrollFieldX[ this.st状態[ i ].nPlayer ] ) - ( (CDTXMania.Tx.Effects_Hit_Explosion.sz画像サイズ.Width / 7 ) / 2 );
+                                int nY = ( CDTXMania.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] ) - ( (CDTXMania.Tx.Effects_Hit_Explosion.sz画像サイズ.Height / 4 ) / 2 );
 
                                 switch( st状態[ i ].judge )
                                 {
                                     case E判定.Perfect:
                                     case E判定.Great:
                                     case E判定.Auto:
-    						            this.txアタックエフェクトUpper.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
+                                        CDTXMania.Tx.Effects_Hit_Explosion.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
                                         break;
                                     
                                     case E判定.Good:
-	    					            this.txアタックエフェクトUpper.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
+                                        CDTXMania.Tx.Effects_Hit_Explosion.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
                                         break;
 
                                     case E判定.Miss:
@@ -289,7 +289,7 @@ namespace DTXMania
 					    {
 						    this.st状態_大[ i ].ct進行.t停止();
 					    }
-					    if( this.txアタックエフェクトUpper_big != null && this.st状態_大[ i ].nIsBig == 1 )
+					    if(CDTXMania.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[ i ].nIsBig == 1 )
 					    {
 
                             switch( st状態_大[ i ].judge )
@@ -299,8 +299,8 @@ namespace DTXMania
                                 case E判定.Auto:
                                     if( this.st状態_大[ i ].nIsBig == 1 )
                                     {
-                                        float fX = 415 - ((this.txアタックエフェクトUpper_big.sz画像サイズ.Width * this.txアタックエフェクトUpper_big.vc拡大縮小倍率.X ) / 2.0f);
-                                        float fY = CDTXMania.Skin.nJudgePointY[ this.st状態_大[ i ].nPlayer ] - ((this.txアタックエフェクトUpper_big.sz画像サイズ.Height * this.txアタックエフェクトUpper_big.vc拡大縮小倍率.Y ) / 2.0f);
+                                        float fX = 415 - ((CDTXMania.Tx.Effects_Hit_Explosion_Big.sz画像サイズ.Width * CDTXMania.Tx.Effects_Hit_Explosion_Big.vc拡大縮小倍率.X ) / 2.0f);
+                                        float fY = CDTXMania.Skin.nJudgePointY[ this.st状態_大[ i ].nPlayer ] - ((CDTXMania.Tx.Effects_Hit_Explosion_Big.sz画像サイズ.Height * CDTXMania.Tx.Effects_Hit_Explosion_Big.vc拡大縮小倍率.Y ) / 2.0f);
                                         //float fY = 257 - ((this.txアタックエフェクトUpper_big.sz画像サイズ.Height * this.txアタックエフェクトUpper_big.vc拡大縮小倍率.Y ) / 2.0f);
 
                                         ////7
@@ -317,8 +317,8 @@ namespace DTXMania
                                         //mat *= Matrix.Translation( 0f, 0f, 0f );
 
 
-                                        this.txアタックエフェクトUpper_big.n透明度 = 255;
-                                        this.txアタックエフェクトUpper_big.t3D描画( CDTXMania.app.Device, mat );
+                                        CDTXMania.Tx.Effects_Hit_Explosion_Big.n透明度 = 255;
+                                        CDTXMania.Tx.Effects_Hit_Explosion_Big.t3D描画( CDTXMania.app.Device, mat );
                                     }
                                     break;
                                     
@@ -353,21 +353,21 @@ namespace DTXMania
                         float fX = this.st大音符花火[i].fX - ( 192 / 2 );
                         float fY = this.st大音符花火[i].fY - ( 192 / 2 );
 
-                        if( this.tx大音符花火[ 0 ] != null && this.st大音符花火[ i ].nColor == 0 )
+                        if(CDTXMania.Tx.Effects_Hit_FireWorks[ 0 ] != null && this.st大音符花火[ i ].nColor == 0 )
                         {
                             if( this.st大音符花火[ i ].n開始フレーム <= this.st大音符花火[ i ].ct進行.n現在の値 && this.st大音符花火[ i ].n終了フレーム > this.st大音符花火[ i ].ct進行.n現在の値 )
                             {
                                 //this.tx大音符花火[ 0 ].t3D描画(CDTXMania.app.Device, mat, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ));
                                 //this.tx大音符花火[ 0 ].t3D描画( CDTXMania.app.Device, mat, fX, fY, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ) );
-                                this.tx大音符花火[ 0 ].t2D描画( CDTXMania.app.Device, (int)fX, (int)fY, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ) );
+                                CDTXMania.Tx.Effects_Hit_FireWorks[ 0 ].t2D描画( CDTXMania.app.Device, (int)fX, (int)fY, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ) );
                             }
                         }
-                        if( this.tx大音符花火[ 1 ] != null && this.st大音符花火[ i ].nColor == 1 )
+                        if(CDTXMania.Tx.Effects_Hit_FireWorks[ 1 ] != null && this.st大音符花火[ i ].nColor == 1 )
                         {
                             if( this.st大音符花火[ i ].n開始フレーム <= this.st大音符花火[ i ].ct進行.n現在の値 && this.st大音符花火[ i ].n終了フレーム > this.st大音符花火[ i ].ct進行.n現在の値 )
                             {
                                 //this.tx大音符花火[ 1 ].t3D描画( CDTXMania.app.Device, mat, fX, fY, );
-                                this.tx大音符花火[ 1 ].t2D描画( CDTXMania.app.Device, (int)fX, (int)fY, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ) );
+                                CDTXMania.Tx.Effects_Hit_FireWorks[ 1 ].t2D描画( CDTXMania.app.Device, (int)fX, (int)fY, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ) );
                             }
                         }
                     }
@@ -421,9 +421,9 @@ namespace DTXMania
 
 		#region [ private ]
 		//-----------------
-        private CTextureAf txアタックエフェクトUpper;
-        private CTexture txアタックエフェクトUpper_big;
-        private CTextureAf[] tx大音符花火 = new CTextureAf[2];
+        //private CTextureAf txアタックエフェクトUpper;
+        //private CTexture txアタックエフェクトUpper_big;
+        //private CTextureAf[] tx大音符花火 = new CTextureAf[2];
         //private CTexture tx紙吹雪;
 
         protected STSTATUS[] st状態 = new STSTATUS[ 3 * 4 ];
