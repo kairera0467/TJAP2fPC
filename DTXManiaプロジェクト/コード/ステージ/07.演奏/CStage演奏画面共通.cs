@@ -2000,12 +2000,12 @@ namespace DTXMania
 			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
 			if ( nIndex_NearestChip_Future >= count )											// 検索対象が未来方向には見つからなかった(しかし過去方向には見つかった)場合
 			{
-				nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+                nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
 //				nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
 			}
 			else if ( nIndex_NearestChip_Past < 0 )												// 検索対象が過去方向には見つからなかった(しかし未来方向には見つかった)場合
 			{
-				nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
+                nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
 //				nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
 			}
 			else

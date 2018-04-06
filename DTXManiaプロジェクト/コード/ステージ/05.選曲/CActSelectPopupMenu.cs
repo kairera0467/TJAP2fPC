@@ -201,7 +201,7 @@ namespace DTXMania
 				this.font = null;
 
 				CDTXMania.tテクスチャの解放( ref this.txCursor );
-				CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
+				//CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
 				for ( int i = 0; i < 4; i++ )
 				{
 					this.ctキー反復用[ i ] = null;
@@ -214,15 +214,15 @@ namespace DTXMania
 			if ( !base.b活性化してない )
 			{
 				string pathCursor = CSkin.Path( @"Graphics\5_menu cursor.png" );;
-				string pathPopupMenuBackground = CSkin.Path( @"Graphics\5_sort menu background.png" );
+				//string pathPopupMenuBackground = CSkin.Path( @"Graphics\5_sort menu background.png" );
 				if ( File.Exists ( pathCursor ) )
 				{
 					this.txCursor = CDTXMania.tテクスチャの生成( pathCursor, false );
 				}
-				if ( File.Exists( pathPopupMenuBackground ) )
-				{
-					this.txPopupMenuBackground = CDTXMania.tテクスチャの生成( pathPopupMenuBackground, false );
-				}
+				//if ( File.Exists( pathPopupMenuBackground ) )
+				//{
+				//	this.txPopupMenuBackground = CDTXMania.tテクスチャの生成( pathPopupMenuBackground, false );
+				//}
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -230,7 +230,7 @@ namespace DTXMania
 		{
 			if ( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
+				//CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
 				CDTXMania.tテクスチャの解放( ref this.txCursor );
                 CDTXMania.t安全にDisposeする( ref this.prvFont );
 			}
@@ -314,9 +314,9 @@ namespace DTXMania
 					#endregion
 				}
 				#region [ ポップアップメニュー 背景描画 ]
-				if ( this.txPopupMenuBackground != null )
+				if ( CDTXMania.Tx.Menu_Title != null )
 				{
-					this.txPopupMenuBackground.t2D描画( CDTXMania.app.Device, 160, 40 );
+                    CDTXMania.Tx.Menu_Title.t2D描画( CDTXMania.app.Device, 160, 40 );
 				}
 				#endregion
 				#region [ ソートメニュータイトル描画 ]
@@ -400,7 +400,7 @@ namespace DTXMania
 		internal int n現在の選択行;
 		internal E楽器パート eInst = E楽器パート.UNKNOWN;
 
-		private CTexture txPopupMenuBackground;
+		//private CTexture txPopupMenuBackground;
 		private CTexture txCursor;
 		private CActDFPFont font;
         CPrivateFastFont prvFont;

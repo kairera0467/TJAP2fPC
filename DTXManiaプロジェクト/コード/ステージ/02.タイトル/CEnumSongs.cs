@@ -444,7 +444,7 @@ namespace DTXMania
 
 									try
 									{
-										this.Songs管理.t曲を検索してリストを作成する( path, true );
+                                        this.Songs管理.t曲を検索してリストを作成する(path, true);
 									}
 									catch ( Exception e )
 									{

@@ -305,10 +305,11 @@ namespace DTXMania
 			bool bGradation = ( ( drawmode & DrawMode.Gradation ) == DrawMode.Gradation );
 
 			// 縁取りの縁のサイズは、とりあえずフォントの大きさの1/4とする
-			int nEdgePt = (bEdge)? _pt / 4 : 0;
+			//int nEdgePt = (bEdge)? _pt / 4 : 0;
+            int nEdgePt = (bEdge) ? (_pt * 2) / 7 : 0; // 縁取りが少なすぎるという意見が多かったため変更。 (AioiLight)
 
-			// 描画サイズを測定する
-			Size stringSize = System.Windows.Forms.TextRenderer.MeasureText( drawstr, this._font, new Size( int.MaxValue, int.MaxValue ),
+            // 描画サイズを測定する
+            Size stringSize = System.Windows.Forms.TextRenderer.MeasureText( drawstr, this._font, new Size( int.MaxValue, int.MaxValue ),
 				System.Windows.Forms.TextFormatFlags.NoPrefix |
 				System.Windows.Forms.TextFormatFlags.NoPadding
 			);

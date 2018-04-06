@@ -33,6 +33,7 @@ namespace DTXMania
         const string BALLOON = @"11_Balloon\";
         const string LANE = @"12_Lane\";
         const string GENRE = @"13_Genre\";
+        const string GAMEMODE = @"14_GameMode\";
         // InGame_Effects
         const string FIRE = @"Fire\";
         const string HIT = @"Hit\";
@@ -64,6 +65,7 @@ namespace DTXMania
             #region 共通
             Tile_Black = TxC(@"Tile_Black.png");
             Tile_White = TxC(@"Tile_White.png");
+            Menu_Title = TxC(@"Menu_Title.png");
             #endregion
             #region 1_タイトル画面
             Title_Background = TxC(TITLE + @"Background.png");
@@ -399,6 +401,10 @@ namespace DTXMania
             End_Clear_Text_Effect = TxC(GAME + END + @"Clear_Text_Effect.png");
             if (End_Clear_Text_Effect != null) End_Clear_Text_Effect.b加算合成 = true;
             #endregion
+            #region
+            GameMode_Timer_Tick = TxC(GAME + GAMEMODE + @"Timer_Tick.png");
+            GameMode_Timer_Frame = TxC(GAME + GAMEMODE + @"Timer_Frame.png");
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -424,7 +430,8 @@ namespace DTXMania
 
         #region 共通
         public CTexture Tile_Black,
-            Tile_White;
+            Tile_White,
+            Menu_Title;
         #endregion
         #region 1_タイトル画面
         public CTexture Title_Background,
@@ -571,6 +578,10 @@ namespace DTXMania
             End_Clear_R;
         public CTexture End_Clear_Text,
             End_Clear_Text_Effect;
+        #endregion
+        #region ゲームモード
+        public CTexture GameMode_Timer_Frame,
+            GameMode_Timer_Tick;
         #endregion
         #endregion
 

@@ -63,11 +63,11 @@ namespace DTXMania
         private int n最後に時間延長した時刻;
         private int n演奏時間;
         private int n前回の延長時間;
-        private CTexture tx残り時間数字;
-        private CTexture tx背景黒;
-        private CTexture tx加算時間数字;
-        private CTexture txタイマー枠;
-        private CTexture txタイマー針;
+        //private CTexture tx残り時間数字;
+        //private CTexture tx背景黒;
+        //private CTexture tx加算時間数字;
+        //private CTexture txタイマー枠;
+        //private CTexture txタイマー針;
 
         [StructLayout(LayoutKind.Sequential)]
         private struct STボーナス
@@ -372,21 +372,21 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.tx残り時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_combo taiko.png" ) );
-            this.tx加算時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Score_number_1P.png" ) );
-            this.txタイマー枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_TimerPanel.png" ) );
-            this.txタイマー針 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_TimerTick.png" ) );
-            this.tx背景黒 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile black 64x64.png" ) );
+            //this.tx残り時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_combo taiko.png" ) );
+            //this.tx加算時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Score_number_1P.png" ) );
+            //this.txタイマー枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_TimerPanel.png" ) );
+            //this.txタイマー針 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_TimerTick.png" ) );
+            //this.tx背景黒 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile black 64x64.png" ) );
             base.OnManagedリソースの作成();
         }
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放( ref this.tx残り時間数字 );
-            CDTXMania.tテクスチャの解放( ref this.tx加算時間数字 );
-            CDTXMania.tテクスチャの解放( ref this.txタイマー枠 );
-            CDTXMania.tテクスチャの解放( ref this.txタイマー針 );
-            CDTXMania.tテクスチャの解放( ref this.tx背景黒 );
+            //CDTXMania.tテクスチャの解放( ref this.tx残り時間数字 );
+            //CDTXMania.tテクスチャの解放( ref this.tx加算時間数字 );
+            //CDTXMania.tテクスチャの解放( ref this.txタイマー枠 );
+            //CDTXMania.tテクスチャの解放( ref this.txタイマー針 );
+            //CDTXMania.tテクスチャの解放( ref this.tx背景黒 );
             base.OnManagedリソースの解放();
         }
 
@@ -434,22 +434,22 @@ namespace DTXMania
                 if( ( this.st叩ききりまショー.ct残り時間.n現在の値 >= 20000 ) && this.st叩ききりまショー.ct残り時間.n現在の値 != 25000 )
                     this.t叩ききりまショー_評価をして残り時間を延長する();
 
-                if( this.tx背景黒 != null )
+                if( CDTXMania.Tx.Tile_Black != null )
                 {
                     if( this.st叩ききりまショー.ct残り時間.n現在の値 >= 22000 && this.st叩ききりまショー.ct残り時間.n現在の値 < 23000 )
-                        this.tx背景黒.n透明度 = 64;
+                        CDTXMania.Tx.Tile_Black.n透明度 = 64;
                     else if( this.st叩ききりまショー.ct残り時間.n現在の値 >= 23000 && this.st叩ききりまショー.ct残り時間.n現在の値 < 24000 )
-                        this.tx背景黒.n透明度 = 128;
+                        CDTXMania.Tx.Tile_Black.n透明度 = 128;
                     else if( this.st叩ききりまショー.ct残り時間.n現在の値 >= 24000 )
-                        this.tx背景黒.n透明度 = 192;
+                        CDTXMania.Tx.Tile_Black.n透明度 = 192;
                     else
-                        this.tx背景黒.n透明度 = 0;
+                        CDTXMania.Tx.Tile_Black.n透明度 = 0;
 
                     for (int i = 0; i <= (SampleFramework.GameWindowSize.Width / 64); i++)
                     {
                         for (int j = 0; j <= (SampleFramework.GameWindowSize.Height / 64); j++)
                         {
-                            this.tx背景黒.t2D描画(CDTXMania.app.Device, i * 64, j * 64);
+                            CDTXMania.Tx.Tile_Black.t2D描画(CDTXMania.app.Device, i * 64, j * 64);
                         }
                     }
                 }
@@ -465,10 +465,10 @@ namespace DTXMania
                 //CDTXMania.act文字コンソール.tPrint( 100, 16 * 7, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.ct加算審査中.n現在の値.ToString() );
 
                 #region[ 残り時間描画 ]
-                if( this.tx残り時間数字 != null )
+                if(CDTXMania.Tx.Taiko_Combo != null )
                 {
-                    if (this.txタイマー枠 != null)
-                        this.txタイマー枠.t2D描画( CDTXMania.app.Device, 230, 84 );
+                    if (CDTXMania.Tx.GameMode_Timer_Frame != null)
+                        CDTXMania.Tx.GameMode_Timer_Frame.t2D描画( CDTXMania.app.Device, 230, 84 );
                     this.st叩ききりまショー.ct針アニメ.t進行Loop();
 
                     int nCenterX = 230;
@@ -488,7 +488,7 @@ namespace DTXMania
                         mat *= SlimDX.Matrix.Translation( 280 - 640, -( 134 - 360 ), 0 );
                     }
 
-                    this.txタイマー針.t3D描画( CDTXMania.app.Device, mat );
+                    CDTXMania.Tx.GameMode_Timer_Tick.t3D描画( CDTXMania.app.Device, mat );
 
                     string str表示する残り時間 = ( this.st叩ききりまショー.ct残り時間.n現在の値 < 1000 ) ? "25" : ( ( 26000 - this.st叩ききりまショー.ct残り時間.n現在の値 ) / 1000 ).ToString();
                     this.t小文字表示( 236, 100, string.Format("{0,2:#0}", str表示する残り時間 ));
@@ -854,15 +854,16 @@ namespace DTXMania
 					if( this.st小文字位置[ i ].ch == ch )
 					{
 						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, this.st小文字位置[ i ].pt.Y, 44, 60 );
-						if( this.tx残り時間数字!= null )
+						if(CDTXMania.Tx.Taiko_Combo[0]  != null )
 						{
                             if( this.st叩ききりまショー.bタイマー使用中 )
-                                this.tx残り時間数字.n透明度 = 255;
+                                CDTXMania.Tx.Taiko_Combo[0].n透明度 = 255;
                             else if( this.st叩ききりまショー.b最初のチップが叩かれた && !this.st叩ききりまショー.bタイマー使用中 )
-                                this.tx残り時間数字.n透明度 = 128;
+                                CDTXMania.Tx.Taiko_Combo[0].n透明度 = 128;
                             if (this.st叩ききりまショー.b加算アニメ中)
-                                this.tx残り時間数字.n透明度 = 0;
-							this.tx残り時間数字.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                                CDTXMania.Tx.Taiko_Combo[0].n透明度 = 0;
+                            CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 1f;
+                            CDTXMania.Tx.Taiko_Combo[0].t2D描画( CDTXMania.app.Device, x, y, rectangle );
 						}
 						break;
 					}
@@ -882,9 +883,10 @@ namespace DTXMania
                     if( cFont[ i ] == ch )
                     {
                         Rectangle rectangle = new Rectangle( i * 24, 0, 24, 34 );
-                        if( this.tx加算時間数字 != null )
+                        if(CDTXMania.Tx.Taiko_Score[0] != null )
                         {
-                            this.tx加算時間数字.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                            CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = 1f;
+                            CDTXMania.Tx.Taiko_Score[0].t2D描画( CDTXMania.app.Device, x, y, rectangle );
                         }
                     }
                 }

@@ -114,7 +114,7 @@ namespace DTXMania
                         CDTXMania.Tx.Background_Down.t2D描画( CDTXMania.app.Device, 0, 360 );
                     }
                 }
-                if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 1 ] >= 80.0 )
+                if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80.0 )
                 {
                     if( CDTXMania.Tx.Background_Down_Clear != null && CDTXMania.Tx.Background_Down_Scroll != null )
                     {

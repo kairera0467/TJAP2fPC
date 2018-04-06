@@ -206,7 +206,7 @@ namespace DTXMania
 			if ( this.ft表示用フォント != null )
 			{
 				this.ft表示用フォント.Dispose();
-				this.ft表示用フォント = null;
+                this.ft表示用フォント = null;
 			}
 			base.On非活性化();
 		}
@@ -214,11 +214,11 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				string pathパネル本体 = CSkin.Path( @"Graphics\ScreenSelect popup auto settings.png" );
-				if ( File.Exists( pathパネル本体 ) )
-				{
-					this.txパネル本体 = CDTXMania.tテクスチャの生成( pathパネル本体, true );
-				}
+				//string pathパネル本体 = CSkin.Path( @"Graphics\ScreenSelect popup auto settings.png" );
+				//if ( File.Exists( pathパネル本体 ) )
+				//{
+				//	this.txパネル本体 = CDTXMania.tテクスチャの生成( pathパネル本体, true );
+				//}
 
 				base.OnManagedリソースの作成();
 			}
@@ -227,7 +227,7 @@ namespace DTXMania
 		{
 			if ( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
+				//CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
 				CDTXMania.tテクスチャの解放( ref this.tx文字列パネル );
 				base.OnManagedリソースの解放();
 			}
@@ -251,7 +251,7 @@ namespace DTXMania
 		};
 
 		private Font ft表示用フォント;
-		private CTexture txパネル本体;
+		//private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
         private CTexture tx説明文1;
 		//-----------------
