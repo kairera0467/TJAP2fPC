@@ -6,12 +6,12 @@ using System.Resources;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("DTXManiaGR")]
+[assembly: AssemblyTitle("TJAPlayer3")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DTXManiaGR")]
-[assembly: AssemblyCopyright( "Copyright (C) 2000-2016 DTXMania Group" )]
+[assembly: AssemblyProduct("TJAPlayer3")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,8 +33,8 @@ using System.Resources;
 // すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "99.0.0.0" )]
-[assembly: AssemblyFileVersion( "99.0.0.0" )]
+[assembly: AssemblyVersion("0.0.0.0")]
+[assembly: AssemblyFileVersion("0.0.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("ja-JP")]
 
 // このアセンブリは「ライブラリ」である（難読化ツールへの指示）。
