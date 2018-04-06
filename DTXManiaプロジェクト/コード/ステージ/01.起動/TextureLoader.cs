@@ -34,6 +34,7 @@ namespace DTXMania
         const string LANE = @"12_Lane\";
         const string GENRE = @"13_Genre\";
         const string GAMEMODE = @"14_GameMode\";
+
         // InGame_Effects
         const string FIRE = @"Fire\";
         const string HIT = @"Hit\";
@@ -66,6 +67,7 @@ namespace DTXMania
             Tile_Black = TxC(@"Tile_Black.png");
             Tile_White = TxC(@"Tile_White.png");
             Menu_Title = TxC(@"Menu_Title.png");
+            Menu_Highlight = TxC(@"Menu_Highlight.png");
             #endregion
             #region 1_タイトル画面
             Title_Background = TxC(TITLE + @"Background.png");
@@ -374,12 +376,11 @@ namespace DTXMania
             #region レーン
                 Lane_Base = new CTexture[3];
             Lane_Text = new CTexture[3];
-            foreach (var item in new string[] { "Normal", "Expert", "Master"})
+            string[] Lanes = new string[3] { "Normal", "Expert", "Master" };
+            for (int i = 0; i < 3; i++)
             {
-                int num = 0;
-                Lane_Base[num] = TxC(GAME + LANE + "Base_" + item + ".png");
-                Lane_Text[num] = TxC(GAME + LANE + "Text_" + item + ".png");
-                num++;
+                Lane_Base[i] = TxC(GAME + LANE + "Base_" + Lanes[i] + ".png");
+                Lane_Text[i] = TxC(GAME + LANE + "Text_" + Lanes[i] + ".png");
             }
             Lane_Red = TxC(GAME + LANE + @"Red.png");
             Lane_Blue = TxC(GAME + LANE + @"Blue.png");
@@ -431,7 +432,8 @@ namespace DTXMania
         #region 共通
         public CTexture Tile_Black,
             Tile_White,
-            Menu_Title;
+            Menu_Title,
+            Menu_Highlight;
         #endregion
         #region 1_タイトル画面
         public CTexture Title_Background,

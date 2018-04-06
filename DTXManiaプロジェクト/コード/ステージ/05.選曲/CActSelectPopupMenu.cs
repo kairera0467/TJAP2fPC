@@ -200,7 +200,7 @@ namespace DTXMania
 				this.font.On非活性化();
 				this.font = null;
 
-				CDTXMania.tテクスチャの解放( ref this.txCursor );
+				//CDTXMania.tテクスチャの解放( ref this.txCursor );
 				//CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
 				for ( int i = 0; i < 4; i++ )
 				{
@@ -213,12 +213,12 @@ namespace DTXMania
 		{
 			if ( !base.b活性化してない )
 			{
-				string pathCursor = CSkin.Path( @"Graphics\5_menu cursor.png" );;
+				//string pathCursor = CSkin.Path( @"Graphics\5_menu cursor.png" );;
 				//string pathPopupMenuBackground = CSkin.Path( @"Graphics\5_sort menu background.png" );
-				if ( File.Exists ( pathCursor ) )
-				{
-					this.txCursor = CDTXMania.tテクスチャの生成( pathCursor, false );
-				}
+				//if ( File.Exists ( pathCursor ) )
+				//{
+				//	this.txCursor = CDTXMania.tテクスチャの生成( pathCursor, false );
+				//}
 				//if ( File.Exists( pathPopupMenuBackground ) )
 				//{
 				//	this.txPopupMenuBackground = CDTXMania.tテクスチャの生成( pathPopupMenuBackground, false );
@@ -231,7 +231,7 @@ namespace DTXMania
 			if ( !base.b活性化してない )
 			{
 				//CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
-				CDTXMania.tテクスチャの解放( ref this.txCursor );
+				//CDTXMania.tテクスチャの解放( ref this.txCursor );
                 CDTXMania.t安全にDisposeする( ref this.prvFont );
 			}
 			base.OnManagedリソースの解放();
@@ -324,20 +324,20 @@ namespace DTXMania
 				stqMenuTitle.txName.t2D描画( CDTXMania.app.Device, x, y );
 				#endregion
 				#region [ カーソル描画 ]
-				if ( this.txCursor != null )
+				if ( CDTXMania.Tx.Menu_Highlight != null )
 				{
 					int height = 32;
 					int curX = 180;
 					int curY = 46 + ( height * ( this.n現在の選択行 + 1 ) );
-					this.txCursor.t2D描画( CDTXMania.app.Device, curX, curY, new Rectangle( 0, 0, 16, 32 ) );
+                    CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, curX, curY, new Rectangle( 0, 0, 16, 32 ) );
 					curX += 0x10;
 					Rectangle rectangle = new Rectangle( 8, 0, 0x10, 0x20 );
 					for ( int j = 0; j < 16; j++ )
 					{
-						this.txCursor.t2D描画( CDTXMania.app.Device, curX, curY, rectangle );
+                        CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, curX, curY, rectangle );
 						curX += 16;
 					}
-					this.txCursor.t2D描画( CDTXMania.app.Device, curX, curY, new Rectangle( 0x10, 0, 16, 32 ) );
+                    CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, curX, curY, new Rectangle( 0x10, 0, 16, 32 ) );
 				}
 				#endregion
 				#region [ ソート候補文字列描画 ]
@@ -401,7 +401,7 @@ namespace DTXMania
 		internal E楽器パート eInst = E楽器パート.UNKNOWN;
 
 		//private CTexture txPopupMenuBackground;
-		private CTexture txCursor;
+		//private CTexture txCursor;
 		private CActDFPFont font;
         CPrivateFastFont prvFont;
 

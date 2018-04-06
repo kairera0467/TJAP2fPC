@@ -95,7 +95,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txカーソル );
+				//CDTXMania.tテクスチャの解放( ref this.txカーソル );
 				CDTXMania.tテクスチャの解放( ref this.txHitKeyダイアログ );
 				base.On非活性化();
 			}
@@ -104,7 +104,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.txカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ), false );
+				//this.txカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ), false );
 				this.txHitKeyダイアログ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig hit key to assign dialog.png" ), false );
 				base.OnManagedリソースの作成();
 			}
@@ -134,20 +134,20 @@ namespace DTXMania
 					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
 					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = 0;
 				}
-				if( this.txカーソル != null )
+				if(CDTXMania.Tx.Menu_Highlight != null )
 				{
 					int num = 20;
 					int num2 = 0x144;
 					int num3 = 0x3e + ( num * ( this.n現在の選択行 + 1 ) );
-					this.txカーソル.t2D描画( CDTXMania.app.Device, num2, num3, new Rectangle( 0, 0, 0x10, 0x20 ) );
+                    CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, num2, num3, new Rectangle( 0, 0, 0x10, 0x20 ) );
 					num2 += 0x10;
 					Rectangle rectangle = new Rectangle( 8, 0, 0x10, 0x20 );
 					for( int j = 0; j < 14; j++ )
 					{
-						this.txカーソル.t2D描画( CDTXMania.app.Device, num2, num3, rectangle );
+                        CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, num2, num3, rectangle );
 						num2 += 0x10;
 					}
-					this.txカーソル.t2D描画( CDTXMania.app.Device, num2, num3, new Rectangle( 0x10, 0, 0x10, 0x20 ) );
+                    CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, num2, num3, new Rectangle( 0x10, 0, 0x10, 0x20 ) );
 				}
 				int num5 = 20;
 				int x = 0x134;
@@ -228,7 +228,7 @@ namespace DTXMania
 		private CConfigIni.CKeyAssign.STKEYASSIGN[] structReset用KeyAssign;
 		private string strパッド名;
 		private CTexture txHitKeyダイアログ;
-		private CTexture txカーソル;
+		//private CTexture txカーソル;
 
 		private void tアサインコードの描画_Joypad( int line, int x, int y, int nID, int nCode, bool b強調 )
 		{
