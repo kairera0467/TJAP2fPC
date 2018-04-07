@@ -1,13 +1,7 @@
-*.suo
+﻿*.suo
 *.snk
-/bin
-/obj
 Config.ini
 DTXManiaLog.txt
 songlist.db
 songs.db
 /.vs
-DTXManiaプロジェクト/bin/
-DTXManiaプロジェクト/obj/
-実行時フォルダ/
-FDK17プロジェクト/

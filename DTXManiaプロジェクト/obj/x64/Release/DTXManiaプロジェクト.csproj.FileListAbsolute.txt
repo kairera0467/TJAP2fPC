@@ -1,0 +1,12 @@
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x64\Release\DTXMania.Properties.Resources.resources
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x64\Release\DTXManiaプロジェクト.csproj.GenerateResource.Cache
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x64\Release\DTXManiaプロジェクト.csproj.CoreCompileInputs.cache
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x64\Release\DTXManiaプロジェクト.csprojResolveAssemblyReference.cache
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x64\Release\DTXManiaGR.exe.config
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x64\Release\DTXManiaGR.exe
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x64\Release\Bass.Net.dll
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x64\Release\DirectShowLib-2005.dll
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x64\Release\FDK.dll
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x64\Release\SlimDXc_net20x86_Jun2010.dll
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x64\Release\FDK.pdb
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x64\Release\DTXManiaGR.exe

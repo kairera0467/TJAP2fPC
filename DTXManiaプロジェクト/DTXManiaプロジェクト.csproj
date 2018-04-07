@@ -268,6 +268,8 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)\実行時フォルダ"
+copy /Y "$(TargetPath).config" "$(SolutionDir)\実行時フォルダ"
+copy /Y "TJAPlayer3.pdb" "$(SolutionDir)\実行時フォルダ"
 move /Y "$(TargetDir)\Bass.Net.dll" "$(TargetDir)dll"
 move /Y "$(TargetDir)\DirectShowLib-2005.dll" "$(TargetDir)dll"
 move /Y "$(TargetDir)\FDK.dll" "$(TargetDir)dll"

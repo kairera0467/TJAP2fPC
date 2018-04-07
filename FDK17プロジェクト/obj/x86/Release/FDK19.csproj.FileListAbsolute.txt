@@ -17,4 +17,3 @@ C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Release\FD
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Release\FDK19.csproj.CoreCompileInputs.cache
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Release\FDK19.csproj.CopyComplete
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Release\FDK.dll
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Release\FDK19.csprojResolveAssemblyReference.cache
