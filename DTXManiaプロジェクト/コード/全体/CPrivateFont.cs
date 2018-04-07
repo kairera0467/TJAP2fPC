@@ -39,22 +39,41 @@ namespace DTXMania
 	/// </remarks>
 	public class CPrivateFont : IDisposable
 	{
+		/// <summary>
+		/// プライベートフォントのFontクラス。CPrivateFont()の初期化後に使用可能となる。
+		/// プライベートフォントでDrawString()したい場合にご利用ください。
+		/// </summary>
+		public Font font
+		{
+			get => _font;
+		}
+
+		/// <summary>
+		/// フォント登録失敗時に代替使用するフォント名。システムフォントのみ設定可能。
+		/// 後日外部指定できるようにします。(＝コンストラクタで指定できるようにします)
+		/// </summary>
+		private string strAlternativeFont = "MS PGothic";
+
 		#region [ コンストラクタ ]
-		public CPrivateFont( FontFamily fontfamily, int pt, FontStyle style )
+		public CPrivateFont( FontFamily fontfamily, float pt, FontStyle style )
 		{
-			Initialize( null, fontfamily, pt, style );
+			Initialize( null, null, fontfamily, pt, style );
 		}
-		public CPrivateFont( FontFamily fontfamily, int pt )
+		public CPrivateFont( FontFamily fontfamily, float pt )
 		{
-			Initialize( null, fontfamily, pt, FontStyle.Regular );
+			Initialize( null, null, fontfamily, pt, FontStyle.Regular );
 		}
-		public CPrivateFont( string fontpath, int pt, FontStyle style )
+		public CPrivateFont(string fontpath, FontFamily fontfamily, float pt, FontStyle style)
 		{
-			Initialize( fontpath, null, pt, style );
+			Initialize(fontpath, null, fontfamily, pt, style);
 		}
-		public CPrivateFont( string fontpath, int pt )
+		public CPrivateFont( string fontpath, float pt, FontStyle style )
 		{
-			Initialize( fontpath, null, pt, FontStyle.Regular );
+			Initialize( fontpath, null, null, pt, style );
+		}
+		public CPrivateFont( string fontpath, float pt )
+		{
+			Initialize( fontpath, null, null, pt, FontStyle.Regular );
 		}
 		public CPrivateFont()
 		{
@@ -62,7 +81,7 @@ namespace DTXMania
 		}
 		#endregion
 
-		protected void Initialize( string fontpath, FontFamily fontfamily, int pt, FontStyle style )
+		protected void Initialize(string fontpath, string baseFontPath, FontFamily fontfamily, float pt, FontStyle style)
 		{
 			this._pfc = null;
 			this._fontfamily = null;
@@ -71,6 +90,17 @@ namespace DTXMania
 			this._rectStrings = new Rectangle(0, 0, 0, 0);
 			this._ptOrigin = new Point(0, 0);
 			this.bDispose完了済み = false;
+			this._baseFontname = baseFontPath;
+			this.bIsSystemFont = false;
+
+			float emSize = 0f;
+			using (Bitmap b = new Bitmap(1, 1))
+			{
+				using (Graphics g = Graphics.FromImage(b))
+				{
+					emSize = pt * 96.0f / 72.0f * g.DpiX / 96.0f;	// DPIを考慮したpxサイズ。GraphicsUnit.Pixelと併用のこと
+				}
+			}
 
 			if (fontfamily != null)
 			{
@@ -80,15 +110,28 @@ namespace DTXMania
 			{
 				try
 				{
-					this._pfc = new System.Drawing.Text.PrivateFontCollection();	//PrivateFontCollectionオブジェクトを作成する
-					this._pfc.AddFontFile(fontpath);								//PrivateFontCollectionにフォントを追加する
-					_fontfamily = _pfc.Families[0];
+					//拡張子あり == 通常のPrivateFontパス指定
+					if (Path.GetExtension(fontpath) != string.Empty)
+					{
+						this._pfc = new System.Drawing.Text.PrivateFontCollection();    //PrivateFontCollectionオブジェクトを作成する
+						this._pfc.AddFontFile(fontpath);                                //PrivateFontCollectionにフォントを追加する
+						_fontfamily = _pfc.Families[0];
+						bIsSystemFont = false;
+					}
+					//拡張子なし == Arial, MS Gothicなど、システムフォントの指定
+					else
+					{
+						this._font = PublicFont(Path.GetFileName(fontpath), emSize, style, GraphicsUnit.Pixel); 
+						bIsSystemFont = true;
+					}
 				}
-				catch (System.IO.FileNotFoundException)
+				catch (Exception e) when (e is System.IO.FileNotFoundException || e is System.Runtime.InteropServices.ExternalException)
 				{
-					Trace.TraceWarning("プライベートフォントの追加に失敗しました({0})。代わりにMS PGothicの使用を試みます。", fontpath);
+					Trace.TraceWarning(e.Message);
+					Trace.TraceWarning("プライベートフォントの追加に失敗しました({0})。代わりに{1}の使用を試みます。", fontpath, strAlternativeFont);
 					//throw new FileNotFoundException( "プライベートフォントの追加に失敗しました。({0})", Path.GetFileName( fontpath ) );
 					//return;
+
 					_fontfamily = null;
 				}
 
@@ -108,14 +151,18 @@ namespace DTXMania
 				//}
 			}
 
-			// 指定されたフォントスタイルが適用できない場合は、フォント内で定義されているスタイルから候補を選んで使用する
-			// 何もスタイルが使えないようなフォントなら、例外を出す。
-			if (_fontfamily != null)
+			// システムフォントの登録に成功した場合
+			if (bIsSystemFont && _font != null)
+			{
+				// 追加処理なし。何もしない
+			}
+			// PrivateFontの登録に成功した場合は、指定されたフォントスタイルをできるだけ適用する
+			else if (_fontfamily != null)
 			{
 				if (!_fontfamily.IsStyleAvailable(style))
 				{
 					FontStyle[] FS = { FontStyle.Regular, FontStyle.Bold, FontStyle.Italic, FontStyle.Underline, FontStyle.Strikeout };
-					style = FontStyle.Regular | FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout;	// null非許容型なので、代わりに全盛をNGワードに設定
+					style = FontStyle.Regular | FontStyle.Bold | FontStyle.Italic | FontStyle.Underline | FontStyle.Strikeout;  // null非許容型なので、代わりに全盛をNGワードに設定
 					foreach (FontStyle ff in FS)
 					{
 						if (this._fontfamily.IsStyleAvailable(ff))
@@ -130,30 +177,45 @@ namespace DTXMania
 						Trace.TraceWarning("フォント{0}は適切なスタイル{1}を選択できませんでした。", Path.GetFileName(fontpath), style.ToString());
 					}
 				}
-				//this._font = new Font(this._fontfamily, pt, style);			//PrivateFontCollectionの先頭のフォントのFontオブジェクトを作成する
-				float emSize = pt * 96.0f / 72.0f;
-				this._font = new Font(this._fontfamily, emSize, style, GraphicsUnit.Pixel);	//PrivateFontCollectionの先頭のフォントのFontオブジェクトを作成する
-				//HighDPI対応のため、pxサイズで指定
+				this._font = new Font(this._fontfamily, emSize, style, GraphicsUnit.Pixel); //PrivateFontCollectionの先頭のフォントのFontオブジェクトを作成する
 			}
+			// PrivateFontと通常フォント、どちらの登録もできていない場合は、MS PGothic改め代替フォントを代わりに設定しようと試みる
 			else
-			// フォントファイルが見つからなかった場合 (MS PGothicを代わりに指定する)
 			{
-				float emSize = pt * 96.0f / 72.0f;
-				this._font = new Font("MS PGothic", emSize, style, GraphicsUnit.Pixel);	//MS PGothicのFontオブジェクトを作成する
-				FontFamily[] ffs = new System.Drawing.Text.InstalledFontCollection().Families;
-				int lcid = System.Globalization.CultureInfo.GetCultureInfo("en-us").LCID;
-				foreach (FontFamily ff in ffs)
-				{
-					// Trace.WriteLine( lcid ) );
-					if (ff.GetName(lcid) == "MS PGothic")
-					{
-						this._fontfamily = ff;
-						Trace.TraceInformation("MS PGothicを代わりに指定しました。");
-						return;
-					}
+				this._font = PublicFont(strAlternativeFont, emSize, style, GraphicsUnit.Pixel);	
+				if (this._font != null )
+				{ 
+					Trace.TraceInformation("{0}の代わりに{1}を指定しました。", Path.GetFileName(fontpath), strAlternativeFont);
+					bIsSystemFont = true;
+					return;
 				}
-				throw new FileNotFoundException("プライベートフォントの追加に失敗し、MS PGothicでの代替処理にも失敗しました。({0})", Path.GetFileName(fontpath));
+				throw new FileNotFoundException(string.Format("プライベートフォントの追加に失敗し、{1}での代替処理にも失敗しました。({0})", Path.GetFileName(fontpath), strAlternativeFont));
 			}
+		}
+
+		/// <summary>
+		/// プライベートフォントではない、システムフォントの設定
+		/// </summary>
+		/// <param name="fontname">フォント名</param>
+		/// <param name="emSize">フォントサイズ</param>
+		/// <param name="style">フォントスタイル</param>
+		/// <param name="unit">GraphicsUnit</param>
+		/// <returns></returns>
+		private Font PublicFont(string fontname, float emSize, FontStyle style, GraphicsUnit unit)
+		{
+			Font f = new Font(fontname, emSize, style, unit);
+			FontFamily[] ffs = new System.Drawing.Text.InstalledFontCollection().Families;
+			int lcid = System.Globalization.CultureInfo.GetCultureInfo("en-us").LCID;
+			foreach (FontFamily ff in ffs)
+			{
+				// Trace.WriteLine( lcid ) );
+				if (ff.GetName(lcid) == fontname)
+				{
+					this._fontfamily = ff;
+					return f;
+				}
+			}
+			return null;
 		}
 
 		[Flags]
@@ -305,7 +367,7 @@ namespace DTXMania
 			bool bGradation = ( ( drawmode & DrawMode.Gradation ) == DrawMode.Gradation );
 
 			// 縁取りの縁のサイズは、とりあえずフォントの大きさの1/4とする
-			int nEdgePt = (bEdge)? _pt / 4 : 0;
+			float nEdgePt = (bEdge)? _pt / 4 : 0;
 
 			// 描画サイズを測定する
 			Size stringSize = System.Windows.Forms.TextRenderer.MeasureText( drawstr, this._font, new Size( int.MaxValue, int.MaxValue ),
@@ -315,7 +377,7 @@ namespace DTXMania
             stringSize.Width += 10; //2015.04.01 kairera0467 ROTTERDAM NATIONの描画サイズがうまくいかんので。
 
 			//取得した描画サイズを基に、描画先のbitmapを作成する
-			Bitmap bmp = new Bitmap( stringSize.Width + nEdgePt * 2, stringSize.Height + nEdgePt * 2 );
+			Bitmap bmp = new Bitmap( (int)(stringSize.Width + nEdgePt * 2), (int)(stringSize.Height + nEdgePt * 2) );
 			bmp.MakeTransparent();
 			Graphics g = Graphics.FromImage( bmp );
 			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -325,7 +387,7 @@ namespace DTXMania
 			sf.Alignment = StringAlignment.Center;	// 画面中央（水平方向位置）
 
 			// レイアウト枠
-			Rectangle r = new Rectangle( 0, 0, stringSize.Width + nEdgePt * 2, stringSize.Height + nEdgePt * 2 );
+			Rectangle r = new Rectangle( 0, 0, (int)(stringSize.Width + nEdgePt * 2), (int)(stringSize.Height + nEdgePt * 2) );
 
 			if ( bEdge )	// 縁取り有りの描画
 			{
@@ -367,7 +429,7 @@ namespace DTXMania
 			g.DrawRectangle( new Pen( Color.Green, 1 ), new Rectangle( 0, 0, bmp.Width - 1, bmp.Height - 1 ) );
 #endif
 			_rectStrings = new Rectangle( 0, 0, stringSize.Width, stringSize.Height );
-			_ptOrigin = new Point( nEdgePt * 2, nEdgePt * 2 );
+			_ptOrigin = new Point( (int)(nEdgePt * 2), (int)(nEdgePt * 2) );
 			
 
 			#region [ リソースを解放する ]
@@ -928,21 +990,42 @@ namespace DTXMania
 		//-----------------
 		public void Dispose()
 		{
-			if ( !this.bDispose完了済み )
+			this.Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected void Dispose(bool disposeManagedObjects)
+		{
+			if (this.bDispose完了済み)
+				return;
+
+			if (disposeManagedObjects)
 			{
-				if ( this._font != null )
+				// (A) Managed リソースの解放
+				if (this._font != null)
 				{
 					this._font.Dispose();
 					this._font = null;
 				}
-				if ( this._pfc != null )
+				if (this._pfc != null)
 				{
 					this._pfc.Dispose();
 					this._pfc = null;
 				}
-
-				this.bDispose完了済み = true;
+				if (this._fontfamily != null)
+				{
+					this._fontfamily.Dispose();
+					this._fontfamily = null;
+				}
 			}
+
+			// (B) Unamanaged リソースの解放
+
+			this.bDispose完了済み = true;
+		}
+		//-----------------
+		~CPrivateFont()
+		{
+			this.Dispose(false);
 		}
 		//-----------------
 		#endregion
@@ -954,9 +1037,11 @@ namespace DTXMania
 
 		private System.Drawing.Text.PrivateFontCollection _pfc;
 		private FontFamily _fontfamily;
-		private int _pt;
+		private float _pt;
 		private Rectangle _rectStrings;
 		private Point _ptOrigin;
+        private string _baseFontname = null;
+        private bool bIsSystemFont;
 		//-----------------
 		#endregion
 	}

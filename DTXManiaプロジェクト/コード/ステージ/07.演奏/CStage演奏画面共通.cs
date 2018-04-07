@@ -170,7 +170,15 @@ namespace DTXMania
 			            listChip[i] = CDTXMania.DTX_2P.listChip;
                         break;
                 }
+                int n整数値管理 = 0;
+                foreach( CDTX.CChip chip in listChip[ i ] )
+                {
+                    chip.nList上の位置 = n整数値管理;
+                    n整数値管理++;
+                }
             }
+
+
 
 			listWAV = CDTXMania.DTX.listWAV;
 
@@ -231,6 +239,8 @@ namespace DTXMania
             this.b連打中 = new bool[]{ false, false, false, false };
             this.n現在の連打数 = new int[]{ 0, 0, 0, 0 };
             this.n合計連打数 = new int[]{ 0, 0, 0, 0 };
+            this.n風船打数合計 = new int[]{ 0, 0, 0, 0 };
+            this.n風船結果合計 = new int[]{ 0, 0, 0, 0 };
             this.n分岐した回数 = new int[ 4 ];
             this.n表示した歌詞 = 0;
             this.nJPOSSCROLL = new int[ 4 ];
@@ -633,6 +643,8 @@ namespace DTXMania
         public bool[] b連打中 = new bool[]{ false, false, false, false }; //奥の手
         private int[] n合計連打数 = new int[ 4 ];
         protected int[] n風船残り = new int[ 4 ];
+        public int[] n風船打数合計 = new int[ 4 ];
+        public int[] n風船結果合計 = new int[ 4 ];
         protected int[] n現在の連打数 = new int[ 4 ];
         protected E連打State eRollState;
 
@@ -1176,12 +1188,14 @@ namespace DTXMania
                 if( pChip.nRollCount == 0 )
                 {
                     this.n風船残り[ player ] = pChip.nBalloon;
+                    this.n風船打数合計[ player ] += pChip.nBalloon;
                 }
 
                 this.b連打中[ player ] = true;
                 this.eRollState = E連打State.balloon;
                 pChip.nRollCount++;
                 this.n風船残り[ player ]--;
+                this.n風船結果合計[ player ]++;
 
                 //分岐のための処理。実装してない。
 
@@ -1904,6 +1918,101 @@ namespace DTXMania
 			return nearestChip;
 		}
 
+		protected CDTX.CChip r指定時刻に一番近いChipを過去方向優先で検索する( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
+		{
+			sw2.Start();
+			nTime += nInputAdjustTime;
+
+			int nIndex_InitialPositionSearchingToPast;
+			int nTimeDiff;
+			int count = listChip[ nPlayer ].Count;
+			if ( count <= 0 )			// 演奏データとして1個もチップがない場合は
+			{
+				sw2.Stop();
+				return null;
+			}
+
+			int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToPast = this.n現在のトップChip;
+			if ( this.n現在のトップChip >= count )		// その時点で演奏すべきチップが既に全部無くなっていたら
+			{
+				nIndex_NearestChip_Future  = nIndex_InitialPositionSearchingToPast = count - 1;
+			}
+			// int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToFuture;
+//			while ( nIndex_NearestChip_Future < count )	// 未来方向への検索
+			for ( ; nIndex_NearestChip_Future < count; nIndex_NearestChip_Future++ )
+			{
+				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
+				if ( chip.b可視 )
+				{
+					if( chip.nチャンネル番号 == nChannel )
+					{
+						if ( chip.n発声時刻ms > nTime )
+						{
+							break;
+						}
+                        nIndex_InitialPositionSearchingToPast = nIndex_NearestChip_Future;
+					}
+				}
+//				nIndex_NearestChip_Future++;
+			}
+			int nIndex_NearestChip_Past = nIndex_InitialPositionSearchingToPast;
+//			while ( nIndex_NearestChip_Past >= 0 )		// 過去方向への検索
+			for ( ; nIndex_NearestChip_Past >= 0; nIndex_NearestChip_Past-- )
+			{
+				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+				//if ( (!chip.bHit && chip.b可視 ) && ( (  0x93 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x99 ) ) )
+                if( chip.b可視 && chip.nチャンネル番号 == nChannel )
+				{
+				    break;
+				}
+			}
+			if ( ( nIndex_NearestChip_Future >= count ) && ( nIndex_NearestChip_Past < 0 ) )	// 検索対象が過去未来どちらにも見つからなかった場合
+			{
+				sw2.Stop();
+				return null;
+			}
+			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
+			if ( nIndex_NearestChip_Future >= count )											// 検索対象が未来方向には見つからなかった(しかし過去方向には見つかった)場合
+			{
+				nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+//				nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+			}
+			else if ( nIndex_NearestChip_Past < 0 )												// 検索対象が過去方向には見つからなかった(しかし未来方向には見つかった)場合
+			{
+				nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
+//				nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+			}
+			else
+			{
+				int nTimeDiff_Future = Math.Abs( (int) ( nTime - listChip[ nPlayer ][ nIndex_NearestChip_Future ].n発声時刻ms ) );
+				int nTimeDiff_Past   = Math.Abs( (int) ( nTime - listChip[ nPlayer ][ nIndex_NearestChip_Past   ].n発声時刻ms ) );
+				if ( nTimeDiff_Future < nTimeDiff_Past )
+				{
+                    if( !listChip[ nPlayer ][ nIndex_NearestChip_Past ].bHit && ( listChip[ nPlayer ][ nIndex_NearestChip_Past ].n発声時刻ms + ( 108 ) >= nTime ) )
+                    {
+					    nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+                    }
+                    else
+					    nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
+//					nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+				}
+				else
+				{
+					nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+//					nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+				}
+			}
+			nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+            int n検索範囲時間ms = 0;
+			if ( ( n検索範囲時間ms > 0 ) && ( nTimeDiff > n検索範囲時間ms ) )					// チップは見つかったが、検索範囲時間外だった場合
+			{
+				sw2.Stop();
+				return null;
+			}
+			sw2.Stop();
+			return nearestChip;
+		}
+
 		protected CDTX.CChip r指定時刻に一番近い未ヒットChip( long nTime, int nInputAdjustTime, int nPlayer )
 		{
 			sw2.Start();
@@ -2512,6 +2621,7 @@ namespace DTXMania
 
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.灰, this.nLoopCount_Clear.ToString()  );
 
+            //音符が重なる順番を再現するため、同じ発声位置の音符の優先度は逆順になる。
             //for ( int nCurrentTopChip = this.n現在のトップChip; nCurrentTopChip < dTX.listChip.Count; nCurrentTopChip++ )
             for ( int nCurrentTopChip = dTX.listChip.Count - 1; nCurrentTopChip > 0; nCurrentTopChip-- )
 			{
@@ -3056,7 +3166,7 @@ namespace DTXMania
                     case 0xDD: //譜面分岐条件リセット
                         if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
                         {
-                            this.tBranchReset( nPlayer );
+                            //this.tBranchReset( nPlayer ); // 2018.03.31 kairera0467 listChipソート時の問題が解決できないため、SECTION命令での分岐条件リセットを一時廃止します。
                             pChip.bHit = true;
                         }
                         break;
@@ -3080,7 +3190,7 @@ namespace DTXMania
                             //if( n現在のコース == pChip.nコース )
                                 this.n分岐した回数[ nPlayer ]++;
 
-                            if( CDTXMania.ConfigIni.bAutoSection )
+                            //if( CDTXMania.ConfigIni.bAutoSection ) //2018.03.31 kairera0467 listChipソート時の問題が解決するまで強制的にSECTIONを行う。
                             {
                                 this.tBranchReset( nPlayer );
                             }
@@ -3435,7 +3545,7 @@ namespace DTXMania
             for( int A = n分岐開始位置のChip番号; A < dTX.listChip.Count; A++ )
             {
                 //if( dTX.listChip[ A ].n発声時刻ms < dTX.listBRANCH[ this.n分岐した回数 ].db分岐時間ms )
-                if( dTX.listChip[ A ].n整数値 < n分岐開始位置のChip番号 )
+                if( dTX.listChip[ A ].n整数値 <= n分岐開始位置のChip番号 )
                 {
                     dTX.listChip[ A ].b可視 = true;
                     continue;
@@ -3458,6 +3568,38 @@ namespace DTXMania
                     dTX.listChip[ A ].eNoteState = ENoteState.none;
                 }
             }
+
+            // 2018.03.31 過去方向にも調べる。本来はあまりよくないと思うのでこの実装はそのうち消す。
+            chipNoHit = this.r指定時刻に一番近いChipを過去方向優先で検索する( CSound管理.rc演奏用タイマ.n現在時刻ms, 0xDF, 0, nPlayer ); //とりあえず検索開始を1ms後にして対応。
+
+            if( chipNoHit == null )
+                return;
+            //for( int A = n分岐開始位置のChip番号; A < chipNoHit.n整数値; A-- )
+            //{
+            //    //if( dTX.listChip[ A ].n発声時刻ms < dTX.listBRANCH[ this.n分岐した回数 ].db分岐時間ms )
+            //    if( dTX.listChip[ A ].n整数値 < n分岐開始位置のChip番号 )
+            //    {
+            //        dTX.listChip[ A ].b可視 = true;
+            //        continue;
+            //    }
+
+            //    if( dTX.listChip[ A ].nチャンネル番号 == 0x01 ) continue;
+            //    //if( CDTXMania.DTX.listChip[ A ].nチャンネル番号 == 0x50 ) continue;
+            //    if( dTX.listChip[ A ].nチャンネル番号 == 0x9C ) continue;
+            //    if( dTX.listChip[ A ].nチャンネル番号 == 0xDD ) continue;
+            //    if( dTX.listChip[ A ].nチャンネル番号 == 0xDE ) continue;
+            //    if( dTX.listChip[ A ].nチャンネル番号 == 0xDF ) continue;
+
+            //    if( dTX.listChip[ A ].nコース == n消すコース1 || dTX.listChip[ A ].nコース == n消すコース2 )
+            //    {
+            //        dTX.listChip[ A ].b可視 = false;
+            //    }
+            //    else
+            //    {
+            //        dTX.listChip[ A ].b可視 = true;
+            //        dTX.listChip[ A ].eNoteState = ENoteState.none;
+            //    }
+            //}
         }
 
         protected float GetNowPBMTime( CDTX tja, float play_time )
@@ -3609,6 +3751,8 @@ namespace DTXMania
                     this.n現在の連打数[ i ] = 0;
                     this.n合計連打数[ i ] = 0;
                     this.n分岐した回数[ i ] = 0;
+                    this.n風船結果合計[ i ] = 0;
+                    this.n風船打数合計[ i ] = 0;
                 }
 
                 this.actComboVoice.tリセット();

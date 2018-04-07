@@ -212,6 +212,7 @@ namespace DTXMania
         private CTexture[] txキャラクターMax_Gogo;
         private CTexture[] txキャラクターJump; //まだ実装できてない
         private CTexture[] txキャラクターMax_Jump; //まだ実装できてない
+        private CTexture[] txキャラクターMiss; //まだ実装できてない
 
         public int nキャラクター通常モーション枚数;
         public int nキャラクターコンボモーション枚数;
@@ -219,24 +220,28 @@ namespace DTXMania
         public int nキャラクタークリアモーション枚数;
         public int nキャラクターMAX通常モーション枚数;
         public int nキャラクターMAXゴーゴーモーション枚数;
+        public int nキャラクターMISSモーション枚数;
 
         public int[] arモーション番号;
         public int[] arゴーゴーモーション番号;
         public int[] arクリアモーション番号;
         public int[] ar黄色モーション番号;
         public int[] ar黄色ゴーゴーモーション番号;
+        public int[] arMISSゴーゴーモーション番号;
 
         public CCounter ct通常モーション;
         public CCounter ctクリア通常モーション;
         public CCounter ctゴーゴーモーション;
         public CCounter ctMAX通常モーション;
         public CCounter ctMAXゴーゴーモーション;
+        public CCounter ctMISSモーション;
 
         public string strList;
         public string strListGogo;
         public string strListClear;
         public string strListMAX;
         public string strListMAXGogo;
+        public string strListMISS;
 
         public bool b風船連打中;
         public bool b演奏中;

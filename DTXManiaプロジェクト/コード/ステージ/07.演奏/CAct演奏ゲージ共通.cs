@@ -64,12 +64,16 @@ namespace DTXMania
 			get;
 			private set;
 		}
-		public bool IsFailed( E楽器パート part )	// 閉店状態になったかどうか
+		public bool IsFailed( int player )	// 閉店状態になったかどうか
 		{
 			if ( bRisky ) {
 				return ( nRiskyTimes <= 0 );
 			}
-			return this.db現在のゲージ値[ (int) part ] <= GAUGE_MIN;
+
+            if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.Normal || CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
+            	return this.db現在のゲージ値[ player ] <= GAUGE_MIN;
+            else
+                return this.db現在のゲージ値[ player ] <= 0;
 		}
 		public bool IsDanger( E楽器パート part )	// DANGERかどうか
 		{
@@ -126,150 +130,222 @@ namespace DTXMania
 		/// <param name="nRiskyTimes_Initial_">Riskyの初期値(0でRisky未使用)</param>
 		public void Init(int nRiskyTimes_InitialVal )		// ゲージ初期化
 		{
-			//ダメージ値の計算は太鼓の達人譜面Wikiのものを参考にしました。
-
-			for ( int i = 0; i < 4; i++ )
-			{
-                this.db現在のゲージ値[ i ] = 0;
-			}
-
-            this.dbゲージ値 = 0;
-
-            //ゲージのMAXまでの最低コンボ数を計算
-            float dbGaugeMaxComboValue = 0;
-            float[] dbGaugeMaxComboValue_branch = new float[3];
-            float dbDamageRate = 2.0f;
-
-            if( nRiskyTimes_InitialVal > 0 )
+            if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.Normal || CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
             {
-                this.bRisky = true;
-                this.nRiskyTimes = CDTXMania.ConfigIni.nRisky;
-                this.nRiskyTimes_Initial = CDTXMania.ConfigIni.nRisky;
+                this.dbゲージ値 = 0;
+			    for ( int i = 0; i < 4; i++ )
+			    {
+                    this.db現在のゲージ値[ i ] = 0;
+			    }
+            }
+            else
+            {
+                //IIDX系の場合は20%スタート
+                this.dbゲージ値 = 20.0;
+			    for ( int i = 0; i < 4; i++ )
+			    {
+                    this.db現在のゲージ値[ i ] = 20.0;
+			    }
             }
 
-            switch( CDTXMania.DTX.LEVEL.Taiko )
+            //白黒鍵盤とお皿のゲーム風ゲージ。今の所テクスチャの実装は間に合ってない
+            if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.IIDX )
             {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                    {
-                        if (CDTXMania.DTX.bチップがある.Branch)
+                float ret = 0; //係数
+                int note = CDTXMania.DTX.nノーツ数[ 0 ];
+                ret = ( 7.605f * note / ( 0.01f * note + 6.5f ) ) / CDTXMania.DTX.nノーツ数[ 0 ];
+                this.dbゲージ増加量[ 0 ] = ret;
+                this.dbゲージ増加量[ 1 ] = ret / 2.0f;
+                this.dbゲージ増加量[ 2 ] = 2.0f;
+
+                //譜面分岐
+                for( int i = 0; i < 3; i++ )
+                {
+                    note = CDTXMania.DTX.nノーツ数[ i ];
+                    ret = ( 7.605f * note / ( 0.01f * note + 6.5f ) ) / CDTXMania.DTX.nノーツ数[ i ];
+                    this.dbゲージ増加量_Branch[ i, 0 ] = ret;
+                    this.dbゲージ増加量_Branch[ i, 1 ] = ret / 2.0f;
+                    this.dbゲージ増加量_Branch[ i, 2 ] = 2.0f;
+                }
+            }
+            else
+            {
+			    //ダメージ値の計算は太鼓の達人譜面Wikiのものを参考にしました。
+                //ゲージのMAXまでの最低コンボ数を計算
+                float dbGaugeMaxComboValue = 0;
+                float[] dbGaugeMaxComboValue_branch = new float[3];
+                float dbDamageRate = 2.0f;
+
+                if( nRiskyTimes_InitialVal > 0 )
+                {
+                    this.bRisky = true;
+                    this.nRiskyTimes = CDTXMania.ConfigIni.nRisky;
+                    this.nRiskyTimes_Initial = CDTXMania.ConfigIni.nRisky;
+                }
+
+                switch( CDTXMania.DTX.LEVEL.Taiko )
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
                         {
-                            dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
-                            for( int i = 0; i < 3; i++ )
+                            if (CDTXMania.DTX.bチップがある.Branch)
                             {
-                                dbGaugeMaxComboValue_branch[i] = CDTXMania.DTX.nノーツ数[i] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
+                                dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
+                                for( int i = 0; i < 3; i++ )
+                                {
+                                    dbGaugeMaxComboValue_branch[i] = CDTXMania.DTX.nノーツ数[i] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
+                                }
+                                dbDamageRate = 0.625f;
                             }
-                            dbDamageRate = 0.625f;
-                        }
-                        else
-                        {
-                            dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
-                            dbDamageRate = 0.625f;
-                        }
-                        break;
-                    }
-
-
-                case 8:
-                    {
-                        if (CDTXMania.DTX.bチップがある.Branch)
-                        {
-                            dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
-                            for( int i = 0; i < 3; i++ )
+                            else
                             {
-                                dbGaugeMaxComboValue_branch[i] = CDTXMania.DTX.nノーツ数[i] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
+                                dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 0 ] / 100.0f );
+                                dbDamageRate = 0.625f;
                             }
-                            dbDamageRate = 0.625f;
+                            break;
                         }
-                        else
-                        {
-                            dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
-                            dbDamageRate = 0.625f;
-                        }
-                        break;
-                    }
 
-                case 9:
-                case 10:
-                    {
-                        if (CDTXMania.DTX.bチップがある.Branch)
+
+                    case 8:
                         {
-                            dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
-                            for( int i = 0; i < 3; i++ )
+                            if (CDTXMania.DTX.bチップがある.Branch)
                             {
-                                dbGaugeMaxComboValue_branch[i] = CDTXMania.DTX.nノーツ数[i] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                                dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
+                                for( int i = 0; i < 3; i++ )
+                                {
+                                    dbGaugeMaxComboValue_branch[i] = CDTXMania.DTX.nノーツ数[i] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
+                                }
+                                dbDamageRate = 0.625f;
                             }
-                        }
-                        else
-                        {
-                            dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
-                        }
-                        break;
-                    }
-
-                default:
-                    {
-                        if (CDTXMania.DTX.bチップがある.Branch)
-                        {
-                            dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
-                            for( int i = 0; i < 3; i++ )
+                            else
                             {
-                                dbGaugeMaxComboValue_branch[i] = CDTXMania.DTX.nノーツ数[i] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                                dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 1 ] / 100.0f );
+                                dbDamageRate = 0.625f;
                             }
+                            break;
                         }
-                        else
+
+                    case 9:
+                    case 10:
                         {
-                            dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                            if (CDTXMania.DTX.bチップがある.Branch)
+                            {
+                                dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                                for( int i = 0; i < 3; i++ )
+                                {
+                                    dbGaugeMaxComboValue_branch[i] = CDTXMania.DTX.nノーツ数[i] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                                }
+                            }
+                            else
+                            {
+                                dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                            }
+                            break;
                         }
-                        break;
+
+                    default:
+                        {
+                            if (CDTXMania.DTX.bチップがある.Branch)
+                            {
+                                dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                                for( int i = 0; i < 3; i++ )
+                                {
+                                    dbGaugeMaxComboValue_branch[i] = CDTXMania.DTX.nノーツ数[i] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                                }
+                            }
+                            else
+                            {
+                                dbGaugeMaxComboValue = CDTXMania.DTX.nノーツ数[ 3 ] * ( this.fGaugeMaxRate[ 2 ] / 100.0f );
+                            }
+                            break;
+                        }
+                }
+
+                int nGaugeRankValue = (int)( Math.Floor( 10000.0f / dbGaugeMaxComboValue ) );
+                int[] nGaugeRankValue_branch = new int[3];
+
+                for (int i = 0; i < 3; i++ )
+                {
+                    nGaugeRankValue_branch[i] = (int)( Math.Floor( 10000.0f / dbGaugeMaxComboValue_branch[i] ) );
+                }
+
+                //ゲージ値計算
+                //実機に近い計算
+
+                this.dbゲージ増加量[ 0 ] = nGaugeRankValue / 100.0f;
+                this.dbゲージ増加量[ 1 ] = ( nGaugeRankValue / 100.0f ) * 0.5f;
+                this.dbゲージ増加量[ 2 ] = ( nGaugeRankValue / 100.0f ) * dbDamageRate;
+
+                for (int i = 0; i < 3; i++ )
+                {
+                    this.dbゲージ増加量_Branch[ i, 0 ] = nGaugeRankValue_branch[i] / 100.0f;
+                    this.dbゲージ増加量_Branch[ i, 1 ] = ( nGaugeRankValue_branch[i] / 100.0f ) * 0.5f;
+                    this.dbゲージ増加量_Branch[ i, 2 ] = ( nGaugeRankValue_branch[i] / 100.0f ) * dbDamageRate;
+                }
+
+                //this.dbゲージ増加量[ 0 ] = CDTXMania.DTX.bチップがある.Branch ? ( 130.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : ( 130.0 / CDTXMania.DTX.nノーツ数[ 3 ] );
+                //this.dbゲージ増加量[ 1 ] = CDTXMania.DTX.bチップがある.Branch ? ( 65.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : 65.0 / CDTXMania.DTX.nノーツ数[ 3 ];
+                //this.dbゲージ増加量[ 2 ] = CDTXMania.DTX.bチップがある.Branch ? ( -260.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : -260.0 / CDTXMania.DTX.nノーツ数[ 3 ];
+
+                //2015.03.26 kairera0467 計算を初期化時にするよう修正。
+                this.dbゲージ増加量[ 0 ] = (float)Math.Truncate( this.dbゲージ増加量[ 0 ] * 10000.0f ) / 10000.0f;
+                this.dbゲージ増加量[ 1 ] = (float)Math.Truncate( this.dbゲージ増加量[ 1 ] * 10000.0f ) / 10000.0f;
+                this.dbゲージ増加量[ 2 ] = (float)Math.Truncate( this.dbゲージ増加量[ 2 ] * 10000.0f ) / 10000.0f;
+
+                for (int i = 0; i < 3; i++ )
+                {
+                    this.dbゲージ増加量_Branch[ i, 0 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 0 ] * 10000.0f ) / 10000.0f;
+                    this.dbゲージ増加量_Branch[ i, 1 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 1 ] * 10000.0f ) / 10000.0f;
+                    this.dbゲージ増加量_Branch[ i, 2 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 2 ] * 10000.0f ) / 10000.0f;
+                }
+                
+                #region[ あれ ]
+                // HARDゲージみたいなアレ。BEMANIに比べてノーツ数が多くならないものが多いことを考えて、良判定時の増加量は通常の太鼓ゲージと同じです。
+                if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
+                {
+                    //this.dbゲージ増加量[ 0 ] = 0.16f;
+                    this.dbゲージ増加量[ 1 ] = 0.0f;
+                    this.dbゲージ増加量[ 2 ] = 9.0f;
+
+                    //譜面分岐
+                    for( int i = 0; i < 3; i++ )
+                    {
+                        //this.dbゲージ増加量_Branch[ i, 0 ] = 0.16f;
+                        this.dbゲージ増加量_Branch[ i, 1 ] = 0.0f;
+                        this.dbゲージ増加量_Branch[ i, 2 ] = 9.0f;
                     }
+                }
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD )
+                {
+                    this.dbゲージ増加量[ 0 ] = 0.16f;
+                    this.dbゲージ増加量[ 1 ] = 0.0f;
+                    this.dbゲージ増加量[ 2 ] = 18.0f;
 
+                    //譜面分岐
+                    for( int i = 0; i < 3; i++ )
+                    {
+                        //this.dbゲージ増加量_Branch[ i, 0 ] = 0.16f;
+                        this.dbゲージ増加量_Branch[ i, 1 ] = 0.0f;
+                        this.dbゲージ増加量_Branch[ i, 2 ] = 18.0f;
+                    }
+                }
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
+                {
+                    // ミスしたらその時点でゲージが空になる。
+                    // ゲージが満タンでも消せるようにするため100にしている。(もしダメージ演算結果が0以下になっても後から補正してくれます)
+                    this.dbゲージ増加量[ 2 ] = 100;
+                    this.dbゲージ増加量_Branch[ 0, 2 ] = 100;
+                    this.dbゲージ増加量_Branch[ 1, 2 ] = 100;
+                    this.dbゲージ増加量_Branch[ 2, 2 ] = 100;
+                }
+                #endregion
             }
-
-            int nGaugeRankValue = (int)( Math.Floor( 10000.0f / dbGaugeMaxComboValue ) );
-            int[] nGaugeRankValue_branch = new int[3];
-
-            for (int i = 0; i < 3; i++ )
-            {
-                nGaugeRankValue_branch[i] = (int)( Math.Floor( 10000.0f / dbGaugeMaxComboValue_branch[i] ) );
-            }
-
-            //ゲージ値計算
-            //実機に近い計算
-
-            this.dbゲージ増加量[ 0 ] = nGaugeRankValue / 100.0f;
-            this.dbゲージ増加量[ 1 ] = ( nGaugeRankValue / 100.0f ) * 0.5f;
-            this.dbゲージ増加量[ 2 ] = ( nGaugeRankValue / 100.0f ) * dbDamageRate;
-
-            for (int i = 0; i < 3; i++ )
-            {
-                this.dbゲージ増加量_Branch[ i, 0 ] = nGaugeRankValue_branch[i] / 100.0f;
-                this.dbゲージ増加量_Branch[ i, 1 ] = ( nGaugeRankValue_branch[i] / 100.0f ) * 0.5f;
-                this.dbゲージ増加量_Branch[ i, 2 ] = ( nGaugeRankValue_branch[i] / 100.0f ) * dbDamageRate;
-            }
-
-            //this.dbゲージ増加量[ 0 ] = CDTXMania.DTX.bチップがある.Branch ? ( 130.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : ( 130.0 / CDTXMania.DTX.nノーツ数[ 3 ] );
-            //this.dbゲージ増加量[ 1 ] = CDTXMania.DTX.bチップがある.Branch ? ( 65.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : 65.0 / CDTXMania.DTX.nノーツ数[ 3 ];
-            //this.dbゲージ増加量[ 2 ] = CDTXMania.DTX.bチップがある.Branch ? ( -260.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : -260.0 / CDTXMania.DTX.nノーツ数[ 3 ];
-
-            //2015.03.26 kairera0467 計算を初期化時にするよう修正。
-            this.dbゲージ増加量[ 0 ] = (float)Math.Truncate( this.dbゲージ増加量[ 0 ] * 10000.0f ) / 10000.0f;
-            this.dbゲージ増加量[ 1 ] = (float)Math.Truncate( this.dbゲージ増加量[ 1 ] * 10000.0f ) / 10000.0f;
-            this.dbゲージ増加量[ 2 ] = (float)Math.Truncate( this.dbゲージ増加量[ 2 ] * 10000.0f ) / 10000.0f;
-
-            for (int i = 0; i < 3; i++ )
-            {
-                this.dbゲージ増加量_Branch[ i, 0 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 0 ] * 10000.0f ) / 10000.0f;
-                this.dbゲージ増加量_Branch[ i, 1 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 1 ] * 10000.0f ) / 10000.0f;
-                this.dbゲージ増加量_Branch[ i, 2 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 2 ] * 10000.0f ) / 10000.0f;
-            }
-
-		}
+        }
 
 		#region [ DAMAGE ]
 #if true		// DAMAGELEVELTUNING
@@ -309,9 +385,7 @@ namespace DTXMania
 			float fDamage;
             int nコース = CDTXMania.stage演奏ドラム画面.n現在のコース[ player ];
 
-
-#if true	// DAMAGELEVELTUNING
-			switch ( e今回の判定 )
+            switch ( e今回の判定 )
 			{
 				case E判定.Perfect:
 				case E判定.Great:
@@ -343,22 +417,19 @@ namespace DTXMania
                         }
                         else
 					        fDamage = this.dbゲージ増加量[ 2 ];
-                        
 
+                        if( this.db現在のゲージ値[ player ] < 30.0f && CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
+                        {
+                            //HARDの場合30%補正
+                            fDamage = 4.5f;
+                        }
+                        
                         if( fDamage >= 0 )
                         {
                             fDamage = -fDamage;
                         }
-
-                        if( this.bRisky )
-                        {
-                            this.nRiskyTimes--;
-                        }
                     }
-
 					break;
-
-
 
 				default:
                     {
@@ -375,53 +446,7 @@ namespace DTXMania
                             fDamage = 0;
 					    break;
                     }
-
-
-			}
-#else													// before applying #23625 modifications
-			switch (e今回の判定)
-			{
-				case E判定.Perfect:
-					fDamage = ( part == E楽器パート.DRUMS ) ? 0.01 : 0.015;
-					break;
-
-				case E判定.Great:
-					fDamage = ( part == E楽器パート.DRUMS ) ? 0.006 : 0.009;
-					break;
-
-				case E判定.Good:
-					fDamage = ( part == E楽器パート.DRUMS ) ? 0.002 : 0.003;
-					break;
-
-				case E判定.Poor:
-					fDamage = ( part == E楽器パート.DRUMS ) ? 0.0 : 0.0;
-					break;
-
-				case E判定.Miss:
-					fDamage = ( part == E楽器パート.DRUMS ) ? -0.035 : -0.035;
-					switch( CDTXMania.ConfigIni.eダメージレベル )
-					{
-						case Eダメージレベル.少ない:
-							fDamage *= 0.6;
-							break;
-
-						case Eダメージレベル.普通:
-							fDamage *= 1.0;
-							break;
-
-						case Eダメージレベル.大きい:
-							fDamage *= 1.6;
-							break;
-					}
-					break;
-
-				default:
-					fDamage = 0.0;
-					break;
-			}
-#endif
-            
-
+            }
 			if( this.db現在のゲージ値[ player ] > 100.0 )
 				this.db現在のゲージ値[ player ] = 100.0;
             else if( this.db現在のゲージ値[ player ] < 0.0 )
@@ -430,7 +455,17 @@ namespace DTXMania
             this.db現在のゲージ値[ player ] = Math.Round(this.db現在のゲージ値[ player ] + fDamage, 5, MidpointRounding.ToEven);
             CDTXMania.stage演奏ドラム画面.nGauge = fDamage;
 
-		}
+            switch( e今回の判定 )
+            {
+                case E判定.Poor:
+                case E判定.Miss:
+                    if( this.bRisky )
+                    {
+                        this.nRiskyTimes--;
+                    }
+                    break;
+            }
+	    }
 
         public virtual void Start(int nLane, E判定 judge, int player)
         {

@@ -705,6 +705,9 @@ namespace DTXMania
         public bool bHispeedRandom;
         public Eステルスモード eSTEALTH;
         public bool bNoInfo;
+        public bool bMonochlo;
+        public int nJustHIDDEN; //2018.03.30 kairera0467
+        public bool bZeroSpeed;
 
         public int nDefaultSongSort;
 
@@ -715,6 +718,7 @@ namespace DTXMania
         public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
 
         public EWindowMovieMode eWindowMovieMode;
+        public Eゲージモード eGaugeMode; //2018.03.26 kairera0467
 
 		public STDGBVALUE<E判定文字表示位置> 判定文字表示位置;
 //		public int nハイハット切り捨て下限Velocity;
@@ -1353,6 +1357,7 @@ namespace DTXMania
 
             this.eSTEALTH = Eステルスモード.OFF;
             this.bNoInfo = false;
+            this.eGaugeMode = Eゲージモード.Normal;
             
             //this.bNoMP3Streaming = false;
 			this.nMasterVolume = 100;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
@@ -1362,6 +1367,8 @@ namespace DTXMania
             this.eGameMode = EGame.OFF;
             this.bEndingAnime = false;
             this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
+            this.eGaugeMode = Eゲージモード.Normal;
+
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;

@@ -91,7 +91,9 @@ namespace DTXMania
                 int[] y = new int[] { 210, 386 };
                 for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
                 {
-                    if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ i ] >= 80 )
+                    bool bClear = CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD || CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD ? true : CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ i ] >= 80;
+
+                    if( bClear )
                     {
                         //this.ct進行メイン.n現在の値 = 18;
                         if( this.soundClear != null && !this.b再生済み )

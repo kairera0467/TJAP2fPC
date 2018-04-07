@@ -36,21 +36,21 @@ namespace DTXMania
 
 
 		#region [ コンストラクタ ]
-		public CPrivateFastFont( FontFamily fontfamily, int pt, FontStyle style )
+		public CPrivateFastFont( FontFamily fontfamily, float pt, FontStyle style )
 		{
-			Initialize( null, fontfamily, pt, style );
+			Initialize( null, null, fontfamily, pt, style );
 		}
-		public CPrivateFastFont( FontFamily fontfamily, int pt )
+		public CPrivateFastFont( FontFamily fontfamily, float pt )
 		{
-			Initialize( null, fontfamily, pt, FontStyle.Regular );
+			Initialize( null, null, fontfamily, pt, FontStyle.Regular );
 		}
-		public CPrivateFastFont( string fontpath, int pt, FontStyle style )
+		public CPrivateFastFont( string fontpath, float pt, FontStyle style )
 		{
-			Initialize( fontpath, null, pt, style );
+			Initialize( fontpath, null, null, pt, style );
 		}
-		public CPrivateFastFont( string fontpath, int pt )
+		public CPrivateFastFont( string fontpath, float pt )
 		{
-			Initialize( fontpath, null, pt, FontStyle.Regular );
+			Initialize( fontpath, null, null, pt, FontStyle.Regular );
 		}
 		public CPrivateFastFont()
 		{
@@ -58,11 +58,11 @@ namespace DTXMania
 		}
 		#endregion
 		#region [ コンストラクタから呼ばれる初期化処理 ]
-		protected new void Initialize( string fontpath, FontFamily fontfamily, int pt, FontStyle style )
+		protected new void Initialize( string fontpath, string baseFontPath, FontFamily fontfamily, float pt, FontStyle style )
 		{
 			this.bDispose完了済み_CPrivateFastFont = false;
 			this.listFontCache = new List<FontCache>();
-			base.Initialize( fontpath, fontfamily, pt, style );
+			base.Initialize( fontpath, baseFontPath, fontfamily, pt, style );
 		}
 		#endregion
 

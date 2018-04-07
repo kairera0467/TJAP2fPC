@@ -583,15 +583,6 @@ namespace DTXMania
 		{
 			if( this.b活性化してない )
 				return;
-
-			this.tx曲名バー.Score = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar score.png" ), false );
-			this.tx曲名バー.Box = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar box.png" ), false );
-			this.tx曲名バー.Other = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar other.png" ), false );
-			this.tx選曲バー.Score = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar score selected.png" ), false );
-			this.tx選曲バー.Box = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar box selected.png" ), false );
-			this.tx選曲バー.Other = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_bar other selected.png" ), false );
-			//this.txスキル数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_skill number on list.png" ), false );
-
             this.tx曲バー_JPOP = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false );
             this.tx曲バー_アニメ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_anime.png" ), false );
             this.tx曲バー_ゲーム = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_game.png" ), false );
@@ -698,12 +689,6 @@ namespace DTXMania
 			//CDTXMania.t安全にDisposeする( ref this.txスキル数字 );
 			CDTXMania.t安全にDisposeする( ref this.txEnumeratingSongs );
 			CDTXMania.t安全にDisposeする( ref this.txSongNotFound );
-			CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Score );
-			CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Box );
-			CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Other );
-			CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Score );
-			CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Box );
-			CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Other );
 
 			CDTXMania.t安全にDisposeする( ref this.tx曲バー_JPOP );
 			CDTXMania.t安全にDisposeする( ref this.tx曲バー_アニメ );
@@ -1601,8 +1586,6 @@ namespace DTXMania
 		private CTexture txSongNotFound, txEnumeratingSongs;
 		private CTexture txスキル数字;
 		private CTexture txアイテム数数字;
-		private STバー tx曲名バー;
-		private ST選曲バー tx選曲バー;
         private CTexture txバー中央;
         private CTexture tx選択している曲の曲名;
         private CTexture tx選択している曲のサブタイトル;
@@ -1779,48 +1762,6 @@ namespace DTXMania
 			}
 
 			this.n現在の選択行 = 5;
-		}
-		private void tバーの描画( int x, int y, Eバー種別 type, bool b選択曲 )
-		{
-			if( x >= SampleFramework.GameWindowSize.Width || y >= SampleFramework.GameWindowSize.Height )
-				return;
-
-			if( b選択曲 )
-			{
-				#region [ (A) 選択曲の場合 ]
-				//-----------------
-				if( this.tx選曲バー[ (int) type ] != null )
-					this.tx選曲バー[ (int) type ].t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 0, 0, 128, 96 ) );	// ヘサキ
-				x += 128;
-
-				var rc = new Rectangle( 128, 0, 128, 96 );
-				while( x < 1280 )
-				{
-					if( this.tx選曲バー[ (int) type ] != null )
-						this.tx選曲バー[ (int) type ].t2D描画( CDTXMania.app.Device, x, y, rc );	// 胴体；64pxずつ横につなげていく。
-					x += 128;
-				}
-				//-----------------
-				#endregion
-			}
-			else
-			{
-				#region [ (B) その他の場合 ]
-				//-----------------
-				if( this.tx曲名バー[ (int) type ] != null )
-					this.tx曲名バー[ (int) type ].t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 0, 0, 128, 48 ) );		// ヘサキ
-				x += 128;
-
-				var rc = new Rectangle( 0, 48, 128, 48 );
-				while( x < 1280 )
-				{
-					if( this.tx曲名バー[ (int) type ] != null )
-						this.tx曲名バー[ (int) type ].t2D描画( CDTXMania.app.Device, x, y, rc );	// 胴体；64pxずつ横につなげていく。
-					x += 128;
-				}
-				//-----------------
-				#endregion
-			}
 		}
 		private void tジャンル別選択されていない曲バーの描画( int x, int y, string strジャンル )
 		{

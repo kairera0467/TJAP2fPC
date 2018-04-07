@@ -222,9 +222,9 @@ namespace FDK
 
         public static SlimDX.Color4 n255ToColor4( int nR, int nG, int nB )
         {
-            float fR = n255ToParsent( nR );
-            float fG = n255ToParsent( nG );
-            float fB = n255ToParsent( nB );
+            float fR = nR / 255.0f;
+            float fG = nG / 255.0f;
+            float fB = nB / 255.0f;
 
             return new SlimDX.Color4( fR, fG, fB );
         }

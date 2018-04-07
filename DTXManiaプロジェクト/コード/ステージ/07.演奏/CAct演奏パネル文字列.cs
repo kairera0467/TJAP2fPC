@@ -73,6 +73,7 @@ namespace DTXMania
 
                         CDTXMania.t安全にDisposeする( ref bmpDiff );
                         CDTXMania.t安全にDisposeする( ref bmpSongTitle );
+                        //CDTXMania.t安全にDisposeする( ref this.pfMusicName ); //たまにNullReferenceが出るのでダメ
 					}
 					catch( CTextureCreateFailedException )
 					{
@@ -119,14 +120,12 @@ namespace DTXMania
                     {
                         Bitmap bmpDummy = new Bitmap( 1, 1 );
                         this.txGENRE = CDTXMania.tテクスチャの生成( bmpDummy, true );
+                        CDTXMania.t安全にDisposeする( ref bmpDummy );
                     }
                 }
 
 			    this.ct進行用 = new CCounter( 0, 2000, 2, CDTXMania.Timer );
 				this.Start();
-
-
-
 			}
 		}
 

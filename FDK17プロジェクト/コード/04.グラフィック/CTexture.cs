@@ -8,9 +8,21 @@ using System.Diagnostics;
 using SlimDX;
 using SlimDX.Direct3D9;
 
+using Rectangle = System.Drawing.Rectangle;
+
 namespace FDK
 {
-	public class CTexture : IDisposable
+    /// <summary>
+    /// テクスチャを扱うクラス。
+    /// 使用終了時は必ずDispose()してください。Finalize時の自動Disposeはありません。
+    /// Disposeを忘れた場合は、メモリリークに直結します。
+    /// Finalize時にDisposeしない代わりに、Finalize時にテクスチャのDispose漏れを検出し、
+    /// Trace.TraceWarning()でログを出力します。
+    /// see also:
+    /// https://osdn.net/projects/dtxmania/ticket/38036
+    /// https://github.com/sharpdx/SharpDX/pull/192?w=1
+    /// </summary>
+    public class CTexture : IDisposable
 	{
 		// プロパティ
 		public bool b加算合成
@@ -101,7 +113,8 @@ namespace FDK
 			this.szテクスチャサイズ = new Size( 0, 0 );
 			this._透明度 = 0xff;
 			this.texture = null;
-			this.cvPositionColoredVertexies = null;
+            this.bSlimDXTextureDispose完了済み = false;
+            this.cvPositionColoredVertexies = null;
 			this.b加算合成 = false;
 			this.fZ軸中心回転 = 0f;
 			this.vc拡大縮小倍率 = new Vector3( 1f, 1f, 1f );
@@ -135,7 +148,8 @@ namespace FDK
 					stream.Seek( 0L, SeekOrigin.Begin );
 					int colorKey = unchecked( (int) 0xFF000000 );
 					this.texture = Texture.FromStream( device, stream, this.szテクスチャサイズ.Width, this.szテクスチャサイズ.Height, 1, Usage.None, format, poolvar, Filter.Point, Filter.None, colorKey );
-				}
+                    this.bSlimDXTextureDispose完了済み = false;
+                }
 			}
 			catch ( Exception e )
 			{
@@ -228,7 +242,8 @@ namespace FDK
 #endif
 						// 中で更にメモリ読み込みし直していて無駄なので、Streamを使うのは止めたいところ
 						this.texture = Texture.FromStream( device, stream, n幅, n高さ, 1, usage, format, pool, Filter.Point, Filter.None, 0 );
-					}
+                        this.bSlimDXTextureDispose完了済み = false;
+                    }
 				}
 			}
 			catch
@@ -287,9 +302,10 @@ namespace FDK
 				//				{
 				//Trace.TraceInformation( "CTexture() start: " );
 				this.texture = Texture.FromMemory( device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey );
-				//Trace.TraceInformation( "CTexture() end:   " );
-				//				}
-			}
+                this.bSlimDXTextureDispose完了済み = false;
+                //Trace.TraceInformation( "CTexture() end:   " );
+                //				}
+            }
 			catch
 			{
 				this.Dispose();
@@ -352,7 +368,8 @@ namespace FDK
 #endif
 					texture.UnlockRectangle( 0 );
 					bitmap.UnlockBits( srcBufData );
-				}
+                    this.bSlimDXTextureDispose完了済み = false;
+                }
 				//Trace.TraceInformation( "CTExture() End: " );
 			}
 			catch
@@ -893,21 +910,44 @@ namespace FDK
 			device.DrawUserPrimitives( PrimitiveType.TriangleStrip, 2, this.cvPositionColoredVertexies );
 		}
 
-		#region [ IDisposable 実装 ]
+		#region [ Dispose-Finalize パターン実装 ]
 		//-----------------
 		public void Dispose()
 		{
-			if( !this.bDispose完了済み )
+			this.Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected void Dispose(bool disposeManagedObjects)
+		{
+			if (this.bDispose完了済み)
+				return;
+
+			if (disposeManagedObjects)
 			{
-				// テクスチャの破棄
-				if( this.texture != null )
+				// (A) Managed リソースの解放
+				// テクスチャの破棄 (SharpDXのテクスチャは、SharpDX側で管理されるため、FDKからはmanagedリソースと見做す)
+				if (this.texture != null)
 				{
 					this.texture.Dispose();
 					this.texture = null;
+					this.bSlimDXTextureDispose完了済み = true;
 				}
-
-				this.bDispose完了済み = true;
 			}
+
+			// (B) Unamanaged リソースの解放
+
+
+			this.bDispose完了済み = true;
+		}
+		~CTexture()
+		{
+			// ファイナライザの動作時にtextureのDisposeがされていない場合は、
+			// CTextureのDispose漏れと見做して警告をログ出力する
+			if (!this.bSlimDXTextureDispose完了済み)
+			{
+				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}))", sz画像サイズ.Width, sz画像サイズ.Height );
+			}
+			this.Dispose(false);
 		}
 		//-----------------
 		#endregion
@@ -918,8 +958,8 @@ namespace FDK
 		#region [ private ]
 		//-----------------
 		private int _透明度;
-		private bool bDispose完了済み;
-		private PositionColoredTexturedVertex[] cvPositionColoredVertexies;
+        private bool bDispose完了済み, bSlimDXTextureDispose完了済み;
+        private PositionColoredTexturedVertex[] cvPositionColoredVertexies;
         protected TransformedColoredTexturedVertex[] cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[]
 		{
 			new TransformedColoredTexturedVertex(),

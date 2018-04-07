@@ -334,7 +334,40 @@ namespace DTXMania
 				this.actInformation.On進行描画();
 				if( this.tx下部パネル != null )
 					this.tx下部パネル.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.sz画像サイズ.Height );
+                #region[ 上部テキスト ]
+                if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
+                    CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL" );
+                if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛 )
+                    CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD" );
+                if( CDTXMania.ConfigIni.bSuperHard )
+                    CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON" );
+                if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL )
+                    CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON" );
+                else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL )
+                    CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.赤, "HSSCROLL : ON" );
 
+                if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.IIDX )
+                    CDTXMania.act文字コンソール.tPrint( 240, 0, C文字コンソール.Eフォント種別.白, "GAUGE : IIDX" );
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
+                    CDTXMania.act文字コンソール.tPrint( 240, 0, C文字コンソール.Eフォント種別.白, "GAUGE : HARD" );
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD )
+                    CDTXMania.act文字コンソール.tPrint( 240, 0, C文字コンソール.Eフォント種別.白, "GAUGE : EX-HARD" );
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
+                    CDTXMania.act文字コンソール.tPrint( 240, 0, C文字コンソール.Eフォント種別.赤, "GAUGE : DEATH" );
+
+                if( CDTXMania.ConfigIni.nJustHIDDEN == 1 )
+                    CDTXMania.act文字コンソール.tPrint( 240, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-A" );
+                else if( CDTXMania.ConfigIni.nJustHIDDEN == 2 )
+                    CDTXMania.act文字コンソール.tPrint( 240, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-B" );
+                else if( CDTXMania.ConfigIni.nJustHIDDEN == 3 )
+                    CDTXMania.act文字コンソール.tPrint( 240, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-C" );
+
+                if( CDTXMania.ConfigIni.bMonochlo )
+                    CDTXMania.act文字コンソール.tPrint( 240, 32, C文字コンソール.Eフォント種別.赤, "NOTE : MONOCHRO" );
+
+                if( CDTXMania.ConfigIni.bZeroSpeed )
+                    CDTXMania.act文字コンソール.tPrint( 640, 0, C文字コンソール.Eフォント種別.赤, "ZERO-SPEED : ON" );
+                #endregion
                 #region[ 下部テキスト ]
                 if( this.tx下部テキスト != null )
                 {
@@ -344,16 +377,6 @@ namespace DTXMania
                     if( CDTXMania.ConfigIni.b太鼓パートAutoPlay2P ) {
                         this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 1030 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
                     }
-                    if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
-                        CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL" );
-                    if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛 )
-                        CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD" );
-                    if( CDTXMania.ConfigIni.bSuperHard )
-                        CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON" );
-                    if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL )
-                        CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON" );
-                    else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL )
-                        CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.赤, "HSSCROLL : ON" );
                 }
                 #endregion
 
@@ -438,6 +461,22 @@ namespace DTXMania
                             C共通.bToggleBoolian( ref CDTXMania.ConfigIni.b太鼓パートAutoPlay );
 						}
 						#endregion
+						#region [ F4 ゲージ ]
+						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F4 ) )
+						{
+							CDTXMania.Skin.sound変更音.t再生する();
+                            if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.Normal )
+                                CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.IIDX;
+                            else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.IIDX )
+                                CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.HARD;
+                            else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
+                                CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.EXHARD;
+                            else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD )
+                                CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.DEATH;
+                            else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
+                                CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.Normal;
+						}
+						#endregion
 						#region [ F5 スーパーハード ]
 						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F5 ) )
 						{
@@ -465,8 +504,33 @@ namespace DTXMania
                             }
 						}
 						#endregion
-						#region [ F7 ]
-                        if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F7 ) )
+						#region [ F7 JUST HIDDEN ]
+						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F7 ) )
+						{
+							CDTXMania.Skin.sound変更音.t再生する();
+                            if( CDTXMania.ConfigIni.nJustHIDDEN < 3 )
+                                CDTXMania.ConfigIni.nJustHIDDEN++;
+                            else if( CDTXMania.ConfigIni.nJustHIDDEN == 3 )
+                                CDTXMania.ConfigIni.nJustHIDDEN = 0;
+						}
+						#endregion
+						#region [ F8 MONOCHRO ]
+						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F8 ) )
+						{
+							CDTXMania.Skin.sound変更音.t再生する();
+                            C共通.bToggleBoolian( ref CDTXMania.ConfigIni.bMonochlo );
+						}
+						#endregion
+						#region [ F9 ZERO-SPEED ]
+						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F9 ) )
+						{
+							CDTXMania.Skin.sound変更音.t再生する();
+                            C共通.bToggleBoolian( ref CDTXMania.ConfigIni.bZeroSpeed );
+						}
+                        #endregion
+                        #region [ not used ]
+                        //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F9 ) )
+                        if( false )
                         {
                             CDTXMania.Skin.sound変更音.t再生する();
                             CDTXMania.Skin.sound曲読込開始音.t再生する();

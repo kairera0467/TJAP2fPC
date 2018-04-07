@@ -336,10 +336,10 @@ namespace DTXMania
 
 		public class CChip : IComparable<CDTX.CChip>, ICloneable
 		{
-			public bool bHit;
-			public bool b可視 = true;
-            public bool bShow;
-            public bool bBranch = false;
+			public bool bHit; //プレイヤーの手によって叩かれた(判定イベントが発生した)か
+			public bool b可視 = true; //falseにすると処理しない音符として扱う
+            public bool bShow; //(特殊フラグ)SUDDEN命令を使用した時用
+            public bool bBranch = false; //(特殊フラグ)分岐小節線であるか
 			public double dbチップサイズ倍率 = 1.0;
 			public double db実数値;
             public double dbBPM;
@@ -383,6 +383,7 @@ namespace DTXMania
             public double dbProcess_Time;
             public int nPlayerSide;
             public bool bGOGOTIME = false; //2018.03.11 kairera0467 ゴーゴータイム内のチップであるか
+            public int nList上の位置; //2018.04.01 List上での位置
 			public bool bBPMチップである
 			{
 				get
@@ -435,6 +436,7 @@ namespace DTXMania
 				this.nチャンネル番号 = 0;
 				this.n整数値 = 0; //整数値をList上の番号として用いる。
 				this.n整数値_内部番号 = 0;
+                this.nList上の位置 = 0;
 				this.db実数値 = 0.0;
 				this.n発声位置 = 0;
                 this.f発声位置 = 0.0f;
@@ -594,7 +596,7 @@ namespace DTXMania
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xA0
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xB0
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xC0
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 5, //0xD0
+					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 4, 4, //0xD0
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xE0
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xF0
 				};
@@ -1179,6 +1181,7 @@ namespace DTXMania
         public int[] nノーツ数 = new int[ 4 ]; //0～2:各コース 3:共通
         public int[] n風船数 = new int[ 4 ]; //0～2:各コース 3:共通
         private bool b次の小節が分岐である;
+        private bool b次の分岐で数値リセット; //2018.03.16 kairera0467 SECTION処理を分岐判定と同時に行う。
 
         private string strTemp;
         private int n文字数;
@@ -1306,32 +1309,6 @@ namespace DTXMania
 			this.nRESULTMOVIE用優先順位 = new int[ 7 ];
 			this.nRESULTSOUND用優先順位 = new int[ 7 ];
 
-			#region [ 2011.1.1 yyagi GDA->DTX変換テーブル リファクタ後 ]
-			STGDAPARAM[] stgdaparamArray = new STGDAPARAM[] {		// GDA->DTX conversion table
-				new STGDAPARAM("TC", 0x03),	new STGDAPARAM("BL", 0x02),	new STGDAPARAM("GS", 0x29),
-				new STGDAPARAM("DS", 0x30),	new STGDAPARAM("FI", 0x53),	new STGDAPARAM("HH", 0x11),
-				new STGDAPARAM("SD", 0x12),	new STGDAPARAM("BD", 0x13),	new STGDAPARAM("HT", 0x14),
-				new STGDAPARAM("LT", 0x15),	new STGDAPARAM("CY", 0x16),	new STGDAPARAM("G1", 0x21),
-				new STGDAPARAM("G2", 0x22),	new STGDAPARAM("G3", 0x23),	new STGDAPARAM("G4", 0x24),
-				new STGDAPARAM("G5", 0x25),	new STGDAPARAM("G6", 0x26),	new STGDAPARAM("G7", 0x27),
-				new STGDAPARAM("GW", 0x28),	new STGDAPARAM("01", 0x61),	new STGDAPARAM("02", 0x62),
-				new STGDAPARAM("03", 0x63),	new STGDAPARAM("04", 0x64),	new STGDAPARAM("05", 0x65),
-				new STGDAPARAM("06", 0x66),	new STGDAPARAM("07", 0x67),	new STGDAPARAM("08", 0x68),
-				new STGDAPARAM("09", 0x69),	new STGDAPARAM("0A", 0x70),	new STGDAPARAM("0B", 0x71),
-				new STGDAPARAM("0C", 0x72),	new STGDAPARAM("0D", 0x73),	new STGDAPARAM("0E", 0x74),
-				new STGDAPARAM("0F", 0x75),	new STGDAPARAM("10", 0x76),	new STGDAPARAM("11", 0x77),
-				new STGDAPARAM("12", 0x78),	new STGDAPARAM("13", 0x79),	new STGDAPARAM("14", 0x80),
-				new STGDAPARAM("15", 0x81),	new STGDAPARAM("16", 0x82),	new STGDAPARAM("17", 0x83),
-				new STGDAPARAM("18", 0x84),	new STGDAPARAM("19", 0x85),	new STGDAPARAM("1A", 0x86),
-				new STGDAPARAM("1B", 0x87),	new STGDAPARAM("1C", 0x88),	new STGDAPARAM("1D", 0x89),
-				new STGDAPARAM("1E", 0x90),	new STGDAPARAM("1F", 0x91),	new STGDAPARAM("20", 0x92),
-				new STGDAPARAM("B1", 0xA1),	new STGDAPARAM("B2", 0xA2),	new STGDAPARAM("B3", 0xA3),
-				new STGDAPARAM("B4", 0xA4),	new STGDAPARAM("B5", 0xA5),	new STGDAPARAM("B6", 0xA6),
-				new STGDAPARAM("B7", 0xA7),	new STGDAPARAM("BW", 0xA8),	new STGDAPARAM("G0", 0x20),
-				new STGDAPARAM("B0", 0xA0)
-			};
-			this.stGDAParam = stgdaparamArray;
-			#endregion
 			this.nBGMAdjust = 0;
 			this.nPolyphonicSounds = CDTXMania.ConfigIni.nPoliphonicSounds;
 			this.dbDTXVPlaySpeed = 1.0f;
@@ -2749,7 +2726,7 @@ namespace DTXMania
                         //        this.listChip[n].dbSCROLL = nRan / 10.0;
                         //    }
                         //}
-
+                        this.listChip.Sort();
                         int n整数値管理 = 0;
                         foreach( CChip chip in this.listChip )
                         {
@@ -3618,6 +3595,7 @@ namespace DTXMania
                 chip.nチャンネル番号 = 0xDD;
                 chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
                 chip.n発声時刻ms = (int)this.dbNowTime;
+                chip.f発声時刻ms = (float)this.dbNowTime;
                 chip.n整数値_内部番号 = 1;
 
                 // チップを配置。
@@ -3724,6 +3702,7 @@ namespace DTXMania
                 chip.nチャンネル番号 = 0xDE;
                 chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
                 chip.n発声時刻ms = (int)(this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 16.0 )); //ここの時間設定は前の小節の開始時刻である必要があるのだが...
+                chip.f発声時刻ms = (float)this.dbNowTime;
                 //chip.n発声時刻ms = (int)this.dbLastTime;
                 chip.dbSCROLL = this.dbNowScroll;
                 chip.dbBPM = this.dbNowBPM;
@@ -3925,10 +3904,10 @@ namespace DTXMania
                     if( this.b小節線を挿入している == false )
                     {
                         CChip chip = new CChip();
-                        chip.n発声位置 = ( ( this.n現在の小節数 ) * 384 );
                         chip.nチャンネル番号 = 0x50;
+                        chip.n発声位置 = ( ( this.n現在の小節数 ) * 384 );
                         chip.n発声時刻ms = (int)this.dbNowTime;
-                        chip.n整数値 = this.n現在の小節数;
+                        chip.n整数値_内部番号 = this.n現在の小節数;
                         chip.dbBPM = this.dbNowBPM;
                         chip.dbSCROLL = this.dbNowScroll;
                         chip.dbSCROLL_Y = this.dbNowScrollY;
@@ -3957,7 +3936,7 @@ namespace DTXMania
                         //1拍の時間を計算
                         double db1拍 = ( 60.0 / this.dbNowBPM ) / 4.0;
                         //forループ(拍数)
-                        for( int measure = 0; measure < this.fNow_Measure_s; measure++ )
+                        for( int measure = 1; measure < this.fNow_Measure_s; measure++ )
                         {
                             CChip hakusen = new CChip();
                             hakusen.n発声位置 = ( ( this.n現在の小節数) * 384 );
@@ -3965,7 +3944,7 @@ namespace DTXMania
                             hakusen.nチャンネル番号 = 0x51;
                             //hakusen.n発声時刻ms = (int)this.dbNowTime;
                             hakusen.fBMSCROLLTime = this.dbNowBMScollTime;
-                            hakusen.n整数値 = 0;
+                            hakusen.n整数値_内部番号 = this.n現在の小節数;
                             hakusen.dbBPM = this.dbNowBPM;
                             hakusen.dbSCROLL = this.dbNowScroll;
                             hakusen.dbSCROLL_Y = this.dbNowScrollY;
@@ -4020,7 +3999,7 @@ namespace DTXMania
                             chip.b可視 = true;
                             chip.bShow = true;
                             chip.nチャンネル番号 = 0x10 + nObjectNum;
-                            chip.n発声位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
+                            chip.n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
                             chip.f発声位置 = (float)this.dbNowTime;
                             chip.n発声時刻ms = (int)this.dbNowTime;
                             //chip.fBMSCROLLTime = (float)(( this.dbBarLength ) * (16.0f / this.n各小節の文字数[this.n現在の小節数]));
@@ -6743,23 +6722,6 @@ namespace DTXMania
 		
 		#region [ private ]
 		//-----------------
-		/// <summary>
-		/// <para>GDAチャンネル番号に対応するDTXチャンネル番号。</para>
-		/// </summary>
-		[StructLayout( LayoutKind.Sequential )]
-		private struct STGDAPARAM
-		{
-			public string strGDAのチャンネル文字列;	
-			public int nDTXのチャンネル番号;
-
-			public STGDAPARAM( string strGDAのチャンネル文字列, int nDTXのチャンネル番号 )		// 2011.1.1 yyagi 構造体のコンストラクタ追加(初期化簡易化のため)
-			{
-				this.strGDAのチャンネル文字列 = strGDAのチャンネル文字列;
-				this.nDTXのチャンネル番号 = nDTXのチャンネル番号;
-			}
-		}
-
-		private readonly STGDAPARAM[] stGDAParam;
 		private bool bヘッダのみ;
 		private Stack<bool> bstackIFからENDIFをスキップする;
 	
@@ -7774,38 +7736,11 @@ namespace DTXMania
 			//-----------------
 			int nチャンネル番号 = -1;
 
-			// ファイルフォーマットによって処理が異なる。
+			
+			nチャンネル番号 = C変換.n16進数2桁の文字列を数値に変換して返す( strコマンド.Substring( 3, 2 ) );
 
-			if( this.e種別 == E種別.GDA || this.e種別 == E種別.G2D )
-			{
-				#region [ (A) GDA, G2D の場合：チャンネル文字列をDTXのチャンネル番号へ置き換える。]
-				//-----------------
-				string strチャンネル文字列 = strコマンド.Substring( 3, 2 );
-
-				foreach( STGDAPARAM param in this.stGDAParam )
-				{
-					if( strチャンネル文字列.Equals( param.strGDAのチャンネル文字列, StringComparison.OrdinalIgnoreCase ) )
-					{
-						nチャンネル番号 = param.nDTXのチャンネル番号;
-						break;	// 置き換え成功
-					}
-				}
-				if( nチャンネル番号 < 0 )
-					return false;	// 置き換え失敗
-				//-----------------
-				#endregion
-			}
-			else
-			{
-				#region [ (B) その他の場合：チャンネル番号は16進数2桁。]
-				//-----------------
-				nチャンネル番号 = C変換.n16進数2桁の文字列を数値に変換して返す( strコマンド.Substring( 3, 2 ) );
-
-				if( nチャンネル番号 < 0 )
-					return false;
-				//-----------------
-				#endregion
-			}
+			if( nチャンネル番号 < 0 )
+				return false;
 			//-----------------
 			#endregion
 			#region [ 取得したチャンネル番号で、this.bチップがある に該当があれば設定する。]

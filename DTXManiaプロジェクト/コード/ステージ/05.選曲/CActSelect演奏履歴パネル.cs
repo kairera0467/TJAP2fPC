@@ -119,7 +119,6 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.txパネル本体 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_play history panel.png" ) );
                 this.txスコアボード[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_0.png" ) );
                 this.txスコアボード[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_1.png" ) );
                 this.txスコアボード[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_scoreboard_2.png" ) );
@@ -133,7 +132,6 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
 				CDTXMania.tテクスチャの解放( ref this.tx文字列パネル );
                 CDTXMania.tテクスチャの解放( ref this.txスコアボード[0] );
                 CDTXMania.tテクスチャの解放( ref this.txスコアボード[1] );
@@ -153,18 +151,7 @@ namespace DTXMania
 					base.b初めての進行描画 = false;
 				}
 				this.ct登場アニメ用.t進行();
-				if( this.ct登場アニメ用.b終了値に達した || ( this.txパネル本体 == null ) )
-				{
-					this.n本体X = 810;
-					this.n本体Y = 558;
-				}
-				else
-				{
-					double num = ( (double) this.ct登場アニメ用.n現在の値 ) / 100.0;
-					double num2 = Math.Cos( ( 1.5 + ( 0.5 * num ) ) * Math.PI );
-					this.n本体X = 810;
-					this.n本体Y = 558 + ( (int) ( this.txパネル本体.sz画像サイズ.Height * ( 1.0 - ( num2 * num2 ) ) ) );
-				}
+
                 //if( this.txパネル本体 != null )
                 //{
                 //    this.txパネル本体.t2D描画( CDTXMania.app.Device, this.n本体X, this.n本体Y );
@@ -226,7 +213,6 @@ namespace DTXMania
 		private Font ft表示用フォント;
 		private int n本体X;
 		private int n本体Y;
-		private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
         private CTexture[] txスコアボード = new CTexture[4];
         private CTexture tx文字;

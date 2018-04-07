@@ -84,9 +84,6 @@ namespace DTXMania
 					this.ftタイトル表示用フォント = null;
 				}
 
-                CDTXMania.t安全にDisposeする( ref this.pfTITLE );
-                CDTXMania.t安全にDisposeする( ref this.pfSUBTITLE );
-
 				base.On非活性化();
 			}
 			finally
@@ -132,6 +129,8 @@ namespace DTXMania
 
                         CDTXMania.t安全にDisposeする( ref bmpSongTitle );
                         CDTXMania.t安全にDisposeする( ref bmpSongSubTitle );
+                        CDTXMania.t安全にDisposeする( ref this.pfTITLE );
+                        CDTXMania.t安全にDisposeする( ref this.pfSUBTITLE );
 					}
 					else
 					{

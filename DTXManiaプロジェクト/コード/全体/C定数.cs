@@ -53,6 +53,14 @@ namespace DTXMania
 		普通	= 1,
 		大きい	= 2
 	}
+    public enum Eゲージモード
+    {
+        Normal,
+        IIDX,
+        HARD,
+        EXHARD,
+        DEATH
+    }
 	public enum Eパッド			// 演奏用のenum。ここを修正するときは、次に出てくる EKeyConfigPad と EパッドFlag もセットで修正すること。
 	{
 		HH		= 0,
