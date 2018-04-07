@@ -14,13 +14,15 @@ namespace DTXMania
 		{
 			this.mode = EFIFOモード.フェードアウト;
 			this.counter = new CCounter( 0, 500, 2, CDTXMania.Timer );
-		}
+            CDTXMania.Tx.Result_FadeIn.n透明度 = 255;
+        }
 		public void tフェードイン開始()
 		{
 			this.mode = EFIFOモード.フェードイン;
 			this.counter = new CCounter( 0, 100, 5, CDTXMania.Timer );
-		}
-		public void tフェードイン完了()		// #25406 2011.6.9 yyagi
+            CDTXMania.Tx.Result_FadeIn.n透明度 = 255;
+        }
+        public void tフェードイン完了()		// #25406 2011.6.9 yyagi
 		{
 			this.counter.n現在の値 = this.counter.n終了値;
 		}
