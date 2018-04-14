@@ -3166,7 +3166,7 @@ namespace DTXMania
                     case 0xDD: //譜面分岐条件リセット
                         if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
                         {
-                            //this.tBranchReset( nPlayer ); // 2018.03.31 kairera0467 listChipソート時の問題が解決できないため、SECTION命令での分岐条件リセットを一時廃止します。
+                            this.tBranchReset( nPlayer ); // 2018.03.31 kairera0467 listChipソート時の問題が解決できないため、SECTION命令での分岐条件リセットを一時廃止します。
                             pChip.bHit = true;
                         }
                         break;

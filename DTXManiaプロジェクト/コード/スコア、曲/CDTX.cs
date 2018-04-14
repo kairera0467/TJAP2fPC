@@ -363,11 +363,11 @@ namespace DTXMania
 			public int n総移動時間;
 			public int n透明度 = 0xff;
 			public int n発声位置;
-			public float f発声位置;
+			public double db発声位置;
             public double fBMSCROLLTime;
             public double fBMSCROLLTime_end;
 			public int n発声時刻ms;
-            public float f発声時刻ms;
+            public double db発声時刻ms;
             public int nノーツ終了位置;
 			public int nノーツ終了時刻ms;
             public int nノーツ出現時刻ms;
@@ -378,7 +378,6 @@ namespace DTXMania
 			public CDTX.CAVI rAVI;
             public CDTX.CAVIPAN rAVIPan;
             public CDTX.CDirectShow rDShow;
-            public double db発声時刻;
             public double db判定終了時刻;//連打系音符で使用
             public double dbProcess_Time;
             public int nPlayerSide;
@@ -439,9 +438,9 @@ namespace DTXMania
                 this.nList上の位置 = 0;
 				this.db実数値 = 0.0;
 				this.n発声位置 = 0;
-                this.f発声位置 = 0.0f;
+                this.db発声位置 = 0.0f;
 				this.n発声時刻ms = 0;
-                this.f発声時刻ms = 0.0f;
+                this.db発声時刻ms = 0.0f;
                 this.fBMSCROLLTime = 0;
                 this.nノーツ終了位置 = 0;
                 this.nノーツ終了時刻ms = 0;
@@ -2616,7 +2615,7 @@ namespace DTXMania
 							foreach ( CChip chip in this.listChip )
 							{
 								chip.n発声時刻ms = (int) ( ( (double) chip.n発声時刻ms ) / _db再生速度 );
-                                chip.f発声時刻ms = (float)( ( (float) chip.n発声時刻ms ) / _db再生速度 );
+                                chip.db発声時刻ms = (float)( ( (double) chip.n発声時刻ms ) / _db再生速度 );
                                 chip.nノーツ終了時刻ms = (int) ( ( (double) chip.nノーツ終了時刻ms ) / _db再生速度 );
 							}
 						}
@@ -3595,7 +3594,7 @@ namespace DTXMania
                 chip.nチャンネル番号 = 0xDD;
                 chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
                 chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.f発声時刻ms = (float)this.dbNowTime;
+                chip.db発声時刻ms = this.dbNowTime;
                 chip.n整数値_内部番号 = 1;
 
                 // チップを配置。
@@ -3702,7 +3701,7 @@ namespace DTXMania
                 chip.nチャンネル番号 = 0xDE;
                 chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
                 chip.n発声時刻ms = (int)(this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 16.0 )); //ここの時間設定は前の小節の開始時刻である必要があるのだが...
-                chip.f発声時刻ms = (float)this.dbNowTime;
+                chip.db発声時刻ms = this.dbNowTime;
                 //chip.n発声時刻ms = (int)this.dbLastTime;
                 chip.dbSCROLL = this.dbNowScroll;
                 chip.dbBPM = this.dbNowBPM;
@@ -3907,6 +3906,7 @@ namespace DTXMania
                         chip.nチャンネル番号 = 0x50;
                         chip.n発声位置 = ( ( this.n現在の小節数 ) * 384 );
                         chip.n発声時刻ms = (int)this.dbNowTime;
+                        chip.db発声時刻ms = this.dbNowTime;
                         chip.n整数値_内部番号 = this.n現在の小節数;
                         chip.dbBPM = this.dbNowBPM;
                         chip.dbSCROLL = this.dbNowScroll;
@@ -4000,8 +4000,9 @@ namespace DTXMania
                             chip.bShow = true;
                             chip.nチャンネル番号 = 0x10 + nObjectNum;
                             chip.n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
-                            chip.f発声位置 = (float)this.dbNowTime;
+                            chip.db発声位置 = this.dbNowTime;
                             chip.n発声時刻ms = (int)this.dbNowTime;
+                            chip.db発声時刻ms = this.dbNowTime;
                             //chip.fBMSCROLLTime = (float)(( this.dbBarLength ) * (16.0f / this.n各小節の文字数[this.n現在の小節数]));
                             chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
                             chip.n整数値 = nObjectNum;
