@@ -863,6 +863,7 @@ namespace DTXMania
                             if (this.st叩ききりまショー.b加算アニメ中)
                                 CDTXMania.Tx.Taiko_Combo[0].n透明度 = 0;
                             CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 1f;
+                            CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = 1f;
                             CDTXMania.Tx.Taiko_Combo[0].t2D描画( CDTXMania.app.Device, x, y, rectangle );
 						}
 						break;

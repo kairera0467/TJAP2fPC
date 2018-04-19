@@ -101,10 +101,10 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                this.txBlack = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile black 64x64.png" ) );
-				this.txStageFailed = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_stage_failed.jpg" ) );
-				this.txGameFailed = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_GameFailed.png" ) );
-                this.tx数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
+    //            this.txBlack = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile black 64x64.png" ) );
+				//this.txStageFailed = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_stage_failed.jpg" ) );
+				//this.txGameFailed = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_GameFailed.png" ) );
+    //            this.tx数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -112,10 +112,10 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txStageFailed );
-				CDTXMania.tテクスチャの解放( ref this.txGameFailed );
-                CDTXMania.tテクスチャの解放( ref this.txBlack );
-                CDTXMania.tテクスチャの解放( ref this.tx数字 );
+				//CDTXMania.tテクスチャの解放( ref this.txStageFailed );
+				//CDTXMania.tテクスチャの解放( ref this.txGameFailed );
+    //            CDTXMania.tテクスチャの解放( ref this.txBlack );
+    //            CDTXMania.tテクスチャの解放( ref this.tx数字 );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -131,64 +131,64 @@ namespace DTXMania
 			}
 			this.ct進行.t進行();
 
-            if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー || CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛 )
+            if (CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー || CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)
             {
-                if( this.txBlack != null )
+                if (CDTXMania.Tx.Tile_Black != null)
                 {
-                    for( int i = 0; i <= ( SampleFramework.GameWindowSize.Width / 64 ); i++ )
+                    for (int i = 0; i <= (SampleFramework.GameWindowSize.Width / 64); i++)
                     {
-                        for( int j = 0; j <= ( SampleFramework.GameWindowSize.Height / 64 ); j++ )
+                        for (int j = 0; j <= (SampleFramework.GameWindowSize.Height / 64); j++)
                         {
-                            this.txBlack.t2D描画(CDTXMania.app.Device, i * 64, j * 64);
+                            CDTXMania.Tx.Tile_Black.t2D描画(CDTXMania.app.Device, i * 64, j * 64);
                         }
                     }
                 }
-                if( this.ct進行.n現在の値 > 1500 )
+                if (this.ct進行.n現在の値 > 1500)
                 {
-                    if( this.txGameFailed != null )
-                        this.txGameFailed.t2D描画( CDTXMania.app.Device, 0, 0 );
+                    if (CDTXMania.Tx.Failed_Game != null)
+                        CDTXMania.Tx.Failed_Game.t2D描画(CDTXMania.app.Device, 0, 0);
 
-                    int num = ( CDTXMania.DTX.listChip.Count > 0 ) ? CDTXMania.DTX.listChip[ CDTXMania.DTX.listChip.Count - 1 ].n発声時刻ms : 0;
-                    this.t文字表示( 640, 520, ( ( ( this.dbFailedTime ) / 1000.0 ) / ( ( ( double ) num ) / 1000.0 ) * 100 ).ToString( "##0" ) + "%" );
+                    int num = (CDTXMania.DTX.listChip.Count > 0) ? CDTXMania.DTX.listChip[CDTXMania.DTX.listChip.Count - 1].n発声時刻ms : 0;
+                    this.t文字表示(640, 520, (((this.dbFailedTime) / 1000.0) / (((double)num) / 1000.0) * 100).ToString("##0") + "%");
                 }
 
-				//int num = ( CDTXMania.DTX.listChip.Count > 0 ) ? CDTXMania.DTX.listChip[ CDTXMania.DTX.listChip.Count - 1 ].n発声時刻ms : 0;
-				//string str = "Time:          " + ( ( ( this.dbFailedTime ) / 1000.0 ) ).ToString( "####0.00" ) + " / " + ( ( ( ( double ) num ) / 1000.0 ) ).ToString( "####0.00" );
-				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, str );
+                //int num = ( CDTXMania.DTX.listChip.Count > 0 ) ? CDTXMania.DTX.listChip[ CDTXMania.DTX.listChip.Count - 1 ].n発声時刻ms : 0;
+                //string str = "Time:          " + ( ( ( this.dbFailedTime ) / 1000.0 ) ).ToString( "####0.00" ) + " / " + ( ( ( ( double ) num ) / 1000.0 ) ).ToString( "####0.00" );
+                //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, str );
 
             }
             else
             {
-			    if( this.ct進行.n現在の値 < 100 )
-			    {
-				    int x = (int) ( 640.0 * Math.Cos( ( Math.PI / 2 * this.ct進行.n現在の値 ) / 100.0 ) );
-    				if( ( x != 640 ) && ( this.txStageFailed != null ) )
-	    			{
-		    			this.txStageFailed.t2D描画( CDTXMania.app.Device, 0, 0, new Rectangle( x, 0, 640 - x, 720 ) );
-			    		this.txStageFailed.t2D描画( CDTXMania.app.Device, 640 + x, 0, new Rectangle( 640, 0, 640 - x, 720 ) );
-				    }
-    			}
-	    		else
-		    	{
-			    	if( this.txStageFailed != null )
-				    {
-					    this.txStageFailed.t2D描画( CDTXMania.app.Device, 0, 0 );
-    				}
-	    			if( this.ct進行.n現在の値 <= 250 )
-		    		{
-			    		int num2 = CDTXMania.Random.Next( 5 ) - 2;
-				    	int y = CDTXMania.Random.Next( 5 ) - 2;
-					    if( this.txStageFailed != null )
-    					{
-	    					this.txStageFailed.t2D描画( CDTXMania.app.Device, num2, y );
-		    			}
-			    	}
-				    if( !this.b効果音再生済み )
-    				{
-	    				CDTXMania.Skin.soundSTAGEFAILED音.t再生する();
-		    			this.b効果音再生済み = true;
-			    	}
-			    }
+                if (this.ct進行.n現在の値 < 100)
+                {
+                    int x = (int)(640.0 * Math.Cos((Math.PI / 2 * this.ct進行.n現在の値) / 100.0));
+                    if ((x != 640) && (CDTXMania.Tx.Failed_Stage != null))
+                    {
+                        CDTXMania.Tx.Failed_Stage.t2D描画(CDTXMania.app.Device, 0, 0, new Rectangle(x, 0, 640 - x, 720));
+                        CDTXMania.Tx.Failed_Stage.t2D描画(CDTXMania.app.Device, 640 + x, 0, new Rectangle(640, 0, 640 - x, 720));
+                    }
+                }
+                else
+                {
+                    if (CDTXMania.Tx.Failed_Stage != null)
+                    {
+                        CDTXMania.Tx.Failed_Stage.t2D描画(CDTXMania.app.Device, 0, 0);
+                    }
+                    if (this.ct進行.n現在の値 <= 250)
+                    {
+                        int num2 = CDTXMania.Random.Next(5) - 2;
+                        int y = CDTXMania.Random.Next(5) - 2;
+                        if (CDTXMania.Tx.Failed_Stage != null)
+                        {
+                            CDTXMania.Tx.Failed_Stage.t2D描画(CDTXMania.app.Device, num2, y);
+                        }
+                    }
+                    if (!this.b効果音再生済み)
+                    {
+                        CDTXMania.Skin.soundSTAGEFAILED音.t再生する();
+                        this.b効果音再生済み = true;
+                    }
+                }
             }
 
 			if( !this.ct進行.b終了値に達した )
@@ -206,10 +206,10 @@ namespace DTXMania
 		private bool b効果音再生済み;
 		private CCounter ct進行;
 		private CSound sd効果音;
-		private CTexture txStageFailed;
-        private CTexture txGameFailed;
-        private CTexture txBlack;
-        private CTexture tx数字;
+		//private CTexture txStageFailed;
+  //      private CTexture txGameFailed;
+  //      private CTexture txBlack;
+  //      private CTexture tx数字;
         private double dbFailedTime;
 		//-----------------
         private ST文字位置[] st文字位置;
@@ -239,9 +239,9 @@ namespace DTXMania
                         {
                             rectangle.Width = 80;
                         }
-						if( this.tx数字 != null )
+						if(CDTXMania.Tx.Balloon_Number_Roll != null )
 						{
-							this.tx数字.t2D描画( CDTXMania.app.Device, x - ( 62 * str.Length / 2 ), y, rectangle );
+                            CDTXMania.Tx.Balloon_Number_Roll.t2D描画( CDTXMania.app.Device, x - ( 62 * str.Length / 2 ), y, rectangle );
 						}
 						break;
 					}

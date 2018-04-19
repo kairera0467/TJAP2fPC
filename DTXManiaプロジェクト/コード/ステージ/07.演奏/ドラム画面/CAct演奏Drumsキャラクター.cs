@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Diagnostics;
 using FDK;
 
+
 namespace DTXMania
 {
     //クラスの設置位置は必ず演奏画面共通に置くこと。
@@ -533,6 +534,7 @@ namespace DTXMania
                         this.bマイどんアクション中 = false;
                         this.ctキャラクターアクション_ゴーゴースタート.t停止();
                         this.ctキャラクターアクション_ゴーゴースタート.db現在の値 = 0D;
+                        this.ctゴーゴーモーション.db現在の値 = this.nキャラクターゴーゴーモーション枚数 / 2;
                     }
                 }
 
@@ -547,6 +549,7 @@ namespace DTXMania
                         this.bマイどんアクション中 = false;
                         this.ctキャラクターアクション_ゴーゴースタートMAX.t停止();
                         this.ctキャラクターアクション_ゴーゴースタートMAX.db現在の値 = 0D;
+                        this.ctMAXゴーゴーモーション.db現在の値 = this.nキャラクターMAXゴーゴーモーション枚数 / 2;
                     }
                 }
 
@@ -637,7 +640,7 @@ namespace DTXMania
                     {
                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                         {
-                            CDTXMania.Tx.Mob[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].t2D描画(CDTXMania.app.Device, 0, 720 - 260);
+                            CDTXMania.Tx.Mob[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].t2D描画(CDTXMania.app.Device, 0, 720 - CDTXMania.Tx.Mob[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].szテクスチャサイズ.Height);
                         }
                     }
                 }

@@ -34,6 +34,7 @@ namespace DTXMania
         const string LANE = @"12_Lane\";
         const string GENRE = @"13_Genre\";
         const string GAMEMODE = @"14_GameMode\";
+        const string FAILED = @"15_Failed\";
 
         // InGame_Effects
         const string FIRE = @"Fire\";
@@ -402,9 +403,13 @@ namespace DTXMania
             End_Clear_Text_Effect = TxC(GAME + END + @"Clear_Text_Effect.png");
             if (End_Clear_Text_Effect != null) End_Clear_Text_Effect.b加算合成 = true;
             #endregion
-            #region
+            #region ゲームモード
             GameMode_Timer_Tick = TxC(GAME + GAMEMODE + @"Timer_Tick.png");
             GameMode_Timer_Frame = TxC(GAME + GAMEMODE + @"Timer_Frame.png");
+            #endregion
+            #region ステージ失敗
+            Failed_Game = TxC(GAME + FAILED + @"Game.png");
+            Failed_Stage = TxC(GAME + FAILED + @"Stage.png");
             #endregion
             #endregion
 
@@ -419,6 +424,11 @@ namespace DTXMania
             Result_Panel = TxC(RESULT + @"Panel.png");
             Result_Score_Text = TxC(RESULT + @"Score_Text.png");
             Result_Score_Number = TxC(RESULT + @"Score_Number.png");
+            #endregion
+
+            #region 7_終了画面
+            Exit_Background = TxC(EXIT + @"Background.png");
+            //Exit_Text = TxC(EXIT + @"Text.png");
             #endregion
 
         }
@@ -585,6 +595,10 @@ namespace DTXMania
         public CTexture GameMode_Timer_Frame,
             GameMode_Timer_Tick;
         #endregion
+        #region ステージ失敗
+        public CTexture Failed_Game,
+            Failed_Stage;
+        #endregion
         #endregion
 
         #region 6_結果発表
@@ -599,5 +613,11 @@ namespace DTXMania
             Result_Score_Text,
             Result_Score_Number;
         #endregion
+
+        #region 7_終了画面
+        public CTexture Exit_Background/* , */
+            /*Exit_Text */;
+        #endregion
+
     }
 }
