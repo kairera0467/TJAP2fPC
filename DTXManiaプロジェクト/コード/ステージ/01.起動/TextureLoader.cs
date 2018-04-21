@@ -69,6 +69,7 @@ namespace DTXMania
             Tile_White = TxC(@"Tile_White.png");
             Menu_Title = TxC(@"Menu_Title.png");
             Menu_Highlight = TxC(@"Menu_Highlight.png");
+            Enum_Song = TxC(@"Enum_Song.png");
             #endregion
             #region 1_タイトル画面
             Title_Background = TxC(TITLE + @"Background.png");
@@ -80,6 +81,10 @@ namespace DTXMania
             Config_Cursor = TxC(CONFIG + @"Cursor.png");
             Config_ItemBox = TxC(CONFIG + @"ItemBox.png");
             Config_Arrow = TxC(CONFIG + @"Arrow.png");
+            Config_KeyAssign = TxC(CONFIG + @"KeyAssign.png");
+            Config_Font = TxC(CONFIG + @"Font.png");
+            Config_Font_Bold = TxC(CONFIG + @"Font_Bold.png");
+            Config_Enum_Song = TxC(CONFIG + @"Enum_Song.png");
             #endregion
 
             #region 3_選曲画面
@@ -443,7 +448,8 @@ namespace DTXMania
         public CTexture Tile_Black,
             Tile_White,
             Menu_Title,
-            Menu_Highlight;
+            Menu_Highlight,
+            Enum_Song;
         #endregion
         #region 1_タイトル画面
         public CTexture Title_Background,
@@ -454,7 +460,11 @@ namespace DTXMania
         public CTexture Config_Background,
             Config_Cursor,
             Config_ItemBox,
-            Config_Arrow;
+            Config_Arrow,
+            Config_KeyAssign,
+            Config_Font,
+            Config_Font_Bold,
+            Config_Enum_Song;
         #endregion
 
         #region 3_選曲画面

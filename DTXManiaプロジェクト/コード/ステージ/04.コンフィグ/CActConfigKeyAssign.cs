@@ -96,7 +96,7 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				//CDTXMania.tテクスチャの解放( ref this.txカーソル );
-				CDTXMania.tテクスチャの解放( ref this.txHitKeyダイアログ );
+				//CDTXMania.tテクスチャの解放( ref this.txHitKeyダイアログ );
 				base.On非活性化();
 			}
 		}
@@ -105,7 +105,7 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
 				//this.txカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ), false );
-				this.txHitKeyダイアログ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig hit key to assign dialog.png" ), false );
+				//this.txHitKeyダイアログ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig hit key to assign dialog.png" ), false );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -185,9 +185,9 @@ namespace DTXMania
 				y += num5;
 				CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 20, y, "<< Returnto List", this.n現在の選択行 == 0x11, 0.75f );
 				y += num5;
-				if( this.bキー入力待ち && ( this.txHitKeyダイアログ != null ) )
+				if( this.bキー入力待ち && ( CDTXMania.Tx.Config_KeyAssign != null ) )
 				{
-					this.txHitKeyダイアログ.t2D描画( CDTXMania.app.Device, 0x185, 0xd7 );
+                    CDTXMania.Tx.Config_KeyAssign.t2D描画( CDTXMania.app.Device, 0x185, 0xd7 );
 				}
 			}
 			return 0;
@@ -227,7 +227,7 @@ namespace DTXMania
 		private EKeyConfigPart part;
 		private CConfigIni.CKeyAssign.STKEYASSIGN[] structReset用KeyAssign;
 		private string strパッド名;
-		private CTexture txHitKeyダイアログ;
+		//private CTexture txHitKeyダイアログ;
 		//private CTexture txカーソル;
 
 		private void tアサインコードの描画_Joypad( int line, int x, int y, int nID, int nCode, bool b強調 )

@@ -66,24 +66,24 @@ namespace DTXMania
 		{
 			if ( this.b活性化してない )
 				return;
-			string pathNowEnumeratingSongs = CSkin.Path( @"Graphics\ScreenTitle NowEnumeratingSongs.png" );
-			if ( File.Exists( pathNowEnumeratingSongs ) )
-			{
-				this.txNowEnumeratingSongs = CDTXMania.tテクスチャの生成( pathNowEnumeratingSongs, false );
-			}
-			else
-			{
-				this.txNowEnumeratingSongs = null;
-			}
-			string pathDialogNowEnumeratingSongs = CSkin.Path( @"Graphics\ScreenConfig NowEnumeratingSongs.png" );
-			if ( File.Exists( pathDialogNowEnumeratingSongs ) )
-			{
-				this.txDialogNowEnumeratingSongs = CDTXMania.tテクスチャの生成( pathDialogNowEnumeratingSongs, false );
-			}
-			else
-			{
-				this.txDialogNowEnumeratingSongs = null;
-			}
+			//string pathNowEnumeratingSongs = CSkin.Path( @"Graphics\ScreenTitle NowEnumeratingSongs.png" );
+			//if ( File.Exists( pathNowEnumeratingSongs ) )
+			//{
+			//	this.txNowEnumeratingSongs = CDTXMania.tテクスチャの生成( pathNowEnumeratingSongs, false );
+			//}
+			//else
+			//{
+			//	this.txNowEnumeratingSongs = null;
+			//}
+			//string pathDialogNowEnumeratingSongs = CSkin.Path( @"Graphics\ScreenConfig NowEnumeratingSongs.png" );
+			//if ( File.Exists( pathDialogNowEnumeratingSongs ) )
+			//{
+			//	this.txDialogNowEnumeratingSongs = CDTXMania.tテクスチャの生成( pathDialogNowEnumeratingSongs, false );
+			//}
+			//else
+			//{
+			//	this.txDialogNowEnumeratingSongs = null;
+			//}
 
 			try
 			{
@@ -130,8 +130,8 @@ namespace DTXMania
 			if ( this.b活性化してない )
 				return;
 
-			CDTXMania.t安全にDisposeする( ref this.txDialogNowEnumeratingSongs );
-			CDTXMania.t安全にDisposeする( ref this.txNowEnumeratingSongs );
+			//CDTXMania.t安全にDisposeする( ref this.txDialogNowEnumeratingSongs );
+			//CDTXMania.t安全にDisposeする( ref this.txNowEnumeratingSongs );
 			CDTXMania.t安全にDisposeする( ref this.txMessage );
 			base.OnManagedリソースの解放();
 		}
@@ -143,14 +143,14 @@ namespace DTXMania
 				return 0;
 			}
 			this.ctNowEnumeratingSongs.t進行Loop();
-			if ( this.txNowEnumeratingSongs != null )
+			if ( CDTXMania.Tx.Enum_Song != null )
 			{
-				this.txNowEnumeratingSongs.n透明度 = (int) ( 176.0 + 80.0 * Math.Sin( (double) (2 * Math.PI * this.ctNowEnumeratingSongs.n現在の値 * 2 / 100.0 ) ) );
-				this.txNowEnumeratingSongs.t2D描画( CDTXMania.app.Device, 18, 7 );
+                CDTXMania.Tx.Enum_Song.n透明度 = (int) ( 176.0 + 80.0 * Math.Sin( (double) (2 * Math.PI * this.ctNowEnumeratingSongs.n現在の値 * 2 / 100.0 ) ) );
+                CDTXMania.Tx.Enum_Song.t2D描画( CDTXMania.app.Device, 18, 7 );
 			}
-			if ( bコマンドでの曲データ取得 && this.txDialogNowEnumeratingSongs != null )
+			if ( bコマンドでの曲データ取得 && CDTXMania.Tx.Config_Enum_Song != null )
 			{
-				this.txDialogNowEnumeratingSongs.t2D描画( CDTXMania.app.Device, 180, 177 );
+                CDTXMania.Tx.Config_Enum_Song.t2D描画( CDTXMania.app.Device, 180, 177 );
 				this.txMessage.t2D描画( CDTXMania.app.Device, 190, 197 );
 			}
 
@@ -159,8 +159,8 @@ namespace DTXMania
 
 
 		private CCounter ctNowEnumeratingSongs;
-		private CTexture txNowEnumeratingSongs = null;
-		private CTexture txDialogNowEnumeratingSongs = null;
+		//private CTexture txNowEnumeratingSongs = null;
+		//private CTexture txDialogNowEnumeratingSongs = null;
 		private CTexture txMessage;
 	}
 }

@@ -530,7 +530,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない && !string.IsNullOrEmpty( str ) )
 			{
-				CTexture texture = b強調 ? this.tx強調文字 : this.tx通常文字;
+				CTexture texture = b強調 ? CDTXMania.Tx.Config_Font_Bold : CDTXMania.Tx.Config_Font;
 				if( texture != null )
 				{
 					texture.vc拡大縮小倍率 = new Vector3( fScale, fScale, 1f );
@@ -557,27 +557,27 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx通常文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen font dfp.png" ), false );
-				this.tx強調文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen font dfp em.png" ), false );
+				//this.tx通常文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen font dfp.png" ), false );
+				//this.tx強調文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen font dfp em.png" ), false );
 				base.OnManagedリソースの作成();
 			}
 		}
 		public override void OnManagedリソースの解放()
 		{
-			if( !base.b活性化してない )
-			{
-				if( this.tx強調文字 != null )
-				{
-					this.tx強調文字.Dispose();
-					this.tx強調文字 = null;
-				}
-				if( this.tx通常文字 != null )
-				{
-					this.tx通常文字.Dispose();
-					this.tx通常文字 = null;
-				}
+			//if( !base.b活性化してない )
+			//{
+			//	if( this.tx強調文字 != null )
+			//	{
+			//		this.tx強調文字.Dispose();
+			//		this.tx強調文字 = null;
+			//	}
+			//	if( this.tx通常文字 != null )
+			//	{
+			//		this.tx通常文字.Dispose();
+			//		this.tx通常文字 = null;
+			//	}
 				base.OnManagedリソースの解放();
-			}
+			//}
 		}
 		
 
@@ -593,8 +593,8 @@ namespace DTXMania
 		}
 
 		private readonly ST文字領域[] st文字領域;
-		private CTexture tx強調文字;
-		private CTexture tx通常文字;
+		//private CTexture tx強調文字;
+		//private CTexture tx通常文字;
 		//-----------------
 		#endregion
 	}
