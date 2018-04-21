@@ -188,8 +188,8 @@ namespace DTXMania
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
-                string strVersion = "18_03_02";
-                string strSubTitle = "";
+                string strVersion = "18_04_21";
+                string strSubTitle = "SKIN UPDATE";
 #if DEBUG
                 strVersion += "  DEBUG";
 #endif
