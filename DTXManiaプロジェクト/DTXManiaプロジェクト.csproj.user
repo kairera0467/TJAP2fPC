@@ -9,4 +9,8 @@ move /Y "%24%28TargetDir%29\SlimDXc_net20x86_Jun2010.dll" "%24%28TargetDir%29dll
 </StartArguments>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Users\info\source\repos\TJAPlayer3\Test\TJAPlayer3.exe</StartProgram>
+  </PropertyGroup>
 </Project>

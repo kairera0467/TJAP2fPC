@@ -48,14 +48,17 @@
   <ItemGroup>
     <Reference Include="Bass.Net">
       <HintPath>..\実行時フォルダ\dll\Bass.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\実行時フォルダ\dll\DirectShowLib-2005.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SlimDXc_net20x86_Jun2010, Version=1002.0.10.43, Culture=neutral, PublicKeyToken=53d0e4ef1f1579f5, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\実行時フォルダ\dll\SlimDXc_net20x86_Jun2010.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -161,31 +164,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>echo.
-echo ビルド後イベントを開始します。
-
-echo.
-echo (1) 出力フォルダ から ソリューション出力フォルダ へコピーします。（日付の新しいファイルのみ）
-set DESTDIR="$(OutDir)dll"
-if not exist %25DESTDIR%25 mkdir %25DESTDIR%25
-xcopy "$(TargetDir)*.dll" %25DESTDIR%25 /Y /D /EXCLUDE:$(TargetFileName)
-
-echo.
-echo (2) 出力フォルダ から 実行時フォルダ にコピーします。（日付の新しいファイルのみ）
-set DESTDIR="$(SolutionDir)実行時フォルダ\dll"
-if not exist %25DESTDIR%25 mkdir %25DESTDIR%25
-xcopy "$(TargetDir)*.dll"  %25DESTDIR%25 /Y /D
-
-echo.
-echo (3) 実行時フォルダ から ソリューション出力フォルダ にコピーします。（日付の新しいファイルのみ）
-set DESTDIR="$(OutDir)dll"
-if not exist %25DESTDIR%25 mkdir %25DESTDIR%25
-xcopy "$(SolutionDir)実行時フォルダ\dll" %25DESTDIR%25 /Y /D
-
-echo.
-echo ビルド後イベントを終了しました。
-
-
-</PostBuildEvent>
+    <PostBuildEvent>copy /y "$(TargetDir)FDK.MemoryRenderer.dll" "$(SolutionDir)Test\"</PostBuildEvent>
   </PropertyGroup>
 </Project>

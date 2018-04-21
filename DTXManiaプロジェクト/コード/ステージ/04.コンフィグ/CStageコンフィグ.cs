@@ -114,8 +114,8 @@ namespace DTXMania
 				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_header panel.png" ) );
 				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_footer panel.png" ) );
 				//this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ) );
-				prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\fonts\mplus-1p-heavy.ttf" ), 20 );
-				string[] strMenuItem = { "System", "Drums", "Guitar", "Bass", "Exit" };
+				prvFont = new CPrivateFastFont( CSkin.Path( @"mplus-1p-heavy.ttf" ), 20 );
+				string[] strMenuItem = { "System", "Drums", "Exit" };
 				txMenuItemLeft = new CTexture[ strMenuItem.Length, 2 ];
 				for ( int i = 0; i < strMenuItem.Length; i++ )
 				{
@@ -320,7 +320,7 @@ namespace DTXMania
 				}
 				else if ( ( CDTXMania.Pad.b押されたDGB( Eパッド.CY ) || CDTXMania.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) || ( CDTXMania.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || ( CDTXMania.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) )
 				{
-					if ( this.n現在のメニュー番号 == 4 )
+					if ( this.n現在のメニュー番号 == 2 )
 					{
 						CDTXMania.Skin.sound決定音.t再生する();
 						this.actFIFO.tフェードアウト開始();
@@ -471,7 +471,7 @@ namespace DTXMania
 			else
 			{
 				CDTXMania.Skin.soundカーソル移動音.t再生する();
-				this.n現在のメニュー番号 = ( this.n現在のメニュー番号 + 1 ) % 5;
+				this.n現在のメニュー番号 = ( this.n現在のメニュー番号 + 1 ) % 3;
 				switch( this.n現在のメニュー番号 )
 				{
 					case 0:
@@ -494,13 +494,13 @@ namespace DTXMania
 						this.actList.t項目リストの設定_Drums();
 						break;
 
-					case 2:
-						this.actList.t項目リストの設定_Guitar();
-						break;
+					//case 2:
+					//	this.actList.t項目リストの設定_Guitar();
+					//	break;
 
-					case 3:
-						this.actList.t項目リストの設定_Bass();
-						break;
+					//case 3:
+					//	this.actList.t項目リストの設定_Bass();
+					//	break;
 
 					case 4:
 						this.actList.t項目リストの設定_Exit();
@@ -527,7 +527,7 @@ namespace DTXMania
 			else
 			{
 				CDTXMania.Skin.soundカーソル移動音.t再生する();
-				this.n現在のメニュー番号 = ( ( this.n現在のメニュー番号 - 1 ) + 5 ) % 5;
+				this.n現在のメニュー番号 = ( ( this.n現在のメニュー番号 - 1 ) + 3 ) % 3;
 				switch( this.n現在のメニュー番号 )
 				{
 					case 0:
@@ -549,15 +549,15 @@ namespace DTXMania
 						this.actList.t項目リストの設定_Drums();
 						break;
 
+					//case 2:
+					//	this.actList.t項目リストの設定_Guitar();
+					//	break;
+
+					//case 3:
+					//	this.actList.t項目リストの設定_Bass();
+					//	break;
+
 					case 2:
-						this.actList.t項目リストの設定_Guitar();
-						break;
-
-					case 3:
-						this.actList.t項目リストの設定_Bass();
-						break;
-
-					case 4:
 						this.actList.t項目リストの設定_Exit();
 						break;
 				}
@@ -608,21 +608,21 @@ namespace DTXMania
 						str[ 1, 1 ] = "";
 						break;
 
+					//case 2:
+					//	str[ 0, 0 ] = "ギターの演奏に関する項目を設定します。";
+					//	str[ 0, 1 ] = "";
+					//	str[ 1, 0 ] = "Settings to play the guitar.";
+					//	str[ 1, 1 ] = "";
+					//	break;
+
+					//case 3:
+					//	str[ 0, 0 ] = "ベースの演奏に関する項目を設定します。";
+					//	str[ 0, 1 ] = "";
+					//	str[ 1, 0 ] = "Settings to play the bass.";
+					//	str[ 1, 1 ] = "";
+					//	break;
+
 					case 2:
-						str[ 0, 0 ] = "ギターの演奏に関する項目を設定します。";
-						str[ 0, 1 ] = "";
-						str[ 1, 0 ] = "Settings to play the guitar.";
-						str[ 1, 1 ] = "";
-						break;
-
-					case 3:
-						str[ 0, 0 ] = "ベースの演奏に関する項目を設定します。";
-						str[ 0, 1 ] = "";
-						str[ 1, 0 ] = "Settings to play the bass.";
-						str[ 1, 1 ] = "";
-						break;
-
-					case 4:
 						str[ 0, 0 ] = "設定を保存し、コンフィグ画面を終了します。";
 						str[ 0, 1 ] = "";
 						str[ 1, 0 ] = "Save the settings and exit from";

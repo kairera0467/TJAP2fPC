@@ -2013,9 +2013,9 @@ namespace DTXMania
 					if( this.st小文字位置[ i ].ch == ch )
 					{
 						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, this.st小文字位置[ i ].pt.Y, 32, 38 );
-						if( this.tx判定数小文字 != null )
+						if( CDTXMania.Tx.Result_Number != null )
 						{
-							this.tx判定数小文字.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                            CDTXMania.Tx.Result_Number.t2D描画( CDTXMania.app.Device, x, y, rectangle );
 						}
 						break;
 					}
@@ -2038,9 +2038,9 @@ namespace DTXMania
 					if( this.st小文字位置[ i ].ch == ch )
 					{
 						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, 38, 32, 42 );
-						if( this.tx判定数小文字 != null )
+						if(CDTXMania.Tx.Result_Number != null )
 						{
-							this.tx判定数小文字.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                            CDTXMania.Tx.Result_Number.t2D描画( CDTXMania.app.Device, x, y, rectangle );
 						}
 						break;
 					}

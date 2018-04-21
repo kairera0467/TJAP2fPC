@@ -32,7 +32,6 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <ApplicationManifest>DTXManiaGR.exe.x86.manifest</ApplicationManifest>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -42,7 +41,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>D:\info\Documents\TJAPlayer3%28創作譜面%29\</OutputPath>
+    <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>TRACE;_TEST_ENGLISH TEST_Direct3D9Ex_ _WindowedFullscreen MemoryRenderer</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -61,6 +60,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>0219</NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>TJAPlayer3.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
@@ -98,6 +100,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="TJAPlayer3.manifest" />
     <None Include="DTXManiaGR.exe.x86.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -267,14 +270,10 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)\実行時フォルダ"
-copy /Y "$(TargetPath).config" "$(SolutionDir)\実行時フォルダ"
-copy /Y "TJAPlayer3.pdb" "$(SolutionDir)\実行時フォルダ"
-move /Y "$(TargetDir)\Bass.Net.dll" "$(TargetDir)dll"
-move /Y "$(TargetDir)\DirectShowLib-2005.dll" "$(TargetDir)dll"
-move /Y "$(TargetDir)\FDK.dll" "$(TargetDir)dll"
-move /Y "$(TargetDir)\SlimDXc_net20x86_Jun2010.dll" "$(TargetDir)dll"
-</PostBuildEvent>
+    <PostBuildEvent>copy /y "$(TargetDir)$(TargetName).exe" "$(SolutionDir)Test\"
+copy /y "$(TargetDir)$(TargetName).exe.config" "$(SolutionDir)Test\"
+copy /y "$(TargetDir)$(TargetName).exe.pdb" "$(SolutionDir)Test\"
+copy /y "$(TargetDir)FDK.dll" "$(SolutionDir)Test\dll\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" />
 </Project>
