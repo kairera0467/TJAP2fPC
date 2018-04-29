@@ -15,7 +15,9 @@ C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\T
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\TJAPlayer3.pdb
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\Bass.Net.dll
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\DirectShowLib-2005.dll
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\FDK.dll
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\SlimDXc_net20x86_Jun2010.dll
+C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\FDK.pdb
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x86\Debug\DTXManiaプロジェクト.csprojResolveAssemblyReference.cache
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x86\Debug\DTXMania.Properties.Resources.resources
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x86\Debug\DTXManiaプロジェクト.csproj.GenerateResource.cache
@@ -23,5 +25,3 @@ C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x86\Debug\D
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x86\Debug\DTXManiaプロジェクト.csproj.CopyComplete
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x86\Debug\TJAPlayer3.exe
 C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\obj\x86\Debug\TJAPlayer3.pdb
-C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\FDK.dll
-C:\Users\info\Source\Repos\TJAPlayer3\DTXManiaプロジェクト\bin\x86\Debug\FDK.pdb
