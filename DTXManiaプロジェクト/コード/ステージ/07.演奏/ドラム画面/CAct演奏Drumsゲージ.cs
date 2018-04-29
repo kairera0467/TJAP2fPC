@@ -242,7 +242,7 @@ namespace DTXMania
                 {
                     CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 492, 532, new Rectangle( 0, 0, nRectX2P, 44 ) );
 
-                    if( this.txゲージ線2P != null )
+                    if(CDTXMania.Tx.Gauge[0] != null )
                     {
                         //if( this.db現在のゲージ値.Taiko >= 100.0 )
                         //{

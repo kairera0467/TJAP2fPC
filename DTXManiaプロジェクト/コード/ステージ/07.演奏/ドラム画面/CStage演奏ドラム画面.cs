@@ -458,14 +458,17 @@ namespace DTXMania
                 {
                     base.eフェーズID = CStage.Eフェーズ.演奏_演奏終了演出;
                     this.actEnd.Start();
-                    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
+                    if (CDTXMania.ConfigIni.nCharaAction_10combo_max != 0)
                     {
-                        double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
-                        this.actChara.アクションタイマーリセット();
-                        this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボMAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボ枚数) * 2, CSound管理.rc演奏用タイマ);
-                        this.actChara.ctキャラクターアクション_10コンボMAX.t進行db();
-                        this.actChara.ctキャラクターアクション_10コンボMAX.db現在の値 = 0D;
-                        this.actChara.bマイどんアクション中 = true;
+                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
+                        {
+                            double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
+                            this.actChara.アクションタイマーリセット();
+                            this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボMAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボ枚数) * 2, CSound管理.rc演奏用タイマ);
+                            this.actChara.ctキャラクターアクション_10コンボMAX.t進行db();
+                            this.actChara.ctキャラクターアクション_10コンボMAX.db現在の値 = 0D;
+                            this.actChara.bマイどんアクション中 = true;
+                        }
                     }
                 }
                 else if( bIsFinishedEndAnime && base.eフェーズID == Eフェーズ.演奏_演奏終了演出 )
@@ -496,8 +499,12 @@ namespace DTXMania
 				if( CDTXMania.act現在入力を占有中のプラグイン == null )
 					this.tキー入力();
 
-			}
-			base.sw.Stop();
+
+                // 確認用 18_04_26(AioiLight)
+                //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.actGauge.db現在のゲージ値[0].ToString());
+
+            }
+            base.sw.Stop();
 			return 0;
 		}
 
@@ -1630,7 +1637,8 @@ namespace DTXMania
                             num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
                         }
 
-                        if( pChip.nチャンネル番号 == 0x15 )
+
+                        if ( pChip.nチャンネル番号 == 0x15 )
                         {
                             //x = ( x + 10 ) - ( ( int ) ( ( 130.0 * pChip.dbチップサイズ倍率 ) / 2.0 ) );
                             int index = x末端 - x; //連打の距離
