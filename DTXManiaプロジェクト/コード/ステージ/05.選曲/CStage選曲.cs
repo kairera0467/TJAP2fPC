@@ -797,7 +797,7 @@ namespace DTXMania
         private CActSelect難易度選択画面 act難易度選択画面;
 
 		public CActSortSongs actSortSongs;
-		private CActSelectQuickConfig actQuickConfig;
+		public CActSelectQuickConfig actQuickConfig;
 
 		private bool bBGM再生済み;
 		private STキー反復用カウンタ ctキー反復用;

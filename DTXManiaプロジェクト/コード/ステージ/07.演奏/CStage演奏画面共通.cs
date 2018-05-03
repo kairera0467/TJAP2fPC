@@ -184,8 +184,6 @@ namespace DTXMania
 
 			this.eフェードアウト完了時の戻り値 = E演奏画面の戻り値.継続;
 			this.n現在のトップChip = ( listChip[0].Count > 0 ) ? 0 : -1;
-			this.L最後に再生したHHの実WAV番号 = new List<int>( 16 );
-			this.n最後に再生したHHのチャンネル番号 = 0;
 			this.n最後に再生した実WAV番号.Guitar = -1;
 			this.n最後に再生した実WAV番号.Bass = -1;
 			for ( int i = 0; i < 50; i++ )
@@ -322,8 +320,6 @@ namespace DTXMania
 		}
 		public override void On非活性化()
 		{
-			this.L最後に再生したHHの実WAV番号.Clear();	// #23921 2011.1.4 yyagi
-			this.L最後に再生したHHの実WAV番号 = null;	//
 			this.ctチップ模様アニメ.Drums = null;
 			this.ctチップ模様アニメ.Guitar = null;
 			this.ctチップ模様アニメ.Bass = null;
@@ -569,7 +565,7 @@ namespace DTXMania
         protected CAct演奏Drums連打キャラ actRollChara;
         protected CAct演奏Drumsコンボ吹き出し actComboBalloon;
         protected CAct演奏Combo音声 actComboVoice;
-        protected CAct演奏PauseMenu actPauseMenu;
+        public CAct演奏PauseMenu actPauseMenu;
 		public bool bPAUSE;
 		protected STDGBVALUE<bool> b演奏にMIDI入力を使った;
 		protected STDGBVALUE<bool> b演奏にキーボードを使った;
@@ -3166,7 +3162,7 @@ namespace DTXMania
                     case 0xDD: //譜面分岐条件リセット
                         if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
                         {
-                            this.tBranchReset( nPlayer ); // 2018.03.31 kairera0467 listChipソート時の問題が解決できないため、SECTION命令での分岐条件リセットを一時廃止します。
+                            //this.tBranchReset( nPlayer ); // 2018.03.31 kairera0467 listChipソート時の問題が解決できないため、SECTION命令での分岐条件リセットを一時廃止します。
                             pChip.bHit = true;
                         }
                         break;

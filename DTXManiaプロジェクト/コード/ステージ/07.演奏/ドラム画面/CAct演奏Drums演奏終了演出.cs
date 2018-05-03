@@ -38,42 +38,48 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.b再生済み = false;
+            if( !this.b活性化してない )
+            {
+                this.b再生済み = false;
 
-            this.txバチお左_成功[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_00.png" ) );
-            this.txバチお左_成功[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_01.png" ) );
-            this.txバチお左_成功[ 2 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_02.png" ) );
-            this.txバチお左_成功[ 3 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_03.png" ) );
-            this.txバチお左_成功[ 4 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_04.png" ) );
+                this.txバチお左_成功[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_00.png" ) );
+                this.txバチお左_成功[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_01.png" ) );
+                this.txバチお左_成功[ 2 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_02.png" ) );
+                this.txバチお左_成功[ 3 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_03.png" ) );
+                this.txバチお左_成功[ 4 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_L_04.png" ) );
 
-            this.txバチお右_成功[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_00.png" ) );
-            this.txバチお右_成功[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_01.png" ) );
-            this.txバチお右_成功[ 2 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_02.png" ) );
-            this.txバチお右_成功[ 3 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_03.png" ) );
-            this.txバチお右_成功[ 4 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_04.png" ) );
+                this.txバチお右_成功[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_00.png" ) );
+                this.txバチお右_成功[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_01.png" ) );
+                this.txバチお右_成功[ 2 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_02.png" ) );
+                this.txバチお右_成功[ 3 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_03.png" ) );
+                this.txバチお右_成功[ 4 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Clear_R_04.png" ) );
 
-            this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Text.png" ) );
-            this.tx文字マスク = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Text_Effect.png" ) );
-            if( this.tx文字マスク != null )
-                this.tx文字マスク.b加算合成 = true;
+                this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Text.png" ) );
+                this.tx文字マスク = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\End\Text_Effect.png" ) );
+                if( this.tx文字マスク != null )
+                    this.tx文字マスク.b加算合成 = true;
 
-            this.soundClear = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Clear.ogg" ) );
-            base.OnManagedリソースの作成();
+                this.soundClear = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Clear.ogg" ) );
+                base.OnManagedリソースの作成();
+            }
         }
 
         public override void OnManagedリソースの解放()
         {
-            for( int i = 0; i < 5; i++ )
+            if( !this.b活性化してない )
             {
-                CDTXMania.tテクスチャの解放( ref this.txバチお右_成功[ i ] );
-                CDTXMania.tテクスチャの解放( ref this.txバチお左_成功[ i ] );
-            }
-            CDTXMania.tテクスチャの解放( ref this.tx文字 );
-            CDTXMania.tテクスチャの解放( ref this.tx文字マスク );
+                for( int i = 0; i < 5; i++ )
+                {
+                    CDTXMania.tテクスチャの解放( ref this.txバチお右_成功[ i ] );
+                    CDTXMania.tテクスチャの解放( ref this.txバチお左_成功[ i ] );
+                }
+                CDTXMania.tテクスチャの解放( ref this.tx文字 );
+                CDTXMania.tテクスチャの解放( ref this.tx文字マスク );
 
-            if( this.soundClear != null )
-                this.soundClear.t解放する();
-            base.OnManagedリソースの解放();
+                if( this.soundClear != null )
+                    this.soundClear.t解放する();
+                base.OnManagedリソースの解放();
+            }
         }
 
         public override int On進行描画()

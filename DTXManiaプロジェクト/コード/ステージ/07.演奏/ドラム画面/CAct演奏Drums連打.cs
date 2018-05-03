@@ -83,18 +83,24 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.tx連打枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Rollballoon.png" ) );
-            this.tx連打数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
+            if( !this.b活性化してない )
+            {
+                this.tx連打枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Rollballoon.png" ) );
+                this.tx連打数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
 
-            base.OnManagedリソースの作成();
+                base.OnManagedリソースの作成();
+            }
         }
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放( ref this.tx連打枠 );
-            CDTXMania.tテクスチャの解放( ref this.tx連打数字 );
+            if( !this.b活性化してない )
+            {
+                CDTXMania.tテクスチャの解放( ref this.tx連打枠 );
+                CDTXMania.tテクスチャの解放( ref this.tx連打数字 );
 
-            base.OnManagedリソースの解放();
+                base.OnManagedリソースの解放();
+            }
         }
 
         public override int On進行描画( )

@@ -80,35 +80,41 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.tx連打枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_balloon.png" ) );
-            this.tx連打数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
-
-            this.txキャラクター = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\balloon.png" ) );
-            this.txキャラクター_風船終了 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\balloon_break_0.png" ) );
-
-            for( int i = 0; i < 6; i++ )
+            if( !this.b活性化してない )
             {
-                this.tx風船枠[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\balloon_" + i.ToString() +".png" ) );
-            }
+                this.tx連打枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_balloon.png" ) );
+                this.tx連打数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
 
-            this.ct風船ふきだしアニメ = new CCounter( 0, 1, 100, CDTXMania.Timer );
-            base.OnManagedリソースの作成();
+                this.txキャラクター = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\balloon.png" ) );
+                this.txキャラクター_風船終了 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\balloon_break_0.png" ) );
+
+                for( int i = 0; i < 6; i++ )
+                {
+                    this.tx風船枠[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\balloon_" + i.ToString() +".png" ) );
+                }
+
+                this.ct風船ふきだしアニメ = new CCounter( 0, 1, 100, CDTXMania.Timer );
+                base.OnManagedリソースの作成();
+            }
         }
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放( ref this.tx連打枠 );
-            CDTXMania.tテクスチャの解放( ref this.tx連打数字 );
-
-            CDTXMania.tテクスチャの解放( ref this.txキャラクター );
-            CDTXMania.tテクスチャの解放( ref this.txキャラクター_風船終了 );
-
-            for( int i = 0; i < 6; i++ )
+            if( !this.b活性化してない )
             {
-                CDTXMania.tテクスチャの解放( ref this.tx風船枠[ i ] );
-            }
+                CDTXMania.tテクスチャの解放( ref this.tx連打枠 );
+                CDTXMania.tテクスチャの解放( ref this.tx連打数字 );
 
-            base.OnManagedリソースの解放();
+                CDTXMania.tテクスチャの解放( ref this.txキャラクター );
+                CDTXMania.tテクスチャの解放( ref this.txキャラクター_風船終了 );
+
+                for( int i = 0; i < 6; i++ )
+                {
+                    CDTXMania.tテクスチャの解放( ref this.tx風船枠[ i ] );
+                }
+
+                base.OnManagedリソースの解放();
+            }
         }
 
         public override int On進行描画()

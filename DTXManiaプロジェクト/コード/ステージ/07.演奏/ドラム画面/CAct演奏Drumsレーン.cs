@@ -26,37 +26,43 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.tx普通譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal_base.png"));
-            this.tx玄人譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert_base.png"));
-            this.tx達人譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master_base.png"));
-            this.tx普通譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal.png"));
-            this.tx玄人譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert.png"));
-            this.tx達人譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master.png"));
-            this.ct分岐アニメ進行 = new CCounter[ 4 ];
-            this.nBefore = new int[ 4 ];
-            this.nAfter = new int[ 4 ];
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            if( !this.b活性化してない )
             {
-                this.ct分岐アニメ進行[ i ] = new CCounter();
-                this.nBefore[ i ] = 0;
-                this.nAfter[ i ] = 0;
-                this.bState[ i ] = false;
-            }
-            this.tx普通譜面[ 0 ].n透明度 = 255;
+                this.tx普通譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal_base.png"));
+                this.tx玄人譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert_base.png"));
+                this.tx達人譜面[ 0 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master_base.png"));
+                this.tx普通譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal.png"));
+                this.tx玄人譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert.png"));
+                this.tx達人譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master.png"));
+                this.ct分岐アニメ進行 = new CCounter[ 4 ];
+                this.nBefore = new int[ 4 ];
+                this.nAfter = new int[ 4 ];
+                for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                {
+                    this.ct分岐アニメ進行[ i ] = new CCounter();
+                    this.nBefore[ i ] = 0;
+                    this.nAfter[ i ] = 0;
+                    this.bState[ i ] = false;
+                }
+                this.tx普通譜面[ 0 ].n透明度 = 255;
 
-            base.OnManagedリソースの作成();
+                base.OnManagedリソースの作成();
+            }
         }
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放( ref this.tx普通譜面[ 0 ] );
-            CDTXMania.tテクスチャの解放( ref this.tx玄人譜面[ 0 ] );
-            CDTXMania.tテクスチャの解放( ref this.tx達人譜面[ 0 ] );
-            CDTXMania.tテクスチャの解放( ref this.tx普通譜面[ 1 ] );
-            CDTXMania.tテクスチャの解放( ref this.tx玄人譜面[ 1 ] );
-            CDTXMania.tテクスチャの解放( ref this.tx達人譜面[ 1 ] );
+            if( !this.b活性化してない )
+            {
+                CDTXMania.tテクスチャの解放( ref this.tx普通譜面[ 0 ] );
+                CDTXMania.tテクスチャの解放( ref this.tx玄人譜面[ 0 ] );
+                CDTXMania.tテクスチャの解放( ref this.tx達人譜面[ 0 ] );
+                CDTXMania.tテクスチャの解放( ref this.tx普通譜面[ 1 ] );
+                CDTXMania.tテクスチャの解放( ref this.tx玄人譜面[ 1 ] );
+                CDTXMania.tテクスチャの解放( ref this.tx達人譜面[ 1 ] );
 
-            base.OnManagedリソースの解放();
+                base.OnManagedリソースの解放();
+            }
         }
 
         public override int On進行描画()

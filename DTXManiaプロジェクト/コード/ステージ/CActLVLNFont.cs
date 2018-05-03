@@ -75,9 +75,10 @@ namespace DTXMania
 
 		public override void OnManagedリソースの作成()
 		{
-			if (!base.b活性化してない)
+			if( !base.b活性化してない )
 			{
-				this.tx数値 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\ScreenSelect level numbers.png"));
+                if( this.tx数値 != null )
+				    this.tx数値 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenSelect level numbers.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}

@@ -30,61 +30,93 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.strList = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16";
-            this.strList_登場 = "0,1,2,3,4,5,6,7,8,8,8,8,8,8,8,8";
-            this.strList_退場 = "1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3";
-
-            this.arモーション番号_通常 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList );
-            this.arモーション番号_登場 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList_登場 );
-            this.arモーション番号_退場 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList_退場 );
-
-            this.nテクスチャ枚数_通常 = 16;
-            this.nテクスチャ枚数_登場 = 10;
-            this.nテクスチャ枚数_退場 = 3;
-            this.n現在表示している踊り子数 = 1;
-
-            this.e現在のモーション = new EMotion[ 5 ];
-            for( int i = 0; i < 5; i++ )
+            if( !this.b活性化してない )
             {
-                this.e現在のモーション[ i ] = EMotion.非表示;
-            }
+                this.strList = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16";
+                this.strList_登場 = "0,1,2,3,4,5,6,7,8,8,8,8,8,8,8,8";
+                this.strList_退場 = "1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3";
 
-            this.tx踊り子1_通常 = new CTexture[ this.nテクスチャ枚数_通常 ];
-            for( int i = 0; i < this.nテクスチャ枚数_通常; i++ )
-            {
-                this.tx踊り子1_通常[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\0\dance_1_" + i.ToString() + ".png" ) );
-            }
-            this.tx踊り子1_登場 = new CTexture[ this.nテクスチャ枚数_登場 ];
-            for( int i = 0; i < this.nテクスチャ枚数_登場; i++ )
-            {
-                this.tx踊り子1_登場[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\0\appear_1_" + i.ToString() + ".png" ) );
-            }
-            this.tx踊り子1_退場 = new CTexture[ this.nテクスチャ枚数_退場 ];
-            for( int i = 0; i < this.nテクスチャ枚数_退場; i++ )
-            {
-                this.tx踊り子1_退場[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\0\leave_1_" + i.ToString() + ".png" ) );
-            }
+                this.arモーション番号_通常 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList );
+                this.arモーション番号_登場 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList_登場 );
+                this.arモーション番号_退場 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList_退場 );
 
-            this.ct通常モーション = new CCounter( 0, this.arモーション番号_通常.Length - 1, 0.4, CSound管理.rc演奏用タイマ );
-            this.ct登場モーション = new CCounter( 0, this.arモーション番号_登場.Length - 1, 0.4, CSound管理.rc演奏用タイマ );
+                this.nテクスチャ枚数_通常 = 16;
+                this.nテクスチャ枚数_登場 = 10;
+                this.nテクスチャ枚数_退場 = 3;
+                this.n現在表示している踊り子数 = 1;
 
-            this.ctモブ = new CCounter( 1, 16, 0.025, CSound管理.rc演奏用タイマ );
+                this.e現在のモーション = new EMotion[ 5 ];
+                for( int i = 0; i < 5; i++ )
+                {
+                    this.e現在のモーション[ i ] = EMotion.非表示;
+                }
 
-            this.txフッター = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\footer\01.png" ) );
-            this.txモブ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\mob\1.png" ) );
+                this.tx踊り子1_通常 = new CTexture[ this.nテクスチャ枚数_通常 ];
+                for( int i = 0; i < this.nテクスチャ枚数_通常; i++ )
+                {
+                    this.tx踊り子1_通常[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\0\dance_1_" + i.ToString() + ".png" ) );
+                }
+                this.tx踊り子1_登場 = new CTexture[ this.nテクスチャ枚数_登場 ];
+                for( int i = 0; i < this.nテクスチャ枚数_登場; i++ )
+                {
+                    this.tx踊り子1_登場[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\0\appear_1_" + i.ToString() + ".png" ) );
+                }
+                this.tx踊り子1_退場 = new CTexture[ this.nテクスチャ枚数_退場 ];
+                for( int i = 0; i < this.nテクスチャ枚数_退場; i++ )
+                {
+                    this.tx踊り子1_退場[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\0\leave_1_" + i.ToString() + ".png" ) );
+                }
 
-            for( int i = 0; i < 5; i++ )
-            {
-                this.st投げ上げ[ i ].ct進行 = new CCounter();
+                this.ct通常モーション = new CCounter( 0, this.arモーション番号_通常.Length - 1, 0.4, CSound管理.rc演奏用タイマ );
+                this.ct登場モーション = new CCounter( 0, this.arモーション番号_登場.Length - 1, 0.4, CSound管理.rc演奏用タイマ );
+
+                this.ctモブ = new CCounter( 1, 16, 0.025, CSound管理.rc演奏用タイマ );
+
+                this.txフッター = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\footer\01.png" ) );
+                this.txモブ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer\mob\1.png" ) );
+
+                for( int i = 0; i < 5; i++ )
+                {
+                    this.st投げ上げ[ i ].ct進行 = new CCounter();
+                }
+                base.OnManagedリソースの作成();
             }
-            base.OnManagedリソースの作成();
         }
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放( ref this.txフッター );
-            CDTXMania.tテクスチャの解放( ref this.txモブ );
-            base.OnManagedリソースの解放();
+            if( !this.b活性化してない )
+            {
+                CDTXMania.tテクスチャの解放( ref this.txフッター );
+                CDTXMania.tテクスチャの解放( ref this.txモブ );
+
+                if( this.nテクスチャ枚数_通常 > 0 && this.tx踊り子1_通常 != null )
+                {
+                    for( int i = 0; i < this.nテクスチャ枚数_通常; i++ )
+                    {
+                        CDTXMania.t安全にDisposeする( ref this.tx踊り子1_通常[ i ] );
+                    }
+                    this.tx踊り子1_通常 = null;
+                }
+                if( this.nテクスチャ枚数_登場 > 0 && this.tx踊り子1_登場 != null )
+                {
+                    for( int i = 0; i < this.nテクスチャ枚数_登場; i++ )
+                    {
+                        CDTXMania.t安全にDisposeする( ref this.tx踊り子1_登場[ i ] );
+                    }
+                    this.tx踊り子1_登場 = null;
+                }
+                if( this.nテクスチャ枚数_退場 > 0 && this.tx踊り子1_退場 != null )
+                {
+                    for( int i = 0; i < this.nテクスチャ枚数_退場; i++ )
+                    {
+                        CDTXMania.t安全にDisposeする( ref this.tx踊り子1_退場[ i ] );
+                    }
+                    this.tx踊り子1_退場 = null;
+                }
+
+                base.OnManagedリソースの解放();
+            }
         }
 
         public override int On進行描画()

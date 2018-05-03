@@ -33,6 +33,7 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
                 CDTXMania.tテクスチャの解放( ref this.tx幕 );
+                CDTXMania.tテクスチャの解放( ref this.tx幕2 );
 				base.On非活性化();
 			}
 		}

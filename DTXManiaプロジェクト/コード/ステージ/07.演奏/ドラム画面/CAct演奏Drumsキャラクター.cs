@@ -43,115 +43,131 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            //キャラクター画像を格納しているディレクトリに各モーションの画像がいくつあるかを検索。
-            //現在は固定値。
-            this.nキャラクター通常モーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount;
-            this.nキャラクターゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_gogo;
-            this.nキャラクタークリアモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_clear;
-            this.nキャラクターMAX通常モーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_max;
-            this.nキャラクターMAXゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_maxgogo;
-
-            this.txキャラクターNormal = new CTexture[ this.nキャラクター通常モーション枚数 ];
-            for( int i = 0; i < this.nキャラクター通常モーション枚数; i++ )
+            if( !this.b活性化してない )
             {
-                this.txキャラクターNormal[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\Normal_" + i.ToString() + ".png" ) );
-            }
+                //キャラクター画像を格納しているディレクトリに各モーションの画像がいくつあるかを検索。
+                //現在は固定値。
+                this.nキャラクター通常モーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount;
+                this.nキャラクターゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_gogo;
+                this.nキャラクタークリアモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_clear;
+                this.nキャラクターMAX通常モーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_max;
+                this.nキャラクターMAXゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_maxgogo;
 
-            this.txキャラクターGogo = new CTexture[ this.nキャラクターゴーゴーモーション枚数 ];
-            for( int i = 0; i < this.nキャラクターゴーゴーモーション枚数; i++ )
-            {
-                this.txキャラクターGogo[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\gogo_" + i.ToString() + ".png" ) );
-            }
-
-            if( this.nキャラクタークリアモーション枚数 != 0 )
-            {
-                this.txキャラクターClear_Normal = new CTexture[ this.nキャラクタークリアモーション枚数 ];
-                for( int i = 0; i < this.nキャラクタークリアモーション枚数; i++ )
+                this.txキャラクターNormal = new CTexture[ this.nキャラクター通常モーション枚数 ];
+                for( int i = 0; i < this.nキャラクター通常モーション枚数; i++ )
                 {
-                    this.txキャラクターClear_Normal[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\Clear_" + i.ToString() + ".png" ) );
+                    this.txキャラクターNormal[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\Normal_" + i.ToString() + ".png" ) );
                 }
-            }
 
-            if( this.nキャラクターMAX通常モーション枚数 != 0 )
-            {
-                this.txキャラクターMax_Normal = new CTexture[ this.nキャラクターMAX通常モーション枚数 ];
-                for( int i = 0; i < this.nキャラクターMAX通常モーション枚数; i++ )
+                this.txキャラクターGogo = new CTexture[ this.nキャラクターゴーゴーモーション枚数 ];
+                for( int i = 0; i < this.nキャラクターゴーゴーモーション枚数; i++ )
                 {
-                    this.txキャラクターMax_Normal[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\Max_" + i.ToString() + ".png" ) );
+                    this.txキャラクターGogo[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\gogo_" + i.ToString() + ".png" ) );
                 }
-            }
+
+                if( this.nキャラクタークリアモーション枚数 != 0 )
+                {
+                    this.txキャラクターClear_Normal = new CTexture[ this.nキャラクタークリアモーション枚数 ];
+                    for( int i = 0; i < this.nキャラクタークリアモーション枚数; i++ )
+                    {
+                        this.txキャラクターClear_Normal[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\Clear_" + i.ToString() + ".png" ) );
+                    }
+                }
+
+                if( this.nキャラクターMAX通常モーション枚数 != 0 )
+                {
+                    this.txキャラクターMax_Normal = new CTexture[ this.nキャラクターMAX通常モーション枚数 ];
+                    for( int i = 0; i < this.nキャラクターMAX通常モーション枚数; i++ )
+                    {
+                        this.txキャラクターMax_Normal[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\Max_" + i.ToString() + ".png" ) );
+                    }
+                }
             
-            if( this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
-            {
-                this.txキャラクターMax_Gogo = new CTexture[ this.nキャラクターMAXゴーゴーモーション枚数 ];
-                for( int i = 0; i < this.nキャラクターMAXゴーゴーモーション枚数; i++ )
+                if( this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
                 {
-                    this.txキャラクターMax_Gogo[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\Max_gogo_" + i.ToString() + ".png" ) );
+                    this.txキャラクターMax_Gogo = new CTexture[ this.nキャラクターMAXゴーゴーモーション枚数 ];
+                    for( int i = 0; i < this.nキャラクターMAXゴーゴーモーション枚数; i++ )
+                    {
+                        this.txキャラクターMax_Gogo[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Chara\Max_gogo_" + i.ToString() + ".png" ) );
+                    }
                 }
+
+
+                //固定値
+                //this.arゴーゴーモーション番号 = new int[]{ 0, 1, 2, 3, 3, 3, 3, 3, 3, 2, 1, 0, 0, 0, 0, 0 };
+
+                //2015.08.05 Config.iniから変更可能にするための実験
+                this.strList = CDTXMania.ConfigIni.strCharaMotionList;
+                this.strListGogo = CDTXMania.ConfigIni.strCharaMotionList_gogo;
+                this.strListClear = CDTXMania.ConfigIni.strCharaMotionList_clear;
+                this.strListMAX = CDTXMania.ConfigIni.strCharaMotionList_max;
+                this.strListMAXGogo = CDTXMania.ConfigIni.strCharaMotionList_maxgogo;
+                this.arモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList );
+                this.arゴーゴーモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListGogo );
+                this.arクリアモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListClear );
+                this.ar黄色モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListGogo );
+                this.ar黄色ゴーゴーモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListMAXGogo );
+
+                this.ct通常モーション = new CCounter( 0, this.arモーション番号.Length - 1, 0.02, CSound管理.rc演奏用タイマ );
+                this.ctゴーゴーモーション = new CCounter( 0, this.arゴーゴーモーション番号.Length - 1, 50, CDTXMania.Timer );
+                if( this.nキャラクタークリアモーション枚数 != 0 )
+                    this.ctクリア通常モーション = new CCounter( 0, this.arクリアモーション番号.Length - 1, 50, CDTXMania.Timer );
+                if( this.nキャラクターMAX通常モーション枚数 != 0 )
+                    this.ctMAX通常モーション = new CCounter( 0, this.ar黄色モーション番号.Length - 1, 50, CDTXMania.Timer );
+                if( this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
+                    this.ctMAXゴーゴーモーション = new CCounter( 0, this.ar黄色ゴーゴーモーション番号.Length - 1, 50, CDTXMania.Timer );
+
+                base.OnManagedリソースの作成();
             }
-
-
-            //固定値
-            //this.arゴーゴーモーション番号 = new int[]{ 0, 1, 2, 3, 3, 3, 3, 3, 3, 2, 1, 0, 0, 0, 0, 0 };
-
-            //2015.08.05 Config.iniから変更可能にするための実験
-            this.strList = CDTXMania.ConfigIni.strCharaMotionList;
-            this.strListGogo = CDTXMania.ConfigIni.strCharaMotionList_gogo;
-            this.strListClear = CDTXMania.ConfigIni.strCharaMotionList_clear;
-            this.strListMAX = CDTXMania.ConfigIni.strCharaMotionList_max;
-            this.strListMAXGogo = CDTXMania.ConfigIni.strCharaMotionList_maxgogo;
-            this.arモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strList );
-            this.arゴーゴーモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListGogo );
-            this.arクリアモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListClear );
-            this.ar黄色モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListGogo );
-            this.ar黄色ゴーゴーモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す( this.strListMAXGogo );
-
-            this.ct通常モーション = new CCounter( 0, this.arモーション番号.Length - 1, 0.02, CSound管理.rc演奏用タイマ );
-            this.ctゴーゴーモーション = new CCounter( 0, this.arゴーゴーモーション番号.Length - 1, 50, CDTXMania.Timer );
-            if( this.nキャラクタークリアモーション枚数 != 0 )
-                this.ctクリア通常モーション = new CCounter( 0, this.arクリアモーション番号.Length - 1, 50, CDTXMania.Timer );
-            if( this.nキャラクターMAX通常モーション枚数 != 0 )
-                this.ctMAX通常モーション = new CCounter( 0, this.ar黄色モーション番号.Length - 1, 50, CDTXMania.Timer );
-            if( this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
-                this.ctMAXゴーゴーモーション = new CCounter( 0, this.ar黄色ゴーゴーモーション番号.Length - 1, 50, CDTXMania.Timer );
-
-
-            base.OnManagedリソースの作成();
         }
 
         public override void OnManagedリソースの解放()
         {
-            for( int i = 0; i < this.nキャラクター通常モーション枚数; i++ )
+            if( !this.b活性化してない )
             {
-                CDTXMania.tテクスチャの解放( ref this.txキャラクターNormal[ i ] );
-            }
-            for( int i = 0; i < this.nキャラクターゴーゴーモーション枚数; i++ )
-            {
-                CDTXMania.tテクスチャの解放( ref this.txキャラクターGogo[ i ] );
-            }
-            if( this.nキャラクタークリアモーション枚数 != 0 )
-            {
-                for( int i = 0; i < this.nキャラクタークリアモーション枚数; i++ )
+                if( this.nキャラクター通常モーション枚数 > 0 && this.txキャラクターNormal != null )
                 {
-                    CDTXMania.tテクスチャの解放( ref this.txキャラクターClear_Normal[ i ] );
+                    for( int i = 0; i < this.nキャラクター通常モーション枚数; i++ )
+                    {
+                        CDTXMania.tテクスチャの解放( ref this.txキャラクターNormal[ i ] );
+                    }
+                    this.txキャラクターNormal = null;
                 }
-            }
-            if( this.nキャラクターMAX通常モーション枚数 != 0 )
-            {
-                for( int i = 0; i < this.nキャラクターMAX通常モーション枚数; i++ )
+                if( this.nキャラクターゴーゴーモーション枚数 > 0 && this.txキャラクターGogo != null )
                 {
-                    CDTXMania.tテクスチャの解放( ref this.txキャラクターMax_Normal[ i ] );
+                    for( int i = 0; i < this.nキャラクターゴーゴーモーション枚数; i++ )
+                    {
+                        CDTXMania.tテクスチャの解放( ref this.txキャラクターGogo[ i ] );
+                    }
+                    this.txキャラクターGogo = null;
                 }
-            }
-            if( this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
-            {
-                for( int i = 0; i < this.nキャラクターMAXゴーゴーモーション枚数; i++ )
+                if (this.nキャラクタークリアモーション枚数 > 0 && this.txキャラクターClear_Normal != null )
                 {
-                    CDTXMania.tテクスチャの解放( ref this.txキャラクターMax_Gogo[ i ] );
+                    for( int i = 0; i < this.nキャラクタークリアモーション枚数; i++ )
+                    {
+                        CDTXMania.tテクスチャの解放( ref this.txキャラクターClear_Normal[ i ] );
+                    }
+                    this.txキャラクターClear_Normal = null;
                 }
-            }
+                if( this.nキャラクターMAX通常モーション枚数 > 0 && this.txキャラクターMax_Normal != null )
+                {
+                    for( int i = 0; i < this.nキャラクターMAX通常モーション枚数; i++ )
+                    {
+                        CDTXMania.tテクスチャの解放( ref this.txキャラクターMax_Normal[ i ] );
+                    }
+                    this.txキャラクターMax_Normal = null;
+                }
+                if( this.nキャラクターMAXゴーゴーモーション枚数 > 0 && this.txキャラクターMax_Gogo != null )
+                {
+                    for( int i = 0; i < this.nキャラクターMAXゴーゴーモーション枚数; i++ )
+                    {
+                        CDTXMania.tテクスチャの解放( ref this.txキャラクターMax_Gogo[ i ] );
+                    }
+                    this.txキャラクターMax_Gogo = null;
+                }
 
-            base.OnManagedリソースの解放();
+                base.OnManagedリソースの解放();
+            }
         }
 
         public override int On進行描画()

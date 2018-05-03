@@ -20,7 +20,7 @@ namespace DTXMania
 	{
 		// プロパティ
 		#region [ properties ]
-        public static readonly string VERSION = "Ver0.83b(180406)";
+        public static readonly string VERSION = "Ver0.84(180503)";
 		public static readonly string SLIMDXDLL = "c_net20x86_Jun2010";
 		public static readonly string D3DXDLL = "d3dx9_43.dll";		// June 2010
         //public static readonly string D3DXDLL = "d3dx9_42.dll";	// February 2010
@@ -764,71 +764,75 @@ namespace DTXMania
 					case CStage.Eステージ.タイトル:
 						#region [ *** ]
 						//-----------------------------
-						switch( this.n進行描画の戻り値 )
-						{
-							case (int)CStageタイトル.E戻り値.GAMESTART:
-								#region [ 選曲処理へ ]
-								//-----------------------------
-								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 選曲" );
-								stage選曲.On活性化();
-								r直前のステージ = r現在のステージ;
-								r現在のステージ = stage選曲;
-								//-----------------------------
-								#endregion
-								break;
+                        if( this.n進行描画の戻り値 != 0 )
+                        {
+						    switch( this.n進行描画の戻り値 )
+						    {
+							    case (int)CStageタイトル.E戻り値.GAMESTART:
+								    #region [ 選曲処理へ ]
+								    //-----------------------------
+								    r現在のステージ.On非活性化();
+								    Trace.TraceInformation( "----------------------" );
+								    Trace.TraceInformation( "■ 選曲" );
+								    stage選曲.On活性化();
+								    r直前のステージ = r現在のステージ;
+								    r現在のステージ = stage選曲;
+								    //-----------------------------
+								    #endregion
+								    break;
 
-							#region [ OPTION: 廃止済 ]
-//							case 2:									// #24525 OPTIONとCONFIGの統合に伴い、OPTIONは廃止
-//								#region [ *** ]
-//								//-----------------------------
-//								r現在のステージ.On非活性化();
-//								Trace.TraceInformation( "----------------------" );
-//								Trace.TraceInformation( "■ オプション" );
-//								stageオプション.On活性化();
-//								r直前のステージ = r現在のステージ;
-//								r現在のステージ = stageオプション;
-//								//-----------------------------
-//								#endregion
-							//								break;
-							#endregion
+							    #region [ OPTION: 廃止済 ]
+//  							case 2:									// #24525 OPTIONとCONFIGの統合に伴い、OPTIONは廃止
+//							    	#region [ *** ]
+//								    //-----------------------------
+//							    	r現在のステージ.On非活性化();
+//						    		Trace.TraceInformation( "----------------------" );
+//					    			Trace.TraceInformation( "■ オプション" );
+//				    				stageオプション.On活性化();
+//			    					r直前のステージ = r現在のステージ;
+//		    						r現在のステージ = stageオプション;
+//  								//-----------------------------
+//	    							#endregion
+							    //								break;
+							    #endregion
 
-							case (int)CStageタイトル.E戻り値.CONFIG:
-								#region [ *** ]
-								//-----------------------------
-								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ コンフィグ" );
-								stageコンフィグ.On活性化();
-								r直前のステージ = r現在のステージ;
-								r現在のステージ = stageコンフィグ;
-								//-----------------------------
-								#endregion
-								break;
+							    case (int)CStageタイトル.E戻り値.CONFIG:
+								    #region [ *** ]
+								    //-----------------------------
+								    r現在のステージ.On非活性化();
+								    Trace.TraceInformation( "----------------------" );
+								    Trace.TraceInformation( "■ コンフィグ" );
+								    stageコンフィグ.On活性化();
+								    r直前のステージ = r現在のステージ;
+								    r現在のステージ = stageコンフィグ;
+								    //-----------------------------
+								    #endregion
+								    break;
 
-							case (int)CStageタイトル.E戻り値.EXIT:
-								#region [ *** ]
-								//-----------------------------
-								r現在のステージ.On非活性化();
-								Trace.TraceInformation( "----------------------" );
-								Trace.TraceInformation( "■ 終了" );
-								stage終了.On活性化();
-								r直前のステージ = r現在のステージ;
-								r現在のステージ = stage終了;
-								//-----------------------------
-								#endregion
-								break;
-						}
+							    case (int)CStageタイトル.E戻り値.EXIT:
+								    #region [ *** ]
+								    //-----------------------------
+								    r現在のステージ.On非活性化();
+								    Trace.TraceInformation( "----------------------" );
+								    Trace.TraceInformation( "■ 終了" );
+								    stage終了.On活性化();
+								    r直前のステージ = r現在のステージ;
+								    r現在のステージ = stage終了;
+								    //-----------------------------
+								    #endregion
+								    break;
+						    }
 
-						foreach( STPlugin pg in this.listプラグイン )
-						{
-							Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
-							pg.plugin.Onステージ変更();
-							Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
-						}
+						    foreach( STPlugin pg in this.listプラグイン )
+						    {
+							    Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
+							    pg.plugin.Onステージ変更();
+							    Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+						    }
 
-						//this.tガベージコレクションを実行する();		// #31980 2013.9.3 yyagi タイトル画面でだけ、毎フレームGCを実行して重くなっていた問題の修正
+						    this.tガベージコレクションを実行する();		// #31980 2013.9.3 yyagi タイトル画面でだけ、毎フレームGCを実行して重くなっていた問題の修正
+                                                                        // 2018.04.28 kairera0467 そもそも戻り値を待っておけば問題無いはずなので周囲のif文など見直してGCの封印も解除
+                        }
 						//-----------------------------
 						#endregion
 						break;
@@ -1487,6 +1491,10 @@ for (int i = 0; i < 3; i++) {
 						//-----------------------------
 						if( this.n進行描画の戻り値 != 0 )
 						{
+                            //ポップアップメニュー解放テスト
+                            CDTXMania.stage選曲.actQuickConfig.finallize();
+                            CDTXMania.stage選曲.actSortSongs.finallize();
+                            CDTXMania.stage演奏ドラム画面.actPauseMenu.finallize();
 							base.Exit();
 						}
 						//-----------------------------

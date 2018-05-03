@@ -1542,6 +1542,8 @@ namespace DTXMania
 			CDTXMania.tテクスチャの解放( ref this.tx通常項目行パネル );
 			CDTXMania.tテクスチャの解放( ref this.txその他項目行パネル );
 			CDTXMania.tテクスチャの解放( ref this.tx三角矢印 );
+
+            this.OnListMenuの解放(); //2018.04.29 kairera0467 設定画面から抜ける時にテクスチャ解放しておく(本体終了時に解放するだけでもいいのですが...)
 		
 			base.OnManagedリソースの解放();
 		}

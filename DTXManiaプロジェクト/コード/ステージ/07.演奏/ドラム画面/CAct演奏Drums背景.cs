@@ -44,25 +44,31 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.tx上背景メイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Upper_BG\01\bg.png" ) );
-            this.tx上背景クリアメイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Upper_BG\01\bg_clear.png" ) );
-            this.tx下背景メイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg.png" ) );
-            this.tx下背景クリアメイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg_clear.png" ) );
-            this.tx下背景クリアサブ1 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg_clear_01.png" ) );
-            this.ct上背景スクロール用タイマー = new CCounter( 1, 328, 40, CDTXMania.Timer );
-            this.ct下背景スクロール用タイマー1 = new CCounter( 1, 1257, 6, CDTXMania.Timer );
-            this.ct上背景FIFOタイマー = new CCounter();
-            base.OnManagedリソースの作成();
+            if( !this.b活性化してない )
+            {
+                this.tx上背景メイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Upper_BG\01\bg.png" ) );
+                this.tx上背景クリアメイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Upper_BG\01\bg_clear.png" ) );
+                this.tx下背景メイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg.png" ) );
+                this.tx下背景クリアメイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg_clear.png" ) );
+                this.tx下背景クリアサブ1 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg_clear_01.png" ) );
+                this.ct上背景スクロール用タイマー = new CCounter( 1, 328, 40, CDTXMania.Timer );
+                this.ct下背景スクロール用タイマー1 = new CCounter( 1, 1257, 6, CDTXMania.Timer );
+                this.ct上背景FIFOタイマー = new CCounter();
+                base.OnManagedリソースの作成();
+            }
         }
 
         public override void OnManagedリソースの解放()
         {
-            CDTXMania.tテクスチャの解放( ref this.tx上背景メイン );
-            CDTXMania.tテクスチャの解放( ref this.tx上背景クリアメイン );
-            CDTXMania.tテクスチャの解放( ref this.tx下背景メイン );
-            CDTXMania.tテクスチャの解放( ref this.tx下背景クリアメイン );
-            CDTXMania.tテクスチャの解放( ref this.tx下背景クリアサブ1 );
-            base.OnManagedリソースの解放();
+            if( !this.b活性化してない )
+            {
+                CDTXMania.tテクスチャの解放( ref this.tx上背景メイン );
+                CDTXMania.tテクスチャの解放( ref this.tx上背景クリアメイン );
+                CDTXMania.tテクスチャの解放( ref this.tx下背景メイン );
+                CDTXMania.tテクスチャの解放( ref this.tx下背景クリアメイン );
+                CDTXMania.tテクスチャの解放( ref this.tx下背景クリアサブ1 );
+                base.OnManagedリソースの解放();
+            }
         }
 
         public override int On進行描画()

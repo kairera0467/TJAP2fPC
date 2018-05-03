@@ -28,8 +28,7 @@ namespace DTXMania
 			this.strパネル文字列 = str;
 			if( base.b活性化してる )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txPanel );
-				if( ( this.strパネル文字列 != null ) && ( this.strパネル文字列.Length > 0 ) )
+				if( ( this.strパネル文字列 != null ) && ( this.strパネル文字列.Length > 0 ) && this.txMusicName == null )
 				{
 					try
 					{
@@ -69,7 +68,8 @@ namespace DTXMania
                         {
                             bmpDiff = pfMusicName.DrawPrivateFont( "1曲目", Color.White, Color.Black );
                         }
-                        this.tx難易度とステージ数 = CDTXMania.tテクスチャの生成( bmpDiff, false );
+                        if( this.tx難易度とステージ数 == null )
+                            this.tx難易度とステージ数 = CDTXMania.tテクスチャの生成( bmpDiff, false );
 
                         CDTXMania.t安全にDisposeする( ref bmpDiff );
                         CDTXMania.t安全にDisposeする( ref bmpSongTitle );
@@ -78,10 +78,9 @@ namespace DTXMania
 					catch( CTextureCreateFailedException )
 					{
 						Trace.TraceError( "パネル文字列テクスチャの生成に失敗しました。" );
-						this.txPanel = null;
 					}
 				}
-                if( !string.IsNullOrEmpty( CDTXMania.DTX.GENRE ) )
+                if( !string.IsNullOrEmpty( CDTXMania.DTX.GENRE ) && this.txGENRE == null )
                 {
                     string strGenre = CDTXMania.DTX.GENRE;
                     if( strGenre.Equals( "アニメ" ) )
@@ -133,6 +132,7 @@ namespace DTXMania
         {
             Bitmap bmpleric = new Bitmap(1, 1);
             bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, Color.White, Color.Blue );
+            CDTXMania.t安全にDisposeする( ref this.tx歌詞テクスチャ );
             this.tx歌詞テクスチャ = CDTXMania.tテクスチャの生成( bmpleric, false );
             CDTXMania.t安全にDisposeする( ref bmpleric );
         }
@@ -171,8 +171,6 @@ namespace DTXMania
                 this.pfMusicName = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 30 );
 
             this.pf歌詞フォント = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 28 );
-
-			this.txPanel = null;
 			this.ct進行用 = new CCounter();
 			this.Start();
             this.bFirst = true;
@@ -180,10 +178,11 @@ namespace DTXMania
 		}
 		public override void On非活性化()
 		{
-			CDTXMania.tテクスチャの解放( ref this.txPanel );
             CDTXMania.tテクスチャの解放( ref this.tx歌詞テクスチャ );
-            CDTXMania.t安全にDisposeする( ref this.pfMusicName );
             CDTXMania.t安全にDisposeする( ref this.pf歌詞フォント );
+			CDTXMania.tテクスチャの解放( ref this.txMusicName );
+            CDTXMania.tテクスチャの解放( ref this.txGENRE );
+
 			this.ct進行用 = null;
 			base.On非活性化();
 		}
@@ -199,9 +198,6 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txPanel );
-				CDTXMania.tテクスチャの解放( ref this.txMusicName );
-                CDTXMania.tテクスチャの解放( ref this.txGENRE );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -293,7 +289,6 @@ namespace DTXMania
 		private CCounter ct進行用;
 
 		private string strパネル文字列;
-		private CTexture txPanel;
 		private bool bMute;
         private bool bFirst;
 

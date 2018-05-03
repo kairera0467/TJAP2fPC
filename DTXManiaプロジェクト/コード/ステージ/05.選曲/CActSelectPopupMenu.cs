@@ -81,6 +81,21 @@ namespace DTXMania
 			n現在の選択行 = defaultPos;
 		}
 
+        public void finallize() //2018.04.29 kairera0467 テスト。終了時の解放漏れ防止用(コンストラクタでInitializeが行われているので選曲に行かないと一部オブジェクトが開放されずに終わる)
+        {
+            if( this.lciMenuItems != null )
+            {
+                for( int i = 0; i < this.lciMenuItems.Length; i++ )
+                {
+                    CDTXMania.t安全にDisposeする( ref this.lciMenuItems[ i ].txName );
+                    this.lciMenuItems[ i ].cItem = null;
+                }
+            }
+            CDTXMania.t安全にDisposeする( ref this.prvFont );
+            CDTXMania.t安全にDisposeする( ref this.font );
+            this.stqMenuTitle.cItem = null;
+            CDTXMania.t安全にDisposeする( ref this.stqMenuTitle.txName );
+        }
 
 		public void tEnter押下()
 		{
@@ -206,6 +221,7 @@ namespace DTXMania
 				{
 					this.ctキー反復用[ i ] = null;
 				}
+                this.finallize();
 				base.On非活性化();
 			}
 		}
