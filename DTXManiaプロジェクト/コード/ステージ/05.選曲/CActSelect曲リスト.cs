@@ -433,13 +433,11 @@ namespace DTXMania
 		/// <param name="cs"></param>
 		public void Refresh(CSongs管理 cs, bool bRemakeSongTitleBar )		// #26070 2012.2.28 yyagi
 		{
-//			this.On非活性化();
-
 			if ( cs != null && cs.list曲ルート.Count > 0 )	// 新しい曲リストを検索して、1曲以上あった
 			{
+                this.On非活性化();
 				CDTXMania.Songs管理 = cs;
-                if( CDTXMania.r現在のステージ.eステージID == CStage.Eステージ.選曲 )
-                    this.On活性化();
+                this.On活性化();
 
 				if ( this.r現在選択中の曲 != null )			// r現在選択中の曲==null とは、「最初songlist.dbが無かった or 検索したが1曲もない」
 				{
@@ -462,7 +460,7 @@ namespace DTXMania
 					return;
 				}
 			}
-			this.On非活性化();
+			//this.On非活性化();
 			this.r現在選択中の曲 = null;
 			//this.On活性化();
 		}
@@ -517,6 +515,8 @@ namespace DTXMania
 			}
             CDTXMania.stage選曲.act演奏履歴パネル.tSongChange();
 		}
+
+
 
 		// CActivity 実装
 
@@ -583,91 +583,182 @@ namespace DTXMania
 		}
 		public override void OnManagedリソースの作成()
 		{
-			if( this.b活性化してない )
-				return;
-            this.tx曲バー_JPOP = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false );
-            this.tx曲バー_アニメ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_anime.png" ), false );
-            this.tx曲バー_ゲーム = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_game.png" ), false );
-            this.tx曲バー_ナムコ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_namco.png" ), false );
-            this.tx曲バー_クラシック = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_classic.png" ), false );
-            this.tx曲バー_バラエティ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_variety.png" ), false );
-            this.tx曲バー_どうよう = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_child.png" ), false );
-            this.tx曲バー_ボカロ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_vocaloid.png" ), false );
-            this.tx曲バー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard.png" ), false );
+			if( !this.b活性化してない )
+            {
+                //2018.5.3 kairera0467
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_JPOP, CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_アニメ, CSkin.Path( @"Graphics\5_songboard_anime.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ゲーム, CSkin.Path( @"Graphics\5_songboard_game.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ナムコ, CSkin.Path( @"Graphics\5_songboard_namco.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_クラシック, CSkin.Path( @"Graphics\5_songboard_classic.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_バラエティ, CSkin.Path( @"Graphics\5_songboard_variety.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_どうよう, CSkin.Path( @"Graphics\5_songboard_child.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ボカロ, CSkin.Path( @"Graphics\5_songboard_vocaloid.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー, CSkin.Path( @"Graphics\5_songboard.png" ), false, false );
 
-            this.tx曲バー_難易度[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Easy.png" ) );
-            this.tx曲バー_難易度[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Normal.png" ) );
-            this.tx曲バー_難易度[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Hard.png" ) );
-            this.tx曲バー_難易度[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Master.png" ) );
-            this.tx曲バー_難易度[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Edit.png" ) );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_難易度[ 0 ], CSkin.Path( @"Graphics\5_songboard_Easy.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_難易度[ 1 ], CSkin.Path( @"Graphics\5_songboard_Normal.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_難易度[ 2 ], CSkin.Path( @"Graphics\5_songboard_Hard.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_難易度[ 3 ], CSkin.Path( @"Graphics\5_songboard_Master.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_難易度[ 4 ], CSkin.Path( @"Graphics\5_songboard_Edit.png" ), false, false );
 
-            this.tx難易度星 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_levelstar.png" ), false );
-            this.tx難易度パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_level_panel.png" ), false );
-            this.tx譜面分岐曲バー用 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_branch.png" ) );
-            this.tx譜面分岐中央パネル用 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_center panel_branch.png" ) );
-            this.txバー中央 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_center panel.png" ) );
-            this.tx上部ジャンル名 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_genrename.png" ) );
-            this.txレベル数字フォント = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_levelfont.png" ) );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度星, CSkin.Path( @"Graphics\5_levelstar.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度パネル, CSkin.Path( @"Graphics\5_level_panel.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx譜面分岐曲バー用, CSkin.Path( @"Graphics\5_songboard_branch.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx譜面分岐中央パネル用, CSkin.Path( @"Graphics\5_center panel_branch.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txバー中央, CSkin.Path( @"Graphics\5_center panel.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx上部ジャンル名, CSkin.Path( @"Graphics\5_genrename.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txレベル数字フォント, CSkin.Path( @"Graphics\5_levelfont.png" ), false, false );
 
-            this.txカーソル左 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_cursor left.png" ) );
-            this.txカーソル右 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_cursor right.png" ) );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txカーソル左, CSkin.Path( @"Graphics\5_cursor left.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txカーソル右, CSkin.Path( @"Graphics\5_cursor right.png" ), false, false );
 
-			int c = ( CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
-			#region [ Songs not found画像 ]
-			try
-			{
-				using( Bitmap image = new Bitmap( 640, 128 ) )
-				using( Graphics graphics = Graphics.FromImage( image ) )
-				{
-					string[] s1 = { "曲データが見つかりません。", "Songs not found." };
-					string[] s2 = { "曲データをDTXManiaGR.exe以下の", "You need to install songs." };
-					string[] s3 = { "フォルダにインストールして下さい。", "" };
-					graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 2f );
-					graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 0f );
-					graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 44f );
-					graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 42f );
-					graphics.DrawString( s3[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 86f );
-					graphics.DrawString( s3[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 84f );
+                int c = ( CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
+            
+			    #region [ Songs not found画像 ]
+			    try
+			    {
+				    using( Bitmap image = new Bitmap( 640, 128 ) )
+				    using( Graphics graphics = Graphics.FromImage( image ) )
+				    {
+					    string[] s1 = { "曲データが見つかりません。", "Songs not found." };
+					    string[] s2 = { "曲データをDTXManiaGR.exe以下の", "You need to install songs." };
+					    string[] s3 = { "フォルダにインストールして下さい。", "" };
+					    graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 2f );
+					    graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 0f );
+					    graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 44f );
+					    graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 42f );
+					    graphics.DrawString( s3[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 86f );
+					    graphics.DrawString( s3[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 84f );
 
-					this.txSongNotFound = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
+					    this.txSongNotFound = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
 
-					this.txSongNotFound.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );	// 半分のサイズで表示する。
-				}
-			}
-			catch( CTextureCreateFailedException )
-			{
-				Trace.TraceError( "SoungNotFoundテクスチャの作成に失敗しました。" );
-				this.txSongNotFound = null;
-			}
-			#endregion
-			#region [ "曲データを検索しています"画像 ]
-			try
-			{
-				using ( Bitmap image = new Bitmap( 640, 96 ) )
-				using ( Graphics graphics = Graphics.FromImage( image ) )
-				{
-					string[] s1 = { "曲データを検索しています。", "Now enumerating songs." };
-					string[] s2 = { "そのまましばらくお待ち下さい。", "Please wait..." };
-					graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 2f );
-					graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 0f );
-					graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 44f );
-					graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 42f );
+					    this.txSongNotFound.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );	// 半分のサイズで表示する。
+				    }
+			    }
+			    catch( CTextureCreateFailedException )
+			    {
+				    Trace.TraceError( "SoungNotFoundテクスチャの作成に失敗しました。" );
+				    this.txSongNotFound = null;
+			    }
+			    #endregion
+			    #region [ "曲データを検索しています"画像 ]
+			    try
+			    {
+				    using ( Bitmap image = new Bitmap( 640, 96 ) )
+				    using ( Graphics graphics = Graphics.FromImage( image ) )
+				    {
+					    string[] s1 = { "曲データを検索しています。", "Now enumerating songs." };
+					    string[] s2 = { "そのまましばらくお待ち下さい。", "Please wait..." };
+					    graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 2f );
+					    graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 0f );
+					    graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 44f );
+					    graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 42f );
 
-					this.txEnumeratingSongs = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
+					    this.txEnumeratingSongs = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
 
-					this.txEnumeratingSongs.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );	// 半分のサイズで表示する。
-				}
-			}
-			catch ( CTextureCreateFailedException )
-			{
-				Trace.TraceError( "txEnumeratingSongsテクスチャの作成に失敗しました。" );
-				this.txEnumeratingSongs = null;
-			}
-			#endregion
-			#region [ 曲数表示 ]
-			//this.txアイテム数数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenSelect skill number on gauge etc.png" ), false );
-			#endregion
-			base.OnManagedリソースの作成();
+					    this.txEnumeratingSongs.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );	// 半分のサイズで表示する。
+				    }
+			    }
+			    catch ( CTextureCreateFailedException )
+			    {
+				    Trace.TraceError( "txEnumeratingSongsテクスチャの作成に失敗しました。" );
+				    this.txEnumeratingSongs = null;
+			    }
+                #endregion
+                #region [ 曲数表示 ]
+                //this.txアイテム数数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenSelect skill number on gauge etc.png" ), false );
+                #endregion
+
+                #region[ 以前のテクスチャ生成 ]
+                //this.tx曲バー_JPOP = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false );
+                //this.tx曲バー_アニメ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_anime.png" ), false );
+                //this.tx曲バー_ゲーム = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_game.png" ), false );
+                //this.tx曲バー_ナムコ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_namco.png" ), false );
+                //this.tx曲バー_クラシック = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_classic.png" ), false );
+                //this.tx曲バー_バラエティ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_variety.png" ), false );
+                //this.tx曲バー_どうよう = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_child.png" ), false );
+                //this.tx曲バー_ボカロ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_vocaloid.png" ), false );
+                //this.tx曲バー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard.png" ), false );
+
+                //this.tx曲バー_難易度[0] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Easy.png" ) );
+                //this.tx曲バー_難易度[1] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Normal.png" ) );
+                //this.tx曲バー_難易度[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Hard.png" ) );
+                //this.tx曲バー_難易度[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Master.png" ) );
+                //this.tx曲バー_難易度[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_Edit.png" ) );
+
+                //this.tx難易度星 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_levelstar.png" ), false );
+                //this.tx難易度パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_level_panel.png" ), false );
+                //this.tx譜面分岐曲バー用 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_songboard_branch.png" ) );
+                //this.tx譜面分岐中央パネル用 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_center panel_branch.png" ) );
+                //this.txバー中央 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_center panel.png" ) );
+                //this.tx上部ジャンル名 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_genrename.png" ) );
+                //this.txレベル数字フォント = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_levelfont.png" ) );
+
+                //this.txカーソル左 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_cursor left.png" ) );
+                //this.txカーソル右 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_cursor right.png" ) );
+
+                //int c = ( CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
+            
+			    #region [ Songs not found画像 ]
+			    //try
+			    //{
+				   // using( Bitmap image = new Bitmap( 640, 128 ) )
+				   // using( Graphics graphics = Graphics.FromImage( image ) )
+				   // {
+					  //  string[] s1 = { "曲データが見つかりません。", "Songs not found." };
+					  //  string[] s2 = { "曲データをDTXManiaGR.exe以下の", "You need to install songs." };
+					  //  string[] s3 = { "フォルダにインストールして下さい。", "" };
+					  //  graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 2f );
+					  //  graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 0f );
+					  //  graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 44f );
+					  //  graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 42f );
+					  //  graphics.DrawString( s3[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 86f );
+					  //  graphics.DrawString( s3[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 84f );
+
+					  //  this.txSongNotFound = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
+
+					  //  this.txSongNotFound.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );	// 半分のサイズで表示する。
+				   // }
+			    //}
+			    //catch( CTextureCreateFailedException )
+			    //{
+				   // Trace.TraceError( "SoungNotFoundテクスチャの作成に失敗しました。" );
+				   // this.txSongNotFound = null;
+			    //}
+			    #endregion
+			    #region [ "曲データを検索しています"画像 ]
+			    //try
+			    //{
+				   // using ( Bitmap image = new Bitmap( 640, 96 ) )
+				   // using ( Graphics graphics = Graphics.FromImage( image ) )
+				   // {
+					  //  string[] s1 = { "曲データを検索しています。", "Now enumerating songs." };
+					  //  string[] s2 = { "そのまましばらくお待ち下さい。", "Please wait..." };
+					  //  graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 2f );
+					  //  graphics.DrawString( s1[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 0f );
+					  //  graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float) 2f, (float) 44f );
+					  //  graphics.DrawString( s2[c], this.ft曲リスト用フォント, Brushes.White, (float) 0f, (float) 42f );
+
+					  //  this.txEnumeratingSongs = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
+
+					  //  this.txEnumeratingSongs.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );	// 半分のサイズで表示する。
+				   // }
+			    //}
+			    //catch ( CTextureCreateFailedException )
+			    //{
+				   // Trace.TraceError( "txEnumeratingSongsテクスチャの作成に失敗しました。" );
+				   // this.txEnumeratingSongs = null;
+			    //}
+                #endregion
+                #region [ 曲数表示 ]
+                //this.txアイテム数数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenSelect skill number on gauge etc.png" ), false );
+                #endregion
+                #endregion
+
+
+			    base.OnManagedリソースの作成();
+            }
 		}
 		public override void OnManagedリソースの解放()
 		{
@@ -1132,7 +1223,8 @@ namespace DTXMania
                             }
                             if( this.stバー情報[ nパネル番号 ].b分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] == true && i != 5 )
                             {
-                                this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ nパネル番号 ].X + 76, 133 );
+                                if( this.tx譜面分岐曲バー用 != null )
+                                    this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ nパネル番号 ].X + 76, 133 );
                             }
                             if( this.stバー情報[ nパネル番号 ].ar難易度 != null )
                             {
@@ -1190,27 +1282,28 @@ namespace DTXMania
 
 						#region [ バーテクスチャを描画。]
 						//-----------------
-                        if( this.stバー情報[ nパネル番号 ].eバー種別 == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
+                        if( this.stバー情報[ nパネル番号 ].ar難易度 != null )
                         {
-                            this.tジャンル別選択されていない曲バーの描画( xAnime, 137, "難易度ソート" );
+                            if( this.stバー情報[ nパネル番号 ].eバー種別 == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
+                            {
+                                this.tジャンル別選択されていない曲バーの描画( xAnime, 137, "難易度ソート" );
+                            }
+                            else if( this.stバー情報[ nパネル番号 ].eバー種別 != Eバー種別.Score || CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
+                            {
+                                this.tジャンル別選択されていない曲バーの描画( xAnime, 137, "" );
+                            }
+                            else
+                            {
+                                //this.tジャンル別バーの描画( x, y, this.stバー情報[ nパネル番号 ].strジャンル );
+                                //this.tジャンル別選択されていない曲バーの描画( this.ptバーの座標[ n見た目の行番号 ].X, 180, this.stバー情報[ nパネル番号 ].strジャンル );
+                                this.tジャンル別選択されていない曲バーの描画( xAnime, 137, this.stバー情報[ nパネル番号 ].strジャンル );
+                            }
+                            if( this.stバー情報[ nパネル番号 ].b分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] == true && i != 5 )
+                            {
+                                //this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ n見た目の行番号 ].X + 76, 160 );
+                                this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, xAnime + 76, 133 );
+                            }
                         }
-                        else if( this.stバー情報[ nパネル番号 ].eバー種別 != Eバー種別.Score || CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
-                        {
-                            this.tジャンル別選択されていない曲バーの描画( xAnime, 137, "" );
-                        }
-                        else
-                        {
-                            //this.tジャンル別バーの描画( x, y, this.stバー情報[ nパネル番号 ].strジャンル );
-                            //this.tジャンル別選択されていない曲バーの描画( this.ptバーの座標[ n見た目の行番号 ].X, 180, this.stバー情報[ nパネル番号 ].strジャンル );
-                            this.tジャンル別選択されていない曲バーの描画( xAnime, 137, this.stバー情報[ nパネル番号 ].strジャンル );
-                        }
-                        if( this.stバー情報[ nパネル番号 ].b分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] == true && i != 5 )
-                        {
-                            //this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ n見た目の行番号 ].X + 76, 160 );
-                            this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, xAnime + 76, 133 );
-                        }
-
-
 						//-----------------
 						#endregion
 						#region [ タイトル名テクスチャを描画。]
@@ -1729,6 +1822,9 @@ namespace DTXMania
 
 			for( int i = 0; i < 5; i++ )
 				song = this.r前の曲( song );
+
+			if( song == null )
+				return;
 
 			for( int i = 0; i < 13; i++ )
 			{

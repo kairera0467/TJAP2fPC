@@ -1568,6 +1568,44 @@ for (int i = 0; i < 3; i++) {
 				return null;
 			}
 		}
+        /// <summary>
+        /// 既にオブジェクトにテクスチャが生成されているかを確認してからテクスチャを生成する。
+        /// 渡したtextureに既にテクスチャが生成されていた場合、「b強制的に生成する」をtrueにしていなければ生成を行いません。
+        /// </summary>
+        /// <param name="texture">生成先のオブジェクト</param>
+        /// <param name="fileName">読み込むファイル名</param>
+        /// <param name="b黒を透過する">trueの場合、#000000を透過します。(bmp形式向け)</param>
+        /// <param name="b強制的に生成する">trueの場合、渡したオブジェクトにテクスチャが生成されていても、一度Disposeを行って生成します。</param>
+		public static void tオブジェクトを確認してテクスチャを生成( ref CTexture texture, string fileName, bool b黒を透過する, bool b強制的に生成する )
+		{
+			if ( app == null )
+			{
+				texture = null;
+			}
+			try
+			{
+                if( ( texture != null ) && b強制的に生成する ) {
+                    CDTXMania.t安全にDisposeする( ref texture );
+                    Trace.TraceWarning( "既にテクスチャが生成されていたため一度解放を行いました。({0})", fileName );
+                }
+                if( texture == null ) {
+				    texture = new CTexture( app.Device, fileName, TextureFormat, b黒を透過する );
+                }
+                else {
+                    Trace.TraceWarning( "既にテクスチャが生成されていたためテクスチャの生成をスキップしました。({0})", fileName );
+                }
+			}
+			catch ( CTextureCreateFailedException )
+			{
+				Trace.TraceError( "テクスチャの生成に失敗しました。({0})", fileName );
+				texture = null;
+			}
+			catch ( FileNotFoundException )
+			{
+				Trace.TraceError( "テクスチャファイルが見つかりませんでした。({0})", fileName );
+                texture = null;
+			}
+		}
 		public static void tテクスチャの解放( ref CTexture tx )
 		{
 			CDTXMania.t安全にDisposeする( ref tx );
