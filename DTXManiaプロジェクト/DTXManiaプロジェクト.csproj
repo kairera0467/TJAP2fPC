@@ -274,7 +274,8 @@
     <PostBuildEvent>copy /y "$(TargetDir)$(TargetName).exe" "$(SolutionDir)Test\"
 copy /y "$(TargetDir)$(TargetName).exe.config" "$(SolutionDir)Test\"
 copy /y "$(TargetDir)$(TargetName).exe.pdb" "$(SolutionDir)Test\"
-copy /y "$(TargetDir)FDK.dll" "$(SolutionDir)Test\dll\"</PostBuildEvent>
+copy /y "$(TargetDir)FDK.dll" "$(SolutionDir)Test\dll\"
+copy /y "$(SolutionDir)Readme.txt" "$(SolutionDir)Test\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" />
 </Project>
