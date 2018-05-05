@@ -46,17 +46,36 @@ namespace DTXMania
 
                     //base.t小文字表示( 20, 150, string.Format( "{0,7:######0}", this.nスコアの増分.Guitar ) );
                 }
-                if( !this.ct点数アニメタイマ.b停止中)
+
+                for (int i = 0; i < 4; i++)
                 {
-                    this.ct点数アニメタイマ.t進行();
-                    if(this.ct点数アニメタイマ.b終了値に達した)
+                    if (!this.ct点数アニメタイマ[i].b停止中)
                     {
-                        this.ct点数アニメタイマ.t停止();
+                        this.ct点数アニメタイマ[i].t進行();
+                        if (this.ct点数アニメタイマ[i].b終了値に達した)
+                        {
+                            this.ct点数アニメタイマ[i].t停止();
+                        }
                     }
                 }
-                
-                base.t小文字表示( 20, 190, string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256);
-                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    if (!this.ctボーナス加算タイマ[i].b停止中)
+                    {
+                        this.ctボーナス加算タイマ[i].t進行();
+                        if (this.ctボーナス加算タイマ[i].b終了値に達した)
+                        {
+                            CDTXMania.stage演奏ドラム画面.actScore.BonusAdd(i);
+                            this.ctボーナス加算タイマ[i].t停止();
+                        }
+                    }
+                }
+
+                //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ctボーナス加算タイマ[0].n現在の値.ToString());
+
+                base.t小文字表示(CDTXMania.Skin.nScoreX[0], CDTXMania.Skin.nScoreY[0], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256, 0);
+                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示(CDTXMania.Skin.nScoreX[0], CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256, 1);
 
                 for( int i = 0; i < 256; i++ )
                 {
@@ -158,7 +177,7 @@ namespace DTXMania
                             {
                                 yAdd = 12;
                                 alpha = 150;
-                                this.ct点数アニメタイマ = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 390)
                             {
@@ -168,9 +187,9 @@ namespace DTXMania
 
 
                             if ( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
-                                base.t小文字表示( 25 + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha );
+                                base.t小文字表示( 25 + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true )
-                                base.t小文字表示( 25 + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ] - 20, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha);
+                                base.t小文字表示( 25 + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             else
                             {
                                 this.n現在表示中のAddScore--;

@@ -18,7 +18,9 @@ namespace DTXMania
 
   //      protected CTexture txScore_1P;
         protected CCounter ctTimer;
-        public CCounter ct点数アニメタイマ;
+        public CCounter[] ct点数アニメタイマ;
+
+        public CCounter[] ctボーナス加算タイマ;
 
         protected STスコア[] stScore;
         protected int n現在表示中のAddScore;
@@ -237,8 +239,18 @@ namespace DTXMania
             this.n現在表示中のAddScore = 0;
 
             this.ctTimer = new CCounter();
-            this.ct点数アニメタイマ = new CCounter();
-			base.On活性化();
+
+            this.ct点数アニメタイマ = new CCounter[4];
+            for (int i = 0; i < 4; i++)
+            {
+                this.ct点数アニメタイマ[i] = new CCounter();
+            }
+            this.ctボーナス加算タイマ = new CCounter[4];
+            for (int i = 0; i < 4; i++)
+            {
+                this.ctボーナス加算タイマ[i] = new CCounter();
+            }
+            base.On活性化();
 		}
 		public override void OnManagedリソースの作成()
 		{
@@ -259,7 +271,7 @@ namespace DTXMania
 			}
 		}
 
-        protected void t小文字表示( int x, int y, string str, int mode , int alpha )
+        protected void t小文字表示( int x, int y, string str, int mode , int alpha, int player )
         {
             foreach( char ch in str )
             {
@@ -275,8 +287,8 @@ namespace DTXMania
                                 {
                                     //this.txScore.color4 = new SlimDX.Color4( 1.0f, 1.0f, 1.0f );
                                     CDTXMania.Tx.Taiko_Score[0].n透明度 = alpha;
-                                    CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = this.n点数アニメ拡大率_座標[this.ct点数アニメタイマ.n現在の値, 0];
-                                    CDTXMania.Tx.Taiko_Score[0].t2D描画( CDTXMania.app.Device, x , y + (int)this.n点数アニメ拡大率_座標[this.ct点数アニメタイマ.n現在の値, 1], rectangle );
+                                    CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = this.n点数アニメ拡大率_座標[this.ct点数アニメタイマ[player].n現在の値, 0];
+                                    CDTXMania.Tx.Taiko_Score[0].t2D描画( CDTXMania.app.Device, x , y + (int)this.n点数アニメ拡大率_座標[this.ct点数アニメタイマ[player].n現在の値, 1], rectangle );
                                     
                                 }
                                 break;

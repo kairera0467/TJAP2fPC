@@ -21,7 +21,7 @@ namespace DTXMania
 
         public void Start()
         {
-            this.ct進行メイン = new CCounter( 0, 300, 22, CDTXMania.Timer );
+            this.ct進行メイン = new CCounter(0, 300, 22, CDTXMania.Timer);
         }
 
         public override void On活性化()
@@ -57,7 +57,7 @@ namespace DTXMania
             //if( this.tx文字マスク != null )
             //    this.tx文字マスク.b加算合成 = true;
 
-            this.soundClear = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Clear.ogg" ) );
+            this.soundClear = CDTXMania.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Clear.ogg"));
             base.OnManagedリソースの作成();
         }
 
@@ -71,196 +71,210 @@ namespace DTXMania
             //CDTXMania.tテクスチャの解放( ref this.tx文字 );
             //CDTXMania.tテクスチャの解放( ref this.tx文字マスク );
 
-            if( this.soundClear != null )
+            if (this.soundClear != null)
                 this.soundClear.t解放する();
             base.OnManagedリソースの解放();
         }
 
         public override int On進行描画()
         {
-            if( base.b初めての進行描画 )
-			{
-				base.b初めての進行描画 = false;
-			}
-            if( this.ct進行メイン != null && ( CDTXMania.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_演奏終了演出 || CDTXMania.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_STAGE_CLEAR_フェードアウト ) )
+            if (base.b初めての進行描画)
+            {
+                base.b初めての進行描画 = false;
+            }
+            if (this.ct進行メイン != null && (CDTXMania.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_演奏終了演出 || CDTXMania.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_STAGE_CLEAR_フェードアウト))
             {
                 this.ct進行メイン.t進行();
 
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.灰, this.ct進行メイン.n現在の値.ToString() );
                 //仮置き
                 int[] y = new int[] { 210, 386 };
-                for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
                 {
-                    if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ i ] >= 80 )
+                    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[i] >= 80)
                     {
                         //this.ct進行メイン.n現在の値 = 18;
-                        if( this.soundClear != null && !this.b再生済み )
+                        if (this.soundClear != null && !this.b再生済み)
                         {
                             this.soundClear.t再生を開始する();
                             this.b再生済み = true;
                         }
-
-                        #region[ 文字 ]
-                        //登場アニメは20フレーム。うち最初の5フレームは半透過状態。
-                        float[] f文字拡大率 = new float[] { 1.04f, 1.11f, 1.15f, 1.19f, 1.23f, 1.26f, 1.30f, 1.31f, 1.32f, 1.32f, 1.32f, 1.30f, 1.30f, 1.26f, 1.25f, 1.19f, 1.15f, 1.11f, 1.05f, 1.0f };
-                        int[] n透明度 = new int[] { 43, 85, 128, 170, 213, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 };
-                        if( this.ct進行メイン.n現在の値 >= 17 )
-                        {
-                            if( this.ct進行メイン.n現在の値 <= 36 )
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[ this.ct進行メイン.n現在の値 - 17 ];
-                                CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[ this.ct進行メイン.n現在の値 - 17 ];
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 634, (int)( y[ i ] - ( ( 90 * f文字拡大率[ this.ct進行メイン.n現在の値 - 17 ] ) - 90 ) ), new Rectangle( 0, 0, 90, 90 ) );
-                            }
-                            else
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 634, y[ i ], new Rectangle( 0, 0, 90, 90 ) );
-                            }
-                        }
-                        if( this.ct進行メイン.n現在の値 >= 19 )
-                        {
-                            if( this.ct進行メイン.n現在の値 <= 38 )
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[ this.ct進行メイン.n現在の値 - 19 ];
-                                CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[ this.ct進行メイン.n現在の値 - 19 ];
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 692, (int)( y[ i ] - ( ( 90 * f文字拡大率[ this.ct進行メイン.n現在の値 - 19 ] ) - 90 ) ), new Rectangle( 90, 0, 90, 90 ) );
-                            }
-                            else
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 692, y[ i ], new Rectangle( 90, 0, 90, 90 ) );
-                            }
-                        }
-                        CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
-                        if( this.ct進行メイン.n現在の値 >= 21 )
-                        {
-                            if( this.ct進行メイン.n現在の値 <= 40 )
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[ this.ct進行メイン.n現在の値 - 21 ];
-                                CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[ this.ct進行メイン.n現在の値 - 21 ];
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 750, y[ i ] - (int)( ( 90 * f文字拡大率[ this.ct進行メイン.n現在の値 - 21 ] ) - 90 ), new Rectangle( 180, 0, 90, 90 ) );
-                            }
-                            else
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 750, y[ i ], new Rectangle( 180, 0, 90, 90 ) );
-                            }
-                        }
-                        if( this.ct進行メイン.n現在の値 >= 23 )
-                        {
-                            if( this.ct進行メイン.n現在の値 <= 42 )
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[ this.ct進行メイン.n現在の値 - 23 ];
-                                CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[ this.ct進行メイン.n現在の値 - 23 ];
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 819, y[ i ] - (int)( ( 90 * f文字拡大率[ this.ct進行メイン.n現在の値 - 23 ] ) - 90 ), new Rectangle( 270, 0, 90, 90 ) );
-                            }
-                            else
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 819, y[ i ], new Rectangle( 270, 0, 90, 90 ) );
-                            }
-                        }
-                        if( this.ct進行メイン.n現在の値 >= 25 )
-                        {
-                            if( this.ct進行メイン.n現在の値 <= 44 )
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[ this.ct進行メイン.n現在の値 - 25 ];
-                                CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[ this.ct進行メイン.n現在の値 - 25 ];
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 890, ( y[ i ] + 2 ) - (int)( ( 90 * f文字拡大率[ this.ct進行メイン.n現在の値 - 25 ] ) - 90 ), new Rectangle( 360, 0, 90, 90 ) );
-                            }
-                            else
-                            {
-                                CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
-                                CDTXMania.Tx.End_Clear_Text.t2D描画( CDTXMania.app.Device, 890, y[ i ] + 2, new Rectangle( 360, 0, 90, 90 ) );
-                            }
-                        }
-                        if( this.ct進行メイン.n現在の値 >= 50 && this.ct進行メイン.n現在の値 < 90 )
-                        {
-                            if( this.ct進行メイン.n現在の値 < 70 )
-                            {
-                                CDTXMania.Tx.End_Clear_Text_Effect.n透明度 = ( this.ct進行メイン.n現在の値 - 50 ) * ( 255 / 20);
-                                CDTXMania.Tx.End_Clear_Text_Effect.t2D描画( CDTXMania.app.Device, 634, y[ i ] - 2 );
-                            }
-                            else
-                            {
-                                CDTXMania.Tx.End_Clear_Text_Effect.n透明度 = 255 - ( ( this.ct進行メイン.n現在の値 - 70 ) * ( 255 / 20) );
-                                CDTXMania.Tx.End_Clear_Text_Effect.t2D描画( CDTXMania.app.Device, 634, y[ i ] - 2 );
-                            }
-                        }
-                        #endregion
-                        #region[ バチお ]
-                        if( this.ct進行メイン.n現在の値 <= 11 )
-                        {
-                            if( CDTXMania.Tx.End_Clear_L[ 1 ] != null )
-                            {
-                                CDTXMania.Tx.End_Clear_L[ 1 ].t2D描画( CDTXMania.app.Device, 697, y[ i ] - 30 );
-                                CDTXMania.Tx.End_Clear_L[ 1 ].n透明度 = (int)( 11.0 / this.ct進行メイン.n現在の値 ) * 255;
-                            }
-                            if( CDTXMania.Tx.End_Clear_R[ 1 ] != null )
-                            {
-                                CDTXMania.Tx.End_Clear_R[ 1 ].t2D描画( CDTXMania.app.Device, 738, y[ i ] - 30 );
-                                CDTXMania.Tx.End_Clear_R[ 1 ].n透明度 = (int)( 11.0 / this.ct進行メイン.n現在の値 ) * 255;
-                            }
-                        }
-                        else if( this.ct進行メイン.n現在の値 <= 35 )
-                        {
-                            if( CDTXMania.Tx.End_Clear_L[ 0 ] != null )
-                                CDTXMania.Tx.End_Clear_L[ 0 ].t2D描画( CDTXMania.app.Device, 697 - (int)( ( this.ct進行メイン.n現在の値 - 12 ) * 10 ), y[ i ] - 30 );
-                            if( CDTXMania.Tx.End_Clear_R[ 0 ] != null )
-                                CDTXMania.Tx.End_Clear_R[ 0 ].t2D描画( CDTXMania.app.Device, 738 + (int)( ( this.ct進行メイン.n現在の値 - 12 ) * 10 ), y[ i ] - 30 );
-                        }
-                        else if( this.ct進行メイン.n現在の値 <= 46 )
-                        {
-                            if( CDTXMania.Tx.End_Clear_L[ 0 ] != null )
-                            {
-                                //2016.07.16 kairera0467 またも原始的...
-                                float[] fRet = new float[]{ 1.0f, 0.99f, 0.98f, 0.97f, 0.96f, 0.95f, 0.96f, 0.97f, 0.98f, 0.99f, 1.0f };
-                                CDTXMania.Tx.End_Clear_L[ 0 ].t2D描画( CDTXMania.app.Device, 466, y[ i ] - 30 );
-                                CDTXMania.Tx.End_Clear_L[ 0 ].vc拡大縮小倍率 = new SlimDX.Vector3( fRet[ this.ct進行メイン.n現在の値 - 36 ], 1.0f, 1.0f );
-                                //CDTXMania.Tx.End_Clear_R[ 0 ].t2D描画( CDTXMania.app.Device, 956 + (( this.ct進行メイン.n現在の値 - 36 ) / 2), 180 );
-                                CDTXMania.Tx.End_Clear_R[ 0 ].t2D描画( CDTXMania.app.Device, 1136 - 180 * fRet[ this.ct進行メイン.n現在の値 - 36 ], y[ i ] - 30 );
-                                CDTXMania.Tx.End_Clear_R[ 0 ].vc拡大縮小倍率 = new SlimDX.Vector3( fRet[ this.ct進行メイン.n現在の値 - 36 ], 1.0f, 1.0f );
-                            }
-                        }
-                        else if( this.ct進行メイン.n現在の値 <= 49 )
-                        {
-                            if( CDTXMania.Tx.End_Clear_L[ 1 ] != null )
-                                CDTXMania.Tx.End_Clear_L[ 1 ].t2D描画( CDTXMania.app.Device, 466, y[ i ] - 30 );
-                            if( CDTXMania.Tx.End_Clear_R[ 1 ] != null )
-                                CDTXMania.Tx.End_Clear_R[ 1 ].t2D描画( CDTXMania.app.Device, 956, y[ i ] - 30 );
-                        }
-                        else if( this.ct進行メイン.n現在の値 <= 54 )
-                        {
-                            if( CDTXMania.Tx.End_Clear_L[ 2 ] != null )
-                                CDTXMania.Tx.End_Clear_L[ 2 ].t2D描画( CDTXMania.app.Device, 466, y[ i ] - 30 );
-                            if( CDTXMania.Tx.End_Clear_R[ 2 ] != null )
-                                CDTXMania.Tx.End_Clear_R[ 2 ].t2D描画( CDTXMania.app.Device, 956, y[ i ] - 30 );
-                        }
-                        else if( this.ct進行メイン.n現在の値 <= 58 )
-                        {
-                            if( CDTXMania.Tx.End_Clear_L[ 3 ] != null )
-                                CDTXMania.Tx.End_Clear_L[ 3 ].t2D描画( CDTXMania.app.Device, 466, y[ i ] - 30 );
-                            if( CDTXMania.Tx.End_Clear_R[ 3 ] != null )
-                                CDTXMania.Tx.End_Clear_R[ 3 ].t2D描画( CDTXMania.app.Device, 956, y[ i ] - 30 );
-                        }
-                        else
-                        {
-                            if( CDTXMania.Tx.End_Clear_L[ 4 ] != null )
-                                CDTXMania.Tx.End_Clear_L[ 4 ].t2D描画( CDTXMania.app.Device, 466, y[ i ] - 30 );
-                            if( CDTXMania.Tx.End_Clear_R[ 4 ] != null )
-                                CDTXMania.Tx.End_Clear_R[ 4 ].t2D描画( CDTXMania.app.Device, 956, y[ i ] - 30 );
-                        }
-                        #endregion
                     }
                 }
-                
-
-
-
-                if( this.ct進行メイン.b終了値に達した )
+                if (CDTXMania.Tx.End_Clear_Text != null)
                 {
-                    if( !this.bリザルトボイス再生済み )
+                    for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+                    {
+                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[i] >= 80)
+                        {
+                            //this.ct進行メイン.n現在の値 = 18;
+                            //if (this.soundClear != null && !this.b再生済み)
+                            //{
+                            //    this.soundClear.t再生を開始する();
+                            //    this.b再生済み = true;
+                            //}
+
+                            #region[ 文字 ]
+                            //登場アニメは20フレーム。うち最初の5フレームは半透過状態。
+                            float[] f文字拡大率 = new float[] { 1.04f, 1.11f, 1.15f, 1.19f, 1.23f, 1.26f, 1.30f, 1.31f, 1.32f, 1.32f, 1.32f, 1.30f, 1.30f, 1.26f, 1.25f, 1.19f, 1.15f, 1.11f, 1.05f, 1.0f };
+                            int[] n透明度 = new int[] { 43, 85, 128, 170, 213, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 };
+                            if (this.ct進行メイン.n現在の値 >= 17)
+                            {
+                                if (this.ct進行メイン.n現在の値 <= 36)
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[this.ct進行メイン.n現在の値 - 17];
+                                    CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[this.ct進行メイン.n現在の値 - 17];
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 634, (int)(y[i] - ((90 * f文字拡大率[this.ct進行メイン.n現在の値 - 17]) - 90)), new Rectangle(0, 0, 90, 90));
+                                }
+                                else
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 634, y[i], new Rectangle(0, 0, 90, 90));
+                                }
+                            }
+                            if (this.ct進行メイン.n現在の値 >= 19)
+                            {
+                                if (this.ct進行メイン.n現在の値 <= 38)
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[this.ct進行メイン.n現在の値 - 19];
+                                    CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[this.ct進行メイン.n現在の値 - 19];
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 692, (int)(y[i] - ((90 * f文字拡大率[this.ct進行メイン.n現在の値 - 19]) - 90)), new Rectangle(90, 0, 90, 90));
+                                }
+                                else
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 692, y[i], new Rectangle(90, 0, 90, 90));
+                                }
+                            }
+                            CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
+                            if (this.ct進行メイン.n現在の値 >= 21)
+                            {
+                                if (this.ct進行メイン.n現在の値 <= 40)
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[this.ct進行メイン.n現在の値 - 21];
+                                    CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[this.ct進行メイン.n現在の値 - 21];
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 750, y[i] - (int)((90 * f文字拡大率[this.ct進行メイン.n現在の値 - 21]) - 90), new Rectangle(180, 0, 90, 90));
+                                }
+                                else
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 750, y[i], new Rectangle(180, 0, 90, 90));
+                                }
+                            }
+                            if (this.ct進行メイン.n現在の値 >= 23)
+                            {
+                                if (this.ct進行メイン.n現在の値 <= 42)
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[this.ct進行メイン.n現在の値 - 23];
+                                    CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[this.ct進行メイン.n現在の値 - 23];
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 819, y[i] - (int)((90 * f文字拡大率[this.ct進行メイン.n現在の値 - 23]) - 90), new Rectangle(270, 0, 90, 90));
+                                }
+                                else
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 819, y[i], new Rectangle(270, 0, 90, 90));
+                                }
+                            }
+                            if (this.ct進行メイン.n現在の値 >= 25)
+                            {
+                                if (this.ct進行メイン.n現在の値 <= 44)
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = f文字拡大率[this.ct進行メイン.n現在の値 - 25];
+                                    CDTXMania.Tx.End_Clear_Text.n透明度 = n透明度[this.ct進行メイン.n現在の値 - 25];
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 890, (y[i] + 2) - (int)((90 * f文字拡大率[this.ct進行メイン.n現在の値 - 25]) - 90), new Rectangle(360, 0, 90, 90));
+                                }
+                                else
+                                {
+                                    CDTXMania.Tx.End_Clear_Text.vc拡大縮小倍率.Y = 1.0f;
+                                    CDTXMania.Tx.End_Clear_Text.t2D描画(CDTXMania.app.Device, 890, y[i] + 2, new Rectangle(360, 0, 90, 90));
+                                }
+                            }
+                            if (this.ct進行メイン.n現在の値 >= 50 && this.ct進行メイン.n現在の値 < 90)
+                            {
+                                if (this.ct進行メイン.n現在の値 < 70)
+                                {
+                                    CDTXMania.Tx.End_Clear_Text_Effect.n透明度 = (this.ct進行メイン.n現在の値 - 50) * (255 / 20);
+                                    CDTXMania.Tx.End_Clear_Text_Effect.t2D描画(CDTXMania.app.Device, 634, y[i] - 2);
+                                }
+                                else
+                                {
+                                    CDTXMania.Tx.End_Clear_Text_Effect.n透明度 = 255 - ((this.ct進行メイン.n現在の値 - 70) * (255 / 20));
+                                    CDTXMania.Tx.End_Clear_Text_Effect.t2D描画(CDTXMania.app.Device, 634, y[i] - 2);
+                                }
+                            }
+                            #endregion
+                            #region[ バチお ]
+                            if (this.ct進行メイン.n現在の値 <= 11)
+                            {
+                                if (CDTXMania.Tx.End_Clear_L[1] != null)
+                                {
+                                    CDTXMania.Tx.End_Clear_L[1].t2D描画(CDTXMania.app.Device, 697, y[i] - 30);
+                                    CDTXMania.Tx.End_Clear_L[1].n透明度 = (int)(11.0 / this.ct進行メイン.n現在の値) * 255;
+                                }
+                                if (CDTXMania.Tx.End_Clear_R[1] != null)
+                                {
+                                    CDTXMania.Tx.End_Clear_R[1].t2D描画(CDTXMania.app.Device, 738, y[i] - 30);
+                                    CDTXMania.Tx.End_Clear_R[1].n透明度 = (int)(11.0 / this.ct進行メイン.n現在の値) * 255;
+                                }
+                            }
+                            else if (this.ct進行メイン.n現在の値 <= 35)
+                            {
+                                if (CDTXMania.Tx.End_Clear_L[0] != null)
+                                    CDTXMania.Tx.End_Clear_L[0].t2D描画(CDTXMania.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                if (CDTXMania.Tx.End_Clear_R[0] != null)
+                                    CDTXMania.Tx.End_Clear_R[0].t2D描画(CDTXMania.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                            }
+                            else if (this.ct進行メイン.n現在の値 <= 46)
+                            {
+                                if (CDTXMania.Tx.End_Clear_L[0] != null)
+                                {
+                                    //2016.07.16 kairera0467 またも原始的...
+                                    float[] fRet = new float[] { 1.0f, 0.99f, 0.98f, 0.97f, 0.96f, 0.95f, 0.96f, 0.97f, 0.98f, 0.99f, 1.0f };
+                                    CDTXMania.Tx.End_Clear_L[0].t2D描画(CDTXMania.app.Device, 466, y[i] - 30);
+                                    CDTXMania.Tx.End_Clear_L[0].vc拡大縮小倍率 = new SlimDX.Vector3(fRet[this.ct進行メイン.n現在の値 - 36], 1.0f, 1.0f);
+                                    //CDTXMania.Tx.End_Clear_R[ 0 ].t2D描画( CDTXMania.app.Device, 956 + (( this.ct進行メイン.n現在の値 - 36 ) / 2), 180 );
+                                    CDTXMania.Tx.End_Clear_R[0].t2D描画(CDTXMania.app.Device, 1136 - 180 * fRet[this.ct進行メイン.n現在の値 - 36], y[i] - 30);
+                                    CDTXMania.Tx.End_Clear_R[0].vc拡大縮小倍率 = new SlimDX.Vector3(fRet[this.ct進行メイン.n現在の値 - 36], 1.0f, 1.0f);
+                                }
+                            }
+                            else if (this.ct進行メイン.n現在の値 <= 49)
+                            {
+                                if (CDTXMania.Tx.End_Clear_L[1] != null)
+                                    CDTXMania.Tx.End_Clear_L[1].t2D描画(CDTXMania.app.Device, 466, y[i] - 30);
+                                if (CDTXMania.Tx.End_Clear_R[1] != null)
+                                    CDTXMania.Tx.End_Clear_R[1].t2D描画(CDTXMania.app.Device, 956, y[i] - 30);
+                            }
+                            else if (this.ct進行メイン.n現在の値 <= 54)
+                            {
+                                if (CDTXMania.Tx.End_Clear_L[2] != null)
+                                    CDTXMania.Tx.End_Clear_L[2].t2D描画(CDTXMania.app.Device, 466, y[i] - 30);
+                                if (CDTXMania.Tx.End_Clear_R[2] != null)
+                                    CDTXMania.Tx.End_Clear_R[2].t2D描画(CDTXMania.app.Device, 956, y[i] - 30);
+                            }
+                            else if (this.ct進行メイン.n現在の値 <= 58)
+                            {
+                                if (CDTXMania.Tx.End_Clear_L[3] != null)
+                                    CDTXMania.Tx.End_Clear_L[3].t2D描画(CDTXMania.app.Device, 466, y[i] - 30);
+                                if (CDTXMania.Tx.End_Clear_R[3] != null)
+                                    CDTXMania.Tx.End_Clear_R[3].t2D描画(CDTXMania.app.Device, 956, y[i] - 30);
+                            }
+                            else
+                            {
+                                if (CDTXMania.Tx.End_Clear_L[4] != null)
+                                    CDTXMania.Tx.End_Clear_L[4].t2D描画(CDTXMania.app.Device, 466, y[i] - 30);
+                                if (CDTXMania.Tx.End_Clear_R[4] != null)
+                                    CDTXMania.Tx.End_Clear_R[4].t2D描画(CDTXMania.app.Device, 956, y[i] - 30);
+                            }
+                            #endregion
+                        }
+                    }
+                }
+
+
+
+                if (this.ct進行メイン.b終了値に達した)
+                {
+                    if (!this.bリザルトボイス再生済み)
                     {
                         CDTXMania.Skin.sound成績発表.t再生する();
                         this.bリザルトボイス再生済み = true;

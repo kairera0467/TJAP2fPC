@@ -1724,17 +1724,25 @@ namespace DTXMania
                     //100コンボ毎のボーナス
                     if( nCombos % 100 == 0 && nCombos > 99 )
                     {
-                        combot = new System.Timers.Timer();
-                        if(nPlayer == 0)
+                        if(this.actScore.ctボーナス加算タイマ[nPlayer].b進行中)
                         {
-                            combot.Elapsed += new System.Timers.ElapsedEventHandler(combotimer_event_1);
-                        } else
-                        {
-                            combot.Elapsed += new System.Timers.ElapsedEventHandler(combotimer_event_2);
+                            this.actScore.ctボーナス加算タイマ[nPlayer].t停止();
+                            this.actScore.BonusAdd(nPlayer);
                         }
-                        
-                        combot.Interval = 2000; // ミリ秒単位で指定
-                        combot.Enabled = true;
+                        this.actScore.ctボーナス加算タイマ[nPlayer].n現在の値 = 0;
+                        this.actScore.ctボーナス加算タイマ[nPlayer] = new CCounter(0, 2, 1000, CDTXMania.Timer);
+
+                        //combot = new System.Timers.Timer();
+                        //if(nPlayer == 0)
+                        //{
+                        //    combot.Elapsed += new System.Timers.ElapsedEventHandler(combotimer_event_1);
+                        //} else
+                        //{
+                        //    combot.Elapsed += new System.Timers.ElapsedEventHandler(combotimer_event_2);
+                        //}
+
+                        //combot.Interval = 2000; // ミリ秒単位で指定
+                        //combot.Enabled = true;
                     }
 
                     nAddScore = (int)( nAddScore / 10 );

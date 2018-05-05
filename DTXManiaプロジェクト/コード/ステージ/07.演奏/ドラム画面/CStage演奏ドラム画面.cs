@@ -1222,7 +1222,7 @@ namespace DTXMania
 		protected override void t背景テクスチャの生成()
 		{
 			Rectangle bgrect = new Rectangle( 0, 0, 1280, 720 );
-			string DefaultBgFilename = @"Graphics\7_background.png";
+			string DefaultBgFilename = @"Graphics\5_Game\5_Background\0\Background.png";
 			string BgFilename = "";
             if( !String.IsNullOrEmpty( CDTXMania.DTX.strBGIMAGE_PATH ) )
                 BgFilename = CDTXMania.DTX.strBGIMAGE_PATH;

@@ -258,6 +258,7 @@ namespace DTXMania
             Mob_Footer = TxC(GAME + FOOTER + @"0.png");
             #endregion
             #region 背景
+            Background = TxC(GAME + Background + @"0\" + @"Background.png");
             Background_Up = TxC(GAME + BACKGROUND + @"0\" + @"Up.png");
             Background_Up_Clear = TxC(GAME + BACKGROUND + @"0\" + @"Up_Clear.png");
             Background_Down = TxC(GAME + BACKGROUND + @"0\" + @"Down.png");
@@ -531,7 +532,8 @@ namespace DTXMania
         public CTexture Mob_Footer;
         #endregion
         #region 背景
-        public CTexture Background_Up,
+        public CTexture Background,
+            Background_Up,
             Background_Up_Clear,
             Background_Down,
             Background_Down_Clear,

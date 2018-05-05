@@ -880,9 +880,24 @@ namespace DTXMania
                             strCommand = strArray[0].Trim();
                             strParam = strArray[1].Trim();
 
+                            #region スキン設定
+                            if( strCommand == "Name")
+                            {
+                                this.Skin_Name = strParam;
+                            }
+                            else if (strCommand == "Version")
+                            {
+                                this.Skin_Version = strParam;
+                            }
+                            else if (strCommand == "Creator")
+                            {
+                                this.Skin_Creator = strParam;
+                            }
+                            #endregion
+
                             #region[ 演奏 ]
                             //-----------------------------
-                            if( strCommand == "ScrollFieldP1Y" )
+                            else if ( strCommand == "ScrollFieldP1Y" )
                             {
                                 this.nScrollFieldY[ 0 ] = C変換.n値を文字列から取得して返す( strParam, 192 );
                             }
@@ -938,22 +953,22 @@ namespace DTXMania
                             {
                                 this.b曲数テキストを赤くする = C変換.bONorOFF(strParam[0]);
                             }
-                            else if( strCommand == "AddScoreColorP1" )
-                            {
-                                string[] arColor = strParam.Split(',');
-                                if( arColor.Length == 3 )
-                                {
-                                    this.cScoreColor1P = C変換.n255ToColor4( Convert.ToInt16( arColor[ 0 ] ), Convert.ToInt16( arColor[ 1 ] ), Convert.ToInt16( arColor[ 2 ] ) );
-                                }
-                            }
-                            else if( strCommand == "AddScoreColorP2" )
-                            {
-                                string[] arColor = strParam.Split(',');
-                                if( arColor.Length == 3 )
-                                {
-                                    this.cScoreColor2P = C変換.n255ToColor4( Convert.ToInt16( arColor[ 0 ] ), Convert.ToInt16( arColor[ 1 ] ), Convert.ToInt16( arColor[ 2 ] ) );
-                                }
-                            }
+                            //else if( strCommand == "AddScoreColorP1" )
+                            //{
+                            //    string[] arColor = strParam.Split(',');
+                            //    if( arColor.Length == 3 )
+                            //    {
+                            //        this.cScoreColor1P = C変換.n255ToColor4( Convert.ToInt16( arColor[ 0 ] ), Convert.ToInt16( arColor[ 1 ] ), Convert.ToInt16( arColor[ 2 ] ) );
+                            //    }
+                            //}
+                            //else if( strCommand == "AddScoreColorP2" )
+                            //{
+                            //    string[] arColor = strParam.Split(',');
+                            //    if( arColor.Length == 3 )
+                            //    {
+                            //        this.cScoreColor2P = C変換.n255ToColor4( Convert.ToInt16( arColor[ 0 ] ), Convert.ToInt16( arColor[ 1 ] ), Convert.ToInt16( arColor[ 2 ] ) );
+                            //    }
+                            //}
 
                             //-----------------------------
                             #endregion
@@ -1029,8 +1044,15 @@ namespace DTXMania
 		#region [ private ]
 		//-----------------
 		private bool bDisposed済み;
-		//-----------------
-		#endregion
+        //-----------------
+        #endregion
+
+        #region スキン設定
+        public string Skin_Name = "Unknown";
+        public string Skin_Version = "Unknown";
+        public string Skin_Creator = "Unknown";
+
+        #endregion
 
 
         #region[ 座標 ]
@@ -1088,22 +1110,22 @@ namespace DTXMania
 
         //スコア
         public int[] nScoreX = new int[] { 20, 20, 0, 0 };
-        public int[] nScoreY = new int[] { 190, 495, 0, 0 };
+        public int[] nScoreY = new int[] { 194, 499, 0, 0 };
         public int[] nScoreAddX = new int[] { 20, 20, 0, 0 };
-        public int[] nScoreAddY = new int[] { 150, 538, 0, 0 };
+        public int[] nScoreAddY = new int[] { 156, 536, 0, 0 };
         public int[] nScoreAddBonusX = new int[] { 20, 20, 0, 0 };
-        public int[] nScoreAddBonusY = new int[] { 118, 570, 0, 0 };
-        public SlimDX.Color4 cScoreColor1P = new SlimDX.Color4( 1.0f, 1.0f, 0.5f, 0.4f );
-        public SlimDX.Color4 cScoreColor2P = new SlimDX.Color4( 1.0f, 0.4f, 0.5f, 1.0f );
+        public int[] nScoreAddBonusY = new int[] { 100, 580, 0, 0 };
+        //public SlimDX.Color4 cScoreColor1P = new SlimDX.Color4( 1.0f, 1.0f, 0.5f, 0.4f );
+        //public SlimDX.Color4 cScoreColor2P = new SlimDX.Color4( 1.0f, 0.4f, 0.5f, 1.0f );
 
         //風船
         //次郎とは違い、風船画像はBalloon、吹き出しはFrameという名前にしています。
-        public int[] nBurstBalloonX = new int[] { 398, 398, 0, 0 };
-        public int[] nBurstBalloonY = new int[] { 115, 412, 0, 0 };
-        public int[] nBurstFrameX = new int[] { 383, 383, 0, 0 };
-        public int[] nBurstFrameY = new int[] { 31, 329, 0, 0 };
+        public int[] nBurstBalloonX = new int[] { 382, 382, 0, 0 };
+        public int[] nBurstBalloonY = new int[] { 115, 290, 0, 0 };
+        public int[] nBurstFrameX = new int[] { 382, 382, 0, 0 };
+        public int[] nBurstFrameY = new int[] { 80, 260, 0, 0 };
         public int[] nBurstNumberX = new int[] { 486, 486, 0, 0 };
-        public int[] nBurstNumberY = new int[] { 58, 356, 0, 0 };
+        public int[] nBurstNumberY = new int[] { 114, 300, 0, 0 };
 
         //コースシンボル
         //中央基準

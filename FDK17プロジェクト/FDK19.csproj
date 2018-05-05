@@ -47,17 +47,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
-      <HintPath>..\実行時フォルダ\dll\Bass.Net.dll</HintPath>
+      <HintPath>..\Test\dll\Bass.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\実行時フォルダ\dll\DirectShowLib-2005.dll</HintPath>
+      <HintPath>..\Test\dll\DirectShowLib-2005.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SlimDXc_net20x86_Jun2010, Version=1002.0.10.43, Culture=neutral, PublicKeyToken=53d0e4ef1f1579f5, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\実行時フォルダ\dll\SlimDXc_net20x86_Jun2010.dll</HintPath>
+      <HintPath>..\Test\dll\SlimDXc_net20x86_Jun2010.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

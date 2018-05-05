@@ -805,17 +805,17 @@ namespace DTXMania
                             case E判定.Great:
                             case E判定.Auto:
                                 //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
-                                if (this.st状態[i].nIsBig == 1)
+                                if (this.st状態[i].nIsBig == 1 && CDTXMania.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値] != null)
                                     CDTXMania.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2);
-                                else
+                                else if (CDTXMania.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値] != null)
                                     CDTXMania.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2);
                                 break;
 
                             case E判定.Good:
                                 //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
-                                if (this.st状態[i].nIsBig == 1)
+                                if (this.st状態[i].nIsBig == 1 && CDTXMania.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値] != null)
                                     CDTXMania.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2);
-                                else
+                                else if (CDTXMania.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値] != null)
                                     CDTXMania.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2);
                                 break;
 
