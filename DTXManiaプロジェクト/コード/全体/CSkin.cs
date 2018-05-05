@@ -881,7 +881,7 @@ namespace DTXMania
                             strParam = strArray[1].Trim();
 
                             #region スキン設定
-                            if( strCommand == "Name")
+                            if (strCommand == "Name")
                             {
                                 this.Skin_Name = strParam;
                             }
@@ -895,61 +895,160 @@ namespace DTXMania
                             }
                             #endregion
 
+                            else if (strCommand == "Game_Score_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nScoreX[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Score_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nScoreY[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_ScoreAdd_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nScoreAddX[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_ScoreAdd_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nScoreAddY[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_ScoreAddBonus_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nScoreAddBonusX[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_ScoreAddBonus_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nScoreAddBonusY[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nBurstBalloonX[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nBurstBalloonY[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Frame_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nBurstFrameX[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Frame_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nBurstFrameY[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Number_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nBurstNumberX[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Number_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.nBurstNumberY[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+
                             #region[ 演奏 ]
                             //-----------------------------
-                            else if ( strCommand == "ScrollFieldP1Y" )
+                            else if (strCommand == "ScrollFieldP1Y")
                             {
-                                this.nScrollFieldY[ 0 ] = C変換.n値を文字列から取得して返す( strParam, 192 );
+                                this.nScrollFieldY[0] = C変換.n値を文字列から取得して返す(strParam, 192);
                             }
-                            else if( strCommand == "ScrollFieldP2Y" )
+                            else if (strCommand == "ScrollFieldP2Y")
                             {
-                                this.nScrollFieldY[ 1 ] = C変換.n値を文字列から取得して返す( strParam, 192 );
+                                this.nScrollFieldY[1] = C変換.n値を文字列から取得して返す(strParam, 192);
                             }
-                            else if( strCommand == "SENotesP1Y" )
+                            else if (strCommand == "SENotesP1Y")
                             {
-                                this.nSENotesY[ 0 ] = C変換.n値を文字列から取得して返す( strParam, this.nSENotesY[ 0 ] );
+                                this.nSENotesY[0] = C変換.n値を文字列から取得して返す(strParam, this.nSENotesY[0]);
                             }
-                            else if( strCommand == "SENotesP2Y" )
+                            else if (strCommand == "SENotesP2Y")
                             {
-                                this.nSENotesY[ 1 ] = C変換.n値を文字列から取得して返す( strParam, this.nSENotesY[ 1 ] );
+                                this.nSENotesY[1] = C変換.n値を文字列から取得して返す(strParam, this.nSENotesY[1]);
                             }
-                            else if( strCommand == "JudgePointP1Y" ) {
-                                this.nJudgePointY[ 0 ] = C変換.n値を文字列から取得して返す( strParam, this.nJudgePointY[ 0 ] );
+                            else if (strCommand == "JudgePointP1Y")
+                            {
+                                this.nJudgePointY[0] = C変換.n値を文字列から取得して返す(strParam, this.nJudgePointY[0]);
                             }
-                            else if( strCommand == "JudgePointP2Y" ) {
-                                this.nJudgePointY[ 1 ] = C変換.n値を文字列から取得して返す( strParam, this.nJudgePointY[ 1 ] );
+                            else if (strCommand == "JudgePointP2Y")
+                            {
+                                this.nJudgePointY[1] = C変換.n値を文字列から取得して返す(strParam, this.nJudgePointY[1]);
                             }
 
-                            else if( strCommand == "PlayerCharacterP1X" )
+                            else if (strCommand == "PlayerCharacterP1X")
                             {
-                                this.nPlayerCharacterX[0] = C変換.n値を文字列から取得して返す( strParam, 0 );
+                                this.nPlayerCharacterX[0] = C変換.n値を文字列から取得して返す(strParam, 0);
                             }
-                            else if( strCommand == "PlayerCharacterP1Y" )
+                            else if (strCommand == "PlayerCharacterP1Y")
                             {
-                                this.nPlayerCharacterY[0] = C変換.n値を文字列から取得して返す( strParam, 0 );
+                                this.nPlayerCharacterY[0] = C変換.n値を文字列から取得して返す(strParam, 0);
                             }
-                            else if( strCommand == "CourseSymbolP1X" )
+                            else if (strCommand == "CourseSymbolP1X")
                             {
-                                this.nCourseSymbolX[0] = C変換.n値を文字列から取得して返す( strParam, this.nCourseSymbolX[0] );
+                                this.nCourseSymbolX[0] = C変換.n値を文字列から取得して返す(strParam, this.nCourseSymbolX[0]);
                             }
-                            else if( strCommand == "CourseSymbolP1Y" )
+                            else if (strCommand == "CourseSymbolP1Y")
                             {
-                                this.nCourseSymbolY[0] = C変換.n値を文字列から取得して返す( strParam, this.nCourseSymbolY[0] );
+                                this.nCourseSymbolY[0] = C変換.n値を文字列から取得して返す(strParam, this.nCourseSymbolY[0]);
                             }
 
-                            else if( strCommand == "DiffDispMode" )
+                            else if (strCommand == "DiffDispMode")
                             {
-                                this.eDiffDispMode = (E難易度表示タイプ)C変換.n値を文字列から取得して範囲内に丸めて返す( strParam, 0, 2, (int)this.eDiffDispMode );
+                                this.eDiffDispMode = (E難易度表示タイプ)C変換.n値を文字列から取得して範囲内に丸めて返す(strParam, 0, 2, (int)this.eDiffDispMode);
                             }
-                            else if( strCommand == "NowStageDisp" )
+                            else if (strCommand == "NowStageDisp")
                             {
-                                this.b現在のステージ数を表示しない = C変換.bONorOFF( strParam[ 0 ] );
+                                this.b現在のステージ数を表示しない = C変換.bONorOFF(strParam[0]);
                             }
-                            else if( strCommand == "StageText")
+                            else if (strCommand == "StageText")
                             {
                                 this.str曲数テキスト = strParam;
                             }
-                            else if( strCommand == "IsStageTextRed")
+                            else if (strCommand == "IsStageTextRed")
                             {
                                 this.b曲数テキストを赤くする = C変換.bONorOFF(strParam[0]);
                             }
@@ -974,29 +1073,29 @@ namespace DTXMania
                             #endregion
                             #region[ 成績発表 ]
                             //-----------------------------
-                            else if( strCommand == "ResultPanelP1X" )
+                            else if (strCommand == "ResultPanelP1X")
                             {
-                                this.nResultPanelP1X = C変換.n値を文字列から取得して返す( strParam, 515 );
+                                this.nResultPanelP1X = C変換.n値を文字列から取得して返す(strParam, 515);
                             }
-                            else if( strCommand == "ResultPanelP1Y" )
+                            else if (strCommand == "ResultPanelP1Y")
                             {
-                                this.nResultPanelP1Y = C変換.n値を文字列から取得して返す( strParam, 75 );
+                                this.nResultPanelP1Y = C変換.n値を文字列から取得して返す(strParam, 75);
                             }
-                            else if( strCommand == "ResultPanelP2X" )
+                            else if (strCommand == "ResultPanelP2X")
                             {
-                                this.nResultPanelP2X = C変換.n値を文字列から取得して返す( strParam, 515 );
+                                this.nResultPanelP2X = C変換.n値を文字列から取得して返す(strParam, 515);
                             }
-                            else if( strCommand == "ResultPanelP2Y" )
+                            else if (strCommand == "ResultPanelP2Y")
                             {
-                                this.nResultPanelP2Y = C変換.n値を文字列から取得して返す( strParam, 75 );
+                                this.nResultPanelP2Y = C変換.n値を文字列から取得して返す(strParam, 75);
                             }
-                            else if( strCommand == "ResultScoreP1X" )
+                            else if (strCommand == "ResultScoreP1X")
                             {
-                                this.nResultScoreP1X = C変換.n値を文字列から取得して返す( strParam, 582 );
+                                this.nResultScoreP1X = C変換.n値を文字列から取得して返す(strParam, 582);
                             }
-                            else if( strCommand == "ResultScoreP1Y" )
+                            else if (strCommand == "ResultScoreP1Y")
                             {
-                                this.nResultScoreP1Y = C変換.n値を文字列から取得して返す( strParam, 252 );
+                                this.nResultScoreP1Y = C変換.n値を文字列から取得して返す(strParam, 252);
                             }
                             //-----------------------------
                             #endregion

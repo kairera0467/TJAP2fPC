@@ -1361,7 +1361,7 @@ namespace DTXMania
 			this.bBASS演奏で直前のBASSを消音する = true;
 #endif
 
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
         }
 		public CDTX( string str全入力文字列 )
 			: this()
