@@ -1360,8 +1360,9 @@ namespace DTXMania
 			this.bGUITAR演奏で直前のGUITARを消音する = true;
 			this.bBASS演奏で直前のBASSを消音する = true;
 #endif
-	
-		}
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+        }
 		public CDTX( string str全入力文字列 )
 			: this()
 		{
