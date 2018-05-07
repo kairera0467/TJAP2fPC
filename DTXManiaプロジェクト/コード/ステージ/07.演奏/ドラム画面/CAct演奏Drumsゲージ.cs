@@ -313,10 +313,10 @@ namespace DTXMania
                         }
                             
                             
-                        if(CDTXMania.Tx.Gauge_Soul_Explosion != null )
-                        {
-                            CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 73, new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
-                        }
+                        //if(CDTXMania.Tx.Gauge_Soul_Explosion != null )
+                        //{
+                        //    CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 73, new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
+                        //}
                         if (CDTXMania.Tx.Notes != null)
                         {
                             CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));

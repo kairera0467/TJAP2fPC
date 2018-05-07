@@ -57,6 +57,7 @@ namespace DTXMania
             base.list子Activities.Add( this.actComboBalloon = new CAct演奏Drumsコンボ吹き出し() );
             base.list子Activities.Add( this.actComboVoice = new CAct演奏Combo音声() );
             base.list子Activities.Add( this.actPauseMenu = new CAct演奏PauseMenu() );
+            base.list子Activities.Add(this.actChipEffects = new CAct演奏Drumsチップエフェクト());
 
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
@@ -425,8 +426,10 @@ namespace DTXMania
                 if( !CDTXMania.ConfigIni.bNoInfo )
 				    this.t進行描画_スコア();
 
+                this.actChipEffects.On進行描画();
                 this.t進行描画_チップファイアD();
                 this.t進行描画_チップファイアTaiko();
+                
 
                 for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
                 {

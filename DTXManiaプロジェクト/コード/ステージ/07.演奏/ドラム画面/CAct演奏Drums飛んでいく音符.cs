@@ -281,6 +281,7 @@ namespace DTXMania
                         if( this.st飛び散るチップ[ i ].ct進行.b終了値に達した )
                         {
                             CDTXMania.stage演奏ドラム画面.actGauge.Start( this.st飛び散るチップ[i].nLane, E判定.Perfect, this.st飛び散るチップ[i].nPlayer );
+                            CDTXMania.stage演奏ドラム画面.actChipEffects.Start(st飛び散るチップ[i].nPlayer);
                         }
                     }
 

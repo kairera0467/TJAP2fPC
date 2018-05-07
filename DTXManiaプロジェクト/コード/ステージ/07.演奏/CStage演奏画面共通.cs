@@ -566,6 +566,7 @@ namespace DTXMania
         protected CAct演奏Drumsコンボ吹き出し actComboBalloon;
         protected CAct演奏Combo音声 actComboVoice;
         protected CAct演奏PauseMenu actPauseMenu;
+        public CAct演奏Drumsチップエフェクト actChipEffects;
 		public bool bPAUSE;
         public bool bIsAlreadyCleared;
         public bool bIsAlreadyMaxed;

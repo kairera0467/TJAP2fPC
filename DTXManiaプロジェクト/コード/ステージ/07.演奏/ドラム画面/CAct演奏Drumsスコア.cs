@@ -187,9 +187,9 @@ namespace DTXMania
 
 
                             if ( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
-                                base.t小文字表示( 25 + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
+                                base.t小文字表示(CDTXMania.Skin.nScoreAddX[this.stScore[i].nPlayer] + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true )
-                                base.t小文字表示( 25 + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
+                                base.t小文字表示(CDTXMania.Skin.nScoreAddBonusX[this.stScore[i].nPlayer] + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             else
                             {
                                 this.n現在表示中のAddScore--;
