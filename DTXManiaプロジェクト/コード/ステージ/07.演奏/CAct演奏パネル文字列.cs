@@ -28,7 +28,7 @@ namespace DTXMania
 			this.strパネル文字列 = str;
 			if( base.b活性化してる )
 			{
-				if( ( this.strパネル文字列 != null ) && ( this.strパネル文字列.Length > 0 ) && this.txMusicName == null )
+				if( ( this.strパネル文字列 != null ) && ( this.strパネル文字列.Length > 0 ) )
 				{
 					try
 					{
@@ -36,6 +36,7 @@ namespace DTXMania
                         bmpSongTitle = pfMusicName.DrawPrivateFont( this.strパネル文字列, Color.White, Color.Black );
                         //Bitmap bmpVTest = new Bitmap( 1, 1 );
                         //bmpVTest = pf縦書きテスト.DrawPrivateFont( this.strパネル文字列, Color.White, Color.Black, true );
+                        CDTXMania.t安全にDisposeする( ref this.txMusicName );
                         this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
                         Bitmap bmpDiff = new Bitmap(1, 1);
                         string strDiff = "";

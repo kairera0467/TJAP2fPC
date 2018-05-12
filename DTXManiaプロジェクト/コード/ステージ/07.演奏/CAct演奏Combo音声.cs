@@ -73,7 +73,15 @@ namespace DTXMania
             this.nVoiceIndexP2 = 0;
 			base.On活性化();
 		}
-		public override void OnManagedリソースの作成()
+        public override void On非活性化()
+        {
+            this.listComboVoice = null;
+            this.listComboVoiceP2 = null;
+
+            base.On非活性化();
+        }
+
+        public override void OnManagedリソースの作成()
 		{
 			if( !base.b活性化してない )
 			{

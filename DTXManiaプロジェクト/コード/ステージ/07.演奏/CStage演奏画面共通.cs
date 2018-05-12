@@ -2787,10 +2787,11 @@ namespace DTXMania
                                     chip現在処理中の連打チップ[ nPlayer ].bHit = true;
                                 this.eRollState = E連打State.none;
                             }
+                            //this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
                         }
 
                         break;
-					case 0x19:
+                    case 0x19:
                     case 0x1c:
                     case 0x1d:
                     case 0x1e:
@@ -3639,42 +3640,42 @@ namespace DTXMania
                 }
             }
 
-            //for (int i = 0; ; i++)
-            //{
-            //    if( i >= CDTXMania.DTX.listDELAY.Count )
-            //    {
+            for (int i = 0; ; i++)
+            {
+                if( i >= CDTXMania.DTX.listDELAY.Count )
+                {
                     return bpm_time;
-            //    }
-            //    //コースが異なる = 処理しない
-            //    if( CDTXMania.DTX.listDELAY[ i ].delay_course != 0 && CDTXMania.DTX.listDELAY[ i ].delay_course != this.n現在のコース )
-            //    {
-            //        continue;
-            //    }
-            //    //停止時間が0以下 = 処理しない
-            //    if( CDTXMania.DTX.listDELAY[ i ].nDELAY値 <= 0)
-            //    {
-            //        continue;
-            //    }
-            //    //処理済みのDELAY
-            //    else if( play_time >= CDTXMania.DTX.listDELAY[ i ].delay_time + CDTXMania.DTX.listDELAY[ i ].nDELAY値 )
-            //    {
-            //        //最後のBPMCHANGEの処理以降のものであれば
-            //        if( CDTXMania.DTX.listDELAY[ i ].delay_time > last_bpm_change_time )
-            //        {
-            //            bpm_time -= (float)CDTXMania.DTX.listDELAY[ i ].nDELAY値 * (float)CDTXMania.DTX.listDELAY[ i ].delay_bpm / 15000.0f;
-            //        }
-            //    }
-            //    //DELAY処理終了
-            //    else if( play_time < CDTXMania.DTX.listDELAY[ i ].delay_time )
-            //    {
-            //        return bpm_time;
-            //    }
-            //    //DELAY中
-            //    else
-            //    {
-            //        return (float)CDTXMania.DTX.listDELAY[ i ].delay_bmscroll_time;
-            //    }
-            //}
+                }
+                //コースが異なる = 処理しない
+                if( CDTXMania.DTX.listDELAY[ i ].delay_course != 0 && CDTXMania.DTX.listDELAY[ i ].delay_course != this.n現在のコース[ 0 ] )
+                {
+                    continue;
+                }
+                //停止時間が0以下 = 処理しない
+                if( CDTXMania.DTX.listDELAY[ i ].delay_time <= 0)
+                {
+                    continue;
+                }
+                //処理済みのDELAY
+                else if( play_time >= CDTXMania.DTX.listDELAY[ i ].delay_time + CDTXMania.DTX.listDELAY[ i ].nDELAY値 )
+                {
+                    //最後のBPMCHANGEの処理以降のものであれば
+                    if( CDTXMania.DTX.listDELAY[ i ].delay_time > last_bpm_change_time )
+                    {
+                        bpm_time -= (float)CDTXMania.DTX.listDELAY[ i ].nDELAY値 * (float)CDTXMania.DTX.listDELAY[ i ].delay_bpm / 15000.0f;
+                    }
+                }
+                //DELAY処理終了
+                else if( play_time < CDTXMania.DTX.listDELAY[ i ].delay_time )
+                {
+                    return bpm_time;
+                }
+                //DELAY中
+                else
+                {
+                    return (float)CDTXMania.DTX.listDELAY[ i ].delay_bmscroll_time;
+                }
+            }
             return -1;
         }
 

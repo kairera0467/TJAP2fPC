@@ -15,6 +15,16 @@ namespace DTXMania
 
         public override void On活性化()
         {
+            this.ct分岐アニメ進行 = new CCounter[ 4 ];
+            this.nBefore = new int[ 4 ];
+            this.nAfter = new int[ 4 ];
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            {
+                this.ct分岐アニメ進行[ i ] = new CCounter();
+                this.nBefore[ i ] = 0;
+                this.nAfter[ i ] = 0;
+                this.bState[ i ] = false;
+            }
             base.On活性化();
         }
 
@@ -34,17 +44,6 @@ namespace DTXMania
                 this.tx普通譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal.png"));
                 this.tx玄人譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert.png"));
                 this.tx達人譜面[ 1 ] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master.png"));
-                this.ct分岐アニメ進行 = new CCounter[ 4 ];
-                this.nBefore = new int[ 4 ];
-                this.nAfter = new int[ 4 ];
-                for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
-                {
-                    this.ct分岐アニメ進行[ i ] = new CCounter();
-                    this.nBefore[ i ] = 0;
-                    this.nAfter[ i ] = 0;
-                    this.bState[ i ] = false;
-                }
-                this.tx普通譜面[ 0 ].n透明度 = 255;
 
                 base.OnManagedリソースの作成();
             }

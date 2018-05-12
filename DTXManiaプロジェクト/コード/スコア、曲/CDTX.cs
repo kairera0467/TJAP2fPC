@@ -281,6 +281,7 @@ namespace DTXMania
 			public int n表記上の番号;
             public double delay_time;
             public double delay_bmscroll_time;
+            public double delay_delay;
             public double delay_bpm;
             public int delay_course;
 
@@ -2557,10 +2558,10 @@ namespace DTXMania
                                     {
                                         if (this.bOFFSETの値がマイナスである)
                                             chip.n発声時刻ms += this.nOFFSET;
-                                        //if ( this.listDELAY.ContainsKey( chip.n整数値_内部番号 ) )
-                                        //{
-                                        //    this.nDELAY = ( ( this.listDELAY[ chip.n整数値_内部番号 ].n表記上の番号 == 0 ) ? 0 : 0 ) + this.listDELAY[ chip.n整数値_内部番号 ].nDELAY値;
-                                        //}
+                                        if( this.listDELAY.ContainsKey( chip.n整数値_内部番号 ) )
+                                        {
+                                            //this.nDELAY = ( ( this.listDELAY[ chip.n整数値_内部番号 ].n表記上の番号 == 0 ) ? 0 : 0 ) + this.listDELAY[ chip.n整数値_内部番号 ].nDELAY値;
+                                        }
 										continue;
                                     }
                                 case 0xDE:
@@ -3538,7 +3539,7 @@ namespace DTXMania
                 float nDELAY = (float)( Convert.ToDouble( strArray[ 1 ] ) * 1000.0 );
 
 
-                this.listDELAY.Add( this.n内部番号DELAY1to, new CDELAY() { n内部番号 = this.n内部番号DELAY1to, n表記上の番号 = 0, nDELAY値 = (int)nDELAY, delay_bmscroll_time = this.dbLastBMScrollTime, delay_bpm = this.dbNowBPM, delay_course = this.n現在のコース, delay_time = this.dbLastTime });
+                this.listDELAY.Add( this.n内部番号DELAY1to, new CDELAY() { n内部番号 = this.n内部番号DELAY1to, n表記上の番号 = 0, nDELAY値 = (int)nDELAY, delay_bmscroll_time = this.dbLastBMScrollTime, delay_bpm = this.dbNowBPM, delay_course = this.n現在のコース, delay_time = this.dbLastTime, delay_delay = Convert.ToDouble(strArray[1]) });
 
 
                 //チップ追加して割り込んでみる。
@@ -3546,13 +3547,16 @@ namespace DTXMania
 
                 chip.nチャンネル番号 = 0xDC;
                 chip.n発声位置 = ((this.n現在の小節数) * 384);
+                chip.n発声時刻ms = (int)this.dbNowTime;
+                chip.db発声時刻ms = this.dbNowTime;
                 chip.n整数値_内部番号 = this.n内部番号DELAY1to;
                 chip.fBMSCROLLTime = this.dbNowBMScollTime;
+                chip.nコース = this.n現在のコース;
 
                 // チップを配置。
 
                 this.dbNowTime += nDELAY;
-                this.dbNowBMScollTime += nDELAY * this.dbNowBPM / 15000;
+                this.dbNowBMScollTime += nDELAY * this.dbNowBPM / 15000.0;
 
                 this.listChip.Add( chip );
                 this.n内部番号DELAY1to++;

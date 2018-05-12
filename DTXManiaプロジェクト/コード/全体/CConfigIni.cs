@@ -708,6 +708,7 @@ namespace DTXMania
         public bool bMonochlo;
         public int nJustHIDDEN; //2018.03.30 kairera0467
         public bool bZeroSpeed;
+        public bool bAutoRetry; //2018.05.03 kairera0467
 
         public int nDefaultSongSort;
 
@@ -716,8 +717,7 @@ namespace DTXMania
         public bool bJust;
 
         public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
-
-        public EWindowMovieMode eWindowMovieMode;
+        
         public Eゲージモード eGaugeMode; //2018.03.26 kairera0467
 
 		public STDGBVALUE<E判定文字表示位置> 判定文字表示位置;
