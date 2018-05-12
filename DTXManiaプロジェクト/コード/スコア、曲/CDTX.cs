@@ -4752,31 +4752,34 @@ namespace DTXMania
 
         private int strConvertCourse( string str )
         {
-            //2016.08.24 kairera0467
-            //正規表現を使っているため、easyでもEASYでもOK。
         	switch( str )
         	{
         		case "0":
-                case @"Easy":
         			return 0;
         		case "1":
-                case @"Normal":
         			return 1;
         		case "2":
-                case @"Hard":
         			return 2;
         		case "3":
-                case @"Oni":
         			return 3;
         		case "4":
-                case @"Edit":
         			return 4;
         		case "5":
-                case @"Tower":
         			return 5;
-        		default:
-        			return 3;
         	}
+
+            // 2018.05.12 Code by.AioiLight
+            // https://github.com/kairera0467/TJAP2fPC/issues/20
+            string[] Matchptn = new string[6] { "easy", "normal", "hard", "oni", "edit", "tower" };
+            for( int i = 0; i < Matchptn.Length; i++ )
+            {
+                if( Regex.IsMatch( str, Matchptn[ i ], RegexOptions.IgnoreCase ) )
+                {
+                    return i;
+                }
+            }
+
+            return 3;
         }
 
         /// <summary>
