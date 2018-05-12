@@ -75,9 +75,6 @@ namespace DTXMania
 		}
         public override void On非活性化()
         {
-            this.listComboVoice = null;
-            this.listComboVoiceP2 = null;
-
             base.On非活性化();
         }
 
@@ -104,14 +101,22 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                for( int i = 0; i < this.listComboVoice.Count; i++ )
+                if( this.listComboVoice != null )
                 {
-                    CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoice[ i ].soundComboVoice );
+                    for( int i = 0; i < this.listComboVoice.Count; i++ )
+                    {
+                        CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoice[ i ].soundComboVoice );
+                    }
                 }
-                for( int i = 0; i < this.listComboVoiceP2.Count; i++ )
+                if( this.listComboVoiceP2 != null )
                 {
-                    CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoiceP2[ i ].soundComboVoice );
+                    for( int i = 0; i < this.listComboVoiceP2.Count; i++ )
+                    {
+                        CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoiceP2[ i ].soundComboVoice );
+                    }
                 }
+                this.listComboVoice = null;
+                this.listComboVoiceP2 = null;
 				base.OnManagedリソースの解放();
 			}
 		}

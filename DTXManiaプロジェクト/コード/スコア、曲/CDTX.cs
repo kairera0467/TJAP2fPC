@@ -3007,11 +3007,12 @@ namespace DTXMania
                     strDoubleP2 = ( "#START" + str2[ i ]);
                     bIsSessionNotes = true;
                 }
-                else
-                {
-                    strSingle = str1[ i ];
-                }
+                //else
+                //{
+                //    strSingle = str1[ 0 ];
+                //}
             }
+            strSingle = str1[ 0 ];
             if( !bIsSessionNotes ) seqNo = 99;
 
             switch( seqNo )
@@ -3091,6 +3092,7 @@ namespace DTXMania
                 #region[譜面]
 
                 int n読み込むコース = 3;
+                int n読み込む譜面 = CDTXMania.ConfigIni.nPlayerCount; // 1ならSingle、2ならDouble、Coupleを読むようにする
                 int n譜面数 = 0; //2017.07.22 kairera0467 tjaに含まれる譜面の数
 
 
