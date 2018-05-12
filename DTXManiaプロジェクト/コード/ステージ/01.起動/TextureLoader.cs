@@ -318,7 +318,9 @@ namespace DTXMania
             }
             Gauge_Soul = TxC(GAME + GAUGE + @"Soul.png");
             Gauge_Soul_Fire = TxC(GAME + GAUGE + @"Fire.png");
-            Gauge_Soul_Explosion = TxC(GAME + GAUGE + @"Explosion.png");
+            Gauge_Soul_Explosion = new CTexture[2];
+            Gauge_Soul_Explosion[0] = TxC(GAME + GAUGE + @"1P_Explosion.png");
+            Gauge_Soul_Explosion[1] = TxC(GAME + GAUGE + @"2P_Explosion.png");
             #endregion
             #region 吹き出し
             Balloon_Combo = new CTexture[2];
@@ -560,10 +562,10 @@ namespace DTXMania
         public CTexture[] Gauge,
             Gauge_Base,
             Gauge_Line,
-            Gauge_Rainbow;
-        public CTexture Gauge_Soul,
-            Gauge_Soul_Fire,
+            Gauge_Rainbow,
             Gauge_Soul_Explosion;
+        public CTexture Gauge_Soul,
+            Gauge_Soul_Fire;
         #endregion
         #region 吹き出し
         public CTexture[] Balloon_Combo;

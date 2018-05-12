@@ -19,17 +19,18 @@ namespace DTXMania
 		
 		
 		// メソッド
-        public virtual void Start( int nPlayer)
+        public virtual void Start(int nPlayer, int Lane)
 		{
             if(CDTXMania.Tx.Gauge_Soul_Explosion != null)
             {
-                for (int i = 0; i < 64; i++)
+                for (int i = 0; i < 128; i++)
                 {
                     if(!st[i].b使用中)
                     {
                         st[i].b使用中 = true;
-                        st[i].ct進行 = new CCounter(0, 10, 25, CDTXMania.Timer);
+                        st[i].ct進行 = new CCounter(0, 10, 20, CDTXMania.Timer);
                         st[i].nプレイヤー = nPlayer;
+                        st[i].Lane = Lane;
                         break;
                     }
                 }
@@ -40,7 +41,7 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
-            for (int i = 0; i < 64; i++)
+            for (int i = 0; i < 128; i++)
             {
                 st[i] = new STチップエフェクト
                 {
@@ -52,7 +53,7 @@ namespace DTXMania
 		}
 		public override void On非活性化()
 		{
-            for (int i = 0; i < 64; i++)
+            for (int i = 0; i < 128; i++)
             {
                 st[i].ct進行 = null;
                 st[i].b使用中 = false;
@@ -61,7 +62,7 @@ namespace DTXMania
 		}
 		public override int On進行描画()
 		{
-            for (int i = 0; i < 64; i++)
+            for (int i = 0; i < 128; i++)
             {
                 if (st[i].b使用中)
                 {
@@ -73,8 +74,19 @@ namespace DTXMania
                     }
                     if (CDTXMania.Tx.Gauge_Soul_Explosion != null)
                     {
-                        CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画(CDTXMania.app.Device, 1140, 73, new Rectangle(st[i].ct進行.n現在の値 * 140, 0, 140, 180));
+                        switch (st[i].nプレイヤー)
+                        {
+                            case 0:
+                                CDTXMania.Tx.Gauge_Soul_Explosion[0].t2D描画(CDTXMania.app.Device, 1140, 73, new Rectangle(st[i].ct進行.n現在の値 * 140, 0, 140, 180));
+                                CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(st[i].Lane * 130, 0, 130, 130));
+                                break;
+                            case 1:
+                                CDTXMania.Tx.Gauge_Soul_Explosion[1].t2D描画(CDTXMania.app.Device, 1140, 468, new Rectangle(st[i].ct進行.n現在の値 * 140, 0, 140, 180));
+                                CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 557, new Rectangle(st[i].Lane * 130, 0, 130, 130));
+                                break;
+                        }
                     }
+
                 }
             }
 			return 0;
@@ -93,8 +105,9 @@ namespace DTXMania
             public bool b使用中;
             public CCounter ct進行;
             public int nプレイヤー;
+            public int Lane;
         }
-        private STチップエフェクト[] st = new STチップエフェクト[64];
+        private STチップエフェクト[] st = new STチップエフェクト[128];
         //private struct ST連打キャラ
         //{
         //    public int nColor;

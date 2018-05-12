@@ -241,18 +241,17 @@ namespace DTXMania
                 if( CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Gauge[1] != null )
                 {
                     CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 492, 532, new Rectangle( 0, 0, nRectX2P, 44 ) );
-
-                    if(CDTXMania.Tx.Gauge[0] != null )
+                    if(CDTXMania.Tx.Gauge[1] != null )
                     {
-                        //if( this.db現在のゲージ値.Taiko >= 100.0 )
-                        //{
-                        //    this.ct虹アニメ.t進行Loop();
-                        //    if( this.txゲージ虹[ this.ct虹アニメ.n現在の値 ] != null )
-                        //    {
-                        //        this.txゲージ虹[ this.ct虹アニメ.n現在の値 ].t2D描画( CDTXMania.app.Device, 492, 529 );
-                        //    }
+                        if (this.db現在のゲージ値[1] >= 100.0)
+                        {
+                            this.ct虹アニメ.t進行Loop();
+                            if (CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値] != null)
+                            {
+                                CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D上下反転描画(CDTXMania.app.Device, 492, 532);
 
-                        //}
+                            }
+                        }
                         CDTXMania.Tx.Gauge_Line[1].t2D描画( CDTXMania.app.Device, 492, 532 );
                     }
                     #region[ 「クリア」文字 ]
@@ -317,13 +316,13 @@ namespace DTXMania
                         //{
                         //    CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 73, new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
                         //}
-                        if (CDTXMania.Tx.Notes != null)
-                        {
-                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
+                        //if (CDTXMania.Tx.Notes != null)
+                        //{
+                            //CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
                             //this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
                             //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, this.st花火状態[d].ct進行.n現在の値.ToString());
                             //CDTXMania.act文字コンソール.tPrint(60, 160, C文字コンソール.Eフォント種別.白, (this.st花火状態[d].ct進行.n現在の値 / 10f).ToString());
-                        }
+                        //}
                         break;
                     }
                 }
@@ -339,17 +338,17 @@ namespace DTXMania
                         }
                             
                             
-                        if(CDTXMania.Tx.Gauge_Soul_Explosion != null )
-                        {
-                            CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 468, new Rectangle( this.st花火状態2P[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
-                        }
-                        if (CDTXMania.Tx.Notes != null)
-                        {
-                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
-                            //this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
-                            //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, this.st花火状態[d].ct進行.n現在の値.ToString());
-                            //CDTXMania.act文字コンソール.tPrint(60, 160, C文字コンソール.Eフォント種別.白, (this.st花火状態[d].ct進行.n現在の値 / 10f).ToString());
-                        }
+                        //if(CDTXMania.Tx.Gauge_Soul_Explosion != null )
+                        //{
+                        //    CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 468, new Rectangle( this.st花火状態2P[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
+                        //}
+                        //if (CDTXMania.Tx.Notes != null)
+                        //{
+                        //    CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
+                        //    //this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
+                        //    //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, this.st花火状態[d].ct進行.n現在の値.ToString());
+                        //    //CDTXMania.act文字コンソール.tPrint(60, 160, C文字コンソール.Eフォント種別.白, (this.st花火状態[d].ct進行.n現在の値 / 10f).ToString());
+                        //}
                         break;
                     }
                 }

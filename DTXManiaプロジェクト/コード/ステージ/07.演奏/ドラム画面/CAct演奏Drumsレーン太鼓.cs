@@ -747,7 +747,7 @@ namespace DTXMania
                 CDTXMania.Tx.Judge_Frame.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY, new Rectangle(0, 0, 130, 130));
 
                 if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY + 176, new Rectangle(0, 0, 130, 130));
+                    CDTXMania.Tx.Judge_Frame.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY + 176, new Rectangle(0, 0, 130, 130));
             }
 
 
