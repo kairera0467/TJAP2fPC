@@ -629,10 +629,10 @@ namespace DTXMania
                     //        }
                     //    }
                     //}
-                    if (CDTXMania.Tx.Mob_Footer != null)
-                    {
-                        CDTXMania.Tx.Mob_Footer.t2D描画(CDTXMania.app.Device, 0, 676);
-                    }
+                    //if (CDTXMania.Tx.Mob_Footer != null)
+                    //{
+                    //    CDTXMania.Tx.Mob_Footer.t2D描画(CDTXMania.app.Device, 0, 676);
+                    //}
 
 
                     //モブの登場処理(魂ゲージMAX)

@@ -188,7 +188,7 @@ namespace DTXMania
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
-                string strVersion = "1.1.0";
+                string strVersion = "1.1.1";
                 string strCreator = "AioiLight";
 #if DEBUG
                 strVersion += "  DEBUG";

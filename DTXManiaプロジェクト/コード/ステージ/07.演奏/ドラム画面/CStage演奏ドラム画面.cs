@@ -58,6 +58,7 @@ namespace DTXMania
             base.list子Activities.Add( this.actComboVoice = new CAct演奏Combo音声() );
             base.list子Activities.Add( this.actPauseMenu = new CAct演奏PauseMenu() );
             base.list子Activities.Add(this.actChipEffects = new CAct演奏Drumsチップエフェクト());
+            base.list子Activities.Add(this.actFotter = new CAct演奏DrumsFotter());
 
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
@@ -371,6 +372,8 @@ namespace DTXMania
                         this.actDancer.On進行描画();
                 }
 
+                this.actFotter.On進行描画();
+
                 if( !CDTXMania.ConfigIni.bNoInfo )
                     this.t進行描画_パネル文字列();
                 //this.t進行描画_グラフ();   // #24074 2011.01.23 add ikanick
@@ -391,7 +394,6 @@ namespace DTXMania
                 this.actLaneTaiko.On進行描画();
                 //this.t進行描画_レーン();
 				//this.t進行描画_レーンフラッシュD();
-                this.t進行描画_リアルタイム判定数表示();
 
                 if( ( CDTXMania.ConfigIni.eClipDispType == EClipDispType.ウィンドウのみ || CDTXMania.ConfigIni.eClipDispType == EClipDispType.両方 ) && CDTXMania.ConfigIni.nPlayerCount == 1 )
                     this.actAVI.t窓表示();
@@ -420,6 +422,7 @@ namespace DTXMania
                 //}
 
                 this.actLaneTaiko.ゴーゴースプラッシュ();
+                this.t進行描画_リアルタイム判定数表示();
 
                 if ( !CDTXMania.ConfigIni.bNoInfo )
 			        this.t進行描画_コンボ();
@@ -429,9 +432,10 @@ namespace DTXMania
                 this.actChipEffects.On進行描画();
                 this.t進行描画_チップファイアD();
                 this.t進行描画_チップファイアTaiko();
-                
 
-                for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                this.actComboBalloon.On進行描画();
+
+                for ( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
                 {
                     this.actRoll.On進行描画( this.n現在の連打数[ i ], i );
                 }
@@ -442,7 +446,6 @@ namespace DTXMania
 
                 this.t進行描画_演奏情報();
                 this.actPanel.t歌詞テクスチャを描画する();
-                this.actComboBalloon.On進行描画();
                 this.t全体制御メソッド();
 
 
