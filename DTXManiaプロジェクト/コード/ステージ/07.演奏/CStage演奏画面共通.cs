@@ -174,6 +174,13 @@ namespace DTXMania
                 foreach( CDTX.CChip chip in listChip[ i ] )
                 {
                     chip.nList上の位置 = n整数値管理;
+                    if( ( chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16 ) && ( n整数値管理 < this.listChip[ i ].Count - 1 ) )
+                    {
+                        if( chip.dbSCROLL < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, 0, i ).dbSCROLL )
+                        {
+                            chip.n描画優先度 = 1;
+                        }
+                    }
                     n整数値管理++;
                 }
             }
@@ -1795,7 +1802,7 @@ namespace DTXMania
 
 		protected CDTX.CChip r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( long nTime, int nInputAdjustTime, int nPlayer )
 		{
-			sw2.Start();
+			//sw2.Start();
 			nTime += nInputAdjustTime;
 
 			int nIndex_InitialPositionSearchingToPast;
@@ -1803,7 +1810,7 @@ namespace DTXMania
 			int count = listChip[ nPlayer ].Count;
 			if ( count <= 0 )			// 演奏データとして1個もチップがない場合は
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 
@@ -1816,6 +1823,9 @@ namespace DTXMania
 //			while ( nIndex_NearestChip_Future < count )	// 未来方向への検索
 			for ( ; nIndex_NearestChip_Future < count; nIndex_NearestChip_Future++ )
 			{
+                if( nIndex_NearestChip_Future < 0 )
+                    continue;
+
 				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
 				if ( !chip.bHit && chip.b可視 )
 				{
@@ -1860,7 +1870,7 @@ namespace DTXMania
 			}
 			if ( ( nIndex_NearestChip_Future >= count ) && ( nIndex_NearestChip_Past < 0 ) )	// 検索対象が過去未来どちらにも見つからなかった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
@@ -1907,16 +1917,16 @@ namespace DTXMania
             int n検索範囲時間ms = 0;
 			if ( ( n検索範囲時間ms > 0 ) && ( nTimeDiff > n検索範囲時間ms ) )					// チップは見つかったが、検索範囲時間外だった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
-			sw2.Stop();
+			//sw2.Stop();
 			return nearestChip;
 		}
 
 		protected CDTX.CChip r指定時刻に一番近いChipを過去方向優先で検索する( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
 		{
-			sw2.Start();
+			//sw2.Start();
 			nTime += nInputAdjustTime;
 
 			int nIndex_InitialPositionSearchingToPast;
@@ -1924,7 +1934,7 @@ namespace DTXMania
 			int count = listChip[ nPlayer ].Count;
 			if ( count <= 0 )			// 演奏データとして1個もチップがない場合は
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 
@@ -1964,7 +1974,7 @@ namespace DTXMania
 			}
 			if ( ( nIndex_NearestChip_Future >= count ) && ( nIndex_NearestChip_Past < 0 ) )	// 検索対象が過去未来どちらにも見つからなかった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
@@ -2002,16 +2012,16 @@ namespace DTXMania
             int n検索範囲時間ms = 0;
 			if ( ( n検索範囲時間ms > 0 ) && ( nTimeDiff > n検索範囲時間ms ) )					// チップは見つかったが、検索範囲時間外だった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
-			sw2.Stop();
+			//sw2.Stop();
 			return nearestChip;
 		}
 
 		protected CDTX.CChip r指定時刻に一番近い未ヒットChip( long nTime, int nInputAdjustTime, int nPlayer )
 		{
-			sw2.Start();
+			//sw2.Start();
 //Trace.TraceInformation( "nTime={0}, nChannel={1:x2}, 現在のTop={2}", nTime, nChannel,CDTXMania.DTX.listChip[ this.n現在のトップChip ].n発声時刻ms );
 			nTime += nInputAdjustTime;
 
@@ -2019,7 +2029,7 @@ namespace DTXMania
 			int nTimeDiff;
 			if ( this.n現在のトップChip == -1 )			// 演奏データとして1個もチップがない場合は
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 			int count = listChip[ nPlayer ].Count;
@@ -2059,7 +2069,7 @@ namespace DTXMania
 			}
 			if ( ( nIndex_NearestChip_Future >= count ) && ( nIndex_NearestChip_Past < 0 ) )	// 検索対象が過去未来どちらにも見つからなかった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
@@ -2092,10 +2102,10 @@ namespace DTXMania
             int n検索範囲時間ms = 0;
 			if ( ( n検索範囲時間ms > 0 ) && ( nTimeDiff > n検索範囲時間ms ) )					// チップは見つかったが、検索範囲時間外だった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
-			sw2.Stop();
+			//sw2.Stop();
 			return nearestChip;
 		}
 	
@@ -2105,7 +2115,7 @@ namespace DTXMania
 		}
 		protected CDTX.CChip r指定時刻に一番近い未ヒットChip( long nTime, int nChannel, int nInputAdjustTime, int n検索範囲時間ms, int nPlayer )
 		{
-			sw2.Start();
+			//sw2.Start();
 //Trace.TraceInformation( "nTime={0}, nChannel={1:x2}, 現在のTop={2}", nTime, nChannel,CDTXMania.DTX.listChip[ this.n現在のトップChip ].n発声時刻ms );
 			nTime += nInputAdjustTime;
 
@@ -2113,7 +2123,7 @@ namespace DTXMania
 			int nTimeDiff;
 			if ( this.n現在のトップChip == -1 )			// 演奏データとして1個もチップがない場合は
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 			int count = listChip[ nPlayer ].Count;
@@ -2199,7 +2209,7 @@ namespace DTXMania
 			}
 			if ( ( nIndex_NearestChip_Future >= count ) && ( nIndex_NearestChip_Past < 0 ) )	// 検索対象が過去未来どちらにも見つからなかった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
@@ -2237,10 +2247,10 @@ namespace DTXMania
 			nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
 			if ( ( n検索範囲時間ms > 0 ) && ( nTimeDiff > n検索範囲時間ms ) )					// チップは見つかったが、検索範囲時間外だった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
-			sw2.Stop();
+			//sw2.Stop();
 			return nearestChip;
 		}
 		public bool r検索範囲内にチップがあるか調べる( long nTime, int nInputAdjustTime, int n検索範囲時間ms, int nPlayer )
@@ -2626,7 +2636,7 @@ namespace DTXMania
 				pChip.nバーからの距離dot.Drums = (int) ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * ScrollSpeedDrums );
 				pChip.nバーからの距離dot.Guitar = (int) ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * ScrollSpeedGuitar );
 				pChip.nバーからの距離dot.Bass = (int) ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * ScrollSpeedBass );
-                pChip.nバーからの距離dot.Taiko = (int) ( ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
+                pChip.nバーからの距離dot.Taiko = (float) ( ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
                 pChip.nバーからのノーツ末端距離dot.Drums = 0;
                 pChip.nバーからのノーツ末端距離dot.Guitar = 0;
                 pChip.nバーからのノーツ末端距離dot.Bass = 0;
@@ -2636,15 +2646,15 @@ namespace DTXMania
                 this.play_bpm_time = this.GetNowPBMTime( dTX, 0 );
                 if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL )
                 {
-                    pChip.nバーからの距離dot.Taiko = (int)( ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
+                    pChip.nバーからの距離dot.Taiko = (float)( ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
                     if( pChip.nノーツ終了時刻ms != 0 )
-                        pChip.nバーからのノーツ末端距離dot.Taiko = (int)( ( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
+                        pChip.nバーからのノーツ末端距離dot.Taiko = (float)( ( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
                 }
                 else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL )
                 {
-                    pChip.nバーからの距離dot.Taiko = (int)( ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
+                    pChip.nバーからの距離dot.Taiko = (float)( ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
                     if( pChip.nノーツ終了時刻ms != 0 )
-                        pChip.nバーからのノーツ末端距離dot.Taiko = (int)( ( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
+                        pChip.nバーからのノーツ末端距離dot.Taiko = (float)( ( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
                 }
 
 				bool bPChipIsAutoPlay = bCheckAutoPlay( pChip );
@@ -2787,7 +2797,8 @@ namespace DTXMania
                                     chip現在処理中の連打チップ[ nPlayer ].bHit = true;
                                 this.eRollState = E連打State.none;
                             }
-                            //this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
+                            if( pChip.n描画優先度 <= 0 )
+                            this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
                         }
 
                         break;
@@ -3369,7 +3380,8 @@ namespace DTXMania
                     case 0x18: //連打終了
                     case 0x19:
                         {
-                            this.t進行描画_チップ_Taiko連打( configIni, ref dTX, ref pChip, nPlayer );
+                            if( pChip.n描画優先度 >= 1 )
+                                this.t進行描画_チップ_Taiko連打( configIni, ref dTX, ref pChip, nPlayer );
                         }
                         break;
                     #endregion

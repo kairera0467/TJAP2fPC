@@ -1035,7 +1035,7 @@ namespace DTXMania
         public int[] nScrollFieldY = new int[]{192, 368};
 
         //中心座標指定
-        public int[] nJudgePointX = new int[] { 413, 413, 413, 413 };
+        public int[] nJudgePointX = new int[] { 414, 414, 414, 414 };
         public int[] nJudgePointY = new int[] { 256, 433, 0, 0  };
                 
         //フィールド背景画像

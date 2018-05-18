@@ -1717,8 +1717,7 @@ for (int i = 0; i < 3; i++) {
 
 			var d = obj as IDisposable;
 
-			if ( d != null )
-				d.Dispose();
+			d?.Dispose();
 
 			obj = default( T );
 		}

@@ -353,12 +353,13 @@ namespace DTXMania
             public int nBalloon;
             public int nProcessTime;
             public int nスクロール方向;
+            public int n描画優先度; //(特殊)現状連打との判断目的で使用
             public ENoteState eNoteState;
             public EAVI種別 eAVI種別;
 			public E楽器パート e楽器パート = E楽器パート.UNKNOWN;
 			public int nチャンネル番号;
-			public STDGBVALUE<int> nバーからの距離dot;
-			public STDGBVALUE<int> nバーからのノーツ末端距離dot;
+			public STDGBVALUE<float> nバーからの距離dot;
+			public STDGBVALUE<float> nバーからのノーツ末端距離dot;
 			public int n整数値;
 			public int n整数値_内部番号;
 			public int n総移動時間;
@@ -424,7 +425,7 @@ namespace DTXMania
 
 			public CChip()
 			{
-				this.nバーからの距離dot = new STDGBVALUE<int>() {
+				this.nバーからの距離dot = new STDGBVALUE<float>() {
 					Drums = 0,
 					Guitar = 0,
 					Bass = 0,
@@ -445,6 +446,7 @@ namespace DTXMania
                 this.fBMSCROLLTime = 0;
                 this.nノーツ終了位置 = 0;
                 this.nノーツ終了時刻ms = 0;
+                this.n描画優先度 = 0;
 				this.nLag = -999;
 				this.bIsAutoPlayed = false;
 				this.b演奏終了後も再生が続くチップである = false;

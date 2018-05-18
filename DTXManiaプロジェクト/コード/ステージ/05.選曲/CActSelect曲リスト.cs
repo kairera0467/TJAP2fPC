@@ -973,7 +973,7 @@ namespace DTXMania
 							int n = ( ( ( this.n現在の選択行 - 5 ) + i ) + 13 ) % 13;
 							this.stバー情報[ n ].eバー種別 = this.e曲のバー種別を返す( song2 );
 							song2 = this.r次の曲( song2 );
-                            CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル );
+                            this.stバー情報[ i ].txタイトル?.Dispose();
                             this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列 );
 						}
 
@@ -991,17 +991,11 @@ namespace DTXMania
 
 						this.t選択曲が変更された(false);				// スクロールバー用に今何番目を選択しているかを更新
 
-                        if( this.tx選択している曲の曲名 != null )
-                        {
-                            this.tx選択している曲の曲名.Dispose();
-                            this.tx選択している曲の曲名 = null;
-                        }
-                        if( this.tx選択している曲のサブタイトル != null )
-                        {
-                            this.tx選択している曲のサブタイトル.Dispose();
-                            this.tx選択している曲のサブタイトル = null;
-                        }
-
+                        this.tx選択している曲の曲名?.Dispose();
+                        this.tx選択している曲の曲名 = null;
+                        this.tx選択している曲のサブタイトル?.Dispose();
+                        this.tx選択している曲のサブタイトル = null;
+                        
 						if( this.n目標のスクロールカウンタ == 0 )
 							CDTXMania.stage選曲.t選択曲変更通知();		// スクロール完了＝選択曲変更！
 
@@ -1066,16 +1060,10 @@ namespace DTXMania
 
 						this.t選択曲が変更された(false);				// スクロールバー用に今何番目を選択しているかを更新
 
-                        if( this.tx選択している曲の曲名 != null )
-                        {
-                            this.tx選択している曲の曲名.Dispose();
-                            this.tx選択している曲の曲名 = null;
-                        }
-                        if( this.tx選択している曲のサブタイトル != null )
-                        {
-                            this.tx選択している曲のサブタイトル.Dispose();
-                            this.tx選択している曲のサブタイトル = null;
-                        }
+                        this.tx選択している曲の曲名?.Dispose();
+                        this.tx選択している曲の曲名 = null;
+                        this.tx選択している曲のサブタイトル?.Dispose();
+                        this.tx選択している曲のサブタイトル = null;
 						
 						if( this.n目標のスクロールカウンタ == 0 )
 							CDTXMania.stage選曲.t選択曲変更通知();		// スクロール完了＝選択曲変更！
