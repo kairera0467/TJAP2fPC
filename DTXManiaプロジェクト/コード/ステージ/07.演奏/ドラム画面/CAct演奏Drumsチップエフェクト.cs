@@ -72,19 +72,18 @@ namespace DTXMania
                         st[i].ct進行.t停止();
                         st[i].b使用中 = false;
                     }
-                    if (CDTXMania.Tx.Gauge_Soul_Explosion != null)
+                    switch (st[i].nプレイヤー)
                     {
-                        switch (st[i].nプレイヤー)
-                        {
-                            case 0:
+                        case 0:
+                            if(CDTXMania.Tx.Gauge_Soul_Explosion[0] != null)
                                 CDTXMania.Tx.Gauge_Soul_Explosion[0].t2D描画(CDTXMania.app.Device, 1140, 73, new Rectangle(st[i].ct進行.n現在の値 * 140, 0, 140, 180));
-                                CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(st[i].Lane * 130, 0, 130, 130));
-                                break;
-                            case 1:
+                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(st[i].Lane * 130, 0, 130, 130));
+                            break;
+                        case 1:
+                            if (CDTXMania.Tx.Gauge_Soul_Explosion[1] != null)
                                 CDTXMania.Tx.Gauge_Soul_Explosion[1].t2D描画(CDTXMania.app.Device, 1140, 468, new Rectangle(st[i].ct進行.n現在の値 * 140, 0, 140, 180));
-                                CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 557, new Rectangle(st[i].Lane * 130, 0, 130, 130));
-                                break;
-                        }
+                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 557, new Rectangle(st[i].Lane * 130, 0, 130, 130));
+                            break;
                     }
 
                 }

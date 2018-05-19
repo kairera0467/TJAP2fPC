@@ -895,6 +895,16 @@ namespace DTXMania
                             }
                             #endregion
 
+                            #region 背景(スクロール)
+                            else if (strCommand == "Background_Scroll_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Background_Scroll_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            #endregion
                             else if (strCommand == "Game_Score_X")
                             {
                                 string[] strSplit = strParam.Split(',');
@@ -1150,7 +1160,10 @@ namespace DTXMania
         public string Skin_Name = "Unknown";
         public string Skin_Version = "Unknown";
         public string Skin_Creator = "Unknown";
+        #endregion
 
+        #region 背景(スクロール)
+        public int[] Background_Scroll_Y = new int[] {0, 536};
         #endregion
 
 
