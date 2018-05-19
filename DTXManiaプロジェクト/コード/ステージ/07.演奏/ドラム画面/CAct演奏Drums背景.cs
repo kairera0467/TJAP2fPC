@@ -90,9 +90,11 @@ namespace DTXMania
         public override int On進行描画()
         {
             this.ct上背景FIFOタイマー.t進行();
+            
             for (int i = 0; i < 2; i++)
             {
-                this.ct上背景クリアインタイマー[i].t進行();
+                if(this.ct上背景クリアインタイマー[i] != null)
+                    this.ct上背景クリアインタイマー[i].t進行();
             }
             for (int i = 0; i < 2; i++)
             {
@@ -217,13 +219,13 @@ namespace DTXMania
                     }
                 }
             }
-            CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[0].ToString());
-            CDTXMania.act文字コンソール.tPrint(100, 0, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[1].ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[0].ToString());
-            CDTXMania.act文字コンソール.tPrint(100, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[1].ToString());
-            CDTXMania.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[1].ToString());
-            CDTXMania.act文字コンソール.tPrint(200, 0, C文字コンソール.Eフォント種別.白, ct上背景クリアインタイマー[0].n現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白, ct上背景クリアインタイマー[1].n現在の値.ToString());
+            //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[0].ToString());
+            //CDTXMania.act文字コンソール.tPrint(100, 0, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[1].ToString());
+            //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[0].ToString());
+            //CDTXMania.act文字コンソール.tPrint(100, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[1].ToString());
+            //CDTXMania.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[1].ToString());
+            //CDTXMania.act文字コンソール.tPrint(200, 0, C文字コンソール.Eフォント種別.白, ct上背景クリアインタイマー[0].n現在の値.ToString());
+            //CDTXMania.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白, ct上背景クリアインタイマー[1].n現在の値.ToString());
 
             return base.On進行描画();
         }
