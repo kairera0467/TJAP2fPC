@@ -33,6 +33,7 @@ namespace DTXMania
         public void ClearIn(int player)
         {
             this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 6, CDTXMania.Timer);
+            this.ct上背景FIFOタイマー = new CCounter(0, 100, 6, CDTXMania.Timer);
         }
 
         public override void On活性化()
@@ -139,53 +140,7 @@ namespace DTXMania
 
             }
             #endregion
-
-            //int[] nBgY = new int[] { 0, 536 };
-            //for( int i = 0; i < 2; i++ )
-            //{
-            //    if( CDTXMania.ConfigIni.nPlayerCount == 1 && i == 1 ) continue;
-                
-            //    if( CDTXMania.Tx.Background_Up != null )
-            //    {
-            //        double TexSize = 1280 / CDTXMania.Tx.Background_Up.szテクスチャサイズ.Width;
-            //        // 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
-            //        int ForLoop = (int)Math.Ceiling(TexSize) + 1;
-            //        //int nループ幅 = 328;
-            //        CDTXMania.Tx.Background_Up.t2D描画(CDTXMania.app.Device, 0 - this.ct上背景スクロール用タイマー.n現在の値, nBgY[i]);
-            //        for (int l = 1; l < ForLoop + 1; l++)
-            //        {
-            //            CDTXMania.Tx.Background_Up.t2D描画(CDTXMania.app.Device, +(l * CDTXMania.Tx.Background_Up.szテクスチャサイズ.Width) - this.ct上背景スクロール用タイマー.n現在の値, nBgY[i]);
-            //        }
-            //    }
-            //    if( CDTXMania.Tx.Background_Up_Clear != null )
-            //    {
-            //        if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] < 80.0 )
-            //            CDTXMania.Tx.Background_Up_Clear.n透明度 = 0;
-            //        else
-            //            CDTXMania.Tx.Background_Up_Clear.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
-
-            //        double TexSize = 1280 / CDTXMania.Tx.Background_Up_Clear.szテクスチャサイズ.Width;
-            //        // 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
-            //        int ForLoop = (int)Math.Ceiling(TexSize) + 1;
-
-            //        CDTXMania.Tx.Background_Up_Clear.t2D描画(CDTXMania.app.Device, 0 - this.ct上背景スクロール用タイマー.n現在の値, nBgY[i]);
-            //        for (int l = 1; l < ForLoop + 1; l++)
-            //        {
-            //            CDTXMania.Tx.Background_Up_Clear.t2D描画(CDTXMania.app.Device, (l * CDTXMania.Tx.Background_Up_Clear.szテクスチャサイズ.Width) - this.ct上背景スクロール用タイマー.n現在の値, nBgY[i]);
-            //        }
-
-            //        //int nループ幅 = 328;
-            //        //CDTXMania.Tx.Background_Up_Clear.t2D描画( CDTXMania.app.Device, 0 - this.ct上背景スクロール用タイマー.n現在の値, nBgY[ i ] );
-            //        //CDTXMania.Tx.Background_Up_Clear.t2D描画( CDTXMania.app.Device, ( 1 * nループ幅 ) - this.ct上背景スクロール用タイマー.n現在の値, nBgY[ i ] );
-            //        //CDTXMania.Tx.Background_Up_Clear.t2D描画( CDTXMania.app.Device, ( 2 * nループ幅 ) - this.ct上背景スクロール用タイマー.n現在の値, nBgY[ i ] );
-            //        //CDTXMania.Tx.Background_Up_Clear.t2D描画( CDTXMania.app.Device, ( 3 * nループ幅 ) - this.ct上背景スクロール用タイマー.n現在の値, nBgY[ i ] );
-            //        //CDTXMania.Tx.Background_Up_Clear.t2D描画( CDTXMania.app.Device, ( 4 * nループ幅 ) - this.ct上背景スクロール用タイマー.n現在の値, nBgY[ i ] );
-            //    }
-            //}
-
-
-
-
+            #region 1P-下背景
             if( !CDTXMania.stage演奏ドラム画面.bDoublePlay )
             {
                 {
@@ -219,14 +174,7 @@ namespace DTXMania
                     }
                 }
             }
-            //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[0].ToString());
-            //CDTXMania.act文字コンソール.tPrint(100, 0, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[1].ToString());
-            //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[0].ToString());
-            //CDTXMania.act文字コンソール.tPrint(100, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[1].ToString());
-            //CDTXMania.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[1].ToString());
-            //CDTXMania.act文字コンソール.tPrint(200, 0, C文字コンソール.Eフォント種別.白, ct上背景クリアインタイマー[0].n現在の値.ToString());
-            //CDTXMania.act文字コンソール.tPrint(200, 20, C文字コンソール.Eフォント種別.白, ct上背景クリアインタイマー[1].n現在の値.ToString());
-
+            #endregion
             return base.On進行描画();
         }
 
