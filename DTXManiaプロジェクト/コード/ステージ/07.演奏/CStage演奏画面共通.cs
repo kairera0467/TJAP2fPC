@@ -2364,7 +2364,7 @@ namespace DTXMania
 				{
 					ChangeInputAdjustTimeInPlaying( keyboard, +1 );
 				}
-				else if ( ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) && ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) || CDTXMania.Pad.b押されたGB( Eパッド.FT ) ) && !this.actPauseMenu.bIsActivePopupMenu )
+				else if ( ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) && ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) ) && !this.actPauseMenu.bIsActivePopupMenu )
 				{	// escape (exit)
                     this.t演奏中止();
 				}
@@ -3561,7 +3561,7 @@ namespace DTXMania
                 }
 
                 if( dTX.listChip[ A ].nチャンネル番号 == 0x01 ) continue;
-                //if( CDTXMania.DTX.listChip[ A ].nチャンネル番号 == 0x50 ) continue;
+                if( dTX.listChip[ A ].nチャンネル番号 == 0x50 ) continue;
                 if( dTX.listChip[ A ].nチャンネル番号 == 0x9C ) continue;
                 if( dTX.listChip[ A ].nチャンネル番号 == 0xDD ) continue;
                 if( dTX.listChip[ A ].nチャンネル番号 == 0xDE ) continue;

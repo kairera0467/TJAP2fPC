@@ -382,14 +382,7 @@ namespace DTXMania
 				"you uses WASAPI/ASIO.\n"
 			);
 			this.list項目リスト.Add( this.iSystemSoundTimerType );
-
-            this.iTaikoAutoSection = new CItemToggle( "AutoSection", CDTXMania.ConfigIni.bAutoSection,
-                "譜面分岐時に自動でSECTION処理をします。\n" +
-                "tjaにSECTIONをつけるのが面倒な時に使用してください。",
-                "\n" +
-                "");
-            this.list項目リスト.Add( this.iTaikoAutoSection );
-
+            
 			this.iSystemSkinSubfolder = new CItemList( "Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
 				"スキン切替：\n" +
 				"スキンを切り替えます。\n",
@@ -2122,7 +2115,6 @@ namespace DTXMania
         private CItemToggle iTaikoBranchGuide;
         private CItemList iTaikoDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
         private CItemList iTaikoScoreMode;
-        private CItemToggle iTaikoAutoSection;
         private CItemToggle iTaikoHispeedRandom;
         private CItemList iTaikoBranchAnime;
         private CItemToggle iTaikoChara;
@@ -2284,7 +2276,6 @@ namespace DTXMania
 //Trace.TraceInformation( "Skin現在BoxDef  : " + CSkin.strBoxDefSkinSubfolderFullName );
 			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度 = (E判定表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
-            CDTXMania.ConfigIni.bAutoSection = this.iTaikoAutoSection.bON;
             CDTXMania.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
 		}
 		private void tConfigIniへ記録する_Bass()

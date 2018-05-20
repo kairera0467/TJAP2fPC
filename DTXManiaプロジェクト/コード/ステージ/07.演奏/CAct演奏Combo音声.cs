@@ -84,12 +84,12 @@ namespace DTXMania
 			{
                 this.tReadSoundConfig();
 
-                for( int i = 0; i < this.listComboVoice.Count; i++ )
+                for( int i = 0; i < this.listComboVoice?.Count; i++ )
                 {
                     if( this.listComboVoice[ i ].bFileFound )
                         this.listComboVoice[ i ].soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\" + this.listComboVoice[ i ].strFilePath ) );
                 }
-                for( int i = 0; i < this.listComboVoiceP2.Count; i++ )
+                for( int i = 0; i < this.listComboVoiceP2?.Count; i++ )
                 {
                     if( this.listComboVoiceP2[ i ].bFileFound )
                         this.listComboVoiceP2[ i ].soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\" + this.listComboVoiceP2[ i ].strFilePath ) );
@@ -115,8 +115,8 @@ namespace DTXMania
                         CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoiceP2[ i ].soundComboVoice );
                     }
                 }
-                this.listComboVoice = null;
-                this.listComboVoiceP2 = null;
+                this.listComboVoice?.Clear();
+                this.listComboVoiceP2?.Clear();
 				base.OnManagedリソースの解放();
 			}
 		}

@@ -43,7 +43,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;_TEST_ENGLISH TEST_Direct3D9Ex_ _WindowedFullscreen MemoryRenderer</DefineConstants>
+    <DefineConstants>TRACE;_TEST_ENGLISH TEST_Direct3D9Ex_ _WindowedFullscreen MemoryRenderer</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -214,7 +214,6 @@
     <Compile Include="コード\全体\Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DirectShowLib-2005.dll" />
     <Content Include="dtx.ico" />
   </ItemGroup>
   <ItemGroup>
