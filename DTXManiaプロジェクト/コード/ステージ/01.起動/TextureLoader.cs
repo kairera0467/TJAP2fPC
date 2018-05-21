@@ -35,6 +35,7 @@ namespace DTXMania
         const string GENRE = @"13_Genre\";
         const string GAMEMODE = @"14_GameMode\";
         const string FAILED = @"15_Failed\";
+        const string RUNNER = @"16_Runner\";
 
         // InGame_Effects
         const string FIRE = @"Fire\";
@@ -424,6 +425,9 @@ namespace DTXMania
             Failed_Game = TxC(GAME + FAILED + @"Game.png");
             Failed_Stage = TxC(GAME + FAILED + @"Stage.png");
             #endregion
+            #region ランナー
+            Runner = TxCAf(GAME + RUNNER + @"0.png");
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -618,6 +622,9 @@ namespace DTXMania
         #region ステージ失敗
         public CTexture Failed_Game,
             Failed_Stage;
+        #endregion
+        #region ランナー
+        public CTextureAf Runner;
         #endregion
         #endregion
 
