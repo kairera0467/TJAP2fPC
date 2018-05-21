@@ -1496,6 +1496,11 @@ for (int i = 0; i < 3; i++) {
 						#endregion
 						break;
 				}
+                // オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
+                if(r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && CDTXMania.Tx.Overlay != null)
+                {
+                    CDTXMania.Tx.Overlay.t2D描画(app.Device, 0, 0);
+                }
 			}
 			this.Device.EndScene();			// Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
 											// (つまり、Present()は、Draw()完了後に実行される)

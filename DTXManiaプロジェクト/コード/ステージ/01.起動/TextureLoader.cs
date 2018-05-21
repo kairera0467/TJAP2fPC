@@ -70,6 +70,7 @@ namespace DTXMania
             Menu_Title = TxC(@"Menu_Title.png");
             Menu_Highlight = TxC(@"Menu_Highlight.png");
             Enum_Song = TxC(@"Enum_Song.png");
+            Overlay = TxC(@"Overlay.png");
             #endregion
             #region 1_タイトル画面
             Title_Background = TxC(TITLE + @"Background.png");
@@ -456,7 +457,8 @@ namespace DTXMania
             Tile_White,
             Menu_Title,
             Menu_Highlight,
-            Enum_Song;
+            Enum_Song,
+            Overlay;
         #endregion
         #region 1_タイトル画面
         public CTexture Title_Background,

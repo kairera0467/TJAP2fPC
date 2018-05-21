@@ -1,50 +1,57 @@
-####################
-#    TJAPlayer3    # 
-####################
-���J��:2018/5/5
-�X�V��:2018/5/20
+﻿############
+TJAPlayer3
+############
+公開日:2018/5/5
+更新日:2018/5/21
 
-== �͂��߂� ==
-TJAPlayer3���_�E�����[�h���Ă��������A���肪�Ƃ��������܂��B
-���̃\�t�g�́A�A�[�P�[�h/�ƒ�p�Q�[���u���ۂ̒B�l�v�V���[�Y�̃V�~�����[�^�ł��B
-���̃V�~�����[�^�́ATJAPlayer2 forPC�Ƃ����V�~�����[�^�[���l�ŉ����������̂ł��B
-���ۂ��񎟘Y�ETJAPlayer���Ŏg���Ă���.tja�t�@�C����ǂݍ��݁A�v���C���邱�Ƃ��ł��܂��B
-�J���r���̃V�~�����[�^�̂��߁A�s���o�O������ꍇ������܂��B���������������B
+== はじめに ==
+TJAPlayer3をダウンロードしていただき、ありがとうございます。
+このソフトは、アーケード/家庭用ゲーム「太鼓の達人」シリーズのシミュレータです。
+このシミュレータは、TJAPlayer2 forPCというシミュレーターを個人で改造したものです。
+太鼓さん次郎・TJAPlayer等で使われている.tjaファイルを読み込み、プレイすることができます。
+開発途中のシミュレータのため、不具合やバグがある場合があります。ご了承ください。
 
-== �g�p��̒��� ==
-�ETJAPlayer3�̓I�[�v���\�[�X�\�t�g�E�F�A(MIT)�ł��B�g�p����ꍇ�́A�S�Ď��ȐӔC�ł��肢���܂��B
-�E��������A����Wiki������Ή����ł��鎿�₪�悭���܂��B�l�Ɏ��₷��O�ɁA�܂��͎����Œ��ׂ邱�Ƃ����Ă��������B
-�E�v���O�����̐����(AioiLight)�́ATJAPlayer3�{�̂ƃf�t�H���g�̃X�L���uSimpleStyle�v�̃T�|�[�g�̂ݍs���܂��B
-�@���̑��̃v���O�����A�X�L��(��:�{�ƕ��X�L��)�̃T�|�[�g�͌����s���܂���̂ł��������������B
-�E���ׂĂ̊��œ���m�F�͂ł��Ȃ�(�ł���͂����Ȃ�)�̂ŁA��������^�������A���x�ł��肢���܂��B
-�@Wiki��ǂ�ł��������Ȃ�������A���߂܂��傤�B���߂��̐S�ł��B
+== 使用上の注意 ==
+・TJAPlayer3はオープンソースソフトウェア(MIT)です。使用する場合は、全て自己責任でお願いします。
+・説明書や、公式Wikiを見れば解決できる質問がよく来ます。人に質問する前に、まずは自分で調べることをしてください。
+・プログラムの制作者(AioiLight)は、TJAPlayer3本体とデフォルトのスキン「SimpleStyle」のサポートのみ行います。
+　その他のプログラム、スキン(例:本家風スキン)のサポートは原則行いませんのでご了承ください。
+・すべての環境で動作確認はできない(できるはずがない)ので、動いたら運がいい、程度でお願いします。
+　Wikiを読んでも解決しなかったら、諦めましょう。諦めも肝心です。
 
-== ������@�A�Ȃ̒ǉ����@�A���̃X�L���A�X�V���Ȃ� ==
+== 操作方法、曲の追加方法、他のスキン、更新情報など ==
 https://aioilight.space/taiko/tjap3/wiki/
-����Wiki�ɏ�񂪏W�߂��Ă���̂ŁA��������ǂ݂��������B
+公式Wikiに情報が集められているので、それをお読みください。
 
-== �f�t�H���g�X�L��(SimpleStyle)�ɂ��� ==
-�ꕔ�摜��TJAPlayer2 forPC�̃f�t�H���g�X�L�����痬�p���Ă��܂��B
-���C�Z���X��MIT�̂��Ɖ^�p���Ă��܂��BMIT���C�Z���X�����炷��ꍇ�A���ρA�z�z��OK�ł��B
-�쐬�c�[��: Photoshop/After Effects
+== デフォルトスキン(SimpleStyle)について ==
+一部画像はTJAPlayer2 forPCのデフォルトスキンから流用しています。
+ライセンスはMITのもと運用しています。MITライセンスを厳守する場合、改変、配布等OKです。
+作成ツール: Photoshop/After Effects
 
-== �X�y�V�����T���N�X ==
-FROM��/yyagi�� - DTXMania �J����
-kairera0467�� - TJAPlayer2 forPC �J����
-��݂�`�H�� - �o�O�񍐁A�s���
-�R�[�V�[�� - �o�O�񍐁A�s���
+== 動画、配信等でのご利用について ==
+TJAPlayer3を動画共有サイトやライブ配信サービス、ウェブサイトやブログ等でご利用になられる場合、
+バンダイナムコエンターテインメント公式のものでないこと、他の太鼓の達人シミュレーターと混同しないよう配慮をお願いいたします。
+また、タグ機能のあるサイトの場合、「TJAPlayer3」「TJAP3」といったタグを付けることで、
+他シミュレータとの誤解を防ぐとともに、関連動画として出やすくなるメリットがあるため、推奨します。
 
-== �s��񍐁A�A����Ȃ� ==
-=== ���������O�� ===
-���������O�ɁA
-1.���ׂ�O�ɍl����
-2.�l�ɕ����O�ɒ��ׂ�
-3.�ߋ��ɓ����悤�Ȏ��₪�Ȃ����������ׂ�
-4.5W1H�ŕ񍐂���
-����4�̃��[��������Ă���������΍K���ł��B
-�ŋ߁A���ׂ���킩�郌�x���̎���̕ԓ��ɖ��ʎ��Ԃ�����邱�Ƃ�����̂ŁA�ǂ�����낵�����˂������܂��B
 
-=== �e�A���� ===
+== スペシャルサンクス ==
+FROM氏/yyagi氏 - DTXMania 開発者
+kairera0467氏 - TJAPlayer2 forPC 開発者
+ろみゅ～？氏 - バグ報告、不具合報告
+コーシー氏 - バグ報告、不具合報告
+
+== 不具合報告、連絡先など ==
+=== 質問をする前に ===
+質問をする前に、
+1.調べる前に考える
+2.人に聞く前に調べる
+3.過去に同じような質問がなかったか調べる
+4.5W1Hで報告する
+この4つのルールを守っていただければ幸いです。
+最近、調べたらわかるレベルの質問の返答に無駄に時間を消費することがあるので、どうかよろしくおねがいします。
+
+=== 各連絡先 ===
 Twitter: @TJAPlayer3
-���[��: info@aioilight.space
+メール: info@aioilight.space
 Discord: AioiLight#7839
