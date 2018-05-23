@@ -17,9 +17,16 @@ namespace DTXMania
             base.b活性化してない = true;
         }
 
+        // ランナー画像のサイズ。 X, Y
         private int[] Size = new int[] { 124, 250 };
+        // ランナーのコマ数
         private int Ptn = 24;
+        // ランナーのキャラクターのバリエーション(ミス時を含まない)。
         private int Chara = 4;
+        // スタート地点のX座標 1P, 2P
+        private int[] StartPoint_X = new int[] { 175, 175 };
+        // スタート地点のY座標 1P, 2P
+        private int[] StartPoint_Y = new int[] { -40, 480 };
         private int[] StartPoint = new int[] { 175, -40 };
 
         public void Start(int Player, bool IsMiss, CDTX.CChip pChip)
@@ -103,7 +110,13 @@ namespace DTXMania
                     }
                     if (CDTXMania.Tx.Runner != null)
                     {
-                        CDTXMania.Tx.Runner.t2D描画(CDTXMania.app.Device, (StartPoint[0] + stRunners[i].fX), StartPoint[1], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
+                        if(stRunners[i].nPlayer == 0)
+                        {
+                            CDTXMania.Tx.Runner.t2D描画(CDTXMania.app.Device, (StartPoint_X[0] + stRunners[i].fX), StartPoint_Y[0], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
+                        } else
+                        {
+                            CDTXMania.Tx.Runner.t2D描画(CDTXMania.app.Device, (StartPoint_X[1] + stRunners[i].fX), StartPoint_Y[1], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
+                        }
                     }
                 }
             }
