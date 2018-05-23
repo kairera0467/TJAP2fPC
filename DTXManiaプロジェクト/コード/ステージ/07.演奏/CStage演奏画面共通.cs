@@ -555,7 +555,7 @@ namespace DTXMania
 		public CAct演奏DrumsレーンフラッシュD actLaneFlushD;
 		protected CAct演奏レーンフラッシュGB共通 actLaneFlushGB;
 		protected CAct演奏パネル文字列 actPanel;
-		protected CAct演奏演奏情報 actPlayInfo;
+		public CAct演奏演奏情報 actPlayInfo;
 		public CAct演奏スコア共通 actScore;
 		public CAct演奏ステージ失敗 actStageFailed;
 		protected CAct演奏ステータスパネル共通 actStatusPanels;
@@ -570,6 +570,7 @@ namespace DTXMania
         protected CAct演奏PauseMenu actPauseMenu;
         public CAct演奏Drumsチップエフェクト actChipEffects;
         public CAct演奏DrumsFotter actFotter;
+        public CAct演奏DrumsRunner actRunner;
 		public bool bPAUSE;
         public bool[] bIsAlreadyCleared;
         public bool[] bIsAlreadyMaxed;
@@ -1425,6 +1426,8 @@ namespace DTXMania
             {
                 double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
 
+                // ランナー(たたけたやつ)
+                this.actRunner.Start(nPlayer, false, pChip);
 
                 if (actGauge.db現在のゲージ値[nPlayer] >= 100 && this.bIsAlreadyMaxed[nPlayer] == false)
                 {
@@ -1482,6 +1485,8 @@ namespace DTXMania
 			}
 			if ( eJudgeResult == E判定.Poor || eJudgeResult == E判定.Miss || eJudgeResult == E判定.Bad )
 			{
+                // ランナー(みすったやつ)
+                this.actRunner.Start(nPlayer, true, pChip);
                 //if (actGauge.db現在のゲージ値[nPlayer] < 80.0)
                 //{
                 //    CDTXMania.stage演奏ドラム画面.actBackground.tFadeOut(nPlayer);

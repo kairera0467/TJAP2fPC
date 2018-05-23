@@ -59,6 +59,7 @@ namespace DTXMania
             base.list子Activities.Add( this.actPauseMenu = new CAct演奏PauseMenu() );
             base.list子Activities.Add(this.actChipEffects = new CAct演奏Drumsチップエフェクト());
             base.list子Activities.Add(this.actFotter = new CAct演奏DrumsFotter());
+            base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
 
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
@@ -390,6 +391,8 @@ namespace DTXMania
 
 				this.t進行描画_譜面スクロール速度();
 				this.t進行描画_チップアニメ();
+
+                this.actRunner.On進行描画();
 
                 this.actLaneTaiko.On進行描画();
                 //this.t進行描画_レーン();
