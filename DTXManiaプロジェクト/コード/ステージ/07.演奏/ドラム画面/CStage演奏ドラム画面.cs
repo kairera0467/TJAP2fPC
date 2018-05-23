@@ -361,6 +361,7 @@ namespace DTXMania
 				    this.t進行描画_背景();
                 }
 
+
                 if( CDTXMania.ConfigIni.bAVI有効 )
                 {
                     this.t進行描画_AVI();
@@ -369,14 +370,16 @@ namespace DTXMania
                 {
                     this.actBackground.On進行描画();
                     this.actRollChara.On進行描画();
-                    if( !this.bDoublePlay )
-                        this.actDancer.On進行描画();
                 }
 
                 this.actFotter.On進行描画();
 
-                if( !CDTXMania.ConfigIni.bNoInfo )
-                    this.t進行描画_パネル文字列();
+                if (!CDTXMania.ConfigIni.bAVI有効)
+                {
+                    if (!this.bDoublePlay)
+                        this.actDancer.On進行描画();
+                }
+
                 //this.t進行描画_グラフ();   // #24074 2011.01.23 add ikanick
 
 
@@ -393,6 +396,10 @@ namespace DTXMania
 				this.t進行描画_チップアニメ();
 
                 this.actRunner.On進行描画();
+
+
+                if (!CDTXMania.ConfigIni.bNoInfo)
+                    this.t進行描画_パネル文字列();
 
                 this.actLaneTaiko.On進行描画();
                 //this.t進行描画_レーン();

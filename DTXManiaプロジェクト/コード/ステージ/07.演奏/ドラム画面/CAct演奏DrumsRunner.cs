@@ -139,7 +139,6 @@ namespace DTXMania
         }
         private STRunner[] stRunners = new STRunner[128];
         Random random = new Random();
-        int Oldbpm = 180;
         //-----------------
         #endregion
     }

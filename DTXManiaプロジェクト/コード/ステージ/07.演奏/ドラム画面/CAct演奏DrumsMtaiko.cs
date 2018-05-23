@@ -15,14 +15,14 @@ namespace DTXMania
         /// </summary>
         public CAct演奏DrumsMtaiko()
         {
-            this.strCourseSymbolFileName = new string[]{
-                @"Graphics\CourseSymbol\easy.png",
-                @"Graphics\CourseSymbol\normal.png",
-                @"Graphics\CourseSymbol\hard.png",
-                @"Graphics\CourseSymbol\oni.png",
-                @"Graphics\CourseSymbol\edit.png",
-                @"Graphics\CourseSymbol\sinuchi.png",
-            };
+            //this.strCourseSymbolFileName = new string[]{
+            //    @"Graphics\CourseSymbol\easy.png",
+            //    @"Graphics\CourseSymbol\normal.png",
+            //    @"Graphics\CourseSymbol\hard.png",
+            //    @"Graphics\CourseSymbol\oni.png",
+            //    @"Graphics\CourseSymbol\edit.png",
+            //    @"Graphics\CourseSymbol\sinuchi.png",
+            //};
             base.b活性化してない = true;
         }
 
@@ -368,13 +368,13 @@ namespace DTXMania
                     case 0x16:
                     case 0x17:
                         {
-                            this.stパッド状態[ 2 + nHand + ( 4 * nPlayer ) ].n明るさ = 6;
+                            this.stパッド状態[ 2 + nHand + ( 4 * nPlayer ) ].n明るさ = 8;
                         }
                         break;
                     case 0x12:
                     case 0x14:
                         {
-                            this.stパッド状態[ nHand + ( 4 * nPlayer ) ].n明るさ = 6;
+                            this.stパッド状態[ nHand + ( 4 * nPlayer ) ].n明るさ = 8;
                         }
                         break;
 
@@ -389,27 +389,27 @@ namespace DTXMania
                     case 0x16:
                     case 0x17:
                         {
-                            this.stパッド状態[ 2 + nHand + ( 4 * nPlayer ) ].n明るさ = 6;
+                            this.stパッド状態[ 2 + nHand + ( 4 * nPlayer ) ].n明るさ = 8;
                         }
                         break;
                             
                     case 0x13:
                         {
-                            this.stパッド状態[ 2 + ( 4 * nPlayer ) ].n明るさ = 6;
-                            this.stパッド状態[ 3 + ( 4 * nPlayer ) ].n明るさ = 6;
+                            this.stパッド状態[ 2 + ( 4 * nPlayer ) ].n明るさ = 8;
+                            this.stパッド状態[ 3 + ( 4 * nPlayer ) ].n明るさ = 8;
                         }
                         break;
 
                     case 0x12:
                         {
-                            this.stパッド状態[ nHand + ( 4 * nPlayer ) ].n明るさ = 6;
+                            this.stパッド状態[ nHand + ( 4 * nPlayer ) ].n明るさ = 8;
                         }
                         break;
 
                     case 0x14:
                         {
-                            this.stパッド状態[ 0 + ( 4 * nPlayer ) ].n明るさ = 6;
-                            this.stパッド状態[ 1 + ( 4 * nPlayer ) ].n明るさ = 6;
+                            this.stパッド状態[ 0 + ( 4 * nPlayer ) ].n明るさ = 8;
+                            this.stパッド状態[ 1 + ( 4 * nPlayer ) ].n明るさ = 8;
                         }
                         break;
                 }
