@@ -1114,6 +1114,24 @@ namespace DTXMania
 
                             #region 新・SkinConfig
                             #region Game
+                            #region CourseSymbol
+                            else if (strCommand == "Game_CourseSymbol_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_CourseSymbol_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_CourseSymbol_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_CourseSymbol_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
                             {
@@ -1345,6 +1363,10 @@ namespace DTXMania
 
         #region 新・SkinConfig
         #region Game
+        #region CourseSymbol
+        public int[] Game_CourseSymbol_X = new int[] { 64, 64 };
+        public int[] Game_CourseSymbol_Y = new int[] { 232, 432 };
+        #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };
         public int Game_Runner_Ptn = 48;

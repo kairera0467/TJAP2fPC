@@ -297,8 +297,8 @@ namespace DTXMania
                     if(CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度] != null )
                     {
                         CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度].t2D描画( CDTXMania.app.Device, 
-                            60,
-                            233
+                            CDTXMania.Skin.Game_CourseSymbol_X[i],
+                            CDTXMania.Skin.Game_CourseSymbol_Y[i]
                             );
                     }
 
@@ -306,9 +306,9 @@ namespace DTXMania
                     {
                         if(CDTXMania.Tx.Couse_Symbol[ 5 ] != null )
                         {
-                            CDTXMania.Tx.Couse_Symbol[ 5 ].t2D描画( CDTXMania.app.Device, 
-                                60,
-                                233
+                            CDTXMania.Tx.Couse_Symbol[ 5 ].t2D描画( CDTXMania.app.Device,
+                                CDTXMania.Skin.Game_CourseSymbol_X[i],
+                                CDTXMania.Skin.Game_CourseSymbol_Y[i]
                                 );
                         }
                     }

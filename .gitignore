@@ -8,3 +8,8 @@ songs.db
 /obj
 /.vs
 /Test/Capture_img
+/FDK17プロジェクト/bin/x86/Debug
+*.dll
+*.pdb
+/DTXManiaプロジェクト/bin/x86/Debug
+*.exe
