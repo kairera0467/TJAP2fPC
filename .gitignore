@@ -4,5 +4,7 @@ Config.ini
 DTXManiaLog.txt
 songlist.db
 songs.db
+/bin
+/obj
 /.vs
 /Test/Capture_img

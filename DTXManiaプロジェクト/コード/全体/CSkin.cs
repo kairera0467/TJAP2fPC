@@ -1111,6 +1111,49 @@ namespace DTXMania
                             #endregion
                             #region[ その他 ]
                             #endregion
+
+                            #region 新・SkinConfig
+                            #region Game
+                            #region Runner
+                            else if (strCommand == "Game_Runner_Size")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Runner_Size[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Runner_Ptn")
+                            {
+                                Game_Runner_Ptn = int.Parse(strParam);
+                            }
+                            else if (strCommand == "Game_Runner_Type")
+                            {
+                                Game_Runner_Type = int.Parse(strParam);
+                            }
+                            else if (strCommand == "Game_Runner_StartPoint_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Runner_StartPoint_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Runner_StartPoint_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Runner_StartPoint_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Runner_Timer")
+                            {
+                                Game_Runner_Timer = int.Parse(strParam);
+                            }
+                            #endregion
+                            #endregion
+                            #endregion
                         }
                         continue;
                     }
@@ -1298,6 +1341,19 @@ namespace DTXMania
         public int nResultGaugeBaseP2Y = 122;
         public int nResultGaugeBodyP1X = 559;
         public int nResultGaugeBodyP1Y = 125;
+        #endregion
+
+        #region 新・SkinConfig
+        #region Game
+        #region Runner
+        public int[] Game_Runner_Size = new int[] { 60, 125 };
+        public int Game_Runner_Ptn = 48;
+        public int Game_Runner_Type = 4;
+        public int[] Game_Runner_StartPoint_X = new int[] { 175, 175 };
+        public int[] Game_Runner_StartPoint_Y = new int[] { 40, 560 };
+        public int Game_Runner_Timer = 16;
+        #endregion
+        #endregion
         #endregion
     }
 }
