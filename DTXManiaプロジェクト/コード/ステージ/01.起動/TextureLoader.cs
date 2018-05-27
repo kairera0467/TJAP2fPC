@@ -47,7 +47,7 @@ namespace DTXMania
         public TextureLoader()
         {
             // コンストラクタ
-            
+
         }
 
         internal CTexture TxC(string FileName)
@@ -135,7 +135,7 @@ namespace DTXMania
             Judge_Meter = TxC(GAME + @"Judge_Meter.png");
             Bar = TxC(GAME + @"Bar.png");
             Bar_Branch = TxC(GAME + @"Bar_Branch.png");
-            
+
             #endregion
             #region キャラクター
             if (CDTXMania.ConfigIni.nCharaMotionCount != 0)
@@ -293,7 +293,7 @@ namespace DTXMania
             Taiko_LevelUp = TxC(GAME + TAIKO + @"LevelUp.png");
             Taiko_LevelDown = TxC(GAME + TAIKO + @"LevelDown.png");
             Couse_Symbol = new CTexture[6];
-            string[] Couse_Symbols = new string[6]{ "Easy", "Normal", "Hard", "Oni", "Edit", "Shin" };
+            string[] Couse_Symbols = new string[6] { "Easy", "Normal", "Hard", "Oni", "Edit", "Shin" };
             for (int i = 0; i < 6; i++)
             {
                 Couse_Symbol[i] = TxC(GAME + COURSESYMBOL + Couse_Symbols[i] + ".png");
@@ -389,7 +389,7 @@ namespace DTXMania
             }
             #endregion
             #region レーン
-                Lane_Base = new CTexture[3];
+            Lane_Base = new CTexture[3];
             Lane_Text = new CTexture[3];
             string[] Lanes = new string[3] { "Normal", "Expert", "Master" };
             for (int i = 0; i < 3; i++)
@@ -426,7 +426,7 @@ namespace DTXMania
             Failed_Stage = TxC(GAME + FAILED + @"Stage.png");
             #endregion
             #region ランナー
-            Runner = TxCAf(GAME + RUNNER + @"0.png");
+            Runner = TxC(GAME + RUNNER + @"0.png");
             #endregion
             #endregion
 
@@ -583,7 +583,7 @@ namespace DTXMania
             Balloon_Balloon,
             Balloon_Number_Roll,
             Balloon_Number_Combo/*,*/
-            /*Balloon_Broken*/;
+                                /*Balloon_Broken*/;
         public CTexture[] Balloon_Breaking;
         #endregion
         #region エフェクト
@@ -624,7 +624,7 @@ namespace DTXMania
             Failed_Stage;
         #endregion
         #region ランナー
-        public CTextureAf Runner;
+        public CTexture Runner;
         #endregion
         #endregion
 
@@ -643,7 +643,7 @@ namespace DTXMania
 
         #region 7_終了画面
         public CTexture Exit_Background/* , */
-            /*Exit_Text */;
+                                       /*Exit_Text */;
         #endregion
 
     }

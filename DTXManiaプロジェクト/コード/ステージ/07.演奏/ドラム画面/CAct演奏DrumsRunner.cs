@@ -18,16 +18,15 @@ namespace DTXMania
         }
 
         // ランナー画像のサイズ。 X, Y
-        private int[] Size = new int[] { 124, 250 };
+        private int[] Size = new int[] { 60, 125 };
         // ランナーのコマ数
-        private int Ptn = 24;
+        private int Ptn = 48;
         // ランナーのキャラクターのバリエーション(ミス時を含まない)。
         private int Chara = 4;
         // スタート地点のX座標 1P, 2P
         private int[] StartPoint_X = new int[] { 175, 175 };
         // スタート地点のY座標 1P, 2P
-        private int[] StartPoint_Y = new int[] { -40, 480 };
-        private int[] StartPoint = new int[] { 175, -40 };
+        private int[] StartPoint_Y = new int[] { 40, 560 };
 
         public void Start(int Player, bool IsMiss, CDTX.CChip pChip)
         {
@@ -110,12 +109,13 @@ namespace DTXMania
                     }
                     if (CDTXMania.Tx.Runner != null)
                     {
-                        if(stRunners[i].nPlayer == 0)
+                        if (stRunners[i].nPlayer == 0)
                         {
-                            CDTXMania.Tx.Runner.t2D描画(CDTXMania.app.Device, (StartPoint_X[0] + stRunners[i].fX), StartPoint_Y[0], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
-                        } else
+                            CDTXMania.Tx.Runner.t2D描画(CDTXMania.app.Device, (int)(StartPoint_X[0] + stRunners[i].fX), StartPoint_Y[0], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
+                        }
+                        else
                         {
-                            CDTXMania.Tx.Runner.t2D描画(CDTXMania.app.Device, (StartPoint_X[1] + stRunners[i].fX), StartPoint_Y[1], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
+                            CDTXMania.Tx.Runner.t2D描画(CDTXMania.app.Device, (int)(StartPoint_X[1] + stRunners[i].fX), StartPoint_Y[1], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
                         }
                     }
                 }
@@ -129,7 +129,6 @@ namespace DTXMania
         private struct STRunner
         {
             public bool b使用中;
-            public bool bMiss;
             public int nPlayer;
             public int nType;
             public int nOldValue;
