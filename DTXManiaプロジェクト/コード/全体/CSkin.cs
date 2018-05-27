@@ -1132,6 +1132,43 @@ namespace DTXMania
                                 }
                             }
                             #endregion
+                            #region Taiko
+                            else if (strCommand == "Game_Taiko_NamePlate_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_NamePlate_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_NamePlate_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_NamePlate_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+
+                            else if (strCommand == "Game_Taiko_PlayerNumber_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_PlayerNumber_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+
+                            else if (strCommand == "Game_Taiko_PlayerNumber_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_PlayerNumber_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+
+                            #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
                             {
@@ -1366,6 +1403,12 @@ namespace DTXMania
         #region CourseSymbol
         public int[] Game_CourseSymbol_X = new int[] { 64, 64 };
         public int[] Game_CourseSymbol_Y = new int[] { 232, 432 };
+        #endregion
+        #region Taiko
+        public int[] Game_Taiko_NamePlate_X = new int[] { 0, 0 };
+        public int[] Game_Taiko_NamePlate_Y = new int[] { 288, 368 };
+        public int[] Game_Taiko_PlayerNumber_X = new int[] { 4, 4 };
+        public int[] Game_Taiko_PlayerNumber_Y = new int[] { 233, 435 };
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };

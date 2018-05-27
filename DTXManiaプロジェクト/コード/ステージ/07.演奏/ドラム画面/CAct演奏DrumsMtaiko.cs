@@ -318,20 +318,20 @@ namespace DTXMania
             }
             if (CDTXMania.Tx.Taiko_NamePlate[0] != null)
             {
-                CDTXMania.Tx.Taiko_NamePlate[0].t2D描画(CDTXMania.app.Device, 0, 288);
+                CDTXMania.Tx.Taiko_NamePlate[0].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_NamePlate_X[0], CDTXMania.Skin.Game_Taiko_NamePlate_Y[0]);
             }
             if(CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Taiko_NamePlate[1] != null)
             {
-                CDTXMania.Tx.Taiko_NamePlate[1].t2D描画(CDTXMania.app.Device, 0, 368);
+                CDTXMania.Tx.Taiko_NamePlate[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_NamePlate_X[1], CDTXMania.Skin.Game_Taiko_NamePlate_Y[1]);
             }
 
             if (CDTXMania.Tx.Taiko_PlayerNumber[0] != null)
             {
-                CDTXMania.Tx.Taiko_PlayerNumber[0].t2D描画(CDTXMania.app.Device, 5, 233);
+                CDTXMania.Tx.Taiko_PlayerNumber[0].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_PlayerNumber_X[0], CDTXMania.Skin.Game_Taiko_PlayerNumber_Y[0]);
             }
             if (CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Taiko_PlayerNumber[1] != null)
             {
-                CDTXMania.Tx.Taiko_PlayerNumber[1].t2D描画(CDTXMania.app.Device, 5, 435);
+                CDTXMania.Tx.Taiko_PlayerNumber[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_PlayerNumber_X[1], CDTXMania.Skin.Game_Taiko_PlayerNumber_Y[1]);
             }
 
             //if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.V))
