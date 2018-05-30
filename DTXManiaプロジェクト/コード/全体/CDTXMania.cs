@@ -1690,6 +1690,19 @@ for (int i = 0; i < 3; i++) {
             obj = default(T);
         }
 
+        /// <summary>
+        /// そのフォルダの連番画像の最大値を返す。
+        /// </summary>
+        public static int t連番画像の枚数を数える(string ディレクトリ名, string プレフィックス = "", string 拡張子 = ".png")
+        {
+            int num = 0;
+            while(File.Exists(ディレクトリ名 + プレフィックス + num + 拡張子))
+            {
+                num++;
+            }
+            return num;
+        }
+
         //-----------------
         #endregion
 

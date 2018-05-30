@@ -138,108 +138,118 @@ namespace DTXMania
 
             #endregion
             #region キャラクター
-            if (CDTXMania.ConfigIni.nCharaMotionCount != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_Normal = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Normal\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_Normal != 0)
             {
-                Chara_Normal = new CTexture[CDTXMania.ConfigIni.nCharaMotionCount];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaMotionCount; i++)
+                Chara_Normal = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Normal];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Normal; i++)
                 {
                     Chara_Normal[i] = TxC(GAME + CHARA + @"Normal\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.ConfigIni.nCharaMotionCount_clear != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_Clear = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Clear\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
             {
-                Chara_Normal_Cleared = new CTexture[CDTXMania.ConfigIni.nCharaMotionCount_clear];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaMotionCount_clear; i++)
+                Chara_Normal_Cleared = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Clear];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Clear; i++)
                 {
                     Chara_Normal_Cleared[i] = TxC(GAME + CHARA + @"Clear\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.ConfigIni.nCharaMotionCount_max != 0)
+            if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
             {
-                Chara_Normal_Maxed = new CTexture[CDTXMania.ConfigIni.nCharaMotionCount_max];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaMotionCount_max; i++)
+                Chara_Normal_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Clear];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Clear; i++)
                 {
                     Chara_Normal_Maxed[i] = TxC(GAME + CHARA + @"Clear_Max\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.ConfigIni.nCharaMotionCount_gogo != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_GoGo = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGo\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
             {
-                Chara_GoGoTime = new CTexture[CDTXMania.ConfigIni.nCharaMotionCount_gogo];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaMotionCount_gogo; i++)
+                Chara_GoGoTime = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_GoGo];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGo; i++)
                 {
                     Chara_GoGoTime[i] = TxC(GAME + CHARA + @"GoGo\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.ConfigIni.nCharaMotionCount_maxgogo != 0)
+            if (CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
             {
-                Chara_GoGoTime_Maxed = new CTexture[CDTXMania.ConfigIni.nCharaMotionCount_maxgogo];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaMotionCount_maxgogo; i++)
+                Chara_GoGoTime_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_GoGo];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGo; i++)
                 {
                     Chara_GoGoTime_Maxed[i] = TxC(GAME + CHARA + @"GoGo_Max\" + i.ToString() + ".png");
                 }
             }
 
-            if (CDTXMania.ConfigIni.nCharaAction_10combo != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_10combo = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"10combo\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0)
             {
-                Chara_10Combo = new CTexture[CDTXMania.ConfigIni.nCharaAction_10combo];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaAction_10combo; i++)
+                Chara_10Combo = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_10combo];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_10combo; i++)
                 {
                     Chara_10Combo[i] = TxC(GAME + CHARA + @"10combo\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.ConfigIni.nCharaAction_10combo_max != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_10combo_Max = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"10combo_Max\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0)
             {
-                Chara_10Combo_Maxed = new CTexture[CDTXMania.ConfigIni.nCharaAction_10combo_max];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaAction_10combo_max; i++)
+                Chara_10Combo_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_10combo_Max];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_10combo_Max; i++)
                 {
                     Chara_10Combo_Maxed[i] = TxC(GAME + CHARA + @"10combo_Max\" + i.ToString() + ".png");
                 }
             }
 
-            if (CDTXMania.ConfigIni.nCharaAction_gogostart != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_GoGoStart = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGoStart\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0)
             {
-                Chara_GoGoStart = new CTexture[CDTXMania.ConfigIni.nCharaAction_gogostart];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaAction_gogostart; i++)
+                Chara_GoGoStart = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_GoGoStart];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGoStart; i++)
                 {
                     Chara_GoGoStart[i] = TxC(GAME + CHARA + @"GoGoStart\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.ConfigIni.nCharaAction_gogostart_max != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGoStart_Max\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0)
             {
-                Chara_GoGoStart_Maxed = new CTexture[CDTXMania.ConfigIni.nCharaAction_gogostart_max];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaAction_gogostart_max; i++)
+                Chara_GoGoStart_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max; i++)
                 {
                     Chara_GoGoStart_Maxed[i] = TxC(GAME + CHARA + @"GoGoStart_Max\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.ConfigIni.nCharaAction_clearstart != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_ClearIn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"ClearIn\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0)
             {
-                Chara_Become_Cleared = new CTexture[CDTXMania.ConfigIni.nCharaAction_clearstart];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaAction_clearstart; i++)
+                Chara_Become_Cleared = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_ClearIn];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_ClearIn; i++)
                 {
-                    Chara_Become_Cleared[i] = TxC(GAME + CHARA + @"ClearStart\" + i.ToString() + ".png");
+                    Chara_Become_Cleared[i] = TxC(GAME + CHARA + @"ClearIn\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.ConfigIni.nCharaAction_fullgauge != 0)
+            CDTXMania.Skin.Game_Chara_Ptn_SoulIn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"SoulIn\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0)
             {
-                Chara_Become_Maxed = new CTexture[CDTXMania.ConfigIni.nCharaAction_fullgauge];
-                for (int i = 0; i < CDTXMania.ConfigIni.nCharaAction_fullgauge; i++)
+                Chara_Become_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_SoulIn];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_SoulIn; i++)
                 {
-                    Chara_Become_Maxed[i] = TxC(GAME + CHARA + @"FullGauge\" + i.ToString() + ".png");
+                    Chara_Become_Maxed[i] = TxC(GAME + CHARA + @"SoulIn\" + i.ToString() + ".png");
                 }
             }
             Chara_Balloon_Breaking = TxC(GAME + CHARA + @"Breaking.png");
             Chara_Balloon_Broken = TxC(GAME + CHARA + @"Broken.png");
             #endregion
             #region 踊り子
-            if (CDTXMania.ConfigIni.nDancerMotionCount != 0)
+            CDTXMania.Skin.Game_Dancer_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + DANCER + @"1\"));
+            if (CDTXMania.Skin.Game_Dancer_Ptn != 0)
             {
-                Dancer_1 = new CTexture[CDTXMania.ConfigIni.nDancerMotionCount];
-                Dancer_2 = new CTexture[CDTXMania.ConfigIni.nDancerMotionCount];
-                Dancer_3 = new CTexture[CDTXMania.ConfigIni.nDancerMotionCount];
-                Dancer_4 = new CTexture[CDTXMania.ConfigIni.nDancerMotionCount];
-                Dancer_5 = new CTexture[CDTXMania.ConfigIni.nDancerMotionCount];
-                for (int i = 0; i < CDTXMania.ConfigIni.nDancerMotionCount; i++)
+                Dancer_1 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                Dancer_2 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                Dancer_3 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                Dancer_4 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                Dancer_5 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                for (int i = 0; i < CDTXMania.Skin.Game_Dancer_Ptn; i++)
                 {
                     Dancer_1[i] = TxC(GAME + DANCER + @"1\" + i.ToString() + ".png");
                     Dancer_2[i] = TxC(GAME + DANCER + @"2\" + i.ToString() + ".png");

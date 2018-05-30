@@ -1605,7 +1605,7 @@ namespace DTXMania
                             //{
                                 if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                                 {
-                                    if (CDTXMania.ConfigIni.nCharaAction_10combo != 0)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                         {
@@ -1619,7 +1619,7 @@ namespace DTXMania
                                             //this.actChara.マイどん_アクション_10コンボ();
                                         }
                                     }
-                                    if (CDTXMania.ConfigIni.nCharaAction_10combo_max != 0)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                         {
@@ -3138,7 +3138,7 @@ namespace DTXMania
                             dbUnit = (((60.0 / pChip.dbBPM)));
                             if(nPlayer == 0)
                             {
-                                if (CDTXMania.ConfigIni.nCharaAction_gogostart != 0)
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0)
                                 {
                                     if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                     {
@@ -3152,7 +3152,7 @@ namespace DTXMania
                                         //this.actChara.マイどん_アクション_10コンボ();
                                     }
                                 }
-                                if (CDTXMania.ConfigIni.nCharaAction_gogostart_max != 0)
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0)
                                 {
                                     if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                     {

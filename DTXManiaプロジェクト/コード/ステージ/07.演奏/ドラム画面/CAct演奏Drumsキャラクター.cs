@@ -77,11 +77,11 @@ namespace DTXMania
         {
             //キャラクター画像を格納しているディレクトリに各モーションの画像がいくつあるかを検索。
             //現在は固定値。
-            this.nキャラクター通常モーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount;
-            this.nキャラクターゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_gogo;
-            this.nキャラクタークリアモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_clear;
-            this.nキャラクターMAX通常モーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_max;
-            this.nキャラクターMAXゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_maxgogo;
+            //this.nキャラクター通常モーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount;
+            //this.nキャラクターゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_gogo;
+            //this.nキャラクタークリアモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_clear;
+            //this.nキャラクターMAX通常モーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_max;
+            //this.nキャラクターMAXゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_maxgogo;
 
             // ↓踊り子・モブ↓
             //this.n踊り子モーション枚数 = 28;
@@ -167,12 +167,12 @@ namespace DTXMania
             //}
 
             // ↓マイどんアクション↓
-            this.nキャラクターアクション_10コンボ枚数 = CDTXMania.ConfigIni.nCharaAction_10combo;
-            this.nキャラクターアクション_10コンボMAX枚数 = CDTXMania.ConfigIni.nCharaAction_10combo_max;
-            this.nキャラクターアクション_ゴーゴースタート枚数 = CDTXMania.ConfigIni.nCharaAction_gogostart;
-            this.nキャラクターアクション_ゴーゴースタートMAX枚数 = CDTXMania.ConfigIni.nCharaAction_gogostart_max;
-            this.nキャラクターアクション_ノルマ枚数 = CDTXMania.ConfigIni.nCharaAction_clearstart;
-            this.nキャラクターアクション_魂MAX枚数 = CDTXMania.ConfigIni.nCharaAction_fullgauge;
+            //this.nキャラクターアクション_10コンボ枚数 = CDTXMania.ConfigIni.nCharaAction_10combo;
+            //this.nキャラクターアクション_10コンボMAX枚数 = CDTXMania.ConfigIni.nCharaAction_10combo_max;
+            //this.nキャラクターアクション_ゴーゴースタート枚数 = CDTXMania.ConfigIni.nCharaAction_gogostart;
+            //this.nキャラクターアクション_ゴーゴースタートMAX枚数 = CDTXMania.ConfigIni.nCharaAction_gogostart_max;
+            //this.nキャラクターアクション_ノルマ枚数 = CDTXMania.ConfigIni.nCharaAction_clearstart;
+            //this.nキャラクターアクション_魂MAX枚数 = CDTXMania.ConfigIni.nCharaAction_fullgauge;
 
             //if (this.nキャラクターアクション_10コンボ枚数 != 0)
             //{

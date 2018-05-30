@@ -474,7 +474,7 @@ namespace DTXMania
                 {
                     base.eフェーズID = CStage.Eフェーズ.演奏_演奏終了演出;
                     this.actEnd.Start();
-                    if (CDTXMania.ConfigIni.nCharaAction_10combo_max != 0)
+                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0)
                     {
                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                         {

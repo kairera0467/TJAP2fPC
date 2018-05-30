@@ -1132,6 +1132,41 @@ namespace DTXMania
                                 }
                             }
                             #endregion
+                            #region Chara
+                            // キャラの設定はTextureLoader.csで反映されます。
+                            #endregion
+                            #region Dancer
+                            else if (strCommand == "Game_Dancer_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    Game_Dancer_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Dancer_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    Game_Dancer_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Dancer_Motion")
+                            {
+                                Game_Dancer_Motion = strParam;
+                                //string[] strSplit = strParam.Split(',');
+                                //for (int i = 0; i < strSplit.Length; i++)
+                                //{
+                                //    Game_Dancer_Motion[i] = int.Parse(strSplit[i]);
+                                //}
+                            }
+                            // Game_Dancer_PtnはTextrueLoader.csで反映されます。
+                            else if (strCommand == "Game_Dancer_Beat")
+                            {
+                                Game_Dancer_Beat = int.Parse(strParam);
+                            }
+                            #endregion
                             #region Taiko
                             else if (strCommand == "Game_Taiko_NamePlate_X")
                             {
@@ -1400,6 +1435,24 @@ namespace DTXMania
 
         #region 新・SkinConfig
         #region Game
+        #region Chara
+        public int Game_Chara_Ptn_Normal,
+            Game_Chara_Ptn_GoGo,
+            Game_Chara_Ptn_Clear,
+            Game_Chara_Ptn_10combo,
+            Game_Chara_Ptn_10combo_Max,
+            Game_Chara_Ptn_GoGoStart,
+            Game_Chara_Ptn_GoGoStart_Max,
+            Game_Chara_Ptn_ClearIn,
+            Game_Chara_Ptn_SoulIn = 0;
+        #endregion
+        #region Dancer
+        public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
+        public int[] Game_Dancer_Y = new int[] { 500, 500, 500, 500, 500 };
+        public string Game_Dancer_Motion = "0";
+        public int Game_Dancer_Ptn = 0;
+        public int Game_Dancer_Beat = 8;
+        #endregion
         #region CourseSymbol
         public int[] Game_CourseSymbol_X = new int[] { 64, 64 };
         public int[] Game_CourseSymbol_Y = new int[] { 232, 432 };

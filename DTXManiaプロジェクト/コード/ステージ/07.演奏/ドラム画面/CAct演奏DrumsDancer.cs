@@ -33,10 +33,10 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
-            this.n踊り子モーション枚数 = CDTXMania.ConfigIni.nDancerMotionCount;
-            this.str踊り子リスト = CDTXMania.ConfigIni.strDancerMotionList;
+            //this.n踊り子モーション枚数 = CDTXMania.ConfigIni.nDancerMotionCount;
+            //this.str踊り子リスト = CDTXMania.ConfigIni.strDancerMotionList;
 
-            this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(str踊り子リスト);
+            this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(CDTXMania.Skin.Game_Dancer_Motion);
 
             //this.tx踊り子_1 = new CTexture[this.n踊り子モーション枚数];
             //this.tx踊り子_2 = new CTexture[this.n踊り子モーション枚数];
@@ -150,34 +150,34 @@ namespace DTXMania
 
             if (CDTXMania.ConfigIni.bDancer)
             {
-                if (CDTXMania.Tx.Dancer_1 != null)
+                if (CDTXMania.Tx.Dancer_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
                 {
                     CDTXMania.Tx.Dancer_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 640, 500);
                 }
                 if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 20)
                 {
-                    if (CDTXMania.Tx.Dancer_2 != null)
+                    if (CDTXMania.Tx.Dancer_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
                     {
                         CDTXMania.Tx.Dancer_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 430, 500);
                     }
                 }
                 if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 40)
                 {
-                    if (CDTXMania.Tx.Dancer_3 != null)
+                    if (CDTXMania.Tx.Dancer_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]]  != null)
                     {
                         CDTXMania.Tx.Dancer_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 856, 500);
                     }
                 }
                 if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 60)
                 {
-                    if (CDTXMania.Tx.Dancer_4 != null)
+                    if (CDTXMania.Tx.Dancer_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
                     {
                         CDTXMania.Tx.Dancer_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 215, 500);
                     }
                 }
                 if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80)
                 {
-                    if (CDTXMania.Tx.Dancer_5 != null)
+                    if (CDTXMania.Tx.Dancer_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
                     {
                         CDTXMania.Tx.Dancer_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 1070, 500);
                     }
@@ -367,13 +367,13 @@ namespace DTXMania
         //private CTexture[] tx踊り子_4;
         //private CTexture[] tx踊り子_5;
 
-        public int n踊り子モーション枚数;
+        //public int n踊り子モーション枚数;
 
         public int[] ar踊り子モーション番号;
 
         public CCounter ct踊り子モーション;
 
-        public string str踊り子リスト;
+        //public string str踊り子リスト;
         //-----------------
         #endregion
     }
