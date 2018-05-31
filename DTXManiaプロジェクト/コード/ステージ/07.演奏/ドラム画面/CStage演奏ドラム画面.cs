@@ -197,33 +197,34 @@ namespace DTXMania
 			// MODIFY_END #25398
 			dtLastQueueOperation = DateTime.MinValue;
 
-            int nUnit = (int)( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) * 1000.0 / this.actChara.arモーション番号.Length );
-            int nUnit_gogo = (int)((60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) / this.actChara.arゴーゴーモーション番号.Length ) * 1000 );
+            //int nUnit = (int)( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) * 1000.0 / this.actChara.arモーション番号.Length );
+            //int nUnit_gogo = (int)((60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) / this.actChara.arゴーゴーモーション番号.Length ) * 1000 );
 
-            double dbUnit = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) );
-            double dbUnit_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.arゴーゴーモーション番号.Length );
+            //double dbUnit = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) );
+            //double dbUnit_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.arゴーゴーモーション番号.Length );
 
-            dbUnit = Math.Ceiling( dbUnit * 1000.0 );
-            dbUnit = dbUnit / 1000.0;
+            double dbPtn_Normal = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Normal / this.actChara.arモーション番号.Length;
+            double dbPtn_Clear = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Clear / this.actChara.arクリアモーション番号.Length;
+            double dbPtn_GoGo = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_GoGo / this.actChara.arゴーゴーモーション番号.Length;
 
-            this.actChara.ct通常モーション = new CCounter( 0, this.actChara.arモーション番号.Length - 1, ( dbUnit / this.actChara.arモーション番号.Length ), CSound管理.rc演奏用タイマ );
-            //this.actChara.ct通常モーション = new CCounter( 0, this.actChara.arモーション番号.Length - 1, 0.07, CSound管理.rc演奏用タイマ );
-            this.actChara.ctゴーゴーモーション = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbUnit_gogo * 2, CSound管理.rc演奏用タイマ );
+            //dbUnit = Math.Ceiling( dbUnit * 1000.0 );
+            //dbUnit = dbUnit / 1000.0;
 
-            if( this.actChara.nキャラクタークリアモーション枚数 != 0 )
+            //this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
+            ////this.actChara.ct通常モーション = new CCounter( 0, this.actChara.arモーション番号.Length - 1, 0.07, CSound管理.rc演奏用タイマ );
+            //this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
+
+            if(CDTXMania.Skin.Game_Chara_Ptn_Normal != 0 )
             {
-                double dbUnit_clear = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.arクリアモーション番号.Length );
-                this.actChara.ctクリア通常モーション = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, dbUnit_clear * 2, CSound管理.rc演奏用タイマ );
+                this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
             }
-            if( this.actChara.nキャラクターMAX通常モーション枚数 != 0 )
+            if(CDTXMania.Skin.Game_Chara_Ptn_Clear != 0 )
             {
-                double dbUnit_max = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.ar黄色モーション番号.Length );
-                this.actChara.ctMAX通常モーション = new CCounter( 0, this.actChara.ar黄色モーション番号.Length - 1, dbUnit_max * 2, CSound管理.rc演奏用タイマ );
+                this.actChara.ctChara_Clear = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ );
             }
-            if( this.actChara.nキャラクターMAXゴーゴーモーション枚数 != 0 )
+            if( CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0 )
             {
-                double dbUnit_max_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.ar黄色ゴーゴーモーション番号.Length );
-                this.actChara.ctMAXゴーゴーモーション = new CCounter( 0, this.actChara.ar黄色ゴーゴーモーション番号.Length - 1, dbUnit_max_gogo * 2, CSound管理.rc演奏用タイマ );
+                this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
             }
 
             //if (this.actChara.ctキャラクターアクションタイマ != null) this.actChara.ctキャラクターアクションタイマ = new CCounter();
@@ -234,7 +235,7 @@ namespace DTXMania
             if(this.actDancer.ct踊り子モーション != null)
             {
                 double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
-                this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * 8, CSound管理.rc演奏用タイマ);
+                this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * CDTXMania.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
             }
 
             this.ct手つなぎ = new CCounter( 0, 60, 20, CDTXMania.Timer );
@@ -480,7 +481,7 @@ namespace DTXMania
                         {
                             double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
                             this.actChara.アクションタイマーリセット();
-                            this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボMAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_10コンボ枚数) * 2, CSound管理.rc演奏用タイマ);
+                            this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_10combo - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_10combo) * 2, CSound管理.rc演奏用タイマ);
                             this.actChara.ctキャラクターアクション_10コンボMAX.t進行db();
                             this.actChara.ctキャラクターアクション_10コンボMAX.db現在の値 = 0D;
                             this.actChara.bマイどんアクション中 = true;

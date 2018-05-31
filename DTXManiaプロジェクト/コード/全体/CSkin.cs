@@ -1133,7 +1133,47 @@ namespace DTXMania
                             }
                             #endregion
                             #region Chara
-                            // キャラの設定はTextureLoader.csで反映されます。
+                            else if (strCommand == "Game_Chara_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Chara_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Chara_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Chara_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            // パターン数の設定はTextureLoader.csで反映されます。
+                            else if (strCommand == "Game_Chara_Motion_Normal")
+                            {
+                                Game_Chara_Motion_Normal = strParam;
+                            }
+                            else if (strCommand == "Game_Chara_Motion_Clear")
+                            {
+                                Game_Chara_Motion_Clear = strParam;
+                            }
+                            else if (strCommand == "Game_Chara_Motion_GoGo")
+                            {
+                                Game_Chara_Motion_GoGo = strParam;
+                            }
+                            else if (strCommand == "Game_Chara_Beat_Normal")
+                            {
+                                Game_Chara_Beat_Normal = int.Parse(strParam);
+                            }
+                            else if (strCommand == "Game_Chara_Beat_Clear")
+                            {
+                                Game_Chara_Beat_Clear = int.Parse(strParam);
+                            }
+                            else if (strCommand == "Game_Chara_Beat_GoGo")
+                            {
+                                Game_Chara_Beat_GoGo = int.Parse(strParam);
+                            }
                             #endregion
                             #region Dancer
                             else if (strCommand == "Game_Dancer_X")
@@ -1436,6 +1476,8 @@ namespace DTXMania
         #region 新・SkinConfig
         #region Game
         #region Chara
+        public int[] Game_Chara_X = new int[] { 0, 0 };
+        public int[] Game_Chara_Y = new int[] { 0, 537 };
         public int Game_Chara_Ptn_Normal,
             Game_Chara_Ptn_GoGo,
             Game_Chara_Ptn_Clear,
@@ -1445,6 +1487,12 @@ namespace DTXMania
             Game_Chara_Ptn_GoGoStart_Max,
             Game_Chara_Ptn_ClearIn,
             Game_Chara_Ptn_SoulIn = 0;
+        public string Game_Chara_Motion_Normal,
+            Game_Chara_Motion_Clear,
+            Game_Chara_Motion_GoGo = "0";
+        public int Game_Chara_Beat_Normal = 1;
+        public int Game_Chara_Beat_Clear = 2;
+        public int Game_Chara_Beat_GoGo = 2;
         #endregion
         #region Dancer
         public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
