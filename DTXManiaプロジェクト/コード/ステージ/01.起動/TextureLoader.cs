@@ -260,8 +260,9 @@ namespace DTXMania
             }
             #endregion
             #region モブ
-            Mob = new CTexture[30];
-            for (int i = 0; i < 30; i++)
+            CDTXMania.Skin.Game_Mob_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + MOB));
+            Mob = new CTexture[CDTXMania.Skin.Game_Mob_Ptn];
+            for (int i = 0; i < CDTXMania.Skin.Game_Mob_Ptn; i++)
             {
                 Mob[i] = TxC(GAME + MOB + i.ToString() + ".png");
             }

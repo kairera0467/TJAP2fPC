@@ -35,7 +35,7 @@ namespace DTXMania
             ctChara_Clear = new CCounter();
             //// ↓踊り子・モブ↓
             //this.ct踊り子モーション = new CCounter();
-            this.ctモブモーション = new CCounter();
+            //this.ctモブモーション = new CCounter();
             // ↑踊り子・モブ↑
 
             //this.ctキャラクターアクションタイマ = new CCounter();
@@ -65,7 +65,7 @@ namespace DTXMania
             ctChara_Clear = null;
             //// ↓踊り子・モブ↓
             //this.ct踊り子モーション = null;
-            this.ctモブモーション = null;
+            //this.ctモブモーション = null;
             // ↑踊り子・モブ↑
 
             //this.ctキャラクターアクションタイマ = null;
@@ -90,14 +90,14 @@ namespace DTXMania
             //this.nキャラクターMAXゴーゴーモーション枚数 = CDTXMania.ConfigIni.nCharaMotionCount_maxgogo;
 
             // ↓踊り子・モブ↓
-            //this.n踊り子モーション枚数 = 28;
-            this.nモブモーション枚数 = 30;
+            ////this.n踊り子モーション枚数 = 28;
+            //this.nモブモーション枚数 = 30;
 
-            //this.str踊り子リスト = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27";//,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1";
-            this.strモブ = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0";
+            ////this.str踊り子リスト = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27";//,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1";
+            //this.strモブ = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0";
 
-            //this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(str踊り子リスト);
-            this.arモブモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(strモブ);
+            ////this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(str踊り子リスト);
+            //this.arモブモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(strモブ);
 
             //this.tx踊り子_1 = new CTexture[this.n踊り子モーション枚数];
             //for (int i = 0; i < this.n踊り子モーション枚数; i++)
@@ -250,7 +250,7 @@ namespace DTXMania
             //if( this.nキャラクターMAXゴーゴーモーション枚数 != 0 )
             //    this.ctMAXゴーゴーモーション = new CCounter( 0, this.ar黄色ゴーゴーモーション番号.Length - 1, 50, CDTXMania.Timer );
             //this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.04, CSound管理.rc演奏用タイマ);
-            this.ctモブモーション = new CCounter(0, this.arモブモーション番号.Length - 1, 0.04, CSound管理.rc演奏用タイマ);
+            //this.ctモブモーション = new CCounter(0, this.arモブモーション番号.Length - 1, 0.04, CSound管理.rc演奏用タイマ);
 
             ctChara_Normal = new CCounter(0, arモーション番号.Length - 1, 10, CSound管理.rc演奏用タイマ);
             ctChara_GoGo = new CCounter(0, arゴーゴーモーション番号.Length - 1, 10, CSound管理.rc演奏用タイマ);
@@ -381,92 +381,8 @@ namespace DTXMania
 
             // ↓踊り子・モブ↓
             //if (this.ct踊り子モーション != null) this.ct踊り子モーション.t進行LoopDb();
-            if (this.ctモブモーション != null) this.ctモブモーション.t進行LoopDb();
+            //if (this.ctモブモーション != null) this.ctモブモーション.t進行LoopDb();
             // ↑踊り子・モブ↑
-
-            // ↓マイどんアクション↓
-            /*
-            CDTXMania.act文字コンソール.tPrint(380, 0, C文字コンソール.Eフォント種別.白, this.bマイどんアクション中.ToString());
-            CDTXMania.act文字コンソール.tPrint(380, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_10コンボ.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(380, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_10コンボ.b進行中db.ToString());
-            CDTXMania.act文字コンソール.tPrint(420, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_10コンボMAX.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(420, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_10コンボMAX.b進行中db.ToString());
-            CDTXMania.act文字コンソール.tPrint(460, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_ゴーゴースタート.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(460, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_ゴーゴースタート.b進行中db.ToString());
-            CDTXMania.act文字コンソール.tPrint(500, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_ゴーゴースタートMAX.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(500, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_ゴーゴースタートMAX.b進行中db.ToString());
-            CDTXMania.act文字コンソール.tPrint(540, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_ノルマ.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(540, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_ノルマ.b進行中db.ToString());
-            CDTXMania.act文字コンソール.tPrint(580, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_魂MAX.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(580, 60, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクション_魂MAX.b進行中db.ToString());
-            */
-
-            //CDTXMania.act文字コンソール.tPrint(620, 40, C文字コンソール.Eフォント種別.白, "bIsAlreadyCleared: " + CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared.ToString());
-            //CDTXMania.act文字コンソール.tPrint(620, 60, C文字コンソール.Eフォント種別.白, "bIsAlreadyMaxed: " + CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed.ToString());
-
-            //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.n前回のコンボ数.ToString());
-            //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, this.db前回のゲージ値.ToString());
-            //CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, this.ctキャラクターアクションタイマ.db現在の値.ToString());
-            //if (n前回のコンボ数 < CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数[0])
-            //{
-            //    // コンボ数が増えた
-            //    CDTXMania.act文字コンソール.tPrint(50, 0, C文字コンソール.Eフォント種別.白, "Combo+");
-            //    if (CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数[0] % 10 == 0)
-            //    {
-            //        // 10で割り切れる
-            //        CDTXMania.act文字コンソール.tPrint(100, 0, C文字コンソール.Eフォント種別.白, "10combo");
-            //        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
-            //        {
-            //            // 魂ゲージMAXではない
-            //            // ジャンプ_ノーマル
-            //            this.マイどん_アクション_タイマーリセット();
-            //            this.マイどん_アクション_スタート(this.nキャラクターアクション_10コンボ枚数, 1);
-            //        }
-            //        else
-            //        {
-            //            // 魂ゲージMAX
-            //            // ジャンプ_MAX
-            //            this.マイどん_アクション_タイマーリセット();
-            //            this.マイどん_アクション_スタート(this.nキャラクターアクション_10コンボMAX枚数, 2);
-            //        }
-            //    }
-
-            //    if(db前回のゲージ値 <= CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0])
-            //    {
-            //        // ゲージが増加した
-            //        if(CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] <= 100)
-            //        {
-            //            // 魂ゲージMAX
-            //            // ゲージ_MAX
-            //            this.マイどん_アクション_タイマーリセット();
-            //            //this.マイどん_アクション_スタート(this.nキャラクターアクション_10コンボ枚数, 6);
-
-            //        }
-            //        else if(CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] <= 80)
-            //        {
-            //            // ノルマに到達した
-            //            // ゲージ_ノルマ
-            //            this.マイどん_アクション_タイマーリセット();
-            //            //this.マイどん_アクション_スタート(this.nキャラクターアクション_10コンボ枚数, 5);
-            //        }
-            //    }
-            //}
-            // ↑マイどんアクション↑
-
-            //this.n前回のコンボ数 = CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数[0];
-            //this.db前回のゲージ値 = CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0];
-
-            CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.arモーション番号.Length.ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, this.arクリアモーション番号.Length.ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, this.arゴーゴーモーション番号.Length.ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, ctChara_Normal.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 80, C文字コンソール.Eフォント種別.白, ctChara_GoGo.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 100, C文字コンソール.Eフォント種別.白, ctChara_Clear.db現在の値.ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 120, C文字コンソール.Eフォント種別.白, CDTXMania.Skin.Game_Chara_Ptn_10combo.ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 140, C文字コンソール.Eフォント種別.白, CDTXMania.Skin.Game_Chara_Ptn_GoGoStart.ToString());
-            CDTXMania.act文字コンソール.tPrint(0, 160, C文字コンソール.Eフォント種別.白, ((60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) / CDTXMania.Skin.Game_Chara_Beat_Clear / arクリアモーション番号.Length).ToString());
-            
-
 
             if ( this.b風船連打中 != true && this.bマイどんアクション中 != true)
             {
@@ -655,13 +571,13 @@ namespace DTXMania
 
 
                     //モブの登場処理(魂ゲージMAX)
-                    if (CDTXMania.Tx.Mob[0] != null)
-                    {
-                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
-                        {
-                            CDTXMania.Tx.Mob[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].t2D描画(CDTXMania.app.Device, 0, 720 - CDTXMania.Tx.Mob[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].szテクスチャサイズ.Height);
-                        }
-                    }
+                    //if (CDTXMania.Tx.Mob[0] != null)
+                    //{
+                    //    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
+                    //    {
+                    //        CDTXMania.Tx.Mob[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].t2D描画(CDTXMania.app.Device, 0, 720 - CDTXMania.Tx.Mob[this.arモブモーション番号[(int)this.ctモブモーション.db現在の値]].szテクスチャサイズ.Height);
+                    //    }
+                    //}
                 }
             }
 
@@ -688,81 +604,17 @@ namespace DTXMania
             ctキャラクターアクション_魂MAX.db現在の値 = 0D;
         }
 
-        private CTexture txフッター;
-
-        //---------------------------
-        //private CTexture[] txキャラクターNormal; //キャラクター画像 通常モーション
-        //private CTexture[] txキャラクターClear_Normal;
-        //private CTexture[] txキャラクターMax_Normal;
-        //private CTexture[] txキャラクターGogo;
-        //private CTexture[] txキャラクターMax_Gogo;
-        //private CTexture[] txキャラクターJump; //まだ実装できてない
-        //private CTexture[] txキャラクターMax_Jump; //まだ実装できてない
-
-        //public int nキャラクター通常モーション枚数;
-        ////public int nキャラクターコンボモーション枚数;
-        //public int nキャラクターゴーゴーモーション枚数;
-        //public int nキャラクタークリアモーション枚数;
-        //public int nキャラクターMAX通常モーション枚数;
-        //public int nキャラクターMAXゴーゴーモーション枚数;
-
         public int[] arモーション番号;
         public int[] arゴーゴーモーション番号;
         public int[] arクリアモーション番号;
-        //public int[] ar黄色モーション番号;
-        //public int[] ar黄色ゴーゴーモーション番号;
-
-        //public CCounter ct通常モーション;
-        //public CCounter ctクリア通常モーション;
-        //public CCounter ctゴーゴーモーション;
-        //public CCounter ctMAX通常モーション;
-        //public CCounter ctMAXゴーゴーモーション;
-
-        //public string strList;
-        //public string strListGogo;
-        //public string strListClear;
-        //public string strListMAX;
-        //public string strListMAXGogo;
-
-        //// ↓踊り子・モブ↓
-        //private CTexture[] tx踊り子_1;
-        //private CTexture[] tx踊り子_2;
-        //private CTexture[] tx踊り子_3;
-        //private CTexture[] tx踊り子_4;
-        //private CTexture[] tx踊り子_5;
-
-        //public int n踊り子モーション枚数;
-
-        //public int[] ar踊り子モーション番号;
-
-        //public CCounter ct踊り子モーション;
-
-        //public string str踊り子リスト;
-
         //private CTexture[] txモブ;
-        public int nモブモーション枚数;
-        public int[] arモブモーション番号;
-        public CCounter ctモブモーション;
-        public string strモブ;
+        //public int nモブモーション枚数;
+        //public int[] arモブモーション番号;
+        //public CCounter ctモブモーション;
+        //public string strモブ;
         // ↑踊り子・モブ↑
 
         // ↓マイどん追加アクション↓
-        //private CTexture[] txキャラクターアクション_10コンボ;
-        //private CTexture[] txキャラクターアクション_10コンボMAX;
-        //private CTexture[] txキャラクターアクション_ゴーゴースタート;
-        //private CTexture[] txキャラクターアクション_ゴーゴースタートMAX;
-        //private CTexture[] txキャラクターアクション_ノルマ;
-        //private CTexture[] txキャラクターアクション_魂MAX;
-
-
-
-        //public int nキャラクターアクション_10コンボ枚数;
-        //public int nキャラクターアクション_10コンボMAX枚数;
-        //public int nキャラクターアクション_ゴーゴースタート枚数;
-        //public int nキャラクターアクション_ゴーゴースタートMAX枚数;
-        //public int nキャラクターアクション_ノルマ枚数;
-        //public int nキャラクターアクション_魂MAX枚数;
-
         public CCounter ctキャラクターアクション_10コンボ;
         public CCounter ctキャラクターアクション_10コンボMAX;
         public CCounter ctキャラクターアクション_ゴーゴースタート;

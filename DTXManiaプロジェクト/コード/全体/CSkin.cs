@@ -1114,6 +1114,10 @@ namespace DTXMania
 
                             #region 新・SkinConfig
                             #region Game
+                            else if (strCommand == "Game_Notes_Anime")
+                            {
+                                Game_Notes_Anime = int.Parse(strParam);
+                            }
                             #region CourseSymbol
                             else if (strCommand == "Game_CourseSymbol_X")
                             {
@@ -1205,6 +1209,16 @@ namespace DTXMania
                             else if (strCommand == "Game_Dancer_Beat")
                             {
                                 Game_Dancer_Beat = int.Parse(strParam);
+                            }
+                            #endregion
+                            #region Mob
+                            else if (strCommand == "Game_Mob_Beat")
+                            {
+                                Game_Mob_Beat = int.Parse(strParam);
+                            }
+                            else if (strCommand == "Game_Mob_Ptn_Beat")
+                            {
+                                Game_Mob_Ptn_Beat = int.Parse(strParam);
                             }
                             #endregion
                             #region Taiko
@@ -1475,6 +1489,7 @@ namespace DTXMania
 
         #region 新・SkinConfig
         #region Game
+        public int Game_Notes_Anime = 0;
         #region Chara
         public int[] Game_Chara_X = new int[] { 0, 0 };
         public int[] Game_Chara_Y = new int[] { 0, 537 };
@@ -1500,6 +1515,11 @@ namespace DTXMania
         public string Game_Dancer_Motion = "0";
         public int Game_Dancer_Ptn = 0;
         public int Game_Dancer_Beat = 8;
+        #endregion
+        #region Mob
+        public int Game_Mob_Ptn = 0;
+        public int Game_Mob_Beat,
+            Game_Mob_Ptn_Beat = 1;
         #endregion
         #region CourseSymbol
         public int[] Game_CourseSymbol_X = new int[] { 64, 64 };

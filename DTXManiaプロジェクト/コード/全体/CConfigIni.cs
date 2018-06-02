@@ -679,36 +679,36 @@ namespace DTXMania
 
         public bool bChara;
 
-        public int nCharaMotionCount;
-        public int nCharaMotionCount_gogo;
-        public int nCharaMotionCount_clear;
-        public int nCharaMotionCount_max;
-        public int nCharaMotionCount_maxgogo;
-        public int nCharaMotionCount_jump;
-        public int nCharaMotionLoopBeats;
-        public int nCharaMotionLoopBeats_gogo;
-        public int nCharaMotionLoopBeats_clear;
-        public int nCharaMotionLoopBeats_max;
-        public int nCharaMotionLoopBeats_maxgogo;
+        //public int nCharaMotionCount;
+        //public int nCharaMotionCount_gogo;
+        //public int nCharaMotionCount_clear;
+        //public int nCharaMotionCount_max;
+        //public int nCharaMotionCount_maxgogo;
+        //public int nCharaMotionCount_jump;
+        //public int nCharaMotionLoopBeats;
+        //public int nCharaMotionLoopBeats_gogo;
+        //public int nCharaMotionLoopBeats_clear;
+        //public int nCharaMotionLoopBeats_max;
+        //public int nCharaMotionLoopBeats_maxgogo;
 
-        public int nCharaAction_10combo;
-        public int nCharaAction_10combo_max;
-        public int nCharaAction_gogostart;
-        public int nCharaAction_gogostart_max;
-        public int nCharaAction_clearstart;
-        public int nCharaAction_fullgauge;
+        //public int nCharaAction_10combo;
+        //public int nCharaAction_10combo_max;
+        //public int nCharaAction_gogostart;
+        //public int nCharaAction_gogostart_max;
+        //public int nCharaAction_clearstart;
+        //public int nCharaAction_fullgauge;
 
 
-        public string strCharaMotionList;
-        public string strCharaMotionList_gogo;
-        public string strCharaMotionList_clear;
-        public string strCharaMotionList_max;
-        public string strCharaMotionList_maxgogo;
-        public string strCharaMotionList_jump;
+        //public string strCharaMotionList;
+        //public string strCharaMotionList_gogo;
+        //public string strCharaMotionList_clear;
+        //public string strCharaMotionList_max;
+        //public string strCharaMotionList_maxgogo;
+        //public string strCharaMotionList_jump;
 
         public bool bDancer;
-        public int nDancerMotionCount;
-        public string strDancerMotionList;
+        //public int nDancerMotionCount;
+        //public string strDancerMotionList;
 
         public E難易度表示タイプ eDiffShowType;
         public EScrollMode eScrollMode = EScrollMode.Normal;
@@ -1349,31 +1349,31 @@ namespace DTXMania
             this.bJudgeCountDisplay = false;
             this.bChara = true;
 
-            this.nCharaMotionCount = 6;
-            this.nCharaMotionCount_clear = 0;
-            this.nCharaMotionCount_gogo = 22;
-            this.nCharaMotionCount_max = 0;
-            this.nCharaMotionCount_maxgogo = 0;
+            //this.nCharaMotionCount = 6;
+            //this.nCharaMotionCount_clear = 0;
+            //this.nCharaMotionCount_gogo = 22;
+            //this.nCharaMotionCount_max = 0;
+            //this.nCharaMotionCount_maxgogo = 0;
 
-            this.nCharaAction_10combo = 0;
-            this.nCharaAction_10combo_max = 0;
-            this.nCharaAction_gogostart = 0;
-            this.nCharaAction_gogostart_max = 0;
-            this.nCharaAction_clearstart = 0;
-            this.nCharaAction_fullgauge = 0;
+            //this.nCharaAction_10combo = 0;
+            //this.nCharaAction_10combo_max = 0;
+            //this.nCharaAction_gogostart = 0;
+            //this.nCharaAction_gogostart_max = 0;
+            //this.nCharaAction_clearstart = 0;
+            //this.nCharaAction_fullgauge = 0;
 
 
-            this.strCharaMotionList = "5,4,3,2,1,0,0,0,0,0,0,1,2,3,4,5";
-            this.strCharaMotionList_gogo = "0,1,2,3,4,5,6,7,8,9,10,10,11,12,13,14,15,16,17,18,19,20,21";
-            this.strCharaMotionList_clear = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22";
-            this.strCharaMotionList_max = "0";
-            this.strCharaMotionList_maxgogo = "0";
+            //this.strCharaMotionList = "5,4,3,2,1,0,0,0,0,0,0,1,2,3,4,5";
+            //this.strCharaMotionList_gogo = "0,1,2,3,4,5,6,7,8,9,10,10,11,12,13,14,15,16,17,18,19,20,21";
+            //this.strCharaMotionList_clear = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22";
+            //this.strCharaMotionList_max = "0";
+            //this.strCharaMotionList_maxgogo = "0";
 
-            this.nCharaMotionLoopBeats_clear = 2;
+            //this.nCharaMotionLoopBeats_clear = 2;
 
             this.bDancer = true;
-            this.nDancerMotionCount = 28;
-            this.strDancerMotionList = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27";
+            //this.nDancerMotionCount = 28;
+            //this.strDancerMotionList = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27";
 
             this.eSTEALTH = Eステルスモード.OFF;
             this.bNoInfo = false;
@@ -1886,45 +1886,45 @@ namespace DTXMania
 			sw.WriteLine( "; キャラクター画像(β版)を有効にする(ズレがあるのでまだβ)" );
 			sw.WriteLine( "Chara={0}", this.bChara ? 1 : 0 );
 
-			sw.WriteLine( "; キャラクターの画像数" );
-			sw.WriteLine( "CharaMotionCount={0}", this.nCharaMotionCount );
-            sw.WriteLine( "CharaMotionCountGogo={0}", this.nCharaMotionCount_gogo );
-			sw.WriteLine( "CharaMotionCountClear={0}", this.nCharaMotionCount_clear );
-            sw.WriteLine( "CharaMotionCountMax={0}", this.nCharaMotionCount_max );
-            sw.WriteLine( "CharaMotionCountMaxGogo={0}", this.nCharaMotionCount_maxgogo );
-			sw.WriteLine();
+			//sw.WriteLine( "; キャラクターの画像数" );
+			//sw.WriteLine( "CharaMotionCount={0}", this.nCharaMotionCount );
+   //         sw.WriteLine( "CharaMotionCountGogo={0}", this.nCharaMotionCount_gogo );
+			//sw.WriteLine( "CharaMotionCountClear={0}", this.nCharaMotionCount_clear );
+   //         sw.WriteLine( "CharaMotionCountMax={0}", this.nCharaMotionCount_max );
+   //         sw.WriteLine( "CharaMotionCountMaxGogo={0}", this.nCharaMotionCount_maxgogo );
+			//sw.WriteLine();
 
-            sw.WriteLine("; キャラクター画像数(アクション)");
-            sw.WriteLine("nCharaAction_10combo={0}", this.nCharaAction_10combo);
-            sw.WriteLine("nCharaAction_10combo_max={0}", this.nCharaAction_10combo_max);
-            sw.WriteLine("nCharaAction_gogostart={0}", nCharaAction_gogostart);
-            sw.WriteLine("nCharaAction_gogostart_max={0}", this.nCharaAction_gogostart_max);
-            sw.WriteLine("nCharaAction_clearstart={0}", this.nCharaAction_clearstart);
-            sw.WriteLine("nCharaAction_fullgauge={0}", this.nCharaAction_fullgauge);
-            sw.WriteLine();
+   //         sw.WriteLine("; キャラクター画像数(アクション)");
+   //         sw.WriteLine("nCharaAction_10combo={0}", this.nCharaAction_10combo);
+   //         sw.WriteLine("nCharaAction_10combo_max={0}", this.nCharaAction_10combo_max);
+   //         sw.WriteLine("nCharaAction_gogostart={0}", nCharaAction_gogostart);
+   //         sw.WriteLine("nCharaAction_gogostart_max={0}", this.nCharaAction_gogostart_max);
+   //         sw.WriteLine("nCharaAction_clearstart={0}", this.nCharaAction_clearstart);
+   //         sw.WriteLine("nCharaAction_fullgauge={0}", this.nCharaAction_fullgauge);
+   //         sw.WriteLine();
 
-            sw.WriteLine( "; キャラクターのコマパターン" );
-			sw.WriteLine( "CharaMotionList={0}", this.strCharaMotionList );
-            sw.WriteLine( "CharaMotionListGogo={0}", this.strCharaMotionList_gogo );
-            sw.WriteLine( "CharaMotionListClear={0}", this.strCharaMotionList_clear );
-            sw.WriteLine( "CharaMotionListMax={0}", this.strCharaMotionList_max );
-            sw.WriteLine( "CharaMotionListMaxGogo={0}", this.strCharaMotionList_maxgogo );
-			sw.WriteLine();
+   //         sw.WriteLine( "; キャラクターのコマパターン" );
+			//sw.WriteLine( "CharaMotionList={0}", this.strCharaMotionList );
+   //         sw.WriteLine( "CharaMotionListGogo={0}", this.strCharaMotionList_gogo );
+   //         sw.WriteLine( "CharaMotionListClear={0}", this.strCharaMotionList_clear );
+   //         sw.WriteLine( "CharaMotionListMax={0}", this.strCharaMotionList_max );
+   //         sw.WriteLine( "CharaMotionListMaxGogo={0}", this.strCharaMotionList_maxgogo );
+			//sw.WriteLine();
 
-			sw.WriteLine( "; キャラクターのモーション周期(β版)" );
-            sw.WriteLine( "; 1拍単位で指定できます。" );
-			sw.WriteLine( "CharaMotionLoopBeats={0}", this.nCharaMotionLoopBeats );
-			sw.WriteLine( "CharaMotionLoopBeatsClear={0}", this.nCharaMotionLoopBeats_clear );
+			//sw.WriteLine( "; キャラクターのモーション周期(β版)" );
+   //         sw.WriteLine( "; 1拍単位で指定できます。" );
+			//sw.WriteLine( "CharaMotionLoopBeats={0}", this.nCharaMotionLoopBeats );
+			//sw.WriteLine( "CharaMotionLoopBeatsClear={0}", this.nCharaMotionLoopBeats_clear );
             sw.WriteLine();
 
             sw.WriteLine("; 踊り子(ダンサー)を有効にするか");
             sw.WriteLine("Dancer={0}", this.bDancer ? 1 : 0);
             sw.WriteLine();
 
-            sw.WriteLine("; 踊り子(ダンサー)の画像数");
-            sw.WriteLine("nDancerMotionCount={0}", this.nDancerMotionCount);
-            sw.WriteLine("strDancerMotionList={0}", this.strDancerMotionList);
-            sw.WriteLine();
+            //sw.WriteLine("; 踊り子(ダンサー)の画像数");
+            //sw.WriteLine("nDancerMotionCount={0}", this.nDancerMotionCount);
+            //sw.WriteLine("strDancerMotionList={0}", this.strDancerMotionList);
+            //sw.WriteLine();
 
 
             sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirorr 3:SuperRandom, 4:HyperRandom)" );
@@ -2906,82 +2906,82 @@ namespace DTXMania
 											{
 												this.bChara = C変換.bONorOFF( str4[ 0 ] );
 											}
-     									    else if ( str3.Equals( "CharaMotionCount" ) )
-											{
-												this.nCharaMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount );
-											}
-     									    else if ( str3.Equals( "CharaMotionCountClear" ) )
-											{
-												this.nCharaMotionCount_clear = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_clear );
-											}
-     									    else if ( str3.Equals( "CharaMotionCountGogo" ) )
-											{
-												this.nCharaMotionCount_gogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount );
-											}
-     									    else if ( str3.Equals( "CharaMotionCountMax" ) )
-											{
-												this.nCharaMotionCount_max = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_max );
-											}
-     									    else if ( str3.Equals( "CharaMotionCountMaxGogo" ) )
-											{
-												this.nCharaMotionCount_maxgogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_maxgogo );
-											}
-                                            else if ( str3.Equals("nCharaAction_10combo"))
-                                            {
-                                                this.nCharaAction_10combo = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo);
-                                            }
-                                            else if (str3.Equals("nCharaAction_10combo_max"))
-                                            {
-                                                this.nCharaAction_10combo_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo_max);
-                                            }
-                                            else if (str3.Equals("nCharaAction_gogostart"))
-                                            {
-                                                this.nCharaAction_gogostart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart);
-                                            }
-                                            else if (str3.Equals("nCharaAction_gogostart_max"))
-                                            {
-                                                this.nCharaAction_gogostart_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart_max);
-                                            }
-                                            else if (str3.Equals("nCharaAction_clearstart"))
-                                            {
-                                                this.nCharaAction_clearstart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_clearstart);
-                                            }
-                                            else if (str3.Equals("nCharaAction_fullgauge"))
-                                            {
-                                                this.nCharaAction_fullgauge = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_fullgauge);
-                                            }
-                                            else if ( str3.Equals( "CharaMotionList" ) )
-											{
-												this.strCharaMotionList = str4;
-											}
-     									    else if ( str3.Equals( "CharaMotionListGogo" ) )
-											{
-												this.strCharaMotionList_gogo = str4;
-											}
-                                            else if ( str3.Equals( "CharaMotionListClear" ) )
-											{
-												this.strCharaMotionList_clear = str4;
-											}
-     									    else if ( str3.Equals( "CharaMotionListMax" ) )
-											{
-												this.strCharaMotionList_max = str4;
-											}
-     									    else if ( str3.Equals( "CharaMotionListMaxGogo" ) )
-											{
-												this.strCharaMotionList_maxgogo = str4;
-											}
+     						//			    else if ( str3.Equals( "CharaMotionCount" ) )
+											//{
+											//	this.nCharaMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount );
+											//}
+     						//			    else if ( str3.Equals( "CharaMotionCountClear" ) )
+											//{
+											//	this.nCharaMotionCount_clear = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_clear );
+											//}
+     						//			    else if ( str3.Equals( "CharaMotionCountGogo" ) )
+											//{
+											//	this.nCharaMotionCount_gogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount );
+											//}
+     						//			    else if ( str3.Equals( "CharaMotionCountMax" ) )
+											//{
+											//	this.nCharaMotionCount_max = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_max );
+											//}
+     						//			    else if ( str3.Equals( "CharaMotionCountMaxGogo" ) )
+											//{
+											//	this.nCharaMotionCount_maxgogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_maxgogo );
+											//}
+           //                                 else if ( str3.Equals("nCharaAction_10combo"))
+           //                                 {
+           //                                     this.nCharaAction_10combo = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo);
+           //                                 }
+           //                                 else if (str3.Equals("nCharaAction_10combo_max"))
+           //                                 {
+           //                                     this.nCharaAction_10combo_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo_max);
+           //                                 }
+           //                                 else if (str3.Equals("nCharaAction_gogostart"))
+           //                                 {
+           //                                     this.nCharaAction_gogostart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart);
+           //                                 }
+           //                                 else if (str3.Equals("nCharaAction_gogostart_max"))
+           //                                 {
+           //                                     this.nCharaAction_gogostart_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart_max);
+           //                                 }
+           //                                 else if (str3.Equals("nCharaAction_clearstart"))
+           //                                 {
+           //                                     this.nCharaAction_clearstart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_clearstart);
+           //                                 }
+           //                                 else if (str3.Equals("nCharaAction_fullgauge"))
+           //                                 {
+           //                                     this.nCharaAction_fullgauge = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_fullgauge);
+           //                                 }
+           //                                 else if ( str3.Equals( "CharaMotionList" ) )
+											//{
+											//	this.strCharaMotionList = str4;
+											//}
+     						//			    else if ( str3.Equals( "CharaMotionListGogo" ) )
+											//{
+											//	this.strCharaMotionList_gogo = str4;
+											//}
+           //                                 else if ( str3.Equals( "CharaMotionListClear" ) )
+											//{
+											//	this.strCharaMotionList_clear = str4;
+											//}
+     						//			    else if ( str3.Equals( "CharaMotionListMax" ) )
+											//{
+											//	this.strCharaMotionList_max = str4;
+											//}
+     						//			    else if ( str3.Equals( "CharaMotionListMaxGogo" ) )
+											//{
+											//	this.strCharaMotionList_maxgogo = str4;
+											//}
                                             else if (str3.Equals("Dancer"))
                                             {
                                                 this.bDancer = C変換.bONorOFF(str4[0]);
                                             }
-                                            else if (str3.Equals("nDancerMotionCount"))
-                                            {
-                                                this.nDancerMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nDancerMotionCount);
-                                            }
-                                            else if (str3.Equals("strDancerMotionList"))
-                                            {
-                                                this.strDancerMotionList = str4;
-                                            }
+                                            //else if (str3.Equals("nDancerMotionCount"))
+                                            //{
+                                            //    this.nDancerMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nDancerMotionCount);
+                                            //}
+                                            //else if (str3.Equals("strDancerMotionList"))
+                                            //{
+                                            //    this.strDancerMotionList = str4;
+                                            //}
                                             else if ( str3.Equals( "DefaultSongSort" ) )
                                             {
                                                 this.nDefaultSongSort = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nDefaultSongSort );

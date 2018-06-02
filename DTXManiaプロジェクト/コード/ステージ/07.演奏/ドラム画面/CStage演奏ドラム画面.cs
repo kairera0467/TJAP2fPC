@@ -60,6 +60,7 @@ namespace DTXMania
             base.list子Activities.Add(this.actChipEffects = new CAct演奏Drumsチップエフェクト());
             base.list子Activities.Add(this.actFotter = new CAct演奏DrumsFotter());
             base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
+            base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
 
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
@@ -390,7 +391,9 @@ namespace DTXMania
                     this.t進行描画_ネームプレート();
                 if( CDTXMania.ConfigIni.bChara )
                     this.actChara.On進行描画();
-                if( CDTXMania.ConfigIni.eGameMode != EGame.OFF )
+
+                this.actMob.On進行描画();
+                if ( CDTXMania.ConfigIni.eGameMode != EGame.OFF )
                     this.actGame.On進行描画();
 
 				this.t進行描画_譜面スクロール速度();
@@ -1371,14 +1374,51 @@ namespace DTXMania
                         {
                             //int num9 = this.actCombo.n現在のコンボ数.Drums >= 50 ? this.ctチップ模様アニメ.Drums.n現在の値 * 130 : 0;
                             int num9 = 0;
-                            if( this.actCombo.n現在のコンボ数[ nPlayer ] >= 300 )
+                            if (CDTXMania.Skin.Game_Notes_Anime != 0)
                             {
-                                num9 = base.n現在の音符の顔番号 != 0 ? 260 : 0;
+                                if (this.actCombo.n現在のコンボ数[nPlayer] >= 300)
+                                {
+                                    //num9 = ctChipAnime[nPlayer].db現在の値 != 0 ? 260 : 0;
+                                    if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
+                                    {
+                                        num9 = 260;
+                                    }
+                                    else
+                                    {
+                                        num9 = 0;
+                                    }
+                                }
+                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 150)
+                                {
+                                    //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                    if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
+                                    {
+                                        num9 = 130;
+                                    }
+                                    else
+                                    {
+                                        num9 = 0;
+                                    }
+                                }
+                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50)
+                                {
+                                    //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                    if ((int)ctChipAnime[nPlayer].db現在の値 <= 1)
+                                    {
+                                        num9 = 130;
+                                    }
+                                    else
+                                    {
+                                        num9 = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    num9 = 0;
+                                }
                             }
-                            else if( this.actCombo.n現在のコンボ数[ nPlayer ] >= 50 )
-                            {
-                                num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
-                            }
+
+
 
                             this.ct手つなぎ.t進行Loop();
                             int nHand = this.ct手つなぎ.n現在の値 < 30 ? this.ct手つなぎ.n現在の値 : 60 - this.ct手つなぎ.n現在の値;
@@ -1645,13 +1685,56 @@ namespace DTXMania
                         //int num9 = this.actCombo.n現在のコンボ数.Drums >= 50 ? this.ctチップ模様アニメ.Drums.n現在の値 * 130 : 0;
                         //int num9 = this.actCombo.n現在のコンボ数.Drums >= 50 ? base.n現在の音符の顔番号 * 130 : 0;
                         int num9 = 0;
-                        if( this.actCombo.n現在のコンボ数[ nPlayer ] >= 300 )
+                        //if( this.actCombo.n現在のコンボ数[ nPlayer ] >= 300 )
+                        //{
+                        //    num9 = base.n現在の音符の顔番号 != 0 ? 260 : 0;
+                        //}
+                        //else if( this.actCombo.n現在のコンボ数[ nPlayer ] >= 50 )
+                        //{
+                        //    num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                        //}
+                        if (CDTXMania.Skin.Game_Notes_Anime != 0)
                         {
-                            num9 = base.n現在の音符の顔番号 != 0 ? 260 : 0;
-                        }
-                        else if( this.actCombo.n現在のコンボ数[ nPlayer ] >= 50 )
-                        {
-                            num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                            if (this.actCombo.n現在のコンボ数[nPlayer] >= 300)
+                            {
+                                //num9 = ctChipAnime[nPlayer].db現在の値 != 0 ? 260 : 0;
+                                if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
+                                {
+                                    num9 = 260;
+                                }
+                                else
+                                {
+                                    num9 = 0;
+                                }
+                            }
+                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 150)
+                            {
+                                //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
+                                {
+                                    num9 = 130;
+                                }
+                                else
+                                {
+                                    num9 = 0;
+                                }
+                            }
+                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50)
+                            {
+                                //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                if ((int)ctChipAnime[nPlayer].db現在の値 <= 1)
+                                {
+                                    num9 = 130;
+                                }
+                                else
+                                {
+                                    num9 = 0;
+                                }
+                            }
+                            else
+                            {
+                                num9 = 0;
+                            }
                         }
 
 

@@ -13,4 +13,14 @@ move /Y "%24%28TargetDir%29\SlimDXc_net20x86_Jun2010.dll" "%24%28TargetDir%29dll
     <StartAction>Program</StartAction>
     <StartProgram>C:\Users\info\source\repos\TJAPlayer3\Test\TJAPlayer3.exe</StartProgram>
   </PropertyGroup>
+  <PropertyGroup>
+    <PublishUrlHistory />
+    <InstallUrlHistory />
+    <SupportUrlHistory />
+    <UpdateUrlHistory />
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>ja-JP</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
 </Project>
