@@ -977,6 +977,12 @@ namespace DTXMania
                             }
                             //-----------------------------
                             #endregion
+                            #region[ 選曲画面 ]
+                            else if( strCommand == "SelectBGLoopWidth" )
+                            {
+                                this.nSelectBGLoopWidth = C変換.n値を文字列から取得して返す( strParam, 0 );
+                            }
+                            #endregion
                             #region[ その他 ]
                             #endregion
                         }
@@ -1114,6 +1120,10 @@ namespace DTXMania
 
         public E難易度表示タイプ eDiffDispMode;
         public bool b現在のステージ数を表示しない;
+
+        //選曲画面
+        public int nSelectBGScrollSpeed = 50;
+        public int nSelectBGLoopWidth = 1280;
 
         //リザルト画面
         //現在のデフォルト値はダミーです。

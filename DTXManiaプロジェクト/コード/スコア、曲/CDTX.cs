@@ -303,6 +303,7 @@ namespace DTXMania
 
         public class CBRANCH
         {
+            public bool bGOGOTIME;
             public int n分岐の種類; //0:精度分岐 1:連打分岐 2:スコア分岐 3:大音符のみの精度分岐
             public double n条件数値A;
             public double n条件数値B;
@@ -314,7 +315,8 @@ namespace DTXMania
             public double dbSCROLL;
             public int n現在の小節;
             public int n命令時のChipList番号;
-
+            public float fMeasure_s = 4.0f;
+            public float fMeasure_m = 4.0f;
             public int n表記上の番号;
             public int n内部番号;
 
@@ -1203,6 +1205,8 @@ namespace DTXMania
         private double dbBarLength;
         public float fNow_Measure_s = 4.0f;
         public float fNow_Measure_m = 4.0f;
+        public float fMeasure_BranchStart_s = 4.0f; //2018.05.22 kairera0467 譜面分岐開始時の拍子情報を一時保存する変数
+        public float fMeasure_BranchStart_m = 4.0f;
         public double dbNowTime = 0.0;
         public double dbNowBMScollTime = 0.0;
         public double dbNowScroll = 1.0;
@@ -1213,17 +1217,17 @@ namespace DTXMania
         public int[] bBARLINECUE = new int[ 2 ]; //命令を入れた次の小節の操作を実現するためのフラグ。0 = mainflag, 1 = cuetype
         public bool b小節線を挿入している = false;
 
-        //Normal Regular Masterにしたいけどここは我慢。
+        //譜面分岐関連
         private List<int> listBalloon_Normal;
         private List<int> listBalloon_Expert;
         private List<int> listBalloon_Master;
         private List<int> listBalloon; //旧構文用
 
-        public List<string> listLiryc; //歌詞を格納していくリスト。スペル忘れた(ぉい
-
         private int listBalloon_Normal_数値管理;
         private int listBalloon_Expert_数値管理;
         private int listBalloon_Master_数値管理;
+
+        public List<string> listLiryc; //歌詞を格納していくリスト。スペル忘れた(ぉい
 
         public bool[] b譜面が存在する = new bool[5];
 
@@ -2744,7 +2748,23 @@ namespace DTXMania
 
         private string tコメントを削除する( string input )
         {
-            string strOutput = Regex.Replace( input, @" *//.*", "" ); //2017.01.28 DD コメント前のスペースも削除するように修正
+            //string strOutput = Regex.Replace( input, @" *//.*", "" ); //2017.01.28 DD コメント前のスペースも削除するように修正
+            //コメント以降を削除→頭、末尾についてる空白をトリミング
+            string strOutput = Regex.Replace( input, @" *//.*", "" );
+            if( this.strファイル名 == "sample2.tja" )
+            {
+                if( input == "//-------------むずかしい-------------" )
+                {
+
+                }
+
+                if( input.StartsWith( " " ) && strOutput.Length > 1 )
+                {
+                    strOutput = strOutput.Remove( 0, 1 );
+                }
+
+            }
+
 
             return strOutput;
         }
@@ -2996,7 +3016,7 @@ namespace DTXMania
             string strDoubleP1 = "";
             string strDoubleP2 = "";
 
-            for( int i = 1; i < 3; i++ )
+            for( int i = 1; i < str2.Length; i++ )
             {
                 //腑分けした時に「#START」が消えてBGMが再生できなくなってしまうので、strDoublePnに代入する時に頭に「#START」をつけておく。
                 if( str2[ i ].IndexOf( "P1" ) != -1 )
@@ -3009,12 +3029,16 @@ namespace DTXMania
                     strDoubleP2 = ( "#START" + str2[ i ]);
                     bIsSessionNotes = true;
                 }
-                //else
-                //{
-                //    strSingle = str1[ 0 ];
-                //}
+                else
+                {
+                    if( str1.Length == 2 && str1[ 1 ].IndexOf( "#START" ) != -1 ) {
+                        strSingle = str1[ 1 ];
+                    } else {
+                        strSingle = str1[ 0 ];
+                    }
+                }
             }
-            strSingle = str1[ 0 ];
+            //strSingle = str1[ 0 ];
             if( !bIsSessionNotes ) seqNo = 99;
 
             switch( seqNo )
@@ -3681,6 +3705,9 @@ namespace DTXMania
 
                 }
 
+                // 2018.05.22 kairera0467 開始時の拍子情報を保存しておく
+                this.fMeasure_BranchStart_m = this.fNow_Measure_m;
+                this.fMeasure_BranchStart_s = this.fNow_Measure_s;
 
 
                 //まずはリストに現在の小節、発声位置、分岐条件を追加。
@@ -3699,6 +3726,9 @@ namespace DTXMania
                 branch.n表記上の番号 = 0;
                 branch.n分岐の種類 = n条件;
                 branch.n命令時のChipList番号 = this.listChip.Count;
+                branch.fMeasure_m = this.fNow_Measure_m;
+                branch.fMeasure_s = this.fNow_Measure_s;
+                branch.bGOGOTIME = this.bGOGOTIME;
 
                 this.listBRANCH.Add(this.n内部番号BRANCH1to, branch);
 
@@ -3741,6 +3771,10 @@ namespace DTXMania
                 this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
                 this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
                 this.dbNowBMScollTime = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].dbBMScrollTime;
+
+                this.bGOGOTIME = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].bGOGOTIME;
+                this.fNow_Measure_m = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].fMeasure_m;
+                this.fNow_Measure_s = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].fMeasure_s;
             }
             else if (InputText.StartsWith("#E"))
             {
@@ -3751,6 +3785,10 @@ namespace DTXMania
                 this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
                 this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
                 this.dbNowBMScollTime = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].dbBMScrollTime;
+
+                this.bGOGOTIME = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].bGOGOTIME;
+                this.fNow_Measure_m = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].fMeasure_m;
+                this.fNow_Measure_s = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].fMeasure_s;
             }
             else if (InputText.StartsWith("#M"))
             {
@@ -3761,6 +3799,10 @@ namespace DTXMania
                 this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
                 this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
                 this.dbNowBMScollTime = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].dbBMScrollTime;
+
+                this.bGOGOTIME = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].bGOGOTIME;
+                this.fNow_Measure_m = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].fMeasure_m;
+                this.fNow_Measure_s = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].fMeasure_s;
             }
             else if( InputText.StartsWith( "#LEVELHOLD" ) )
             {

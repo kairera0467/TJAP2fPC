@@ -252,6 +252,7 @@ namespace DTXMania
             this.bLEVELHOLD = new bool[]{ false, false, false, false };
 
             this.bDoublePlay = CDTXMania.ConfigIni.nPlayerCount >= 2 ? true : false;
+            this.bMiss中 = new bool[] { false, false, false, false };
 
             this.nLoopCount_Clear = 1;
 
@@ -699,6 +700,8 @@ namespace DTXMania
 
 
         public bool bDoublePlay; // 2016.08.21 kairera0467 表示だけ。
+
+        public bool[] bMiss中;
 
 		protected Stopwatch sw;		// 2011.6.13 最適化検討用のストップウォッチ
 		protected Stopwatch sw2;
@@ -1458,6 +1461,7 @@ namespace DTXMania
                                     if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Perfect++;
                                     this.actCombo.n現在のコンボ数[ nPlayer ]++;
                                     this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
+                                    this.bMiss中[ nPlayer ] = false;
                                 }
                                 break;
                             case E判定.Great:
@@ -1469,7 +1473,7 @@ namespace DTXMania
                                     //this.actCombo.ctコンボ加算 = new CCounter( 0, 8, 10, CDTXMania.Timer );
                                     //this.actCombo.ctコンボ加算.t進行();
                                     this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
-
+                                    this.bMiss中[ nPlayer ] = false;
                                 }
                                 break;
                             case E判定.Poor:
@@ -1482,6 +1486,11 @@ namespace DTXMania
                                     if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Miss++;
                                     this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
                                     this.actComboVoice.tリセット();
+                                    if( this.bMiss中[ nPlayer ] == false )
+                                    {
+                                        this.bMiss中[ nPlayer ] = true;
+                                        CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
+                                    }
                                 }
 			    				break;
 				    		default:
@@ -1504,6 +1513,7 @@ namespace DTXMania
                                         this.actCombo.n現在のコンボ数[ nPlayer ]++;
                                         //this.actCombo.ctコンボ加算.t進行();
                                         this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
+                                        this.bMiss中[ nPlayer ] = false;
                                     }
                                 }
                                 break;
@@ -1515,6 +1525,11 @@ namespace DTXMania
                                         this.nBranch_Miss[ nPlayer ]++;
 								        this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
                                         this.actComboVoice.tリセット();
+                                        if( this.bMiss中[ nPlayer ] == false )
+                                        {
+                                            this.bMiss中[ nPlayer ] = true;
+                                            CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
+                                        }
                                     }
                                 }
 								break;

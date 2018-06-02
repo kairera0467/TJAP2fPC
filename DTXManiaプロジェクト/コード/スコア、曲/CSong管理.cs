@@ -1684,7 +1684,8 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 			    			return num;
 				    	}
 
-                        return n1.strタイトル.CompareTo( n2.strタイトル ); //ジャンルが同じなら曲名で比較
+                        //return n1.strタイトル.CompareTo( n2.strタイトル ); //ジャンルが同じなら曲名で比較
+                        return n1.nLevel[ CDTXMania.ConfigIni.nDefaultCourse ].CompareTo( n2.nLevel[ CDTXMania.ConfigIni.nDefaultCourse ] );
                         //return order * nGenreN1.CompareTo( nGenreN2 );
                         //return order * n1.strジャンル.CompareTo( n2.strジャンル ); //単純なジャンル名によるソート
                     });
@@ -1724,7 +1725,8 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 			    			return num;
 				    	}
 
-                        return n1.strタイトル.CompareTo( n2.strタイトル ); //ジャンルが同じなら曲名で比較
+                        //return n1.strタイトル.CompareTo( n2.strタイトル ); //ジャンルが同じなら曲名で比較
+                        return n1.nLevel[ CDTXMania.ConfigIni.nDefaultCourse ].CompareTo( n2.nLevel[ CDTXMania.ConfigIni.nDefaultCourse ] );
                         //return order * nGenreN1.CompareTo( nGenreN2 );
                         //return order * n1.strジャンル.CompareTo( n2.strジャンル ); //単純なジャンル名によるソート
                     });

@@ -209,6 +209,7 @@ namespace DTXMania
 				{
 					this.ctキー反復用[ i ] = null;
 				}
+                this.ct背景スクロール = null;
 				base.On非活性化();
 			}
 			finally
@@ -221,7 +222,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background.jpg" ), false );
+				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background.png" ) );
 				this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_header_panel.png" ), false );
 				this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer panel.png" ) );
 
@@ -244,6 +245,15 @@ namespace DTXMania
                 this.tx難易度別背景[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Edit.png" ) );
                 this.tx下部テキスト = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer text.png" ) );
 
+
+                //敷き詰める枚数を計算。
+                if( this.n背景ループ幅 <= 0 )
+                {
+                    this.n背景ループ幅 = this.tx背景.sz画像サイズ.Width;
+                }
+                this.n背景テクスチャ敷き詰め枚数 = ( 1280 / this.n背景ループ幅 ) + 1;
+
+                this.ct背景スクロール = new CCounter( 0, 1280, 50, CDTXMania.Timer );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -294,24 +304,31 @@ namespace DTXMania
 				#endregion
 
 				this.ct登場時アニメ用共通.t進行();
+                this.ct背景スクロール.t進行Loop();
 
 				if( this.tx背景 != null )
-					this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+                {
+                    for( int i = 0; i < this.n背景テクスチャ敷き詰め枚数; i++ )
+                    {
+					    this.tx背景.t2D描画( CDTXMania.app.Device, ( i * this.n背景ループ幅 ) - this.ct背景スクロール.n現在の値, 0, new Rectangle( 0, 0, this.n背景ループ幅, 720 ) );
+                    }
+
+                }
 
                 if( this.r現在選択中の曲 != null )
                 {
                     if( CDTXMania.stage選曲.actSortSongs.e現在のソート != CActSortSongs.EOrder.Title )
                     {
-                        if( this.txジャンル別背景[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
+                        for ( int i = 0; i < this.n背景テクスチャ敷き詰め枚数; i++ )
                         {
-                            this.txジャンル別背景[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ].t2D描画( CDTXMania.app.Device, 0, 0 );
+                            this.txジャンル別背景[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ]?.t2D描画( CDTXMania.app.Device, ( i * this.n背景ループ幅 ) - this.ct背景スクロール.n現在の値, 0, new Rectangle( 0, 0, this.n背景ループ幅, 720 ) );
                         }
                     }
                     else
                     {
-                        if( this.tx難易度別背景[ this.n現在選択中の曲の難易度 ] != null )
+                        for ( int i = 0; i < this.n背景テクスチャ敷き詰め枚数; i++ )
                         {
-                            this.tx難易度別背景[ this.n現在選択中の曲の難易度 ].t2D描画( CDTXMania.app.Device, 0, 0 );
+                            this.tx難易度別背景[ this.n現在選択中の曲の難易度 ]?.t2D描画( CDTXMania.app.Device, ( i * this.n背景ループ幅 ) - this.ct背景スクロール.n現在の値, 0, new Rectangle( 0, 0, this.n背景ループ幅, 720 ) );
                         }
                     }
                 }
@@ -328,12 +345,10 @@ namespace DTXMania
 					double dbY表示割合 = Math.Sin( Math.PI / 2 * db登場割合 );
 					y = ( (int) ( this.tx上部パネル.sz画像サイズ.Height * dbY表示割合 ) ) - this.tx上部パネル.sz画像サイズ.Height;
 				}
-				if( this.tx上部パネル != null )
-					this.tx上部パネル.t2D描画( CDTXMania.app.Device, 0, 0 );
+				this.tx上部パネル?.t2D描画( CDTXMania.app.Device, 0, 0 );
 
 				this.actInformation.On進行描画();
-				if( this.tx下部パネル != null )
-					this.tx下部パネル.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.sz画像サイズ.Height );
+				this.tx下部パネル?.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.sz画像サイズ.Height );
                 #region[ 上部テキスト ]
                 if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
                     CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL" );
@@ -812,6 +827,9 @@ namespace DTXMania
         private CTexture tx難易度名;
         private CTexture tx下部テキスト;
         private CCounter ctDiffSelect移動待ち;
+        private CCounter ct背景スクロール;
+        private int n背景ループ幅;
+        private int n背景テクスチャ敷き詰め枚数;
 
 		private struct STCommandTime		// #24063 2011.1.16 yyagi コマンド入力時刻の記録用
 		{

@@ -53,6 +53,7 @@ namespace DTXMania
             base.list子Activities.Add( this.actChara = new CAct演奏Drumsキャラクター() );
             base.list子Activities.Add( this.actGame = new CAct演奏Drumsゲームモード() );
             base.list子Activities.Add( this.actBackground = new CAct演奏Drums背景() );
+            base.list子Activities.Add( this.actFooter = new CAct演奏Drums背景フッター() );
             base.list子Activities.Add( this.actRollChara = new CAct演奏Drums連打キャラ() );
             base.list子Activities.Add( this.actComboBalloon = new CAct演奏Drumsコンボ吹き出し() );
             base.list子Activities.Add( this.actComboVoice = new CAct演奏Combo音声() );
@@ -376,6 +377,7 @@ namespace DTXMania
                 else
                 {
                     this.actBackground.On進行描画();
+                    this.actFooter.On進行描画();
                     this.actRollChara.On進行描画();
                     if( !this.bDoublePlay )
                         this.actDancer.On進行描画();
@@ -507,6 +509,7 @@ namespace DTXMania
         public CAct演奏Drums演奏終了演出 actEnd;
         private CAct演奏Drumsゲームモード actGame;
         public CAct演奏Drums背景 actBackground;
+        private CAct演奏Drums背景フッター actFooter;
         private int[] nチャンネルtoX座標 = new int[] { 370, 470, 582, 527, 645, 748, 694, 373, 815, 298, 419, 419 };
         private CCounter ct手つなぎ;
         private CTexture txヒットバーGB;

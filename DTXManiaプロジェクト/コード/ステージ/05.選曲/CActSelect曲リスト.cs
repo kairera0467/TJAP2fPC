@@ -1109,21 +1109,16 @@ namespace DTXMania
 			{
                 if( this.n現在のスクロールカウンタ == 0 )
                 {
-                    if( this.txバー中央 != null )
-                        this.txバー中央.t2D描画( CDTXMania.app.Device, 487, 137 );
-                    if( this.tx難易度パネル != null )
-                        this.tx難易度パネル.t2D描画( CDTXMania.app.Device, 518, 169 );
-                    if( this.tx譜面分岐中央パネル用 != null && CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] )
-                        this.tx譜面分岐中央パネル用.t2D描画( CDTXMania.app.Device, 570, 347 );
+                    this.txバー中央?.t2D描画( CDTXMania.app.Device, 487, 137 );
+                    this.tx難易度パネル?.t2D描画( CDTXMania.app.Device, 518, 169 );
+                    if( CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] )
+                        this.tx譜面分岐中央パネル用?.t2D描画( CDTXMania.app.Device, 570, 347 );
 
                     #region[ 星 ]
-                    if( this.tx難易度星 != null )
+                    for( int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ]; n++ )
                     {
-                        for( int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ]; n++ )
-                        {
-                            if( n > 9 ) break;
-                            this.tx難易度星.t2D描画( CDTXMania.app.Device, 525, 515 - ( n * 37 ), new Rectangle( 32 * ( CDTXMania.stage選曲.n現在選択中の曲の難易度 + 1), 0, 32, 32 ) );
-                        }
+                        if( n > 9 ) break;
+                        this.tx難易度星?.t2D描画( CDTXMania.app.Device, 525, 515 - ( n * 37 ), new Rectangle( 32 * ( CDTXMania.stage選曲.n現在選択中の曲の難易度 + 1), 0, 32, 32 ) );
                     }
                     #endregion
                 }
