@@ -484,7 +484,7 @@ namespace DTXMania
                         {
                             double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
                             this.actChara.アクションタイマーリセット();
-                            this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_10combo - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_10combo) * 2, CSound管理.rc演奏用タイマ);
+                            this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_10combo_Max - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_10combo_Max) * 2, CSound管理.rc演奏用タイマ);
                             this.actChara.ctキャラクターアクション_10コンボMAX.t進行db();
                             this.actChara.ctキャラクターアクション_10コンボMAX.db現在の値 = 0D;
                             this.actChara.bマイどんアクション中 = true;
