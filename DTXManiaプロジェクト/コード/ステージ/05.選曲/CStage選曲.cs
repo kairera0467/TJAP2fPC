@@ -249,11 +249,24 @@ namespace DTXMania
                 //敷き詰める枚数を計算。
                 if( this.n背景ループ幅 <= 0 )
                 {
-                    this.n背景ループ幅 = this.tx背景.sz画像サイズ.Width;
+                    if( this.tx背景 != null )
+                        this.n背景ループ幅 = this.tx背景.sz画像サイズ.Width;
+                    else
+                        this.n背景ループ幅 = 1; // ゼロ除算防止のため
                 }
-                this.n背景テクスチャ敷き詰め枚数 = ( 1280 / this.n背景ループ幅 ) + 1;
 
-                this.ct背景スクロール = new CCounter( 0, 1280, 50, CDTXMania.Timer );
+                int nTilingX = 0;
+                for( int i = 0; ; i++ )
+                {
+                    this.n背景テクスチャ敷き詰め枚数++;
+                    nTilingX += this.n背景ループ幅;
+                    if( nTilingX > 1280 ) {
+                        this.n背景テクスチャ敷き詰め枚数++;
+                        break;
+                    }
+                }
+
+                this.ct背景スクロール = new CCounter( 0, this.n背景ループ幅, 50, CDTXMania.Timer );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -321,7 +334,7 @@ namespace DTXMania
                     {
                         for ( int i = 0; i < this.n背景テクスチャ敷き詰め枚数; i++ )
                         {
-                            this.txジャンル別背景[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ]?.t2D描画( CDTXMania.app.Device, ( i * this.n背景ループ幅 ) - this.ct背景スクロール.n現在の値, 0, new Rectangle( 0, 0, this.n背景ループ幅, 720 ) );
+                            this.txジャンル別背景[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ]?.t2D描画( CDTXMania.app.Device, ( i * this.n背景ループ幅 ) - this.ct背景スクロール.n現在の値, 0, new Rectangle( 0, 0, this.n背景ループ幅, this.txジャンル別背景[this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル )].sz画像サイズ.Height ) );
                         }
                     }
                     else
