@@ -1118,6 +1118,14 @@ namespace DTXMania
                             {
                                 Game_Notes_Anime = int.Parse(strParam);
                             }
+                            else if (strCommand == "Game_StageText")
+                            {
+                                Game_StageText = strParam;
+                            }
+                            else if (strCommand == "Game_StageText_IsRed")
+                            {
+                                Game_StageText_IsRed = int.Parse(strParam);
+                            }
                             #region CourseSymbol
                             else if (strCommand == "Game_CourseSymbol_X")
                             {
@@ -1199,16 +1207,19 @@ namespace DTXMania
                             else if (strCommand == "Game_Dancer_Motion")
                             {
                                 Game_Dancer_Motion = strParam;
-                                //string[] strSplit = strParam.Split(',');
-                                //for (int i = 0; i < strSplit.Length; i++)
-                                //{
-                                //    Game_Dancer_Motion[i] = int.Parse(strSplit[i]);
-                                //}
                             }
                             // Game_Dancer_PtnはTextrueLoader.csで反映されます。
                             else if (strCommand == "Game_Dancer_Beat")
                             {
                                 Game_Dancer_Beat = int.Parse(strParam);
+                            }
+                            else if (strCommand == "Game_Dancer_Gauge")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    Game_Dancer_Gauge[i] = int.Parse(strSplit[i]);
+                                }
                             }
                             #endregion
                             #region Mob
@@ -1344,9 +1355,6 @@ namespace DTXMania
         #endregion
 
         #region スキン設定
-        public string Skin_Name = "Unknown";
-        public string Skin_Version = "Unknown";
-        public string Skin_Creator = "Unknown";
         #endregion
 
         #region 背景(スクロール)
@@ -1488,8 +1496,15 @@ namespace DTXMania
         #endregion
 
         #region 新・SkinConfig
+        #region General
+        public string Skin_Name = "Unknown";
+        public string Skin_Version = "Unknown";
+        public string Skin_Creator = "Unknown";
+        #endregion
         #region Game
         public int Game_Notes_Anime = 0;
+        public string Game_StageText = "1曲目";
+        public int Game_StageText_IsRed = 0;
         #region Chara
         public int[] Game_Chara_X = new int[] { 0, 0 };
         public int[] Game_Chara_Y = new int[] { 0, 537 };
@@ -1515,6 +1530,7 @@ namespace DTXMania
         public string Game_Dancer_Motion = "0";
         public int Game_Dancer_Ptn = 0;
         public int Game_Dancer_Beat = 8;
+        public int[] Game_Dancer_Gauge = new int[] { 0, 20, 40, 60, 80 };
         #endregion
         #region Mob
         public int Game_Mob_Ptn = 0;

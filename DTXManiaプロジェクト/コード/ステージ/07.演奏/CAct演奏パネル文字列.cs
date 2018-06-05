@@ -40,32 +40,32 @@ namespace DTXMania
                         this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
                         Bitmap bmpDiff = new Bitmap(1, 1);
                         string strDiff = "";
-                        //if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示 )
-                        //{
-                        //    switch( CDTXMania.stage選曲.n確定された曲の難易度 )
-                        //    {
-                        //        case 0:
-                        //            strDiff = "かんたん ";
-                        //            break;
-                        //        case 1:
-                        //            strDiff = "ふつう ";
-                        //            break;
-                        //        case 2:
-                        //            strDiff = "むずかしい ";
-                        //            break;
-                        //        case 3:
-                        //            strDiff = "おに ";
-                        //            break;
-                        //        case 4:
-                        //            strDiff = "えでぃと ";
-                        //            break;
-                        //        default:
-                        //            strDiff = "おに ";
-                        //            break;
-                        //    }
-                        //    bmpDiff = pfMusicName.DrawPrivateFont( strDiff + "1曲目", Color.White, Color.Black );
-                        //}
-                        //else
+                        if (CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示)
+                        {
+                            switch (CDTXMania.stage選曲.n確定された曲の難易度)
+                            {
+                                case 0:
+                                    strDiff = "かんたん ";
+                                    break;
+                                case 1:
+                                    strDiff = "ふつう ";
+                                    break;
+                                case 2:
+                                    strDiff = "むずかしい ";
+                                    break;
+                                case 3:
+                                    strDiff = "おに ";
+                                    break;
+                                case 4:
+                                    strDiff = "えでぃと ";
+                                    break;
+                                default:
+                                    strDiff = "おに ";
+                                    break;
+                            }
+                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + "1曲目", Color.White, Color.Black);
+                        }
+                        else
                         {
                             if(CDTXMania.Skin.b曲数テキストを赤くする)
                             {

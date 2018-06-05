@@ -148,40 +148,50 @@ namespace DTXMania
             //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, this.n踊り子モーション枚数.ToString());
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.str踊り子リスト.ToString());
 
+            
+
             if (CDTXMania.ConfigIni.bDancer)
             {
-                if (CDTXMania.Tx.Dancer_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
+                for (int i = 0; i < 5; i++)
                 {
-                    CDTXMania.Tx.Dancer_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 640, 500);
-                }
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 20)
-                {
-                    if (CDTXMania.Tx.Dancer_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
+                    if(CDTXMania.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
                     {
-                        CDTXMania.Tx.Dancer_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 430, 500);
+                        if(CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= CDTXMania.Skin.Game_Dancer_Gauge[i])
+                            CDTXMania.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Dancer_X[i], CDTXMania.Skin.Game_Dancer_Y[i]);
                     }
                 }
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 40)
-                {
-                    if (CDTXMania.Tx.Dancer_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]]  != null)
-                    {
-                        CDTXMania.Tx.Dancer_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 856, 500);
-                    }
-                }
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 60)
-                {
-                    if (CDTXMania.Tx.Dancer_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
-                    {
-                        CDTXMania.Tx.Dancer_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 215, 500);
-                    }
-                }
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80)
-                {
-                    if (CDTXMania.Tx.Dancer_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
-                    {
-                        CDTXMania.Tx.Dancer_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 1070, 500);
-                    }
-                }
+                //if (CDTXMania.Tx.Dancer_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
+                //{
+                //    CDTXMania.Tx.Dancer_1[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 640, 500);
+                //}
+                //if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 20)
+                //{
+                //    if (CDTXMania.Tx.Dancer_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
+                //    {
+                //        CDTXMania.Tx.Dancer_2[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 430, 500);
+                //    }
+                //}
+                //if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 40)
+                //{
+                //    if (CDTXMania.Tx.Dancer_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]]  != null)
+                //    {
+                //        CDTXMania.Tx.Dancer_3[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 856, 500);
+                //    }
+                //}
+                //if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 60)
+                //{
+                //    if (CDTXMania.Tx.Dancer_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
+                //    {
+                //        CDTXMania.Tx.Dancer_4[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 215, 500);
+                //    }
+                //}
+                //if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80)
+                //{
+                //    if (CDTXMania.Tx.Dancer_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
+                //    {
+                //        CDTXMania.Tx.Dancer_5[this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, 1070, 500);
+                //    }
+                //}
 
             }
 

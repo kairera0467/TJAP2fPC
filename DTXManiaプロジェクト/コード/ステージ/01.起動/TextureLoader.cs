@@ -244,19 +244,28 @@ namespace DTXMania
             CDTXMania.Skin.Game_Dancer_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + DANCER + @"1\"));
             if (CDTXMania.Skin.Game_Dancer_Ptn != 0)
             {
-                Dancer_1 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                Dancer_2 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                Dancer_3 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                Dancer_4 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                Dancer_5 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                for (int i = 0; i < CDTXMania.Skin.Game_Dancer_Ptn; i++)
+                Dancer = new CTexture[5][];
+                for (int i = 0; i < 5; i++)
                 {
-                    Dancer_1[i] = TxC(GAME + DANCER + @"1\" + i.ToString() + ".png");
-                    Dancer_2[i] = TxC(GAME + DANCER + @"2\" + i.ToString() + ".png");
-                    Dancer_3[i] = TxC(GAME + DANCER + @"3\" + i.ToString() + ".png");
-                    Dancer_4[i] = TxC(GAME + DANCER + @"4\" + i.ToString() + ".png");
-                    Dancer_5[i] = TxC(GAME + DANCER + @"5\" + i.ToString() + ".png");
+                    Dancer[i] = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                    for (int p = 0; p < CDTXMania.Skin.Game_Dancer_Ptn; p++)
+                    {
+                        Dancer[i][p] = TxC(GAME + DANCER + (i + 1) + @"\" + p.ToString() + ".png");
+                    }
                 }
+                //Dancer_1 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                //Dancer_2 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                //Dancer_3 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                //Dancer_4 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                //Dancer_5 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
+                //for (int i = 0; i < CDTXMania.Skin.Game_Dancer_Ptn; i++)
+                //{
+                //    Dancer_1[i] = TxC(GAME + DANCER + @"1\" + i.ToString() + ".png");
+                //    Dancer_2[i] = TxC(GAME + DANCER + @"2\" + i.ToString() + ".png");
+                //    Dancer_3[i] = TxC(GAME + DANCER + @"3\" + i.ToString() + ".png");
+                //    Dancer_4[i] = TxC(GAME + DANCER + @"4\" + i.ToString() + ".png");
+                //    Dancer_5[i] = TxC(GAME + DANCER + @"5\" + i.ToString() + ".png");
+                //}
             }
             #endregion
             #region モブ
@@ -544,11 +553,7 @@ namespace DTXMania
             Chara_Balloon_Broken;
         #endregion
         #region 踊り子
-        public CTexture[] Dancer_1,
-            Dancer_2,
-            Dancer_3,
-            Dancer_4,
-            Dancer_5;
+        public CTexture[][] Dancer;
         #endregion
         #region モブ
         public CTexture[] Mob;
