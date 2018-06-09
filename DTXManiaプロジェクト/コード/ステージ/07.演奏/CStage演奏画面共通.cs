@@ -3780,6 +3780,7 @@ namespace DTXMania
                 }
 
                 this.actComboVoice.tリセット();
+                this.actPlayInfo.n小節番号 = 0; // Issues #29
             }
 
             this.tスコアの初期化();
