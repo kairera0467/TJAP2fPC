@@ -45,18 +45,22 @@ namespace DTXMania
         {
             if(!CDTXMania.stage演奏ドラム画面.bDoublePlay)
             {
-                if (ctMob != null) ctMob.t進行LoopDb();
-                if (ctMobPtn != null) ctMobPtn.t進行LoopDb();
+                if (ctMob != null || CDTXMania.Skin.Game_Mob_Ptn != 0) ctMob.t進行LoopDb();
+                if (ctMobPtn != null || CDTXMania.Skin.Game_Mob_Ptn != 0) ctMobPtn.t進行LoopDb();
 
                 //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, ctMob.db現在の値.ToString());
                 //CDTXMania.act文字コンソール.tPrint(0, 10, C文字コンソール.Eフォント種別.白, Math.Sin((float)this.ctMob.db現在の値 * (Math.PI / 180)).ToString());
 
-                if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
+                if(CDTXMania.Skin.Game_Mob_Ptn != 0 || CDTXMania.Skin.Game_Mob_Ptn != 0)
                 {
-                    if (CDTXMania.Tx.Mob[(int)ctMobPtn.db現在の値] != null)
+                    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                     {
-                        CDTXMania.Tx.Mob[(int)ctMobPtn.db現在の値].t2D描画(CDTXMania.app.Device, 0, (720 - (CDTXMania.Tx.Mob[0].szテクスチャサイズ.Height - 70)) + -((float)Math.Sin((float)this.ctMob.db現在の値 * (Math.PI / 180)) * 70));
+                        if (CDTXMania.Tx.Mob[(int)ctMobPtn.db現在の値] != null)
+                        {
+                            CDTXMania.Tx.Mob[(int)ctMobPtn.db現在の値].t2D描画(CDTXMania.app.Device, 0, (720 - (CDTXMania.Tx.Mob[0].szテクスチャサイズ.Height - 70)) + -((float)Math.Sin((float)this.ctMob.db現在の値 * (Math.PI / 180)) * 70));
+                        }
                     }
+
                 }
             }
             return base.On進行描画();

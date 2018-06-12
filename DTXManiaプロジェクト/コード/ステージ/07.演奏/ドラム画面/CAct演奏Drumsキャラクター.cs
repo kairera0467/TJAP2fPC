@@ -251,11 +251,12 @@ namespace DTXMania
             //    this.ctMAXゴーゴーモーション = new CCounter( 0, this.ar黄色ゴーゴーモーション番号.Length - 1, 50, CDTXMania.Timer );
             //this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.04, CSound管理.rc演奏用タイマ);
             //this.ctモブモーション = new CCounter(0, this.arモブモーション番号.Length - 1, 0.04, CSound管理.rc演奏用タイマ);
-
+            if (arモーション番号 == null) this.arモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
+            if (arゴーゴーモーション番号 == null) this.arゴーゴーモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
+            if (arクリアモーション番号 == null) this.arクリアモーション番号 = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
             ctChara_Normal = new CCounter(0, arモーション番号.Length - 1, 10, CSound管理.rc演奏用タイマ);
             ctChara_GoGo = new CCounter(0, arゴーゴーモーション番号.Length - 1, 10, CSound管理.rc演奏用タイマ);
             ctChara_Clear = new CCounter(0, arクリアモーション番号.Length - 1, 10, CSound管理.rc演奏用タイマ);
-
             base.OnManagedリソースの作成();
         }
 
@@ -369,15 +370,15 @@ namespace DTXMania
             //if( this.ctMAX通常モーション != null ) this.ctMAX通常モーション.t進行LoopDb();
             //if( this.ctMAXゴーゴーモーション != null ) this.ctMAXゴーゴーモーション.t進行LoopDb();
             //if( this.ctキャラクターアクションタイマ != null) this.ctキャラクターアクションタイマ.t進行db();
-            if (ctChara_Normal != null) ctChara_Normal.t進行LoopDb();
-            if (ctChara_GoGo != null) ctChara_GoGo.t進行LoopDb();
-            if (ctChara_Clear != null) ctChara_Clear.t進行LoopDb();
-            if (this.ctキャラクターアクション_10コンボ != null) this.ctキャラクターアクション_10コンボ.t進行db();
-            if (this.ctキャラクターアクション_10コンボMAX != null) this.ctキャラクターアクション_10コンボMAX.t進行db();
-            if (this.ctキャラクターアクション_ゴーゴースタート != null) this.ctキャラクターアクション_ゴーゴースタート.t進行db();
-            if (this.ctキャラクターアクション_ゴーゴースタートMAX != null) this.ctキャラクターアクション_ゴーゴースタートMAX.t進行db();
-            if (this.ctキャラクターアクション_ノルマ != null) this.ctキャラクターアクション_ノルマ.t進行db();
-            if (this.ctキャラクターアクション_魂MAX != null) this.ctキャラクターアクション_魂MAX.t進行db();
+            if (ctChara_Normal != null || CDTXMania.Skin.Game_Chara_Ptn_Normal != 0) ctChara_Normal.t進行LoopDb();
+            if (ctChara_GoGo != null || CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0) ctChara_GoGo.t進行LoopDb();
+            if (ctChara_Clear != null || CDTXMania.Skin.Game_Chara_Ptn_Clear != 0) ctChara_Clear.t進行LoopDb();
+            if (this.ctキャラクターアクション_10コンボ != null || CDTXMania.Skin.Game_Chara_Ptn_10combo != 0) this.ctキャラクターアクション_10コンボ.t進行db();
+            if (this.ctキャラクターアクション_10コンボMAX != null || CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0) this.ctキャラクターアクション_10コンボMAX.t進行db();
+            if (this.ctキャラクターアクション_ゴーゴースタート != null || CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0) this.ctキャラクターアクション_ゴーゴースタート.t進行db();
+            if (this.ctキャラクターアクション_ゴーゴースタートMAX != null || CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0) this.ctキャラクターアクション_ゴーゴースタートMAX.t進行db();
+            if (this.ctキャラクターアクション_ノルマ != null || CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0) this.ctキャラクターアクション_ノルマ.t進行db();
+            if (this.ctキャラクターアクション_魂MAX != null || CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0) this.ctキャラクターアクション_魂MAX.t進行db();
 
             // ↓踊り子・モブ↓
             //if (this.ct踊り子モーション != null) this.ct踊り子モーション.t進行LoopDb();
