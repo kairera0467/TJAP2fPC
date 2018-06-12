@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,12 +15,11 @@ namespace DTXMania
 		{
 			base.b活性化してない = true;
 		}
-		
-		
-		// メソッド
 
-		public void Start( int nLane, float f強弱度合い, int player )
-		{
+
+        // メソッド
+        public void Start(int nLane, float f強弱度合い, int player)
+        {
 			int num = (int) ( ( 1f - f強弱度合い ) * 55f );
             this.ct進行[ nLane + ( 3 * player ) ] = new CCounter( 0, 100, 2, CDTXMania.Timer );
             //if( nLane == 0 )
@@ -92,14 +90,16 @@ namespace DTXMania
 						}
 					}
 				}
-
-                for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                
+                for ( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                
                 {
-                    //レーンフラッシュ面
-		    if( this.ct進行[ i * 3 ].b進行中 )
+                    //面フラッシュ
+
+                    if( this.ct進行[ i * 3 ].b進行中 )
                     {
 	                    int num8 = ( ( ( 150 - this.ct進行[i * 3].n現在の値 ) * 0xff ) / 100 );
-					    if( CDTXMania.Tx.Lane_Red != null && CDTXMania.Tx.Lane_Yellow != null )
+					    if( CDTXMania.Tx.Lane_Red != null)
 					    {
                             CDTXMania.Tx.Lane_Red.n透明度 = ( num8 );
                             CDTXMania.Tx.Lane_Red.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
@@ -107,11 +107,12 @@ namespace DTXMania
                             //CDTXMania.Tx.Lane_Yellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
 					    }
                     }
-		    //レーンフラッシュ縁
+                    //縁フラッシュ
+
                     if( this.ct進行[ 1 + ( i * 3 ) ].b進行中 )
                     {
 	                    int num8 = ( ( ( 150 - this.ct進行[ 1 + ( i * 3 ) ].n現在の値 ) * 0xff ) / 100 );
-					    if( CDTXMania.Tx.Lane_Blue != null && CDTXMania.Tx.Lane_Yellow != null )
+					    if( CDTXMania.Tx.Lane_Blue != null)
 					    {
                             CDTXMania.Tx.Lane_Blue.n透明度 = ( num8 );
                             CDTXMania.Tx.Lane_Blue.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
@@ -119,16 +120,28 @@ namespace DTXMania
                             //CDTXMania.Tx.Lane_Yellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
 					    }
                     }
-		    //レーンフラッシュ連打
-                    //if( this.ct進行[ 2 + ( i * 3 ) ].b進行中 )
+                    //判定時フラッシュ  実装途中
+
+                    //if ()
                     //{
-	            //        int num8 = ( ( ( 100 - this.ct進行[ 2 + ( i * 3 ) ].n現在の値 ) * 0xff ) / 100 );
-			//		    if(CDTXMania.Tx.Lane_Yellow != null )
-			//		    {
+                    //    int num8 = (((150 - this.ct進行[1 + (i * 3)].n現在の値) * 0xff) / 100);
+                    //    if (CDTXMania.Tx.Lane_Yellow != null)
+                    //    {
                     //        CDTXMania.Tx.Lane_Yellow.n透明度 = ( num8 );
                     //        CDTXMania.Tx.Lane_Yellow.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
-			//		    }
+                    //    }
                     //}
+                    //連打時フラッシュ(オートのみ)
+
+                    if ( this.ct進行[ 2 + ( i * 3 ) ].b進行中 )
+                    {
+	                    int num8 = ( ( ( 150 - this.ct進行[ 2 + ( i * 3 ) ].n現在の値 ) * 0xff ) / 100 );
+                        if (CDTXMania.Tx.Lane_Red != null)
+					    {
+                            CDTXMania.Tx.Lane_Red.n透明度 = ( num8 );
+                            CDTXMania.Tx.Lane_Red.t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
+					    }
+                    }
                 }
 
 
