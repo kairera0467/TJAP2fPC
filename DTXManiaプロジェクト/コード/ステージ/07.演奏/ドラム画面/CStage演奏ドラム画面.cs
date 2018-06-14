@@ -1759,7 +1759,7 @@ namespace DTXMania
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = index - 65;
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 65, y, new Rectangle( 780, 0, 1, 130 ) );
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-                                //CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 650, num9, 130, 130 ) );
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(910, 0, 130, 130));
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 650, num9, 130, 130 ) );
                             }
 
@@ -1784,6 +1784,7 @@ namespace DTXMania
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = index - 65;
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 65, y, new Rectangle( 1170, 0, 1, 130 ) );
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(1300, num9, 130, 130));
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 1040, num9, 130, 130 ) );
                             }
 
@@ -1824,8 +1825,8 @@ namespace DTXMania
                             }
                             if( pChip.n連打音符State != 7 )
                             {
-                                if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
-                                    CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
+                                //if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
+                                //    CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
                                 CDTXMania.Tx.SenNotes.t2D描画(CDTXMania.app.Device, x + 56, y + nSenotesY, new Rectangle( 58, 270, 78, 30 ) );
                             }
 

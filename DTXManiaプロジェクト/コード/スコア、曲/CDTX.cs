@@ -352,6 +352,7 @@ namespace DTXMania
             public int nBalloon;
             public int nProcessTime;
             public int nスクロール方向;
+            public int n描画優先度; //(特殊)現状連打との判断目的で使用
             public ENoteState eNoteState;
             public EAVI種別 eAVI種別;
 			public E楽器パート e楽器パート = E楽器パート.UNKNOWN;
@@ -444,7 +445,8 @@ namespace DTXMania
                 this.fBMSCROLLTime = 0;
                 this.nノーツ終了位置 = 0;
                 this.nノーツ終了時刻ms = 0;
-				this.nLag = -999;
+                this.n描画優先度 = 0;
+                this.nLag = -999;
 				this.bIsAutoPlayed = false;
 				this.b演奏終了後も再生が続くチップである = false;
                 this.nList上の位置 = 0;
