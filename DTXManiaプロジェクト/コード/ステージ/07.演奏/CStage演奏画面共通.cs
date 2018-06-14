@@ -1232,7 +1232,13 @@ namespace DTXMania
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
                     CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
-                    this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 5000L, player );
+                    if(pChip.bGOGOTIME)
+                    {
+                        this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 6000L, player);
+                    } else
+                    {
+                        this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 5000L, player);
+                    }
                     pChip.bHit = true;
                     chip現在処理中の連打チップ[ player ].bHit = true;
                     //this.b連打中 = false;
@@ -1243,7 +1249,13 @@ namespace DTXMania
                 }
                 else
                 {
-                    this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 300L, player );
+                    if(pChip.bGOGOTIME)
+                    {
+                        this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 360L, player);
+                    } else
+                    {
+                        this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 300L, player);
+                    }
                     //CDTXMania.Skin.soundRed.t再生する();
                     this.soundRed.t再生を開始する();
                 }
