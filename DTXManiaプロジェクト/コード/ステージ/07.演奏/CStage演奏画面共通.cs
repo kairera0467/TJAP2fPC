@@ -2974,6 +2974,11 @@ namespace DTXMania
                                     double dbUnit_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) );
                                     double dbUnit_clear = ( ( ( 60.0f / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) );
 
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        ctChipAnime[i] = new CCounter(0, 3, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
+                                    }
+
                                     dbUnit = Math.Ceiling( dbUnit * 1000.0 );
                                     dbUnit = dbUnit / 1000.0;
 
