@@ -4,12 +4,7 @@ Config.ini
 DTXManiaLog.txt
 songlist.db
 songs.db
-/bin
-/obj
 /.vs
-/Test/Capture_img
-/FDK17プロジェクト/bin/x86/Debug
-*.dll
-*.pdb
-/DTXManiaプロジェクト/bin/x86/Debug
-*.exe
+*/bin
+*/obj
+/Test
