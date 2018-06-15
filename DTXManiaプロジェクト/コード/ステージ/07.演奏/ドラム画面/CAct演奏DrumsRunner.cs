@@ -38,6 +38,7 @@ namespace DTXMania
                     if(Index >= 128)
                     {
                         Index = 0;
+                        break; // 2018.6.15 IMARER 無限ループが発生するので修正
                     }
                 }
                 if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))
