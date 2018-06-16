@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -11,7 +11,7 @@ namespace DTXMania
 {
 	internal class CActSelectQuickConfig : CActSelectPopupMenu
 	{
-		private readonly string QuickCfgTitle = "Quick Config";
+        private readonly string QuickCfgTitle = "演奏オプション";
 		// コンストラクタ
 
 		public CActSelectQuickConfig()
@@ -78,10 +78,10 @@ namespace DTXMania
             l.Add( new CItemList( "ランダム", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eRandom.Taiko,
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Guitar chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
-				new string[] { "OFF", "RANDOM", "あべこべ", "SUPER", "HYPER" } ) );
-            l.Add( new CItemList( "ドロン", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eSTEALTH,
+				new string[] { "なし", "きまぐれ", "あべこべ", "でたらめ", "あべぐれ" } ) );
+            l.Add( new CItemList( "とくしゅ", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eSTEALTH,
 				"",
-				new string[] { "OFF", "ドロン", "ステルス" } ) );
+				new string[] { "なし", "ドロン", "ステルス" } ) );
             l.Add( new CItemList( "ゲーム", CItemBase.Eパネル種別.通常, (int)CDTXMania.ConfigIni.eGameMode,
                 "ゲームモード\n" +
                 "TYPE-A: 完走!叩ききりまショー!\n" +
@@ -90,12 +90,12 @@ namespace DTXMania
                 " \n" +
                 " \n" +
                 " ",
-                new string[] { "OFF", "完走!", "完走!激辛" }) );
+                new string[] { "なし", "完走!", "完走!激辛" }) );
 
 			#endregion
 			#region [ 共通 SET切り替え/More/Return ]
-			l.Add( new CSwitchItemList( "More...", CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "" } ) );
-			l.Add( new CSwitchItemList( "戻る", CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "", "" } ) );
+			l.Add( new CSwitchItemList( "ゲーム設定", CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "" } ) );
+			l.Add( new CSwitchItemList( "もどる", CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "", "" } ) );
 			#endregion
 
 			return l;
@@ -253,7 +253,7 @@ namespace DTXMania
 		private Font ft表示用フォント;
 		//private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
-        private CTexture tx説明文1;
+        //private CTexture tx説明文1;
 		//-----------------
 		#endregion
 	}
