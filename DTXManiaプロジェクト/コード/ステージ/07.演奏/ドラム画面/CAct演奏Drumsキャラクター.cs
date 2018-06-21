@@ -391,19 +391,19 @@ namespace DTXMania
                 {
                     if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 100.0 && CDTXMania.Skin.Game_Chara_Ptn_Clear != 0 )
                     {
-                        if(CDTXMania.Tx.Chara_Normal_Maxed[ 0 ] != null )
+                        if(CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
                             CDTXMania.Tx.Chara_Normal_Maxed[ this.arクリアモーション番号[(int)this.ctChara_Clear.db現在の値] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_X[0], CDTXMania.Skin.Game_Chara_Y[0] );
                     }
                     else if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 80.0 && CDTXMania.Skin.Game_Chara_Ptn_Clear != 0 )
                     {
-                        if(CDTXMania.Tx.Chara_Normal_Cleared[ 0 ] != null )
+                        if(CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
                         {
                             CDTXMania.Tx.Chara_Normal_Cleared[ this.arクリアモーション番号[ (int)this.ctChara_Clear.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_X[0], CDTXMania.Skin.Game_Chara_Y[0] );
                         }
                     }
                     else
                     {
-                        if(CDTXMania.Tx.Chara_Normal[ 0 ] != null && CDTXMania.Skin.Game_Chara_Ptn_Normal != 0)
+                        if (CDTXMania.Skin.Game_Chara_Ptn_Normal != 0)
                         {
                             CDTXMania.Tx.Chara_Normal[ this.arモーション番号[ (int)this.ctChara_Normal.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_X[0], CDTXMania.Skin.Game_Chara_Y[0] );
                         }
@@ -413,12 +413,12 @@ namespace DTXMania
                 {
                     if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[ 0 ] >= 100.0 && CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0 )
                     {
-                        if(CDTXMania.Tx.Chara_GoGoTime_Maxed[ 0 ] != null )
+                        if(CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
                             CDTXMania.Tx.Chara_GoGoTime_Maxed[this.arゴーゴーモーション番号[(int)this.ctChara_GoGo.db現在の値] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_X[0], CDTXMania.Skin.Game_Chara_Y[0] );
                     }
                     else
                     {
-                        if(CDTXMania.Tx.Chara_GoGoTime[ this.arゴーゴーモーション番号[ (int)this.ctChara_GoGo.db現在の値 ] ] != null )
+                        if(CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
                             CDTXMania.Tx.Chara_GoGoTime[ this.arゴーゴーモーション番号[ (int)this.ctChara_GoGo.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_X[0], CDTXMania.Skin.Game_Chara_Y[0] );
                     }
                 }

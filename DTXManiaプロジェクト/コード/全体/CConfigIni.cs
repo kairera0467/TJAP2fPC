@@ -634,8 +634,6 @@ namespace DTXMania
 		public bool b演奏情報を表示する;
 		public bool b歓声を発声する;
 		public bool b垂直帰線待ちを行う;
-		public bool b選曲リストフォントを斜体にする;
-		public bool b選曲リストフォントを太字にする;
 		public bool b全画面モード;
 		public int n初期ウィンドウ開始位置X; // #30675 2013.02.04 ikanick add
 		public int n初期ウィンドウ開始位置Y;  
@@ -653,13 +651,11 @@ namespace DTXMania
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
 		public int n自動再生音量;
 		public int n手動再生音量;
-		public int n選曲リストフォントのサイズdot;
-		public STDGBVALUE<int> n表示可能な最小コンボ数;
+        public STDGBVALUE<int> n表示可能な最小コンボ数;
 		public STDGBVALUE<int> n譜面スクロール速度;
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
-		public string str選曲リストフォント;
-        public string strPrivateFontで使うフォント名;
+        public string FontName;
         public bool bドラムコンボ表示;
         public bool bBranchGuide;
         public int nScoreMode;
@@ -1221,7 +1217,7 @@ namespace DTXMania
 			this.nBGAlpha = 100;
 			this.eダメージレベル = Eダメージレベル.普通;
 			this.bSTAGEFAILED有効 = true;
-			this.bAVI有効 = true;
+			this.bAVI有効 = false;
 			this.bBGA有効 = true;
 			this.bフィルイン有効 = true;
 			this.n曲が選択されてからプレビュー音が鳴るまでのウェイトms = 1000;
@@ -1237,10 +1233,8 @@ namespace DTXMania
 			this.n表示可能な最小コンボ数.Guitar = 2;
 			this.n表示可能な最小コンボ数.Bass = 2;
 			this.n表示可能な最小コンボ数.Taiko = 3;
-			this.str選曲リストフォント = "MS PGothic";
-			this.n選曲リストフォントのサイズdot = 20;
-			this.b選曲リストフォントを太字にする = true;
-			this.n自動再生音量 = 80;
+            this.FontName = "MS UI Gothic";
+            this.n自動再生音量 = 80;
 			this.n手動再生音量 = 100;
 			this.bログ出力 = true;
 			this.b演奏音を強調する = new STDGBVALUE<bool>();
@@ -1283,10 +1277,10 @@ namespace DTXMania
             this.bAuto先生の連打 = true;
 			#endregion
 			this.nヒット範囲ms = new STRANGE();
-			this.nヒット範囲ms.Perfect = 25;
+			this.nヒット範囲ms.Perfect = 30;
 			this.nヒット範囲ms.Great = -1; //使用しません。
-			this.nヒット範囲ms.Good = 75;
-			this.nヒット範囲ms.Poor = 108;
+			this.nヒット範囲ms.Good = 110;
+			this.nヒット範囲ms.Poor = 140;
 			this.ConfigIniファイル名 = "";
 			this.dicJoystick = new Dictionary<int, string>( 10 );
 			this.tデフォルトのキーアサインに設定する();
@@ -1343,7 +1337,7 @@ namespace DTXMania
             this.bAutoSection = false;
             this.nBranchAnime = 1;
 
-            this.b大音符判定 = true;
+            this.b大音符判定 = false;
             this.n両手判定の待ち時間 = 50;
 
             this.bJudgeCountDisplay = false;
@@ -1379,10 +1373,10 @@ namespace DTXMania
             this.bNoInfo = false;
             
             //this.bNoMP3Streaming = false;
-			this.nMasterVolume = 100;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
+			this.nMasterVolume = 25;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
 
             this.bHispeedRandom = false;
-            this.nDefaultSongSort = 0;
+            this.nDefaultSongSort = 2;
             this.eGameMode = EGame.OFF;
             this.bEndingAnime = false;
             this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
@@ -1517,19 +1511,26 @@ namespace DTXMania
 			sw.WriteLine( "; 非フォーカス時のsleep値[ms]" );	    			    // #23568 2011.11.04 ikanick add
 			sw.WriteLine( "; A sleep time[ms] while the window is inactive." );	//
 			sw.WriteLine( "BackSleep={0}", this.n非フォーカス時スリープms );		// そのまま引用（苦笑）
-			sw.WriteLine();											        			//
-			#endregion
-			#region [ フレーム処理関連(VSync, フレーム毎のsleep) ]
-			sw.WriteLine("; 垂直帰線同期(0:OFF,1:ON)");
+			sw.WriteLine();                                                             //
+            #endregion
+            #region [ フォント ]
+            sw.WriteLine("; フォントレンダリングに使用するフォント名");
+            sw.WriteLine("; Font name used for font rendering.");
+            sw.WriteLine("FontName={0}", this.FontName);
+            sw.WriteLine();
+            #endregion
+            #region [ フレーム処理関連(VSync, フレーム毎のsleep) ]
+            sw.WriteLine("; 垂直帰線同期(0:OFF,1:ON)");
 			sw.WriteLine( "VSyncWait={0}", this.b垂直帰線待ちを行う ? 1 : 0 );
             sw.WriteLine();
 			sw.WriteLine( "; フレーム毎のsleep値[ms] (-1でスリープ無し, 0以上で毎フレームスリープ。動画キャプチャ等で活用下さい)" );	// #xxxxx 2011.11.27 yyagi add
 			sw.WriteLine( "; A sleep time[ms] per frame." );							//
 			sw.WriteLine( "SleepTimePerFrame={0}", this.nフレーム毎スリープms );		//
-			sw.WriteLine();											        			//
-			#endregion
-			#region [ WASAPI/ASIO関連 ]
-			sw.WriteLine( "; サウンド出力方式(0=ACM(って今はまだDirectSoundですが), 1=ASIO, 2=WASAPI)" );
+			sw.WriteLine();                                                             //
+            #endregion
+            
+            #region [ WASAPI/ASIO関連 ]
+            sw.WriteLine( "; サウンド出力方式(0=ACM(って今はまだDirectSoundですが), 1=ASIO, 2=WASAPI)" );
 			sw.WriteLine( "; WASAPIはVista以降のOSで使用可能。推奨方式はWASAPI。" );
 			sw.WriteLine( "; なお、WASAPIが使用不可ならASIOを、ASIOが使用不可ならACMを使用します。" );
 			sw.WriteLine( "; Sound device type(0=ACM, 1=ASIO, 2=WASAPI)" );
@@ -1623,7 +1624,6 @@ namespace DTXMania
 			#endregion
 			//sw.WriteLine( "; Waveの再生位置自動補正(0:OFF, 1:ON)" );
 			//sw.WriteLine( "AdjustWaves={0}", this.bWave再生位置自動調整機能有効 ? 1 : 0 );
-			sw.WriteLine();
 			#region [ BGM/ドラムヒット音の再生 ]
 			sw.WriteLine( "; BGM の再生(0:OFF, 1:ON)" );
 			sw.WriteLine( "BGMSound={0}", this.bBGM音を発声する ? 1 : 0 );
@@ -1650,28 +1650,6 @@ namespace DTXMania
 			sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
 			sw.WriteLine( "ShowDebugStatus={0}", this.b演奏情報を表示する ? 1 : 0 );
 			sw.WriteLine();
-			#region [ 選曲リストのフォント ]
-			sw.WriteLine( "; 選曲リストのフォント名" );
-			sw.WriteLine( "; Font name for select song item." );
-			sw.WriteLine( "SelectListFontName={0}", this.str選曲リストフォント );
-			sw.WriteLine();
-			sw.WriteLine( "; 選曲リストのフォントのサイズ[dot]" );
-			sw.WriteLine( "; Font size[dot] for select song item." );
-			sw.WriteLine( "SelectListFontSize={0}", this.n選曲リストフォントのサイズdot );
-			sw.WriteLine();
-			sw.WriteLine( "; 選曲リストのフォントを斜体にする (0:OFF, 1:ON)" );
-			sw.WriteLine( "; Using italic font style select song list. (0:OFF, 1:ON)" );
-			sw.WriteLine( "SelectListFontItalic={0}", this.b選曲リストフォントを斜体にする ? 1 : 0 );
-			sw.WriteLine();
-			sw.WriteLine( "; 選曲リストのフォントを太字にする (0:OFF, 1:ON)" );
-			sw.WriteLine( "; Using bold font style select song list. (0:OFF, 1:ON)" );
-			sw.WriteLine( "SelectListFontBold={0}", this.b選曲リストフォントを太字にする ? 1 : 0 );
-			sw.WriteLine();
-			sw.WriteLine( "; PrivateFontのフォント名" );
-			sw.WriteLine( "; Font name for select song item." );
-			sw.WriteLine( "PrivateFontFontName={0}", this.strPrivateFontで使うフォント名 );
-			sw.WriteLine();
-			#endregion
 			sw.WriteLine( "; 打音の音量(0～100%)" );
 			sw.WriteLine( "; Sound volume (you're playing) (0-100%)" );
 			sw.WriteLine( "ChipVolume={0}", this.n手動再生音量 );
@@ -1742,9 +1720,32 @@ namespace DTXMania
             sw.WriteLine( "EndingAnime={0}", this.bEndingAnime ? 1 : 0 );
             sw.WriteLine();
 			sw.WriteLine( ";-------------------" );
-			#endregion
-			#region [ Log ]
-			sw.WriteLine( "[Log]" );
+            #endregion
+
+            #region [ AutoPlay ]
+            sw.WriteLine("[AutoPlay]");
+            sw.WriteLine();
+            sw.WriteLine("; 自動演奏(0:OFF, 1:ON)");
+            sw.WriteLine("Taiko={0}", this.b太鼓パートAutoPlay ? 1 : 0);
+            sw.WriteLine("Taiko2P={0}", this.b太鼓パートAutoPlay2P ? 1 : 0);
+            sw.WriteLine("TaikoAutoRoll={0}", this.bAuto先生の連打 ? 1 : 0);
+            sw.WriteLine();
+            sw.WriteLine(";-------------------");
+            #endregion
+
+            #region [ HitRange ]
+            sw.WriteLine("[HitRange]");
+            sw.WriteLine();
+            sw.WriteLine("; Perfect～Poor とみなされる範囲[ms]");
+            sw.WriteLine("Perfect={0}", this.nヒット範囲ms.Perfect);
+            sw.WriteLine("Good={0}", this.nヒット範囲ms.Good);
+            sw.WriteLine("Poor={0}", this.nヒット範囲ms.Poor);
+            sw.WriteLine();
+            sw.WriteLine(";-------------------");
+            #endregion
+
+            #region [ Log ]
+            sw.WriteLine( "[Log]" );
 			sw.WriteLine();
 			sw.WriteLine( "; Log出力(0:OFF, 1:ON)" );
 			sw.WriteLine( "OutputLog={0}", this.bログ出力 ? 1 : 0 );
@@ -1995,28 +1996,6 @@ namespace DTXMania
 			sw.WriteLine();
 			sw.WriteLine( ";-------------------" );
 			#endregion
-
-			#region [ AutoPlay ]
-			sw.WriteLine( "[AutoPlay]" );
-			sw.WriteLine();
-			sw.WriteLine( "; 自動演奏(0:OFF, 1:ON)" );
-            sw.WriteLine( "Taiko={0}", this.b太鼓パートAutoPlay ? 1 : 0 );
-            sw.WriteLine( "Taiko2P={0}", this.b太鼓パートAutoPlay2P ? 1 : 0 );
-            sw.WriteLine( "TaikoAutoRoll={0}", this.bAuto先生の連打 ? 1 : 0 );
-            sw.WriteLine();
-			sw.WriteLine( ";-------------------" );
-			#endregion
-
-			#region [ HitRange ]
-			sw.WriteLine( "[HitRange]" );
-			sw.WriteLine();
-			sw.WriteLine( "; Perfect～Poor とみなされる範囲[ms]" );
-			sw.WriteLine( "Perfect={0}", this.nヒット範囲ms.Perfect );
-			sw.WriteLine( "Good={0}", this.nヒット範囲ms.Good );
-			sw.WriteLine( "Poor={0}", this.nヒット範囲ms.Poor );
-			sw.WriteLine();
-			sw.WriteLine( ";-------------------" );
-			#endregion
 			#region [ GUID ]
 			sw.WriteLine( "[GUID]" );
 			sw.WriteLine();
@@ -2224,7 +2203,15 @@ namespace DTXMania
 							{
 								unknown = Eセクション種別.System;
 							}
-							else if ( str2.Equals( "Log" ) )
+                            else if (str2.Equals("AutoPlay"))
+                            {
+                                unknown = Eセクション種別.AutoPlay;
+                            }
+                            else if (str2.Equals("HitRange"))
+                            {
+                                unknown = Eセクション種別.HitRange;
+                            }
+                            else if ( str2.Equals( "Log" ) )
 							{
 								unknown = Eセクション種別.Log;
 							}
@@ -2235,14 +2222,6 @@ namespace DTXMania
 							else if ( str2.Equals( "ViewerOption" ) )
 							{
 								unknown = Eセクション種別.ViewerOption;
-							}
-							else if ( str2.Equals( "AutoPlay" ) )
-							{
-								unknown = Eセクション種別.AutoPlay;
-							}
-							else if ( str2.Equals( "HitRange" ) )
-							{
-								unknown = Eセクション種別.HitRange;
 							}
 							else if ( str2.Equals( "GUID" ) )
 							{
@@ -2399,9 +2378,10 @@ namespace DTXMania
 											{
 												this.n非フォーカス時スリープms = C変換.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 50, this.n非フォーカス時スリープms );
 											}
-											#endregion
-											#region [ WASAPI/ASIO関係 ]
-											else if ( str3.Equals( "SoundDeviceType" ) )
+                                            #endregion
+
+                                            #region [ WASAPI/ASIO関係 ]
+                                            else if ( str3.Equals( "SoundDeviceType" ) )
 											{
 												this.nSoundDeviceType = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nSoundDeviceType );
 											}
@@ -2426,12 +2406,20 @@ namespace DTXMania
 											{
 												this.bUseOSTimer = C変換.bONorOFF( str4[ 0 ] );
 											}
-											//else if ( str3.Equals( "MasterVolume" ) )
-											//{
-											//    this.nMasterVolume = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.nMasterVolume );
-											//}
-											#endregion
-											else if ( str3.Equals( "VSyncWait" ) )
+                                            //else if ( str3.Equals( "MasterVolume" ) )
+                                            //{
+                                            //    this.nMasterVolume = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.nMasterVolume );
+                                            //}
+                                            #endregion
+
+                                            #region [ フォント ]
+                                            else if (str3.Equals("FontName"))
+                                            {
+                                                this.FontName = str4;
+                                            }
+                                            #endregion
+
+                                            else if ( str3.Equals( "VSyncWait" ) )
 											{
 												this.b垂直帰線待ちを行う = C変換.bONorOFF( str4[ 0 ] );
 											}
@@ -2535,29 +2523,7 @@ namespace DTXMania
 											{
 												this.b演奏情報を表示する = C変換.bONorOFF( str4[ 0 ] );
 											}
-											#region [ 選曲リストフォント ]
-											else if( str3.Equals( "SelectListFontName" ) )
-											{
-												this.str選曲リストフォント = str4;
-											}
-											else if( str3.Equals( "SelectListFontSize" ) )
-											{
-												this.n選曲リストフォントのサイズdot = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x3e7, this.n選曲リストフォントのサイズdot );
-											}
-											else if( str3.Equals( "SelectListFontItalic" ) )
-											{
-												this.b選曲リストフォントを斜体にする = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "SelectListFontBold" ) )
-											{
-												this.b選曲リストフォントを太字にする = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "PrivateFontFontName" ) )
-											{
-												this.strPrivateFontで使うフォント名 = str4;
-											}
-											#endregion
-											else if( str3.Equals( "ChipVolume" ) )
+                                            else if( str3.Equals( "ChipVolume" ) )
 											{
 												this.n手動再生音量 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.n手動再生音量 );
 											}
@@ -2682,12 +2648,144 @@ namespace DTXMania
 
                                             continue;
 										}
-									//-----------------------------
-									#endregion
+                                    //-----------------------------
+                                    #endregion
 
-									#region [ [Log] ]
-									//-----------------------------
-									case Eセクション種別.Log:
+                                    #region [ [AutoPlay] ]
+                                    //-----------------------------
+                                    case Eセクション種別.AutoPlay:
+                                        if (str3.Equals("LC"))
+                                        {
+                                            this.bAutoPlay.LC = C変換.bONorOFF(str4[0]);
+                                        }
+                                        if (str3.Equals("HH"))
+                                        {
+                                            this.bAutoPlay.HH = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("SD"))
+                                        {
+                                            this.bAutoPlay.SD = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("BD"))
+                                        {
+                                            this.bAutoPlay.BD = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("HT"))
+                                        {
+                                            this.bAutoPlay.HT = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("LT"))
+                                        {
+                                            this.bAutoPlay.LT = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("FT"))
+                                        {
+                                            this.bAutoPlay.FT = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("CY"))
+                                        {
+                                            this.bAutoPlay.CY = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("LP"))
+                                        {
+                                            this.bAutoPlay.LP = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("LBD"))
+                                        {
+                                            this.bAutoPlay.LBD = C変換.bONorOFF(str4[0]);
+                                        }
+                                        //else if( str3.Equals( "Guitar" ) )
+                                        //{
+                                        //    this.bAutoPlay.Guitar = C変換.bONorOFF( str4[ 0 ] );
+                                        //}
+                                        else if (str3.Equals("GuitarR"))
+                                        {
+                                            this.bAutoPlay.GtR = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("GuitarG"))
+                                        {
+                                            this.bAutoPlay.GtG = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("GuitarB"))
+                                        {
+                                            this.bAutoPlay.GtB = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("GuitarPick"))
+                                        {
+                                            this.bAutoPlay.GtPick = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("GuitarWailing"))
+                                        {
+                                            this.bAutoPlay.GtW = C変換.bONorOFF(str4[0]);
+                                        }
+                                        //else if ( str3.Equals( "Bass" ) )
+                                        //{
+                                        //    this.bAutoPlay.Bass = C変換.bONorOFF( str4[ 0 ] );
+                                        //}
+                                        else if (str3.Equals("BassR"))
+                                        {
+                                            this.bAutoPlay.BsR = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("BassG"))
+                                        {
+                                            this.bAutoPlay.BsG = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("BassB"))
+                                        {
+                                            this.bAutoPlay.BsB = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("BassPick"))
+                                        {
+                                            this.bAutoPlay.BsPick = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("BassWailing"))
+                                        {
+                                            this.bAutoPlay.BsW = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("Taiko"))
+                                        {
+                                            this.b太鼓パートAutoPlay = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("Taiko2P"))
+                                        {
+                                            this.b太鼓パートAutoPlay2P = C変換.bONorOFF(str4[0]);
+                                        }
+                                        else if (str3.Equals("TaikoAutoRoll"))
+                                        {
+                                            this.bAuto先生の連打 = C変換.bONorOFF(str4[0]);
+                                        }
+                                        continue;
+                                    //-----------------------------
+                                    #endregion
+
+                                    #region [ [HitRange] ]
+                                    //-----------------------------
+                                    case Eセクション種別.HitRange:
+                                        if (str3.Equals("Perfect"))
+                                        {
+                                            this.nヒット範囲ms.Perfect = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Perfect);
+                                        }
+                                        else if (str3.Equals("Great"))
+                                        {
+                                            this.nヒット範囲ms.Great = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Great);
+                                        }
+                                        else if (str3.Equals("Good"))
+                                        {
+                                            this.nヒット範囲ms.Good = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Good);
+                                        }
+                                        else if (str3.Equals("Poor"))
+                                        {
+                                            this.nヒット範囲ms.Poor = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Poor);
+                                        }
+                                        continue;
+                                    //-----------------------------
+                                    #endregion
+
+
+
+                                    #region [ [Log] ]
+                                    //-----------------------------
+                                    case Eセクション種別.Log:
 										{
 											if( str3.Equals( "OutputLog" ) )
 											{
@@ -3053,136 +3151,6 @@ namespace DTXMania
 											}
 											continue;
 										}
-									//-----------------------------
-									#endregion
-
-									#region [ [AutoPlay] ]
-									//-----------------------------
-									case Eセクション種別.AutoPlay:
-										if( str3.Equals( "LC" ) )
-										{
-											this.bAutoPlay.LC = C変換.bONorOFF( str4[ 0 ] );
-										}
-										if( str3.Equals( "HH" ) )
-										{
-										this.bAutoPlay.HH = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if( str3.Equals( "SD" ) )
-										{
-											this.bAutoPlay.SD = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if( str3.Equals( "BD" ) )
-										{
-											this.bAutoPlay.BD = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if( str3.Equals( "HT" ) )
-										{
-											this.bAutoPlay.HT = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if( str3.Equals( "LT" ) )
-										{
-											this.bAutoPlay.LT = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if( str3.Equals( "FT" ) )
-										{
-										    this.bAutoPlay.FT = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if( str3.Equals( "CY" ) )
-										{
-											this.bAutoPlay.CY = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if( str3.Equals( "LP" ) )
-										{
-										    this.bAutoPlay.LP = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if( str3.Equals( "LBD" ) )
-										{
-											this.bAutoPlay.LBD = C変換.bONorOFF( str4[ 0 ] );
-										}
-										//else if( str3.Equals( "Guitar" ) )
-										//{
-										//    this.bAutoPlay.Guitar = C変換.bONorOFF( str4[ 0 ] );
-										//}
-										else if ( str3.Equals( "GuitarR" ) )
-										{
-											this.bAutoPlay.GtR = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "GuitarG" ) )
-										{
-											this.bAutoPlay.GtG = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "GuitarB" ) )
-										{
-											this.bAutoPlay.GtB = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "GuitarPick" ) )
-										{
-											this.bAutoPlay.GtPick = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "GuitarWailing" ) )
-										{
-											this.bAutoPlay.GtW = C変換.bONorOFF( str4[ 0 ] );
-										}
-										//else if ( str3.Equals( "Bass" ) )
-										//{
-										//    this.bAutoPlay.Bass = C変換.bONorOFF( str4[ 0 ] );
-										//}
-										else if ( str3.Equals( "BassR" ) )
-										{
-											this.bAutoPlay.BsR = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "BassG" ) )
-										{
-											this.bAutoPlay.BsG = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "BassB" ) )
-										{
-											this.bAutoPlay.BsB = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "BassPick" ) )
-										{
-											this.bAutoPlay.BsPick = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "BassWailing" ) )
-										{
-											this.bAutoPlay.BsW = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "Taiko" ) )
-										{
-											this.b太鼓パートAutoPlay = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "Taiko2P" ) )
-										{
-											this.b太鼓パートAutoPlay2P = C変換.bONorOFF( str4[ 0 ] );
-										}
-										else if ( str3.Equals( "TaikoAutoRoll" ) )
-										{
-											this.bAuto先生の連打 = C変換.bONorOFF( str4[ 0 ] );
-										}
-										continue;
-									//-----------------------------
-									#endregion
-
-									#region [ [HitRange] ]
-									//-----------------------------
-									case Eセクション種別.HitRange:
-										if( str3.Equals( "Perfect" ) )
-										{
-											this.nヒット範囲ms.Perfect = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x3e7, this.nヒット範囲ms.Perfect );
-											}
-										else if( str3.Equals( "Great" ) )
-										{
-											this.nヒット範囲ms.Great = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x3e7, this.nヒット範囲ms.Great );
-										}
-										else if( str3.Equals( "Good" ) )
-										{
-											this.nヒット範囲ms.Good = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x3e7, this.nヒット範囲ms.Good );
-										}
-										else if( str3.Equals( "Poor" ) )
-										{
-											this.nヒット範囲ms.Poor = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x3e7, this.nヒット範囲ms.Poor );
-										}
-										continue;
 									//-----------------------------
 									#endregion
 

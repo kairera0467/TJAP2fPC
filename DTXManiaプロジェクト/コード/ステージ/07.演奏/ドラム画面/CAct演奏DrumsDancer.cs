@@ -150,7 +150,7 @@ namespace DTXMania
 
             
 
-            if (CDTXMania.ConfigIni.bDancer)
+            if (CDTXMania.ConfigIni.bDancer && this.ct踊り子モーション != null && CDTXMania.Skin.Game_Dancer_Ptn != 0)
             {
                 for (int i = 0; i < 5; i++)
                 {

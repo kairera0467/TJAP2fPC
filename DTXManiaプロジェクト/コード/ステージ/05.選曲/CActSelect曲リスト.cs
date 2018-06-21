@@ -523,15 +523,15 @@ namespace DTXMania
 			if( this.b活性化してる )
 				return;
 
-            if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.strPrivateFontで使うフォント名))
+            if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.FontName))
             {
-                this.pfMusicName = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.strPrivateFontで使うフォント名), 22);
-                this.pfSubtitle = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.strPrivateFontで使うフォント名), 14);
+                this.pfMusicName = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 22);
+                this.pfSubtitle = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 14);
             }
             else
             {
-                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS PGothic"), 22);
-                this.pfSubtitle = new CPrivateFastFont(new FontFamily("MS PGothic"), 14);
+                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 22);
+                this.pfSubtitle = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 14);
             }
 
             this.e楽器パート = E楽器パート.DRUMS;
@@ -544,9 +544,7 @@ namespace DTXMania
 			// 曲リスト文字は２倍（面積４倍）でテクスチャに描画してから縮小表示するので、フォントサイズは２倍とする。
 
 			FontStyle regular = FontStyle.Regular;
-			if( CDTXMania.ConfigIni.b選曲リストフォントを斜体にする ) regular |= FontStyle.Italic;
-			if( CDTXMania.ConfigIni.b選曲リストフォントを太字にする ) regular |= FontStyle.Bold;
-			this.ft曲リスト用フォント = new Font( CDTXMania.ConfigIni.str選曲リストフォント, (float) ( CDTXMania.ConfigIni.n選曲リストフォントのサイズdot * 2 ), regular, GraphicsUnit.Pixel );
+			this.ft曲リスト用フォント = new Font( CDTXMania.ConfigIni.FontName, 40f, regular, GraphicsUnit.Pixel );
 			
 
 			// 現在選択中の曲がない（＝はじめての活性化）なら、現在選択中の曲をルートの先頭ノードに設定する。
@@ -2028,7 +2026,7 @@ namespace DTXMania
 				using( var g = Graphics.FromImage( bmp ) )
 				{
 					g.TextRenderingHint = TextRenderingHint.AntiAlias;
-					float y = ( ( ( float ) bmp.Height ) / 2f ) - ( ( CDTXMania.ConfigIni.n選曲リストフォントのサイズdot * 2f ) / 2f );
+					float y = ( ( ( float ) bmp.Height ) / 2f ) - ( 20 );
 					g.DrawString( str曲名, this.ft曲リスト用フォント, new SolidBrush( this.color文字影 ), (float) 2f, (float) ( y + 2f ) );
 					g.DrawString( str曲名, this.ft曲リスト用フォント, new SolidBrush( color ), 0f, y );
 

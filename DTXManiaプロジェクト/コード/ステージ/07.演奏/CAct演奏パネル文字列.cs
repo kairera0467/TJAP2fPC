@@ -169,15 +169,15 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
-            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ) )
+            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.FontName ) )
             {
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 30 );
+                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.FontName), 30 );
                 //this.pf縦書きテスト = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 22 );
             }
             else
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 30 );
+                this.pfMusicName = new CPrivateFastFont( new FontFamily("MS UI Gothic"), 30 );
 
-            this.pf歌詞フォント = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 28 );
+            this.pf歌詞フォント = new CPrivateFastFont( new FontFamily("MS UI Gothic"), 28 );
 
 			this.txPanel = null;
 			this.ct進行用 = new CCounter();

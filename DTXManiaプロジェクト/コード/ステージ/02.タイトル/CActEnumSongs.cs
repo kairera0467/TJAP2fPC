@@ -87,7 +87,7 @@ namespace DTXMania
 
 			try
 			{
-				System.Drawing.Font ftMessage = new System.Drawing.Font( "MS PGothic", 40f, FontStyle.Bold, GraphicsUnit.Pixel );
+				System.Drawing.Font ftMessage = new System.Drawing.Font("MS UI Gothic", 40f, FontStyle.Bold, GraphicsUnit.Pixel );
 				string[] strMessage = 
 				{
 					"     曲データの一覧を\n       取得しています。\n   しばらくお待ちください。",

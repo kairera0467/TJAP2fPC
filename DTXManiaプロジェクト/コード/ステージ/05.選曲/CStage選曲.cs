@@ -177,7 +177,7 @@ namespace DTXMania
 			{
                 this.eフェードアウト完了時の戻り値 = E戻り値.継続;
 				this.bBGM再生済み = false;
-				this.ftフォント = new Font( "MS PGothic", 26f, GraphicsUnit.Pixel );
+				this.ftフォント = new Font("MS UI Gothic", 26f, GraphicsUnit.Pixel );
 				for( int i = 0; i < 4; i++ )
 					this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, CDTXMania.Timer );
 
