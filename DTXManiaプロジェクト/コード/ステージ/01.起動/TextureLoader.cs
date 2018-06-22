@@ -1,4 +1,4 @@
-﻿using FDK;
+using FDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +99,11 @@ namespace DTXMania
             SongSelect_Branch = TxC(SONGSELECT + @"Branch.png");
             SongSelect_Branch_Text = TxC(SONGSELECT + @"Branch_Text.png");
             SongSelect_Bar_Center = TxC(SONGSELECT + @"Bar_Center.png");
+            SongSelect_Frame_Score = TxC(SONGSELECT + @"Frame_Score.png");
+            SongSelect_Frame_Box = TxC(SONGSELECT + @"Frame_Box.png");
+            SongSelect_Frame_BackBox = TxC(SONGSELECT + @"Frame_BackBox.png");
+            SongSelect_Frame_Random = TxC(SONGSELECT + @"Frame_Random.png");
+            //SongSelect_Frame_Dani = TxC(SONGSELECT + @"Frame_Dani.png");
             SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
             SongSelect_Cursor_Left = TxC(SONGSELECT + @"Cursor_Left.png");
             SongSelect_Cursor_Right = TxC(SONGSELECT + @"Cursor_Right.png");
@@ -253,19 +258,6 @@ namespace DTXMania
                         Dancer[i][p] = TxC(GAME + DANCER + (i + 1) + @"\" + p.ToString() + ".png");
                     }
                 }
-                //Dancer_1 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                //Dancer_2 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                //Dancer_3 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                //Dancer_4 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                //Dancer_5 = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                //for (int i = 0; i < CDTXMania.Skin.Game_Dancer_Ptn; i++)
-                //{
-                //    Dancer_1[i] = TxC(GAME + DANCER + @"1\" + i.ToString() + ".png");
-                //    Dancer_2[i] = TxC(GAME + DANCER + @"2\" + i.ToString() + ".png");
-                //    Dancer_3[i] = TxC(GAME + DANCER + @"3\" + i.ToString() + ".png");
-                //    Dancer_4[i] = TxC(GAME + DANCER + @"4\" + i.ToString() + ".png");
-                //    Dancer_5[i] = TxC(GAME + DANCER + @"5\" + i.ToString() + ".png");
-                //}
             }
             #endregion
             #region モブ
@@ -362,7 +354,6 @@ namespace DTXMania
             {
                 Balloon_Breaking[i] = TxC(GAME + BALLOON + @"Breaking_" + i.ToString() + ".png");
             }
-            //Balloon_Broken = TxC(GAME + BALLOON + @"Broken.png");
             #endregion
             #region エフェクト
             Effects_Hit_Explosion = TxCAf(GAME + EFFECTS + @"Hit\Explosion.png");
@@ -397,10 +388,6 @@ namespace DTXMania
                 Effects_Hit_Great_Big[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Great_Big\" + i.ToString() + ".png");
                 Effects_Hit_Good[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good\" + i.ToString() + ".png");
                 Effects_Hit_Good_Big[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good_Big\" + i.ToString() + ".png");
-                //Effects_Hit_Great[i].b加算合成 = true;
-                //Effects_Hit_Great_Big[i].b加算合成 = true;
-                //Effects_Hit_Good[i].b加算合成 = true;
-                //Effects_Hit_Good_Big[i].b加算合成 = true;
             }
             Effects_Roll = new CTexture[4];
             for (int i = 0; i < 4; i++)
@@ -465,15 +452,297 @@ namespace DTXMania
 
             #region 7_終了画面
             Exit_Background = TxC(EXIT + @"Background.png");
-            //Exit_Text = TxC(EXIT + @"Text.png");
             #endregion
 
         }
 
         public void DisposeTexture()
         {
-            Title_Background.Dispose();
-            Title_Menu.Dispose();
+            CDTXMania.tテクスチャの解放(ref Title_Background);
+            CDTXMania.tテクスチャの解放(ref Title_Menu);
+            #region 共通
+            CDTXMania.tテクスチャの解放(ref Tile_Black);
+            CDTXMania.tテクスチャの解放(ref Tile_White);
+            CDTXMania.tテクスチャの解放(ref Menu_Title);
+            CDTXMania.tテクスチャの解放(ref Menu_Highlight);
+            CDTXMania.tテクスチャの解放(ref Enum_Song);
+            CDTXMania.tテクスチャの解放(ref Overlay);
+            #endregion
+            #region 1_タイトル画面
+            CDTXMania.tテクスチャの解放(ref Title_Background);
+            CDTXMania.tテクスチャの解放(ref Title_Menu);
+            #endregion
+
+            #region 2_コンフィグ画面
+            CDTXMania.tテクスチャの解放(ref Config_Background);
+            CDTXMania.tテクスチャの解放(ref Config_Cursor);
+            CDTXMania.tテクスチャの解放(ref Config_ItemBox);
+            CDTXMania.tテクスチャの解放(ref Config_Arrow);
+            CDTXMania.tテクスチャの解放(ref Config_KeyAssign);
+            CDTXMania.tテクスチャの解放(ref Config_Font);
+            CDTXMania.tテクスチャの解放(ref Config_Font_Bold);
+            CDTXMania.tテクスチャの解放(ref Config_Enum_Song);
+            #endregion
+
+            #region 3_選曲画面
+            CDTXMania.tテクスチャの解放(ref SongSelect_Background);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Header);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Footer);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Difficulty);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Auto);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Level);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Branch);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Branch_Text);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Bar_Center);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Score);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Box);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_BackBox);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Random);
+            //CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Dani);
+            CDTXMania.tテクスチャの解放(ref SongSelect_GenreText);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Left);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Right);
+            for (int i = 0; i < 9; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref SongSelect_Bar_Genre[i]);
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref SongSelect_ScoreWindow[i]);
+            }
+
+            for (int i = 0; i < 9; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref SongSelect_GenreBack[i]);
+            }
+            CDTXMania.tテクスチャの解放(ref SongSelect_ScoreWindow_Text);
+            #endregion
+
+            #region 4_読み込み画面
+            CDTXMania.tテクスチャの解放(ref SongLoading_Plate);
+            CDTXMania.tテクスチャの解放(ref SongLoading_FadeIn);
+            CDTXMania.tテクスチャの解放(ref SongLoading_FadeOut);
+            #endregion
+
+            #region 5_演奏画面
+            #region 共通
+            CDTXMania.tテクスチャの解放(ref Notes);
+            CDTXMania.tテクスチャの解放(ref Judge_Frame);
+            CDTXMania.tテクスチャの解放(ref SenNotes);
+            CDTXMania.tテクスチャの解放(ref Notes_Arm);
+            CDTXMania.tテクスチャの解放(ref Judge);
+
+            CDTXMania.tテクスチャの解放(ref Judge_Meter);
+            CDTXMania.tテクスチャの解放(ref Bar);
+            CDTXMania.tテクスチャの解放(ref Bar_Branch);
+
+            #endregion
+            #region キャラクター
+
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Normal; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Normal[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Clear; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Normal_Cleared[i]);
+                CDTXMania.tテクスチャの解放(ref Chara_Normal_Maxed[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGo; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_GoGoTime[i]);
+                CDTXMania.tテクスチャの解放(ref Chara_GoGoTime_Maxed[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_10combo; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_10Combo[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_10combo_Max; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_10Combo_Maxed[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGoStart; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_GoGoStart[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_GoGoStart_Maxed[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_ClearIn; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Become_Cleared[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_SoulIn; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Become_Maxed[i]);
+            }
+            CDTXMania.tテクスチャの解放(ref Chara_Balloon_Breaking);
+            CDTXMania.tテクスチャの解放(ref Chara_Balloon_Broken);
+            #endregion
+            #region 踊り子
+            for (int i = 0; i < 5; i++)
+            {
+                for (int p = 0; p < CDTXMania.Skin.Game_Dancer_Ptn; p++)
+                {
+                    CDTXMania.tテクスチャの解放(ref Dancer[i][p]);
+                }
+            }
+            #endregion
+            #region モブ
+            for (int i = 0; i < CDTXMania.Skin.Game_Mob_Ptn; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Mob[i]);
+            }
+            #endregion
+            #region フッター
+            CDTXMania.tテクスチャの解放(ref Mob_Footer);
+            #endregion
+            #region 背景
+            CDTXMania.tテクスチャの解放(ref Background);
+            CDTXMania.tテクスチャの解放(ref Background_Up[0]);
+            CDTXMania.tテクスチャの解放(ref Background_Up[1]);
+            CDTXMania.tテクスチャの解放(ref Background_Up_Clear[0]);
+            CDTXMania.tテクスチャの解放(ref Background_Up_Clear[1]);
+            CDTXMania.tテクスチャの解放(ref Background_Down);
+            CDTXMania.tテクスチャの解放(ref Background_Down_Clear);
+            CDTXMania.tテクスチャの解放(ref Background_Down_Scroll);
+
+            #endregion
+            #region 太鼓
+            CDTXMania.tテクスチャの解放(ref Taiko_Background[0]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Background[1]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Frame[0]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Frame[1]);
+            CDTXMania.tテクスチャの解放(ref Taiko_PlayerNumber[0]);
+            CDTXMania.tテクスチャの解放(ref Taiko_PlayerNumber[1]);
+            CDTXMania.tテクスチャの解放(ref Taiko_NamePlate[0]);
+            CDTXMania.tテクスチャの解放(ref Taiko_NamePlate[1]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Base);
+            CDTXMania.tテクスチャの解放(ref Taiko_Don_Left);
+            CDTXMania.tテクスチャの解放(ref Taiko_Don_Right);
+            CDTXMania.tテクスチャの解放(ref Taiko_Ka_Left);
+            CDTXMania.tテクスチャの解放(ref Taiko_Ka_Right);
+            CDTXMania.tテクスチャの解放(ref Taiko_LevelUp);
+            CDTXMania.tテクスチャの解放(ref Taiko_LevelDown);
+            for (int i = 0; i < 6; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Couse_Symbol[i]);
+            }
+            CDTXMania.tテクスチャの解放(ref Taiko_Score[0]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Score[1]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Score[2]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Combo[0]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Combo[1]);
+            CDTXMania.tテクスチャの解放(ref Taiko_Combo_Effect);
+            #endregion
+            #region ゲージ
+            CDTXMania.tテクスチャの解放(ref Gauge[0]);
+            CDTXMania.tテクスチャの解放(ref Gauge[1]);
+            CDTXMania.tテクスチャの解放(ref Gauge_Base[0]);
+            CDTXMania.tテクスチャの解放(ref Gauge_Base[1]);
+            CDTXMania.tテクスチャの解放(ref Gauge_Line[0]);
+            CDTXMania.tテクスチャの解放(ref Gauge_Line[1]);
+            for (int i = 0; i < 12; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Gauge_Rainbow[i]);
+            }
+            CDTXMania.tテクスチャの解放(ref Gauge_Soul);
+            CDTXMania.tテクスチャの解放(ref Gauge_Soul_Fire);
+            CDTXMania.tテクスチャの解放(ref Gauge_Soul_Explosion[0]);
+            CDTXMania.tテクスチャの解放(ref Gauge_Soul_Explosion[1]);
+            #endregion
+            #region 吹き出し
+            CDTXMania.tテクスチャの解放(ref Balloon_Combo[0]);
+            CDTXMania.tテクスチャの解放(ref Balloon_Combo[1]);
+            CDTXMania.tテクスチャの解放(ref Balloon_Roll);
+            CDTXMania.tテクスチャの解放(ref Balloon_Balloon);
+            CDTXMania.tテクスチャの解放(ref Balloon_Number_Roll);
+            CDTXMania.tテクスチャの解放(ref Balloon_Number_Combo);
+
+            for (int i = 0; i < 6; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Balloon_Breaking[i]);
+            }
+            #endregion
+            #region エフェクト
+            CDTXMania.tテクスチャの解放(ref Effects_Hit_Explosion);
+            CDTXMania.tテクスチャの解放(ref  Effects_Hit_Explosion_Big);
+            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks[0]);
+            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks[1]);
+
+            CDTXMania.tテクスチャの解放(ref Effects_Fire);
+            CDTXMania.tテクスチャの解放(ref Effects_Rainbow);
+
+            for (int i = 0; i < 30; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Effects_Splash[i]);
+            }
+            for (int i = 0; i < 15; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Effects_Hit_Great[i]);
+                CDTXMania.tテクスチャの解放(ref Effects_Hit_Great_Big[i]);
+                CDTXMania.tテクスチャの解放(ref Effects_Hit_Good[i]);
+                CDTXMania.tテクスチャの解放(ref Effects_Hit_Good_Big[i]);
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Effects_Roll[i]);
+            }
+            #endregion
+            #region レーン
+            for (int i = 0; i < 3; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Lane_Base[i]);
+                CDTXMania.tテクスチャの解放(ref Lane_Text[i]);
+            }
+            CDTXMania.tテクスチャの解放(ref Lane_Red);
+            CDTXMania.tテクスチャの解放(ref Lane_Blue);
+            CDTXMania.tテクスチャの解放(ref Lane_Yellow);
+            CDTXMania.tテクスチャの解放(ref Lane_Background_Main);
+            CDTXMania.tテクスチャの解放(ref Lane_Background_Sub);
+            CDTXMania.tテクスチャの解放(ref Lane_Background_GoGo);
+
+            #endregion
+            #region 終了演出
+            for (int i = 0; i < 5; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref End_Clear_L[i]);
+                CDTXMania.tテクスチャの解放(ref End_Clear_R[i]);
+            }
+            CDTXMania.tテクスチャの解放(ref End_Clear_Text);
+            CDTXMania.tテクスチャの解放(ref End_Clear_Text_Effect);
+            #endregion
+            #region ゲームモード
+            CDTXMania.tテクスチャの解放(ref GameMode_Timer_Tick);
+            CDTXMania.tテクスチャの解放(ref GameMode_Timer_Frame);
+            #endregion
+            #region ステージ失敗
+            CDTXMania.tテクスチャの解放(ref Failed_Game);
+            CDTXMania.tテクスチャの解放(ref Failed_Stage);
+            #endregion
+            #region ランナー
+            CDTXMania.tテクスチャの解放(ref Runner);
+            #endregion
+            #endregion
+
+            #region 6_結果発表
+            CDTXMania.tテクスチャの解放(ref Result_Background);
+            CDTXMania.tテクスチャの解放(ref Result_FadeIn);
+            CDTXMania.tテクスチャの解放(ref Result_Gauge);
+            CDTXMania.tテクスチャの解放(ref Result_Gauge_Base);
+            CDTXMania.tテクスチャの解放(ref Result_Judge);
+            CDTXMania.tテクスチャの解放(ref Result_Header);
+            CDTXMania.tテクスチャの解放(ref Result_Number);
+            CDTXMania.tテクスチャの解放(ref Result_Panel);
+            CDTXMania.tテクスチャの解放(ref Result_Score_Text);
+            CDTXMania.tテクスチャの解放(ref Result_Score_Number);
+            #endregion
+
+            #region 7_終了画面
+            CDTXMania.tテクスチャの解放(ref Exit_Background);
+            #endregion
+
         }
 
         #region 共通
@@ -509,6 +778,11 @@ namespace DTXMania
             SongSelect_Level,
             SongSelect_Branch,
             SongSelect_Branch_Text,
+            SongSelect_Frame_Score,
+            SongSelect_Frame_Box,
+            SongSelect_Frame_BackBox,
+            SongSelect_Frame_Random,
+            //SongSelect_Frame_Dani,
             SongSelect_Bar_Center,
             SongSelect_GenreText,
             SongSelect_Cursor_Left,
