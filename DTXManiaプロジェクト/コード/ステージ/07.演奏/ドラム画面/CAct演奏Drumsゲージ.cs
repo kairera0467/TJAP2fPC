@@ -265,29 +265,29 @@ namespace DTXMania
                     CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 488, 532, new Rectangle( 0, 0, nRectX2P, 44 ) );
                     if(CDTXMania.Tx.Gauge[1] != null )
                     {
-                        if (this.db現在のゲージ値[0] >= 80.0)
+                        if (this.db現在のゲージ値[1] >= 80.0)
                         {
                             if (CDTXMania.Tx.Gauge_YellowFlashX[this.ctゲージフラッシュX.n現在の値] != null)
                             {
                                 this.ctゲージフラッシュX.t進行Loop();
-                                CDTXMania.Tx.Gauge_YellowFlashX[this.ctゲージフラッシュX.n現在の値].t2D描画(CDTXMania.app.Device, 492, 166);
+                                CDTXMania.Tx.Gauge_YellowFlashX[this.ctゲージフラッシュX.n現在の値].t2D描画(CDTXMania.app.Device, 492, 532);
                             }
                             else
                             {
                                 ;
                             }
                         }
-                        if (this.db現在のゲージ値[0] >= 100.0)
+                        if (this.db現在のゲージ値[1] >= 100.0)
                         {
                             if (CDTXMania.Tx.Gauge_SmoothRainbowX[this.ct虹アニメX.n現在の値] != null)
                             {
                                 this.ct虹アニメX.t進行Loop();
-                                CDTXMania.Tx.Gauge_SmoothRainbowX[this.ct虹アニメX.n現在の値].t2D描画(CDTXMania.app.Device, 492, 144);
+                                CDTXMania.Tx.Gauge_SmoothRainbowX[this.ct虹アニメX.n現在の値].t2D上下反転描画(CDTXMania.app.Device, 492, 532);
                             }
                             else if (CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値] != null)
                             {
                                 this.ct虹アニメ.t進行Loop();
-                                CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D描画(CDTXMania.app.Device, 492, 144);
+                                CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D上下反転描画(CDTXMania.app.Device, 492, 532);
                             }
                             else
                             {
