@@ -347,7 +347,7 @@ namespace DTXMania
 
                         if( fDamage >= 0 )
                         {
-                            fDamage = -fDamage;
+                            fDamage = -fDamage*3;
                         }
 
                         if( this.bRisky )
