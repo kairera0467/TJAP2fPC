@@ -2020,9 +2020,9 @@ namespace DTXMania
             using (var bmp = new Bitmap(pfMusicName.DrawPrivateFont(str文字, Color.White, Color.Black, true)))
             {
                 CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成(bmp, false);
-                if (tx文字テクスチャ.szテクスチャサイズ.Height > 380)
+                if (tx文字テクスチャ.szテクスチャサイズ.Height > 410)
                 {
-                    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(380.0f / tx文字テクスチャ.szテクスチャサイズ.Height);
+                    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(410.0f / tx文字テクスチャ.szテクスチャサイズ.Height);
                 }
                 return tx文字テクスチャ;
             }
@@ -2047,9 +2047,9 @@ namespace DTXMania
             using (var bmp = new Bitmap(pfSubtitle.DrawPrivateFont(str文字, Color.White, Color.Black, true)))
             {
                 CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成(bmp, false);
-                if (tx文字テクスチャ.szテクスチャサイズ.Height > 360)
+                if (tx文字テクスチャ.szテクスチャサイズ.Height > 390)
                 {
-                    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(360.0f / tx文字テクスチャ.szテクスチャサイズ.Height);
+                    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(390.0f / tx文字テクスチャ.szテクスチャサイズ.Height);
                 }
                 return tx文字テクスチャ;
             }
