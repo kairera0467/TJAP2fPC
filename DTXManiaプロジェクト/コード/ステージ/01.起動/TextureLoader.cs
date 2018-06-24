@@ -508,7 +508,6 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Box);
             CDTXMania.tテクスチャの解放(ref SongSelect_Frame_BackBox);
             CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Random);
-            //CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Dani);
             CDTXMania.tテクスチャの解放(ref SongSelect_GenreText);
             CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Left);
             CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Right);

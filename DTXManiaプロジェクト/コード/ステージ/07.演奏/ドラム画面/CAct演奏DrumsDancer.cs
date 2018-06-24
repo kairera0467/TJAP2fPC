@@ -37,7 +37,7 @@ namespace DTXMania
             //this.str踊り子リスト = CDTXMania.ConfigIni.strDancerMotionList;
 
             this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(CDTXMania.Skin.Game_Dancer_Motion);
-
+            if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
             //this.tx踊り子_1 = new CTexture[this.n踊り子モーション枚数];
             //this.tx踊り子_2 = new CTexture[this.n踊り子モーション枚数];
             //this.tx踊り子_3 = new CTexture[this.n踊り子モーション枚数];
@@ -142,7 +142,7 @@ namespace DTXMania
             //this.ct登場モーション.t進行db();
             //this.ctモブ.t進行LoopDb();
 
-            if (this.ct踊り子モーション != null) this.ct踊り子モーション.t進行LoopDb();
+            if (this.ct踊り子モーション != null || CDTXMania.Skin.Game_Dancer_Ptn != 0) this.ct踊り子モーション.t進行LoopDb();
 
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ct踊り子モーション.db現在の値.ToString());
             //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, this.n踊り子モーション枚数.ToString());
@@ -150,7 +150,7 @@ namespace DTXMania
 
             
 
-            if (CDTXMania.ConfigIni.bDancer)
+            if (CDTXMania.ConfigIni.bDancer && this.ct踊り子モーション != null && CDTXMania.Skin.Game_Dancer_Ptn != 0)
             {
                 for (int i = 0; i < 5; i++)
                 {

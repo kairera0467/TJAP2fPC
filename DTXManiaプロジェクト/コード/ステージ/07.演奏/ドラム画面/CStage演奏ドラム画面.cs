@@ -218,14 +218,23 @@ namespace DTXMania
             if(CDTXMania.Skin.Game_Chara_Ptn_Normal != 0 )
             {
                 this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
+            } else
+            {
+                this.actChara.ctChara_Normal = new CCounter();
             }
-            if(CDTXMania.Skin.Game_Chara_Ptn_Clear != 0 )
+            if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0 )
             {
                 this.actChara.ctChara_Clear = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ );
+            } else
+            {
+                this.actChara.ctChara_Clear = new CCounter();
             }
             if( CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0 )
             {
                 this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
+            } else
+            {
+                this.actChara.ctChara_GoGo = new CCounter();
             }
 
             //if (this.actChara.ctキャラクターアクションタイマ != null) this.actChara.ctキャラクターアクションタイマ = new CCounter();
@@ -237,6 +246,9 @@ namespace DTXMania
             {
                 double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
                 this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * CDTXMania.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
+            }else
+            {
+                this.actDancer.ct踊り子モーション = new CCounter();
             }
 
             this.ct手つなぎ = new CCounter( 0, 60, 20, CDTXMania.Timer );
@@ -1747,7 +1759,7 @@ namespace DTXMania
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = index - 65;
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 65, y, new Rectangle( 780, 0, 1, 130 ) );
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-                                //CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 650, num9, 130, 130 ) );
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(910, 0, 130, 130));
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 650, num9, 130, 130 ) );
                             }
 
@@ -1772,6 +1784,7 @@ namespace DTXMania
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = index - 65;
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 65, y, new Rectangle( 1170, 0, 1, 130 ) );
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(1300, num9, 130, 130));
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 1040, num9, 130, 130 ) );
                             }
 
@@ -1812,8 +1825,8 @@ namespace DTXMania
                             }
                             if( pChip.n連打音符State != 7 )
                             {
-                                if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
-                                    CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
+                                //if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
+                                //    CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
                                 CDTXMania.Tx.SenNotes.t2D描画(CDTXMania.app.Device, x + 56, y + nSenotesY, new Rectangle( 58, 270, 78, 30 ) );
                             }
 

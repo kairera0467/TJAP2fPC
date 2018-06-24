@@ -171,6 +171,20 @@ namespace DTXMania
 			            listChip[i] = CDTXMania.DTX_2P.listChip;
                         break;
                 }
+
+                int n整数値管理 = 0;
+                foreach( CDTX.CChip chip in listChip[ i ] )
+                {
+                    chip.nList上の位置 = n整数値管理;
+                    if( ( chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16 ) && ( n整数値管理 < this.listChip[ i ].Count - 1 ) )
+                    {
+                        if( chip.dbSCROLL < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, 0, i ).dbSCROLL )
+                        {
+                            chip.n描画優先度 = 1;
+                        }
+                    }
+                    n整数値管理++;
+                }
             }
 
             this.ct制御タイマ = new CCounter();
@@ -1232,7 +1246,13 @@ namespace DTXMania
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
                     CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
-                    this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 5000L, player );
+                    if(pChip.bGOGOTIME)
+                    {
+                        this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 6000L, player);
+                    } else
+                    {
+                        this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 5000L, player);
+                    }
                     pChip.bHit = true;
                     chip現在処理中の連打チップ[ player ].bHit = true;
                     //this.b連打中 = false;
@@ -1243,7 +1263,13 @@ namespace DTXMania
                 }
                 else
                 {
-                    this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 300L, player );
+                    if(pChip.bGOGOTIME)
+                    {
+                        this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 360L, player);
+                    } else
+                    {
+                        this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 300L, player);
+                    }
                     //CDTXMania.Skin.soundRed.t再生する();
                     this.soundRed.t再生を開始する();
                 }
@@ -1997,9 +2023,9 @@ namespace DTXMania
 			}
 		}
 
-		protected CDTX.CChip r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( long nTime, int nInputAdjustTime, int nPlayer )
+		protected CDTX.CChip r指定時刻に一番近いChipを過去方向優先で検索する( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
 		{
-			sw2.Start();
+			//sw2.Start();
 			nTime += nInputAdjustTime;
 
 			int nIndex_InitialPositionSearchingToPast;
@@ -2007,7 +2033,7 @@ namespace DTXMania
 			int count = listChip[ nPlayer ].Count;
 			if ( count <= 0 )			// 演奏データとして1個もチップがない場合は
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 
@@ -2020,6 +2046,104 @@ namespace DTXMania
 //			while ( nIndex_NearestChip_Future < count )	// 未来方向への検索
 			for ( ; nIndex_NearestChip_Future < count; nIndex_NearestChip_Future++ )
 			{
+				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
+				if ( chip.b可視 )
+				{
+					if( chip.nチャンネル番号 == nChannel )
+					{
+						if ( chip.n発声時刻ms > nTime )
+						{
+							break;
+						}
+                        nIndex_InitialPositionSearchingToPast = nIndex_NearestChip_Future;
+					}
+				}
+//				nIndex_NearestChip_Future++;
+			}
+			int nIndex_NearestChip_Past = nIndex_InitialPositionSearchingToPast;
+//			while ( nIndex_NearestChip_Past >= 0 )		// 過去方向への検索
+			for ( ; nIndex_NearestChip_Past >= 0; nIndex_NearestChip_Past-- )
+			{
+				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+				//if ( (!chip.bHit && chip.b可視 ) && ( (  0x93 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x99 ) ) )
+                if( chip.b可視 && chip.nチャンネル番号 == nChannel )
+				{
+				    break;
+				}
+			}
+			if ( ( nIndex_NearestChip_Future >= count ) && ( nIndex_NearestChip_Past < 0 ) )	// 検索対象が過去未来どちらにも見つからなかった場合
+			{
+				//sw2.Stop();
+				return null;
+			}
+			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
+			if ( nIndex_NearestChip_Future >= count )											// 検索対象が未来方向には見つからなかった(しかし過去方向には見つかった)場合
+			{
+				nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+//				nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+			}
+			else if ( nIndex_NearestChip_Past < 0 )												// 検索対象が過去方向には見つからなかった(しかし未来方向には見つかった)場合
+			{
+				nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
+//				nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+			}
+			else
+			{
+				int nTimeDiff_Future = Math.Abs( (int) ( nTime - listChip[ nPlayer ][ nIndex_NearestChip_Future ].n発声時刻ms ) );
+				int nTimeDiff_Past   = Math.Abs( (int) ( nTime - listChip[ nPlayer ][ nIndex_NearestChip_Past   ].n発声時刻ms ) );
+				if ( nTimeDiff_Future < nTimeDiff_Past )
+				{
+                    if( !listChip[ nPlayer ][ nIndex_NearestChip_Past ].bHit && ( listChip[ nPlayer ][ nIndex_NearestChip_Past ].n発声時刻ms + ( 108 ) >= nTime ) )
+                    {
+					    nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+                    }
+                    else
+					    nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
+//					nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+				}
+				else
+				{
+					nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+//					nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+				}
+			}
+			nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
+            int n検索範囲時間ms = 0;
+			if ( ( n検索範囲時間ms > 0 ) && ( nTimeDiff > n検索範囲時間ms ) )					// チップは見つかったが、検索範囲時間外だった場合
+			{
+				//sw2.Stop();
+				return null;
+			}
+			//sw2.Stop();
+			return nearestChip;
+		}
+
+		protected CDTX.CChip r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( long nTime, int nInputAdjustTime, int nPlayer )
+		{
+			//sw2.Start();
+			nTime += nInputAdjustTime;
+
+			int nIndex_InitialPositionSearchingToPast;
+			int nTimeDiff;
+			int count = listChip[ nPlayer ].Count;
+			if ( count <= 0 )			// 演奏データとして1個もチップがない場合は
+			{
+				//sw2.Stop();
+				return null;
+			}
+
+			int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToPast = this.n現在のトップChip;
+			if ( this.n現在のトップChip >= count )		// その時点で演奏すべきチップが既に全部無くなっていたら
+			{
+				nIndex_NearestChip_Future  = nIndex_InitialPositionSearchingToPast = count - 1;
+			}
+			// int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToFuture;
+//			while ( nIndex_NearestChip_Future < count )	// 未来方向への検索
+			for ( ; nIndex_NearestChip_Future < count; nIndex_NearestChip_Future++ )
+			{
+                if( nIndex_NearestChip_Future < 0 )
+                    continue;
+
 				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
 				if ( !chip.bHit && chip.b可視 )
 				{
@@ -2064,7 +2188,7 @@ namespace DTXMania
 			}
 			if ( ( nIndex_NearestChip_Future >= count ) && ( nIndex_NearestChip_Past < 0 ) )	// 検索対象が過去未来どちらにも見つからなかった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
 			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
@@ -2111,10 +2235,10 @@ namespace DTXMania
             int n検索範囲時間ms = 0;
 			if ( ( n検索範囲時間ms > 0 ) && ( nTimeDiff > n検索範囲時間ms ) )					// チップは見つかったが、検索範囲時間外だった場合
 			{
-				sw2.Stop();
+				//sw2.Stop();
 				return null;
 			}
-			sw2.Stop();
+			//sw2.Stop();
 			return nearestChip;
 		}
 
@@ -2895,6 +3019,8 @@ namespace DTXMania
                                     chip現在処理中の連打チップ[ nPlayer ].bHit = true;
                                 this.eRollState = E連打State.none;
                             }
+                            if( pChip.n描画優先度 <= 0 )
+                                this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
                         }
 
                         break;
@@ -2962,6 +3088,11 @@ namespace DTXMania
                                     double dbUnit_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) );
                                     double dbUnit_clear = ( ( ( 60.0f / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) );
 
+                                    for (int i = 0; i < 2; i++)
+                                    {
+                                        ctChipAnime[i] = new CCounter(0, 3, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
+                                    }
+
                                     dbUnit = Math.Ceiling( dbUnit * 1000.0 );
                                     dbUnit = dbUnit / 1000.0;
 
@@ -2969,44 +3100,88 @@ namespace DTXMania
                                     double dbPtn_Clear = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Clear / this.actChara.arクリアモーション番号.Length;
                                     double dbPtn_GoGo = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_GoGo / this.actChara.arゴーゴーモーション番号.Length;
 
-
-                                    this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
-                                    this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
-                                    this.actChara.ctChara_Clear = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ );
-
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_Normal != 0)
+                                    {
+                                        this.actChara.ctChara_Normal = new CCounter(0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ);
+                                    }
+                                    else
+                                    {
+                                        this.actChara.ctChara_Normal = new CCounter();
+                                    }
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
+                                    {
+                                        this.actChara.ctChara_Clear = new CCounter(0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ);
+                                    }
+                                    else
+                                    {
+                                        this.actChara.ctChara_Clear = new CCounter();
+                                    }
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
+                                    {
+                                        this.actChara.ctChara_GoGo = new CCounter(0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ);
+                                    }
+                                    else
+                                    {
+                                        this.actChara.ctChara_GoGo = new CCounter();
+                                    }
                                     this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
-
-                                    for (int i = 0; i < 2; i++)
+                                    if (CDTXMania.Skin.Game_Dancer_Ptn != 0)
                                     {
-                                        ctChipAnime[i] = new CCounter(0, 3, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
+                                        double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
+                                        this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * CDTXMania.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
+                                    }
+                                    else
+                                    {
+                                        this.actDancer.ct踊り子モーション = new CCounter();
+                                    }
+                                    if (CDTXMania.Skin.Game_Mob_Ptn != 0 && CDTXMania.Skin.Game_Mob_Beat > 0 ) //2018.6.15 Game_Mob_Beatが0のままCCounter生成をされて無限ループが発生しないよう対策
+                                    {
+                                        this.actMob.ctMob = new CCounter(1, 180, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
+                                        this.actMob.ctMobPtn = new CCounter(0, CDTXMania.Skin.Game_Mob_Ptn - 1, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Ptn_Beat / CDTXMania.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
+                                    }
+                                    else
+                                    {
+                                        this.actMob.ctMob = new CCounter();
+                                        this.actMob.ctMobPtn = new CCounter();
                                     }
 
-                                    //this.actChara.ctChara_Normal.db現在の値 = 0;
+                                    //this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
+                                    //this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
+                                    //this.actChara.ctChara_Clear = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ );
 
-                                    //this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
+                                    //this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
 
-                                    // ↓踊り子・モブ↓
-                                    this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
-                                    //this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
-                                    this.actDancer.ct踊り子モーション.db現在の値 = 0;
-                                    //this.actChara.ctモブモーション.db現在の値 = 0;
-                                    this.actMob.ctMob = new CCounter(1, 180, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
-                                    this.actMob.ctMobPtn = new CCounter(0, CDTXMania.Skin.Game_Mob_Ptn - 1, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Ptn_Beat / CDTXMania.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
-                                    // ↑踊り子・モブ↑
-                                    //this.actDancer.ctモブ = new CCounter( 1.0, 16.0, (( dbUnit / 16.0 )), CSound管理.rc演奏用タイマ );
+                                    //for (int i = 0; i < 2; i++)
+                                    //{
+                                    //    ctChipAnime[i] = new CCounter(0, 3, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
+                                    //}
 
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0 )
-                                    {
-                                        double dbUnit_max = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.arクリアモーション番号.Length );
-                                        this.actChara.ctChara_Clear = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ );
-                                    }
-                                    if(CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0 )
-                                    {
-                                        double dbUnit_max_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.arゴーゴーモーション番号.Length );
-                                        this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
-                                    }
+                                    ////this.actChara.ctChara_Normal.db現在の値 = 0;
+
+                                    ////this.actDancer.ct通常モーション = new CCounter( 0, this.actDancer.arモーション番号_通常.Length - 1, ( dbUnit * 4.0) / this.actDancer.arモーション番号_通常.Length, CSound管理.rc演奏用タイマ );
+
+                                    //// ↓踊り子・モブ↓
+                                    //this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
+                                    ////this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
+                                    //this.actDancer.ct踊り子モーション.db現在の値 = 0;
+                                    ////this.actChara.ctモブモーション.db現在の値 = 0;
+                                    //this.actMob.ctMob = new CCounter(1, 180, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
+                                    //this.actMob.ctMobPtn = new CCounter(0, CDTXMania.Skin.Game_Mob_Ptn - 1, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Ptn_Beat / CDTXMania.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
+                                    //// ↑踊り子・モブ↑
+                                    ////this.actDancer.ctモブ = new CCounter( 1.0, 16.0, (( dbUnit / 16.0 )), CSound管理.rc演奏用タイマ );
+
+                                    //if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0 )
+                                    //{
+                                    //    double dbUnit_max = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.arクリアモーション番号.Length );
+                                    //    this.actChara.ctChara_Clear = new CCounter( 0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ );
+                                    //}
+                                    //if(CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0 )
+                                    //{
+                                    //    double dbUnit_max_gogo = ( ( ( 60.0 / ( CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM ) ) ) / this.actChara.arゴーゴーモーション番号.Length );
+                                    //    this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
+                                    //}
                                 }
-                                if( pChip.nコース == this.n現在のコース[ nPlayer ] )
+                                if ( pChip.nコース == this.n現在のコース[ nPlayer ] )
                                     this.actPlayInfo.n小節番号++;
                                 pChip.bHit = true;
                             }
@@ -3139,25 +3314,50 @@ namespace DTXMania
                                     ctChipAnime[i] = new CCounter(0, 3, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
                                 }
 
-                                this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
-                                this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
-                                this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
-                                this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
-                                //this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
-                                this.actMob.ctMob = new CCounter(1, 180, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
-                                this.actMob.ctMobPtn = new CCounter(0, CDTXMania.Skin.Game_Mob_Ptn - 1, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Ptn_Beat / CDTXMania.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
-
+                                if (CDTXMania.Skin.Game_Chara_Ptn_Normal != 0)
+                                {
+                                    this.actChara.ctChara_Normal = new CCounter(0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ);
+                                } else
+                                {
+                                    this.actChara.ctChara_Normal = new CCounter();
+                                }
                                 if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
                                 {
-                                    double dbUnit_clear = (((60.0 / (bpm))));
                                     this.actChara.ctChara_Clear = new CCounter(0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ);
                                 }
-                                if(CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0 )
+                                else
                                 {
-                                    double dbUnit_max_gogo = ( ( ( 60.0 / ( bpm ) ) ) / this.actChara.arゴーゴーモーション番号.Length );
-                                    this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
+                                    this.actChara.ctChara_Clear = new CCounter();
                                 }
-//#if C_82D982F182AF82CD82A282AF82A2
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
+                                {
+                                    this.actChara.ctChara_GoGo = new CCounter(0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ);
+                                } else
+                                {
+                                    this.actChara.ctChara_GoGo = new CCounter();
+                                }
+                                this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
+                                if (CDTXMania.Skin.Game_Dancer_Ptn != 0)
+                                {
+                                    double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
+                                    this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * CDTXMania.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
+                                }
+                                else
+                                {
+                                    this.actDancer.ct踊り子モーション = new CCounter();
+                                }
+                                if (CDTXMania.Skin.Game_Mob_Ptn != 0)
+                                {
+                                    this.actMob.ctMob = new CCounter(1, 180, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
+                                    this.actMob.ctMobPtn = new CCounter(0, CDTXMania.Skin.Game_Mob_Ptn - 1, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Ptn_Beat / CDTXMania.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
+                                } else
+                                {
+                                    this.actMob.ctMob = new CCounter();
+                                    this.actMob.ctMobPtn = new CCounter();
+                                }
+                                //this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
+                                //this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
+                                //#if C_82D982F182AF82CD82A282AF82A2
                                 /*
                                  * for( int dancer = 0; dancer < 5; dancer++ )
                                     this.actDancer.st投げ上げ[ dancer ].ct進行 = new CCounter( 0, this.actDancer.arモーション番号_登場.Length - 1, dbUnit / this.actDancer.arモーション番号_登場.Length, CSound管理.rc演奏用タイマ );
@@ -3168,7 +3368,7 @@ namespace DTXMania
                                */
                             }
 
-						}
+                        }
                         break;
 
                     case 0x9D: //SCROLL
@@ -3541,7 +3741,8 @@ namespace DTXMania
                     case 0x18: //連打終了
                     case 0x19:
                         {
-                            this.t進行描画_チップ_Taiko連打( configIni, ref dTX, ref pChip, nPlayer );
+                            if( pChip.n描画優先度 >= 1 )
+                                this.t進行描画_チップ_Taiko連打( configIni, ref dTX, ref pChip, nPlayer );
                         }
                         break;
                     #endregion

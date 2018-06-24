@@ -86,7 +86,7 @@ namespace DTXMania
 				}
 				catch (System.IO.FileNotFoundException)
 				{
-					Trace.TraceWarning("プライベートフォントの追加に失敗しました({0})。代わりにMS PGothicの使用を試みます。", fontpath);
+					Trace.TraceWarning("プライベートフォントの追加に失敗しました({0})。代わりにMS UI Gothicの使用を試みます。", fontpath);
 					//throw new FileNotFoundException( "プライベートフォントの追加に失敗しました。({0})", Path.GetFileName( fontpath ) );
 					//return;
 					_fontfamily = null;
@@ -139,20 +139,20 @@ namespace DTXMania
 			// フォントファイルが見つからなかった場合 (MS PGothicを代わりに指定する)
 			{
 				float emSize = pt * 96.0f / 72.0f;
-				this._font = new Font("MS PGothic", emSize, style, GraphicsUnit.Pixel);	//MS PGothicのFontオブジェクトを作成する
+				this._font = new Font("MS UI Gothic", emSize, style, GraphicsUnit.Pixel);	//MS PGothicのFontオブジェクトを作成する
 				FontFamily[] ffs = new System.Drawing.Text.InstalledFontCollection().Families;
 				int lcid = System.Globalization.CultureInfo.GetCultureInfo("en-us").LCID;
 				foreach (FontFamily ff in ffs)
 				{
 					// Trace.WriteLine( lcid ) );
-					if (ff.GetName(lcid) == "MS PGothic")
+					if (ff.GetName(lcid) == "MS UI Gothic")
 					{
 						this._fontfamily = ff;
-						Trace.TraceInformation("MS PGothicを代わりに指定しました。");
+						Trace.TraceInformation("MS UI Gothicを代わりに指定しました。");
 						return;
 					}
 				}
-				throw new FileNotFoundException("プライベートフォントの追加に失敗し、MS PGothicでの代替処理にも失敗しました。({0})", Path.GetFileName(fontpath));
+				throw new FileNotFoundException("プライベートフォントの追加に失敗し、MS UI Gothicでの代替処理にも失敗しました。({0})", Path.GetFileName(fontpath));
 			}
 		}
 
@@ -306,7 +306,7 @@ namespace DTXMania
 
 			// 縁取りの縁のサイズは、とりあえずフォントの大きさの1/4とする
 			//int nEdgePt = (bEdge)? _pt / 4 : 0;
-            int nEdgePt = (bEdge) ? (_pt * 2) / 7 : 0; // 縁取りが少なすぎるという意見が多かったため変更。 (AioiLight)
+            int nEdgePt = (bEdge) ? (_pt / 3) : 0; // 縁取りが少なすぎるという意見が多かったため変更。 (AioiLight)
 
             // 描画サイズを測定する
             Size stringSize = System.Windows.Forms.TextRenderer.MeasureText( drawstr, this._font, new Size( int.MaxValue, int.MaxValue ),
@@ -508,8 +508,9 @@ namespace DTXMania
 				System.Drawing.Drawing2D.GraphicsPath gpV = new System.Drawing.Drawing2D.GraphicsPath();
 				gpV.AddString( strName[ i ], this._fontfamily, (int) this._font.Style, sizeInPixels, rect, sFormat );
 
-				// 縁取りを描画する
-				Pen pV = new Pen( edgeColor, 6 );
+                // 縁取りを描画する
+                int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
+                Pen pV = new Pen( edgeColor, nEdgePt);
 				pV.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
 				gV.DrawPath( pV, gpV );
 

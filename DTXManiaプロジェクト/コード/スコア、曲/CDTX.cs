@@ -352,6 +352,7 @@ namespace DTXMania
             public int nBalloon;
             public int nProcessTime;
             public int nスクロール方向;
+            public int n描画優先度; //(特殊)現状連打との判断目的で使用
             public ENoteState eNoteState;
             public EAVI種別 eAVI種別;
 			public E楽器パート e楽器パート = E楽器パート.UNKNOWN;
@@ -363,11 +364,11 @@ namespace DTXMania
 			public int n総移動時間;
 			public int n透明度 = 0xff;
 			public int n発声位置;
-			public float f発声位置;
+			public double db発声位置;  // 発声時刻を格納していた変数のうちの１つをfloat型からdouble型に変更。(kairera0467)
             public double fBMSCROLLTime;
             public double fBMSCROLLTime_end;
 			public int n発声時刻ms;
-            public float f発声時刻ms;
+            public double db発声時刻ms;
             public int nノーツ終了位置;
 			public int nノーツ終了時刻ms;
             public int nノーツ出現時刻ms;
@@ -382,7 +383,8 @@ namespace DTXMania
             public double db判定終了時刻;//連打系音符で使用
             public double dbProcess_Time;
             public int nPlayerSide;
-            public bool bGOGOTIME = false; //2018.03.11 kairera0467 ゴーゴータイム内のチップであるか
+            public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
+            public int nList上の位置;
             public bool bBPMチップである
 			{
 				get
@@ -437,16 +439,18 @@ namespace DTXMania
 				this.n整数値_内部番号 = 0;
 				this.db実数値 = 0.0;
 				this.n発声位置 = 0;
-                this.f発声位置 = 0.0f;
+                this.db発声位置 = 0.0D;
 				this.n発声時刻ms = 0;
-                this.f発声時刻ms = 0.0f;
+                this.db発声時刻ms = 0.0D;
                 this.fBMSCROLLTime = 0;
                 this.nノーツ終了位置 = 0;
                 this.nノーツ終了時刻ms = 0;
-				this.nLag = -999;
+                this.n描画優先度 = 0;
+                this.nLag = -999;
 				this.bIsAutoPlayed = false;
 				this.b演奏終了後も再生が続くチップである = false;
-				this.dbチップサイズ倍率 = 1.0;
+                this.nList上の位置 = 0;
+                this.dbチップサイズ倍率 = 1.0;
 				this.bHit = false;
 				this.b可視 = true;
 				this.e楽器パート = E楽器パート.UNKNOWN;
@@ -594,7 +598,7 @@ namespace DTXMania
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xA0
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xB0
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xC0
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 5, //0xD0
+					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 4, 4, //0xD0
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xE0
 					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xF0
 				};
@@ -1179,7 +1183,7 @@ namespace DTXMania
         public int[] nノーツ数 = new int[ 4 ]; //0～2:各コース 3:共通
         public int[] n風船数 = new int[ 4 ]; //0～2:各コース 3:共通
         private bool b次の小節が分岐である;
-
+        private bool b次の分岐で数値リセット; //2018.03.16 kairera0467 SECTION処理を分岐判定と同時に行う。
         private string strTemp;
         private int n文字数;
         private bool b直前の行に小節末端定義が無かった = false;
@@ -2641,7 +2645,7 @@ namespace DTXMania
 							foreach ( CChip chip in this.listChip )
 							{
 								chip.n発声時刻ms = (int) ( ( (double) chip.n発声時刻ms ) / _db再生速度 );
-                                chip.f発声時刻ms = (float)( ( (float) chip.n発声時刻ms ) / _db再生速度 );
+                                chip.db発声時刻ms = ( ( (double) chip.n発声時刻ms ) / _db再生速度 );
                                 chip.nノーツ終了時刻ms = (int) ( ( (double) chip.nノーツ終了時刻ms ) / _db再生速度 );
 							}
 						}
@@ -2736,7 +2740,7 @@ namespace DTXMania
 								Trace.TraceInformation( chip.ToString() );
 							}
 						}
-						#endregion
+                        #endregion
 
                         //ソートっぽい
                         //this.listChip.Sort(delegate(CChip pchipA, CChip pchipB) { return pchipA.n発声時刻ms - pchipB.n発声時刻ms; } );
@@ -2751,7 +2755,7 @@ namespace DTXMania
                         //        this.listChip[n].dbSCROLL = nRan / 10.0;
                         //    }
                         //}
-
+                        this.listChip.Sort();
                         int n整数値管理 = 0;
                         foreach( CChip chip in this.listChip )
                         {
@@ -3621,7 +3625,7 @@ namespace DTXMania
                 chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
                 chip.n発声時刻ms = (int)this.dbNowTime;
                 chip.n整数値_内部番号 = 1;
-
+                chip.db発声時刻ms = this.dbNowTime;
                 // チップを配置。
                 this.listChip.Add(chip);
             }
@@ -3931,6 +3935,7 @@ namespace DTXMania
                         chip.nチャンネル番号 = 0x50;
                         chip.n発声時刻ms = (int)this.dbNowTime;
                         chip.n整数値 = this.n現在の小節数;
+                        chip.n整数値_内部番号 = this.n現在の小節数;
                         chip.dbBPM = this.dbNowBPM;
                         chip.dbSCROLL = this.dbNowScroll;
                         chip.dbSCROLL_Y = this.dbNowScrollY;
@@ -3959,7 +3964,7 @@ namespace DTXMania
                         //1拍の時間を計算
                         double db1拍 = ( 60.0 / this.dbNowBPM ) / 4.0;
                         //forループ(拍数)
-                        for( int measure = 0; measure < this.fNow_Measure_s; measure++ )
+                        for( int measure = 1; measure < this.fNow_Measure_s; measure++ )
                         {
                             CChip hakusen = new CChip();
                             hakusen.n発声位置 = ( ( this.n現在の小節数) * 384 );
@@ -3967,6 +3972,7 @@ namespace DTXMania
                             hakusen.nチャンネル番号 = 0x51;
                             //hakusen.n発声時刻ms = (int)this.dbNowTime;
                             hakusen.fBMSCROLLTime = this.dbNowBMScollTime;
+                            hakusen.n整数値_内部番号 = this.n現在の小節数;
                             hakusen.n整数値 = 0;
                             hakusen.dbBPM = this.dbNowBPM;
                             hakusen.dbSCROLL = this.dbNowScroll;
@@ -4022,8 +4028,9 @@ namespace DTXMania
                             chip.b可視 = true;
                             chip.bShow = true;
                             chip.nチャンネル番号 = 0x10 + nObjectNum;
-                            chip.n発声位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
-                            chip.f発声位置 = (float)this.dbNowTime;
+                            //chip.n発声位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
+                            chip.n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
+                            chip.db発声位置 = this.dbNowTime;
                             chip.n発声時刻ms = (int)this.dbNowTime;
                             //chip.fBMSCROLLTime = (float)(( this.dbBarLength ) * (16.0f / this.n各小節の文字数[this.n現在の小節数]));
                             chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;

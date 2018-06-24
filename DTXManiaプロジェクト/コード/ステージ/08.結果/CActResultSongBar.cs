@@ -30,15 +30,15 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
-            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ) )
+            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.FontName) )
             {
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 30 );
-                this.pfStageText = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.strPrivateFontで使うフォント名), 30);
+                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.FontName ), 30 );
+                this.pfStageText = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 30);
             }
             else
             {
-                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS PGothic"), 30);
-                this.pfStageText = new CPrivateFastFont(new FontFamily("MS PGothic"), 30);
+                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 30);
+                this.pfStageText = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 30);
             }
 
 

@@ -1451,10 +1451,14 @@ namespace DTXMania
 			nSkinSampleIndex = -1;
 			#endregion
 
-			this.prvFont = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.strPrivateFontで使うフォント名), 20 );	// t項目リストの設定 の前に必要
-//			this.listMenu = new List<stMenuItemRight>();
+            if ( !string.IsNullOrEmpty(CDTXMania.ConfigIni.FontName))
+			    this.prvFont = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 20 );	// t項目リストの設定 の前に必要
+            else
+                this.prvFont = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 20);
 
-			this.t項目リストの設定_Bass();		// #27795 2012.3.11 yyagi; System設定の中でDrumsの設定を参照しているため、
+            //			this.listMenu = new List<stMenuItemRight>();
+
+            this.t項目リストの設定_Bass();		// #27795 2012.3.11 yyagi; System設定の中でDrumsの設定を参照しているため、
 			this.t項目リストの設定_Guitar();	// 活性化の時点でDrumsの設定も入れ込んでおかないと、System設定中に例外発生することがある。
 			this.t項目リストの設定_Drums();	// 
 			this.t項目リストの設定_System();	// 順番として、最後にSystemを持ってくること。設定一覧の初期位置がSystemのため。

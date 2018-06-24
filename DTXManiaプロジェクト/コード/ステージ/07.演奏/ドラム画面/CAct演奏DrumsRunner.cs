@@ -32,28 +32,34 @@ namespace DTXMania
         {
             if (CDTXMania.Tx.Runner != null)
             {
-                for (int i = 0; i < 128; i++)
+                while (stRunners[Index].b使用中)
                 {
-                    if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))
+                    Index += 1;
+                    if(Index >= 128)
                     {
-                        if (!stRunners[i].b使用中)
-                        {
-                            stRunners[i].b使用中 = true;
-                            stRunners[i].nPlayer = Player;
-                            if (IsMiss == true)
-                            {
-                                stRunners[i].nType = 0;
-                            }
-                            else
-                            {
-                                stRunners[i].nType = random.Next(1, Type + 1);
-                            }
-                            stRunners[i].ct進行 = new CCounter(0, 1280, 16, CDTXMania.Timer);
-                            stRunners[i].nOldValue = 0;
-                            stRunners[i].fX = 0;
-                            break;
-                        }
+                        Index = 0;
+                        break; // 2018.6.15 IMARER 無限ループが発生するので修正
                     }
+                }
+                if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))
+                {
+                    if (!stRunners[Index].b使用中)
+                    {
+                        stRunners[Index].b使用中 = true;
+                        stRunners[Index].nPlayer = Player;
+                        if (IsMiss == true)
+                        {
+                            stRunners[Index].nType = 0;
+                        }
+                        else
+                        {
+                            stRunners[Index].nType = random.Next(1, Type + 1);
+                        }
+                        stRunners[Index].ct進行 = new CCounter(0, 1280, 16, CDTXMania.Timer);
+                        stRunners[Index].nOldValue = 0;
+                        stRunners[Index].fX = 0;
+                    }
+
                 }
             }
         }
@@ -138,6 +144,7 @@ namespace DTXMania
         }
         private STRunner[] stRunners = new STRunner[128];
         Random random = new Random();
+        int Index = 0;
         //-----------------
         #endregion
     }

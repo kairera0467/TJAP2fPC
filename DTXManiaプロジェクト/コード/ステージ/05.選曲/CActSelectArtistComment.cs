@@ -123,7 +123,7 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
-			this.ft描画用フォント = new Font( "MS PGothic", 26f, GraphicsUnit.Pixel );
+			this.ft描画用フォント = new Font("MS UI Gothic", 26f, GraphicsUnit.Pixel );
 			this.txArtist = null;
 			this.txComment = null;
 			this.strArtist = "";

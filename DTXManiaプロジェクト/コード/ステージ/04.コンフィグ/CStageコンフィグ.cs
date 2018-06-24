@@ -59,7 +59,7 @@ namespace DTXMania
 			try
 			{
 				this.n現在のメニュー番号 = 0;													//
-				this.ftフォント = new Font( "MS PGothic", 18.0f, FontStyle.Bold, GraphicsUnit.Pixel );			//
+				this.ftフォント = new Font("MS UI Gothic", 18.0f, FontStyle.Bold, GraphicsUnit.Pixel );			//
 				for( int i = 0; i < 4; i++ )													//
 				{																				//
 					this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, CDTXMania.Timer );			//
