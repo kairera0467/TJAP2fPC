@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -13,7 +13,7 @@ namespace DTXMania
 		public CActSortSongs()
 		{
 			List<CItemBase> lci = new List<CItemBase>();
-			lci.Add( new CItemList( "曲名",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
+			lci.Add( new CItemList( "曲名",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "逆曲名順",		"曲名順" } ) );
             //lci.Add( new CItemList( "Level",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "99,98,97,...",	"1,2,3,..." } ) );
             //lci.Add( new CItemList( "Best Rank",	CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "E,D,C,...",		"SS,S,A,..." } ) );
             //lci.Add( new CItemList( "PlayCount",	CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "10,9,8,...",		"1,2,3,..." } ) );
@@ -22,10 +22,10 @@ namespace DTXMania
 #if TEST_SORTBGM
 			lci.Add( new CItemList( "BPM",			CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "300,200,...",	"70,80,90,..." } ) );
 #endif
-			lci.Add( new CItemList( "ジャンル",			CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "AC15",	"AC8-14" } ) );
+			lci.Add( new CItemList( "ジャンル",			CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "新筐体",	"旧筐体" } ) );
 			lci.Add( new CItemList( "戻る",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "", 				"" } ) );
 			
-			base.Initialize( lci, false, "SORT MENU" );
+			base.Initialize( lci, false, "曲の並び順" );
 		}
 
 
