@@ -1,4 +1,4 @@
-using FDK;
+﻿using FDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,11 +99,6 @@ namespace DTXMania
             SongSelect_Branch = TxC(SONGSELECT + @"Branch.png");
             SongSelect_Branch_Text = TxC(SONGSELECT + @"Branch_Text.png");
             SongSelect_Bar_Center = TxC(SONGSELECT + @"Bar_Center.png");
-            SongSelect_Frame_Score = TxC(SONGSELECT + @"Frame_Score.png");
-            SongSelect_Frame_Box = TxC(SONGSELECT + @"Frame_Box.png");
-            SongSelect_Frame_BackBox = TxC(SONGSELECT + @"Frame_BackBox.png");
-            SongSelect_Frame_Random = TxC(SONGSELECT + @"Frame_Random.png");
-            //SongSelect_Frame_Dani = TxC(SONGSELECT + @"Frame_Dani.png");
             SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
             SongSelect_Cursor_Left = TxC(SONGSELECT + @"Cursor_Left.png");
             SongSelect_Cursor_Right = TxC(SONGSELECT + @"Cursor_Right.png");
@@ -334,16 +329,6 @@ namespace DTXMania
             {
                 Gauge_Rainbow[i] = TxC(GAME + GAUGE + @"Rainbow\" + i.ToString() + ".png");
             }
-            Gauge_SmoothRainbowX = new CTexture[40];
-            for (int i = 0; i < 40; i++)
-            {
-                Gauge_SmoothRainbowX[i] = TxC(GAME + GAUGE + @"NewRainbow\" + i.ToString() + ".png");
-            }
-            Gauge_YellowFlashX = new CTexture[30];
-            for (int i = 0; i < 30; i++)
-            {
-                Gauge_YellowFlashX[i] = TxC(GAME + GAUGE + @"YellowFlash\" + i.ToString() + ".png");
-            }
             Gauge_Soul = TxC(GAME + GAUGE + @"Soul.png");
             Gauge_Soul_Fire = TxC(GAME + GAUGE + @"Fire.png");
             Gauge_Soul_Explosion = new CTexture[2];
@@ -504,10 +489,6 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref SongSelect_Branch);
             CDTXMania.tテクスチャの解放(ref SongSelect_Branch_Text);
             CDTXMania.tテクスチャの解放(ref SongSelect_Bar_Center);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Score);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Box);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_BackBox);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Random);
             CDTXMania.tテクスチャの解放(ref SongSelect_GenreText);
             CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Left);
             CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Right);
@@ -656,14 +637,6 @@ namespace DTXMania
             {
                 CDTXMania.tテクスチャの解放(ref Gauge_Rainbow[i]);
             }
-            for (int i = 0; i < 40; i++)
-            {
-                CDTXMania.tテクスチャの解放(ref Gauge_SmoothRainbowX[i]);
-            }
-            for (int i = 0; i < 30; i++)
-            {
-                CDTXMania.tテクスチャの解放(ref Gauge_YellowFlashX[i]);
-            }
             CDTXMania.tテクスチャの解放(ref Gauge_Soul);
             CDTXMania.tテクスチャの解放(ref Gauge_Soul_Fire);
             CDTXMania.tテクスチャの解放(ref Gauge_Soul_Explosion[0]);
@@ -795,11 +768,6 @@ namespace DTXMania
             SongSelect_Level,
             SongSelect_Branch,
             SongSelect_Branch_Text,
-            SongSelect_Frame_Score,
-            SongSelect_Frame_Box,
-            SongSelect_Frame_BackBox,
-            SongSelect_Frame_Random,
-            //SongSelect_Frame_Dani,
             SongSelect_Bar_Center,
             SongSelect_GenreText,
             SongSelect_Cursor_Left,
@@ -879,10 +847,7 @@ namespace DTXMania
         public CTexture[] Gauge,
             Gauge_Base,
             Gauge_Line,
-            Gauge_SmoothRainbowX,
             Gauge_Rainbow,
-            Gauge_YellowFlashX,
-
             Gauge_Soul_Explosion;
         public CTexture Gauge_Soul,
             Gauge_Soul_Fire;

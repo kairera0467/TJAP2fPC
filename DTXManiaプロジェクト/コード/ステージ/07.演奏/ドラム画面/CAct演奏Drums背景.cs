@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -20,7 +20,7 @@ namespace DTXMania
 
         public void tFadeIn(int player)
         {
-            this.ct上背景クリアインタイマー[player] = new CCounter( 0, 100, 2, CDTXMania.Timer );
+            this.ct上背景クリアインタイマー[player] = new CCounter( 0, 100, 6, CDTXMania.Timer );
             this.eFadeMode = EFIFOモード.フェードイン;
         }
 
@@ -32,8 +32,8 @@ namespace DTXMania
 
         public void ClearIn(int player)
         {
-            this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 2, CDTXMania.Timer);
-            this.ct上背景FIFOタイマー = new CCounter(0, 100, 2, CDTXMania.Timer);
+            this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 6, CDTXMania.Timer);
+            this.ct上背景FIFOタイマー = new CCounter(0, 100, 6, CDTXMania.Timer);
         }
 
         public override void On活性化()
@@ -66,13 +66,13 @@ namespace DTXMania
             {
                 if (CDTXMania.Tx.Background_Up[i] != null)
                 {
-                    this.ct上背景スクロール用タイマー[i] = new CCounter(1, CDTXMania.Tx.Background_Up[i].szテクスチャサイズ.Width, 16, CDTXMania.Timer);
+                    this.ct上背景スクロール用タイマー[i] = new CCounter(1, CDTXMania.Tx.Background_Up[i].szテクスチャサイズ.Width, 40, CDTXMania.Timer);
                     this.ct上背景クリアインタイマー[i] = new CCounter();
                 }
+
             }
             if (CDTXMania.Tx.Background_Down_Scroll != null)
-                this.ct下背景スクロール用タイマー1 = new CCounter( 1, CDTXMania.Tx.Background_Down_Scroll.szテクスチャサイズ.Width, 4, CDTXMania.Timer );
-
+                this.ct下背景スクロール用タイマー1 = new CCounter( 1, CDTXMania.Tx.Background_Down_Scroll.szテクスチャサイズ.Width, 6, CDTXMania.Timer );
             this.ct上背景FIFOタイマー = new CCounter();
             base.OnManagedリソースの作成();
         }
@@ -95,7 +95,7 @@ namespace DTXMania
             for (int i = 0; i < 2; i++)
             {
                 if(this.ct上背景クリアインタイマー[i] != null)
-                   this.ct上背景クリアインタイマー[i].t進行();
+                    this.ct上背景クリアインタイマー[i].t進行();
             }
             for (int i = 0; i < 2; i++)
             {
@@ -104,8 +104,6 @@ namespace DTXMania
             }
             if (this.ct下背景スクロール用タイマー1 != null)
                 this.ct下背景スクロール用タイマー1.t進行Loop();
-
-
 
             #region 1P-2P-上背景
             for (int i = 0; i < 2; i++)
@@ -157,6 +155,7 @@ namespace DTXMania
                     {
                         CDTXMania.Tx.Background_Down_Clear.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
                         CDTXMania.Tx.Background_Down_Scroll.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
+                    
                         CDTXMania.Tx.Background_Down_Clear.t2D描画( CDTXMania.app.Device, 0, 360 );
 
                         //int nループ幅 = 1257;
@@ -165,7 +164,6 @@ namespace DTXMania
                         double TexSize = 1280 / CDTXMania.Tx.Background_Down_Scroll.szテクスチャサイズ.Width;
                         // 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
                         int ForLoop = (int)Math.Ceiling(TexSize) + 1;
-
                         //int nループ幅 = 328;
                         CDTXMania.Tx.Background_Down_Scroll.t2D描画(CDTXMania.app.Device, 0 - this.ct下背景スクロール用タイマー1.n現在の値, 360);
                         for (int l = 1; l < ForLoop + 1; l++)
