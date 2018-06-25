@@ -480,12 +480,17 @@ namespace DTXMania
             //    stream = new StreamWriter("Test.txt", false);
             //}
 
-            string[] strName =  new string[ drawstr.Length ];
+            string[] strName = new string[ drawstr.Length ];
+            int[] arHeight = new int[ drawstr.Length ];
             for( int i = 0; i < drawstr.Length; i++ ) strName[i] = drawstr.Substring(i, 1);
 
             #region[ キャンバスの大きさ予測 ]
             //大きさを計算していく。
             int nHeight = 0;
+            int nMaxWidth = 0;
+            int nMaxHeight = 0;
+            float fEdgePt = 8;
+            float fMargin = 0.88f;
             for( int i = 0; i < strName.Length; i++ )
             {
                 Size strSize = System.Windows.Forms.TextRenderer.MeasureText( strName[ i ], this._font, new Size( int.MaxValue, int.MaxValue ),
@@ -504,16 +509,24 @@ namespace DTXMania
                 Rectangle rect正確なサイズ = this.MeasureStringPrecisely( gCal, strName[ i ], this._font, strSize, sFormat );
                 int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
-                Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, 36, ( strSize.Height + 12 ));
+                Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, strSize.Width + (int)(fEdgePt * 1.5), strSize.Height + (int)(fEdgePt * 1.5) );
 
                 if( strName[ i ] == "ー" || strName[ i ] == "-" || strName[ i ] == "～" || strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "「" || strName[ i ] == "」" || strName[ i ] == "[" || strName[ i ] == "]" )
                 {
-                    nHeight += ( rect正確なサイズ.Width ) + 3;
+                    //nHeight += ( rect正確なサイズ.Width ) + 3;
+                    nHeight += ( strSize.Height ) + 3;
+                    arHeight[ i ] = ( strSize.Height ) + 3;
                 }
                 else if( strName[ i ] == "_" ){ nHeight += ( rect正確なサイズ.Height ) + 6;  }
                 else if( strName[ i ] == " " )
                 { nHeight += ( 12 ); }
-                else { nHeight += ( rect正確なサイズ.Height ) + 6; }
+                else {
+                    //nHeight += ( rect正確なサイズ.Height ) + 6;
+                    nHeight += rect正確なサイズ.Height + (int)(fEdgePt * 1.5);
+                    arHeight[ i ] = rect正確なサイズ.Height + (int)(fEdgePt * 1.5);
+                }
+
+                if( nMaxWidth < rect正確なサイズ.Height + (int)(fEdgePt * 1.5) ) { nMaxWidth = rect正確なサイズ.Width + (int)(fEdgePt * 1.5); }
 
                 //念のため解放
                 bmpDummy.Dispose();
@@ -524,14 +537,15 @@ namespace DTXMania
             }
             #endregion
 
-            Bitmap bmpCambus = new Bitmap( 36, nHeight );
+            Bitmap bmpCambus = new Bitmap( nMaxWidth, (int)(nHeight * fMargin) );
             Graphics Gcambus = Graphics.FromImage( bmpCambus );
 
             //キャンバス作成→1文字ずつ作成してキャンバスに描画という形がよさそうかな?
             int nNowPos = 0;
             int nAdded = 0;
-            if (this._pt < 18)
-                nAdded = nAdded - 2;
+
+            if( this._pt < 20 ) //補正
+                nAdded += 4;
 
             for( int i = 0; i < strName.Length; i++ )
             {
@@ -552,14 +566,14 @@ namespace DTXMania
                 
                 //Bitmap bmpV = new Bitmap( 36, ( strSize.Height + 12 ) - 6 );
 
-                Bitmap bmpV = new Bitmap( (rect正確なサイズ.Width + 8) + nAdded, ( rect正確なサイズ.Height ) + 8 );
+                Bitmap bmpV = new Bitmap( (rect正確なサイズ.Width + (int)(fEdgePt * 1.5)), ( rect正確なサイズ.Height + (int)(fEdgePt * 1.5) ) );
 
 			    bmpV.MakeTransparent();
 			    Graphics gV = Graphics.FromImage( bmpV );
 			    gV.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
 
-                Rectangle rect = new Rectangle( -3 - nAdded, -rect正確なサイズ.Y - 2, ( strSize.Width + 12 ), ( strSize.Height + 12 ));
+                Rectangle rect = new Rectangle( -2 + nAdded, -rect正確なサイズ.Y - 2, (rect正確なサイズ.Width + (int)(fEdgePt * 1.5)), ( strSize.Height + 12 ));
                 //Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
                 
                 // DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
@@ -570,7 +584,7 @@ namespace DTXMania
 				gpV.AddString( strName[ i ], this._fontfamily, (int) this._font.Style, sizeInPixels, rect, sFormat );
 
 				// 縁取りを描画する
-				Pen pV = new Pen( edgeColor, 6 );
+				Pen pV = new Pen( edgeColor, fEdgePt );
 				pV.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
 				gV.DrawPath( pV, gpV );
 
@@ -592,29 +606,20 @@ namespace DTXMania
                 {
                     bmpV.RotateFlip( RotateFlipType.Rotate90FlipNone );
                     n補正 = 2;
-                    if( this._pt < 20 )
-                        n補正 = 0;
-                        //nNowPos = nNowPos - 2;
                 }
                 else if( strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "[" || strName[ i ] == "]" || strName[ i ] == "」" )
                 {
                     bmpV.RotateFlip( RotateFlipType.Rotate90FlipNone );
                     n補正 = 2;
-                    if( this._pt < 20 )
-                    {
-                        n補正 = 0;
-                        //nNowPos = nNowPos - 4;
-                    }
                 }
                 else if( strName[ i ] == "「" )
                 {
                     bmpV.RotateFlip( RotateFlipType.Rotate90FlipNone );
                     n補正 = 2;
-                    if( this._pt < 20 )
-                    {
-                        n補正 = 2;
-                        //nNowPos = nNowPos;
-                    }
+                }
+                else if( strName[ i ] == "ァ" || strName[ i ] == "ィ" || strName[ i ] == "ゥ" || strName[ i ] == "ェ" || strName[ i ] == "ォ" )
+                {
+                    n補正 = 4;
                 }
                 //else if( strName[ i ] == "_" )
                 //    nNowPos = nNowPos + 20;
@@ -622,26 +627,23 @@ namespace DTXMania
                     nNowPos = nNowPos + 10;
 
 
-                //bmpV.Save( "String" + i.ToString() + ".png" );
-
+                //if( this._pt < 20 ) bmpV.Save( "String_s" + i.ToString() + "_s.png" );
+                //else bmpV.Save( "String_" + i.ToString() + ".png" );
 
                 if( i == 0 )
                 {
                     nNowPos = 0;
-                    Gcambus.DrawImage( bmpV, (16 - (bmpV.Size.Width / 2)) + n補正, 0 );
                 }
-                else
-                {
-                    Gcambus.DrawImage( bmpV, (16 - (bmpV.Size.Width / 2)) + n補正, nNowPos );
-                }
-                nNowPos += bmpV.Size.Height - 3;
+                Gcambus.DrawImage( bmpV, ( bmpCambus.Width / 2 ) - ( bmpV.Size.Width / 2 ) + n補正, nNowPos );
+                nNowPos += (int)( bmpV.Size.Height * fMargin );
+
+                //if( this._pt < 20 )
+                //    bmpCambus.Save( "test_S.png" );
+                //else
+                //    bmpCambus.Save( "test.png" );
 
                 if( bmpV != null ) bmpV.Dispose();
                 if( gCal != null ) gCal.Dispose();
-
-                //bmpCambus.Save( "test.png" );
-                //if( this._pt < 20 )
-                //    bmpCambus.Save( "test_S.png" );
 
 			    _rectStrings = new Rectangle( 0, 0, strSize.Width, strSize.Height );
 			    _ptOrigin = new Point( 6 * 2, 6 * 2 );
