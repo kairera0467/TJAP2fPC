@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -347,7 +347,7 @@ namespace DTXMania
 
                         if( fDamage >= 0 )
                         {
-                            fDamage = -fDamage;
+                            fDamage = -fDamage*3;
                         }
 
                         if( this.bRisky )
@@ -378,7 +378,7 @@ namespace DTXMania
 
 
 			}
-#else                                                  // before applying #23625 modifications
+#else													// before applying #23625 modifications
 			switch (e今回の判定)
 			{
 				case E判定.Perfect:
@@ -420,13 +420,15 @@ namespace DTXMania
 					break;
 			}
 #endif
+            
 
+			if( this.db現在のゲージ値[ player ] > 100.0 )
+				this.db現在のゲージ値[ player ] = 100.0;
+            else if( this.db現在のゲージ値[ player ] < 0.0 )
+                this.db現在のゲージ値[ player ] = 0.0;
 
-            if (this.db現在のゲージ値[player] > 100.0)
-                this.db現在のゲージ値[player] = 100.0;
-            else if (this.db現在のゲージ値[player] < 0.0)
-                this.db現在のゲージ値[player] = 0.0;
             this.db現在のゲージ値[ player ] = Math.Round(this.db現在のゲージ値[ player ] + fDamage, 5, MidpointRounding.ToEven);
+            CDTXMania.stage演奏ドラム画面.nGauge = fDamage;
 
 		}
 
@@ -440,18 +442,17 @@ namespace DTXMania
 		public double[] db現在のゲージ値 = new double[ 4 ];
         protected CCounter ct炎;
         protected CCounter ct虹アニメ;
-		//protected CTexture txゲージ;
-  //      protected CTexture txゲージ背景;
-		//protected CTexture txゲージ2P;
-  //      protected CTexture txゲージ背景2P;
-  //      protected CTexture tx魂;
-  //      protected CTexture tx炎;
-  //      protected CTexture tx魂花火;
-  //      protected CTexture tx音符;
-
+        //protected CTexture txゲージ;
+        //      protected CTexture txゲージ背景;
+        //protected CTexture txゲージ2P;
+        //      protected CTexture txゲージ背景2P;
+        //      protected CTexture tx魂;
+        //      protected CTexture tx炎;
+        //      protected CTexture tx魂花火;
+        //      protected CTexture tx音符;
         protected CTexture[] txゲージ虹 = new CTexture[ 12 ];
         protected CTexture[] txゲージ虹2P = new CTexture[ 12 ];
         //protected CTexture txゲージ線;
         //protected CTexture txゲージ線2P;
-	}
-}
+    }
+}　
