@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -139,7 +139,7 @@ namespace DTXMania
         public void t歌詞テクスチャを生成する( string str歌詞 )
         {
             Bitmap bmpleric = new Bitmap(1, 1);
-            bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, Color.White, Color.Blue );
+            bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, Color.White, Color.Blue);
             this.tx歌詞テクスチャ = CDTXMania.tテクスチャの生成( bmpleric, false );
             CDTXMania.t安全にDisposeする( ref bmpleric );
         }
@@ -151,7 +151,7 @@ namespace DTXMania
         {
             if( this.tx歌詞テクスチャ != null )
             {
-                this.tx歌詞テクスチャ.t2D描画( CDTXMania.app.Device, 640 - ( this.tx歌詞テクスチャ.szテクスチャサイズ.Width / 2 ), 660 );
+                this.tx歌詞テクスチャ.t2D描画( CDTXMania.app.Device, 640 - ( this.tx歌詞テクスチャ.szテクスチャサイズ.Width / 2 ), 630 );
             }
         }
 
@@ -177,7 +177,7 @@ namespace DTXMania
             else
                 this.pfMusicName = new CPrivateFastFont( new FontFamily("MS UI Gothic"), 30 );
 
-            this.pf歌詞フォント = new CPrivateFastFont( new FontFamily("MS UI Gothic"), 28 );
+            this.pf歌詞フォント = new CPrivateFastFont( new FontFamily("MS UI Gothic"), 38 );
 
 			this.txPanel = null;
 			this.ct進行用 = new CCounter();
@@ -314,3 +314,4 @@ namespace DTXMania
 		#endregion
 	}
 }
+　
