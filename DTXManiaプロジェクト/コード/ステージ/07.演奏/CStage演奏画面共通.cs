@@ -1471,11 +1471,11 @@ namespace DTXMania
                 // ランナー(たたけたやつ)
                 this.actRunner.Start(nPlayer, false, pChip);
 
-                if (actGauge.db現在のゲージ値[nPlayer] >= 100 && this.bIsAlreadyMaxed[nPlayer] == false)
+                if ((int)actGauge.db現在のゲージ値[nPlayer] >= 100 && this.bIsAlreadyMaxed[nPlayer] == false)
                 {
                     this.bIsAlreadyMaxed[nPlayer] = true;
                 }
-                if (actGauge.db現在のゲージ値[nPlayer] >= 80 && this.bIsAlreadyCleared[nPlayer] == false)
+                if ((int)actGauge.db現在のゲージ値[nPlayer] >= 80 && this.bIsAlreadyCleared[nPlayer] == false)
                 {
                     this.bIsAlreadyCleared[nPlayer] = true;
                     CDTXMania.stage演奏ドラム画面.actBackground.ClearIn(nPlayer);
@@ -1533,11 +1533,11 @@ namespace DTXMania
                 //{
                 //    CDTXMania.stage演奏ドラム画面.actBackground.tFadeOut(nPlayer);
                 //}
-                if (actGauge.db現在のゲージ値[nPlayer] <= 100 && this.bIsAlreadyMaxed[nPlayer] == true)
+                if ((int)actGauge.db現在のゲージ値[nPlayer] <= 100 && this.bIsAlreadyMaxed[nPlayer] == true)
                 {
                     this.bIsAlreadyMaxed[nPlayer] = false;
                 }
-                if (actGauge.db現在のゲージ値[nPlayer] <= 80 && this.bIsAlreadyCleared[nPlayer] == true)
+                if ((int)actGauge.db現在のゲージ値[nPlayer] <= 80 && this.bIsAlreadyCleared[nPlayer] == true)
                 {
                     this.bIsAlreadyCleared[nPlayer] = false;
                     //CDTXMania.stage演奏ドラム画面.actBackground.ClearIn(nPlayer);
