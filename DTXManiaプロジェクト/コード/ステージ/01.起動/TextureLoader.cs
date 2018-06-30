@@ -1,4 +1,4 @@
-﻿using FDK;
+using FDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +99,11 @@ namespace DTXMania
             SongSelect_Branch = TxC(SONGSELECT + @"Branch.png");
             SongSelect_Branch_Text = TxC(SONGSELECT + @"Branch_Text.png");
             SongSelect_Bar_Center = TxC(SONGSELECT + @"Bar_Center.png");
+            SongSelect_Frame_Score = TxC(SONGSELECT + @"Frame_Score.png");
+            SongSelect_Frame_Box = TxC(SONGSELECT + @"Frame_Box.png");
+            SongSelect_Frame_BackBox = TxC(SONGSELECT + @"Frame_BackBox.png");
+            SongSelect_Frame_Random = TxC(SONGSELECT + @"Frame_Random.png");
+            //SongSelect_Frame_Dani = TxC(SONGSELECT + @"Frame_Dani.png");
             SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
             SongSelect_Cursor_Left = TxC(SONGSELECT + @"Cursor_Left.png");
             SongSelect_Cursor_Right = TxC(SONGSELECT + @"Cursor_Right.png");
@@ -489,6 +494,10 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref SongSelect_Branch);
             CDTXMania.tテクスチャの解放(ref SongSelect_Branch_Text);
             CDTXMania.tテクスチャの解放(ref SongSelect_Bar_Center);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Score);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Box);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_BackBox);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Random);
             CDTXMania.tテクスチャの解放(ref SongSelect_GenreText);
             CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Left);
             CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Right);
@@ -768,6 +777,10 @@ namespace DTXMania
             SongSelect_Level,
             SongSelect_Branch,
             SongSelect_Branch_Text,
+            SongSelect_Frame_Score,
+            SongSelect_Frame_Box,
+            SongSelect_Frame_BackBox,
+            SongSelect_Frame_Random,
             SongSelect_Bar_Center,
             SongSelect_GenreText,
             SongSelect_Cursor_Left,
@@ -848,6 +861,7 @@ namespace DTXMania
             Gauge_Base,
             Gauge_Line,
             Gauge_Rainbow,
+
             Gauge_Soul_Explosion;
         public CTexture Gauge_Soul,
             Gauge_Soul_Fire;
