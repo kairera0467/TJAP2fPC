@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -264,13 +264,17 @@ namespace DTXMania
                                     case E判定.Perfect:
                                     case E判定.Great:
                                     case E判定.Auto:
-                                        CDTXMania.Tx.Effects_Hit_Explosion.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
-                                        break;
-                                    
+                                        if (!this.st状態_大[i].ct進行.b停止中 && CDTXMania.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)  
+                                                CDTXMania.Tx.Effects_Hit_Explosion.t2D描画(CDTXMania.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 520, 260, 260));
+                                        else
+                                            CDTXMania.Tx.Effects_Hit_Explosion.t2D描画(CDTXMania.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n, 260, 260));
+                                        break;                                    
                                     case E判定.Good:
-                                        CDTXMania.Tx.Effects_Hit_Explosion.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
+                                        if (!this.st状態_大[i].ct進行.b停止中 && CDTXMania.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
+                                            CDTXMania.Tx.Effects_Hit_Explosion.t2D描画( CDTXMania.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 780, 260, 260 ) );
+                                        else
+                                            CDTXMania.Tx.Effects_Hit_Explosion.t2D描画(CDTXMania.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 260, 260, 260));
                                         break;
-
                                     case E判定.Miss:
                                     case E判定.Bad:
                                         break;
@@ -490,3 +494,4 @@ namespace DTXMania
 		#endregion
 	}
 }
+　
