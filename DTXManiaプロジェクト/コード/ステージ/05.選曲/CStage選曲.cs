@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -414,18 +414,25 @@ namespace DTXMania
 					#endregion
 					if ( !this.actSortSongs.bIsActivePopupMenu && !this.actQuickConfig.bIsActivePopupMenu && !this.act難易度選択画面.bIsDifficltSelect )
 					{
-						#region [ ESC ]
-						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) && ( ( this.act曲リスト.r現在選択中の曲 != null ) && ( this.act曲リスト.r現在選択中の曲.r親ノード == null ) ) )
-						{	// [ESC]
-							CDTXMania.Skin.sound取消音.t再生する();
-							this.eフェードアウト完了時の戻り値 = E戻り値.タイトルに戻る;
-							this.actFIFO.tフェードアウト開始();
-							base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
-							return 0;
-						}
-						#endregion
-						#region [ Shift-F1: CONFIG画面 ]
-						if ( ( CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightShift ) || CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftShift ) ) &&
+                        #region [ ESC ]
+                        if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.Escape) && (this.act曲リスト.r現在選択中の曲 != null))// && (  ) ) )
+                            if (this.act曲リスト.r現在選択中の曲.r親ノード == null)
+                            {   // [ESC]
+                                CDTXMania.Skin.sound取消音.t再生する();
+                                this.eフェードアウト完了時の戻り値 = E戻り値.タイトルに戻る;
+                                this.actFIFO.tフェードアウト開始();
+                                base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+                                return 0;
+                            }
+                            else
+                            {
+                                CDTXMania.Skin.sound取消音.t再生する();
+                                bool bNeedChangeSkin = this.act曲リスト.tBOXを出る();
+                                this.actPresound.tサウンド停止();
+                            }
+                        #endregion
+                        #region [ Shift-F1: CONFIG画面 ]
+                        if ( ( CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightShift ) || CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftShift ) ) &&
 							CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F1 ) )
 						{	// [SHIFT] + [F1] CONFIG
 							this.actPresound.tサウンド停止();
@@ -443,15 +450,22 @@ namespace DTXMania
                             this.actQuickConfig.tActivatePopupMenu( E楽器パート.DRUMS );
 						}
 						#endregion
-						#region [ F3 オートON/OFF ]
+						#region [ F3 1PオートON/OFF ]
 						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F3 ) )
 						{	// [ESC]
 							CDTXMania.Skin.sound変更音.t再生する();
                             C共通.bToggleBoolian( ref CDTXMania.ConfigIni.b太鼓パートAutoPlay );
 						}
-						#endregion
-						#region [ F5 スーパーハード ]
-						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F5 ) )
+                        #endregion
+                        #region [ F4 2PオートON/OFF ]
+                        if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.F4))
+                        {   // [ESC]
+                            CDTXMania.Skin.sound変更音.t再生する();
+                            C共通.bToggleBoolian(ref CDTXMania.ConfigIni.b太鼓パートAutoPlay2P);
+                        }
+                        #endregion
+                        #region [ F5 スーパーハード ]
+                        if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F5 ) )
 						{
 							CDTXMania.Skin.sound変更音.t再生する();
                             C共通.bToggleBoolian( ref CDTXMania.ConfigIni.bSuperHard );
@@ -477,73 +491,67 @@ namespace DTXMania
                             }
 						}
 						#endregion
-						#region [ F7 ]
-                        if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F7 ) )
-                        {
-                            CDTXMania.Skin.sound変更音.t再生する();
-                            CDTXMania.Skin.sound曲読込開始音.t再生する();
-                            if( !this.act難易度選択画面.bIsDifficltSelect )
-                                this.ctDiffSelect移動待ち = new CCounter( 0, 4000, 1, CDTXMania.Timer );
-                            this.act難易度選択画面.t選択画面初期化();
-                            C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
-                        }
-						#endregion
 
 						if ( this.act曲リスト.r現在選択中の曲 != null )
 						{
-							#region [ Decide ]
-							if ( ( CDTXMania.Pad.b押されたDGB( Eパッド.Decide ) || ( CDTXMania.Pad.b押されたDGB( Eパッド.LRed ) || CDTXMania.Pad.b押されたDGB( Eパッド.RRed ) ) ||
-								( ( CDTXMania.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) ) )
-							{
-								if ( this.act曲リスト.r現在選択中の曲 != null )
-								{
-									switch ( this.act曲リスト.r現在選択中の曲.eノード種別 )
-									{
-										case C曲リストノード.Eノード種別.SCORE:
-                                            if( CDTXMania.Skin.sound曲決定音.b読み込み成功 )
+                            #region [ Decide ]
+                            if ((CDTXMania.Pad.b押されたDGB(Eパッド.Decide) || (CDTXMania.Pad.b押されたDGB(Eパッド.LRed) || CDTXMania.Pad.b押されたDGB(Eパッド.RRed)) ||
+                                    ((CDTXMania.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.Return)))))
+                            {
+                                if (this.act曲リスト.r現在選択中の曲 != null)
+                                {
+                                    switch (this.act曲リスト.r現在選択中の曲.eノード種別)
+                                    {
+                                        case C曲リストノード.Eノード種別.SCORE:
+                                            if (CDTXMania.Skin.sound曲決定音.b読み込み成功)
                                                 CDTXMania.Skin.sound曲決定音.t再生する();
                                             else
                                                 CDTXMania.Skin.sound決定音.t再生する();
-											this.t曲を選択する();
-											break;
 
-										case C曲リストノード.Eノード種別.BOX:
-											{
+                                            this.t曲を選択する();
+                                            break;
+                                        case C曲リストノード.Eノード種別.BOX:
+                                            {
                                                 CDTXMania.Skin.sound決定音.t再生する();
-												bool bNeedChangeSkin = this.act曲リスト.tBOXに入る();
-												if ( bNeedChangeSkin )
-												{
-													this.eフェードアウト完了時の戻り値 = E戻り値.スキン変更; 
-													base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのフェードアウト;
-												}
-											}
-											break;
-
-										case C曲リストノード.Eノード種別.BACKBOX:
-											{
-                                                CDTXMania.Skin.sound決定音.t再生する();
-												bool bNeedChangeSkin = this.act曲リスト.tBOXを出る();
-												if ( bNeedChangeSkin )
-												{
-													this.eフェードアウト完了時の戻り値 = E戻り値.スキン変更; 
-													base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのフェードアウト;
-												}
-											}
-											break;
-
-										case C曲リストノード.Eノード種別.RANDOM:
-                                            if( CDTXMania.Skin.sound曲決定音.b読み込み成功 )
+                                                bool bNeedChangeSkin = this.act曲リスト.tBOXに入る();
+                                                if (bNeedChangeSkin)
+                                                {
+                                                    this.eフェードアウト完了時の戻り値 = E戻り値.スキン変更;
+                                                    base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのフェードアウト;
+                                                }
+                                            }
+                                            break;
+                                        case C曲リストノード.Eノード種別.BACKBOX:
+                                            {
+                                                CDTXMania.Skin.sound取消音.t再生する();
+                                                bool bNeedChangeSkin = this.act曲リスト.tBOXを出る();
+                                                if (bNeedChangeSkin)
+                                                {
+                                                    this.eフェードアウト完了時の戻り値 = E戻り値.スキン変更;
+                                                    base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのフェードアウト;
+                                                }
+                                            }
+                                            break;
+                                        case C曲リストノード.Eノード種別.RANDOM:
+                                            if (CDTXMania.Skin.sound曲決定音.b読み込み成功)
                                                 CDTXMania.Skin.sound曲決定音.t再生する();
                                             else
                                                 CDTXMania.Skin.sound決定音.t再生する();
-											this.t曲をランダム選択する();
-											break;
-									}
-								}
-							}
-							#endregion
-							#region [ Up ]
-							this.ctキー反復用.Up.tキー反復( CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftArrow ), new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
+                                            this.t曲をランダム選択する();
+                                            break;
+                                        //case C曲リストノード.Eノード種別.DANI:
+                                        //    if (CDTXMania.Skin.sound段位移動.b読み込み成功)
+                                        //        CDTXMania.Skin.sound段位移動.t再生する();
+                                        //    else
+                                        //        CDTXMania.Skin.sound段位移動.t再生する();
+                                        //    this.X();
+                                        //    break;
+                                    }
+                                }
+                            }
+                            #endregion
+                            #region [ Up ]
+                            this.ctキー反復用.Up.tキー反復( CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftArrow ), new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
 							//this.ctキー反復用.Up.tキー反復( CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.UpArrow ) || CDTXMania.Input管理.Keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftArrow ), new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
 							if ( CDTXMania.Pad.b押された( E楽器パート.DRUMS, Eパッド.LBlue ) )
 							{
