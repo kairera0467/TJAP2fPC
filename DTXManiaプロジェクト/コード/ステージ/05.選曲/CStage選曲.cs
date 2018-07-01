@@ -335,31 +335,43 @@ namespace DTXMania
 				if( CDTXMania.Tx.SongSelect_Footer != null )
                     CDTXMania.Tx.SongSelect_Footer.t2D描画( CDTXMania.app.Device, 0, 720 - CDTXMania.Tx.SongSelect_Footer.sz画像サイズ.Height );
 
-                #region[ 下部テキスト ]
-                if(CDTXMania.Tx.SongSelect_Auto != null )
+                #region ネームプレート
+                for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
                 {
-                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ) {
-                        CDTXMania.Tx.SongSelect_Auto.t2D描画( CDTXMania.app.Device, 250 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
+                    if (CDTXMania.Tx.NamePlate[i] != null)
+                    {
+                        CDTXMania.Tx.NamePlate[i].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongSelect_NamePlate_X[i], CDTXMania.Skin.SongSelect_NamePlate_Y[i]);
                     }
-                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay2P ) {
-                        CDTXMania.Tx.SongSelect_Auto.t2D描画( CDTXMania.app.Device, 1030 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
-                    }
-                    if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
-                        CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL" );
-                    if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛 )
-                        CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD" );
-                    if( CDTXMania.ConfigIni.bSuperHard )
-                        CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON" );
-                    if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL )
-                        CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON" );
-                    else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL )
-                        CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.赤, "HSSCROLL : ON" );
                 }
+                #endregion
+
+                #region[ 下部テキスト ]
+                if (CDTXMania.Tx.SongSelect_Auto != null)
+                {
+                    if (CDTXMania.ConfigIni.b太鼓パートAutoPlay)
+                    {
+                        CDTXMania.Tx.SongSelect_Auto.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongSelect_Auto_X[0], CDTXMania.Skin.SongSelect_Auto_Y[0]);
+                    }
+                    if (CDTXMania.ConfigIni.nPlayerCount >= 1 && CDTXMania.ConfigIni.b太鼓パートAutoPlay2P)
+                    {
+                        CDTXMania.Tx.SongSelect_Auto.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongSelect_Auto_X[1], CDTXMania.Skin.SongSelect_Auto_Y[1]);
+                    }
+                }
+                if (CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー)
+                    CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL");
+                if (CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)
+                    CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD");
+                if (CDTXMania.ConfigIni.bSuperHard)
+                    CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON");
+                if (CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL)
+                    CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON");
+                else if (CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL)
+                    CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "HSSCROLL : ON");
                 #endregion
 
                 //this.actステータスパネル.On進行描画();
 
-				this.actPresound.On進行描画();
+                this.actPresound.On進行描画();
 				//if( this.txコメントバー != null )
 				{
 					//this.txコメントバー.t2D描画( CDTXMania.app.Device, 484, 314 );

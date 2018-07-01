@@ -905,102 +905,6 @@ namespace DTXMania
                                 }
                             }
                             #endregion
-                            else if (strCommand == "Game_Score_X")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nScoreX[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_Score_Y")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nScoreY[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_ScoreAdd_X")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nScoreAddX[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_ScoreAdd_Y")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nScoreAddY[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_ScoreAddBonus_X")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nScoreAddBonusX[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_ScoreAddBonus_Y")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nScoreAddBonusY[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_Balloon_Balloon_X")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nBurstBalloonX[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_Balloon_Balloon_Y")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nBurstBalloonY[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_Balloon_Balloon_Frame_X")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nBurstFrameX[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_Balloon_Balloon_Frame_Y")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nBurstFrameY[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_Balloon_Balloon_Number_X")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nBurstNumberX[i] = int.Parse(strSplit[i]);
-                                }
-                            }
-                            else if (strCommand == "Game_Balloon_Balloon_Number_Y")
-                            {
-                                string[] strSplit = strParam.Split(',');
-                                for (int i = 0; i < 2; i++)
-                                {
-                                    this.nBurstNumberY[i] = int.Parse(strSplit[i]);
-                                }
-                            }
 
                             #region[ 演奏 ]
                             //-----------------------------
@@ -1029,23 +933,6 @@ namespace DTXMania
                                 this.nJudgePointY[1] = C変換.n値を文字列から取得して返す(strParam, this.nJudgePointY[1]);
                             }
 
-                            else if (strCommand == "PlayerCharacterP1X")
-                            {
-                                this.nPlayerCharacterX[0] = C変換.n値を文字列から取得して返す(strParam, 0);
-                            }
-                            else if (strCommand == "PlayerCharacterP1Y")
-                            {
-                                this.nPlayerCharacterY[0] = C変換.n値を文字列から取得して返す(strParam, 0);
-                            }
-                            else if (strCommand == "CourseSymbolP1X")
-                            {
-                                this.nCourseSymbolX[0] = C変換.n値を文字列から取得して返す(strParam, this.nCourseSymbolX[0]);
-                            }
-                            else if (strCommand == "CourseSymbolP1Y")
-                            {
-                                this.nCourseSymbolY[0] = C変換.n値を文字列から取得して返す(strParam, this.nCourseSymbolY[0]);
-                            }
-
                             else if (strCommand == "DiffDispMode")
                             {
                                 this.eDiffDispMode = (E難易度表示タイプ)C変換.n値を文字列から取得して範囲内に丸めて返す(strParam, 0, 2, (int)this.eDiffDispMode);
@@ -1054,30 +941,6 @@ namespace DTXMania
                             {
                                 this.b現在のステージ数を表示しない = C変換.bONorOFF(strParam[0]);
                             }
-                            else if (strCommand == "StageText")
-                            {
-                                this.str曲数テキスト = strParam;
-                            }
-                            else if (strCommand == "IsStageTextRed")
-                            {
-                                this.b曲数テキストを赤くする = C変換.bONorOFF(strParam[0]);
-                            }
-                            //else if( strCommand == "AddScoreColorP1" )
-                            //{
-                            //    string[] arColor = strParam.Split(',');
-                            //    if( arColor.Length == 3 )
-                            //    {
-                            //        this.cScoreColor1P = C変換.n255ToColor4( Convert.ToInt16( arColor[ 0 ] ), Convert.ToInt16( arColor[ 1 ] ), Convert.ToInt16( arColor[ 2 ] ) );
-                            //    }
-                            //}
-                            //else if( strCommand == "AddScoreColorP2" )
-                            //{
-                            //    string[] arColor = strParam.Split(',');
-                            //    if( arColor.Length == 3 )
-                            //    {
-                            //        this.cScoreColor2P = C変換.n255ToColor4( Convert.ToInt16( arColor[ 0 ] ), Convert.ToInt16( arColor[ 1 ] ), Convert.ToInt16( arColor[ 2 ] ) );
-                            //    }
-                            //}
 
                             //-----------------------------
                             #endregion
@@ -1113,10 +976,44 @@ namespace DTXMania
                             #endregion
 
                             #region 新・SkinConfig
+                            #region SongSelect
+                            else if (strCommand == "SongSelect_NamePlate_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    SongSelect_NamePlate_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "SongSelect_NamePlate_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    SongSelect_NamePlate_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "SongSelect_Auto_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    SongSelect_Auto_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "SongSelect_Auto_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    SongSelect_Auto_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            #endregion
                             #region Game
                             else if (strCommand == "Game_Notes_Anime")
                             {
-                                Game_Notes_Anime = int.Parse(strParam);
+                                Game_Notes_Anime = C変換.bONorOFF(strParam[0]);
                             }
                             else if (strCommand == "Game_StageText")
                             {
@@ -1124,7 +1021,7 @@ namespace DTXMania
                             }
                             else if (strCommand == "Game_StageText_IsRed")
                             {
-                                Game_StageText_IsRed = int.Parse(strParam);
+                                Game_StageText_IsRed = C変換.bONorOFF(strParam[0]);
                             }
                             #region CourseSymbol
                             else if (strCommand == "Game_CourseSymbol_X")
@@ -1159,6 +1056,22 @@ namespace DTXMania
                                 for (int i = 0; i < 2; i++)
                                 {
                                     Game_Chara_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Chara_Balloon_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Chara_Balloon_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Chara_Balloon_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Chara_Balloon_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
                             // パターン数の設定はTextureLoader.csで反映されます。
@@ -1233,6 +1146,57 @@ namespace DTXMania
                             }
                             #endregion
                             #region Taiko
+                            #region Score
+                            else if (strCommand == "Game_Score_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Score_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Score_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Score_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_ScoreAdd_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Score_Add_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_ScoreAdd_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Score_Add_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_ScoreAddBonus_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Score_AddBonus_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_ScoreAddBonus_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Score_AddBonus_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+
+                            #endregion
                             else if (strCommand == "Game_Taiko_NamePlate_X")
                             {
                                 string[] strSplit = strParam.Split(',');
@@ -1269,6 +1233,138 @@ namespace DTXMania
                             }
 
                             #endregion
+                            #region Balloon
+                            else if (strCommand == "Game_Balloon_Combo_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Number_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Number_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Number_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Number_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Number_Ex_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Number_Ex_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Number_Ex_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Number_Ex_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Text_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Text_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Text_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Text_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Text_Ex_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Text_Ex_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Combo_Text_Ex_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Combo_Text_Ex_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+
+
+                            else if (strCommand == "Game_Balloon_Balloon_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Balloon_Balloon_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Balloon_Balloon_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Frame_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Balloon_Balloon_Frame_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Frame_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Balloon_Balloon_Frame_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Number_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Balloon_Balloon_Number_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Number_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    this.Game_Balloon_Balloon_Number_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
                             {
@@ -1304,9 +1400,14 @@ namespace DTXMania
                             }
                             else if (strCommand == "Game_Runner_Timer")
                             {
-                                Game_Runner_Timer = int.Parse(strParam);
+                                if(int.Parse(strParam) != 0)
+                                {
+                                    Game_Runner_Timer = int.Parse(strParam);
+                                }
                             }
                             #endregion
+                            #endregion
+                            #region Result
                             #endregion
                             #endregion
                         }
@@ -1403,57 +1504,8 @@ namespace DTXMania
         public float fComboNumberSpacing = 0;
         public float fComboNumberSpacing_l = 0;
 
-        //コンボ吹き出し(2Pまで)
-        public int[] nComboBalloonX = new int[] { 253, 253 };
-        public int[] nComboBalloonY = new int[] { -11, 498 };
-        public int[] nComboBalloonNumberX = new int[] { 312, 312 };
-        public int[] nComboBalloonNumberY = new int[] { 34, 540 };
-        public int[] nComboBalloonNumber_1000X = new int[] { 335, 335 };
-        public int[] nComboBalloonNumber_1000Y = new int[] { 34, 540 };
-        public int[] nComboBalloonTextX = new int[] { 471, 471 };
-        public int[] nComboBalloonTextY = new int[] { 55, 561 };
-        public int[] nComboBalloonText_1000X = new int[] { 491, 491 };
-        public int[] nComboBalloonText_1000Y = new int[] { 55, 561 };
-
-        //スコア
-        public int[] nScoreX = new int[] { 20, 20, 0, 0 };
-        public int[] nScoreY = new int[] { 194, 499, 0, 0 };
-        public int[] nScoreAddX = new int[] { 20, 20, 0, 0 };
-        public int[] nScoreAddY = new int[] { 156, 536, 0, 0 };
-        public int[] nScoreAddBonusX = new int[] { 20, 20, 0, 0 };
-        public int[] nScoreAddBonusY = new int[] { 100, 580, 0, 0 };
-        //public SlimDX.Color4 cScoreColor1P = new SlimDX.Color4( 1.0f, 1.0f, 0.5f, 0.4f );
-        //public SlimDX.Color4 cScoreColor2P = new SlimDX.Color4( 1.0f, 0.4f, 0.5f, 1.0f );
-
-        //風船
-        //次郎とは違い、風船画像はBalloon、吹き出しはFrameという名前にしています。
-        public int[] nBurstBalloonX = new int[] { 382, 382, 0, 0 };
-        public int[] nBurstBalloonY = new int[] { 115, 290, 0, 0 };
-        public int[] nBurstFrameX = new int[] { 382, 382, 0, 0 };
-        public int[] nBurstFrameY = new int[] { 80, 260, 0, 0 };
-        public int[] nBurstNumberX = new int[] { 486, 486, 0, 0 };
-        public int[] nBurstNumberY = new int[] { 114, 300, 0, 0 };
-
-        //コースシンボル
-        //中央基準
-        public int[] nCourseSymbolX = new int[]{ 72, 72, 0, 0 };
-        public int[] nCourseSymbolY = new int[]{ 180, 230, 0, 0 };
-
-        //分岐吹き出し(中央基準)
-        public int[] nBranchBalloonX = new int[] { 0, 0, 0, 0 };
-        public int[] nBranchBalloonY = new int[] { 0, 0, 0, 0 };
-
-        //キャラクター画像の位置
-        public int[] nPlayerCharacterX = new int[]{0};
-        public int[] nPlayerCharacterY = new int[]{0};
-        public int[] nPlayerCharacterBalloonX = new int[] { 240, 240, 0, 0 };
-        public int[] nPlayerCharacterBalloonY = new int[] { 0, 297, 0, 0 };
-
         public E難易度表示タイプ eDiffDispMode;
         public bool b現在のステージ数を表示しない;
-
-        public string str曲数テキスト = "1曲目";
-        public bool b曲数テキストを赤くする = false;
 
         //リザルト画面
         //現在のデフォルト値はダミーです。
@@ -1501,13 +1553,21 @@ namespace DTXMania
         public string Skin_Version = "Unknown";
         public string Skin_Creator = "Unknown";
         #endregion
+        #region SongSelect
+        public int[] SongSelect_NamePlate_X = new int[] { 60, 950 };
+        public int[] SongSelect_NamePlate_Y = new int[] { 650, 650 };
+        public int[] SongSelect_Auto_X = new int[] { 60, 950 };
+        public int[] SongSelect_Auto_Y = new int[] { 650, 650 };
+        #endregion
         #region Game
-        public int Game_Notes_Anime = 0;
+        public bool Game_Notes_Anime = false;
         public string Game_StageText = "1曲目";
-        public int Game_StageText_IsRed = 0;
+        public bool Game_StageText_IsRed = false;
         #region Chara
         public int[] Game_Chara_X = new int[] { 0, 0 };
         public int[] Game_Chara_Y = new int[] { 0, 537 };
+        public int[] Game_Chara_Balloon_X = new int[] { 240, 240, 0, 0 };
+        public int[] Game_Chara_Balloon_Y = new int[] { 0, 297, 0, 0 };
         public int Game_Chara_Ptn_Normal,
             Game_Chara_Ptn_GoGo,
             Game_Chara_Ptn_Clear,
@@ -1541,11 +1601,38 @@ namespace DTXMania
         public int[] Game_CourseSymbol_X = new int[] { 64, 64 };
         public int[] Game_CourseSymbol_Y = new int[] { 232, 432 };
         #endregion
+        #region Score
+        public int[] Game_Score_X = new int[] { 20, 20, 0, 0 };
+        public int[] Game_Score_Y = new int[] { 194, 499, 0, 0 };
+        public int[] Game_Score_Add_X = new int[] { 20, 20, 0, 0 };
+        public int[] Game_Score_Add_Y = new int[] { 156, 536, 0, 0 };
+        public int[] Game_Score_AddBonus_X = new int[] { 20, 20, 0, 0 };
+        public int[] Game_Score_AddBonus_Y = new int[] { 100, 580, 0, 0 };
+        #endregion
         #region Taiko
         public int[] Game_Taiko_NamePlate_X = new int[] { 0, 0 };
         public int[] Game_Taiko_NamePlate_Y = new int[] { 288, 368 };
         public int[] Game_Taiko_PlayerNumber_X = new int[] { 4, 4 };
         public int[] Game_Taiko_PlayerNumber_Y = new int[] { 233, 435 };
+        #endregion
+        #region Balloon
+        public int[] Game_Balloon_Combo_X = new int[] { 253, 253 };
+        public int[] Game_Balloon_Combo_Y = new int[] { -11, 498 };
+        public int[] Game_Balloon_Combo_Number_X = new int[] { 312, 312 };
+        public int[] Game_Balloon_Combo_Number_Y = new int[] { 34, 540 };
+        public int[] Game_Balloon_Combo_Number_Ex_X = new int[] { 335, 335 };
+        public int[] Game_Balloon_Combo_Number_Ex_Y = new int[] { 34, 540 };
+        public int[] Game_Balloon_Combo_Text_X = new int[] { 471, 471 };
+        public int[] Game_Balloon_Combo_Text_Y = new int[] { 55, 561 };
+        public int[] Game_Balloon_Combo_Text_Ex_X = new int[] { 491, 491 };
+        public int[] Game_Balloon_Combo_Text_Ex_Y = new int[] { 55, 561 };
+
+        public int[] Game_Balloon_Balloon_X = new int[] { 382, 382 };
+        public int[] Game_Balloon_Balloon_Y = new int[] { 115, 290 };
+        public int[] Game_Balloon_Balloon_Frame_X = new int[] { 382, 382 };
+        public int[] Game_Balloon_Balloon_Frame_Y = new int[] { 80, 260 };
+        public int[] Game_Balloon_Balloon_Number_X = new int[] { 486, 486 };
+        public int[] Game_Balloon_Balloon_Number_Y = new int[] { 114, 300 };
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };
@@ -1555,6 +1642,10 @@ namespace DTXMania
         public int[] Game_Runner_StartPoint_Y = new int[] { 40, 560 };
         public int Game_Runner_Timer = 16;
         #endregion
+        #endregion
+        #region Result
+        public int[] Result_NamePlate_X = new int[] { 260, 260 };
+        public int[] Result_NamePlate_Y = new int[] { 96, 390 };
         #endregion
         #endregion
     }

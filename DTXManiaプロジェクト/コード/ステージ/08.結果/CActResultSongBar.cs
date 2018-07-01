@@ -46,7 +46,7 @@ namespace DTXMania
             Bitmap bmpStageText = new Bitmap(1, 1);
             bmpSongTitle = pfMusicName.DrawPrivateFont( CDTXMania.DTX.TITLE, Color.White, Color.Black );
 
-            bmpStageText = pfStageText.DrawPrivateFont(CDTXMania.Skin.str曲数テキスト, Color.White, Color.Black);
+            bmpStageText = pfStageText.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
             this.txStageText = CDTXMania.tテクスチャの生成(bmpStageText, false);
 
             this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );

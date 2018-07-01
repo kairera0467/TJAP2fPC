@@ -1386,7 +1386,7 @@ namespace DTXMania
                         {
                             //int num9 = this.actCombo.n現在のコンボ数.Drums >= 50 ? this.ctチップ模様アニメ.Drums.n現在の値 * 130 : 0;
                             int num9 = 0;
-                            if (CDTXMania.Skin.Game_Notes_Anime != 0)
+                            if (CDTXMania.Skin.Game_Notes_Anime)
                             {
                                 if (this.actCombo.n現在のコンボ数[nPlayer] >= 300)
                                 {
@@ -1705,7 +1705,7 @@ namespace DTXMania
                         //{
                         //    num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
                         //}
-                        if (CDTXMania.Skin.Game_Notes_Anime != 0)
+                        if (CDTXMania.Skin.Game_Notes_Anime)
                         {
                             if (this.actCombo.n現在のコンボ数[nPlayer] >= 300)
                             {

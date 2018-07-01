@@ -112,16 +112,16 @@ namespace DTXMania
 
                         if( this.ct進行[ i ].b進行中 )
                         {
-                            CDTXMania.Tx.Balloon_Combo[ i ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nComboBalloonX[ i ], CDTXMania.Skin.nComboBalloonY[ i ] );
+                            CDTXMania.Tx.Balloon_Combo[ i ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Combo_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Y[ i ] );
                             if( this.nCombo_渡[ i ] < 1000 ) //2016.08.23 kairera0467 仮実装。
                             {
-                                this.t小文字表示( CDTXMania.Skin.nComboBalloonNumberX[ i ], CDTXMania.Skin.nComboBalloonNumberY[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
-                                CDTXMania.Tx.Balloon_Number_Combo.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nComboBalloonTextX[ i ], CDTXMania.Skin.nComboBalloonTextY[ i ], new Rectangle( 0, 54, 77, 32 ) );
+                                this.t小文字表示( CDTXMania.Skin.Game_Balloon_Combo_Number_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Number_Y[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
+                                CDTXMania.Tx.Balloon_Number_Combo.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Combo_Text_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Text_Y[ i ], new Rectangle( 0, 54, 77, 32 ) );
                             }
                             else
                             {
-                                this.t小文字表示( CDTXMania.Skin.nComboBalloonNumber_1000X[ i ], CDTXMania.Skin.nComboBalloonNumber_1000Y[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
-                                CDTXMania.Tx.Balloon_Number_Combo.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nComboBalloonText_1000X[ i ], CDTXMania.Skin.nComboBalloonText_1000Y[ i ], new Rectangle( 0, 54, 77, 32 ) );
+                                this.t小文字表示( CDTXMania.Skin.Game_Balloon_Combo_Number_Ex_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Number_Ex_Y[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
+                                CDTXMania.Tx.Balloon_Number_Combo.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Combo_Text_Ex_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Text_Ex_Y[ i ], new Rectangle( 0, 54, 77, 32 ) );
                             }
                         }
                     }

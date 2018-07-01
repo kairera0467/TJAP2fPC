@@ -321,7 +321,7 @@ namespace DTXMania
 				{
                     CDTXMania.Tx.Result_Header.t2D描画( CDTXMania.app.Device, 0, 0 );
 				}
-				if( this.actResultImage.On進行描画() == 0 )
+                if ( this.actResultImage.On進行描画() == 0 )
 				{
 					this.bアニメが完了 = false;
 				}
@@ -334,7 +334,18 @@ namespace DTXMania
 				{
 					this.bアニメが完了 = false;
 				}
-				if( base.eフェーズID == CStage.Eフェーズ.共通_フェードイン )
+
+                #region ネームプレート
+                for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+                {
+                    if (CDTXMania.Tx.NamePlate[i] != null)
+                    {
+                        CDTXMania.Tx.NamePlate[i].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_NamePlate_X[i], CDTXMania.Skin.Result_NamePlate_Y[i]);
+                    }
+                }
+                #endregion
+
+                if ( base.eフェーズID == CStage.Eフェーズ.共通_フェードイン )
 				{
 					if( this.actFI.On進行描画() != 0 )
 					{

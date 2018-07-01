@@ -63,16 +63,16 @@ namespace DTXMania
                                     strDiff = "おに ";
                                     break;
                             }
-                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + "1曲目", Color.White, Color.Black);
+                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
                         }
                         else
                         {
-                            if(CDTXMania.Skin.b曲数テキストを赤くする)
+                            if(CDTXMania.Skin.Game_StageText_IsRed)
                             {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.str曲数テキスト, Color.White, Color.Red);
+                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Red);
                             } else
                             {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.str曲数テキスト, Color.White, Color.Black);
+                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
                             }
                         }
                         this.tx難易度とステージ数 = CDTXMania.tテクスチャの生成( bmpDiff, false );

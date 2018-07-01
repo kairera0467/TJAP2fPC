@@ -149,20 +149,20 @@ namespace DTXMania
             {
                 //1P:0 2P:245
                 if (CDTXMania.Tx.Chara_Balloon_Breaking != null)
-                    CDTXMania.Tx.Chara_Balloon_Breaking.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nPlayerCharacterBalloonX[player], CDTXMania.Skin.nPlayerCharacterBalloonY[player]);
+                    CDTXMania.Tx.Chara_Balloon_Breaking.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[player], CDTXMania.Skin.Game_Chara_Balloon_Y[player]);
                 for (int j = 0; j < 5; j++)
                 {
                     if (n残り打数[j] < n連打数)
                     {
                         if (CDTXMania.Tx.Balloon_Breaking[j] != null)
-                            CDTXMania.Tx.Balloon_Breaking[j].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nBurstBalloonX[player] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0), CDTXMania.Skin.nBurstBalloonY[player]);
+                            CDTXMania.Tx.Balloon_Breaking[j].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Balloon_X[player] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0), CDTXMania.Skin.Game_Balloon_Balloon_Y[player]);
                         break;
                     }
                 }
                 //1P:31 2P:329
                 if (CDTXMania.Tx.Balloon_Balloon != null)
-                    CDTXMania.Tx.Balloon_Balloon.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nBurstFrameX[player], CDTXMania.Skin.nBurstFrameY[player]);
-                this.t文字表示(CDTXMania.Skin.nBurstNumberX[player], CDTXMania.Skin.nBurstNumberY[player], n連打数.ToString(), n連打数, player);
+                    CDTXMania.Tx.Balloon_Balloon.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Balloon_Frame_X[player], CDTXMania.Skin.Game_Balloon_Balloon_Frame_Y[player]);
+                this.t文字表示(CDTXMania.Skin.Game_Balloon_Balloon_Number_X[player], CDTXMania.Skin.Game_Balloon_Balloon_Number_Y[player], n連打数.ToString(), n連打数, player);
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, n連打数.ToString() );
             }
             if (n連打数 == 0 && CDTXMania.stage演奏ドラム画面.actChara.b風船連打中)

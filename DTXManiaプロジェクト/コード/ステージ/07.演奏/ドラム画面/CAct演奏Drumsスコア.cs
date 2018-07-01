@@ -74,8 +74,8 @@ namespace DTXMania
 
                 //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ctボーナス加算タイマ[0].n現在の値.ToString());
 
-                base.t小文字表示(CDTXMania.Skin.nScoreX[0], CDTXMania.Skin.nScoreY[0], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256, 0);
-                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示(CDTXMania.Skin.nScoreX[0], CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256, 1);
+                base.t小文字表示(CDTXMania.Skin.Game_Score_X[0], CDTXMania.Skin.Game_Score_Y[0], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256, 0);
+                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示(CDTXMania.Skin.Game_Score_X[0], CDTXMania.Skin.Game_Score_Y[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256, 1);
 
                 for( int i = 0; i < 256; i++ )
                 {
@@ -187,9 +187,9 @@ namespace DTXMania
 
 
                             if ( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
-                                base.t小文字表示(CDTXMania.Skin.nScoreAddX[this.stScore[i].nPlayer] + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
+                                base.t小文字表示(CDTXMania.Skin.Game_Score_Add_X[this.stScore[i].nPlayer] + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.Game_Score_Add_Y[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.Game_Score_Add_Y[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true )
-                                base.t小文字表示(CDTXMania.Skin.nScoreAddBonusX[this.stScore[i].nPlayer] + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
+                                base.t小文字表示(CDTXMania.Skin.Game_Score_AddBonus_X[this.stScore[i].nPlayer] + xAdd, CDTXMania.Skin.Game_Score_AddBonus_Y[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             else
                             {
                                 this.n現在表示中のAddScore--;
