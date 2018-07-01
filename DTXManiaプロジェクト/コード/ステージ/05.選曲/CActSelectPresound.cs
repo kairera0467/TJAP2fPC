@@ -35,8 +35,14 @@ namespace DTXMania
 				if( ( cスコア.譜面情報.strBGMファイル名 != null ) && ( cスコア.譜面情報.strBGMファイル名.Length > 0 ) )
 				{
 					//this.ct再生待ちウェイト = new CCounter( 0, CDTXMania.ConfigIni.n曲が選択されてからプレビュー音が鳴るまでのウェイトms, 1, CDTXMania.Timer );
-                    this.ct再生待ちウェイト = new CCounter( 0, 1, 270, CDTXMania.Timer );
-				}
+                    if(CDTXMania.Sound管理.GetCurrentSoundDeviceType() != "DirectSound")
+                    {
+                        this.ct再生待ちウェイト = new CCounter(0, 1, 270, CDTXMania.Timer);
+                    } else
+                    {
+                        this.ct再生待ちウェイト = new CCounter(0, 1, 500, CDTXMania.Timer);
+                    }
+                }
 			}
 
             //if( ( cスコア != null ) && ( ( !( cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Presound ).Equals( this.str現在のファイル名 ) || ( this.sound == null ) ) || !this.sound.b再生中 ) )
