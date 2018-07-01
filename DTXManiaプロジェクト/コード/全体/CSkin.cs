@@ -840,7 +840,7 @@ namespace DTXMania
         /// </summary>
         public void tSkinConfigInit()
         {
-            this.eDiffDispMode = E難易度表示タイプ.n曲目に表示;
+            this.eDiffDispMode = E難易度表示タイプ.mtaikoに画像で表示;
             this.b現在のステージ数を表示しない = false;
         }
 

@@ -264,35 +264,36 @@ namespace DTXMania
 
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                if( !CDTXMania.ConfigIni.bNoInfo && CDTXMania.Skin.eDiffDispMode != E難易度表示タイプ.mtaikoに画像で表示 )
-                {
-                    this.txオプションパネル_HS.t2D描画( CDTXMania.app.Device, 0, 230, new Rectangle( 0, this.nHS * 44, 162, 44 ) );
-                    switch( CDTXMania.ConfigIni.eRandom.Taiko )
-                    {
-                        case Eランダムモード.RANDOM:
-                            if( this.txオプションパネル_RANMIR != null )
-                                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 0, 162, 44 ) );
-                            break;
-                        case Eランダムモード.HYPERRANDOM:
-                            if( this.txオプションパネル_RANMIR != null )
-                                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 88, 162, 44 ) );
-                            break;
-                        case Eランダムモード.SUPERRANDOM:
-                            if( this.txオプションパネル_RANMIR != null )
-                                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 132, 162, 44 ) );
-                            break;
-                        case Eランダムモード.MIRROR:
-                            if( this.txオプションパネル_RANMIR != null )
-                                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 44, 162, 44 ) );
-                            break;
-                    }
+                // 2018/7/1 一時的にオプション画像の廃止。オプション画像については後日作り直します。(AioiLight)
+                //if( !CDTXMania.ConfigIni.bNoInfo && CDTXMania.Skin.eDiffDispMode != E難易度表示タイプ.mtaikoに画像で表示 )
+                //{
+                //    this.txオプションパネル_HS.t2D描画( CDTXMania.app.Device, 0, 230, new Rectangle( 0, this.nHS * 44, 162, 44 ) );
+                //    switch( CDTXMania.ConfigIni.eRandom.Taiko )
+                //    {
+                //        case Eランダムモード.RANDOM:
+                //            if( this.txオプションパネル_RANMIR != null )
+                //                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 0, 162, 44 ) );
+                //            break;
+                //        case Eランダムモード.HYPERRANDOM:
+                //            if( this.txオプションパネル_RANMIR != null )
+                //                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 88, 162, 44 ) );
+                //            break;
+                //        case Eランダムモード.SUPERRANDOM:
+                //            if( this.txオプションパネル_RANMIR != null )
+                //                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 132, 162, 44 ) );
+                //            break;
+                //        case Eランダムモード.MIRROR:
+                //            if( this.txオプションパネル_RANMIR != null )
+                //                this.txオプションパネル_RANMIR.t2D描画( CDTXMania.app.Device, 0, 264, new Rectangle( 0, 44, 162, 44 ) );
+                //            break;
+                //    }
 
-                    if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.STEALTH )
-                        this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 0, 162, 44 ) );
-                    else if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.DORON )
-                        this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 44, 162, 44 ) );
-                }
-                else if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.mtaikoに画像で表示 )
+                //    if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.STEALTH )
+                //        this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 0, 162, 44 ) );
+                //    else if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.DORON )
+                //        this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 44, 162, 44 ) );
+                //}
+                if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.mtaikoに画像で表示 )
                 {
                     if(CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度] != null )
                     {
