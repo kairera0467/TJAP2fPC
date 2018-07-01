@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -40,8 +40,8 @@ namespace DTXMania
                             this.st連打キャラ[ j ].fX開始点 = arXseed[ nXseed ];
                             this.st連打キャラ[j].fX = arXseed[ nXseed ];
                             this.st連打キャラ[j].fY = 720;
-                            this.st連打キャラ[j].fX加速度 = 2;
-                            this.st連打キャラ[j].fY加速度 = 2;
+                            this.st連打キャラ[j].fX加速度 = 5/2;
+                            this.st連打キャラ[j].fY加速度 = 5/2;
                             break;
                         }
                     }
