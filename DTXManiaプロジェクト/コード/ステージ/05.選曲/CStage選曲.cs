@@ -352,7 +352,7 @@ namespace DTXMania
                     {
                         CDTXMania.Tx.SongSelect_Auto.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongSelect_Auto_X[0], CDTXMania.Skin.SongSelect_Auto_Y[0]);
                     }
-                    if (CDTXMania.ConfigIni.nPlayerCount >= 1 && CDTXMania.ConfigIni.b太鼓パートAutoPlay2P)
+                    if (CDTXMania.ConfigIni.nPlayerCount > 1 && CDTXMania.ConfigIni.b太鼓パートAutoPlay2P)
                     {
                         CDTXMania.Tx.SongSelect_Auto.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongSelect_Auto_X[1], CDTXMania.Skin.SongSelect_Auto_Y[1]);
                     }
@@ -452,16 +452,19 @@ namespace DTXMania
 						#endregion
 						#region [ F3 1PオートON/OFF ]
 						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F3 ) )
-						{	// [ESC]
+						{
 							CDTXMania.Skin.sound変更音.t再生する();
                             C共通.bToggleBoolian( ref CDTXMania.ConfigIni.b太鼓パートAutoPlay );
 						}
                         #endregion
                         #region [ F4 2PオートON/OFF ]
                         if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.F4))
-                        {   // [ESC]
-                            CDTXMania.Skin.sound変更音.t再生する();
-                            C共通.bToggleBoolian(ref CDTXMania.ConfigIni.b太鼓パートAutoPlay2P);
+                        {
+                            if (CDTXMania.ConfigIni.nPlayerCount > 1)
+                            {
+                                CDTXMania.Skin.sound変更音.t再生する();
+                                C共通.bToggleBoolian(ref CDTXMania.ConfigIni.b太鼓パートAutoPlay2P);
+                            }
                         }
                         #endregion
                         #region [ F5 スーパーハード ]
