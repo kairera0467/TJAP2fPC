@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -130,7 +130,7 @@ namespace DTXMania
 			{
 				this.nフラッシュ制御タイマ = num;
 			}
-			while( ( num - this.nフラッシュ制御タイマ ) >= 30 )
+			while( ( num - this.nフラッシュ制御タイマ ) >= 20 )
 			{
 				for( int j = 0; j < 16; j++ )
 				{
@@ -139,7 +139,7 @@ namespace DTXMania
 						this.stパッド状態[ j ].n明るさ--;
 					}
 				}
-				this.nフラッシュ制御タイマ += 30;
+				this.nフラッシュ制御タイマ += 20;
 		    }
 
 
@@ -166,10 +166,10 @@ namespace DTXMania
             }
             if( CDTXMania.Tx.Taiko_Don_Left != null && CDTXMania.Tx.Taiko_Don_Right != null && CDTXMania.Tx.Taiko_Ka_Left != null && CDTXMania.Tx.Taiko_Ka_Right != null )
             {
-                CDTXMania.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[0].n明るさ * 43;
-                CDTXMania.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[1].n明るさ * 43;
-                CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[2].n明るさ * 43;
-                CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[3].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[0].n明るさ * 73;
+                CDTXMania.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[1].n明るさ * 73;
+                CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[2].n明るさ * 73;
+                CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[3].n明るさ * 73;
             
                 CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
                 CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
@@ -179,10 +179,10 @@ namespace DTXMania
 
             if( CDTXMania.Tx.Taiko_Don_Left != null && CDTXMania.Tx.Taiko_Don_Right != null && CDTXMania.Tx.Taiko_Ka_Left != null && CDTXMania.Tx.Taiko_Ka_Right != null )
             {
-                CDTXMania.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[4].n明るさ * 43;
-                CDTXMania.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[5].n明るさ * 43;
-                CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[6].n明るさ * 43;
-                CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[7].n明るさ * 43;
+                CDTXMania.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[4].n明るさ * 73;
+                CDTXMania.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[5].n明るさ * 73;
+                CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[6].n明るさ * 73;
+                CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[7].n明るさ * 73;
             
                 CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
                 CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
@@ -473,3 +473,4 @@ namespace DTXMania
 
     }
 }
+　
