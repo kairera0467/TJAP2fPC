@@ -195,6 +195,10 @@ namespace DTXMania
                                     c曲リストノード.strタイトル = dtx.TITLE;
                                     c曲リストノード.strサブタイトル = dtx.SUBTITLE;
                                     c曲リストノード.strジャンル = dtx.GENRE;
+                                    if (c曲リストノード.r親ノード.strジャンル != "")
+                                    {
+                                        c曲リストノード.strジャンル = c曲リストノード.r親ノード.strジャンル;
+                                    }
                                     c曲リストノード.nLevel = dtx.LEVELtaiko;
                                     
                                     c曲リストノード.arスコア[ n ] = new Cスコア();
@@ -273,7 +277,19 @@ namespace DTXMania
 
                                 c曲リストノード.strタイトル = dtx.TITLE;
                                 c曲リストノード.strサブタイトル = dtx.SUBTITLE;
-                                c曲リストノード.strジャンル = dtx.GENRE;
+                                if (!string.IsNullOrEmpty(dtx.GENRE))
+                                {
+                                    c曲リストノード.strジャンル = dtx.GENRE;
+                                }
+                                else
+                                {
+                                    if (c曲リストノード.r親ノード.strジャンル != "")
+                                    {
+                                        // .tjaのジャンルが存在しなくて、かつ親ノードにジャンルが指定されていればそちらを読み込む。
+                                        c曲リストノード.strジャンル = c曲リストノード.r親ノード.strジャンル;
+                                    }
+                                }
+                                
                                 c曲リストノード.nLevel = dtx.LEVELtaiko;
 
                                 c曲リストノード.arスコア[ n ] = new Cスコア();
@@ -491,11 +507,6 @@ namespace DTXMania
 					c曲リストノード.arスコア[ 0 ].ファイル情報.フォルダの絶対パス = infoDir.FullName + @"\";
 					c曲リストノード.arスコア[ 0 ].譜面情報.タイトル = boxdef.Title;
 					c曲リストノード.arスコア[ 0 ].譜面情報.ジャンル = boxdef.Genre;
-					c曲リストノード.arスコア[ 0 ].譜面情報.アーティスト名 = boxdef.Artist;
-					c曲リストノード.arスコア[ 0 ].譜面情報.コメント = boxdef.Comment;
-					c曲リストノード.arスコア[ 0 ].譜面情報.Preimage = boxdef.Preimage;
-					c曲リストノード.arスコア[ 0 ].譜面情報.Premovie = boxdef.Premovie;
-					c曲リストノード.arスコア[ 0 ].譜面情報.Presound = boxdef.Presound;
 					c曲リストノード.r親ノード = node親;
 
 					if ( boxdef.SkinPath == "" )
@@ -836,6 +847,7 @@ namespace DTXMania
 									    cdtx = new CDTX( c曲リストノード.arスコア[ i ].ファイル情報.ファイルの絶対パス, true, 0, 0, 1 );
 
 									c曲リストノード.arスコア[ i ].譜面情報.タイトル = cdtx.TITLE;
+                                    
 									
                                     c曲リストノード.arスコア[ i ].譜面情報.アーティスト名 = cdtx.ARTIST;
 									c曲リストノード.arスコア[ i ].譜面情報.コメント = cdtx.COMMENT;

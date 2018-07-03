@@ -1588,6 +1588,8 @@ namespace DTXMania
 			public CTexture txタイトル名;
 			public STDGBVALUE<int> nスキル値;
 			public Color col文字色;
+            public Color ForeColor;
+            public Color BackColor;
             public int[] ar難易度;
             public bool[] b分岐;
             public string strジャンル;
@@ -1822,6 +1824,8 @@ namespace DTXMania
 				this.stバー情報[ i ].strタイトル文字列 = song.strタイトル;
                 this.stバー情報[ i ].strジャンル = song.strジャンル;
 				this.stバー情報[ i ].col文字色 = song.col文字色;
+                this.stバー情報[i].ForeColor = song.ForeColor;
+                this.stバー情報[i].BackColor = song.BackColor;
 				this.stバー情報[ i ].eバー種別 = this.e曲のバー種別を返す( song );
                 this.stバー情報[ i ].strサブタイトル = song.strサブタイトル;
                 this.stバー情報[ i ].ar難易度 = song.nLevel;
