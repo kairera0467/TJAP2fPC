@@ -585,7 +585,8 @@ namespace DTXMania
 
             // ↑踊り子・モブ↑
 
-
+            CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[0].ToString());
+            CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[0].ToString());
             return base.On進行描画();
         }
 

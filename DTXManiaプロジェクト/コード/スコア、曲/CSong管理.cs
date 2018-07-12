@@ -289,7 +289,14 @@ namespace DTXMania
                                         c曲リストノード.strジャンル = c曲リストノード.r親ノード.strジャンル;
                                     }
                                 }
-                                
+
+                                switch (c曲リストノード.strジャンル)
+                                {
+                                    case "J-POP":
+                                    default:
+                                        break;
+                                }
+
                                 c曲リストノード.nLevel = dtx.LEVELtaiko;
 
                                 c曲リストノード.arスコア[ n ] = new Cスコア();
@@ -361,6 +368,7 @@ namespace DTXMania
 					c曲リストノード.nスコア数 = 1;
 					c曲リストノード.r親ノード = node親;
 
+
 					// 一旦、上位BOXのスキン情報をコピー (後でbox.defの記載にて上書きされる場合がある)
 					c曲リストノード.strSkinPath = ( c曲リストノード.r親ノード == null ) ?
 						"" : c曲リストノード.r親ノード.strSkinPath;
@@ -389,74 +397,15 @@ namespace DTXMania
 						{
 							c曲リストノード.strジャンル = boxdef.Genre;
 						}
-						if( boxdef.Color != Color.White )
+						if( boxdef.ForeColor != Color.White )
 						{
-							c曲リストノード.col文字色 = boxdef.Color;
+							c曲リストノード.ForeColor = boxdef.ForeColor;
 						}
-						if( ( boxdef.Artist != null ) && ( boxdef.Artist.Length > 0 ) )
-						{
-							c曲リストノード.arスコア[ 0 ].譜面情報.アーティスト名 = boxdef.Artist;
-						}
-						if( ( boxdef.Comment != null ) && ( boxdef.Comment.Length > 0 ) )
-						{
-							c曲リストノード.arスコア[ 0 ].譜面情報.コメント = boxdef.Comment;
-						}
-						if( ( boxdef.Preimage != null ) && ( boxdef.Preimage.Length > 0 ) )
-						{
-							c曲リストノード.arスコア[ 0 ].譜面情報.Preimage = boxdef.Preimage;
-						}
-						if( ( boxdef.Premovie != null ) && ( boxdef.Premovie.Length > 0 ) )
-						{
-							c曲リストノード.arスコア[ 0 ].譜面情報.Premovie = boxdef.Premovie;
-						}
-						if( ( boxdef.Presound != null ) && ( boxdef.Presound.Length > 0 ) )
-						{
-							c曲リストノード.arスコア[ 0 ].譜面情報.Presound = boxdef.Presound;
-						}
-						if ( boxdef.SkinPath != null )
-						{
-							if ( boxdef.SkinPath == "" )
-							{
-								// box.defにスキン情報が記載されていないなら、上位BOXのスキン情報をコピー
-								c曲リストノード.strSkinPath = ( c曲リストノード.r親ノード == null ) ?
-									"" : c曲リストノード.r親ノード.strSkinPath;
-							}
-							else
-							{
-								// box.defに記載されているスキン情報をコピー。末尾に必ず\をつけておくこと。
-								string s = System.IO.Path.Combine( infoDir.FullName, boxdef.SkinPath );
-								if ( s[ s.Length - 1 ] != System.IO.Path.DirectorySeparatorChar )	// フォルダ名末尾に\を必ずつけて、CSkin側と表記を統一する
-								{
-									s += System.IO.Path.DirectorySeparatorChar;
-								}
-								if ( CDTXMania.Skin.bIsValid( s ) )
-								{
-									c曲リストノード.strSkinPath = s;
-								}
-								else
-								{
-									c曲リストノード.strSkinPath = ( c曲リストノード.r親ノード == null ) ?
-										"" : c曲リストノード.r親ノード.strSkinPath;
-								}
-							}
-						}
-						if ( boxdef.PerfectRange >= 0 )
-						{
-							c曲リストノード.nPerfect範囲ms = boxdef.PerfectRange;
-						}
-						if( boxdef.GreatRange >= 0 )
-						{
-							c曲リストノード.nGreat範囲ms = boxdef.GreatRange;
-						}
-						if( boxdef.GoodRange >= 0 )
-						{
-							c曲リストノード.nGood範囲ms = boxdef.GoodRange;
-						}
-						if( boxdef.PoorRange >= 0 )
-						{
-							c曲リストノード.nPoor範囲ms = boxdef.PoorRange;
-						}
-					}
+                        if (boxdef.BackColor != Color.Black)
+                        {
+                            c曲リストノード.BackColor = boxdef.BackColor;
+                        }
+                    }
 					if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
 					{
 						Trace.Indent();
@@ -501,47 +450,26 @@ namespace DTXMania
 					c曲リストノード.bDTXFilesで始まるフォルダ名のBOXである = false;
 					c曲リストノード.strタイトル = boxdef.Title;
 					c曲リストノード.strジャンル = boxdef.Genre;
-					c曲リストノード.col文字色 = boxdef.Color;
-					c曲リストノード.nスコア数 = 1;
+                    if (boxdef.ForeColor != Color.White)
+                    {
+                        c曲リストノード.ForeColor = boxdef.ForeColor;
+                    }
+                    if (boxdef.BackColor != Color.Black)
+                    {
+                        c曲リストノード.BackColor = boxdef.BackColor;
+                    }
+                    c曲リストノード.nスコア数 = 1;
 					c曲リストノード.arスコア[ 0 ] = new Cスコア();
 					c曲リストノード.arスコア[ 0 ].ファイル情報.フォルダの絶対パス = infoDir.FullName + @"\";
 					c曲リストノード.arスコア[ 0 ].譜面情報.タイトル = boxdef.Title;
 					c曲リストノード.arスコア[ 0 ].譜面情報.ジャンル = boxdef.Genre;
 					c曲リストノード.r親ノード = node親;
 
-					if ( boxdef.SkinPath == "" )
-					{
-						// box.defにスキン情報が記載されていないなら、上位BOXのスキン情報をコピー
-						c曲リストノード.strSkinPath = ( c曲リストノード.r親ノード == null ) ?
-							"" : c曲リストノード.r親ノード.strSkinPath;
-					}
-					else
-					{
-						// box.defに記載されているスキン情報をコピー。末尾に必ず\をつけておくこと。
-						string s = System.IO.Path.Combine( infoDir.FullName, boxdef.SkinPath );
-						if ( s[ s.Length - 1 ] != System.IO.Path.DirectorySeparatorChar )	// フォルダ名末尾に\を必ずつけて、CSkin側と表記を統一する
-						{
-							s += System.IO.Path.DirectorySeparatorChar;
-						}
-						if ( CDTXMania.Skin.bIsValid( s ) )
-						{
-							c曲リストノード.strSkinPath = s;
-						}
-						else
-						{
-							c曲リストノード.strSkinPath = ( c曲リストノード.r親ノード == null ) ?
-								"" : c曲リストノード.r親ノード.strSkinPath;
-						}
-					}
 					c曲リストノード.strBreadcrumbs = ( c曲リストノード.r親ノード == null ) ?
 						c曲リストノード.strタイトル : c曲リストノード.r親ノード.strBreadcrumbs + " > " + c曲リストノード.strタイトル;
 	
 					
 					c曲リストノード.list子リスト = new List<C曲リストノード>();
-					c曲リストノード.nPerfect範囲ms = boxdef.PerfectRange;
-					c曲リストノード.nGreat範囲ms = boxdef.GreatRange;
-					c曲リストノード.nGood範囲ms = boxdef.GoodRange;
-					c曲リストノード.nPoor範囲ms = boxdef.PoorRange;
 					listノードリスト.Add( c曲リストノード );
 					if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
 					{
@@ -564,51 +492,15 @@ namespace DTXMania
 							{
 								sb.Append( ", Genre=" + c曲リストノード.strジャンル );
 							}
-							if( ( c曲リストノード.arスコア[ 0 ].譜面情報.アーティスト名 != null ) && ( c曲リストノード.arスコア[ 0 ].譜面情報.アーティスト名.Length > 0 ) )
-							{
-								sb.Append( ", Artist=" + c曲リストノード.arスコア[ 0 ].譜面情報.アーティスト名 );
-							}
-							if( ( c曲リストノード.arスコア[ 0 ].譜面情報.コメント != null ) && ( c曲リストノード.arスコア[ 0 ].譜面情報.コメント.Length > 0 ) )
-							{
-								sb.Append( ", Comment=" + c曲リストノード.arスコア[ 0 ].譜面情報.コメント );
-							}
-							if( ( c曲リストノード.arスコア[ 0 ].譜面情報.Preimage != null ) && ( c曲リストノード.arスコア[ 0 ].譜面情報.Preimage.Length > 0 ) )
-							{
-								sb.Append( ", Preimage=" + c曲リストノード.arスコア[ 0 ].譜面情報.Preimage );
-							}
-							if( ( c曲リストノード.arスコア[ 0 ].譜面情報.Premovie != null ) && ( c曲リストノード.arスコア[ 0 ].譜面情報.Premovie.Length > 0 ) )
-							{
-								sb.Append( ", Premovie=" + c曲リストノード.arスコア[ 0 ].譜面情報.Premovie );
-							}
-							if( ( c曲リストノード.arスコア[ 0 ].譜面情報.Presound != null ) && ( c曲リストノード.arスコア[ 0 ].譜面情報.Presound.Length > 0 ) )
-							{
-								sb.Append( ", Presound=" + c曲リストノード.arスコア[ 0 ].譜面情報.Presound );
-							}
-							if( c曲リストノード.col文字色 != ColorTranslator.FromHtml( "White" ) )
-							{
-								sb.Append( ", FontColor=" + c曲リストノード.col文字色 );
-							}
-							if( c曲リストノード.nPerfect範囲ms != -1 )
-							{
-								sb.Append( ", Perfect=" + c曲リストノード.nPerfect範囲ms + "ms" );
-							}
-							if( c曲リストノード.nGreat範囲ms != -1 )
-							{
-								sb.Append( ", Great=" + c曲リストノード.nGreat範囲ms + "ms" );
-							}
-							if( c曲リストノード.nGood範囲ms != -1 )
-							{
-								sb.Append( ", Good=" + c曲リストノード.nGood範囲ms + "ms" );
-							}
-							if( c曲リストノード.nPoor範囲ms != -1 )
-							{
-								sb.Append( ", Poor=" + c曲リストノード.nPoor範囲ms + "ms" );
-							}
-							if ( ( c曲リストノード.strSkinPath != null ) && ( c曲リストノード.strSkinPath.Length > 0 ) )
-							{
-								sb.Append( ", SkinPath=" + c曲リストノード.strSkinPath );
-							}
-							Trace.TraceInformation( sb.ToString() );
+                            if (c曲リストノード.ForeColor != Color.White)
+                            {
+                                sb.Append(", ForeColor=" + c曲リストノード.ForeColor.ToString());
+                            }
+                            if (c曲リストノード.BackColor != Color.Black)
+                            {
+                                sb.Append(", BackColor=" + c曲リストノード.BackColor.ToString());
+                            }
+                            Trace.TraceInformation( sb.ToString() );
 						}
 						finally
 						{
@@ -852,7 +744,7 @@ namespace DTXMania
                                     c曲リストノード.arスコア[ i ].譜面情報.アーティスト名 = cdtx.ARTIST;
 									c曲リストノード.arスコア[ i ].譜面情報.コメント = cdtx.COMMENT;
 									c曲リストノード.arスコア[ i ].譜面情報.ジャンル = cdtx.GENRE;
-									c曲リストノード.arスコア[ i ].譜面情報.Preimage = cdtx.PREIMAGE;
+                                    c曲リストノード.arスコア[ i ].譜面情報.Preimage = cdtx.PREIMAGE;
 									c曲リストノード.arスコア[ i ].譜面情報.Presound = cdtx.PREVIEW;
 									c曲リストノード.arスコア[ i ].譜面情報.Backgound = ( ( cdtx.BACKGROUND != null ) && ( cdtx.BACKGROUND.Length > 0 ) ) ? cdtx.BACKGROUND : cdtx.BACKGROUND_GR;
 									c曲リストノード.arスコア[ i ].譜面情報.レベル.Drums = cdtx.LEVEL.Drums;
@@ -987,8 +879,8 @@ namespace DTXMania
 				itemRandom.strタイトル = "ランダムで曲を選ぶ";
 				itemRandom.nスコア数 = 5;
 				itemRandom.r親ノード = ノードリスト[ 0 ].r親ノード;
-
-				itemRandom.strBreadcrumbs = ( itemRandom.r親ノード == null ) ?
+                
+                itemRandom.strBreadcrumbs = ( itemRandom.r親ノード == null ) ?
 					itemRandom.strタイトル :  itemRandom.r親ノード.strBreadcrumbs + " > " + itemRandom.strタイトル;
 
 				for( int i = 0; i < 5; i++ )

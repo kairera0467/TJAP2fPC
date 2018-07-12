@@ -1463,8 +1463,19 @@ namespace DTXMania
 					}
 					break;
 			}
+            if ((pChip.e楽器パート != E楽器パート.UNKNOWN))
+            {
+                if (pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 && pChip.nチャンネル番号 != 0x1F)
+                {
+                    if (pChip.nコース == this.n現在のコース[nPlayer])
+                    {
+                        actGauge.Damage(screenmode, pChip.e楽器パート, eJudgeResult, nPlayer);
+                    }
+                }
 
-            if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
+            }
+
+            if ( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
             {
                 double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
 
@@ -1473,58 +1484,31 @@ namespace DTXMania
 
                 if ((int)actGauge.db現在のゲージ値[nPlayer] >= 100 && this.bIsAlreadyMaxed[nPlayer] == false)
                 {
+                    if(CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0 && nPlayer == 0)
+                    {
+                        this.actChara.アクションタイマーリセット();
+                        this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_SoulIn - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_SoulIn) * 2, CSound管理.rc演奏用タイマ);
+                        this.actChara.ctキャラクターアクション_魂MAX.t進行db();
+                        this.actChara.ctキャラクターアクション_魂MAX.db現在の値 = 0D;
+                        this.actChara.bマイどんアクション中 = true;
+                    }
                     this.bIsAlreadyMaxed[nPlayer] = true;
                 }
                 if ((int)actGauge.db現在のゲージ値[nPlayer] >= 80 && this.bIsAlreadyCleared[nPlayer] == false)
                 {
+                    if(CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0 && nPlayer == 0)
+                    {
+                        this.actChara.アクションタイマーリセット();
+                        this.actChara.ctキャラクターアクション_ノルマ = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_ClearIn - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_ClearIn) * 2, CSound管理.rc演奏用タイマ);
+                        this.actChara.ctキャラクターアクション_ノルマ.t進行db();
+                        this.actChara.ctキャラクターアクション_ノルマ.db現在の値 = 0D;
+                        this.actChara.bマイどんアクション中 = true;
+                    }
                     this.bIsAlreadyCleared[nPlayer] = true;
                     CDTXMania.stage演奏ドラム画面.actBackground.ClearIn(nPlayer);
                 }
-
-
-                if (actGauge.db現在のゲージ値[0] > 80)
-                {
-                    
-                    //if(bIsAlreadyCleared == false)
-                    //{
-                    //    this.actChara.アクションタイマーリセット();
-                    //    this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数) * 2, CSound管理.rc演奏用タイマ);
-                    //    this.actChara.ctキャラクターアクション_魂MAX.t進行db();
-                    //    this.actChara.ctキャラクターアクション_魂MAX.db現在の値 = 0D;
-                    //    this.actChara.bマイどんアクション中 = true;
-                    //    this.bIsAlreadyCleared = true;
-                    //}
-                    
-
-                }
-                if (actGauge.db現在のゲージ値[0] >= 100)
-                {
-                    //if (bIsAlreadyMaxed == false)
-                    //{
-                    //    this.actChara.アクションタイマーリセット();
-                    //    this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数 - 1, (dbUnit / CDTXMania.stage演奏ドラム画面.actChara.nキャラクターアクション_魂MAX枚数) * 2, CSound管理.rc演奏用タイマ);
-                    //    this.actChara.ctキャラクターアクション_魂MAX.t進行db();
-                    //    this.actChara.ctキャラクターアクション_魂MAX.db現在の値 = 0D;
-                    //    this.actChara.bマイどんアクション中 = true;
-                    //    this.bIsAlreadyMaxed = true;
-                    //}
-                    
-                }
-
-
             }
 
-			if ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) )
-			{
-                if( pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 && pChip.nチャンネル番号 != 0x1F )
-                {
-                    if( pChip.nコース == this.n現在のコース[ nPlayer ] )
-                    {
-				        actGauge.Damage( screenmode, pChip.e楽器パート, eJudgeResult, nPlayer );
-                    }
-                }
-
-			}
 			if ( eJudgeResult == E判定.Poor || eJudgeResult == E判定.Miss || eJudgeResult == E判定.Bad )
 			{
                 // ランナー(みすったやつ)
@@ -1533,11 +1517,11 @@ namespace DTXMania
                 //{
                 //    CDTXMania.stage演奏ドラム画面.actBackground.tFadeOut(nPlayer);
                 //}
-                if ((int)actGauge.db現在のゲージ値[nPlayer] <= 100 && this.bIsAlreadyMaxed[nPlayer] == true)
+                if ((int)actGauge.db現在のゲージ値[nPlayer] < 100 && this.bIsAlreadyMaxed[nPlayer] == true)
                 {
                     this.bIsAlreadyMaxed[nPlayer] = false;
                 }
-                if ((int)actGauge.db現在のゲージ値[nPlayer] <= 80 && this.bIsAlreadyCleared[nPlayer] == true)
+                if ((int)actGauge.db現在のゲージ値[nPlayer] < 80 && this.bIsAlreadyCleared[nPlayer] == true)
                 {
                     this.bIsAlreadyCleared[nPlayer] = false;
                     //CDTXMania.stage演奏ドラム画面.actBackground.ClearIn(nPlayer);
@@ -1662,7 +1646,7 @@ namespace DTXMania
                             //{
                                 if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                                 {
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && this.actChara.ctキャラクターアクション_ノルマ.b進行中 == false)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                         {
@@ -1676,7 +1660,7 @@ namespace DTXMania
                                             //this.actChara.マイどん_アクション_10コンボ();
                                         }
                                     }
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && this.actChara.ctキャラクターアクション_魂MAX.b進行中 == false)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                         {
@@ -3391,7 +3375,7 @@ namespace DTXMania
                             dbUnit = (((60.0 / pChip.dbBPM)));
                             if(nPlayer == 0)
                             {
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0)
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0 && nPlayer == 0)
                                 {
                                     if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                     {
@@ -3405,7 +3389,7 @@ namespace DTXMania
                                         //this.actChara.マイどん_アクション_10コンボ();
                                     }
                                 }
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0)
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0 && nPlayer == 0)
                                 {
                                     if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                     {
