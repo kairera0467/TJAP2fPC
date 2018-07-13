@@ -1458,7 +1458,7 @@ namespace DTXMania
                         }
                         else if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
                         {
-						    this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
+						    //this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
                         }
 					}
 					break;
@@ -1933,18 +1933,6 @@ namespace DTXMania
 			}
 			return eJudgeResult;
 		}
-
-        private void combotimer_event_2(object sender, ElapsedEventArgs e)
-        {
-            this.actScore.BonusAdd(1);
-            this.combot.Stop();
-        }
-
-        private void combotimer_event_1(object sender, EventArgs e)
-        {
-            this.actScore.BonusAdd(0);
-            this.combot.Stop();
-        }
 
         protected void t分岐状況チェック( int n現在時刻, int nPlayer )
         {
