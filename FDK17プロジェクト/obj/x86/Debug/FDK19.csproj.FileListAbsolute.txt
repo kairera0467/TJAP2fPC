@@ -21,4 +21,3 @@ C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK1
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK19.csproj.CopyComplete
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK.dll
 C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK.pdb
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x86\Debug\FDK19.csprojResolveAssemblyReference.cache

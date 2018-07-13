@@ -1301,8 +1301,8 @@ namespace DTXMania
 
                             this.tチップのヒット処理(pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, true, nLane + n大音符, nPlayer);
                             this.tサウンド再生(pChip, pChip.n発声時刻ms, E楽器パート.TAIKO, dTX.nモニタを考慮した音量(E楽器パート.DRUMS), false, false, nPlayer);
+                            return;
                         }
-                        return;
                     }
 
 
