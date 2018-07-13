@@ -107,7 +107,7 @@ namespace DTXMania
                         stRunners[i].ct進行.t停止();
                         stRunners[i].b使用中 = false;
                     }
-                    if (stRunners[i].nOldValue < stRunners[i].ct進行.n現在の値)
+                    for (int n = stRunners[i].nOldValue; n < stRunners[i].ct進行.n現在の値; n++)
                     {
                         stRunners[i].fX += (float)CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM / 18;
                         int Width = 1280 / Ptn;
