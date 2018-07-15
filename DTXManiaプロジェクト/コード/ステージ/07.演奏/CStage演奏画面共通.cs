@@ -193,7 +193,7 @@ namespace DTXMania
             for (int i = 0; i < 2; i++)
             {
                 ctChipAnime[i] = new CCounter();
-                //ctChipAnimeLag[i] = new CCounter();
+                ctChipAnimeLag[i] = new CCounter();
             }
 
             listWAV = CDTXMania.DTX.listWAV;
@@ -348,7 +348,7 @@ namespace DTXMania
             for (int i = 0; i < 2; i++)
             {
                 ctChipAnime[i] = null;
-                //ctChipAnimeLag[i] = null;
+                ctChipAnimeLag[i] = null;
             }
 
             this.ct制御タイマ = null;
@@ -1632,13 +1632,13 @@ namespace DTXMania
 
                         //CDTXMania.act文字コンソール.tPrint(620, 80, C文字コンソール.Eフォント種別.白, "BPM: " + dbUnit.ToString());
 
-                        //for (int i = 0; i < 2; i++)
-                        //{
-                        //    //if(this.actCombo.n現在のコンボ数[i] == 50 || this.actCombo.n現在のコンボ数[i] == 150 || this.actCombo.n現在のコンボ数[i] == 300)
-                        //    //{
-                        //    //    ctChipAnimeLag[i] = new CCounter(0, 255, 1, CDTXMania.Timer);
-                        //    //}
-                        //}
+                        for (int i = 0; i < 2; i++)
+                        {
+                            if (this.actCombo.n現在のコンボ数[i] == 50 || this.actCombo.n現在のコンボ数[i] == 300)
+                            {
+                                ctChipAnimeLag[i] = new CCounter(0, 664, 1, CDTXMania.Timer);
+                            }
+                        }
 
                         if (this.actCombo.n現在のコンボ数[0] % 10 == 0 && this.actCombo.n現在のコンボ数[0] > 0)
                         {
@@ -4298,7 +4298,7 @@ namespace DTXMania
             {
                 ctChipAnime[i].t進行LoopDb();
                 //CDTXMania.act文字コンソール.tPrint(0, 20 * i, C文字コンソール.Eフォント種別.白, ctChipAnime[i].db現在の値.ToString());
-                //    ctChipAnimeLag[i].t進行();
+                ctChipAnimeLag[i].t進行();
                 //    CDTXMania.act文字コンソール.tPrint(0, 20 * i, C文字コンソール.Eフォント種別.白, ctChipAnimeLag[i].n現在の値.ToString());
                 //
             }

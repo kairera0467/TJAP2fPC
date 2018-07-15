@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 using FDK;
+using System.Drawing;
 
 namespace DTXMania
 {
@@ -1009,6 +1010,62 @@ namespace DTXMania
                                     SongSelect_Auto_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
+                            else if (strCommand == "SongSelect_ForeColor_JPOP")
+                            {
+                                SongSelect_ForeColor_JPOP = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_ForeColor_Anime")
+                            {
+                                SongSelect_ForeColor_Anime = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_ForeColor_VOCALOID")
+                            {
+                                SongSelect_ForeColor_VOCALOID = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_ForeColor_Children")
+                            {
+                                SongSelect_ForeColor_Children = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_ForeColor_Variety")
+                            {
+                                SongSelect_ForeColor_Variety = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_ForeColor_Classic")
+                            {
+                                SongSelect_ForeColor_Classic = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_ForeColor_GameMusic")
+                            {
+                                SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_BackColor_JPOP")
+                            {
+                                SongSelect_BackColor_JPOP = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_BackColor_Anime")
+                            {
+                                SongSelect_BackColor_Anime = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_BackColor_VOCALOID")
+                            {
+                                SongSelect_BackColor_VOCALOID = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_BackColor_Children")
+                            {
+                                SongSelect_BackColor_Children = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_BackColor_Variety")
+                            {
+                                SongSelect_BackColor_Variety = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_BackColor_Classic")
+                            {
+                                SongSelect_BackColor_Classic = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == "SongSelect_BackColor_GameMusic")
+                            {
+                                SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml(strParam);
+                            }
                             #endregion
                             #region Game
                             else if (strCommand == "Game_Notes_Anime")
@@ -1558,6 +1615,22 @@ namespace DTXMania
         public int[] SongSelect_NamePlate_Y = new int[] { 650, 650 };
         public int[] SongSelect_Auto_X = new int[] { 60, 950 };
         public int[] SongSelect_Auto_Y = new int[] { 650, 650 };
+        public Color SongSelect_ForeColor_JPOP = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongSelect_ForeColor_Anime = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongSelect_ForeColor_VOCALOID = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongSelect_ForeColor_Children = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongSelect_ForeColor_Variety = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongSelect_ForeColor_Classic = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongSelect_ForeColor_Namco = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongSelect_BackColor_JPOP = ColorTranslator.FromHtml("#01455B");
+        public Color SongSelect_BackColor_Anime = ColorTranslator.FromHtml("#9D3800");
+        public Color SongSelect_BackColor_VOCALOID = ColorTranslator.FromHtml("#5B6278");
+        public Color SongSelect_BackColor_Children = ColorTranslator.FromHtml("#99001F");
+        public Color SongSelect_BackColor_Variety = ColorTranslator.FromHtml("#366600");
+        public Color SongSelect_BackColor_Classic = ColorTranslator.FromHtml("#875600");
+        public Color SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml("#412080");
+        public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#980E00");
         #endregion
         #region Game
         public bool Game_Notes_Anime = false;

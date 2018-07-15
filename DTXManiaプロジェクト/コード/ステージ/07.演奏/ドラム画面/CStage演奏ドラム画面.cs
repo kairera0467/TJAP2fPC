@@ -1424,12 +1424,24 @@ namespace DTXMania
                             int num9 = 0;
                             if (CDTXMania.Skin.Game_Notes_Anime)
                             {
-                                if (this.actCombo.n現在のコンボ数[nPlayer] >= 300)
+                                if (this.actCombo.n現在のコンボ数[nPlayer] >= 300 && ctChipAnimeLag[nPlayer].b終了値に達した)
                                 {
                                     //num9 = ctChipAnime[nPlayer].db現在の値 != 0 ? 260 : 0;
                                     if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
                                     {
                                         num9 = 260;
+                                    }
+                                    else
+                                    {
+                                        num9 = 0;
+                                    }
+                                }
+                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 300 && !ctChipAnimeLag[nPlayer].b終了値に達した)
+                                {
+                                    //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                    if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
+                                    {
+                                        num9 = 130;
                                     }
                                     else
                                     {
@@ -1448,7 +1460,7 @@ namespace DTXMania
                                         num9 = 0;
                                     }
                                 }
-                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50)
+                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50 && ctChipAnimeLag[nPlayer].b終了値に達した)
                                 {
                                     //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
                                     if ((int)ctChipAnime[nPlayer].db現在の値 <= 1)
@@ -1459,6 +1471,11 @@ namespace DTXMania
                                     {
                                         num9 = 0;
                                     }
+                                }
+                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50 && !ctChipAnimeLag[nPlayer].b終了値に達した)
+                                {
+                                    //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                    num9 = 0;
                                 }
                                 else
                                 {
@@ -1710,12 +1727,24 @@ namespace DTXMania
                         //}
                         if (CDTXMania.Skin.Game_Notes_Anime)
                         {
-                            if (this.actCombo.n現在のコンボ数[nPlayer] >= 300)
+                            if (this.actCombo.n現在のコンボ数[nPlayer] >= 300 && ctChipAnimeLag[nPlayer].b終了値に達した)
                             {
                                 //num9 = ctChipAnime[nPlayer].db現在の値 != 0 ? 260 : 0;
                                 if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
                                 {
                                     num9 = 260;
+                                }
+                                else
+                                {
+                                    num9 = 0;
+                                }
+                            }
+                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 300 && !ctChipAnimeLag[nPlayer].b終了値に達した)
+                            {
+                                //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
+                                {
+                                    num9 = 130;
                                 }
                                 else
                                 {
@@ -1734,7 +1763,7 @@ namespace DTXMania
                                     num9 = 0;
                                 }
                             }
-                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50)
+                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50 && ctChipAnimeLag[nPlayer].b終了値に達した)
                             {
                                 //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
                                 if ((int)ctChipAnime[nPlayer].db現在の値 <= 1)
@@ -1745,6 +1774,11 @@ namespace DTXMania
                                 {
                                     num9 = 0;
                                 }
+                            }
+                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50 && !ctChipAnimeLag[nPlayer].b終了値に達した)
+                            {
+                                //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                num9 = 0;
                             }
                             else
                             {

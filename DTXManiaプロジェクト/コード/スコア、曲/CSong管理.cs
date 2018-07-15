@@ -290,11 +290,51 @@ namespace DTXMania
                                     }
                                 }
 
-                                switch (c曲リストノード.strジャンル)
+                                switch (this.nStrジャンルtoNum_AC15(c曲リストノード.strジャンル))
                                 {
-                                    case "J-POP":
+                                    case 0:
+                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_JPOP;
+                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_JPOP;
+                                        break;
+                                    case 1:
+                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Anime;
+                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Anime;
+                                        break;
+                                    case 2:
+                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_VOCALOID;
+                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_VOCALOID;
+                                        break;
+                                    case 3:
+                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Children;
+                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Children;
+                                        break;
+                                    case 4:
+                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Variety;
+                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Variety;
+                                        break;
+                                    case 5:
+                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Classic;
+                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Classic;
+                                        break;
+                                    case 6:
+                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_GameMusic;
+                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_GameMusic;
+                                        break;
+                                    case 7:
+                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Namco;
+                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Namco;
+                                        break;
                                     default:
                                         break;
+                                }
+
+                                if (c曲リストノード.r親ノード.IsChangedForeColor)
+                                {
+                                    c曲リストノード.ForeColor = c曲リストノード.r親ノード.ForeColor;
+                                }
+                                if (c曲リストノード.r親ノード.IsChangedBackColor)
+                                {
+                                    c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
                                 }
 
                                 c曲リストノード.nLevel = dtx.LEVELtaiko;
@@ -450,14 +490,54 @@ namespace DTXMania
 					c曲リストノード.bDTXFilesで始まるフォルダ名のBOXである = false;
 					c曲リストノード.strタイトル = boxdef.Title;
 					c曲リストノード.strジャンル = boxdef.Genre;
-                    if (boxdef.ForeColor != Color.White)
+
+                    switch (this.nStrジャンルtoNum_AC15(c曲リストノード.strジャンル))
+                    {
+                        case 0:
+                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_JPOP;
+                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_JPOP;
+                            break;
+                        case 1:
+                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Anime;
+                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Anime;
+                            break;
+                        case 2:
+                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_VOCALOID;
+                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_VOCALOID;
+                            break;
+                        case 3:
+                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Children;
+                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Children;
+                            break;
+                        case 4:
+                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Variety;
+                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Variety;
+                            break;
+                        case 5:
+                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Classic;
+                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Classic;
+                            break;
+                        case 6:
+                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_GameMusic;
+                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_GameMusic;
+                            break;
+                        case 7:
+                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Namco;
+                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Namco;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (boxdef.IsChangedForeColor)
                     {
                         c曲リストノード.ForeColor = boxdef.ForeColor;
                     }
-                    if (boxdef.BackColor != Color.Black)
+                    if (boxdef.IsChangedBackColor)
                     {
                         c曲リストノード.BackColor = boxdef.BackColor;
                     }
+
                     c曲リストノード.nスコア数 = 1;
 					c曲リストノード.arスコア[ 0 ] = new Cスコア();
 					c曲リストノード.arスコア[ 0 ].ファイル情報.フォルダの絶対パス = infoDir.FullName + @"\";

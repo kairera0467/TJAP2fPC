@@ -15,6 +15,8 @@ namespace DTXMania
 		public string Title;
         public Color ForeColor;
         public Color BackColor;
+        public bool IsChangedForeColor;
+        public bool IsChangedBackColor;
 
 
 		// コンストラクタ
@@ -73,10 +75,12 @@ namespace DTXMania
                             else if (str.StartsWith("#FORECOLOR", StringComparison.OrdinalIgnoreCase))
                             {
                                 this.ForeColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
+                                IsChangedForeColor = true;
                             }
                             else if (str.StartsWith("#BACKCOLOR", StringComparison.OrdinalIgnoreCase))
                             {
                                 this.BackColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
+                                IsChangedBackColor = false;
                             }
                         }
 						continue;
