@@ -178,7 +178,7 @@ namespace DTXMania
                     chip.nList上の位置 = n整数値管理;
                     if( ( chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16 ) && ( n整数値管理 < this.listChip[ i ].Count - 1 ) )
                     {
-                        if( chip.dbSCROLL < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, 0, i ).dbSCROLL )
+                        if( chip.db発声時刻ms < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, 0, i ).db発声時刻ms)
                         {
                             chip.n描画優先度 = 1;
                         }
