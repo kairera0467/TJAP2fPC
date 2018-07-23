@@ -34,7 +34,9 @@ namespace DTXMania
         public void ClearIn(int player)
         {
             this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 2, CDTXMania.Timer);
+            this.ct上背景クリアインタイマー[player].n現在の値 = 0;
             this.ct上背景FIFOタイマー = new CCounter(0, 100, 2, CDTXMania.Timer);
+            this.ct上背景FIFOタイマー.n現在の値 = 0;
         }
 
         public override void On活性化()
@@ -125,10 +127,10 @@ namespace DTXMania
                 }
                 if (this.ct上背景スクロール用タイマー[i] != null)
                 {
-                    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[i] <= 80.0)
-                        CDTXMania.Tx.Background_Up_Clear[i].n透明度 = 0;
-                    else
+                    if (CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[i])
                         CDTXMania.Tx.Background_Up_Clear[i].n透明度 = ((this.ct上背景クリアインタイマー[i].n現在の値 * 0xff) / 100);
+                    else
+                        CDTXMania.Tx.Background_Up_Clear[i].n透明度 = 0;
 
                     double TexSize = 1280 / CDTXMania.Tx.Background_Up_Clear[i].szテクスチャサイズ.Width;
                     // 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
@@ -152,7 +154,7 @@ namespace DTXMania
                         CDTXMania.Tx.Background_Down.t2D描画( CDTXMania.app.Device, 0, 360 );
                     }
                 }
-                if( CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 80.0 )
+                if(CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[0])
                 {
                     if( CDTXMania.Tx.Background_Down_Clear != null && CDTXMania.Tx.Background_Down_Scroll != null )
                     {

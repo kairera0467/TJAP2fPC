@@ -9,53 +9,58 @@ using FDK;
 
 namespace DTXMania
 {
-	internal class CStage選曲 : CStage
-	{
-		// プロパティ
-		public int nスクロールバー相対y座標
-		{
-			get
-			{
-				if ( act曲リスト != null )
-				{
-					return act曲リスト.nスクロールバー相対y座標;
-				}
-				else
-				{
-					return 0;
-				}
-			}
-		}
-		public bool bIsEnumeratingSongs
-		{
-			get
-			{
-				return act曲リスト.bIsEnumeratingSongs;
-			}
-			set
-			{
-				act曲リスト.bIsEnumeratingSongs = value;
-			}
-		}
-		public bool bIsPlayingPremovie
-		{
-			get
-			{
-				return this.actPreimageパネル.bIsPlayingPremovie;
-			}
-		}
-		public bool bスクロール中
-		{
-			get
-			{
-				return this.act曲リスト.bスクロール中;
-			}
-		}
-		public int n確定された曲の難易度
-		{
-			get;
-			private set;
-		}
+    internal class CStage選曲 : CStage
+    {
+        // プロパティ
+        public int nスクロールバー相対y座標
+        {
+            get
+            {
+                if (act曲リスト != null)
+                {
+                    return act曲リスト.nスクロールバー相対y座標;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        public bool bIsEnumeratingSongs
+        {
+            get
+            {
+                return act曲リスト.bIsEnumeratingSongs;
+            }
+            set
+            {
+                act曲リスト.bIsEnumeratingSongs = value;
+            }
+        }
+        public bool bIsPlayingPremovie
+        {
+            get
+            {
+                return this.actPreimageパネル.bIsPlayingPremovie;
+            }
+        }
+        public bool bスクロール中
+        {
+            get
+            {
+                return this.act曲リスト.bスクロール中;
+            }
+        }
+        public int n確定された曲の難易度
+        {
+            get;
+            private set;
+        }
+        public string str確定された曲のジャンル
+        {
+            get;
+            private set;                
+        }
 		public Cスコア r確定されたスコア
 		{
 			get;
@@ -917,6 +922,7 @@ namespace DTXMania
 			this.r確定された曲 = song.listランダム用ノードリスト[ song.stackランダム演奏番号.Pop() ];
 			this.n確定された曲の難易度 = this.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r確定された曲 );
 			this.r確定されたスコア = this.r確定された曲.arスコア[ this.n確定された曲の難易度 ];
+            this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
 			this.actFOtoNowLoading.tフェードアウト開始();					// #27787 2012.3.10 yyagi 曲決定時の画面フェードアウトの省略
 			base.eフェーズID = CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト;
@@ -945,7 +951,8 @@ namespace DTXMania
 			this.r確定された曲 = this.act曲リスト.r現在選択中の曲;
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
 			this.n確定された曲の難易度 = this.act曲リスト.n現在選択中の曲の現在の難易度レベル;
-			if( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
+            this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
+            if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
 				this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
 				this.actFOtoNowLoading.tフェードアウト開始();				// #27787 2012.3.10 yyagi 曲決定時の画面フェードアウトの省略
@@ -958,7 +965,8 @@ namespace DTXMania
 			this.r確定された曲 = this.act曲リスト.r現在選択中の曲;
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
 			this.n確定された曲の難易度 = nCurrentLevel;
-			if( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
+            this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
+            if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
 				this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
 				this.actFOtoNowLoading.tフェードアウト開始();				// #27787 2012.3.10 yyagi 曲決定時の画面フェードアウトの省略

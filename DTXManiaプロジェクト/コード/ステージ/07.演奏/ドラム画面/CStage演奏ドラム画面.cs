@@ -1271,10 +1271,47 @@ namespace DTXMania
             {
                 if( !pChip.bHit || pChip.bShow )
 				{
-                    if( ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms ) && pChip.nノーツ出現時刻ms != 0 )
+                    long nPlayTime = CSound管理.rc演奏用タイマ.n現在時刻ms;
+                    if ((!pChip.bHit) && (pChip.n発声時刻ms <= nPlayTime))
+                    {
+                        bool bAutoPlay = false;
+                        switch (nPlayer)
+                        {
+                            case 0:
+                                bAutoPlay = CDTXMania.ConfigIni.b太鼓パートAutoPlay;
+                                break;
+                            case 1:
+                                bAutoPlay = CDTXMania.ConfigIni.b太鼓パートAutoPlay2P;
+                                break;
+                            case 2:
+                            case 3:
+                                bAutoPlay = true;
+                                break;
+                        }
+
+                        if (bAutoPlay)
+                        {
+                            pChip.bHit = true;
+                            if (pChip.nチャンネル番号 != 0x1F)
+                                this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
+                            if (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) nLane = 1;
+                            this.actLaneFlushD.Start(nLane, 127f, nPlayer);
+                            this.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
+
+                            int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
+
+                            this.tチップのヒット処理(pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, true, nLane + n大音符, nPlayer);
+                            this.tサウンド再生(pChip, pChip.n発声時刻ms, E楽器パート.TAIKO, dTX.nモニタを考慮した音量(E楽器パート.DRUMS), false, false, nPlayer);
+                            return;
+                        }
+                    }
+
+
+                    if ( ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms ) && pChip.nノーツ出現時刻ms != 0 )
                         pChip.bShow = false;
                     else
                         pChip.bShow = true;
+
 
                     switch (nPlayer)
                     {
@@ -1388,12 +1425,24 @@ namespace DTXMania
                             int num9 = 0;
                             if (CDTXMania.Skin.Game_Notes_Anime)
                             {
-                                if (this.actCombo.n現在のコンボ数[nPlayer] >= 300)
+                                if (this.actCombo.n現在のコンボ数[nPlayer] >= 300 && ctChipAnimeLag[nPlayer].b終了値に達した)
                                 {
                                     //num9 = ctChipAnime[nPlayer].db現在の値 != 0 ? 260 : 0;
                                     if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
                                     {
                                         num9 = 260;
+                                    }
+                                    else
+                                    {
+                                        num9 = 0;
+                                    }
+                                }
+                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 300 && !ctChipAnimeLag[nPlayer].b終了値に達した)
+                                {
+                                    //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                    if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
+                                    {
+                                        num9 = 130;
                                     }
                                     else
                                     {
@@ -1412,7 +1461,7 @@ namespace DTXMania
                                         num9 = 0;
                                     }
                                 }
-                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50)
+                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50 && ctChipAnimeLag[nPlayer].b終了値に達した)
                                 {
                                     //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
                                     if ((int)ctChipAnime[nPlayer].db現在の値 <= 1)
@@ -1423,6 +1472,11 @@ namespace DTXMania
                                     {
                                         num9 = 0;
                                     }
+                                }
+                                else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50 && !ctChipAnimeLag[nPlayer].b終了値に達した)
+                                {
+                                    //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                    num9 = 0;
                                 }
                                 else
                                 {
@@ -1542,39 +1596,6 @@ namespace DTXMania
                         //pChip.bHit = true;
                     }
                 }
-                long nPlayTime = CSound管理.rc演奏用タイマ.n現在時刻ms;
-				if ( ( !pChip.bHit ) && ( pChip.n発声時刻ms <= nPlayTime ) )
-				{
-                    bool bAutoPlay = false;
-                    switch (nPlayer)
-                    {
-                        case 0:
-                            bAutoPlay = CDTXMania.ConfigIni.b太鼓パートAutoPlay;
-                            break;
-                        case 1:
-                            bAutoPlay = CDTXMania.ConfigIni.b太鼓パートAutoPlay2P;
-                            break;
-                        case 2:
-                        case 3:
-                            bAutoPlay = true;
-                            break;
-                    }
-
-                    if( bAutoPlay )
-                    {
-                        pChip.bHit = true;
-                        if( pChip.nチャンネル番号 != 0x1F )
-                            this.actChipFireTaiko.Start( pChip.nチャンネル番号 < 0x1A ? ( pChip.nチャンネル番号 - 0x10 ) : ( pChip.nチャンネル番号 - 0x17 ), nPlayer );
-                        this.actLaneFlushD.Start( nLane, 127f, nPlayer );
-                        this.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
-
-                        int n大音符 = ( pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
-					    
-                        this.tチップのヒット処理( pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, true, nLane + n大音符, nPlayer );
-                        this.tサウンド再生( pChip, pChip.n発声時刻ms, E楽器パート.TAIKO, dTX.nモニタを考慮した音量( E楽器パート.DRUMS ), false, false, nPlayer );
-                    }
-				    return;
-				}
             }
             else
             {
@@ -1707,12 +1728,24 @@ namespace DTXMania
                         //}
                         if (CDTXMania.Skin.Game_Notes_Anime)
                         {
-                            if (this.actCombo.n現在のコンボ数[nPlayer] >= 300)
+                            if (this.actCombo.n現在のコンボ数[nPlayer] >= 300 && ctChipAnimeLag[nPlayer].b終了値に達した)
                             {
                                 //num9 = ctChipAnime[nPlayer].db現在の値 != 0 ? 260 : 0;
                                 if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
                                 {
                                     num9 = 260;
+                                }
+                                else
+                                {
+                                    num9 = 0;
+                                }
+                            }
+                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 300 && !ctChipAnimeLag[nPlayer].b終了値に達した)
+                            {
+                                //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                if ((int)ctChipAnime[nPlayer].db現在の値 == 1 || (int)ctChipAnime[nPlayer].db現在の値 == 3)
+                                {
+                                    num9 = 130;
                                 }
                                 else
                                 {
@@ -1731,7 +1764,7 @@ namespace DTXMania
                                     num9 = 0;
                                 }
                             }
-                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50)
+                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50 && ctChipAnimeLag[nPlayer].b終了値に達した)
                             {
                                 //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
                                 if ((int)ctChipAnime[nPlayer].db現在の値 <= 1)
@@ -1742,6 +1775,11 @@ namespace DTXMania
                                 {
                                     num9 = 0;
                                 }
+                            }
+                            else if (this.actCombo.n現在のコンボ数[nPlayer] >= 50 && !ctChipAnimeLag[nPlayer].b終了値に達した)
+                            {
+                                //num9 = base.n現在の音符の顔番号 != 0 ? base.n現在の音符の顔番号 * 130 : 0;
+                                num9 = 0;
                             }
                             else
                             {

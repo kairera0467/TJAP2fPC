@@ -86,9 +86,9 @@ namespace DTXMania
 						this.txPanel = null;
 					}
 				}
-                if( !string.IsNullOrEmpty( CDTXMania.DTX.GENRE ) )
+                if( !string.IsNullOrEmpty( CDTXMania.stage選曲.str確定された曲のジャンル) )
                 {
-                    string strGenre = CDTXMania.DTX.GENRE;
+                    string strGenre = CDTXMania.stage選曲.str確定された曲のジャンル;
                     if( strGenre.Equals( "アニメ" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("Anime");
