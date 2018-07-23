@@ -936,10 +936,6 @@ namespace DTXMania
 			return nearestChip_Future;
 		}
 
-        protected CDTX.CChip r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( long nTime, int nChannel, int nInputAdjustTime )
-        {
-            return this.r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( nTime, nChannel, nInputAdjustTime, 0 );
-        }
 		protected CDTX.CChip r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
 		{
 			sw2.Start();
