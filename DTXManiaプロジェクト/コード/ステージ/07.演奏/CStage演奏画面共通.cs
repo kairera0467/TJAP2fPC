@@ -952,7 +952,9 @@ namespace DTXMania
 				sw2.Stop();
 				return null;
 			}
-			int count = listChip[ nPlayer ].Count;
+
+            List<CDTX.CChip> playerListChip = listChip[ nPlayer ];
+            int count = playerListChip.Count;
 			int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToPast = this.n現在のトップChip;
 			if ( this.n現在のトップChip >= count )			// その時点で演奏すべきチップが既に全部無くなっていたら
 			{
@@ -962,11 +964,11 @@ namespace DTXMania
 			//while ( nIndex_NearestChip_Future < count )		// 未来方向への検索
 			for ( ; nIndex_NearestChip_Future < count; nIndex_NearestChip_Future++)
 			{
-				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
-
 				if ( ( ( 0x11 <= nChannel ) && ( nChannel <= 0x17 ) ) )
 				{
-					if ( ( ( chip.nチャンネル番号 == nChannel ) || ( chip.nチャンネル番号 == ( nChannel ) ) ) )
+                    CDTX.CChip chip = playerListChip[ nIndex_NearestChip_Future ];
+
+                    if ( chip.nチャンネル番号 == nChannel )
 					{
 						if ( chip.n発声時刻ms > nTime )
 						{
@@ -987,10 +989,10 @@ namespace DTXMania
 			//while ( nIndex_NearestChip_Past >= 0 )			// 過去方向への検索
 			for ( ; nIndex_NearestChip_Past >= 0; nIndex_NearestChip_Past-- )
 			{
-				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
-
 				if ( ( 0x15 <= nChannel ) && ( nChannel <= 0x17 ) )
 				{
+                    CDTX.CChip chip = playerListChip[ nIndex_NearestChip_Past ];
+
 					if ( ( ( chip.nチャンネル番号 == nChannel ) )  )
 					{
 						break;
@@ -1008,17 +1010,17 @@ namespace DTXMania
 				else 								// 検索対象が未来方向には見つからなかった(しかし過去方向には見つかった)場合
 				{
 					sw2.Stop();
-					return listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+					return playerListChip[ nIndex_NearestChip_Past ];
 				}
 			}
 			else if ( nIndex_NearestChip_Past < 0 )	// 検索対象が過去方向には見つからなかった(しかし未来方向には見つかった)場合
 			{
 				sw2.Stop();
-				return listChip[ nPlayer ][ nIndex_NearestChip_Future ];
+				return playerListChip[ nIndex_NearestChip_Future ];
 			}
 													// 検索対象が過去未来の双方に見つかったなら、より近い方を採用する
-			CDTX.CChip nearestChip_Future = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
-			CDTX.CChip nearestChip_Past   = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
+			CDTX.CChip nearestChip_Future = playerListChip[ nIndex_NearestChip_Future ];
+			CDTX.CChip nearestChip_Past   = playerListChip[ nIndex_NearestChip_Past ];
 			int nDiffTime_Future = Math.Abs( (int) ( nTime - nearestChip_Future.n発声時刻ms ) );
 			int nDiffTime_Past   = Math.Abs( (int) ( nTime - nearestChip_Past.n発声時刻ms ) );
 			if ( nDiffTime_Future >= nDiffTime_Past )
