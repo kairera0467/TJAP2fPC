@@ -1,8 +1,0 @@
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x64\Release\FDK.コード._01.フレームワーク.Properties.Resources.resources
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x64\Release\FDK19.csproj.GenerateResource.Cache
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x64\Release\FDK19.csproj.CoreCompileInputs.cache
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x64\Release\FDK.dll
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x64\Release\Bass.Net.dll
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x64\Release\DirectShowLib-2005.dll
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\bin\x64\Release\SlimDXc_net20x86_Jun2010.dll
-C:\Users\info\Source\Repos\TJAPlayer3\FDK17プロジェクト\obj\x64\Release\FDK.dll
