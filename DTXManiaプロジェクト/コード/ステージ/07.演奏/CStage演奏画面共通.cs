@@ -3924,13 +3924,15 @@ namespace DTXMania
                 //BPMCHANGEの数越えた
                 if( i >= tja.listBPM.Count )
                 {
-                    bpm_time = (float)tja.listBPM[ last_input ].bpm_change_bmscroll_time + ( ( play_time - (float)tja.listBPM[ last_input ].bpm_change_time ) * (float)tja.listBPM[ last_input ].dbBPM値 / 15000.0f );
-                    last_bpm_change_time = (float)tja.listBPM[ last_input ].bpm_change_time;
+                    CDTX.CBPM cBPM = tja.listBPM[ last_input ];
+                    bpm_time = (float)cBPM.bpm_change_bmscroll_time + ( ( play_time - (float)cBPM.bpm_change_time ) * (float)cBPM.dbBPM値 / 15000.0f );
+                    last_bpm_change_time = (float)cBPM.bpm_change_time;
                     break;
                 }
                 for( ; i < tja.listBPM.Count; i++ )
                 {
-                    if ( tja.listBPM[ i ].bpm_change_time == 0 || tja.listBPM[ i ].bpm_change_course == this.n現在のコース[ 0 ] )
+                    CDTX.CBPM cBPM = tja.listBPM[ i ];
+                    if (cBPM.bpm_change_time == 0 || cBPM.bpm_change_course == this.n現在のコース[ 0 ] )
                     {
                         break;
                     }
@@ -3943,8 +3945,9 @@ namespace DTXMania
 
                 if( play_time < tja.listBPM[ i ].bpm_change_time )
                 {
-                    bpm_time = (float)tja.listBPM[ last_input ].bpm_change_bmscroll_time + ( ( play_time - (float)tja.listBPM[ last_input ].bpm_change_time ) * (float)tja.listBPM[ last_input ].dbBPM値 / 15000.0f );
-                    last_bpm_change_time = (float)tja.listBPM[ last_input ].bpm_change_time;
+                    CDTX.CBPM cBPM = tja.listBPM[ last_input ];
+                    bpm_time = (float)cBPM.bpm_change_bmscroll_time + ( ( play_time - (float)cBPM.bpm_change_time ) * (float)cBPM.dbBPM値 / 15000.0f );
+                    last_bpm_change_time = (float)cBPM.bpm_change_time;
                     break;
                 }
                 else
