@@ -1609,7 +1609,6 @@ namespace DTXMania
             int nノート座標 = 0;
             int nノート末端座標 = 0;
             int n先頭発声位置 = 0;
-            int nX末端 = 0;
 
             // 2016.11.2 kairera0467
             // 黄連打音符を赤くするやつの実装方法メモ
@@ -1621,12 +1620,12 @@ namespace DTXMania
             {
                 if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x18 )
                 {
-                    if( ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms ) && pChip.nノーツ出現時刻ms != 0 )
+                    if( pChip.nノーツ出現時刻ms != 0 && ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms ) )
                         pChip.bShow = false;
                     else if( pChip.nノーツ出現時刻ms != 0 && pChip.nノーツ移動開始時刻ms != 0 )
                         pChip.bShow = true;
 
-                    if( ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) && pChip.nノーツ移動開始時刻ms != 0 )
+                    if( pChip.nノーツ移動開始時刻ms != 0 && ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) )
                     {
                         nノート座標 = (int)( ( ( ( pChip.n発声時刻ms ) - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
                         nノート末端座標 = (int)( ( ( pChip.nノーツ終了時刻ms - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
@@ -1639,20 +1638,24 @@ namespace DTXMania
                 }
                 if( pChip.nチャンネル番号 == 0x18 )
                 {
-                    if( ( CSound管理.rc演奏用タイマ.n現在時刻ms < n先頭発声位置 - pChip.nノーツ出現時刻ms ) && pChip.nノーツ出現時刻ms != 0 )
+                    if( pChip.nノーツ出現時刻ms != 0 && ( CSound管理.rc演奏用タイマ.n現在時刻ms < n先頭発声位置 - pChip.nノーツ出現時刻ms ) )
                         pChip.bShow = false;
                     else
                         pChip.bShow = true;
 
-                    if( CDTXMania.stage演奏ドラム画面.r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( pChip.n発声時刻ms, 0x10 + pChip.n連打音符State, 0, nPlayer ) != null )
+                    CDTX.CChip cChip = null;
+                    if( pChip.nノーツ移動開始時刻ms != 0 ) // n先頭発声位置 value is only used when this condition is met
                     {
-                        n先頭発声位置 = CDTXMania.stage演奏ドラム画面.r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( pChip.n発声時刻ms, 0x10 + pChip.n連打音符State, 0, nPlayer ).n発声時刻ms;
-                        nX末端 = CDTXMania.stage演奏ドラム画面.r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( pChip.n発声時刻ms, 0x10 + pChip.n連打音符State, 0, nPlayer ).nバーからのノーツ末端距離dot.Taiko;
+                        cChip = CDTXMania.stage演奏ドラム画面.r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( pChip.n発声時刻ms, 0x10 + pChip.n連打音符State, 0, nPlayer );
+                        if( cChip != null )
+                        {
+                            n先頭発声位置 = cChip.n発声時刻ms;
+                        }
                     }
 
                     //連打音符先頭の開始時刻を取得しなければならない。
                     //そうしなければ連打先頭と連打末端の移動開始時刻にズレが出てしまう。
-                    if( ( CSound管理.rc演奏用タイマ.n現在時刻ms < n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) && pChip.nノーツ移動開始時刻ms != 0 )
+                    if( pChip.nノーツ移動開始時刻ms != 0 && ( CSound管理.rc演奏用タイマ.n現在時刻ms < n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) )
                     {
                         nノート座標 = (int)( ( ( pChip.n発声時刻ms - ( n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
                     }
@@ -1668,7 +1671,7 @@ namespace DTXMania
 
                 if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17 )
                 {
-                    if( ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) && pChip.nノーツ移動開始時刻ms != 0 )
+                    if( pChip.nノーツ移動開始時刻ms != 0 && ( CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) )
                     {
                         x = 349 + nノート座標;
                         x末端 = 349 + nノート末端座標;
@@ -1681,7 +1684,7 @@ namespace DTXMania
                 }
                 else if( pChip.nチャンネル番号 == 0x18 )
                 {
-                    if( ( CSound管理.rc演奏用タイマ.n現在時刻ms < n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) && pChip.nノーツ移動開始時刻ms != 0 )
+                    if( pChip.nノーツ移動開始時刻ms != 0 && ( CSound管理.rc演奏用タイマ.n現在時刻ms < n先頭発声位置 - pChip.nノーツ移動開始時刻ms ) )
                     {
                         x = 349 + nノート座標;
                     }
