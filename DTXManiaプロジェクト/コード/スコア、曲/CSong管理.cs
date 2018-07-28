@@ -195,7 +195,7 @@ namespace DTXMania
                                     c曲リストノード.strタイトル = dtx.TITLE;
                                     c曲リストノード.strサブタイトル = dtx.SUBTITLE;
                                     c曲リストノード.strジャンル = dtx.GENRE;
-                                    if (c曲リストノード.r親ノード.strジャンル != "")
+                                    if (c曲リストノード.r親ノード != null && c曲リストノード.r親ノード.strジャンル != "")
                                     {
                                         c曲リストノード.strジャンル = c曲リストノード.r親ノード.strジャンル;
                                     }
@@ -283,7 +283,7 @@ namespace DTXMania
                                 }
                                 else
                                 {
-                                    if (c曲リストノード.r親ノード.strジャンル != "")
+                                    if (c曲リストノード.r親ノード != null && c曲リストノード.r親ノード.strジャンル != "")
                                     {
                                         // .tjaのジャンルが存在しなくて、かつ親ノードにジャンルが指定されていればそちらを読み込む。
                                         c曲リストノード.strジャンル = c曲リストノード.r親ノード.strジャンル;
@@ -328,13 +328,16 @@ namespace DTXMania
                                         break;
                                 }
 
-                                if (c曲リストノード.r親ノード.IsChangedForeColor)
+                                if (c曲リストノード.r親ノード != null)
                                 {
-                                    c曲リストノード.ForeColor = c曲リストノード.r親ノード.ForeColor;
-                                }
-                                if (c曲リストノード.r親ノード.IsChangedBackColor)
-                                {
-                                    c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
+                                    if (c曲リストノード.r親ノード.IsChangedForeColor)
+                                    {
+                                        c曲リストノード.ForeColor = c曲リストノード.r親ノード.ForeColor;
+                                    }
+                                    if (c曲リストノード.r親ノード.IsChangedBackColor)
+                                    {
+                                        c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
+                                    }
                                 }
 
                                 c曲リストノード.nLevel = dtx.LEVELtaiko;
