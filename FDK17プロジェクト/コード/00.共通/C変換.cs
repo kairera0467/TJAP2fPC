@@ -46,6 +46,16 @@ namespace FDK
 
 			return n値;
 		}
+		public static float f値を範囲内に丸めて返す( float f値, float f最小値, float f最大値 )
+		{
+			if( f値 < f最小値 )
+				return f最小値;
+
+			if( f値 > f最大値 )
+				return f最大値;
+
+			return f値;
+		}
 		public static int n値を文字列から取得して範囲内に丸めて返す( string str数値文字列, int n最小値, int n最大値, int n取得失敗時のデフォルト値 )
 		{
 			int num;
@@ -79,6 +89,15 @@ namespace FDK
 
 			return num;
 		}
+		public static float f値を文字列から取得して返す( string str数値文字列, float n取得失敗時のデフォルト値 )
+		{
+			float num;
+			if( !float.TryParse( str数値文字列, out num ) )
+				num = n取得失敗時のデフォルト値;
+
+			return num;
+		}
+
 		
 		public static int n16進数2桁の文字列を数値に変換して返す( string strNum )
 		{
@@ -178,13 +197,18 @@ namespace FDK
 
         public static int[] ar配列形式のstringをint配列に変換して返す( string str )
         {
+            return ar配列形式のstringをint配列に変換して返す( str, ',' );
+        }
+
+        public static int[] ar配列形式のstringをint配列に変換して返す( string str, char delimiter )
+        {
             //0,1,2 ...の形式で書かれたstringをint配列に変換する。
             //一応実装はしたものの、例外処理などはまだ完成していない。
             //str = "0,1,2";
             if( String.IsNullOrEmpty( str ) )
                 return null;
 
-            string[] strArray = str.Split( ',' );
+            string[] strArray = str.Split( delimiter );
             List<int> listIntArray;
             listIntArray = new List<int>();
 
@@ -225,6 +249,30 @@ namespace FDK
             float fR = nR / 255.0f;
             float fG = nG / 255.0f;
             float fB = nB / 255.0f;
+
+            return new SlimDX.Color4( fR, fG, fB );
+        }
+        /// <summary>
+        /// 16進のカラーコード文字列(#xxxxxx)を透過無しColor4に変換する
+        /// </summary>
+        /// <param name="colorCode">HTMLカラーコード</param>
+        /// <returns>Color4形式の色情報オブジェクト</returns>
+        public static SlimDX.Color4 strColorCodeToColor4( string colorCode )
+        {
+            SlimDX.Color4 ret = new SlimDX.Color4( 255, 255, 255 );
+
+            //渡される値は「#xxxxxx」を想定。
+            if( colorCode.Length != 7 )
+                return ret;
+
+            //16進の文字列を2文字ずつ取り出しつつ10進に変換
+            float fR = Convert.ToInt32( colorCode.Substring( 1, 2 ), 16 );
+            float fG = Convert.ToInt32( colorCode.Substring( 3, 2 ), 16 );
+            float fB = Convert.ToInt32( colorCode.Substring( 5, 2 ), 16 );
+
+            fR = fR / 255.0f;
+            fG = fG / 255.0f;
+            fB = fB / 255.0f;
 
             return new SlimDX.Color4( fR, fG, fB );
         }

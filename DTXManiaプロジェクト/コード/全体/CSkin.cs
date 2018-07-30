@@ -32,6 +32,8 @@ namespace DTXMania
         SOUND風船,
         SOUND曲決定音,
         SOUND成績発表,
+        SOUND難易度決定音,
+        SOUND選択不可音,
 		Count				// システムサウンド総数の計算用
     }
 
@@ -337,6 +339,8 @@ namespace DTXMania
         public Cシステムサウンド bgmリザルトループ = null;
         public Cシステムサウンド sound曲決定音 = null;
         public Cシステムサウンド sound成績発表 = null;
+        public Cシステムサウンド sound難易度決定音 = null;
+        public Cシステムサウンド sound選択不可音 = null;
 
         //public Cシステムサウンド soundRed = null;
         //public Cシステムサウンド soundBlue = null;
@@ -412,6 +416,12 @@ namespace DTXMania
 
                     case Eシステムサウンド.SOUND成績発表:
                         return this.sound成績発表;
+
+                    case Eシステムサウンド.SOUND難易度決定音:
+                        return this.sound難易度決定音;
+
+                    case Eシステムサウンド.SOUND選択不可音:
+                        return this.sound選択不可音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -484,6 +494,12 @@ namespace DTXMania
 
                     case 18:
                         return this.sound成績発表;
+
+                    case 19:
+                        return this.sound難易度決定音;
+
+                    case 20:
+                        return this.sound選択不可音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -638,6 +654,8 @@ namespace DTXMania
             this.soundBalloon           = new Cシステムサウンド( @"Sounds\balloon.ogg",         false, false, true  );
             this.sound曲決定音          = new Cシステムサウンド( @"Sounds\SongDecide.ogg",      false, false, true  );
             this.sound成績発表          = new Cシステムサウンド( @"Sounds\ResultIn.ogg",          false, false, false );
+            this.sound難易度決定音      = new Cシステムサウンド( @"Sounds\DiffDecide.ogg",        false, false, false );
+            this.sound選択不可音        = new Cシステムサウンド( @"Sounds\NG.ogg",              false, false, false );
 
             tReadSkinConfig();
 		}
@@ -982,6 +1000,135 @@ namespace DTXMania
                             {
                                 this.nSelectBGLoopWidth = C変換.n値を文字列から取得して返す( strParam, 0 );
                             }
+                            else if( strCommand == "SelectDiffStringX" )
+                            {
+                                this.nSelectDiffStringX = C変換.n値を文字列から取得して返す( strParam, 980 );
+                            }
+                            else if( strCommand == "SelectDiffStringY" )
+                            {
+                                this.nSelectDiffStringY = C変換.n値を文字列から取得して返す( strParam, 30 );
+                            }
+                            else if( strCommand == "SelectGenreStringX" )
+                            {
+                                this.nSelectGenreStringX = C変換.n値を文字列から取得して返す( strParam, 640 );
+                            }
+                            else if( strCommand == "SelectGenreStringY" )
+                            {
+                                this.nSelectGenreStringY = C変換.n値を文字列から取得して返す( strParam, 63 );
+                            }
+                            else if( strCommand == "SelectDiffSelectMode" )
+                            {
+                                this.eDiffSelectMode = (EDiffSelectMode)C変換.n値を文字列から取得して範囲内に丸めて返す( strParam, 0, 1, 0 );
+                            }
+                            else if( strCommand == "SelectSongFontSize")
+                            {
+                                this.fSelectSongFontSize = C変換.f値を文字列から取得して返す( strParam, 22 );
+                            }
+                            else if( strCommand == "SelectSongFontSizeSub")
+                            {
+                                this.fSelectSongFontSizeSub = C変換.f値を文字列から取得して返す( strParam, 14 );
+                            }
+                            else if( strCommand == "SelectSongPanelX")
+                            {
+                                this.nSelectSongPanelX = C変換.ar配列形式のstringをint配列に変換して返す( strParam );
+                            }
+                            else if( strCommand == "SelectSongPanelY")
+                            {
+                                this.nSelectSongPanelY = C変換.n値を文字列から取得して返す( strParam, 137 );
+                            }
+                            else if( strCommand == "SelectSongPanelTitleX")
+                            {
+                                this.nSelectSongPanelTitleX = C変換.n値を文字列から取得して返す( strParam, 34 );
+                            }
+                            else if( strCommand == "SelectSongPanelTitleY")
+                            {
+                                this.nSelectSongPanelTitleY = C変換.n値を文字列から取得して返す( strParam, 30 );
+                            }
+                            else if( strCommand == "SelectSongPanelCenterTitleX")
+                            {
+                                if( String.IsNullOrEmpty( strParam ) ) strParam = "670,700";
+                                this.nSelectSongPanelCenterTitleX = C変換.ar配列形式のstringをint配列に変換して返す( strParam );
+                            }
+                            else if( strCommand == "SelectSongPanelCenterTitleY")
+                            {
+                                this.nSelectSongPanelCenterTitleY = C変換.n値を文字列から取得して返す( strParam, 137 );
+                            }
+                            else if( strCommand == "SelectSongPanelCenterSubTitleX")
+                            {
+                                this.nSelectSongPanelCenterSubTitleX = C変換.n値を文字列から取得して返す( strParam, 34 );
+                            }
+                            else if( strCommand == "SelectSongPanelCenterSubTitleY")
+                            {
+                                this.nSelectSongPanelCenterSubTitleY = C変換.n値を文字列から取得して返す( strParam, 30 );
+                            }
+                            else if( strCommand == "SelectSongPanelCenterTitleHeight")
+                            {
+                                this.nSelectSongPanelCenterTitleHeight = C変換.n値を文字列から取得して返す( strParam, 415 );
+                            }
+                            else if( strCommand == "SelectSongPanelCenterSubTitleHeight")
+                            {
+                                this.nSelectSongPanelCenterSubTitleHeight = C変換.n値を文字列から取得して返す( strParam, 400 );
+                            }
+                            else if( strCommand == "SelectSongPanelCursorLX")
+                            {
+                                this.nSelectSongPanelCursorLX = C変換.n値を文字列から取得して返す( strParam, 370 );
+                            }
+                            else if( strCommand == "SelectSongPanelCursorRX")
+                            {
+                                this.nSelectSongPanelCursorRX = C変換.n値を文字列から取得して返す( strParam, 810 );
+                            }
+                            else if( strCommand == "SelectSongPanelCursorY")
+                            {
+                                this.nSelectSongPanelCursorY = C変換.n値を文字列から取得して返す( strParam, 290 );
+                            }
+                            else if( strCommand == "SelectSongDiffPanelX")
+                            {
+                                this.nSelectSongDiffPanelX = C変換.n値を文字列から取得して返す( strParam, 518 );
+                            }
+                            else if( strCommand == "SelectSongDiffPanelY")
+                            {
+                                this.nSelectSongDiffPanelY = C変換.n値を文字列から取得して返す( strParam, 169 );
+                            }
+                            else if( strCommand == "SelectSongDiffPanelStringX")
+                            {
+                                this.nSelectSongDiffPanelStringX = C変換.n値を文字列から取得して返す( strParam, 0 );
+                            }
+                            else if( strCommand == "SelectSongDiffPanelStringY")
+                            {
+                                this.nSelectSongDiffPanelStringY = C変換.n値を文字列から取得して返す( strParam, 0 );
+                            }
+                            else if( strCommand == "SelectSongDiffPanelSpacingX")
+                            {
+                                this.nSelectSongDiffPanelSpacingX = C変換.n値を文字列から取得して返す( strParam, 0 );
+                            }
+                            else if( strCommand == "SelectSongDiffPanelSpacingY")
+                            {
+                                this.nSelectSongDiffPanelSpacingY = C変換.n値を文字列から取得して返す( strParam, 0 );
+                            }
+                            else if( strCommand == "SelectSongDiffIconX")
+                            {
+                                this.nSelectSongDiffIconX = C変換.n値を文字列から取得して返す( strParam, 32 );
+                            }
+                            else if( strCommand == "SelectSongDiffIconY")
+                            {
+                                this.nSelectSongDiffIconY = C変換.n値を文字列から取得して返す( strParam, 32 );
+                            }
+                            else if( strCommand == "SelectSongDiffIconSpacingX")
+                            {
+                                this.nSelectSongDiffIconSpacingX = C変換.n値を文字列から取得して返す( strParam, 0 );
+                            }
+                            else if( strCommand == "SelectSongDiffIconSpacingY")
+                            {
+                                this.nSelectSongDiffIconSpacingY = C変換.n値を文字列から取得して返す( strParam, 0 );
+                            }
+                            else if( strCommand == "SelectSongDiffIconWidth")
+                            {
+                                this.nSelectSongDiffIconWidth = C変換.n値を文字列から取得して返す( strParam, 32 );
+                            }
+                            else if( strCommand == "SelectSongDiffIconHeight")
+                            {
+                                this.nSelectSongDiffIconHeight = C変換.n値を文字列から取得して返す( strParam, 32 );
+                            }
                             #endregion
                             #region[ その他 ]
                             #endregion
@@ -1122,8 +1269,69 @@ namespace DTXMania
         public bool b現在のステージ数を表示しない;
 
         //選曲画面
+        public ESelectLayout eSelectLayoutType = ESelectLayout.bootleg;
+        public EDiffSelectMode eDiffSelectMode = EDiffSelectMode.難易度から選ぶ;
         public int nSelectBGScrollSpeed = 50;
         public int nSelectBGLoopWidth = 1280;
+        public int[] nSelectSongPanelX = new int[] { -218, -77, 64, 205, 346, 590, 833, 974, 1115, 1256, 1397, 1397, 1397 };
+        public int nSelectSongPanelY = 137;
+        public int nSelectSongPanelCount
+        {
+            get
+            {
+                return nSelectSongPanelX.Length;
+            }
+        }
+        public int nSelectGenreStringX = 640;
+        public int nSelectGenreStringY = 63;
+        public int nSelectDiffStringX = 980;
+        public int nSelectDiffStringY = 30;
+
+        public float fSelectSongFontSize = 22;
+        public float fSelectSongFontSizeSub = 14;
+        public int nSelectSongPanelTitleX = 34;
+        public int nSelectSongPanelTitleY = 30;
+
+        /// <summary>
+        /// [0]:サブタイ無し時 [1]:サブタイあり時
+        /// </summary>
+        public int[] nSelectSongPanelCenterTitleX = new int[] { 670, 700 };
+        public int nSelectSongPanelCenterTitleY = 167;
+        public int nSelectSongPanelCenterSubTitleX = 640;
+
+        /// <summary>
+        /// 下辺中心描画
+        /// </summary>
+        public int nSelectSongPanelCenterSubTitleY = 560;
+
+        public int nSelectSongPanelCenterTitleHeight = 380;
+        public int nSelectSongPanelCenterSubTitleHeight = 360;
+
+        //難易度看板
+        public int nSelectSongDiffPanelX = 518;
+        public int nSelectSongDiffPanelY = 169;
+        public int nSelectSongDiffPanelSpacingX = 0;
+        public int nSelectSongDiffPanelSpacingY = 0;
+
+        //難易度看板文字
+        public int nSelectSongDiffPanelStringX = 0;
+        public int nSelectSongDiffPanelStringY = 0;
+
+        //難易度星
+        public int nSelectSongDiffIconX = 525;
+        public int nSelectSongDiffIconY = 515;
+        public int nSelectSongDiffIconSpacingX = 0;
+        public int nSelectSongDiffIconSpacingY = 5;
+        public int nSelectSongDiffIconWidth = 32;
+        public int nSelectSongDiffIconHeight = 32;
+
+        //カーソル
+        public int nSelectSongPanelCursorLX = 450;
+        public int nSelectSongPanelCursorRX = 770;
+        public int nSelectSongPanelCursorY = 320;
+        public int nSelectSongPanelCursorMovePx = 20;
+        public int nSelectSongPanelCursorLoopTimeMs = 1000;
+        public bool bSelectSongPanelCursolFade = false;
 
         //リザルト画面
         //現在のデフォルト値はダミーです。

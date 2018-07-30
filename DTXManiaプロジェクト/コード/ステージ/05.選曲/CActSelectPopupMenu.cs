@@ -337,7 +337,7 @@ namespace DTXMania
 				#endregion
 				#region [ ソートメニュータイトル描画 ]
 				int x = 240, y = 44;
-				stqMenuTitle.txName.t2D描画( CDTXMania.app.Device, x, y );
+				stqMenuTitle.txName?.t2D描画( CDTXMania.app.Device, x, y );
 				#endregion
 				#region [ カーソル描画 ]
 				if ( this.txCursor != null )

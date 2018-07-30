@@ -1423,6 +1423,7 @@ namespace DTXMania
                 if( actGauge.db現在のゲージ値[ 0 ] < 80.0 )
                 {
                     CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
+                    CDTXMania.stage演奏ドラム画面.actBackground.t下背景FadeIn();
                 }
             }
 

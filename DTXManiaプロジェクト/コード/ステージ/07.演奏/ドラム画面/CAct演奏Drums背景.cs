@@ -30,6 +30,18 @@ namespace DTXMania
             this.eFadeMode = EFIFOモード.フェードアウト;
         }
 
+        public void t下背景FadeIn()
+        {
+            this.ct下背景FIFOタイマー = new CCounter( 0, 100, 6, CDTXMania.Timer );
+            this.eFadeMode = EFIFOモード.フェードイン;
+        }
+
+        public void t下背景FadeOut()
+        {
+            this.ct下背景FIFOタイマー = new CCounter( 0, 100, 6, CDTXMania.Timer );
+            this.eFadeMode = EFIFOモード.フェードアウト;
+        }
+
         public override void On活性化()
         {
             this.dicParameter = new Dictionary<string, string>();
@@ -130,6 +142,7 @@ namespace DTXMania
                 this.ct上背景スクロール用タイマー = new CCounter( 1, 328, 40, CDTXMania.Timer );
                 this.ct下背景スクロール用タイマー1 = new CCounter( 1, 1257, 6, CDTXMania.Timer );
                 this.ct上背景FIFOタイマー = new CCounter();
+                this.ct下背景FIFOタイマー = new CCounter();
                 base.OnManagedリソースの作成();
             }
         }
@@ -163,6 +176,7 @@ namespace DTXMania
 
                 int[] nBgY = new int[] { 0, 536 };
                 this.ct上背景FIFOタイマー.t進行();
+                this.ct下背景FIFOタイマー.t進行();
                 this.ct上背景スクロール用タイマー.t進行Loop();
                 this.ct下背景スクロール用タイマー1.t進行Loop();
 
@@ -260,8 +274,8 @@ namespace DTXMania
                     {
                         if( this.tx下背景クリアメイン != null && this.tx下背景クリアサブ1 != null )
                         {
-                            this.tx下背景クリアメイン.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
-                            this.tx下背景クリアサブ1.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
+                            this.tx下背景クリアメイン.n透明度 = ( ( this.ct下背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
+                            this.tx下背景クリアサブ1.n透明度 = ( ( this.ct下背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
                     
                             this.tx下背景クリアメイン.t2D描画( CDTXMania.app.Device, 0, 360 );
 
@@ -280,6 +294,7 @@ namespace DTXMania
         private CCounter ct上背景スクロール用タイマー; //上背景のX方向スクロール用
         private CCounter ct下背景スクロール用タイマー1; //下背景パーツ1のX方向スクロール用
         private CCounter ct上背景FIFOタイマー;
+        private CCounter ct下背景FIFOタイマー;
         private CTexture tx上背景メイン;
         private CTexture tx上背景クリアメイン;
         private CTexture tx上背景ミスメイン;

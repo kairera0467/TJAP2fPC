@@ -4419,21 +4419,21 @@ namespace DTXMania
             }
 
             //パラメータを分別、そこから割り当てていきます。
+            // 2018.6.14 kairera0467 デリミタ文字入りのタイトルが正しく読み込めないので「TITLE」「SUBTITLE」での処理を変更
             if( strCommandName.Equals( "TITLE" ) )
             {
-                this.TITLE = strCommandParam;
-                //tbTitle.Text = strCommandParam;
+                this.TITLE = InputText.Substring( InputText.IndexOf(":") + 1 );
             }
             if( strCommandName.Equals( "SUBTITLE" ) )
             {
                 if( strCommandParam.StartsWith("--") )
                 {
-                    this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    this.SUBTITLE = InputText.Substring( InputText.IndexOf(":") + 3 );
                 }
                 else if( strCommandParam.StartsWith("++") )
                 {
                 //    //this.TITLE += strCommandParam.Remove( 0, 2 ); //このままだと選曲画面の表示がうまくいかない。
-                    this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    this.SUBTITLE = InputText.Substring( InputText.IndexOf(":") + 3 );
                 }
             }
             else if( strCommandName.Equals( "LEVEL" ) )

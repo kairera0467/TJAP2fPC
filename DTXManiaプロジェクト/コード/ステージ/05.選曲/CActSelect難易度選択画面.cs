@@ -15,7 +15,6 @@ namespace DTXMania
 {
     /// <summary>
     /// 難易度選択画面。
-    /// この難易度選択画面はAC7～AC14のような方式であり、WiiまたはAC15移行の方式とは異なる。
     /// </summary>
 	internal class CActSelect難易度選択画面 : CActivity
 	{
@@ -68,71 +67,24 @@ namespace DTXMania
         
         public void t次に移動()
 		{
-			if( CDTXMania.stage選曲.r現在選択中の曲 != null )
-			{
-		        if( this.n現在の選択行 < 5 )
-                {
-                    this.n現在の選択行 = this.t指定した方向に近い難易度番号を返す( 0, this.n現在の選択行 );
-                }
-                this.ct移動 = new CCounter( 1, 710, 1, CSound管理.rc演奏用タイマ );
-			}
+			if( this.n現在の選択行 < this.list難易度選択項目.Count - 1 )
+            {
+                this.n現在の選択行++;
+            }
+
+            this.ct移動 = new CCounter( 1, 710, 1, CSound管理.rc演奏用タイマ );
 		}
 		public void t前に移動()
 		{
-			if( CDTXMania.stage選曲.r現在選択中の曲 != null )
-			{
-		        if( this.n現在の選択行 > 0 )
-                {
-                    this.n現在の選択行 = this.t指定した方向に近い難易度番号を返す( 1, this.n現在の選択行 );
-                }
-                //else
-                //{
-                //    this.n現在の選択行 = this.t指定した方向に近い難易度番号を返す( 1, 5 );
-                //}
-			}
+            if( this.n現在の選択行 > 0 )
+            {
+                this.n現在の選択行--;
+            }
+
+            this.ct移動 = new CCounter( 1, 710, 1, CSound管理.rc演奏用タイマ );
 		}
 		public void t選択画面初期化()
 		{
-			//かんたんから一番近いところにカーソルを移動させる。
-            for( int i = 0; i < 5; i++ )
-            {
-                if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] != null )
-                {
-                    this.n現在の選択行 = i;
-                    break;
-                }
-            }
-
-            int n譜面数 = 0;
-            for( int i = 0; i < 5; i++ )
-			{
-                if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) n譜面数++;
-            }
-            for( int i = 0; i < 5; i++ )
-			{
-                //描画順と座標を決める。
-                switch( n譜面数 )
-                {
-                    case 1:
-                    case 2:
-                        this.n描画順 = new[] { 0, 1, 2, 3, 4 };
-                        this.n踏み台座標 = new[] { 12, 252, 492, 732, 972 };
-                        break;
-                    case 3:
-                        this.n描画順 = new[] { 0, 2, 1, 3, 4 };
-                        this.n踏み台座標 = new[] { 12, 492, 252, 732, 972 };
-                        break;
-                    case 4:
-                        this.n描画順 = new[] { 0, 2, 1, 3, 4 };
-                        this.n踏み台座標 = new[] { 12, 492, 252, 732, 972 };
-                        break;
-                    case 5:
-                        this.n描画順 = new[] { 0, 3, 1, 4, 2 };
-                        this.n踏み台座標 = new[] { 12, 492, 972, 252, 732 };
-                        break;
-                }
-
-            }
             this.b初めての進行描画 = true;
 		}
 
@@ -176,15 +128,108 @@ namespace DTXMania
             this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffselect_background.png" ) );
             this.txヘッダー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffselect_header_panel.png" ) );
             this.txフッター = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer panel.png" ) );
+            this.txパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5-1_パネル.png" ) );
+
+            this.txカーソル大 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diff_coursol1.png" ) );
+            this.txカーソル小 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diff_coursol2.png" ) );
 
             this.tx説明背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_information_BG.png" ) );
             this.tx説明1 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_information.png" ) );
 
-            this.soundSelectAnnounce = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\DiffSelect.ogg" ) );
+            this.txレベル星 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffboard_star.png" ) );
 
-            for( int i = 0; i < 5; i++ )
+            this.soundSelectAnnounce = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\DiffSelect.ogg" ) );
+            
+            if( this.list難易度選択項目 != null )
             {
-                this.tx踏み台[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffSelect_table" + i.ToString() + @".png" ) );
+                for( int i = 0; i < 8; i++ )
+                {
+                    // 項目リストを作る
+                    ST難易度選択項目 stDiffList = new ST難易度選択項目();
+
+                    switch( i )
+                    {
+                        case 0:
+                            // 戻る
+                            stDiffList.b選択可 = true;
+                            stDiffList.str項目名 = "back";
+                            stDiffList.e項目種類 = E項目種類.戻る;
+                            stDiffList.ptパネル座標 = new Point( 249, 114 );
+                            stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+                            stDiffList.txパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_item_back.png" ) );
+                            this.list難易度選択項目.Add( stDiffList );
+
+                            break;
+                        case 1:
+                            // オプション
+                            stDiffList.b選択可 = false;
+                            stDiffList.str項目名 = "option";
+                            stDiffList.e項目種類 = E項目種類.オプション;
+                            stDiffList.ptパネル座標 = new Point( 319, 114 );
+                            stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+                            stDiffList.txパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_item_option.png" ) );
+                            this.list難易度選択項目.Add( stDiffList );
+                            break;
+                        case 2:
+                            // 音色
+                            stDiffList.b選択可 = false;
+                            stDiffList.str項目名 = "se";
+                            stDiffList.e項目種類 = E項目種類.音色;
+                            stDiffList.ptパネル座標 = new Point( 389, 114 );
+                            stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+                            stDiffList.txパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_item_se.png" ) );
+                            this.list難易度選択項目.Add( stDiffList );
+                            break;
+                        case 3:
+                            stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 0 ] != null ? true : false;
+                            stDiffList.e項目種類 = E項目種類.かんたん;
+                            stDiffList.str項目名 = "Diff:0";
+                            stDiffList.ptパネル座標 = new Point( 450, 80 );
+                            stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+
+                            this.list難易度選択項目.Add( stDiffList );
+                            break;
+                        case 4:
+                            stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 1 ] != null ? true : false;
+                            stDiffList.e項目種類 = E項目種類.ふつう;
+                            stDiffList.str項目名 = "Diff:1";
+                            stDiffList.ptパネル座標 = new Point( 550, 80 );
+                            stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+
+                            this.list難易度選択項目.Add( stDiffList );
+                            break;
+                        case 5:
+                            stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 2 ] != null ? true : false;
+                            stDiffList.e項目種類 = E項目種類.むずかしい;
+                            stDiffList.str項目名 = "Diff:2";
+                            stDiffList.ptパネル座標 = new Point( 650, 0 );
+                            stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+
+                            this.list難易度選択項目.Add( stDiffList );
+                            break;
+                        case 6:
+                            stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 3 ] != null ? true : false;
+                            stDiffList.e項目種類 = E項目種類.おに;
+                            stDiffList.str項目名 = "Diff:3";
+                            stDiffList.ptパネル座標 = new Point( 750, 0 );
+                            stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+
+                            this.list難易度選択項目.Add( stDiffList );
+                            break;
+                        //case 7:
+                        //    stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 4 ] != null ? true : false;
+                        //    stDiffList.e項目種類 = E項目種類.エディット;
+                        //    stDiffList.str項目名 = "Diff:4";
+                        //    stDiffList.ptパネル座標 = new Point( 850, 0 );
+                        //    stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+
+                        //    this.list難易度選択項目.Add( stDiffList );
+                        //    break;
+                    }
+
+
+
+                }
             }
 
 			base.OnManagedリソースの作成();
@@ -197,16 +242,24 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.tx背景 );
             CDTXMania.tテクスチャの解放( ref this.txヘッダー );
             CDTXMania.tテクスチャの解放( ref this.txフッター );
+            CDTXMania.tテクスチャの解放( ref this.txパネル );
 
             CDTXMania.tテクスチャの解放( ref this.tx説明背景 );
             CDTXMania.tテクスチャの解放( ref this.tx説明1 );
 
+            this.txレベル星?.Dispose();
+
+            this.txカーソル大?.Dispose();
+            this.txカーソル小?.Dispose();
+
             CDTXMania.t安全にDisposeする( ref this.soundSelectAnnounce );
 
-            for( int i = 0; i < 5; i++ )
+            foreach( var item in this.list難易度選択項目 )
             {
-                CDTXMania.tテクスチャの解放( ref this.tx踏み台[ i ] );
+                item.txパネル?.Dispose();
             }
+
+            this.list難易度選択項目?.Clear();
 
 			base.OnManagedリソースの解放();
 		}
@@ -226,8 +279,35 @@ namespace DTXMania
 
                 this.n矢印スクロール用タイマ値 = CSound管理.rc演奏用タイマ.n現在時刻;
 				this.ct三角矢印アニメ.t開始( 0, 19, 40, CDTXMania.Timer );
-				
+
+				// 現在位置をかんたん～おに(エディット)の間に移動させる
+                this.n現在の選択行 = 3 + CDTXMania.stage選曲.act曲リスト.n現在選択中の曲の現在の難易度レベル;
+
+                Point[] ptパネル座標 = new Point[]
+                {
+                    new Point( 450, 84 ),
+                    new Point( 550, 84 ),
+                    new Point( 650, 84 ),
+                    new Point( 750, 84 ),
+                    new Point( 850, 84 )
+                };
+
+                for( int j = 3; j < 7; j++ )
+                {
+                    ST難易度選択項目 stDiffList = new ST難易度選択項目();
+
+                    stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ j - 3 ] != null ? true : false;
+                    stDiffList.e項目種類 = (E項目種類)(j - 3);
+                    stDiffList.str項目名 = "Diff:" + j;
+                    stDiffList.ptパネル座標 = ptパネル座標[ j - 3 ];
+                    stDiffList.rectパネル位置 = new Rectangle( 0, 0, 0, 0 );
+                    stDiffList.txパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffboard_"+ (j - 2) +".png" ) );
+
+                    this.list難易度選択項目[j] = stDiffList;
+                }
+
                 this.soundSelectAnnounce.tサウンドを再生する();
+
 				base.b初めての進行描画 = false;
 			}
 			//-----------------
@@ -240,73 +320,123 @@ namespace DTXMania
 			// 進行。
             //this.ct三角矢印アニメ.t進行Loop();
 
-            if( this.tx背景 != null )
-                this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+            //if( this.tx背景 != null )
+            //    this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
 
-			if( !this.b登場アニメ全部完了 )
+			//if( !this.b登場アニメ全部完了 )
+			//{
+   //             #region [ (1) 登場アニメフェーズの進行。]
+   //             //-----------------
+
+
+			//	//-----------------
+			//	#endregion
+			//}
+			//else
 			{
-				#region [ (1) 登場アニメフェーズの進行。]
-				//-----------------
-				for( int i = 0; i < 13; i++ )	// パネルは全13枚。
-				{
-					this.ct登場アニメ用[ i ].t進行();
-
-					if( this.ct登場アニメ用[ i ].b終了値に達した )
-						this.ct登場アニメ用[ i ].t停止();
-				}
-
-				// 全部の進行が終わったら、this.b登場アニメ全部完了 を true にする。
-
-				this.b登場アニメ全部完了 = true;
-				for( int i = 0; i < 13; i++ )	// パネルは全13枚。
-				{
-					if( this.ct登場アニメ用[ i ].b進行中 )
-					{
-						this.b登場アニメ全部完了 = false;	// まだ進行中のアニメがあるなら false のまま。
-						break;
-					}
-				}
-				//-----------------
-				#endregion
-			}
-			else
-			{
-				#region [ (2) 通常フェーズの進行。]
-				//-----------------
+                #region [ (2) 通常フェーズの進行。]
+                //-----------------
 
                 //キー操作
+                //this.txパネル?.t2D描画( CDTXMania.app.Device, 234, 37 );
                 if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.RightArrow ) )
                 {
+                    CDTXMania.Skin.soundカーソル移動音.t再生する();
                     this.t次に移動();
                 }
                 else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.LeftArrow ) )
                 {
+                    CDTXMania.Skin.soundカーソル移動音.t再生する();
                     this.t前に移動();
                 }
                 else if ( ( CDTXMania.Pad.b押されたDGB( Eパッド.Decide ) ||
 						( ( CDTXMania.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) ) )
                 {
-                    CDTXMania.stage選曲.actPresound.tサウンド停止();
-                    switch( CDTXMania.stage選曲.r現在選択中の曲.eノード種別 )
+                    if( this.list難易度選択項目[ this.n現在の選択行 ].b選択可 )
                     {
-                        case C曲リストノード.Eノード種別.SCORE:
-                            {
-                                CDTXMania.Skin.sound決定音.t再生する();
-                                CDTXMania.stage選曲.t曲を選択する( this.n現在の選択行 );
-                            }
-                            break;
-                        case C曲リストノード.Eノード種別.RANDOM:
-                            {
-                                CDTXMania.Skin.sound曲決定音.t再生する();
-                                CDTXMania.stage選曲.t曲を選択する( this.n現在の選択行 );
-                            }
-                            break;
+                        //CDTXMania.stage選曲.actPresound.tサウンド停止();
+                        switch( this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 )
+                        {
+                            case E項目種類.かんたん:
+                            case E項目種類.ふつう:
+                            case E項目種類.むずかしい:
+                            case E項目種類.おに:
+                            case E項目種類.エディット:
+                                {
+                                    switch( CDTXMania.stage選曲.r現在選択中の曲.eノード種別 )
+                                    {
+                                        case C曲リストノード.Eノード種別.SCORE:
+                                            {
+                                                CDTXMania.Skin.sound決定音.t再生する();
+                                                CDTXMania.stage選曲.t曲を選択する( (int)this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 );
+                                            }
+                                            break;
+                                        case C曲リストノード.Eノード種別.RANDOM:
+                                            {
+                                                CDTXMania.Skin.sound曲決定音.t再生する();
+                                                CDTXMania.stage選曲.t曲を選択する( (int)this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 );
+                                            }
+                                            break;
+                                    }
+                                }
+                                break;
+                            case E項目種類.戻る:
+                                CDTXMania.Skin.sound取消音.t再生する();
+                                this.bIsDifficltSelect = false;
+                                break;
+                            case E項目種類.オプション:
+                                break;
+                            case E項目種類.音色:
+                                break;
+                        }
+
+                    }
+                    else
+                    {
+                        // 選択できない項目だった
+                        CDTXMania.Skin.sound選択不可音.t再生する();
                     }
                 }
-                else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F7 ) )
+                else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) )
                 {
                     this.bIsDifficltSelect = false;
                 }
+
+                foreach( var item in this.list難易度選択項目 )
+                {
+                    if( item.txパネル != null )
+                    {
+                        item.txパネル.n透明度 = item.b選択可 ? 255 : 127;
+                        item.txパネル.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X, item.ptパネル座標.Y );
+                        if( item.b譜面 )
+                        {
+                            for ( int i = 0; i < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ (int)item.e項目種類 ]; i++ )
+                            {
+                                this.txレベル星.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X + 40, (item.ptパネル座標.Y + 392) - (20 * i ) );
+                            }
+                        }
+                    }
+                }
+
+                switch( this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 )
+                {
+                    case E項目種類.かんたん:
+                    case E項目種類.ふつう:
+                    case E項目種類.むずかしい:
+                    case E項目種類.おに:
+                    case E項目種類.エディット:
+                        if( this.txカーソル大 != null )
+                            this.txカーソル大.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y );
+                        break;
+                    case E項目種類.戻る:
+                    case E項目種類.オプション:
+                    case E項目種類.音色:
+                        if( this.txカーソル小 != null )
+                            this.txカーソル小.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y );
+                        break;
+                }
+
+
 
 				//-----------------
 				#endregion
@@ -319,70 +449,53 @@ namespace DTXMania
             int i選択曲バーX座標 = 665; //選択曲バーの座標用
 
 
-			if( !this.b登場アニメ全部完了 )
-			{
-				#region [ (1) 登場アニメフェーズの描画。]
-				//-----------------
-				for( int i = 0; i < 4; i++ )	// パネルは全13枚。
-				{
+			//if( !this.b登場アニメ全部完了 )
+			//{
+			//	#region [ (1) 登場アニメフェーズの描画。]
+			//	//-----------------
+			//	for( int i = 0; i < 4; i++ )	// パネルは全13枚。
+			//	{
 
-				}
-				//-----------------
-				#endregion
-			}
-			else
+			//	}
+			//	//-----------------
+			//	#endregion
+			//}
+			//else
 			{
 				#region [ (2) 通常フェーズの描画。]
 				//-----------------
                 int nバー基準X = 64;
                 CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.白, this.n現在の選択行.ToString() );
 
-				for( int i = 0; i < 5; i++ )
-				{
-                    if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] == null )
-                        continue;
+				//for( int i = 0; i < 5; i++ )
+				//{
+    //                if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] == null )
+    //                    continue;
 
-                    string strFlag = this.n現在の選択行 == i ? "NowSelect" : "UnSelect";
-                    C文字コンソール.Eフォント種別 bColorFlag = this.n現在の選択行 == i ? C文字コンソール.Eフォント種別.赤 : C文字コンソール.Eフォント種別.灰;
+    //                string strFlag = this.n現在の選択行 == i ? "NowSelect" : "UnSelect";
+    //                C文字コンソール.Eフォント種別 bColorFlag = this.n現在の選択行 == i ? C文字コンソール.Eフォント種別.赤 : C文字コンソール.Eフォント種別.灰;
 
-                    nバー基準X = nバー基準X + 16;
-                    CDTXMania.act文字コンソール.tPrint( 0, nバー基準X, bColorFlag, strFlag );
+    //                nバー基準X = nバー基準X + 16;
+    //                CDTXMania.act文字コンソール.tPrint( 0, nバー基準X, bColorFlag, strFlag );
 
                     
-				}
+				//}
 
-                //1→3→5→2→4の順で描画する。
+                for( int i = 0; i < this.list難易度選択項目.Count; i++ )
+                {
+                    C文字コンソール.Eフォント種別 bColorFlag = this.n現在の選択行 == i ? C文字コンソール.Eフォント種別.赤 : (this.list難易度選択項目[i].b選択可 ? C文字コンソール.Eフォント種別.白 : C文字コンソール.Eフォント種別.灰);
 
-				for( int j = 0; j < 5; j++ )
-				{
-                    if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ n描画順[ j ] ] == null )
-                        continue;
-                    //if( j == 4 )
-                    //    break;
-
-                    if( this.tx踏み台[ n描画順[ j ] ] != null )
-                    {
-                        bool bEven = false;
-                        if( n描画順[ j ] % 2 == 0 && n描画順[ j ] != 0 )
-                            bEven = true;
-
-                        this.tx踏み台[ n描画順[ j ] ].t2D描画( CDTXMania.app.Device, n踏み台座標[ j ], 720 - this.tx踏み台[ n描画順[ j ] ].szテクスチャサイズ.Height + ( bEven ? 35 : 0 ) );
-                    }
-				}
-
+                    nバー基準X = nバー基準X + 16;
+                    CDTXMania.act文字コンソール.tPrint( 0, nバー基準X, bColorFlag, this.list難易度選択項目[ i ].str項目名 );
+                }
 
 				//-----------------
 				#endregion
 			}
-            if( this.txヘッダー != null )
-                this.txヘッダー.t2D描画( CDTXMania.app.Device, 0, 0 );
+            //if( this.txヘッダー != null )
+            //    this.txヘッダー.t2D描画( CDTXMania.app.Device, 0, 0 );
             if( this.txフッター != null )
                 this.txフッター.t2D描画( CDTXMania.app.Device, 0, 720 - this.txフッター.sz画像サイズ.Height );
-
-            if( this.tx説明背景 != null )
-                this.tx説明背景.t2D描画( CDTXMania.app.Device, 340, 600 );
-            if( this.tx説明1 != null )
-                this.tx説明1.t2D描画( CDTXMania.app.Device, 340, 600 );
 
 			return 0;
 		}
@@ -402,14 +515,17 @@ namespace DTXMania
 		private int n現在の選択行;
 		private int n目標のスクロールカウンタ;
 
-        private CTexture[] tx踏み台 = new CTexture[ 5 ];
-
         private CTexture tx背景;
         private CTexture txヘッダー;
         private CTexture txフッター;
 
         private CTexture tx説明背景;
         private CTexture tx説明1;
+
+        private CTexture txパネル;
+        private CTexture txカーソル大;
+        private CTexture txカーソル小;
+        private CTexture txレベル星;
 
         private CSound soundSelectAnnounce;
 
@@ -418,7 +534,41 @@ namespace DTXMania
 
         private int[] n描画順;
         private int[] n踏み台座標;
+        protected List<ST難易度選択項目> list難易度選択項目 = new List<ST難易度選択項目>();
 		//-----------------
+        
+        //構造体
+        protected struct ST難易度選択項目
+        {
+            public CTexture txパネル;
+            public E項目種類 e項目種類;
+            public Point ptパネル座標;
+            public Rectangle rectパネル位置;
+            public bool b選択可;
+            public string str項目名;
+            public bool b譜面
+            {
+                get
+                {
+                    return (int)e項目種類 < 5 ? true : false;
+                }
+            }
+        }
+
+        public enum E項目種類
+        {
+            かんたん = 0,
+            ふつう = 1,
+            むずかしい = 2,
+            おに = 3,
+            エディット = 4,
+            戻る = 5,
+            オプション = 6,
+            音色 = 7,
+            未定義 = 99
+        }
+
+
 		#endregion
 	}
 }

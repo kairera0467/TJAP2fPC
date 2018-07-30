@@ -185,6 +185,9 @@ namespace DTXMania
 				base.On活性化();
 
 				this.actステータスパネル.t選択曲が変更された();	// 最大ランクを更新
+
+                this.ctDiffSelect移動待ち = new CCounter();
+                this.ctDiffSelect戻り待ち = new CCounter();
 			}
 			finally
 			{
@@ -416,12 +419,14 @@ namespace DTXMania
 					//this.txコメントバー.t2D描画( CDTXMania.app.Device, 484, 314 );
 				}
 				//this.actArtistComment.On進行描画();
-                this.act演奏履歴パネル.On進行描画();
+                if( !this.act難易度選択画面.bIsDifficltSelect )
+                    this.act演奏履歴パネル.On進行描画();
 				//this.actオプションパネル.On進行描画();
 				this.actShowCurrentPosition.On進行描画();								// #27648 2011.3.28 yyagi
 
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
-                this.tx難易度名.t2D描画( CDTXMania.app.Device, 980, 30, new Rectangle( 0, 70 * this.n現在選択中の曲の難易度, 260, 70 ) );
+                if( !this.act難易度選択画面.bIsDifficltSelect )
+                    this.tx難易度名?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectDiffStringX, CDTXMania.Skin.nSelectDiffStringY, new Rectangle( 0, 70 * this.n現在選択中の曲の難易度, 260, 70 ) );
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
 				{
@@ -434,6 +439,8 @@ namespace DTXMania
 //Debug.WriteLine( "パンくず=" + this.r現在選択中の曲.strBreadcrumbs );
                 if( this.ctDiffSelect移動待ち != null )
                     this.ctDiffSelect移動待ち.t進行();
+                if( this.ctDiffSelect戻り待ち != null )
+                    this.ctDiffSelect戻り待ち.t進行();
 
 				// キー入力
 				if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 
@@ -454,7 +461,7 @@ namespace DTXMania
 					if ( !this.actSortSongs.bIsActivePopupMenu && !this.actQuickConfig.bIsActivePopupMenu && !this.act難易度選択画面.bIsDifficltSelect )
 					{
 						#region [ ESC ]
-						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) && ( ( this.act曲リスト.r現在選択中の曲 != null ) && ( this.act曲リスト.r現在選択中の曲.r親ノード == null ) ) )
+						if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) && ( this.act曲リスト.r現在選択中の曲.r親ノード == null ) )
 						{	// [ESC]
 							CDTXMania.Skin.sound取消音.t再生する();
 							this.eフェードアウト完了時の戻り値 = E戻り値.タイトルに戻る;
@@ -557,17 +564,27 @@ namespace DTXMania
 						}
                         #endregion
                         #region [ not used ]
-                        //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F9 ) )
-                        if( false )
+                        if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F11 ) )
+                        //if( false )
                         {
-                            CDTXMania.Skin.sound変更音.t再生する();
+                            CDTXMania.Skin.sound決定音.t再生する();
                             CDTXMania.Skin.sound曲読込開始音.t再生する();
                             if( !this.act難易度選択画面.bIsDifficltSelect )
-                                this.ctDiffSelect移動待ち = new CCounter( 0, 4000, 1, CDTXMania.Timer );
+                                this.ctDiffSelect移動待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
                             this.act難易度選択画面.t選択画面初期化();
                             C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
                         }
+                        if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.NumberPad7 ) )
+                        //if( false )
+                        {
+                            CDTXMania.Skin.sound取消音.t再生する();
+                            if( !this.act難易度選択画面.bIsDifficltSelect )
+                                this.ctDiffSelect戻り待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
+                            this.act難易度選択画面.t選択画面初期化();
+                            //C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
+                        }
 						#endregion
+
 
 						if ( this.act曲リスト.r現在選択中の曲 != null )
 						{
@@ -701,14 +718,20 @@ namespace DTXMania
                 //------------------------------
                 if (this.act難易度選択画面.bIsDifficltSelect)
                 {
-
-                    if (this.ctDiffSelect移動待ち.n現在の値 == this.ctDiffSelect移動待ち.n終了値)
+                    if (this.ctDiffSelect移動待ち?.n現在の値 == this.ctDiffSelect移動待ち?.n終了値)
                     {
                         this.act難易度選択画面.On進行描画();
                         CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, "NowStage:DifficltSelect");
                     }
-                    CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect移動待ち.n現在の値);
+                    CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect移動待ち?.n現在の値);
+
                 }
+                    if (this.ctDiffSelect戻り待ち?.n現在の値 == this.ctDiffSelect戻り待ち?.n終了値)
+                    {
+                        this.act難易度選択画面.On進行描画();
+                        //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, "NowStage:DifficltSelect");
+                    }
+                    CDTXMania.act文字コンソール.tPrint(0, 48, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect戻り待ち?.n現在の値);
                 //------------------------------
 				switch ( base.eフェーズID )
 				{
@@ -822,7 +845,7 @@ namespace DTXMania
 		public CActSelect演奏履歴パネル act演奏履歴パネル;
 		public CActSelect曲リスト act曲リスト;
 		private CActSelectShowCurrentPosition actShowCurrentPosition;
-        private CActSelect難易度選択画面 act難易度選択画面;
+        public CActSelect難易度選択画面 act難易度選択画面;
 
 		public CActSortSongs actSortSongs;
 		public CActSelectQuickConfig actQuickConfig;
@@ -839,7 +862,8 @@ namespace DTXMania
         private CTexture[] tx難易度別背景 = new CTexture[5];
         private CTexture tx難易度名;
         private CTexture tx下部テキスト;
-        private CCounter ctDiffSelect移動待ち;
+        public CCounter ctDiffSelect移動待ち;
+        public CCounter ctDiffSelect戻り待ち;
         private CCounter ct背景スクロール;
         private int n背景ループ幅;
         private int n背景テクスチャ敷き詰め枚数;

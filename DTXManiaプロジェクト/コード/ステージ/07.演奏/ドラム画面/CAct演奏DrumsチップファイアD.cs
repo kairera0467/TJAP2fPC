@@ -36,7 +36,7 @@ namespace DTXMania
                         if (!this.st大音符花火[j].b使用中)
                         {
                             this.st大音符花火[j].b使用中 = true;
-                            this.st大音符花火[j].ct進行 = new CCounter(0, 40, 18, CDTXMania.Timer); // カウンタ
+                            this.st大音符花火[j].ct進行 = new CCounter(0, 40, 17, CDTXMania.Timer); // カウンタ
                             this.st大音符花火[j].fX = this.nX座標[ i ]; //X座標
                             this.st大音符花火[j].fY = nPlayer == 0 ? this.nY座標[ i ] : this.nY座標P2[ i ];
 
@@ -123,7 +123,8 @@ namespace DTXMania
                         case 0x14:
                         case 0x1A:
                         case 0x1B:
-                            this.st状態_大[ j ].ct進行 = new CCounter( 0, 9, 20, CDTXMania.Timer );
+                            //this.st状態_大[ j ].ct進行 = new CCounter( 0, 9, 20, CDTXMania.Timer );
+                            this.st状態_大[ j ].ct進行 = new CCounter( 0, 17, 20, CDTXMania.Timer );
                             this.st状態_大[ j ].judge = judge;
                             this.st状態_大[ j ].nIsBig = 1;
                             break;
@@ -134,7 +135,7 @@ namespace DTXMania
 		}
 		public void Start紙吹雪()
 		{
-            return;
+#if false
             if (this.tx紙吹雪 != null)
             {
                 for (int i = 0; i < 256; i++)
@@ -173,6 +174,7 @@ namespace DTXMania
                     }
                 }
             }
+#endif
 		}
 
 		// CActivity 実装
@@ -304,6 +306,7 @@ namespace DTXMania
 
                                         ////7
                                         float f倍率 = 0.5f + ( (this.st状態_大[ i ].ct進行.n現在の値 * 0.5f) / 10.0f);
+                                        float f倍率2 = 0.5f + ( (this.st状態_大[ i ].ct進行.n現在の値 - 6) * 0.45f / 13.0f );
                                         //this.txアタックエフェクトUpper_big.vc拡大縮小倍率.X = f倍率;
                                         //this.txアタックエフェクトUpper_big.vc拡大縮小倍率.Y = f倍率;
                                         //this.txアタックエフェクトUpper_big.n透明度 = (int)(255 * f倍率);
@@ -315,9 +318,22 @@ namespace DTXMania
                                         //mat *= Matrix.Billboard( new Vector3( 15, 15, 15 ), new Vector3(0, 0, 0), new Vector3( 0, 0, 0 ), new Vector3( 0, 0, 0 ) );
                                         //mat *= Matrix.Translation( 0f, 0f, 0f );
 
+                                        Matrix mat2 = Matrix.Identity;
+                                        mat2 *= Matrix.Scaling( f倍率2, f倍率2, 1.0f );
+                                        mat2 *= Matrix.Translation( CDTXMania.Skin.nScrollFieldX[0] - SampleFramework.GameWindowSize.Width / 2.0f, -(CDTXMania.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] - SampleFramework.GameWindowSize.Height / 2.0f), 0f );
 
                                         //this.txアタックエフェクトUpper_big.n透明度 = 255; //17.11.13 kairera0467 白背景対策?
-                                        this.txアタックエフェクトUpper_big.t3D描画( CDTXMania.app.Device, mat );
+                                        if( this.st状態_大[ i ].ct進行.n現在の値 > 9 )
+                                        {
+                                            this.txアタックエフェクトUpper_big.n透明度 = 255 - (int)(( (this.st状態_大[ i ].ct進行.n現在の値 - 6) / 13.0f) * 255);
+                                            this.txアタックエフェクトUpper_big.t3D描画( CDTXMania.app.Device, mat2 );
+                                        }
+                                        if( this.st状態_大[ i ].ct進行.n現在の値 < 10 )
+                                        {
+                                            this.txアタックエフェクトUpper_big.n透明度 = 255;
+                                            this.txアタックエフェクトUpper_big.t3D描画( CDTXMania.app.Device, mat );
+                                        }
+
                                     }
                                     break;
                                     
@@ -418,7 +434,7 @@ namespace DTXMania
 
 		// その他
 
-		#region [ private ]
+#region [ private ]
 		//-----------------
         private CTextureAf txアタックエフェクトUpper;
         private CTexture txアタックエフェクトUpper_big;
@@ -427,6 +443,7 @@ namespace DTXMania
 
         protected STSTATUS[] st状態 = new STSTATUS[ 3 * 4 ];
         protected STSTATUS_B[] st状態_大 = new STSTATUS_B[ 3 * 4 ];
+
         private ST大音符花火[] st大音符花火 = new ST大音符花火[45];
 
         protected int[] nX座標 = new int[] { 450, 521, 596, 686, 778, 863, 970, 1070, 1150 };
@@ -486,6 +503,6 @@ namespace DTXMania
             public float f角度;
 		}
 		//-----------------
-		#endregion
+#endregion
 	}
 }

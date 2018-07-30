@@ -23,6 +23,16 @@ namespace DTXMania
         ボーカロイド = 7,
         アニメ = 8
     }
+    public enum ESelectLayout
+    {
+        bootleg = 1,
+        altnative = 2
+    }
+    public enum EDiffSelectMode
+    {
+        曲から選ぶ = 0,
+        難易度から選ぶ = 1
+    }
     public enum EGame
     {
         OFF = 0,

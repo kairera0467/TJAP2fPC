@@ -146,6 +146,9 @@ namespace DTXMania
 			if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
 				Trace.TraceInformation( "基点フォルダ: " + str基点フォルダ );
 
+            CGenreIni genreini = new CGenreIni();
+            bool bGenreIniを含むフォルダ = false;
+
 			#region [ a.フォルダ内に set.def が存在する場合 → 1フォルダ内のtjaファイル無制限]
 			//-----------------------------
 			string path = str基点フォルダ + "set.def";
@@ -231,17 +234,34 @@ namespace DTXMania
 					}
 				}
 			}
-			//-----------------------------
-			#endregion
+            //-----------------------------
+            #endregion
 
 			#region [ b.フォルダ内に set.def が存在しない場合 → 個別ファイルからノード作成 ]
 			//-----------------------------
             else
 			{
+                //if ( strExt.Equals(".ini") )
+                {
+                    #region [ genre.iniを含むフォルダの場合 ]
+                    if (File.Exists( str基点フォルダ + @"\genre.ini" ))
+                    {
+                        // 2018.6.13 kairera0467 genre.ini対応
+                        genreini = new CGenreIni( str基点フォルダ + @"\genre.ini");
+                        bGenreIniを含むフォルダ = true;
+                    }
+                    else
+                    {
+                        bGenreIniを含むフォルダ = false;
+                    }
+                    #endregion
+                }
 				foreach( FileInfo fileinfo in info.GetFiles() )
 				{
 					SlowOrSuspendSearchTask();		// #27060 中断要求があったら、解除要求が来るまで待機, #PREMOVIE再生中は検索負荷を落とす
 					string strExt = fileinfo.Extension.ToLower();
+
+
 
                     if( ( strExt.Equals( ".tja" ) || strExt.Equals( ".dtx" ) ) )
                     {
@@ -274,6 +294,10 @@ namespace DTXMania
                                 c曲リストノード.strタイトル = dtx.TITLE;
                                 c曲リストノード.strサブタイトル = dtx.SUBTITLE;
                                 c曲リストノード.strジャンル = dtx.GENRE;
+                                if( bGenreIniを含むフォルダ )
+                                {
+                                    c曲リストノード.strジャンル = genreini.strGenreName;
+                                }
                                 c曲リストノード.nLevel = dtx.LEVELtaiko;
 
                                 c曲リストノード.arスコア[ n ] = new Cスコア();
@@ -327,10 +351,11 @@ namespace DTXMania
                     }
 				}
 			}
-			//-----------------------------
-			#endregion
+            //-----------------------------
+            #endregion
 
-			foreach( DirectoryInfo infoDir in info.GetDirectories() )
+
+            foreach ( DirectoryInfo infoDir in info.GetDirectories() )
 			{
 				SlowOrSuspendSearchTask();		// #27060 中断要求があったら、解除要求が来るまで待機, #PREMOVIE再生中は検索負荷を落とす
 
@@ -475,7 +500,7 @@ namespace DTXMania
 				//-----------------------------
 				#endregion
 
-				#region [ b.box.def を含むフォルダの場合  ]
+				#region [ b. box.defを含むフォルダの場合  ]
 				//-----------------------------
 				else if( File.Exists( infoDir.FullName + @"\box.def" ) )
 				{
@@ -617,10 +642,11 @@ namespace DTXMania
 				else
 				{
 					this.t曲を検索してリストを作成する( infoDir.FullName + @"\", b子BOXへ再帰する, listノードリスト, node親 );
-				}
+                }
 				//-----------------------------
 				#endregion
-			}
+
+            }
 		}
 		//-----------------
 		#endregion
