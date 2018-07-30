@@ -308,9 +308,8 @@ namespace DTXMania
 					{
 						pChip.bHit = true;
 //						Trace.TraceInformation( "first [DA] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値 + ", time=" + pChip.n発声時刻ms );
-						if ( listWAV.ContainsKey( pChip.n整数値_内部番号 ) )
+						if ( listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )
 						{
-							CDTX.CWAV wc = listWAV[ pChip.n整数値_内部番号 ];
 							for ( int i = 0; i < nPolyphonicSounds; i++ )
 							{
 								if ( wc.rSound[ i ] != null )
@@ -3264,9 +3263,9 @@ namespace DTXMania
 							pChip.bHit = true;
                             if( pChip.nコース == this.n現在のコース[ nPlayer ] )
                             {
-							    if ( dTX.listBPM.ContainsKey( pChip.n整数値_内部番号 ) )
+							    if ( dTX.listBPM.TryGetValue( pChip.n整数値_内部番号, out CDTX.CBPM cBPM ) )
 							    {
-								    this.actPlayInfo.dbBPM = ( dTX.listBPM[ pChip.n整数値_内部番号 ].dbBPM値 * ( ( (double) configIni.n演奏速度 ) / 20.0 ) );// + dTX.BASEBPM;
+                                    this.actPlayInfo.dbBPM = cBPM.dbBPM値 * ( ( (double) configIni.n演奏速度 ) / 20.0 );// + dTX.BASEBPM;
 							    }
 
 
@@ -3445,9 +3444,8 @@ namespace DTXMania
 						{
 //Debug.WriteLine( "[DA(AddMixer)] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値.ToString( "x2" ) + ", time=" + pChip.n発声時刻ms );
 							pChip.bHit = true;
-							if ( listWAV.ContainsKey( pChip.n整数値_内部番号 ) )	// 参照が遠いので後日最適化する
+							if ( listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )	// 参照が遠いので後日最適化する
 							{
-								CDTX.CWAV wc = listWAV[ pChip.n整数値_内部番号 ];
 								for ( int i = 0; i < nPolyphonicSounds; i++ )
 								{
 									if ( wc.rSound[ i ] != null )
@@ -3466,9 +3464,8 @@ namespace DTXMania
 						{
 //Debug.WriteLine( "[DB(RemoveMixer)] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値.ToString( "x2" ) + ", time=" + pChip.n発声時刻ms );
 							pChip.bHit = true;
-							if ( listWAV.ContainsKey( pChip.n整数値_内部番号 ) )	// 参照が遠いので後日最適化する
+							if ( listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )	// 参照が遠いので後日最適化する
 							{
-							    CDTX.CWAV wc = listWAV[ pChip.n整数値_内部番号 ];
 							    for ( int i = 0; i < nPolyphonicSounds; i++ )
 							    {
 									if ( wc.rSound[ i ] != null )
