@@ -2773,7 +2773,7 @@ namespace DTXMania
 
         private string[] tコマンド行を削除したTJAを返す( string[] input, int nMode )
         {
-            string strTemp = "";
+            var sb = new StringBuilder();
 
             for( int n = 0; n < input.Length; n++ )
             {
@@ -2781,7 +2781,7 @@ namespace DTXMania
                 {
                     if( !string.IsNullOrEmpty( input[ n ] ) && this.CharConvertNote( input[ n ].Substring( 0, 1 ) ) != -1 )
                     {
-                        strTemp += ( input[ n ] + "\n" );
+                        sb.Append( input[ n ] + "\n" );
                     }
                 }
                 else if( nMode == 1 )
@@ -2794,7 +2794,7 @@ namespace DTXMania
                         }
                         else
                         {
-                            strTemp += ( input[ n ] + "\n" );
+                            sb.Append( input[ n ] + "\n" );
                         }
                     }
                 }
@@ -2808,38 +2808,38 @@ namespace DTXMania
                         }
                         else
                         {
-                            strTemp += ( input[ n ] + "\n" );
+                            sb.Append( input[ n ] + "\n" );
                         }
                     }
                     else
                     {
                         if( input[ n ].StartsWith( "#BRANCHSTART" ) || input[ n ] == "#N" || input[ n ] == "#E" || input[ n ] == "#M"  )
                         {
-                            strTemp += ( input[ n ] + "\n" );
+                            sb.Append( input[ n ] + "\n" );
                         }
 
                     }
                 }
             }
 
-            string[] strOutput = strTemp.Split( this.dlmtEnter, StringSplitOptions.None );
+            string[] strOutput = sb.ToString().Split( this.dlmtEnter, StringSplitOptions.None );
 
             return strOutput;
         }
 
         private string[] t空のstring配列を詰めたstring配列を返す( string[] input )
         {
-            string strTemp = "";
+            var sb = new StringBuilder();
 
             for( int n = 0; n < input.Length; n++ )
             {
                 if( !string.IsNullOrEmpty( input[ n ] ) )
                 {
-                    strTemp += ( input[ n ] + "\n" );
+                    sb.Append( input[ n ] + "\n" );
                 }
             }
 
-            string[] strOutput = strTemp.Split( this.dlmtEnter, StringSplitOptions.None );
+            string[] strOutput = sb.ToString().Split( this.dlmtEnter, StringSplitOptions.None );
 
             return strOutput;
         }
@@ -2850,14 +2850,14 @@ namespace DTXMania
         }
         private string StringArrayToString( string[] input, string strデリミタ文字 )
         {
-            string strTemp = "";
+            var sb = new StringBuilder();
 
             for( int n = 0; n < input.Length; n++ )
             {
-                strTemp += ( input[ n ] + strデリミタ文字 );
+                sb.Append( input[ n ] + strデリミタ文字 );
             }
 
-            return strTemp;
+            return sb.ToString();
         }
 
         /// <summary>
