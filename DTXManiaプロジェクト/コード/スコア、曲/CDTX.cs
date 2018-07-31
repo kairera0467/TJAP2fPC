@@ -3050,6 +3050,11 @@ namespace DTXMania
             return bIsSessionNotes;
         }
 
+        private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
+        private static readonly Regex regexForStrippingHeadingLines = new Regex(
+            @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
+            RegexOptions.Multiline | RegexOptions.Compiled);
+
         /// <summary>
         /// 新型。
         /// ○未実装
@@ -3074,14 +3079,12 @@ namespace DTXMania
                 //}
 
                 //2017.01.31 DD カンマのみの行を0,に置き換え
-                strInput = Regex.Replace( strInput, @"^,", "0,", RegexOptions.Multiline );
+                strInput = regexForPrefixingCommaStartingLinesWithZero.Replace( strInput, "0," );
 
                 //2017.02.03 DD ヘッダ内にある命令以外の文字列を削除
                 string strInputHeader = strInput.Remove( strInput.IndexOf( "#START" ) );
                 strInput = strInput.Remove(0, strInput.IndexOf( "#START" ) );
-                strInputHeader = Regex.Replace( strInputHeader,
-                    @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
-                "", RegexOptions.Multiline );
+                strInputHeader = regexForStrippingHeadingLines.Replace( strInputHeader, "" );
                 strInput = strInputHeader + "\n" + strInput;
 
                 //どうせ使わないので先にSplitしてコメントを削除。
