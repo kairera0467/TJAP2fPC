@@ -1967,9 +1967,10 @@ namespace DTXMania
 			    		reader.Close();
 
 				    	//StreamReader reader2 = new StreamReader( this.strフォルダ名 + "test.tja", Encoding.GetEncoding( "Shift_JIS" ) );
-                        StreamReader reader2 = new StreamReader( strファイル名, Encoding.GetEncoding( "Shift_JIS" ) );
-    					string str3 = reader2.ReadToEnd();
-	    				reader2.Close();
+                        //StreamReader reader2 = new StreamReader( strファイル名, Encoding.GetEncoding( "Shift_JIS" ) );
+                        //string str3 = reader2.ReadToEnd();
+                        //reader2.Close();
+                        string str3 = str2;
 
 		    			//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
 			    		//Trace.TraceInformation( "DTXfileload時間:          {0}", span.ToString() );
