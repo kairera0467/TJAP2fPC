@@ -1142,10 +1142,6 @@ namespace DTXMania
         private int n現在の小節数 = 1;
         private bool bBarLine = true;
         private int n命令数 = 0;
-        private string[] strSplitした後の譜面; //0:ヘッダー情報 1:#START以降 となる。個数の定義は後からされるため、ここでは省略。
-        private string[] strSplitしたヘッダ;
-        private string[] strSplitした譜面;
-        private string[] str命令消去譜面; //命令をすべて消去した譜面
 
         private int nNowRoll = 0;
         private int nNowRollCount = 0;
@@ -1173,7 +1169,6 @@ namespace DTXMania
         public int[] n風船数 = new int[ 4 ]; //0～2:各コース 3:共通
         private bool b次の小節が分岐である;
         private bool b次の分岐で数値リセット; //2018.03.16 kairera0467 SECTION処理を分岐判定と同時に行う。
-        private string strTemp;
         private int n文字数;
         private bool b直前の行に小節末端定義が無かった = false;
         private int n命令行のチップ番号_temp = 0;
@@ -3088,13 +3083,13 @@ namespace DTXMania
                 strInput = strInputHeader + "\n" + strInput;
 
                 //どうせ使わないので先にSplitしてコメントを削除。
-                this.strSplitした譜面 = (string[])this.str改行文字を削除する( strInput, 1 );
-                for (int i = 0; this.strSplitした譜面.Length > i; i++)
+                var strSplitした譜面 = (string[])this.str改行文字を削除する( strInput, 1 );
+                for (int i = 0; strSplitした譜面.Length > i; i++)
                 {
-                    this.strSplitした譜面[i] = this.tコメントを削除する( this.strSplitした譜面[i] );
+                    strSplitした譜面[i] = this.tコメントを削除する( strSplitした譜面[i] );
                 }
                 //空のstring配列を詰める
-                this.strSplitした譜面 = this.t空のstring配列を詰めたstring配列を返す( this.strSplitした譜面 );
+                strSplitした譜面 = this.t空のstring配列を詰めたstring配列を返す( strSplitした譜面 );
 
                 #region[ヘッダ]
 
@@ -3104,9 +3099,9 @@ namespace DTXMania
                 //点数などの指定は後から各コースで行うので問題は無いだろう。
 
                 //SplitしたヘッダのLengthの回数だけ、forで回して各種情報を読み取っていく。
-                for (int i = 0; this.strSplitした譜面.Length > i; i++)
+                for (int i = 0; strSplitした譜面.Length > i; i++)
                 {
-                    this.t入力_行解析ヘッダ( this.strSplitした譜面[i] );
+                    this.t入力_行解析ヘッダ( strSplitした譜面[i] );
                 }
                 #endregion
 
@@ -3119,12 +3114,12 @@ namespace DTXMania
                 bool b新処理 = false;
 
                 //まずはコースごとに譜面を分割。
-                this.strSplitした譜面 = this.tコースで譜面を分割する( this.StringArrayToString( this.strSplitした譜面, "\n" ) );
+                strSplitした譜面 = this.tコースで譜面を分割する( this.StringArrayToString( strSplitした譜面, "\n" ) );
                 string strTest = "";
                 //存在するかのフラグ作成。
-                for( int i = 0; i < this.strSplitした譜面.Length; i++ )
+                for( int i = 0; i < strSplitした譜面.Length; i++ )
                 {
-                    if( !String.IsNullOrEmpty( this.strSplitした譜面[ i ] ) )
+                    if( !String.IsNullOrEmpty( strSplitした譜面[ i ] ) )
                     {
                         this.b譜面が存在する[ i ] = true;
                         n譜面数++;
@@ -3154,8 +3149,10 @@ namespace DTXMania
                 #endregion
 
                 //指定したコースの譜面の命令を消去する。
-                this.tセッション譜面がある( this.strSplitした譜面[ n読み込むコース ], ref this.strSplitした譜面[ n読み込むコース ], CDTXMania.ConfigIni.nPlayerCount > 1 ? ( this.nPlayerSide + 1 ) : 0 );
-                this.str命令消去譜面 = this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
+                this.tセッション譜面がある( strSplitした譜面[ n読み込むコース ], ref strSplitした譜面[ n読み込むコース ], CDTXMania.ConfigIni.nPlayerCount > 1 ? ( this.nPlayerSide + 1 ) : 0 );
+
+                //命令をすべて消去した譜面
+                var str命令消去譜面 = strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
                 //if( bLog && stream != null )
                 //{
                 //    stream.WriteLine( "-------------------------------------------------" );
@@ -3166,7 +3163,7 @@ namespace DTXMania
                 //    }
                 //    stream.WriteLine( "-------------------------------------------------" );
                 //}
-                this.str命令消去譜面 = this.tコマンド行を削除したTJAを返す( this.str命令消去譜面, 2 );
+                str命令消去譜面 = this.tコマンド行を削除したTJAを返す( str命令消去譜面, 2 );
 
                 //if( bLog && stream != null )
                 //{
@@ -3181,6 +3178,7 @@ namespace DTXMania
 
 
                 //ここで1行の文字数をカウント。配列にして返す。
+                var strSplit読み込むコース = strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
                 string str = "";
                 try
                 {
@@ -3196,28 +3194,28 @@ namespace DTXMania
                         this.listBalloon_Master_数値管理 = 0;
                     }
 
-                    for( int i = 0; i < this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries ).Length; i++ )
+                    for( int i = 0; i < strSplit読み込むコース.Length; i++ )
                     {
-                        if( !String.IsNullOrEmpty( this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries )[ i ] ) )
+                        if( !String.IsNullOrEmpty( strSplit読み込むコース[ i ] ) )
                         {
-                            this.t難易度別ヘッダ( this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries )[ i ] );
+                            this.t難易度別ヘッダ( strSplit読み込むコース[ i ] );
                         }
                     }
-                    for( int i = 0; i < this.str命令消去譜面.Length; i++ )
+                    for( int i = 0; i < str命令消去譜面.Length; i++ )
                     {
-                        if( this.str命令消去譜面[ i ].IndexOf( ',', 0 ) == -1 && !String.IsNullOrEmpty( this.str命令消去譜面[ i ] ) )
+                        if( str命令消去譜面[ i ].IndexOf( ',', 0 ) == -1 && !String.IsNullOrEmpty( str命令消去譜面[ i ] ) )
                         {
-                            if(  this.str命令消去譜面[ i ].Substring( 0, 1 ) == "#" )
+                            if(  str命令消去譜面[ i ].Substring( 0, 1 ) == "#" )
                             {
-                                this.t1小節の文字数をカウントしてリストに追加する( str + this.str命令消去譜面[ i ] );
+                                this.t1小節の文字数をカウントしてリストに追加する( str + str命令消去譜面[ i ] );
                             }
 
-                            if( this.CharConvertNote( this.str命令消去譜面[ i ].Substring( 0, 1 ) ) != -1 )
-                                str += this.str命令消去譜面[ i ];
+                            if( this.CharConvertNote( str命令消去譜面[ i ].Substring( 0, 1 ) ) != -1 )
+                                str += str命令消去譜面[ i ];
                         }
                         else
                         {
-                            this.t1小節の文字数をカウントしてリストに追加する( str + this.str命令消去譜面[ i ] );
+                            this.t1小節の文字数をカウントしてリストに追加する( str + str命令消去譜面[ i ] );
                             str = "";
                         }
                     }
@@ -3239,9 +3237,10 @@ namespace DTXMania
                 //}
 
                 //読み込み部分本体に渡す譜面を作成。
-                this.strSplitした後の譜面 = this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
-                this.strSplitした後の譜面 = this.tコマンド行を削除したTJAを返す( this.strSplitした後の譜面, 1 );
-                string str命令消去譜面temp = this.StringArrayToString( this.str命令消去譜面 );
+        	    //0:ヘッダー情報 1:#START以降 となる。個数の定義は後からされるため、ここでは省略。
+                var strSplitした後の譜面 = strSplit読み込むコース; //strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
+                strSplitした後の譜面 = this.tコマンド行を削除したTJAを返す( strSplitした後の譜面, 1 );
+                //string str命令消去譜面temp = this.StringArrayToString( this.str命令消去譜面 );
                 //string[] strDelimiter = { "," };
                 //this.str命令消去譜面 = str命令消去譜面temp.Split( strDelimiter, StringSplitOptions.RemoveEmptyEntries );
 
@@ -3265,9 +3264,9 @@ namespace DTXMania
                     //this.dbNowBMScollTime += (( this.dbBarLength ) * 16.0 );
                     #endregion
                     //string strWrite = "";
-                    for( int i = 0; this.strSplitした後の譜面.Length > i; i++ )
+                    for( int i = 0; strSplitした後の譜面.Length > i; i++ )
                     {
-                        str = this.strSplitした後の譜面[ i ];
+                        str = strSplitした後の譜面[ i ];
                         //strWrite += str;
                         //if( !str.StartsWith( "#" ) && !string.IsNullOrEmpty( this.strTemp ) )
                         //{
