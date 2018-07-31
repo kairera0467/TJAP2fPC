@@ -4374,9 +4374,6 @@ namespace DTXMania
                 InputText = InputText.Replace( '\t', ' ' ); //何の文字か知らないけどスペースに差し替え。
                 InputText = InputText + "\n";
 
-                string[] strDelimiter = { "#START" };
-                strArray = InputText.Split( strDelimiter, StringSplitOptions.RemoveEmptyEntries );
-
                 string[] strDelimiter2 = { "\n" };
                 strArray = InputText.Split( strDelimiter2, StringSplitOptions.RemoveEmptyEntries );
 
