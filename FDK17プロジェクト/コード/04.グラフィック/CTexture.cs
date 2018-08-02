@@ -8,6 +8,8 @@ using System.Diagnostics;
 using SlimDX;
 using SlimDX.Direct3D9;
 
+using Device = SampleFramework.DeviceCache;
+
 namespace FDK
 {
     public class CTexture : IDisposable
@@ -134,7 +136,7 @@ namespace FDK
                     bitmap.Save(stream, ImageFormat.Bmp);
                     stream.Seek(0L, SeekOrigin.Begin);
                     int colorKey = unchecked((int)0xFF000000);
-                    this.texture = Texture.FromStream(device, stream, this.szテクスチャサイズ.Width, this.szテクスチャサイズ.Height, 1, Usage.None, format, poolvar, Filter.Point, Filter.None, colorKey);
+                    this.texture = Texture.FromStream(device.UnderlyingDevice, stream, this.szテクスチャサイズ.Width, this.szテクスチャサイズ.Height, 1, Usage.None, format, poolvar, Filter.Point, Filter.None, colorKey);
                 }
             }
             catch (Exception e)
@@ -227,7 +229,7 @@ namespace FDK
 						pool = poolvar;
 #endif
                         // 中で更にメモリ読み込みし直していて無駄なので、Streamを使うのは止めたいところ
-                        this.texture = Texture.FromStream(device, stream, n幅, n高さ, 1, usage, format, pool, Filter.Point, Filter.None, 0);
+                        this.texture = Texture.FromStream(device.UnderlyingDevice, stream, n幅, n高さ, 1, usage, format, pool, Filter.Point, Filter.None, 0);
                     }
                 }
             }
@@ -286,7 +288,7 @@ namespace FDK
                 //				lock ( lockobj )
                 //				{
                 //Trace.TraceInformation( "CTexture() start: " );
-                this.texture = Texture.FromMemory(device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey);
+                this.texture = Texture.FromMemory(device.UnderlyingDevice, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey);
                 //Trace.TraceInformation( "CTexture() end:   " );
                 //				}
             }
@@ -327,7 +329,7 @@ namespace FDK
 #if TEST_Direct3D9Ex
 					this.texture = new Texture( device, tw, this.sz画像サイズ.Height, 1, Usage.Dynamic, format, Pool.Default );
 #else
-                    this.texture = new Texture(device, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool);
+                    this.texture = new Texture(device.UnderlyingDevice, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool);
 #endif
                     BitmapData srcBufData = bitmap.LockBits(new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
                     DataRectangle destDataRectangle = texture.LockRectangle(0, LockFlags.Discard);  // None
@@ -480,7 +482,7 @@ namespace FDK
 
                 device.SetTexture(0, this.texture);
                 device.VertexFormat = TransformedColoredTexturedVertex.Format;
-                device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 0, 2, this.cvTransformedColoredVertexies);
+                device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 0, 2, in this.cvTransformedColoredVertexies);
                 //-----------------
                 #endregion
             }
@@ -543,7 +545,7 @@ namespace FDK
 
                 device.SetTexture(0, this.texture);
                 device.VertexFormat = PositionColoredTexturedVertex.Format;
-                device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvPositionColoredVertexies);
+                device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, in this.cvPositionColoredVertexies);
                 //-----------------
                 #endregion
             }
@@ -609,7 +611,7 @@ namespace FDK
 
                 device.SetTexture(0, this.texture);
                 device.VertexFormat = TransformedColoredTexturedVertex.Format;
-                device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 0, 2, this.cvTransformedColoredVertexies);
+                device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 0, 2, in this.cvTransformedColoredVertexies);
                 //-----------------
                 #endregion
             }
@@ -672,7 +674,7 @@ namespace FDK
 
                 device.SetTexture(0, this.texture);
                 device.VertexFormat = PositionColoredTexturedVertex.Format;
-                device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvPositionColoredVertexies);
+                device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, in this.cvPositionColoredVertexies);
                 //-----------------
                 #endregion
             }
@@ -742,7 +744,7 @@ namespace FDK
 
             device.SetTexture(0, this.texture);
             device.VertexFormat = TransformedColoredTexturedVertex.Format;
-            device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvTransformedColoredVertexies);
+            device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, in this.cvTransformedColoredVertexies);
         }
         public void t2D上下反転描画(Device device, Point pt)
         {
@@ -841,7 +843,7 @@ namespace FDK
             device.SetTransform(TransformState.World, mat);
             device.SetTexture(0, this.texture);
             device.VertexFormat = PositionColoredTexturedVertex.Format;
-            device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvPositionColoredVertexies);
+            device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, in this.cvPositionColoredVertexies);
         }
 
         public void t3D左上基準描画(Device device, Matrix mat)
@@ -908,7 +910,7 @@ namespace FDK
             device.SetTransform(TransformState.World, mat);
             device.SetTexture(0, this.texture);
             device.VertexFormat = PositionColoredTexturedVertex.Format;
-            device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvPositionColoredVertexies);
+            device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, in this.cvPositionColoredVertexies);
         }
 
         #region [ IDisposable 実装 ]
@@ -998,11 +1000,14 @@ namespace FDK
         }
         private Size t指定されたサイズを超えない最適なテクスチャサイズを返す(Device device, Size sz指定サイズ)
         {
-            bool b条件付きでサイズは２の累乗でなくてもOK = (device.Capabilities.TextureCaps & TextureCaps.NonPow2Conditional) != 0;
-            bool bサイズは２の累乗でなければならない = (device.Capabilities.TextureCaps & TextureCaps.Pow2) != 0;
-            bool b正方形でなければならない = (device.Capabilities.TextureCaps & TextureCaps.SquareOnly) != 0;
-            int n最大幅 = device.Capabilities.MaxTextureWidth;
-            int n最大高 = device.Capabilities.MaxTextureHeight;
+            var deviceCapabilities = device.Capabilities;
+            var deviceCapabilitiesTextureCaps = deviceCapabilities.TextureCaps;
+
+            bool b条件付きでサイズは２の累乗でなくてもOK = (deviceCapabilitiesTextureCaps & TextureCaps.NonPow2Conditional) != 0;
+            bool bサイズは２の累乗でなければならない = (deviceCapabilitiesTextureCaps & TextureCaps.Pow2) != 0;
+            bool b正方形でなければならない = (deviceCapabilitiesTextureCaps & TextureCaps.SquareOnly) != 0;
+            int n最大幅 = deviceCapabilities.MaxTextureWidth;
+            int n最大高 = deviceCapabilities.MaxTextureHeight;
             var szサイズ = new Size(sz指定サイズ.Width, sz指定サイズ.Height);
 
             if (bサイズは２の累乗でなければならない && !b条件付きでサイズは２の累乗でなくてもOK)
