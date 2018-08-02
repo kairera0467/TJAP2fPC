@@ -27,7 +27,7 @@ namespace DTXMania
 		}
 		public Device D3D9Device
 		{
-			get { return (CDTXMania.app != null ) ? CDTXMania.app.Device : null; }
+			get { return (CDTXMania.app != null ) ? CDTXMania.app.Device.UnderlyingDevice : null; }
 		}
 		public Format TextureFormat
 		{
