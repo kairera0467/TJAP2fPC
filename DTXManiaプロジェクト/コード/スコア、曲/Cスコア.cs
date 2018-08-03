@@ -286,7 +286,7 @@ namespace DTXMania
             this.譜面情報.ハイスコア = 0;
             this.譜面情報.nハイスコア = new int[5];
             this.譜面情報.strサブタイトル = "";
-            this.譜面情報.nレベル = new int[]{ 0, 0, 0, 0, 0 };
+            this.譜面情報.nレベル = new int[]{ -1, -1, -1, -1, -1 };
 		}
 	}
 }

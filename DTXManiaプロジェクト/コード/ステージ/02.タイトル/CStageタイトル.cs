@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using SlimDX.DirectInput;
 using FDK;
+using System.Reflection;
 
 namespace DTXMania
 {
@@ -188,12 +189,12 @@ namespace DTXMania
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
-                string strVersion = "1.2.0";
                 string strCreator = "AioiLight";
+                AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 #if DEBUG
                 strVersion += "  DEBUG";
 #endif
-                CDTXMania.act文字コンソール.tPrint( 4, 4, C文字コンソール.Eフォント種別.白, "TJAPlayer3 Ver." + strVersion + " (" + strCreator + ")" );
+                CDTXMania.act文字コンソール.tPrint(4, 4, C文字コンソール.Eフォント種別.白, asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2)  + " (" + strCreator + ")" );
                 CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, "Skin:" + CDTXMania.Skin.Skin_Name + " Ver." + CDTXMania.Skin.Skin_Version + " (" + CDTXMania.Skin.Skin_Creator + ")");
                 //CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, strSubTitle);
                 CDTXMania.act文字コンソール.tPrint(4, (720 - 24), C文字コンソール.Eフォント種別.白, "TJAPlayer3 forked TJAPlayer2 forPC(kairera0467)");

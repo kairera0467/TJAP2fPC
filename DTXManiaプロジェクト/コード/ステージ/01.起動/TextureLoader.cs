@@ -106,6 +106,7 @@ namespace DTXMania
             SongSelect_Frame_Box = TxC(SONGSELECT + @"Frame_Box.png");
             SongSelect_Frame_BackBox = TxC(SONGSELECT + @"Frame_BackBox.png");
             SongSelect_Frame_Random = TxC(SONGSELECT + @"Frame_Random.png");
+            SongSelect_Score_Select = TxC(SONGSELECT + @"Score_Select.png");
             //SongSelect_Frame_Dani = TxC(SONGSELECT + @"Frame_Dani.png");
             SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
             SongSelect_Cursor_Left = TxC(SONGSELECT + @"Cursor_Left.png");
@@ -506,6 +507,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Box);
             CDTXMania.tテクスチャの解放(ref SongSelect_Frame_BackBox);
             CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Random);
+            CDTXMania.tテクスチャの解放(ref SongSelect_Score_Select);
             CDTXMania.tテクスチャの解放(ref SongSelect_GenreText);
             CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Left);
             CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Right);
@@ -790,6 +792,7 @@ namespace DTXMania
             SongSelect_Frame_Box,
             SongSelect_Frame_BackBox,
             SongSelect_Frame_Random,
+            SongSelect_Score_Select,
             SongSelect_Bar_Center,
             SongSelect_GenreText,
             SongSelect_Cursor_Left,

@@ -13,6 +13,7 @@ using SlimDX;
 using SlimDX.Direct3D9;
 using FDK;
 using SampleFramework;
+using System.Reflection;
 
 namespace DTXMania
 {
@@ -1774,7 +1775,7 @@ for (int i = 0; i < 3; i++) {
 			{
 				try
 				{
-					Trace.Listeners.Add( new CTraceLogListener( new StreamWriter( System.IO.Path.Combine( strEXEのあるフォルダ, "DTXManiaLog.txt" ), false, Encoding.GetEncoding( "Shift_JIS" ) ) ) );
+					Trace.Listeners.Add( new CTraceLogListener( new StreamWriter( System.IO.Path.Combine( strEXEのあるフォルダ, "TJAPlayer3.log" ), false, Encoding.GetEncoding( "Shift_JIS" ) ) ) );
 				}
 				catch ( System.UnauthorizedAccessException )			// #24481 2011.2.20 yyagi
 				{
@@ -1821,7 +1822,8 @@ for (int i = 0; i < 3; i++) {
 			base.Window.StartPosition = FormStartPosition.Manual;                                                       // #30675 2013.02.04 ikanick add
 			base.Window.Location = new Point( ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y );   // #30675 2013.02.04 ikanick add
 
-			base.Window.Text = this.strWindowTitle;		// 事前にDTXVmodeの実体を作っておくこと
+            
+            base.Window.Text = "";
 
 			base.Window.StartPosition = FormStartPosition.Manual;                                                       // #30675 2013.02.04 ikanick add
             base.Window.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
@@ -2081,7 +2083,7 @@ for (int i = 0; i < 3; i++) {
 			catch (Exception e)
 			{
 				Trace.TraceError( e.Message );
-				throw;
+                throw new NullReferenceException("サウンドデバイスがひとつも有効になっていないため、サウンドデバイスの初期化ができませんでした。");
 			}
 			finally
 			{
@@ -2231,7 +2233,8 @@ for (int i = 0; i < 3; i++) {
 			{
 				delay = "(" + Sound管理.GetSoundDelay() + "ms)";
 			}
-			base.Window.Text = strWindowTitle + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
+            AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
+            base.Window.Text = asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2) + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
 		}
 
 		private void t終了処理()

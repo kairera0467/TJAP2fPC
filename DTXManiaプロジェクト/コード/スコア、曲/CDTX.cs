@@ -1109,7 +1109,7 @@ namespace DTXMania
         public Eジャンル eジャンル;
 		public bool HIDDENLEVEL;
 		public STDGBVALUE<int> LEVEL;
-        public int[] LEVELtaiko = new int[5];
+        public int[] LEVELtaiko = new int[5] { -1, -1, -1, -1, -1 };
 		public Dictionary<int, CAVI> listAVI;
         public Dictionary<int, CAVIPAN> listAVIPAN;
         public Dictionary<int, CDirectShow> listDS;
@@ -3565,7 +3565,7 @@ namespace DTXMania
             {
                 //strArray = InputText.Split( chDelimiter );
                 this.SplitOrder( InputText, out strArray, "#DELAY" );
-                float nDELAY = (float)( Convert.ToDouble( strArray[ 1 ] ) * 1000.0 );
+                double nDELAY = ( Convert.ToDouble( strArray[ 1 ] ) * 1000.0 );
 
 
                 this.listDELAY.Add( this.n内部番号DELAY1to, new CDELAY() { n内部番号 = this.n内部番号DELAY1to, n表記上の番号 = 0, nDELAY値 = (int)nDELAY, delay_bmscroll_time = this.dbLastBMScrollTime, delay_bpm = this.dbNowBPM, delay_course = this.n現在のコース, delay_time = this.dbLastTime });
@@ -3578,7 +3578,6 @@ namespace DTXMania
                 chip.n発声位置 = ((this.n現在の小節数) * 384);
                 chip.n整数値_内部番号 = this.n内部番号DELAY1to;
                 chip.fBMSCROLLTime = this.dbNowBMScollTime;
-
                 // チップを配置。
 
                 this.dbNowTime += nDELAY;

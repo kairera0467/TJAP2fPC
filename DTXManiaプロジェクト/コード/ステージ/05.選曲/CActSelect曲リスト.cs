@@ -1062,19 +1062,48 @@ namespace DTXMania
                         case C曲リストノード.Eノード種別.SCORE:
                             {
                                 if (CDTXMania.Tx.SongSelect_Frame_Score != null)
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        if (CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] >= 0)
+                                        {
+                                            // レベルが0以上
+                                            CDTXMania.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f);
+                                            if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) ;
+                                            else if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
+                                            {
+                                                // エディット
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), 550, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                            }
+                                            else if (i != 4)
+                                            {
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), 550, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // レベルが0未満 = 譜面がないとみなす
+                                            CDTXMania.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f);
+                                            if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) ;
+                                            else if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
+                                            {
+                                                // エディット
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), 550, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                            }
+                                            else if (i != 4)
+                                            {
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), 550, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                            }
+
+                                        }
+                                    }
+                                }
+                                #region[ 星 ]
+                                if (CDTXMania.Tx.SongSelect_Level != null)
+                                {
                                     // 全難易度表示
                                     for (int i = 0; i < 5; i++)
                                     {
-                                        // 裏なら鬼と同じ場所に
-                                        if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) break;
-                                        if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
-                                        {
-                                            CDTXMania.Tx.SongSelect_Level.t2D描画(CDTXMania.app.Device, 476 + (3 * 60), 505 - (i * 30), new Rectangle(32 * i, 0, 32, 32));
-                                        }
-                                        if (i != 4 && CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] != 0)
-                                        {
-                                            CDTXMania.Tx.SongSelect_Frame_Score.t2D描画(CDTXMania.app.Device, 450, 123 ,new Rectangle(32 * i, 0, 32, 32));
-                                        }
                                         for (int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i]; n++)
                                         {
                                             // 星11以上はループ終了
@@ -1083,17 +1112,16 @@ namespace DTXMania
                                             if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) break;
                                             if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Level.t2D描画(CDTXMania.app.Device, 476 + (3 * 60), 505 - (n * 30), new Rectangle(32 * i, 0, 32, 32));
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), 520 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
                                             }
                                             if (i != 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Level.t2D描画(CDTXMania.app.Device, 476 + (i * 60), 505 - (n * 30), new Rectangle(32 * i, 0, 32, 32));
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), 520 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
                                             }
-
                                         }
                                     }
-                                if (CDTXMania.Tx.SongSelect_Frame_Score != null)
-                                    CDTXMania.Tx.SongSelect_Frame_Score.t2D描画(CDTXMania.app.Device, 450, 123);
+                                }
+                                #endregion
                             }
                             break;
 
@@ -1121,31 +1149,6 @@ namespace DTXMania
                     if (CDTXMania.Tx.SongSelect_Branch_Text != null && CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] )
                         CDTXMania.Tx.SongSelect_Branch_Text.t2D描画( CDTXMania.app.Device, 483, 138 );
 
-                    #region[ 星 ]
-                    if(CDTXMania.Tx.SongSelect_Level != null )
-                    {
-                        // 全難易度表示
-                        for (int i = 0; i < 5; i++)
-                        {
-                            for (int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i]; n++)
-                            {
-                                // 星11以上はループ終了
-                                //if (n > 9) break;
-                                // 裏なら鬼と同じ場所に
-                                if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) break;
-                                if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
-                                {
-                                    CDTXMania.Tx.SongSelect_Level.t2D描画(CDTXMania.app.Device, 476 + (3 * 60), 505 - (n * 30), new Rectangle(32 * i, 0, 32, 32));
-                                }
-                                if (i != 4)
-                                {
-                                    CDTXMania.Tx.SongSelect_Level.t2D描画(CDTXMania.app.Device, 476 + (i * 60), 505 - (n * 30), new Rectangle(32 * i, 0, 32, 32));
-                                }
-
-                            }
-                        }
-                    }
-                    #endregion
                 }
 				#region [ (1) 登場アニメフェーズの描画。]
 				//-----------------
@@ -1248,7 +1251,7 @@ namespace DTXMania
 							//if( this.stバー情報[ nパネル番号 ].txタイトル名 != null )
 							//	 this.stバー情報[ nパネル番号 ].txタイトル名.t2D描画( CDTXMania.app.Device, x + 88, y + 10 );
                             if( this.stバー情報[ nパネル番号 ].txタイトル != null )
-                                this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ i ].X + 34, 140 );
+                                this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ i ].X + 28, 140 );
 							//-----------------
 							#endregion
 							#region [ スキル値を描画。]
@@ -1320,7 +1323,7 @@ namespace DTXMania
                         if( this.stバー情報[ nパネル番号 ].txタイトル != null )
                         {
                             //this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ n見た目の行番号 ].X + 30, 210 );
-                            this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, xAnime + 34, 140 );
+                            this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, xAnime + 28, 140 );
                         }
 
                         if( this.stバー情報[ nパネル番号 ].ar難易度 != null )
@@ -1393,7 +1396,77 @@ namespace DTXMania
                         case C曲リストノード.Eノード種別.SCORE:
                             {
                                 if (CDTXMania.Tx.SongSelect_Frame_Score != null)
-                                    CDTXMania.Tx.SongSelect_Frame_Score.t2D描画(CDTXMania.app.Device, 450, 123);
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        if (CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] >= 0)
+                                        {
+                                            // レベルが0以上
+                                            CDTXMania.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f);
+                                            if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4);
+                                            else if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
+                                            {
+                                                // エディット
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), 550, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                            }
+                                            else if (i != 4)
+                                            {
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), 550, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // レベルが0未満 = 譜面がないとみなす
+                                            CDTXMania.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f);
+                                            if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) ;
+                                            else if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
+                                            {
+                                                // エディット
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), 550, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                            }
+                                            else if (i != 4)
+                                            {
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), 550, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                            }
+
+                                        }
+                                    }
+                                }
+                                #region[ 星 ]
+                                if (CDTXMania.Tx.SongSelect_Level != null)
+                                {
+                                    // 全難易度表示
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        for (int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i]; n++)
+                                        {
+                                            // 星11以上はループ終了
+                                            //if (n > 9) break;
+                                            // 裏なら鬼と同じ場所に
+                                            if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) break;
+                                            if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
+                                            {
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), 520 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
+                                            }
+                                            if (i != 4)
+                                            {
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), 520 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
+                                            }
+                                        }
+                                    }
+                                }
+                                #endregion
+                                #region 選択カーソル
+                                if(CDTXMania.stage選曲.n現在選択中の曲の難易度 != 4)
+                                {
+                                    CDTXMania.Tx.SongSelect_Score_Select?.t2D下中央基準描画(CDTXMania.app.Device, 494 + (CDTXMania.stage選曲.n現在選択中の曲の難易度 * 60), 550);
+                                }
+                                else
+                                {
+                                    CDTXMania.Tx.SongSelect_Score_Select?.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), 550);
+
+                                }
+                                #endregion
                             }
                             break;
 
@@ -1421,31 +1494,6 @@ namespace DTXMania
                     if ( CDTXMania.Tx.SongSelect_Branch_Text != null && CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] )
                         CDTXMania.Tx.SongSelect_Branch_Text.t2D描画( CDTXMania.app.Device, 483, 138 );
 
-                    #region[ 星 ]
-                    if(CDTXMania.Tx.SongSelect_Level != null )
-                    {
-                        // 全難易度表示
-                        for (int i = 0; i < 5; i++)
-                        {
-                            for (int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i]; n++)
-                            {
-                                // 星11以上はループ終了
-                                //if (n > 9) break;
-                                // 裏なら鬼と同じ場所に
-                                if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) break;
-                                if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
-                                {
-                                    CDTXMania.Tx.SongSelect_Level.t2D描画(CDTXMania.app.Device, 476 + (3 * 60), 505 - (n * 30), new Rectangle(32 * i, 0, 32, 32));
-                                }
-                                if (i != 4)
-                                {
-                                    CDTXMania.Tx.SongSelect_Level.t2D描画(CDTXMania.app.Device, 476 + (i * 60), 505 - (n * 30), new Rectangle(32 * i, 0, 32, 32));
-                                }
-
-                            }
-                        }
-                    }
-                    #endregion
                 }
 
                 #region [ 項目リストにフォーカスがあって、かつスクロールが停止しているなら、パネルの上下に▲印を描画する。]

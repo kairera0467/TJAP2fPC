@@ -1676,17 +1676,29 @@ namespace DTXMania
         #endregion
         #region Score
         public int[] Game_Score_X = new int[] { 20, 20, 0, 0 };
-        public int[] Game_Score_Y = new int[] { 194, 499, 0, 0 };
+        public int[] Game_Score_Y = new int[] { 226, 536, 0, 0 };
         public int[] Game_Score_Add_X = new int[] { 20, 20, 0, 0 };
         public int[] Game_Score_Add_Y = new int[] { 156, 536, 0, 0 };
         public int[] Game_Score_AddBonus_X = new int[] { 20, 20, 0, 0 };
         public int[] Game_Score_AddBonus_Y = new int[] { 100, 580, 0, 0 };
+        public int Game_Score_Padding = 20;
+        public int[] Game_Score_Size = new int[] { 24, 40 };
         #endregion
         #region Taiko
         public int[] Game_Taiko_NamePlate_X = new int[] { 0, 0 };
         public int[] Game_Taiko_NamePlate_Y = new int[] { 288, 368 };
         public int[] Game_Taiko_PlayerNumber_X = new int[] { 4, 4 };
         public int[] Game_Taiko_PlayerNumber_Y = new int[] { 233, 435 };
+        public int[] Game_Taiko_X = new int[] { 190, 190 };
+        public int[] Game_Taiko_Y = new int[] { 190, 366 };
+        public int[] Game_Taiko_Combo_X = new int[] { 268, 268 };
+        public int[] Game_Taiko_Combo_Y = new int[] { 270, 424 };
+        public int[] Game_Taiko_Combo_Ex_X = new int[] { 268, 268 };
+        public int[] Game_Taiko_Combo_Ex_Y = new int[] { 270, 424 };
+        public int[] Game_Taiko_Combo_Padding = new int[] { 16, 32, 32 };
+        public int[] Game_Taiko_Combo_Size = new int[] { 44, 60 };
+        public int[] Game_Taiko_Combo_Size_Ex = new int[] { 50, 70 };
+        public float[] Game_Taiko_Combo_Scale = new float[] { 1.0f, 1.0f, 0.7f };
         #endregion
         #region Balloon
         public int[] Game_Balloon_Combo_X = new int[] { 253, 253 };

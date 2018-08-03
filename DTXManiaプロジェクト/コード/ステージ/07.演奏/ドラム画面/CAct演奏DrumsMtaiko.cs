@@ -160,9 +160,9 @@ namespace DTXMania
             
             if(CDTXMania.Tx.Taiko_Base != null )
             {
-                CDTXMania.Tx.Taiko_Base.t2D描画( CDTXMania.app.Device, 190, 190 );
+                CDTXMania.Tx.Taiko_Base.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0], CDTXMania.Skin.Game_Taiko_Y[0]);
                 if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
-                    CDTXMania.Tx.Taiko_Base.t2D描画( CDTXMania.app.Device, 190, 366 );
+                    CDTXMania.Tx.Taiko_Base.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1], CDTXMania.Skin.Game_Taiko_Y[1]);
             }
             if( CDTXMania.Tx.Taiko_Don_Left != null && CDTXMania.Tx.Taiko_Don_Right != null && CDTXMania.Tx.Taiko_Ka_Left != null && CDTXMania.Tx.Taiko_Ka_Right != null )
             {

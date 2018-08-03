@@ -383,23 +383,34 @@ namespace FDK
             this.t2D描画(device, (int)x - (rc画像内の描画領域.Width / 2), (int)y - (rc画像内の描画領域.Height / 2), depth, rc画像内の描画領域);
         }
 
-        // 下を基準にして描画するメソッドを追加。 (AioiLight)
-        public void t2D下基準中心描画(Device device, int x, int y)
+        // 下を基準にして描画する(拡大率考慮)メソッドを追加。 (AioiLight)
+        public void t2D拡大率考慮下基準描画(Device device, int x, int y)
         {
-            this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y + szテクスチャサイズ.Height - (this.vc拡大縮小倍率.Y * 100), 1f, this.rc全画像);
+            this.t2D描画(device, x, y - (szテクスチャサイズ.Height * this.vc拡大縮小倍率.Y), 1f, this.rc全画像);
         }
-        public void t2D下基準中心描画(Device device, int x, int y, Rectangle rc画像内の描画領域)
+        public void t2D拡大率考慮下基準描画(Device device, int x, int y, Rectangle rc画像内の描画領域)
         {
-            this.t2D描画(device, x - (rc画像内の描画領域.Width / 2), y + rc画像内の描画領域.Height - (this.vc拡大縮小倍率.Y * 100), 1f, rc画像内の描画領域);
+            this.t2D描画(device, x, y - (rc画像内の描画領域.Height * this.vc拡大縮小倍率.Y), 1f, rc画像内の描画領域);
         }
-        public void t2D下基準中心描画(Device device, float x, float y)
+        public void t2D拡大率考慮下中心基準描画(Device device, int x, int y)
         {
-            this.t2D描画(device, (int)x - (this.szテクスチャサイズ.Width / 2), (int)y + szテクスチャサイズ.Height - (this.vc拡大縮小倍率.Y * 100), 1f, this.rc全画像);
+            this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y - (szテクスチャサイズ.Height * this.vc拡大縮小倍率.Y), 1f, this.rc全画像);
         }
-        public void t2D下基準中心描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
+        public void t2D拡大率考慮下中心基準描画(Device device, int x, int y, Rectangle rc画像内の描画領域)
         {
-            this.t2D描画(device, (int)x - (rc画像内の描画領域.Width / 2), (int)y + rc画像内の描画領域.Height - (this.vc拡大縮小倍率.Y * 100), 1f, rc画像内の描画領域);
+            this.t2D描画(device, x - ((rc画像内の描画領域.Width / 2)), y - (rc画像内の描画領域.Height * this.vc拡大縮小倍率.Y), 1f, rc画像内の描画領域);
         }
+        public void t2D下中央基準描画(Device device, int x, int y)
+        {
+            this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y - (szテクスチャサイズ.Height), this.rc全画像);
+        }
+        public void t2D下中央基準描画(Device device, int x, int y, Rectangle rc画像内の描画領域)
+        {
+            this.t2D描画(device, x - (rc画像内の描画領域.Width / 2), y - (rc画像内の描画領域.Height), rc画像内の描画領域);
+            //this.t2D描画(devicek x, y, rc画像内の描画領域;
+        }
+        
+
 
         /// <summary>
         /// テクスチャを 2D 画像と見なして描画する。

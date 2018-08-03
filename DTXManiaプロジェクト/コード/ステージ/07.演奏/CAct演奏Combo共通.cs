@@ -328,8 +328,8 @@ namespace DTXMania
             {
                 if( CDTXMania.Tx.Taiko_Combo[0] != null )
                 {
-                    CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 0.8f;
-                    CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = 0.8f;
+                    CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 1f;
+                    CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = 1f;
                     CDTXMania.Tx.Taiko_Combo[0].t2D描画(CDTXMania.app.Device, 240, CDTXMania.Skin.nComboNumberTextY[nPlayer] + 1, new Rectangle(0, 60, 70, 34));
                 }
             }
@@ -337,8 +337,8 @@ namespace DTXMania
             {
                 if(CDTXMania.Tx.Taiko_Combo[1] != null )
                 {
-                    CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = 0.8f;
-                    CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = 0.8f;
+                    CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = 1f;
+                    CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = 1f;
                     CDTXMania.Tx.Taiko_Combo[1].t2D描画( CDTXMania.app.Device, 242, CDTXMania.Skin.nComboNumberTextLargeY[ nPlayer ], new Rectangle( 0, 70, 70, 34 ) );
                 }
             }
@@ -348,90 +348,85 @@ namespace DTXMania
             {
 
                 this.nコンボ拡大率_座標 = new float[,]{
-                        {0.82f,-1},
-                        {0.86f,-3},
-                        {0.92f,-6},
-                        {0.96f,-8},
-                        {0.98f,-10},
-                        {0.98f,-10},
-                        {0.96f,-8},
-                        {0.92f,-6},
-                        {0.86f,-3},
-                        {0.84f,-3},
-                        {0.83f,-2},
-                        {0.82f,-2},
-                        {0.81f,-1},
-                        {0.8f,0},
+                        {0.02f,-1},
+                        {0.06f,-3},
+                        {0.12f,-6},
+                        {0.16f,-8},
+                        {0.18f,-10},
+                        {0.18f,-10},
+                        {0.16f,-8},
+                        {0.12f,-6},
+                        {0.06f,-3},
+                        {0.04f,-3},
+                        {0.03f,-2},
+                        {0.02f,-2},
+                        {0.01f,-1},
+                        {0.0f,0},
                 };
                 this.nコンボ拡大率_座標_100combo = new float[,]{
-                        {0.72f,-2}, //.2
-                        {0.76f,-5}, //.4
-                        {0.82f,-10}, //.6
-                        {0.86f,-12}, //.4
-                        {0.88f,-14}, //.2
-                        {0.88f,-14}, //0
-                        {0.86f,-12}, //-.2
-                        {0.82f,-10}, //-.4
-                        {0.76f,-5}, //-.6
-                        {0.74f,-4}, //-.4
-                        {0.73f,-3}, //-.1
-                        {0.72f,-2}, //-1
-                        {0.71f,-1},
-                        {0.7f,0}
+                        {0.02f,-2}, //.2
+                        {0.06f,-5}, //.4
+                        {0.12f,-10}, //.6
+                        {0.16f,-12}, //.4
+                        {0.18f,-14}, //.2
+                        {0.18f,-14}, //0
+                        {0.16f,-12}, //-.2
+                        {0.12f,-10}, //-.4
+                        {0.06f,-5}, //-.6
+                        {0.04f,-4}, //-.4
+                        {0.03f,-3}, //-.1
+                        {0.02f,-2}, //-1
+                        {0.01f,-1},
+                        {0.0f,0}
                 };
                 this.nコンボ拡大率_座標_1000combo = new float[,]{
-                        {0.62f,-2}, //.2
-                        {0.66f,-5}, //.4
-                        {0.72f,-10}, //.6
-                        {0.76f,-12}, //.4
-                        {0.78f,-14}, //.2
-                        {0.78f,-14}, //0
-                        {0.76f,-12}, //-.2
-                        {0.72f,-10}, //-.4
-                        {0.66f,-5}, //-.6
-                        {0.64f,-4}, //-.4
-                        {0.63f,-3}, //-.1
-                        {0.62f,-2}, //-1
-                        {0.61f,-1},
-                        {0.6f,0}
+                        {0.02f,-2}, //.2
+                        {0.06f,-5}, //.4
+                        {0.12f,-10}, //.6
+                        {0.16f,-12}, //.4
+                        {0.18f,-14}, //.2
+                        {0.18f,-14}, //0
+                        {0.16f,-12}, //-.2
+                        {0.12f,-10}, //-.4
+                        {0.06f,-5}, //-.6
+                        {0.04f,-4}, //-.4
+                        {0.03f,-3}, //-.1
+                        {0.02f,-2}, //-1
+                        {0.01f,-1},
+                        {0.0f,0}
                 };
 
                 if ( n桁数 <= 1 )
                 {
-                    int nCombo中心X = 271; //仮置き
-                    
-                    int nTex横幅 = 44;
-                    int nComboPadding = -2;
-                    int[] arComboX = { nCombo中心X, nCombo中心X };
 				    if(CDTXMania.Tx.Taiko_Combo[0] != null )
 				    {
-                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
-                        CDTXMania.Tx.Taiko_Combo[0].t2D中心基準描画( CDTXMania.app.Device, arComboX[ i ], y + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ] + 44, new Rectangle( n位の数[ i ] * 44, 0, 44, 60 ) );
+                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[0] + this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[0];
+                        CDTXMania.Tx.Taiko_Combo[0].t2D拡大率考慮下中心基準描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer], CDTXMania.Skin.Game_Taiko_Combo_Y[nPlayer] , new Rectangle( n位の数[ i ] * CDTXMania.Skin.Game_Taiko_Combo_Size[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size[0], CDTXMania.Skin.Game_Taiko_Combo_Size[1]) );
 				    }
                 }
                 else if( n桁数 <= 2 )
                 {
-                    int nCombo中心X = 271; //仮置き
-                    int nTex横幅 = 44;
-                    int nComboPadding = -2;
-                    int[] arComboX = { nCombo中心X + ( 16 - 1 ), nCombo中心X - ( 16 - 1 ) };
+                    int[] arComboX = { CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[0], CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] - CDTXMania.Skin.Game_Taiko_Combo_Padding[0] };
 				    if(CDTXMania.Tx.Taiko_Combo[0] != null )
 				    {
-                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
-                        CDTXMania.Tx.Taiko_Combo[0].t2D中心基準描画( CDTXMania.app.Device, arComboX[ i ], y + (int)this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ] + 44, new Rectangle( n位の数[ i ] * 44, 0, 44, 60 ) );
+                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[0] + this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[0];
+                        CDTXMania.Tx.Taiko_Combo[0].t2D拡大率考慮下中心基準描画( CDTXMania.app.Device, arComboX[ i ], CDTXMania.Skin.Game_Taiko_Combo_Y[nPlayer], new Rectangle( n位の数[ i ] * CDTXMania.Skin.Game_Taiko_Combo_Size[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size[0], CDTXMania.Skin.Game_Taiko_Combo_Size[1]) );
 				    }
                 }
                 else if( n桁数 == 3 )
                 {
+                    int[] arComboX = { CDTXMania.Skin.Game_Taiko_Combo_Ex_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[1], CDTXMania.Skin.Game_Taiko_Combo_Ex_X[nPlayer], CDTXMania.Skin.Game_Taiko_Combo_Ex_X[nPlayer] - CDTXMania.Skin.Game_Taiko_Combo_Padding[1] };
                     x -= 31;
                     //int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
                     int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[ nPlayer ] - 4; //2列目のラメの始点を基準とする。
                     int nラメ基準X座標 = x + ( 16 - 9 );
 				    if(CDTXMania.Tx.Taiko_Combo[1] != null )
 				    {
-                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = this.nコンボ拡大率_座標_100combo[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
-                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = 0.7f;
-                        CDTXMania.Tx.Taiko_Combo[1].t2D描画( CDTXMania.app.Device, x, ( y + 14 ) + (int)this.nコンボ拡大率_座標_100combo[ this.ctコンボ加算[ nPlayer ].n現在の値, 1 ], new Rectangle( n位の数[ i ] * 50, 0, 50, 70 ) );
+                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[1] + this.nコンボ拡大率_座標_100combo[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[1];
+                        CDTXMania.Tx.Taiko_Combo[1].t2D拡大率考慮下中心基準描画( CDTXMania.app.Device, arComboX[i], CDTXMania.Skin.Game_Taiko_Combo_Ex_Y[nPlayer], new Rectangle( n位の数[ i ] * CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1]) );
                     }
                     if(CDTXMania.Tx.Taiko_Combo_Effect != null )
                     {
@@ -457,16 +452,18 @@ namespace DTXMania
                 }
                 else
                 {
+                    int[] arComboX = { CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] + (CDTXMania.Skin.Game_Taiko_Combo_Padding[0] * 2) + (CDTXMania.Skin.Game_Taiko_Combo_Padding[0] / 2), CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] + (CDTXMania.Skin.Game_Taiko_Combo_Padding[0]), CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] - (CDTXMania.Skin.Game_Taiko_Combo_Padding[0] / 2) , CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] - (CDTXMania.Skin.Game_Taiko_Combo_Padding[0] * 2) };
                     x -= 26;
                     //int nラメ基準Y座標 = 199; //2列目のラメの始点を基準とする。
                     int nラメ基準Y座標 = CDTXMania.Skin.nComboNumberY[nPlayer] - 4; //2列目のラメの始点を基準とする。
                     int nラメ基準X座標 = x + (16 - 9);
+                    
                     if (CDTXMania.Tx.Taiko_Combo[1] != null)
                     {
                         // this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
-                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = this.nコンボ拡大率_座標_1000combo[this.ctコンボ加算[nPlayer].n現在の値, 0];
-                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = 0.6f;
-                        CDTXMania.Tx.Taiko_Combo[1].t2D描画(CDTXMania.app.Device, (x - 18), (y + 20) + (int)this.nコンボ拡大率_座標_1000combo[this.ctコンボ加算[nPlayer].n現在の値, 1], new Rectangle(n位の数[i] * 50, 0, 50, 70));
+                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[2] + this.nコンボ拡大率_座標_1000combo[this.ctコンボ加算[nPlayer].n現在の値, 0];
+                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[2];
+                        CDTXMania.Tx.Taiko_Combo[1].t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, arComboX[i], CDTXMania.Skin.Game_Taiko_Combo_Y[nPlayer] , new Rectangle(n位の数[i] * CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1]));
                     }
                     if (CDTXMania.Tx.Taiko_Combo_Effect != null)
                     {

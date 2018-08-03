@@ -279,7 +279,7 @@ namespace DTXMania
                 {
                     if( this.stFont[ i ].ch == ch )
                     {
-                        Rectangle rectangle = new Rectangle(this.stFont[i].pt.X, this.stFont[i].pt.Y, 24, 34);
+                        Rectangle rectangle = new Rectangle(this.stFont[i].pt.X, this.stFont[i].pt.Y, CDTXMania.Skin.Game_Score_Size[0], CDTXMania.Skin.Game_Score_Size[1]);
                         switch( mode )
                         {
                             case 0:
@@ -288,7 +288,7 @@ namespace DTXMania
                                     //this.txScore.color4 = new SlimDX.Color4( 1.0f, 1.0f, 1.0f );
                                     CDTXMania.Tx.Taiko_Score[0].n透明度 = alpha;
                                     CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = this.n点数アニメ拡大率_座標[this.ct点数アニメタイマ[player].n現在の値, 0];
-                                    CDTXMania.Tx.Taiko_Score[0].t2D描画( CDTXMania.app.Device, x , y + (int)this.n点数アニメ拡大率_座標[this.ct点数アニメタイマ[player].n現在の値, 1], rectangle );
+                                    CDTXMania.Tx.Taiko_Score[0].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x , y, rectangle );
                                     
                                 }
                                 break;
@@ -316,7 +316,7 @@ namespace DTXMania
                         break;
                     }
                 }
-                x += 20;
+                x += CDTXMania.Skin.Game_Score_Padding;
             }
         }
 	}

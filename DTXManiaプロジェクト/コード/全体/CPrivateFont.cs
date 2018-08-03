@@ -443,16 +443,16 @@ namespace DTXMania
                 Rectangle rect正確なサイズ = this.MeasureStringPrecisely( gCal, strName[ i ], this._font, strSize, sFormat );
                 int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
-                Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, 36, ( strSize.Height + 12 ));
+                Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, 46, ( strSize.Height + 16 ));
 
                 if( strName[ i ] == "ー" || strName[ i ] == "-" || strName[ i ] == "～" || strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "「" || strName[ i ] == "」" || strName[ i ] == "[" || strName[ i ] == "]" )
                 {
-                    nHeight += ( rect正確なサイズ.Width ) + 3;
+                    nHeight += ( rect正確なサイズ.Width ) + 4;
                 }
                 else if( strName[ i ] == "_" ){ nHeight += ( rect正確なサイズ.Height ) + 6;  }
                 else if( strName[ i ] == " " )
                 { nHeight += ( 12 ); }
-                else { nHeight += ( rect正確なサイズ.Height ) + 6; }
+                else { nHeight += ( rect正確なサイズ.Height ) + 10; }
 
                 //念のため解放
                 bmpDummy.Dispose();
@@ -463,7 +463,7 @@ namespace DTXMania
             }
             #endregion
 
-            Bitmap bmpCambus = new Bitmap( 36, nHeight );
+            Bitmap bmpCambus = new Bitmap( 46, nHeight );
             Graphics Gcambus = Graphics.FromImage( bmpCambus );
 
             //キャンバス作成→1文字ずつ作成してキャンバスに描画という形がよさそうかな?
@@ -491,7 +491,7 @@ namespace DTXMania
                 
                 //Bitmap bmpV = new Bitmap( 36, ( strSize.Height + 12 ) - 6 );
 
-                Bitmap bmpV = new Bitmap( (rect正確なサイズ.Width + 8) + nAdded, ( rect正確なサイズ.Height ) + 8 );
+                Bitmap bmpV = new Bitmap( (rect正確なサイズ.Width + 12) + nAdded, ( rect正確なサイズ.Height ) + 12 );
 
 			    bmpV.MakeTransparent();
 			    Graphics gV = Graphics.FromImage( bmpV );
@@ -524,6 +524,7 @@ namespace DTXMania
 				if ( brV != null ) brV.Dispose(); brV = null;
 				if ( pV != null ) pV.Dispose(); pV = null;
 				if ( gpV != null ) gpV.Dispose(); gpV = null;
+                if ( gV != null ) gV.Dispose(); gV = null;
 
                 int n補正 = 0;
                 int nY補正 = 0;
@@ -556,6 +557,24 @@ namespace DTXMania
                         //nNowPos = nNowPos;
                     }
                 }
+                else if (strName[i] == "・")
+                {
+                    n補正 = -8;
+                    if (this._pt < 20)
+                    {
+                        n補正 = -8;
+                        //nNowPos = nNowPos;
+                    }
+                }
+                else if (strName[i] == ".")
+                {
+                    n補正 = 8;
+                    if (this._pt < 20)
+                    {
+                        n補正 = 8;
+                        //nNowPos = nNowPos;
+                    }
+                }
                 //else if( strName[ i ] == "_" )
                 //    nNowPos = nNowPos + 20;
                 else if( strName[ i ] == " " )
@@ -567,14 +586,10 @@ namespace DTXMania
 
                 if( i == 0 )
                 {
-                    nNowPos = 0;
-                    Gcambus.DrawImage( bmpV, (16 - (bmpV.Size.Width / 2)) + n補正, 0 );
+                    nNowPos = 4;
                 }
-                else
-                {
-                    Gcambus.DrawImage( bmpV, (16 - (bmpV.Size.Width / 2)) + n補正, nNowPos );
-                }
-                nNowPos += bmpV.Size.Height - 3;
+                Gcambus.DrawImage( bmpV, (bmpCambus.Width / 2) - (bmpV.Width / 2) + n補正, nNowPos );
+                nNowPos += bmpV.Size.Height - 6;
 
                 if( bmpV != null ) bmpV.Dispose(); bmpV = null;
                 if( gCal != null ) gCal.Dispose(); gCal = null;
