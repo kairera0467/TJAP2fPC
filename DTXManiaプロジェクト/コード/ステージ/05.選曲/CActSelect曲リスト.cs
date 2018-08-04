@@ -1189,9 +1189,9 @@ namespace DTXMania
                     {
                         // 難易度選択画面を閉じるアニメーション
                         if( i < 6 )
-                            xAnime -= CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 > 582 ? 500 - (int)(500 * ((CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 - 582) / 480.0f)) : 0;
+                            xAnime -= CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 > 582 ? 500 - (int)(500 * ((CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 - 582) / 480.0f)) : 500;
                         else if( i > 6 )
-                            xAnime += CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 > 582 ? 500 - (int)(500 * ((CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 - 582) / 480.0f)) : 0;
+                            xAnime += CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 > 582 ? 500 - (int)(500 * ((CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 - 582) / 480.0f)) : 500;
                     }
 
                     
@@ -1374,8 +1374,68 @@ namespace DTXMania
                         }
                         else
                         {
-                            this.txバー中央?.t2D描画( CDTXMania.app.Device, 440, 95 );
+                            if( CDTXMania.stage選曲.ctDiffSelect戻り待ち.b進行中 )
+                            {
+                                int count = CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値;
+                                count = 340;
+                                this.txバー中央_アニメ中.vc拡大縮小倍率.X = 1.0f;
+                                if( count < 250 )
+                                {
+                                    //左上
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 240, 103 + (int)(60f * (( count - 250.0f ) / 250.0f)), new Rectangle( 2, 10, 30, 30 ) );
+                                    //右上
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 1009, 103 + (int)(60f * (( count - 250.0f ) / 250.0f)), new Rectangle( 38, 10, 30, 30 ) );
+
+                                    this.txバー中央_アニメ中.vc拡大縮小倍率.X = 349.0f + 390.0f;
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 270, 131, new Rectangle( 75, 38, 1, 442 ) ); //中央
+                                    //上縁
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 270, 103 + (int)(60f * (( count - 250.0f ) / 250.0f)), new Rectangle( 75, 10, 1, 30 ) );
+                                    this.txバー中央_アニメ中.vc拡大縮小倍率.Y = 60.0f - (60.0f * (( count - 282.0f ) / 250.0f));
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 270, 133 + (int)(60f * (( count - 250.0f ) / 250.0f)), new Rectangle( 75, 26, 1, 1 ) );
+                                    this.txバー中央_アニメ中.vc拡大縮小倍率.X = 1.0f;
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 240, 133 + (int)(60f * (( count - 250.0f ) / 250.0f)), new Rectangle( 2, 26, 30, 1 ) );
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 1009, 133 + (int)(60f * (( count - 250.0f ) / 250.0f)), new Rectangle( 38, 26, 30, 1 ) );
+
+                                    this.txバー中央_アニメ中.vc拡大縮小倍率.Y = 1.0f;
+
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 240, 131, new Rectangle( 2, 38, 30, 442 ) );
+                                    //右
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 1009, 131, new Rectangle( 38, 38, 30, 442 ) );
+                                }
+                                else if( count >= 250 && count < 500 )
+                                {
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 240 + (int)(210.0f * (( count - 250.0f ) / 250.0f)), 131, new Rectangle( 2, 38, 30, 442 ) ); //左
+
+                                    this.txバー中央_アニメ中.vc拡大縮小倍率.X = 349.0f + ( 390.0f - ( 390.0f * (( count - 250.0f ) / 250.0f ) ) ); // 349 -> 739 (390)
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 270 + (int)(60f * (( count - 250.0f ) / 250.0f)), 131, new Rectangle( 75, 38, 1, 442 ) ); // 中央
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 270 + (int)(60f * (( count - 250.0f ) / 250.0f)), 103, new Rectangle( 75, 10, 1, 30 ) );
+
+                                    this.txバー中央_アニメ中.vc拡大縮小倍率.X = 1.0f; //両端中
+
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 240 + (int)(210.0f * (( count - 250.0f ) / 250.0f)), 59, new Rectangle( 2, 26, 30, 1 ) );
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 1009 - (int)(210.0f * (( count - 250.0f ) / 250.0f)), 59, new Rectangle( 38, 26, 30, 1 ) );
+
+                                    this.txバー中央_アニメ中.vc拡大縮小倍率.Y = 1.0f;
+
+
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 240 + (int)(210.0f * (( count - 250.0f ) / 250.0f)), 103, new Rectangle( 2, 10, 30, 30 ) ); // 左上
+
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 1009 - (int)(210.0f * (( count - 250.0f ) / 250.0f)), 103, new Rectangle( 38, 10, 30, 30 ) );
+                                    this.txバー中央_アニメ中?.t2D描画( CDTXMania.app.Device, 1009 - (int)(210.0f * (( count - 250.0f ) / 250.0f)), 131, new Rectangle( 38, 38, 30, 442 ) ); //右
+                                }
+                                else
+                                {
+                                    this.txバー中央?.t2D描画( CDTXMania.app.Device, 440, 95 );
+                                }
+                            }
+                            else
+                            {
+                                this.txバー中央?.t2D描画( CDTXMania.app.Device, 440, 95 );
+                            }
+                            //this.txバー中央?.t2D描画( CDTXMania.app.Device, 440, 95 );
                         }
+
+
 
                         int starwidth = CDTXMania.Skin.nSelectSongDiffIconSpacingX;
                         int starheight = CDTXMania.Skin.nSelectSongDiffIconHeight + CDTXMania.Skin.nSelectSongDiffIconSpacingY;

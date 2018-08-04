@@ -69,7 +69,7 @@ namespace DTXMania
 		{
 			if( this.n現在の選択行 < this.list難易度選択項目.Count - 1 )
             {
-                this.n現在の選択行++;
+                this.n現在の選択行 += 1;
             }
 
             this.ct移動 = new CCounter( 1, 710, 1, CSound管理.rc演奏用タイマ );
@@ -78,7 +78,7 @@ namespace DTXMania
 		{
             if( this.n現在の選択行 > 0 )
             {
-                this.n現在の選択行--;
+                this.n現在の選択行 -= 1;
             }
 
             this.ct移動 = new CCounter( 1, 710, 1, CSound管理.rc演奏用タイマ );
@@ -381,8 +381,7 @@ namespace DTXMania
                                 }
                                 break;
                             case E項目種類.戻る:
-                                CDTXMania.Skin.sound取消音.t再生する();
-                                this.bIsDifficltSelect = false;
+                                CDTXMania.stage選曲.t難易度選択画面を閉じる();
                                 break;
                             case E項目種類.オプション:
                                 break;
