@@ -57,6 +57,7 @@ namespace DTXMania
                         }
                         stRunners[Index].ct進行 = new CCounter(0, 1280, CDTXMania.Skin.Game_Runner_Timer, CDTXMania.Timer);
                         stRunners[Index].nOldValue = 0;
+                        stRunners[Index].nNowPtn = 0;
                         stRunners[Index].fX = 0;
                     }
 

@@ -851,9 +851,9 @@ namespace DTXMania
 			{
 				for( int i = 0; i < this.st小文字位置.Length; i++ )
 				{
-					if( this.st小文字位置[ i ].ch == ch )
-					{
-						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, this.st小文字位置[ i ].pt.Y, 44, 60 );
+                    if (this.st小文字位置[i].ch == ch)
+                    {
+                        Rectangle rectangle = new Rectangle(CDTXMania.Skin.Game_Taiko_Combo_Size[0] * i, 0, CDTXMania.Skin.Game_Taiko_Combo_Size[0], CDTXMania.Skin.Game_Taiko_Combo_Size[1]);
 						if(CDTXMania.Tx.Taiko_Combo[0]  != null )
 						{
                             if( this.st叩ききりまショー.bタイマー使用中 )
@@ -883,8 +883,8 @@ namespace DTXMania
                 {
                     if( cFont[ i ] == ch )
                     {
-                        Rectangle rectangle = new Rectangle( i * 24, 0, 24, 34 );
-                        if(CDTXMania.Tx.Taiko_Score[0] != null )
+                        Rectangle rectangle = new Rectangle(CDTXMania.Skin.Game_Score_Size[0] * i, 0, CDTXMania.Skin.Game_Score_Size[0], CDTXMania.Skin.Game_Score_Size[1]);
+                        if (CDTXMania.Tx.Taiko_Score[0] != null )
                         {
                             CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = 1f;
                             CDTXMania.Tx.Taiko_Score[0].t2D描画( CDTXMania.app.Device, x, y, rectangle );

@@ -177,7 +177,18 @@ namespace DTXMania
                             {
                                 yAdd = 12;
                                 alpha = 150;
-                                this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+
+                                if (ct点数アニメタイマ[stScore[i].nPlayer].b進行中)
+                                {
+                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                    this.ct点数アニメタイマ[stScore[i].nPlayer].n現在の値 = 1;
+                                }
+                                else
+                                {
+                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                }
+
+
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 390)
                             {
@@ -197,6 +208,8 @@ namespace DTXMania
                             }
                         }
                     }
+                    //CDTXMania.act文字コンソール.tPrint(50, 0, C文字コンソール.Eフォント種別.白, this.ct点数アニメタイマ[0].n現在の値.ToString());
+                    //CDTXMania.act文字コンソール.tPrint(50, 20, C文字コンソール.Eフォント種別.白, this.ct点数アニメタイマ[0].b進行中.ToString());
                 }
 
 

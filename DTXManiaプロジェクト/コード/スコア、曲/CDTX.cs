@@ -3576,6 +3576,8 @@ namespace DTXMania
 
                 chip.nチャンネル番号 = 0xDC;
                 chip.n発声位置 = ((this.n現在の小節数) * 384);
+                chip.db発声時刻ms = this.dbNowTime;
+                chip.nコース = this.n現在のコース;
                 chip.n整数値_内部番号 = this.n内部番号DELAY1to;
                 chip.fBMSCROLLTime = this.dbNowBMScollTime;
                 // チップを配置。

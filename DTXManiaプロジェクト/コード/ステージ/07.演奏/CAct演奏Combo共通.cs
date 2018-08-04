@@ -193,6 +193,22 @@ namespace DTXMania
                         {1.0f,0},
                     };
 
+
+        private float[] ComboScale = new float[]
+        {
+            0.000f,
+            0.079f,
+            0.237f, // リピート
+            0.211f,
+            0.184f,
+            0.158f,
+            0.132f,
+            0.066f,
+            0.040f,
+            0.026f,
+            0.013f,
+            0.000f
+        };
         // 内部クラス
 
         protected class CSTATUS
@@ -324,23 +340,14 @@ namespace DTXMania
             int y = CDTXMania.Skin.nComboNumberY[ nPlayer ];
 
             #region[ コンボ文字 ]
+            
             if( n桁数 <= 2 )
             {
-                if( CDTXMania.Tx.Taiko_Combo[0] != null )
-                {
-                    CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 1f;
-                    CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = 1f;
-                    CDTXMania.Tx.Taiko_Combo[0].t2D描画(CDTXMania.app.Device, 240, CDTXMania.Skin.nComboNumberTextY[nPlayer] + 1, new Rectangle(0, 60, 70, 34));
-                }
+                CDTXMania.Tx.Taiko_Combo_Text?.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_Combo_Text_X[nPlayer], CDTXMania.Skin.Game_Taiko_Combo_Text_Y[nPlayer], new Rectangle(0, 0, CDTXMania.Skin.Game_Taiko_Combo_Text_Size[0], CDTXMania.Skin.Game_Taiko_Combo_Text_Size[1]));
             }
             else
             {
-                if(CDTXMania.Tx.Taiko_Combo[1] != null )
-                {
-                    CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = 1f;
-                    CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = 1f;
-                    CDTXMania.Tx.Taiko_Combo[1].t2D描画( CDTXMania.app.Device, 242, CDTXMania.Skin.nComboNumberTextLargeY[ nPlayer ], new Rectangle( 0, 70, 70, 34 ) );
-                }
+                CDTXMania.Tx.Taiko_Combo_Text?.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_Combo_Text_X[nPlayer], CDTXMania.Skin.Game_Taiko_Combo_Text_Y[nPlayer], new Rectangle(0, CDTXMania.Skin.Game_Taiko_Combo_Text_Size[1], CDTXMania.Skin.Game_Taiko_Combo_Text_Size[0], CDTXMania.Skin.Game_Taiko_Combo_Text_Size[1]));
             }
             #endregion
 
@@ -396,11 +403,14 @@ namespace DTXMania
                         {0.0f,0}
                 };
 
+                CDTXMania.Tx.Taiko_Combo[0].n透明度 = 255;
+                CDTXMania.Tx.Taiko_Combo[1].n透明度 = 255;
+
                 if ( n桁数 <= 1 )
                 {
 				    if(CDTXMania.Tx.Taiko_Combo[0] != null )
 				    {
-                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[0] + this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[0] + ComboScale[ this.ctコンボ加算[ nPlayer ].n現在の値];
                         CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[0];
                         CDTXMania.Tx.Taiko_Combo[0].t2D拡大率考慮下中心基準描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer], CDTXMania.Skin.Game_Taiko_Combo_Y[nPlayer] , new Rectangle( n位の数[ i ] * CDTXMania.Skin.Game_Taiko_Combo_Size[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size[0], CDTXMania.Skin.Game_Taiko_Combo_Size[1]) );
 				    }
@@ -410,7 +420,7 @@ namespace DTXMania
                     int[] arComboX = { CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[0], CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] - CDTXMania.Skin.Game_Taiko_Combo_Padding[0] };
 				    if(CDTXMania.Tx.Taiko_Combo[0] != null )
 				    {
-                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[0] + this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                        CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[0] + ComboScale[this.ctコンボ加算[nPlayer].n現在の値];
                         CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[0];
                         CDTXMania.Tx.Taiko_Combo[0].t2D拡大率考慮下中心基準描画( CDTXMania.app.Device, arComboX[ i ], CDTXMania.Skin.Game_Taiko_Combo_Y[nPlayer], new Rectangle( n位の数[ i ] * CDTXMania.Skin.Game_Taiko_Combo_Size[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size[0], CDTXMania.Skin.Game_Taiko_Combo_Size[1]) );
 				    }
@@ -424,7 +434,7 @@ namespace DTXMania
                     int nラメ基準X座標 = x + ( 16 - 9 );
 				    if(CDTXMania.Tx.Taiko_Combo[1] != null )
 				    {
-                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[1] + this.nコンボ拡大率_座標_100combo[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
+                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[1] + ComboScale[this.ctコンボ加算[nPlayer].n現在の値];
                         CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[1];
                         CDTXMania.Tx.Taiko_Combo[1].t2D拡大率考慮下中心基準描画( CDTXMania.app.Device, arComboX[i], CDTXMania.Skin.Game_Taiko_Combo_Ex_Y[nPlayer], new Rectangle( n位の数[ i ] * CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1]) );
                     }
@@ -461,7 +471,7 @@ namespace DTXMania
                     if (CDTXMania.Tx.Taiko_Combo[1] != null)
                     {
                         // this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
-                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[2] + this.nコンボ拡大率_座標_1000combo[this.ctコンボ加算[nPlayer].n現在の値, 0];
+                        CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[2] + ComboScale[this.ctコンボ加算[nPlayer].n現在の値];
                         CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[2];
                         CDTXMania.Tx.Taiko_Combo[1].t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, arComboX[i], CDTXMania.Skin.Game_Taiko_Combo_Y[nPlayer] , new Rectangle(n位の数[i] * CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1]));
                     }
@@ -566,7 +576,7 @@ namespace DTXMania
 				this.status[ i ].nジャンプインデックス値 = 99999;
 				this.status[ i ].n前回の時刻_ジャンプ用 = -1;
 				this.status[ i ].nコンボが切れた時刻 = -1;
-                this.ctコンボ加算[ i ] = new CCounter( 0, 13, 12, CDTXMania.Timer );
+                this.ctコンボ加算[ i ] = new CCounter( 0, 11, 12, CDTXMania.Timer );
 			}
             this.ctコンボラメ = new CCounter( 0, 29, 20, CDTXMania.Timer );
 			base.On活性化();

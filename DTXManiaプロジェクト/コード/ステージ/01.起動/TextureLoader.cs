@@ -322,6 +322,7 @@ namespace DTXMania
             Taiko_Combo[0] = TxC(GAME + TAIKO + @"Combo.png");
             Taiko_Combo[1] = TxC(GAME + TAIKO + @"Combo_Big.png");
             Taiko_Combo_Effect = TxC(GAME + TAIKO + @"Combo_Effect.png");
+            Taiko_Combo_Text = TxC(GAME + TAIKO + @"Combo_Text.png");
             #endregion
             #region ゲージ
             Gauge = new CTexture[2];
@@ -644,6 +645,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref Taiko_Combo[0]);
             CDTXMania.tテクスチャの解放(ref Taiko_Combo[1]);
             CDTXMania.tテクスチャの解放(ref Taiko_Combo_Effect);
+            CDTXMania.tテクスチャの解放(ref Taiko_Combo_Text);
             #endregion
             #region ゲージ
             CDTXMania.tテクスチャの解放(ref Gauge[0]);
@@ -861,7 +863,8 @@ namespace DTXMania
             Taiko_Ka_Right,
             Taiko_LevelUp,
             Taiko_LevelDown,
-            Taiko_Combo_Effect;
+            Taiko_Combo_Effect,
+            Taiko_Combo_Text;
         public CTexture[] Couse_Symbol, // コースシンボル
             Taiko_PlayerNumber,
             Taiko_NamePlate; // ネームプレート

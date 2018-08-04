@@ -39,7 +39,7 @@ namespace DTXMania
 
         public override int On進行描画()
         {
-            if (!CDTXMania.stage演奏ドラム画面.bDoublePlay)
+            if (!CDTXMania.stage演奏ドラム画面.bDoublePlay && !CDTXMania.ConfigIni.bAVI有効)
             {
                 if (CDTXMania.Tx.Mob_Footer != null)
                 {
