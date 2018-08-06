@@ -883,110 +883,8 @@ namespace DTXMania
 				//CONFIG中にスキン変化が発生すると面倒なので、一旦マスクした。
 			}
 			#region [ 個々のキーアサイン ]
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsLC )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LC );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsHHC )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.HH );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsHHO )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.HHO );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsSD )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.SD );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsBD )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.BD );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsHT )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.HT );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsLT )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LT );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsFT )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.FT );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsCY )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.CY );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsRD )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.RD );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsLP )			// #27029 2012.1.4 from
-			{																							//
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LP );	//
-			}																							//
-            else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsLBD )
-            {
-                CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LBD);
-            }
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignGuitarR )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.GUITAR, EKeyConfigPad.R );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignGuitarG )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.GUITAR, EKeyConfigPad.G );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignGuitarB )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.GUITAR, EKeyConfigPad.B );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignGuitarPick )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.GUITAR, EKeyConfigPad.Pick );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignGuitarWail )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.GUITAR, EKeyConfigPad.Wail );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignGuitarDecide )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.GUITAR, EKeyConfigPad.Decide );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignGuitarCancel )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.GUITAR, EKeyConfigPad.Cancel );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignBassR )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.BASS, EKeyConfigPad.R );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignBassG )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.BASS, EKeyConfigPad.G );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignBassB )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.BASS, EKeyConfigPad.B );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignBassPick )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.BASS, EKeyConfigPad.Pick );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignBassWail )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.BASS, EKeyConfigPad.Wail );
-			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignBassDecide )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.BASS, EKeyConfigPad.Decide );
-			}
-			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignBassCancel )
-			{
-				CDTXMania.stageコンフィグ.tパッド選択通知( EKeyConfigPart.BASS, EKeyConfigPad.Cancel );
-			}
+
+
 
             //太鼓のキー設定。
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed )
@@ -1056,14 +954,6 @@ namespace DTXMania
 					CDTXMania.app.b次のタイミングで垂直帰線同期切り替えを行う = true;
 				}
 				#region [ AutoPlay #23886 2012.5.8 yyagi ]
-				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iDrumsAutoPlayAll )
-				{
-					this.t全部のドラムパッドのAutoを切り替える( this.iDrumsAutoPlayAll.e現在の状態 == CItemThreeState.E状態.ON );
-				}
-				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iGuitarAutoPlayAll )
-				{
-					this.t全部のギターパッドのAutoを切り替える( this.iGuitarAutoPlayAll.e現在の状態 == CItemThreeState.E状態.ON );
-				}
 				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iBassAutoPlayAll )
 				{
 					this.t全部のベースパッドのAutoを切り替える( this.iBassAutoPlayAll.e現在の状態 == CItemThreeState.E状態.ON );
@@ -1790,7 +1680,7 @@ namespace DTXMania
 							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, d.ToString( "0.000" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 							strParam = d.ToString( "0.000" );
 						}
-						else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed || this.list項目リスト[ nItem ] == this.iGuitarScrollSpeed || this.list項目リスト[ nItem ] == this.iBassScrollSpeed )
+						else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed )
 						{
 							float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 + 1 ) * 0.5f;
 							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
@@ -1928,35 +1818,9 @@ namespace DTXMania
 		#region [ キーコンフィグ ]
 		private CItemBase iKeyAssignSystemCapture;			// #24609
 		private CItemBase iKeyAssignSystemReturnToMenu;		// #24609
-		private CItemBase iKeyAssignBassB;
-		private CItemBase iKeyAssignBassCancel;
-		private CItemBase iKeyAssignBassDecide;
-		private CItemBase iKeyAssignBassG;
-		private CItemBase iKeyAssignBassPick;
-		private CItemBase iKeyAssignBassR;
 		private CItemBase iKeyAssignBassReturnToMenu;
-		private CItemBase iKeyAssignBassWail;
-		private CItemBase iKeyAssignDrumsBD;
-		private CItemBase iKeyAssignDrumsCY;
-		private CItemBase iKeyAssignDrumsFT;
-		private CItemBase iKeyAssignDrumsHHC;
-		private CItemBase iKeyAssignDrumsHHO;
-		private CItemBase iKeyAssignDrumsHT;
-		private CItemBase iKeyAssignDrumsLC;
-		private CItemBase iKeyAssignDrumsLT;
-		private CItemBase iKeyAssignDrumsRD;
 		private CItemBase iKeyAssignDrumsReturnToMenu;
-		private CItemBase iKeyAssignDrumsSD;
-		private CItemBase iKeyAssignDrumsLP;	// #27029 2012.1.4 from
-		private CItemBase iKeyAssignDrumsLBD;	// #27029 2012.1.4 from
-		private CItemBase iKeyAssignGuitarB;
-		private CItemBase iKeyAssignGuitarCancel;
-		private CItemBase iKeyAssignGuitarDecide;
-		private CItemBase iKeyAssignGuitarG;
-		private CItemBase iKeyAssignGuitarPick;
-		private CItemBase iKeyAssignGuitarR;
 		private CItemBase iKeyAssignGuitarReturnToMenu;
-		private CItemBase iKeyAssignGuitarWail;
 
 		private CItemBase iKeyAssignTaikoLRed;
 		private CItemBase iKeyAssignTaikoRRed;
@@ -1969,41 +1833,19 @@ namespace DTXMania
 
 		#endregion
 		private CItemToggle iLogOutputLog;
-		private CItemToggle iSystemAdjustWaves;
-		private CItemToggle iSystemAudienceSound;
-		private CItemInteger iSystemAutoChipVolume;
 		private CItemToggle iSystemAVI;
 		private CItemToggle iSystemBGA;
 //		private CItemToggle iSystemGraph; #24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
 		private CItemInteger iSystemBGAlpha;
 		private CItemToggle iSystemBGMSound;
-		private CItemInteger iSystemChipVolume;
-		private CItemList iSystemCYGroup;
-		private CItemToggle iSystemCymbalFree;
-		private CItemList iSystemDamageLevel;
 		private CItemToggle iSystemDebugInfo;
-//		private CItemToggle iSystemDrums;
-		private CItemToggle iSystemFillIn;
-		private CItemList iSystemFTGroup;
 		private CItemToggle iSystemFullscreen;
-//		private CItemToggle iSystemGuitar;
-		private CItemList iSystemHHGroup;
-		private CItemList iSystemBDGroup;		// #27029 2012.1.4 from
-		private CItemToggle iSystemHitSound;
-		private CItemList iSystemHitSoundPriorityCY;
-		private CItemList iSystemHitSoundPriorityFT;
-		private CItemList iSystemHitSoundPriorityHH;
-		private CItemInteger iSystemMinComboBass;
 		private CItemInteger iSystemMinComboDrums;
-		private CItemInteger iSystemMinComboGuitar;
 		private CItemInteger iSystemPreviewImageWait;
 		private CItemInteger iSystemPreviewSoundWait;
 		private CItemToggle iSystemRandomFromSubBox;
 		private CItemBase iSystemReturnToMenu;
 		private CItemToggle iSystemSaveScore;
-		private CItemToggle iSystemSoundMonitorBass;
-		private CItemToggle iSystemSoundMonitorDrums;
-		private CItemToggle iSystemSoundMonitorGuitar;
 		private CItemToggle iSystemStageFailed;
 		private CItemToggle iSystemStoicMode;
 		private CItemToggle iSystemVSyncWait;
@@ -2088,25 +1930,10 @@ namespace DTXMania
 		private CItemInteger iCommonPlaySpeed;
 //		private CItemBase iCommonReturnToMenu;
 
-		private CItemThreeState iDrumsAutoPlayAll;
-		private CItemToggle iDrumsBass;
-		private CItemToggle iDrumsCymbalRide;
-		private CItemToggle iDrumsFloorTom;
-		//private CItemToggle iDrumsHidden;
-		private CItemToggle iDrumsHighTom;
-		private CItemToggle iDrumsHiHat;
-		private CItemToggle iDrumsLeftCymbal;
-		private CItemToggle iDrumsLowTom;
-		private CItemList iDrumsPosition;
 		private CItemBase iDrumsReturnToMenu;
-		private CItemToggle iDrumsReverse;
 		private CItemInteger iDrumsScrollSpeed;
-		private CItemToggle iDrumsSnare;
 		//private CItemToggle iDrumsSudden;
 		private CItemToggle iDrumsTight;
-		private CItemToggle iDrumsGraph;        // #24074 2011.01.23 add ikanick
-        private CItemToggle iDrumsLeftPedal;
-        private CItemToggle iDrumsLeftBassDrum;
         private CItemToggle iDrumsComboDisp;
 
         private CItemToggle iTaikoAutoPlay;
@@ -2126,32 +1953,12 @@ namespace DTXMania
         private CItemToggle iTaikoJudgeCountDisp;
         private CItemToggle iTaikoBigNotesJudge;
         private CItemInteger iTaikoPlayerCount;
-
-		//private CItemToggle iGuitarAutoPlay;
-		private CItemThreeState iGuitarAutoPlayAll;			// #23886 2012.5.8 yyagi
-		private CItemToggle iGuitarR;						//
-		private CItemToggle iGuitarG;						//
-		private CItemToggle iGuitarB;						//
-		private CItemToggle iGuitarPick;					//
-		private CItemToggle iGuitarW;						//
-
-		//private CItemToggle iGuitarHidden;
-		private CItemToggle iGuitarLeft;
-		private CItemToggle iGuitarLight;
-		private CItemList iGuitarPosition;
-		private CItemList iGuitarRandom;
+        
 		private CItemBase iGuitarReturnToMenu;
-		private CItemToggle iGuitarReverse;
-		private CItemInteger iGuitarScrollSpeed;
 		//private CItemToggle iGuitarSudden;
 		private CItemInteger iDrumsInputAdjustTimeMs;		// #23580 2011.1.3 yyagi
-		private CItemInteger iGuitarInputAdjustTimeMs;		//
-		private CItemInteger iBassInputAdjustTimeMs;		//
 		private CItemList iSystemSkinSubfolder;				// #28195 2012.5.2 yyagi
 		private CItemToggle iSystemUseBoxDefSkin;			// #28195 2012.5.6 yyagi
-		private CItemList iDrumsSudHid;						// #32072 2013.9.20 yyagi
-		private CItemList iGuitarSudHid;					// #32072 2013.9.20 yyagi
-		private CItemList iBassSudHid;						// #32072 2013.9.20 yyagi
 		private CItemBase iSystemReloadDTX;					// #32081 2013.10.21 yyagi
 		//private CItemInteger iSystemMasterVolume;			// #33700 2014.4.26 yyagi
 
@@ -2170,14 +1977,6 @@ namespace DTXMania
 				nItem = 0;
 			}
 			return nItem;
-		}
-		private void t全部のドラムパッドのAutoを切り替える( bool bAutoON )
-		{
-			this.iDrumsLeftCymbal.bON = this.iDrumsHiHat.bON = this.iDrumsSnare.bON = this.iDrumsBass.bON = this.iDrumsHighTom.bON = this.iDrumsLowTom.bON = this.iDrumsFloorTom.bON = this.iDrumsCymbalRide.bON = bAutoON;
-		}
-		private void t全部のギターパッドのAutoを切り替える( bool bAutoON )
-		{
-			this.iGuitarR.bON = this.iGuitarG.bON = this.iGuitarB.bON = this.iGuitarPick.bON = this.iGuitarW.bON = bAutoON;
 		}
 		private void t全部のベースパッドのAutoを切り替える( bool bAutoON )
 		{
