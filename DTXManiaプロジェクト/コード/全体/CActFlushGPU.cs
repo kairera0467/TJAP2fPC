@@ -23,7 +23,7 @@ namespace DTXMania
 			{
 				try			// #xxxxx 2012.12.31 yyagi: to prepare flush, first of all, I create q queue to the GPU.
 				{
-					IDirect3DQuery9 = new SlimDX.Direct3D9.Query( CDTXMania.app.Device.UnderlyingDevice, QueryType.Occlusion );
+					IDirect3DQuery9 = new SlimDX.Direct3D9.Query( CDTXMania.app.Device, QueryType.Occlusion );
 				}
 				catch ( Exception e )
 				{

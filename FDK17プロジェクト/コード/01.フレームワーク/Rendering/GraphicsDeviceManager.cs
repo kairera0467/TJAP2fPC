@@ -29,7 +29,6 @@ using SlimDX;
 using SlimDX.Direct3D9;
 using SlimDX.DXGI;
 using System.Diagnostics;
-
 namespace SampleFramework
 {
     /// <summary>
@@ -515,9 +514,9 @@ namespace SampleFramework
 				}
 				Direct3D9.Device.MaximumFrameLatency = 1;
 #else
-				Direct3D9.Device = new DeviceCache( new SlimDX.Direct3D9.Device( Direct3D9Object, CurrentSettings.Direct3D9.AdapterOrdinal,
+				Direct3D9.Device = new SlimDX.Direct3D9.Device( Direct3D9Object, CurrentSettings.Direct3D9.AdapterOrdinal,
 					CurrentSettings.Direct3D9.DeviceType, game.Window.Handle,
-					CurrentSettings.Direct3D9.CreationFlags, CurrentSettings.Direct3D9.PresentParameters ) );
+					CurrentSettings.Direct3D9.CreationFlags, CurrentSettings.Direct3D9.PresentParameters );
 #endif
 				if ( Result.Last == SlimDX.Direct3D9.ResultCode.DeviceLost )
 				{
