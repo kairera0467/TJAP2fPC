@@ -1449,25 +1449,26 @@ namespace DTXMania
 						chip.rAVI = null;
                         chip.rDShow = null;
 						chip.rAVIPan = null;
-						if( this.listAVIPAN.ContainsKey( chip.n整数値 ) )
+						if( this.listAVIPAN.TryGetValue( chip.n整数値, out CAVIPAN cavipan ) )
 						{
-							CAVIPAN cavipan = this.listAVIPAN[ chip.n整数値 ];
-							if( this.listAVI.ContainsKey( cavipan.nAVI番号 ) && ( this.listAVI[ cavipan.nAVI番号 ].avi != null ) )
+							if( this.listAVI.TryGetValue( cavipan.nAVI番号, out CAVI cavi ) && ( cavi.avi != null ) )
 							{
 								chip.eAVI種別 = EAVI種別.AVIPAN;
-								chip.rAVI = this.listAVI[ cavipan.nAVI番号 ];
+								chip.rAVI = cavi;
                                 //if( CDTXMania.ConfigIni.bDirectShowMode == true )
                                     chip.rDShow = this.listDS[ cavipan.nAVI番号 ];
 								chip.rAVIPan = cavipan;
 								continue;
 							}
 						}
-						if( this.listAVI.ContainsKey( chip.n整数値 ) && ( this.listAVI[ chip.n整数値 ].avi != null ) || ( this.listDS.ContainsKey( chip.n整数値 ) && ( this.listDS[ chip.n整数値 ].dshow != null ) ) )
+
+                        CDirectShow ds = null;
+                        if( this.listAVI.TryGetValue( chip.n整数値, out CAVI cavi2 ) && ( cavi2.avi != null ) || ( this.listDS.TryGetValue( chip.n整数値, out ds ) && ( ds.dshow != null ) ) )
 						{
 							chip.eAVI種別 = EAVI種別.AVI;
-							chip.rAVI = this.listAVI[ chip.n整数値 ];
+							chip.rAVI = cavi2;
                             //if(CDTXMania.ConfigIni.bDirectShowMode == true)
-                                chip.rDShow = this.listDS[ chip.n整数値 ];
+                                chip.rDShow = ds;
 						}
 					}
 				}
@@ -1511,9 +1512,8 @@ namespace DTXMania
 		}
 		public void tWavの再生停止( int nWaveの内部番号, bool bミキサーからも削除する )
 		{
-			if( this.listWAV.ContainsKey( nWaveの内部番号 ) )
+			if( this.listWAV.TryGetValue( nWaveの内部番号, out CWAV cwav ) )
 			{
-				CWAV cwav = this.listWAV[ nWaveの内部番号 ];
 				for ( int i = 0; i < nPolyphonicSounds; i++ )
 				{
 					if( cwav.rSound[ i ] != null && cwav.rSound[ i ].b再生中 )
@@ -1806,9 +1806,8 @@ namespace DTXMania
 				{
 					throw new ArgumentOutOfRangeException();
 				}
-				if( this.listWAV.ContainsKey( pChip.n整数値_内部番号 ) )
+				if( this.listWAV.TryGetValue( pChip.n整数値_内部番号, out CWAV wc ) )
 				{
-					CWAV wc = this.listWAV[ pChip.n整数値_内部番号 ];
 					int index = wc.n現在再生中のサウンド番号 = ( wc.n現在再生中のサウンド番号 + 1 ) % nPolyphonicSounds;
 					if( ( wc.rSound[ 0 ] != null ) && 
 						( wc.rSound[ 0 ].bストリーム再生する || wc.rSound[index] == null ) )
@@ -2160,10 +2159,9 @@ namespace DTXMania
 						//}
 						foreach ( CChip chip in this.listChip )
 						{
-							if ( this.listWAV.ContainsKey( chip.n整数値_内部番号 ) )
+							if ( this.listWAV.TryGetValue( chip.n整数値_内部番号, out CWAV cwav ) )
 							//foreach ( CWAV cwav in this.listWAV.Values )
 							{
-								CWAV cwav = this.listWAV[ chip.n整数値_内部番号 ];
 								//	if ( chip.n整数値_内部番号 == cwav.n内部番号 )
 								//	{
 								chip.dbチップサイズ倍率 = ( (double) cwav.nチップサイズ ) / 100.0;
@@ -2442,9 +2440,9 @@ namespace DTXMania
                                         if( this.bOFFSETの値がマイナスである == false )
                                             chip.n発声時刻ms += this.nOFFSET;
 										ms = chip.n発声時刻ms;
-										if ( this.listBPM.ContainsKey( chip.n整数値_内部番号 ) )
+										if ( this.listBPM.TryGetValue( chip.n整数値_内部番号, out CBPM cBPM) )
 										{
-											bpm = ( ( this.listBPM[ chip.n整数値_内部番号 ].n表記上の番号 == 0 ) ? 0.0 : this.BASEBPM ) + this.listBPM[ chip.n整数値_内部番号 ].dbBPM値;
+                                            bpm = (cBPM.n表記上の番号 == 0  ? 0.0 : this.BASEBPM ) + cBPM.dbBPM値;
                                             this.dbNowBPM = bpm;
 										}
 										continue;
@@ -2457,10 +2455,10 @@ namespace DTXMania
                                             chip.n発声時刻ms += this.nMOVIEOFFSET;
                                         else
                                             chip.n発声時刻ms -= this.nMOVIEOFFSET;
-										if ( this.listAVIPAN.ContainsKey( chip.n整数値 ) )
+										if ( this.listAVIPAN.TryGetValue( chip.n整数値, out CAVIPAN cavipan) )
 										{
-											int num21 = ms + ( (int) ( ( ( 0x271 * ( chip.n発声位置 - n発声位置 ) ) * this.dbBarLength ) / bpm ) );
-											int num22 = ms + ( (int) ( ( ( 0x271 * ( ( chip.n発声位置 + this.listAVIPAN[ chip.n整数値 ].n移動時間ct ) - n発声位置 ) ) * this.dbBarLength ) / bpm ) );
+                                            int num21 = ms + ( (int) ( ( ( 0x271 * ( chip.n発声位置 - n発声位置 ) ) * this.dbBarLength ) / bpm ) );
+                                            int num22 = ms + ( (int) ( ( ( 0x271 * ( ( chip.n発声位置 + cavipan.n移動時間ct ) - n発声位置 ) ) * this.dbBarLength ) / bpm ) );
 											chip.n総移動時間 = num22 - num21;
 										}
 										continue;
@@ -2545,10 +2543,10 @@ namespace DTXMania
                                     }
                                 case 0x9D:
                                     {
-										if ( this.listSCROLL.ContainsKey( chip.n整数値_内部番号 ) )
-										{
+										//if ( this.listSCROLL.ContainsKey( chip.n整数値_内部番号 ) )
+										//{
                                             //this.dbNowSCROLL = ( ( this.listSCROLL[ chip.n整数値_内部番号 ].n表記上の番号 == 0 ) ? 0.0 : 1.0 ) + this.listSCROLL[ chip.n整数値_内部番号 ].dbSCROLL値;
-										}
+										//}
 
                                         //switch (chip.nコース)
                                         //{
@@ -2593,10 +2591,10 @@ namespace DTXMania
                                     {
                                         if (this.bOFFSETの値がマイナスである)
                                             chip.n発声時刻ms += this.nOFFSET;
-                                        if ( this.listBRANCH.ContainsKey( chip.n整数値_内部番号 ) )
-                                        {
+                                        //if ( this.listBRANCH.ContainsKey( chip.n整数値_内部番号 ) )
+                                        //{
                                             //this.listBRANCH[chip.n整数値_内部番号].db分岐時間ms = chip.n発声時刻ms + ( this.bOFFSETの値がマイナスである ? this.nOFFSET : 0 );
-                                        }
+                                        //}
 
                                         continue;
                                     }
@@ -2667,28 +2665,28 @@ namespace DTXMania
 						#region [ チップの種類を分類し、対応するフラグを立てる ]
 						foreach ( CChip chip in this.listChip )
 						{
-							if ( ( chip.bWAVを使うチャンネルである && this.listWAV.ContainsKey( chip.n整数値_内部番号 ) ) && !this.listWAV[ chip.n整数値_内部番号 ].listこのWAVを使用するチャンネル番号の集合.Contains( chip.nチャンネル番号 ) )
+                            if ( ( chip.bWAVを使うチャンネルである && this.listWAV.TryGetValue( chip.n整数値_内部番号, out CWAV cwav ) ) && !cwav.listこのWAVを使用するチャンネル番号の集合.Contains( chip.nチャンネル番号 ) )
 							{
-								this.listWAV[ chip.n整数値_内部番号 ].listこのWAVを使用するチャンネル番号の集合.Add( chip.nチャンネル番号 );
+                                cwav.listこのWAVを使用するチャンネル番号の集合.Add( chip.nチャンネル番号 );
 
 								int c = chip.nチャンネル番号 >> 4;
 								switch ( c )
 								{
 									case 0x01:
-										this.listWAV[ chip.n整数値_内部番号 ].bIsDrumsSound = true; break;
+                                        cwav.bIsDrumsSound = true; break;
 									case 0x02:
-										this.listWAV[ chip.n整数値_内部番号 ].bIsGuitarSound = true; break;
+                                        cwav.bIsGuitarSound = true; break;
 									case 0x0A:
-										this.listWAV[ chip.n整数値_内部番号 ].bIsBassSound = true; break;
+                                        cwav.bIsBassSound = true; break;
 									case 0x06:
 									case 0x07:
 									case 0x08:
 									case 0x09:
-										this.listWAV[ chip.n整数値_内部番号 ].bIsSESound = true; break;
+                                        cwav.bIsSESound = true; break;
 									case 0x00:
 										if ( chip.nチャンネル番号 == 0x01 )
 										{
-											this.listWAV[ chip.n整数値_内部番号 ].bIsBGMSound = true; break;
+                                            cwav.bIsBGMSound = true; break;
 										}
 										break;
 								}
@@ -6423,9 +6421,8 @@ namespace DTXMania
 						#endregion
 
 						int duration = 0;
-						if ( listWAV.ContainsKey( pChip.n整数値_内部番号 ) )
+						if ( listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )
 						{
-							CDTX.CWAV wc = CDTXMania.DTX.listWAV[ pChip.n整数値_内部番号 ];
 							double _db再生速度 = ( CDTXMania.DTXVmode.Enabled ) ? this.dbDTXVPlaySpeed : this.db再生速度;
 							duration = ( wc.rSound[ 0 ] == null ) ? 0 : (int) ( wc.rSound[ 0 ].n総演奏時間ms / _db再生速度 );	// #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
 						}

@@ -975,7 +975,6 @@ namespace FDK
         {
             if (this.b加算合成)
             {
-                device.SetRenderState(RenderState.AlphaBlendEnable, true);
                 device.SetRenderState(RenderState.SourceBlend, SlimDX.Direct3D9.Blend.SourceAlpha);             // 5
                 device.SetRenderState(RenderState.DestinationBlend, SlimDX.Direct3D9.Blend.One);                    // 2
             }
@@ -989,7 +988,6 @@ namespace FDK
             else if (this.b減算合成)
             {
                 //参考:http://www3.pf-x.net/~chopper/home2/DirectX/MD20.html
-                device.SetRenderState(RenderState.AlphaBlendEnable, true);
                 device.SetRenderState(RenderState.BlendOperation, SlimDX.Direct3D9.BlendOperation.Subtract);
                 device.SetRenderState(RenderState.SourceBlend, SlimDX.Direct3D9.Blend.One);
                 device.SetRenderState(RenderState.DestinationBlend, SlimDX.Direct3D9.Blend.One);
@@ -998,13 +996,11 @@ namespace FDK
             {
                 //参考:http://sylphylunar.seesaa.net/article/390331341.html
                 //C++から引っ張ってきたのでちょっと不安。
-                device.SetRenderState(RenderState.AlphaBlendEnable, true);
                 device.SetRenderState(RenderState.SourceBlend, SlimDX.Direct3D9.Blend.InverseDestinationColor);
                 device.SetRenderState(RenderState.DestinationBlend, SlimDX.Direct3D9.Blend.One);
             }
             else
             {
-                device.SetRenderState(RenderState.AlphaBlendEnable, true);
                 device.SetRenderState(RenderState.SourceBlend, SlimDX.Direct3D9.Blend.SourceAlpha);             // 5
                 device.SetRenderState(RenderState.DestinationBlend, SlimDX.Direct3D9.Blend.InverseSourceAlpha); // 6
             }

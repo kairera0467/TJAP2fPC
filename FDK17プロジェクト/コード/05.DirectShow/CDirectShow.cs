@@ -1391,13 +1391,6 @@ namespace FDK
 		public const int nインスタンスIDの最大数 = 100;
 		protected static Dictionary<int, CDirectShow> dicインスタンス = new Dictionary<int, CDirectShow>();	// <インスタンスID, そのIDを持つインスタンス>
 
-		public static CDirectShow tインスタンスを返す( int nインスタンスID )
-		{
-			if( CDirectShow.dicインスタンス.ContainsKey( nインスタンスID ) )
-				return CDirectShow.dicインスタンス[ nインスタンスID ];
-
-			return null;
-		}
 		protected static void tインスタンスを登録する( CDirectShow ds )
 		{
 			for( int i = 1; i < CDirectShow.nインスタンスIDの最大数; i++ )
