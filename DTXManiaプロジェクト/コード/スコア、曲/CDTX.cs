@@ -582,28 +582,28 @@ namespace DTXMania
 
 			#region [ IComparable 実装 ]
 			//-----------------
+
+		    private static readonly byte[] n優先度 = new byte[] {
+		        5, 5, 3, 7, 5, 5, 5, 5, 3, 5, 5, 5, 5, 5, 5, 5, //0x00
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x10
+		        7, 7, 7, 7, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 5, 5, //0x20
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x30
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x40
+		        9, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x50
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x60
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x70
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x80
+		        5, 5, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 9, 9, 9, //0x90
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xA0
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xB0
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xC0
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 4, 4, //0xD0
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xE0
+		        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xF0
+		    };
+
 			public int CompareTo( CDTX.CChip other )
 			{
-				byte[] n優先度 = new byte[] {
-					5, 5, 3, 7, 5, 5, 5, 5, 3, 5, 5, 5, 5, 5, 5, 5, //0x00
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x10
-					7, 7, 7, 7, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 5, 5, //0x20
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x30
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x40
-					9, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x50
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x60
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x70
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0x80
-					5, 5, 5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 9, 9, 9, //0x90
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xA0
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xB0
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xC0
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 4, 4, //0xD0
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xE0
-					5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, //0xF0
-				};
-
-
 				// まずは位置で比較。
 
                 //BGMチップだけ発声位置
@@ -623,25 +623,14 @@ namespace DTXMania
                 //    return 1;
 
                 //譜面解析メソッドV4では発声時刻msで比較する。
-                if( this.n発声時刻ms < other.n発声時刻ms )
-                    return -1;
-
-                if( this.n発声時刻ms > other.n発声時刻ms )
-                    return 1;
-
+			    var n発声時刻msCompareToResult = this.n発声時刻ms.CompareTo(other.n発声時刻ms);
+			    if (n発声時刻msCompareToResult != 0)
+			    {
+			        return n発声時刻msCompareToResult;
+			    }
 
 				// 位置が同じなら優先度で比較。
-
-				if( n優先度[ this.nチャンネル番号 ] < n優先度[ other.nチャンネル番号 ] )
-					return -1;
-
-				if( n優先度[ this.nチャンネル番号 ] > n優先度[ other.nチャンネル番号 ] )
-					return 1;
-
-
-				// 位置も優先度も同じなら同じと返す。
-
-				return 0;
+			    return n優先度[this.nチャンネル番号].CompareTo(n優先度[other.nチャンネル番号]);
 			}
 			//-----------------
 			#endregion
@@ -1153,10 +1142,6 @@ namespace DTXMania
         private int n現在の小節数 = 1;
         private bool bBarLine = true;
         private int n命令数 = 0;
-        private string[] strSplitした後の譜面; //0:ヘッダー情報 1:#START以降 となる。個数の定義は後からされるため、ここでは省略。
-        private string[] strSplitしたヘッダ;
-        private string[] strSplitした譜面;
-        private string[] str命令消去譜面; //命令をすべて消去した譜面
 
         private int nNowRoll = 0;
         private int nNowRollCount = 0;
@@ -1184,7 +1169,6 @@ namespace DTXMania
         public int[] n風船数 = new int[ 4 ]; //0～2:各コース 3:共通
         private bool b次の小節が分岐である;
         private bool b次の分岐で数値リセット; //2018.03.16 kairera0467 SECTION処理を分岐判定と同時に行う。
-        private string strTemp;
         private int n文字数;
         private bool b直前の行に小節末端定義が無かった = false;
         private int n命令行のチップ番号_temp = 0;
@@ -1978,9 +1962,10 @@ namespace DTXMania
 			    		reader.Close();
 
 				    	//StreamReader reader2 = new StreamReader( this.strフォルダ名 + "test.tja", Encoding.GetEncoding( "Shift_JIS" ) );
-                        StreamReader reader2 = new StreamReader( strファイル名, Encoding.GetEncoding( "Shift_JIS" ) );
-    					string str3 = reader2.ReadToEnd();
-	    				reader2.Close();
+                        //StreamReader reader2 = new StreamReader( strファイル名, Encoding.GetEncoding( "Shift_JIS" ) );
+                        //string str3 = reader2.ReadToEnd();
+                        //reader2.Close();
+                        string str3 = str2;
 
 		    			//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
 			    		//Trace.TraceInformation( "DTXfileload時間:          {0}", span.ToString() );
@@ -2783,7 +2768,7 @@ namespace DTXMania
 
         private string[] tコマンド行を削除したTJAを返す( string[] input, int nMode )
         {
-            string strTemp = "";
+            var sb = new StringBuilder();
 
             for( int n = 0; n < input.Length; n++ )
             {
@@ -2791,7 +2776,7 @@ namespace DTXMania
                 {
                     if( !string.IsNullOrEmpty( input[ n ] ) && this.CharConvertNote( input[ n ].Substring( 0, 1 ) ) != -1 )
                     {
-                        strTemp += ( input[ n ] + "\n" );
+                        sb.Append( input[ n ] + "\n" );
                     }
                 }
                 else if( nMode == 1 )
@@ -2804,7 +2789,7 @@ namespace DTXMania
                         }
                         else
                         {
-                            strTemp += ( input[ n ] + "\n" );
+                            sb.Append( input[ n ] + "\n" );
                         }
                     }
                 }
@@ -2818,38 +2803,38 @@ namespace DTXMania
                         }
                         else
                         {
-                            strTemp += ( input[ n ] + "\n" );
+                            sb.Append( input[ n ] + "\n" );
                         }
                     }
                     else
                     {
                         if( input[ n ].StartsWith( "#BRANCHSTART" ) || input[ n ] == "#N" || input[ n ] == "#E" || input[ n ] == "#M"  )
                         {
-                            strTemp += ( input[ n ] + "\n" );
+                            sb.Append( input[ n ] + "\n" );
                         }
 
                     }
                 }
             }
 
-            string[] strOutput = strTemp.Split( this.dlmtEnter, StringSplitOptions.None );
+            string[] strOutput = sb.ToString().Split( this.dlmtEnter, StringSplitOptions.None );
 
             return strOutput;
         }
 
         private string[] t空のstring配列を詰めたstring配列を返す( string[] input )
         {
-            string strTemp = "";
+            var sb = new StringBuilder();
 
             for( int n = 0; n < input.Length; n++ )
             {
                 if( !string.IsNullOrEmpty( input[ n ] ) )
                 {
-                    strTemp += ( input[ n ] + "\n" );
+                    sb.Append( input[ n ] + "\n" );
                 }
             }
 
-            string[] strOutput = strTemp.Split( this.dlmtEnter, StringSplitOptions.None );
+            string[] strOutput = sb.ToString().Split( this.dlmtEnter, StringSplitOptions.None );
 
             return strOutput;
         }
@@ -2860,14 +2845,14 @@ namespace DTXMania
         }
         private string StringArrayToString( string[] input, string strデリミタ文字 )
         {
-            string strTemp = "";
+            var sb = new StringBuilder();
 
             for( int n = 0; n < input.Length; n++ )
             {
-                strTemp += ( input[ n ] + strデリミタ文字 );
+                sb.Append( input[ n ] + strデリミタ文字 );
             }
 
-            return strTemp;
+            return sb.ToString();
         }
 
         /// <summary>
@@ -3059,6 +3044,11 @@ namespace DTXMania
             return bIsSessionNotes;
         }
 
+        private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
+        private static readonly Regex regexForStrippingHeadingLines = new Regex(
+            @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
+            RegexOptions.Multiline | RegexOptions.Compiled);
+
         /// <summary>
         /// 新型。
         /// ○未実装
@@ -3083,24 +3073,22 @@ namespace DTXMania
                 //}
 
                 //2017.01.31 DD カンマのみの行を0,に置き換え
-                strInput = Regex.Replace( strInput, @"^,", "0,", RegexOptions.Multiline );
+                strInput = regexForPrefixingCommaStartingLinesWithZero.Replace( strInput, "0," );
 
                 //2017.02.03 DD ヘッダ内にある命令以外の文字列を削除
                 string strInputHeader = strInput.Remove( strInput.IndexOf( "#START" ) );
                 strInput = strInput.Remove(0, strInput.IndexOf( "#START" ) );
-                strInputHeader = Regex.Replace( strInputHeader,
-                    @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
-                "", RegexOptions.Multiline );
+                strInputHeader = regexForStrippingHeadingLines.Replace( strInputHeader, "" );
                 strInput = strInputHeader + "\n" + strInput;
 
                 //どうせ使わないので先にSplitしてコメントを削除。
-                this.strSplitした譜面 = (string[])this.str改行文字を削除する( strInput, 1 );
-                for (int i = 0; this.strSplitした譜面.Length > i; i++)
+                var strSplitした譜面 = (string[])this.str改行文字を削除する( strInput, 1 );
+                for (int i = 0; strSplitした譜面.Length > i; i++)
                 {
-                    this.strSplitした譜面[i] = this.tコメントを削除する( this.strSplitした譜面[i] );
+                    strSplitした譜面[i] = this.tコメントを削除する( strSplitした譜面[i] );
                 }
                 //空のstring配列を詰める
-                this.strSplitした譜面 = this.t空のstring配列を詰めたstring配列を返す( this.strSplitした譜面 );
+                strSplitした譜面 = this.t空のstring配列を詰めたstring配列を返す( strSplitした譜面 );
 
                 #region[ヘッダ]
 
@@ -3110,9 +3098,9 @@ namespace DTXMania
                 //点数などの指定は後から各コースで行うので問題は無いだろう。
 
                 //SplitしたヘッダのLengthの回数だけ、forで回して各種情報を読み取っていく。
-                for (int i = 0; this.strSplitした譜面.Length > i; i++)
+                for (int i = 0; strSplitした譜面.Length > i; i++)
                 {
-                    this.t入力_行解析ヘッダ( this.strSplitした譜面[i] );
+                    this.t入力_行解析ヘッダ( strSplitした譜面[i] );
                 }
                 #endregion
 
@@ -3125,12 +3113,12 @@ namespace DTXMania
                 bool b新処理 = false;
 
                 //まずはコースごとに譜面を分割。
-                this.strSplitした譜面 = this.tコースで譜面を分割する( this.StringArrayToString( this.strSplitした譜面, "\n" ) );
+                strSplitした譜面 = this.tコースで譜面を分割する( this.StringArrayToString( strSplitした譜面, "\n" ) );
                 string strTest = "";
                 //存在するかのフラグ作成。
-                for( int i = 0; i < this.strSplitした譜面.Length; i++ )
+                for( int i = 0; i < strSplitした譜面.Length; i++ )
                 {
-                    if( !String.IsNullOrEmpty( this.strSplitした譜面[ i ] ) )
+                    if( !String.IsNullOrEmpty( strSplitした譜面[ i ] ) )
                     {
                         this.b譜面が存在する[ i ] = true;
                         n譜面数++;
@@ -3160,8 +3148,10 @@ namespace DTXMania
                 #endregion
 
                 //指定したコースの譜面の命令を消去する。
-                this.tセッション譜面がある( this.strSplitした譜面[ n読み込むコース ], ref this.strSplitした譜面[ n読み込むコース ], CDTXMania.ConfigIni.nPlayerCount > 1 ? ( this.nPlayerSide + 1 ) : 0 );
-                this.str命令消去譜面 = this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
+                this.tセッション譜面がある( strSplitした譜面[ n読み込むコース ], ref strSplitした譜面[ n読み込むコース ], CDTXMania.ConfigIni.nPlayerCount > 1 ? ( this.nPlayerSide + 1 ) : 0 );
+
+                //命令をすべて消去した譜面
+                var str命令消去譜面 = strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
                 //if( bLog && stream != null )
                 //{
                 //    stream.WriteLine( "-------------------------------------------------" );
@@ -3172,7 +3162,7 @@ namespace DTXMania
                 //    }
                 //    stream.WriteLine( "-------------------------------------------------" );
                 //}
-                this.str命令消去譜面 = this.tコマンド行を削除したTJAを返す( this.str命令消去譜面, 2 );
+                str命令消去譜面 = this.tコマンド行を削除したTJAを返す( str命令消去譜面, 2 );
 
                 //if( bLog && stream != null )
                 //{
@@ -3187,6 +3177,7 @@ namespace DTXMania
 
 
                 //ここで1行の文字数をカウント。配列にして返す。
+                var strSplit読み込むコース = strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
                 string str = "";
                 try
                 {
@@ -3202,28 +3193,28 @@ namespace DTXMania
                         this.listBalloon_Master_数値管理 = 0;
                     }
 
-                    for( int i = 0; i < this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries ).Length; i++ )
+                    for( int i = 0; i < strSplit読み込むコース.Length; i++ )
                     {
-                        if( !String.IsNullOrEmpty( this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries )[ i ] ) )
+                        if( !String.IsNullOrEmpty( strSplit読み込むコース[ i ] ) )
                         {
-                            this.t難易度別ヘッダ( this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries )[ i ] );
+                            this.t難易度別ヘッダ( strSplit読み込むコース[ i ] );
                         }
                     }
-                    for( int i = 0; i < this.str命令消去譜面.Length; i++ )
+                    for( int i = 0; i < str命令消去譜面.Length; i++ )
                     {
-                        if( this.str命令消去譜面[ i ].IndexOf( ',', 0 ) == -1 && !String.IsNullOrEmpty( this.str命令消去譜面[ i ] ) )
+                        if( str命令消去譜面[ i ].IndexOf( ',', 0 ) == -1 && !String.IsNullOrEmpty( str命令消去譜面[ i ] ) )
                         {
-                            if(  this.str命令消去譜面[ i ].Substring( 0, 1 ) == "#" )
+                            if(  str命令消去譜面[ i ].Substring( 0, 1 ) == "#" )
                             {
-                                this.t1小節の文字数をカウントしてリストに追加する( str + this.str命令消去譜面[ i ] );
+                                this.t1小節の文字数をカウントしてリストに追加する( str + str命令消去譜面[ i ] );
                             }
 
-                            if( this.CharConvertNote( this.str命令消去譜面[ i ].Substring( 0, 1 ) ) != -1 )
-                                str += this.str命令消去譜面[ i ];
+                            if( this.CharConvertNote( str命令消去譜面[ i ].Substring( 0, 1 ) ) != -1 )
+                                str += str命令消去譜面[ i ];
                         }
                         else
                         {
-                            this.t1小節の文字数をカウントしてリストに追加する( str + this.str命令消去譜面[ i ] );
+                            this.t1小節の文字数をカウントしてリストに追加する( str + str命令消去譜面[ i ] );
                             str = "";
                         }
                     }
@@ -3245,9 +3236,10 @@ namespace DTXMania
                 //}
 
                 //読み込み部分本体に渡す譜面を作成。
-                this.strSplitした後の譜面 = this.strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
-                this.strSplitした後の譜面 = this.tコマンド行を削除したTJAを返す( this.strSplitした後の譜面, 1 );
-                string str命令消去譜面temp = this.StringArrayToString( this.str命令消去譜面 );
+        	    //0:ヘッダー情報 1:#START以降 となる。個数の定義は後からされるため、ここでは省略。
+                var strSplitした後の譜面 = strSplit読み込むコース; //strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
+                strSplitした後の譜面 = this.tコマンド行を削除したTJAを返す( strSplitした後の譜面, 1 );
+                //string str命令消去譜面temp = this.StringArrayToString( this.str命令消去譜面 );
                 //string[] strDelimiter = { "," };
                 //this.str命令消去譜面 = str命令消去譜面temp.Split( strDelimiter, StringSplitOptions.RemoveEmptyEntries );
 
@@ -3271,9 +3263,9 @@ namespace DTXMania
                     //this.dbNowBMScollTime += (( this.dbBarLength ) * 16.0 );
                     #endregion
                     //string strWrite = "";
-                    for( int i = 0; this.strSplitした後の譜面.Length > i; i++ )
+                    for( int i = 0; strSplitした後の譜面.Length > i; i++ )
                     {
-                        str = this.strSplitした後の譜面[ i ];
+                        str = strSplitした後の譜面[ i ];
                         //strWrite += str;
                         //if( !str.StartsWith( "#" ) && !string.IsNullOrEmpty( this.strTemp ) )
                         //{
@@ -4380,9 +4372,6 @@ namespace DTXMania
                 InputText = InputText.Replace( Environment.NewLine, "\n" ); //改行文字を別の文字列に差し替え。
                 InputText = InputText.Replace( '\t', ' ' ); //何の文字か知らないけどスペースに差し替え。
                 InputText = InputText + "\n";
-
-                string[] strDelimiter = { "#START" };
-                strArray = InputText.Split( strDelimiter, StringSplitOptions.RemoveEmptyEntries );
 
                 string[] strDelimiter2 = { "\n" };
                 strArray = InputText.Split( strDelimiter2, StringSplitOptions.RemoveEmptyEntries );
