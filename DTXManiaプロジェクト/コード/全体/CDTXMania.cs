@@ -19,10 +19,11 @@ namespace DTXMania
 {
 	internal class CDTXMania : Game
 	{
-		// プロパティ
-		#region [ properties ]
-        public static readonly string VERSION = "Ver0.824β(170722)";
-		public static readonly string SLIMDXDLL = "c_net20x86_Jun2010";
+        // プロパティ
+        #region [ properties ]
+        public static readonly string VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2);
+
+        public static readonly string SLIMDXDLL = "c_net20x86_Jun2010";
 		public static readonly string D3DXDLL = "d3dx9_43.dll";		// June 2010
         //public static readonly string D3DXDLL = "d3dx9_42.dll";	// February 2010
         //public static readonly string D3DXDLL = "d3dx9_41.dll";	// March 2009
@@ -2234,7 +2235,7 @@ for (int i = 0; i < 3; i++) {
 				delay = "(" + Sound管理.GetSoundDelay() + "ms)";
 			}
             AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
-            base.Window.Text = asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2) + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
+            base.Window.Text = asmApp.Name + " Ver." + VERSION + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
 		}
 
 		private void t終了処理()

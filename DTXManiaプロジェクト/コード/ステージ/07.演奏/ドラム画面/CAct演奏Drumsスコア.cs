@@ -178,7 +178,7 @@ namespace DTXMania
                                 yAdd = 12;
                                 alpha = 150;
 
-                                if (ct点数アニメタイマ[stScore[i].nPlayer].b進行中)
+                                if (ct点数アニメタイマ[stScore[i].nPlayer].b終了値に達してない)
                                 {
                                     this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
                                     this.ct点数アニメタイマ[stScore[i].nPlayer].n現在の値 = 1;

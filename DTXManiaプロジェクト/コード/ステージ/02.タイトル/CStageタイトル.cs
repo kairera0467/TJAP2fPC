@@ -194,7 +194,7 @@ namespace DTXMania
 #if DEBUG
                 strVersion += "  DEBUG";
 #endif
-                CDTXMania.act文字コンソール.tPrint(4, 4, C文字コンソール.Eフォント種別.白, asmApp.Name + " Ver." + asmApp.Version.ToString().Substring(0, asmApp.Version.ToString().Length - 2)  + " (" + strCreator + ")" );
+                CDTXMania.act文字コンソール.tPrint(4, 4, C文字コンソール.Eフォント種別.白, asmApp.Name + " Ver." + CDTXMania.VERSION + " (" + strCreator + ")" );
                 CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, "Skin:" + CDTXMania.Skin.Skin_Name + " Ver." + CDTXMania.Skin.Skin_Version + " (" + CDTXMania.Skin.Skin_Creator + ")");
                 //CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, strSubTitle);
                 CDTXMania.act文字コンソール.tPrint(4, (720 - 24), C文字コンソール.Eフォント種別.白, "TJAPlayer3 forked TJAPlayer2 forPC(kairera0467)");

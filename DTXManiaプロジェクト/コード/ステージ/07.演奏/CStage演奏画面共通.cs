@@ -1127,7 +1127,15 @@ namespace DTXMania
                 }
                 this.actRoll.t枠表示時間延長(nPlayer);
                 this.b連打中[ nPlayer ] = true;
-                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 10, 14, CDTXMania.Timer);
+                if(this.actRoll.ct連打アニメ[nPlayer].b終了値に達してない)
+                {
+                    this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, CDTXMania.Timer);
+                    this.actRoll.ct連打アニメ[nPlayer].n現在の値 = 1;
+                }
+                else
+                {
+                    this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, CDTXMania.Timer);
+                }
                 if ( pChip.nチャンネル番号 == 0x15 )
                     this.eRollState = E連打State.roll;
                 else
@@ -1227,7 +1235,15 @@ namespace DTXMania
                 }
 
                 this.b連打中[ player ] = true;
-                this.actBalloon.ct風船アニメ[player] = new CCounter(0, 10, 14, CDTXMania.Timer);
+                if (this.actBalloon.ct風船アニメ[player].b終了値に達してない)
+                {
+                    this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, CDTXMania.Timer);
+                    this.actBalloon.ct風船アニメ[player].n現在の値 = 1;
+                }
+                else
+                {
+                    this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, CDTXMania.Timer);
+                }
                 this.eRollState = E連打State.balloon;
                 pChip.nRollCount++;
                 this.n風船残り[ player ]--;
@@ -1544,7 +1560,14 @@ namespace DTXMania
                                     this.nBranch_Perfect[ nPlayer ]++;
                                     if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Perfect++;
                                     this.actCombo.n現在のコンボ数[ nPlayer ]++;
-                                    this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
+                                    if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
+                                    {
+                                        this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
+                                    }
+                                    else
+                                    {
+                                        this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
+                                    }
                                 }
                                 break;
                             case E判定.Great:
@@ -1555,7 +1578,14 @@ namespace DTXMania
                                     this.actCombo.n現在のコンボ数[ nPlayer ]++;
                                     //this.actCombo.ctコンボ加算 = new CCounter( 0, 8, 10, CDTXMania.Timer );
                                     //this.actCombo.ctコンボ加算.t進行();
-                                    this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
+                                    if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
+                                    {
+                                        this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
+                                    }
+                                    else
+                                    {
+                                        this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
+                                    }
 
                                 }
                                 break;
@@ -1594,7 +1624,14 @@ namespace DTXMania
                                         if( nPlayer == 0 ) this.nヒット数_Auto含む.Drums.Perfect++;
                                         this.actCombo.n現在のコンボ数[ nPlayer ]++;
                                         //this.actCombo.ctコンボ加算.t進行();
-                                        this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
+                                        if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
+                                        {
+                                            this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
+                                        }
+                                        else
+                                        {
+                                            this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
+                                        }
                                     }
                                 }
                                 break;

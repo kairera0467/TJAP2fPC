@@ -241,22 +241,18 @@ namespace DTXMania
         private CCounter ct風船ふきだしアニメ;
 
         public CCounter[] ct風船アニメ;
-        private float[,] n風船アニメ拡大率_座標 = new float[,]
+        private float[] RollScale = new float[]
         {
-                        //{1.02f,-2}, //.2
-                        //{1.06f,-5}, //.4
-                        //{1.12f,-10}, //.6
-                        {1.16f,-12}, //.4
-                        {1.18f,-14}, //.2
-                        {1.18f,-14}, //0
-                        {1.16f,-12}, //-.2
-                        {1.12f,-10}, //-.4
-                        {1.06f,-5}, //-.6
-                        {1.04f,-4}, //-.4
-                        {1.03f,-3}, //-.1
-                        {1.02f,-2}, //-1
-                        {1.01f,-1},
-                        {1.0f,0}
+            0.000f,
+            0.123f, // リピート
+            0.164f,
+            0.164f,
+            0.164f,
+            0.137f,
+            0.110f,
+            0.082f,
+            0.055f,
+            0.000f
         };
 
         [StructLayout(LayoutKind.Sequential)]
@@ -275,18 +271,19 @@ namespace DTXMania
                 {
                     if (this.st文字位置[i].ch == ch)
                     {
-                        Rectangle rectangle = new Rectangle(this.st文字位置[i].pt.X, this.st文字位置[i].pt.Y, 62, 80);
+                        Rectangle rectangle = new Rectangle(CDTXMania.Skin.Game_Balloon_Number_Size[0] * i, 0, CDTXMania.Skin.Game_Balloon_Number_Size[0], CDTXMania.Skin.Game_Balloon_Number_Size[1]);
 
                         if (CDTXMania.Tx.Balloon_Number_Roll != null)
                         {
                             CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 255;
-                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = this.n風船アニメ拡大率_座標[this.ct風船アニメ[nPlayer].n現在の値, 0];
-                            CDTXMania.Tx.Balloon_Number_Roll.t2D描画(CDTXMania.app.Device, x - ((62 * n桁数) / 2), y + (int)this.n風船アニメ拡大率_座標[this.ct風船アニメ[nPlayer].n現在の値, 1], rectangle);
+                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = CDTXMania.Skin.Game_Balloon_Balloon_Number_Scale;
+                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Balloon_Balloon_Number_Scale + RollScale[this.ct風船アニメ[nPlayer].n現在の値];
+                            CDTXMania.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画(CDTXMania.app.Device, x - (((CDTXMania.Skin.Game_Balloon_Number_Padding + 2) * n桁数) / 2), y, rectangle);
                         }
                         break;
                     }
                 }
-                x += (60 - (n桁数 > 2 ? n桁数 * 2 : 0));
+                x += (CDTXMania.Skin.Game_Balloon_Number_Padding - (n桁数 > 2 ? n桁数 * 2 : 0));
             }
         }
 

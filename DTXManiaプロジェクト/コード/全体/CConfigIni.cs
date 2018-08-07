@@ -1445,12 +1445,12 @@ namespace DTXMania
 			sw.WriteLine( "Version={0}", CDTXMania.VERSION );
 			sw.WriteLine();
 			#endregion
-			#region [ DTXPath ]
-			sw.WriteLine( "; 演奏データの格納されているフォルダへのパス。" );
-			sw.WriteLine( @"; セミコロン(;)で区切ることにより複数のパスを指定できます。（例: d:\DTXFiles1\;e:\DTXFiles2\）" );
-			sw.WriteLine( "; Pathes for DTX data." );
-			sw.WriteLine( @"; You can specify many pathes separated with semicolon(;). (e.g. d:\DTXFiles1\;e:\DTXFiles2\)" );
-			sw.WriteLine( "DTXPath={0}", this.str曲データ検索パス );
+			#region [ TJAPath ]
+			sw.WriteLine( "; 譜面ファイルが格納されているフォルダへのパス。" );
+			sw.WriteLine( @"; セミコロン(;)で区切ることにより複数のパスを指定できます。（例: d:\tja\;e:\tja2\）" );
+			sw.WriteLine( "; Pathes for TJA data." );
+			sw.WriteLine( @"; You can specify many pathes separated with semicolon(;). (e.g. d:\tja\;e:\tja2\)" );
+			sw.WriteLine( "TJAPath={0}", this.str曲データ検索パス );
 			sw.WriteLine();
 			#endregion
 			#region [ スキン関連 ]
@@ -2305,8 +2305,8 @@ namespace DTXMania
 												this.strDTXManiaのバージョン = str4;
 											}
 											#endregion
-											#region [ DTXPath ]
-											else if( str3.Equals( "DTXPath" ) )
+											#region [ TJAPath ]
+											else if( str3.Equals( "TJAPath" ) )
 											{
 												this.str曲データ検索パス = str4;
 											}

@@ -1253,6 +1253,19 @@ namespace DTXMania
                                 }
                             }
 
+                            else if (strCommand == "Game_Score_Padding")
+                            {
+                                Game_Score_Padding = int.Parse(strParam);
+
+                            }
+                            else if (strCommand == "Game_Score_Size")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Score_Size[i] = int.Parse(strSplit[i]);
+                                }
+                            }
                             #endregion
                             else if (strCommand == "Game_Taiko_NamePlate_X")
                             {
@@ -1286,6 +1299,111 @@ namespace DTXMania
                                 for (int i = 0; i < 2; i++)
                                 {
                                     Game_Taiko_PlayerNumber_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+
+                            else if (strCommand == "Game_Taiko_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Ex_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Ex_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Ex_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Ex_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Padding")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Game_Taiko_Combo_Padding[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Size")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Size[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Size_Ex")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Size_Ex[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Scale")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Game_Taiko_Combo_Scale[i] = float.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Text_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Text_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Text_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Text_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Text_Size")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Text_Size[i] = int.Parse(strSplit[i]);
                                 }
                             }
 
@@ -1421,6 +1539,60 @@ namespace DTXMania
                                     this.Game_Balloon_Balloon_Number_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
+
+                            else if (strCommand == "Game_Balloon_Roll_Frame_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Roll_Frame_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Roll_Frame_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Roll_Frame_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Roll_Number_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Roll_Number_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Roll_Number_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Roll_Number_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Number_Size")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Balloon_Number_Size[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Balloon_Number_Padding")
+                            {
+                                Game_Balloon_Number_Padding = int.Parse(strParam);
+                            }
+                            else if (strCommand == "Game_Balloon_Roll_Number_Scale")
+                            {
+                                Game_Balloon_Roll_Number_Scale = float.Parse(strParam);
+                            }
+                            else if (strCommand == "Game_Balloon_Balloon_Number_Scale")
+                            {
+                                Game_Balloon_Balloon_Number_Scale = float.Parse(strParam);
+                            }
+
                             #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
@@ -1510,9 +1682,6 @@ namespace DTXMania
 		//-----------------
 		private bool bDisposed済み;
         //-----------------
-        #endregion
-
-        #region スキン設定
         #endregion
 
         #region 背景(スクロール)
@@ -1694,10 +1863,10 @@ namespace DTXMania
         public int[] Game_Taiko_Combo_X = new int[] { 268, 268 };
         public int[] Game_Taiko_Combo_Y = new int[] { 270, 448 };
         public int[] Game_Taiko_Combo_Ex_X = new int[] { 268, 268 };
-        public int[] Game_Taiko_Combo_Ex_Y = new int[] { 280, 458 };
+        public int[] Game_Taiko_Combo_Ex_Y = new int[] { 270, 448 };
         public int[] Game_Taiko_Combo_Padding = new int[] { 14, 30, 36 };
-        public int[] Game_Taiko_Combo_Size = new int[] { 42, 60 };
-        public int[] Game_Taiko_Combo_Size_Ex = new int[] { 48, 70 };
+        public int[] Game_Taiko_Combo_Size = new int[] { 42, 48 };
+        public int[] Game_Taiko_Combo_Size_Ex = new int[] { 42, 56 };
         public float[] Game_Taiko_Combo_Scale = new float[] { 1.0f, 1.0f, 0.8f };
         public int[] Game_Taiko_Combo_Text_X = new int[] { 268, 268 };
         public int[] Game_Taiko_Combo_Text_Y = new int[] { 295, 472 };
@@ -1720,7 +1889,15 @@ namespace DTXMania
         public int[] Game_Balloon_Balloon_Frame_X = new int[] { 382, 382 };
         public int[] Game_Balloon_Balloon_Frame_Y = new int[] { 80, 260 };
         public int[] Game_Balloon_Balloon_Number_X = new int[] { 486, 486 };
-        public int[] Game_Balloon_Balloon_Number_Y = new int[] { 114, 300 };
+        public int[] Game_Balloon_Balloon_Number_Y = new int[] { 187, 373 };
+        public int[] Game_Balloon_Roll_Frame_X = new int[] { 218, 218 };
+        public int[] Game_Balloon_Roll_Frame_Y = new int[] { -3, 514 };
+        public int[] Game_Balloon_Roll_Number_X = new int[] { 392, 392 };
+        public int[] Game_Balloon_Roll_Number_Y = new int[] { 128, 639 };
+        public int[] Game_Balloon_Number_Size = new int[] { 62, 80 };
+        public int Game_Balloon_Number_Padding = 60;
+        public float Game_Balloon_Roll_Number_Scale = 1.000f;
+        public float Game_Balloon_Balloon_Number_Scale = 0.879f;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };

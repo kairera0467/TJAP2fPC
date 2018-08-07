@@ -3014,7 +3014,8 @@ namespace DTXMania
 
             //とりあえず腑分けしてやる
             //一旦STYLEで分ける
-            string[] str1 = strTJA.Split( new string[]{"STYLE"}, StringSplitOptions.RemoveEmptyEntries );
+            StringComparison sC = StringComparison.CurrentCultureIgnoreCase;
+            string[] str1 = strTJA.Split( new string[]{"STYLE"}, StringSplitOptions.RemoveEmptyEntries);
             if( str1.Length < 2 ) return false;
             //さらにDPと思われる譜面をSTARTで腑分け
             string[] str2 = str1[ 1 ].Split( new string[]{"#START"}, StringSplitOptions.RemoveEmptyEntries );
@@ -3022,26 +3023,24 @@ namespace DTXMania
             string strSingle = "";
             string strDoubleP1 = "";
             string strDoubleP2 = "";
+            
 
             for( int i = 1; i < 3; i++ )
             {
                 //腑分けした時に「#START」が消えてBGMが再生できなくなってしまうので、strDoublePnに代入する時に頭に「#START」をつけておく。
-                if( str2[ i ].IndexOf( "P1" ) != -1 )
+                if( str2[ i ].IndexOf( "P1", sC ) != -1 )
                 {
                     strDoubleP1 = ( "#START" + str2[ i ] );
                     bIsSessionNotes = true;
                 }
-                else if( str2[ i ].IndexOf( "P2" ) != -1 )
+                else if( str2[ i ].IndexOf( "P2", sC ) != -1 )
                 {
                     strDoubleP2 = ( "#START" + str2[ i ]);
                     bIsSessionNotes = true;
                 }
-                else
-                {
-                    strSingle = str1[ i ];
-                }
             }
-            if( !bIsSessionNotes ) seqNo = 99;
+            strSingle = str1[0];
+            if ( !bIsSessionNotes ) seqNo = 99;
 
             switch( seqNo )
             {

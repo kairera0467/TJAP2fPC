@@ -462,7 +462,7 @@ namespace DTXMania
 					}
 					else
 					{
-						Trace.TraceWarning( "曲データの検索パス(DTXPath)の指定がありません。" );
+						Trace.TraceWarning( "曲データの検索パス(TJAPath)の指定がありません。" );
 					}
 				}
 				finally

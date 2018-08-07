@@ -119,8 +119,8 @@ namespace DTXMania
                 //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ct連打枠カウンター[player].n現在の値.ToString());
                 if ( this.ct連打枠カウンター[ player ].b終了値に達してない)
                 {
-                    CDTXMania.Tx.Balloon_Roll.t2D描画(CDTXMania.app.Device, 217, nRollBalloon[player]);
-                    this.t文字表示(330 + 62, nRollNumber[player], n連打数.ToString(), n連打数, player);
+                    CDTXMania.Tx.Balloon_Roll.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Roll_Frame_X[player], CDTXMania.Skin.Game_Balloon_Roll_Frame_Y[player]);
+                    this.t文字表示(CDTXMania.Skin.Game_Balloon_Roll_Number_X[player], CDTXMania.Skin.Game_Balloon_Roll_Number_Y[player], n連打数.ToString(), n連打数, player);
                     CDTXMania.Tx.Balloon_Roll.n透明度 = 256;
                     CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 256;
                     if ((int)this.ct連打枠カウンター[player].n現在の値 > 96)
@@ -156,22 +156,18 @@ namespace DTXMania
         //private CTexture tx連打数字;
         private readonly ST文字位置[] st文字位置;
         public CCounter[] ct連打アニメ;
-        private float[,] n連打アニメ拡大率_座標 = new float[,]
+        private float[] RollScale = new float[]
         {
-                        //{1.02f,-2}, //.2
-                        //{1.06f,-5}, //.4
-                        //{1.12f,-10}, //.6
-                        {1.16f,-12}, //.4
-                        {1.18f,-14}, //.2
-                        {1.18f,-14}, //0
-                        {1.16f,-12}, //-.2
-                        {1.12f,-10}, //-.4
-                        {1.06f,-5}, //-.6
-                        {1.04f,-4}, //-.4
-                        {1.03f,-3}, //-.1
-                        {1.02f,-2}, //-1
-                        {1.01f,-1},
-                        {1.0f,0}
+            0.000f,
+            0.123f, // リピート
+            0.164f,
+            0.164f,
+            0.164f,
+            0.137f,
+            0.110f,
+            0.082f,
+            0.055f,
+            0.000f
         };
 
         [StructLayout(LayoutKind.Sequential)]
@@ -192,17 +188,18 @@ namespace DTXMania
 				{
 					if( this.st文字位置[ i ].ch == ch )
 					{
-						Rectangle rectangle = new Rectangle( this.st文字位置[ i ].pt.X, this.st文字位置[ i ].pt.Y, 62, 80 );
+						Rectangle rectangle = new Rectangle(CDTXMania.Skin.Game_Balloon_Number_Size[0] * i, 0, CDTXMania.Skin.Game_Balloon_Number_Size[0], CDTXMania.Skin.Game_Balloon_Number_Size[1]);
 
 						if(CDTXMania.Tx.Balloon_Number_Roll != null )
 						{
-                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = this.n連打アニメ拡大率_座標[this.ct連打アニメ[nPlayer].n現在の値, 0];
-                            CDTXMania.Tx.Balloon_Number_Roll.t2D描画( CDTXMania.app.Device, x - ( ( 62 * n桁数 ) / 2 ), y + (int)this.n連打アニメ拡大率_座標[ this.ct連打アニメ[nPlayer].n現在の値, 1], rectangle );
+                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = CDTXMania.Skin.Game_Balloon_Roll_Number_Scale;
+                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Balloon_Roll_Number_Scale + RollScale[this.ct連打アニメ[nPlayer].n現在の値];
+                            CDTXMania.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画( CDTXMania.app.Device, x - ( ( (CDTXMania.Skin.Game_Balloon_Number_Padding + 2) * n桁数 ) / 2 ), y, rectangle );
 						}
 						break;
 					}
 				}
-				x += ( 60 - ( n桁数 > 2 ? n桁数 * 2 : 0 ) );
+				x += ( CDTXMania.Skin.Game_Balloon_Number_Padding - ( n桁数 > 2 ? n桁数 * 2 : 0 ) );
 			}
 		}
     }

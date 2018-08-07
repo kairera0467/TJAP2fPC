@@ -491,7 +491,7 @@ namespace DTXMania
                     CDTXMania.Tx.GameMode_Timer_Tick.t3D描画( CDTXMania.app.Device, mat );
 
                     string str表示する残り時間 = ( this.st叩ききりまショー.ct残り時間.n現在の値 < 1000 ) ? "25" : ( ( 26000 - this.st叩ききりまショー.ct残り時間.n現在の値 ) / 1000 ).ToString();
-                    this.t小文字表示( 236, 100, string.Format("{0,2:#0}", str表示する残り時間 ));
+                    this.t小文字表示( 230 + (str表示する残り時間.Length * CDTXMania.Skin.Game_Taiko_Combo_Size[0] / 4 ), 84 + CDTXMania.Tx.GameMode_Timer_Frame.szテクスチャサイズ.Height / 2 , string.Format("{0,2:#0}", str表示する残り時間 ));
                 }
 
                 if( !this.st叩ききりまショー.ct加算審査中.b停止中 )
@@ -864,14 +864,12 @@ namespace DTXMania
                                 CDTXMania.Tx.Taiko_Combo[0].n透明度 = 0;
                             CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 1f;
                             CDTXMania.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = 1f;
-                            CDTXMania.Tx.Taiko_Combo[0].t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                            CDTXMania.Tx.Taiko_Combo[0].t2D中心基準描画( CDTXMania.app.Device, x, y, rectangle );
 						}
 						break;
 					}
 				}
-                if( str[ 0 ] == ' ' )
-                    x -= 20;
-				x += 42;
+				x += CDTXMania.Skin.Game_Taiko_Combo_Padding[0] * 2;
 			}
 		}
         protected void t加算文字表示( int x, int y, string str )
