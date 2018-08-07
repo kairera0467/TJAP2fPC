@@ -8,8 +8,6 @@ using System.Diagnostics;
 using SlimDX;
 using SlimDX.Direct3D9;
 
-using Device = SampleFramework.DeviceCache;
-
 namespace FDK
 {
 	/// <summary>

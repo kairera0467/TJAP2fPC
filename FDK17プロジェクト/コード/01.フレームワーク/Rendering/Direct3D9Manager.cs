@@ -43,7 +43,7 @@ namespace SampleFramework
 #if TEST_Direct3D9Ex
 		public DeviceEx Device							//yyagi
 #else
-		public DeviceCache Device
+		public Device Device
 #endif
 		{
             get;
@@ -121,7 +121,7 @@ namespace SampleFramework
             }
 
             elements.Add(VertexElement.VertexDeclarationEnd);
-            return new VertexDeclaration(Device.UnderlyingDevice, elements.ToArray());
+            return new VertexDeclaration(Device, elements.ToArray());
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace SampleFramework
         /// <returns>The newly created render target surface.</returns>
         public Texture CreateRenderTarget(int width, int height)
         {
-            return new Texture(Device.UnderlyingDevice, width, height, 1, Usage.RenderTarget, manager.CurrentSettings.BackBufferFormat, Pool.Default);
+            return new Texture(Device, width, height, 1, Usage.RenderTarget, manager.CurrentSettings.BackBufferFormat, Pool.Default);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace SampleFramework
         /// <returns>The newly created resolve target.</returns>
         public Texture CreateResolveTarget()
         {
-            return new Texture(Device.UnderlyingDevice, manager.ScreenWidth, manager.ScreenHeight, 1, Usage.RenderTarget, manager.CurrentSettings.BackBufferFormat, Pool.Default);
+            return new Texture(Device, manager.ScreenWidth, manager.ScreenHeight, 1, Usage.RenderTarget, manager.CurrentSettings.BackBufferFormat, Pool.Default);
         }
 
         /// <summary>

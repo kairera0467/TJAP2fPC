@@ -34,7 +34,6 @@
     <DefineConstants>TRACE;TEST_CancelEnterCodeInAltEnter2 TEST_Direct3D9Ex_</DefineConstants>
     <Optimize>false</Optimize>
     <DebugType>pdbonly</DebugType>
-    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -46,7 +45,6 @@
     <NoWarn>0219</NoWarn>
     <DefineConstants>TRACE;TEST_ENGLISH_ TEST_Direct3D9Ex_</DefineConstants>
     <Optimize>true</Optimize>
-    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
@@ -89,7 +87,6 @@
     <Compile Include="コード\01.フレームワーク\Enumeration\Enumeration9.cs" />
     <Compile Include="コード\01.フレームワーク\Properties\Resources.Designer.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\DeviceCreationException.cs" />
-    <Compile Include="コード\01.フレームワーク\Rendering\DeviceCache.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\Direct3D9Manager.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\Enums.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\GraphicsDeviceManager.cs" />
