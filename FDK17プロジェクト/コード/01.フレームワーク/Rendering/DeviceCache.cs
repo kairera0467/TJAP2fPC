@@ -189,18 +189,10 @@ namespace SampleFramework
             set => _device.Viewport = value;
         }
 
-        private VertexFormat? _lastVertexFormat;
         public VertexFormat VertexFormat
         {
             get => _device.VertexFormat;
-            set
-            {
-                if (_lastVertexFormat != value)
-                {
-                    _lastVertexFormat = value;
-                    _device.VertexFormat = value;
-                }
-            }
+            set => _device.VertexFormat = value;
         }
 
         public Capabilities Capabilities => _device.Capabilities;
