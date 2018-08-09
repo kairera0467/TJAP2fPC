@@ -155,7 +155,7 @@ namespace DTXMania
 				this.ct登場アニメ用.t進行();
                 int x = 980;
                 int y = 350;
-                if (CDTXMania.stage選曲.r現在選択中のスコア != null && this.ct登場アニメ用.n現在の値 >= 2000)
+                if (CDTXMania.stage選曲.r現在選択中のスコア != null && this.ct登場アニメ用.n現在の値 >= 2000 && CDTXMania.stage選曲.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
                 {
                     //CDTXMania.Tx.SongSelect_ScoreWindow_Text.n透明度 = ct登場アニメ用.n現在の値 - 1745;
                     if (CDTXMania.Tx.SongSelect_ScoreWindow[CDTXMania.stage選曲.n現在選択中の曲の難易度] != null)
