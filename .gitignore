@@ -1,10 +1,11 @@
 ﻿*.suo
 *.snk
-Config.ini
-DTXManiaLog.txt
-songlist.db
-songs.db
 /.vs
 */bin
 */obj
-/Test
+*.exe
+*.log
+*.pdb
+*.db
+/Test/Capture_img
+/Test/Config.ini
