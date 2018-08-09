@@ -674,7 +674,7 @@ namespace DTXMania
         public bool ShowChara;
         public bool ShowDancer;
         public bool ShowRunner;
-        public bool ShowFotter;
+        public bool ShowFooter;
         public bool ShowMob;
         public bool ShowPuchiChara; // リザーブ
         //
@@ -1312,7 +1312,7 @@ namespace DTXMania
             ShowChara = true;
             ShowDancer = true;
             ShowRunner = true;
-            ShowFotter = true;
+            ShowFooter = true;
             ShowMob = true;
             // ShowPuchiChara = true;
 
@@ -1705,7 +1705,7 @@ namespace DTXMania
             sw.WriteLine("; モブ画像を表示する (0:OFF, 1:ON)");
             sw.WriteLine("ShowMob={0}", ShowMob ? 1 : 0);
             sw.WriteLine("; フッター画像 (0:OFF, 1:ON)");
-            sw.WriteLine("ShowFotter={0}", ShowFotter ? 1 : 0);
+            sw.WriteLine("ShowFooter={0}", ShowFooter ? 1 : 0);
             //sw.WriteLine("; ぷちキャラ画像 (0:OFF, 1:ON)");
             //sw.WriteLine("ShowPuchiChara={0}", ShowPuchiChara ? 1 : 0);
             sw.WriteLine();
@@ -2438,9 +2438,9 @@ namespace DTXMania
                                             {
                                                 ShowMob = C変換.bONorOFF(str4[0]);
                                             }
-                                            else if (str3.Equals("ShowFotter"))
+                                            else if (str3.Equals("ShowFooter"))
                                             {
-                                                ShowFotter = C変換.bONorOFF(str4[0]);
+                                                ShowFooter = C変換.bONorOFF(str4[0]);
                                             }
                                             //else if (str3.Equals("ShowPuchiChara"))
                                             //{

@@ -7,12 +7,12 @@ using FDK;
 
 namespace DTXMania
 {
-    internal class CAct演奏DrumsFotter : CActivity
+    internal class CAct演奏DrumsFooter : CActivity
     {
         /// <summary>
         /// フッター
         /// </summary>
-        public CAct演奏DrumsFotter()
+        public CAct演奏DrumsFooter()
         {
             base.b活性化してない = true;
         }

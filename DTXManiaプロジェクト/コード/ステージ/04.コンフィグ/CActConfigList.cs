@@ -414,11 +414,11 @@ namespace DTXMania
                 "");
             this.list項目リスト.Add(ShowRunner);
 
-            ShowFotter = new CItemToggle("ShowFotter", CDTXMania.ConfigIni.ShowFotter,
+            ShowFooter = new CItemToggle("ShowFooter", CDTXMania.ConfigIni.ShowFooter,
                 "フッター画像を表示するかどうか\n",
-                "Show Fotter Image.\n" +
+                "Show Footer Image.\n" +
                 "");
-            this.list項目リスト.Add(ShowFotter);
+            this.list項目リスト.Add(ShowFooter);
 
             //ShowPuchiChara = new CItemToggle("ShowPuchiChara", CDTXMania.ConfigIni.ShowPuchiChara,
             //    "ぷちキャラ画像を表示するかどうか\n",
@@ -2167,7 +2167,7 @@ namespace DTXMania
         CItemToggle ShowDancer;
         CItemToggle ShowRunner;
         CItemToggle ShowMob;
-        CItemToggle ShowFotter;
+        CItemToggle ShowFooter;
         CItemToggle ShowPuchiChara;
 		//private CItemToggle iGuitarAutoPlay;
 		private CItemThreeState iGuitarAutoPlayAll;			// #23886 2012.5.8 yyagi
@@ -2322,7 +2322,7 @@ namespace DTXMania
             CDTXMania.ConfigIni.ShowDancer = this.ShowDancer.bON;
             CDTXMania.ConfigIni.ShowRunner = this.ShowRunner.bON;
             CDTXMania.ConfigIni.ShowMob = this.ShowMob.bON;
-            CDTXMania.ConfigIni.ShowFotter = this.ShowFotter.bON;
+            CDTXMania.ConfigIni.ShowFooter = this.ShowFooter.bON;
             //CDTXMania.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
             CDTXMania.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
 		}

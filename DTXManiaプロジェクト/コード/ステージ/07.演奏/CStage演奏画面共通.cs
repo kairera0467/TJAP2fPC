@@ -595,7 +595,7 @@ namespace DTXMania
         protected CAct演奏Combo音声 actComboVoice;
         protected CAct演奏PauseMenu actPauseMenu;
         public CAct演奏Drumsチップエフェクト actChipEffects;
-        public CAct演奏DrumsFotter actFotter;
+        public CAct演奏DrumsFooter actFooter;
         public CAct演奏DrumsRunner actRunner;
         public CAct演奏DrumsMob actMob;
 		public bool bPAUSE;

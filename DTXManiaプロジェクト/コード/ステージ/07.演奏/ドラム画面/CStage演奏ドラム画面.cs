@@ -58,7 +58,7 @@ namespace DTXMania
             base.list子Activities.Add( this.actComboVoice = new CAct演奏Combo音声() );
             base.list子Activities.Add( this.actPauseMenu = new CAct演奏PauseMenu() );
             base.list子Activities.Add(this.actChipEffects = new CAct演奏Drumsチップエフェクト());
-            base.list子Activities.Add(this.actFotter = new CAct演奏DrumsFotter());
+            base.list子Activities.Add(this.actFooter = new CAct演奏DrumsFooter());
             base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
             base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
 
@@ -391,8 +391,8 @@ namespace DTXMania
                     actDancer.On進行描画();
                 }
 
-                if(!bDoublePlay && CDTXMania.ConfigIni.ShowFotter)
-                    this.actFotter.On進行描画();
+                if(!bDoublePlay && CDTXMania.ConfigIni.ShowFooter)
+                    this.actFooter.On進行描画();
 
                 //this.t進行描画_グラフ();   // #24074 2011.01.23 add ikanick
 
