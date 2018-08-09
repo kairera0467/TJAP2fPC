@@ -171,10 +171,10 @@ namespace DTXMania
                 CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[2].n明るさ * 73;
                 CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[3].n明るさ * 73;
             
-                CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
-                CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
-                CDTXMania.Tx.Taiko_Don_Left.t2D描画( CDTXMania.app.Device, 190, 190, new Rectangle( 0, 0, 76, 164 ) );
-                CDTXMania.Tx.Taiko_Don_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 190, new Rectangle( 76, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0], CDTXMania.Skin.Game_Taiko_Y[0], new Rectangle( 0, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0] + CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Skin.Game_Taiko_Y[0], new Rectangle(CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                CDTXMania.Tx.Taiko_Don_Left.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0], CDTXMania.Skin.Game_Taiko_Y[0], new Rectangle( 0, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                CDTXMania.Tx.Taiko_Don_Right.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0] + CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Skin.Game_Taiko_Y[0], new Rectangle(CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height));
             }
 
             if( CDTXMania.Tx.Taiko_Don_Left != null && CDTXMania.Tx.Taiko_Don_Right != null && CDTXMania.Tx.Taiko_Ka_Left != null && CDTXMania.Tx.Taiko_Ka_Right != null )
@@ -184,10 +184,10 @@ namespace DTXMania
                 CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[6].n明るさ * 73;
                 CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[7].n明るさ * 73;
             
-                CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
-                CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
-                CDTXMania.Tx.Taiko_Don_Left.t2D描画( CDTXMania.app.Device, 190, 366, new Rectangle( 0, 0, 76, 164 ) );
-                CDTXMania.Tx.Taiko_Don_Right.t2D描画( CDTXMania.app.Device, 190 + 76, 366, new Rectangle( 76, 0, 76, 164 ) );
+                CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1], CDTXMania.Skin.Game_Taiko_Y[1], new Rectangle( 0, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1] + CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Skin.Game_Taiko_Y[1], new Rectangle(CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                CDTXMania.Tx.Taiko_Don_Left.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1], CDTXMania.Skin.Game_Taiko_Y[1], new Rectangle( 0, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                CDTXMania.Tx.Taiko_Don_Right.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1] + CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Skin.Game_Taiko_Y[1], new Rectangle(CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
             }
 
             int[] nLVUPY = new int[] { 127, 127, 0, 0 };
