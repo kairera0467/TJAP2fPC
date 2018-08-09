@@ -4252,15 +4252,12 @@ namespace DTXMania
 			CDTXMania.ConfigIni.eDark = Eダークモード.OFF;
 
 			CDTXMania.ConfigIni.b演奏情報を表示する = CDTXMania.ConfigIni.bViewerShowDebugStatus;
-			CDTXMania.ConfigIni.bフィルイン有効 = true;
 			CDTXMania.ConfigIni.bScoreIniを出力する = false;
 			CDTXMania.ConfigIni.bSTAGEFAILED有効 = false;
 			CDTXMania.ConfigIni.bTight = false;
 			CDTXMania.ConfigIni.bストイックモード = false;
 
 			CDTXMania.ConfigIni.nRisky = 0;
-			CDTXMania.ConfigIni.nShowLagType = 0;
-			CDTXMania.ConfigIni.bドラムコンボ表示 = true;
 		}
 
 

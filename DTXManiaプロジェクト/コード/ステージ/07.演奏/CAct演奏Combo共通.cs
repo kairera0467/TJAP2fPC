@@ -317,8 +317,8 @@ namespace DTXMania
             //nCombo値 = 114;
 			#region [ 事前チェック。]
 			//-----------------
-			if( CDTXMania.ConfigIni.bドラムコンボ表示 == false )
-				return;		// 表示OFF。
+			//if( CDTXMania.ConfigIni.bドラムコンボ表示 == false )
+			//	return;		// 表示OFF。
 
 			if( nCombo値 == 0 )
 				return;		// コンボゼロは表示しない。

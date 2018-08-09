@@ -390,30 +390,68 @@ namespace DTXMania
                 "");
             this.list項目リスト.Add( this.iTaikoAutoSection );
 
-			//this.iSystemSkinSubfolder = new CItemList( "Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
-			//	"スキン切替：\n" +
-			//	"スキンを切り替えます。\n",
-			//	//"CONFIGURATIONを抜けると、設定した\n" +
-			//	//"スキンに変更されます。",
-			//	"Skin:\n" +
-			//	"Change skin.",
-			//	skinNames );
-			//this.list項目リスト.Add( this.iSystemSkinSubfolder );
-			this.iSystemUseBoxDefSkin = new CItemToggle( "Skin (Box)", CDTXMania.ConfigIni.bUseBoxDefSkin,
-				"Music boxスキンの利用：\n" +
-				"特別なスキンが設定されたMusic box\n" +
-				"に出入りしたときに、自動でスキンを\n" +
-				"切り替えるかどうかを設定します。\n",
-				//"\n" +
-				//"(Music Boxスキンは、box.defファイル\n" +
-				//" で指定できます)\n",
-				"Box skin:\n" +
-				"Automatically change skin\n" +
-				"specified in box.def file." );
-			this.list項目リスト.Add( this.iSystemUseBoxDefSkin );
+            ShowChara = new CItemToggle("ShowChara", CDTXMania.ConfigIni.ShowChara,
+                "キャラクター画像を表示するかどうか\n",
+                "Show Character Images.\n" +
+                "");
+            this.list項目リスト.Add(ShowChara);
 
-	
-			this.iSystemGoToKeyAssign = new CItemBase( "System Keys", CItemBase.Eパネル種別.通常,
+            ShowDancer = new CItemToggle("ShowDancer", CDTXMania.ConfigIni.ShowDancer,
+                "ダンサー画像を表示するかどうか\n",
+                "Show Dancer Images.\n" +
+                "");
+            this.list項目リスト.Add(ShowDancer);
+
+            ShowMob = new CItemToggle("ShowMob", CDTXMania.ConfigIni.ShowMob,
+                "モブ画像を表示するかどうか\n",
+                "Show Mob Images.\n" +
+                "");
+            this.list項目リスト.Add(ShowMob);
+
+            ShowRunner = new CItemToggle("ShowRunner", CDTXMania.ConfigIni.ShowRunner,
+                "ランナー画像を表示するかどうか\n",
+                "Show Runner Images.\n" +
+                "");
+            this.list項目リスト.Add(ShowRunner);
+
+            ShowFotter = new CItemToggle("ShowFotter", CDTXMania.ConfigIni.ShowFotter,
+                "フッター画像を表示するかどうか\n",
+                "Show Fotter Image.\n" +
+                "");
+            this.list項目リスト.Add(ShowFotter);
+
+            //ShowPuchiChara = new CItemToggle("ShowPuchiChara", CDTXMania.ConfigIni.ShowPuchiChara,
+            //    "ぷちキャラ画像を表示するかどうか\n",
+            //    "Show PuchiChara Images.\n" +
+            //    "");
+            //this.list項目リスト.Add(ShowPuchiChara);
+
+
+
+            //this.iSystemSkinSubfolder = new CItemList( "Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
+            //	"スキン切替：\n" +
+            //	"スキンを切り替えます。\n",
+            //	//"CONFIGURATIONを抜けると、設定した\n" +
+            //	//"スキンに変更されます。",
+            //	"Skin:\n" +
+            //	"Change skin.",
+            //	skinNames );
+            //this.list項目リスト.Add( this.iSystemSkinSubfolder );
+            //this.iSystemUseBoxDefSkin = new CItemToggle( "Skin (Box)", CDTXMania.ConfigIni.bUseBoxDefSkin,
+            //	"Music boxスキンの利用：\n" +
+            //	"特別なスキンが設定されたMusic box\n" +
+            //	"に出入りしたときに、自動でスキンを\n" +
+            //	"切り替えるかどうかを設定します。\n",
+            //	//"\n" +
+            //	//"(Music Boxスキンは、box.defファイル\n" +
+            //	//" で指定できます)\n",
+            //	"Box skin:\n" +
+            //	"Automatically change skin\n" +
+            //	"specified in box.def file." );
+            //this.list項目リスト.Add( this.iSystemUseBoxDefSkin );
+
+
+            this.iSystemGoToKeyAssign = new CItemBase( "System Keys", CItemBase.Eパネル種別.通常,
 			"システムのキー入力に関する項目を設\n定します。",
 			"Settings for the system key/pad inputs." );
 			this.list項目リスト.Add( this.iSystemGoToKeyAssign );
@@ -739,13 +777,6 @@ namespace DTXMania
                 " ",
                 new string[] { "TYPE-A", "TYPE-B" });
             this.list項目リスト.Add(this.iTaikoBranchAnime);
-
-            this.iTaikoChara = new CItemToggle("Chara", CDTXMania.ConfigIni.bChara,
-                "キャラクター画像(β版)を表示します。\n" +
-                "挙動が少し怪しいです。",
-                "\n" +
-                "");
-            this.list項目リスト.Add(this.iTaikoChara);
 
             this.iTaikoGameMode = new CItemList("GameMode", CItemBase.Eパネル種別.通常, (int)CDTXMania.ConfigIni.eGameMode,
                 "ゲームモード\n" +
@@ -2132,7 +2163,12 @@ namespace DTXMania
         private CItemToggle iTaikoJudgeCountDisp;
         private CItemToggle iTaikoBigNotesJudge;
         private CItemInteger iTaikoPlayerCount;
-
+        CItemToggle ShowChara;
+        CItemToggle ShowDancer;
+        CItemToggle ShowRunner;
+        CItemToggle ShowMob;
+        CItemToggle ShowFotter;
+        CItemToggle ShowPuchiChara;
 		//private CItemToggle iGuitarAutoPlay;
 		private CItemThreeState iGuitarAutoPlayAll;			// #23886 2012.5.8 yyagi
 		private CItemToggle iGuitarR;						//
@@ -2267,7 +2303,6 @@ namespace DTXMania
 
 			CDTXMania.ConfigIni.strSystemSkinSubfolderFullName = skinSubFolders[ nSkinIndex ];				// #28195 2012.5.2 yyagi
 			CDTXMania.Skin.SetCurrentSkinSubfolderFullName( CDTXMania.ConfigIni.strSystemSkinSubfolderFullName, true );
-			CDTXMania.ConfigIni.bUseBoxDefSkin = this.iSystemUseBoxDefSkin.bON;								// #28195 2012.5.6 yyagi
 
 			CDTXMania.ConfigIni.nSoundDeviceType = this.iSystemSoundType.n現在選択されている項目番号;		// #24820 2013.1.3 yyagi
 			CDTXMania.ConfigIni.nWASAPIBufferSizeMs = this.iSystemWASAPIBufferSizeMs.n現在の値;				// #24820 2013.1.15 yyagi
@@ -2283,6 +2318,12 @@ namespace DTXMania
 			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度 = (E判定表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
             CDTXMania.ConfigIni.bAutoSection = this.iTaikoAutoSection.bON;
+            CDTXMania.ConfigIni.ShowChara = this.ShowChara.bON;
+            CDTXMania.ConfigIni.ShowDancer = this.ShowDancer.bON;
+            CDTXMania.ConfigIni.ShowRunner = this.ShowRunner.bON;
+            CDTXMania.ConfigIni.ShowMob = this.ShowMob.bON;
+            CDTXMania.ConfigIni.ShowFotter = this.ShowFotter.bON;
+            //CDTXMania.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
             CDTXMania.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
 		}
 		private void tConfigIniへ記録する_Bass()
@@ -2366,7 +2407,6 @@ namespace DTXMania
             CDTXMania.ConfigIni.nScoreMode = this.iTaikoScoreMode.n現在選択されている項目番号;
             CDTXMania.ConfigIni.nBranchAnime = this.iTaikoBranchAnime.n現在選択されている項目番号;
             //CDTXMania.ConfigIni.bHispeedRandom = this.iTaikoHispeedRandom.bON;
-            CDTXMania.ConfigIni.bChara = this.iTaikoChara.bON;
             CDTXMania.ConfigIni.bNoInfo = this.iTaikoNoInfo.bON;
             CDTXMania.ConfigIni.eRandom.Taiko = (Eランダムモード)this.iTaikoRandom.n現在選択されている項目番号;
             CDTXMania.ConfigIni.eSTEALTH = (Eステルスモード)this.iTaikoStealth.n現在選択されている項目番号;

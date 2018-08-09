@@ -292,15 +292,6 @@ namespace DTXMania
 		読込完了,
 		読込中止
 	}
-	/// <summary>
-	/// 入力ラグ表示タイプ
-	/// </summary>
-	internal enum EShowLagType
-	{
-		OFF,			// 全く表示しない
-		ON,				// 判定に依らず全て表示する
-		GREAT_POOR		// GREAT-MISSの時のみ表示する(PERFECT時は表示しない)
-	}
 
     public enum ENoteState
     {

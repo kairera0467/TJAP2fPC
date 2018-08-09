@@ -39,12 +39,9 @@ namespace DTXMania
 
         public override int On進行描画()
         {
-            if (!CDTXMania.stage演奏ドラム画面.bDoublePlay && !CDTXMania.ConfigIni.bAVI有効)
+            if (CDTXMania.Tx.Mob_Footer != null)
             {
-                if (CDTXMania.Tx.Mob_Footer != null)
-                {
-                    CDTXMania.Tx.Mob_Footer.t2D描画(CDTXMania.app.Device, 0, 720 - CDTXMania.Tx.Mob_Footer.szテクスチャサイズ.Height);
-                }
+                CDTXMania.Tx.Mob_Footer.t2D描画(CDTXMania.app.Device, 0, 720 - CDTXMania.Tx.Mob_Footer.szテクスチャサイズ.Height);
             }
             return base.On進行描画();
         }

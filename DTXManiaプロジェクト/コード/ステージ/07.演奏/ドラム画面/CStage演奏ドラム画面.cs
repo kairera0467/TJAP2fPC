@@ -386,32 +386,35 @@ namespace DTXMania
                     this.actRollChara.On進行描画();
                 }
 
-                this.actFotter.On進行描画();
-
-                if (!CDTXMania.ConfigIni.bAVI有効)
+                if(!bDoublePlay && CDTXMania.ConfigIni.ShowDancer)
                 {
-                    if (!this.bDoublePlay)
-                        this.actDancer.On進行描画();
+                    actDancer.On進行描画();
                 }
+
+                if(!bDoublePlay && CDTXMania.ConfigIni.ShowFotter)
+                    this.actFotter.On進行描画();
 
                 //this.t進行描画_グラフ();   // #24074 2011.01.23 add ikanick
 
 
-				//this.t進行描画_DANGER();
-				//this.t進行描画_判定ライン();
-                if( !CDTXMania.ConfigIni.bNoInfo )
+                //this.t進行描画_DANGER();
+                //this.t進行描画_判定ライン();
+                if ( !CDTXMania.ConfigIni.bNoInfo )
                     this.t進行描画_ネームプレート();
-                if( CDTXMania.ConfigIni.bChara )
+                if( CDTXMania.ConfigIni.ShowChara )
                     this.actChara.On進行描画();
 
-                this.actMob.On進行描画();
+                if(CDTXMania.ConfigIni.ShowMob)
+                    this.actMob.On進行描画();
+
                 if ( CDTXMania.ConfigIni.eGameMode != EGame.OFF )
                     this.actGame.On進行描画();
 
 				this.t進行描画_譜面スクロール速度();
 				this.t進行描画_チップアニメ();
 
-                this.actRunner.On進行描画();
+                if(CDTXMania.ConfigIni.ShowRunner)
+                    this.actRunner.On進行描画();
 
 
                 if (!CDTXMania.ConfigIni.bNoInfo)

@@ -51,7 +51,7 @@ namespace DTXMania
 
             if (this.ct踊り子モーション != null || CDTXMania.Skin.Game_Dancer_Ptn != 0) this.ct踊り子モーション.t進行LoopDb();
 
-            if (CDTXMania.ConfigIni.bDancer && this.ct踊り子モーション != null && CDTXMania.Skin.Game_Dancer_Ptn != 0)
+            if (CDTXMania.ConfigIni.ShowDancer && this.ct踊り子モーション != null && CDTXMania.Skin.Game_Dancer_Ptn != 0)
             {
                 for (int i = 0; i < 5; i++)
                 {
