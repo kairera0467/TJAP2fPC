@@ -422,15 +422,16 @@ namespace DTXMania
 #endif
             
 
-			if( this.db現在のゲージ値[ player ] > 100.0 )
-				this.db現在のゲージ値[ player ] = 100.0;
-            else if( this.db現在のゲージ値[ player ] < 0.0 )
-                this.db現在のゲージ値[ player ] = 0.0;
-
             this.db現在のゲージ値[ player ] = Math.Round(this.db現在のゲージ値[ player ] + fDamage, 5, MidpointRounding.ToEven);
-            CDTXMania.stage演奏ドラム画面.nGauge = fDamage;
 
-		}
+            if (this.db現在のゲージ値[player] >= 100.0)
+                this.db現在のゲージ値[player] = 100.0;
+            else if (this.db現在のゲージ値[player] <= 0.0)
+                this.db現在のゲージ値[player] = 0.0;
+
+            //CDTXMania.stage演奏ドラム画面.nGauge = fDamage;
+
+        }
 
         public virtual void Start(int nLane, E判定 judge, int player)
         {

@@ -1569,17 +1569,6 @@ namespace DTXMania
 			sw.WriteLine( "; RANDOM SELECT で子BOXを検索対象に含める (0:OFF, 1:ON)" );
 			sw.WriteLine( "RandomFromSubBox={0}", this.bランダムセレクトで子BOXを検索対象とする ? 1 : 0 );
 			sw.WriteLine();
-			#region [ モニターサウンド(ヒット音の再生音量アップ) ]
-			sw.WriteLine( "; ドラム演奏時にドラム音を強調する (0:OFF, 1:ON)" );
-			sw.WriteLine( "SoundMonitorDrums={0}", this.b演奏音を強調する.Drums ? 1 : 0 );
-			sw.WriteLine();
-			sw.WriteLine( "; ギター演奏時にギター音を強調する (0:OFF, 1:ON)" );
-			sw.WriteLine( "SoundMonitorGuitar={0}", this.b演奏音を強調する.Guitar ? 1 : 0 );
-			sw.WriteLine();
-			sw.WriteLine( "; ベース演奏時にベース音を強調する (0:OFF, 1:ON)" );
-			sw.WriteLine( "SoundMonitorBass={0}", this.b演奏音を強調する.Bass ? 1 : 0 );
-			sw.WriteLine();
-			#endregion
 			sw.WriteLine( "; 演奏情報を表示する (0:OFF, 1:ON)" );
 			sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
 			sw.WriteLine( "ShowDebugStatus={0}", this.b演奏情報を表示する ? 1 : 0 );
@@ -1628,22 +1617,11 @@ namespace DTXMania
 			sw.WriteLine( "; 判定タイミング調整(ドラム, ギター, ベース)(-99～99)[ms]" );		// #23580 2011.1.3 yyagi
 			sw.WriteLine("; Revision value to adjust judgement timing for the drums, guitar and bass.");	//
 			sw.WriteLine("InputAdjustTimeDrums={0}", this.nInputAdjustTimeMs.Drums);		//
-			sw.WriteLine("InputAdjustTimeGuitar={0}", this.nInputAdjustTimeMs.Guitar);		//
-			sw.WriteLine("InputAdjustTimeBass={0}", this.nInputAdjustTimeMs.Bass);			//
 			sw.WriteLine();
 
 			sw.WriteLine( "; 判定ラインの表示位置調整(ドラム, ギター, ベース)(-99～99)[px]" );	// #31602 2013.6.23 yyagi 判定ラインの表示位置オフセット
 			sw.WriteLine( "; Offset value to adjust displaying judgement line for the drums, guitar and bass." );	//
-			sw.WriteLine( "JudgeLinePosOffsetDrums={0}",  this.nJudgeLinePosOffset.Drums );		//
-			sw.WriteLine( "JudgeLinePosOffsetGuitar={0}", this.nJudgeLinePosOffset.Guitar );	//
-			sw.WriteLine( "JudgeLinePosOffsetBass={0}",   this.nJudgeLinePosOffset.Bass );		//
-
-			sw.WriteLine( "; 判定ラインの表示位置(ギター, ベース)" );	// #33891 2014.6.26 yyagi
-			sw.WriteLine( "; 0=Normal, 1=Lower" );
-			sw.WriteLine( "; Position of the Judgement line and RGB button; Vseries compatible(1) or not(0)." );	//
-			sw.WriteLine( "JudgeLinePosModeGuitar={0}", (int) this.e判定位置.Guitar );	//
-			sw.WriteLine( "JudgeLinePosModeBass={0}  ", (int) this.e判定位置.Bass );	//
-			
+			sw.WriteLine( "JudgeLinePosOffsetDrums={0}",  this.nJudgeLinePosOffset.Drums );		//		
 			sw.WriteLine();
 			#endregion
             sw.WriteLine( "; 「また遊んでね」画面(0:OFF, 1:ON)" );
@@ -2465,41 +2443,17 @@ namespace DTXMania
 											{
 												this.bSudden.Drums = C変換.bONorOFF( str4[ 0 ] );
 											}
-											else if( str3.Equals( "GuitarSudden" ) )
-											{
-												this.bSudden.Guitar = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "BassSudden" ) )
-											{
-												this.bSudden.Bass = C変換.bONorOFF( str4[ 0 ] );
-											}
 											#endregion
 											#region [ Hidden ]
 											else if( str3.Equals( "DrumsHidden" ) )
 											{
 												this.bHidden.Drums = C変換.bONorOFF( str4[ 0 ] );
 											}
-											else if( str3.Equals( "GuitarHidden" ) )
-											{
-												this.bHidden.Guitar = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "BassHidden" ) )
-											{
-												this.bHidden.Bass = C変換.bONorOFF( str4[ 0 ] );
-											}
 											#endregion
 											#region [ Invisible ]
 											else if ( str3.Equals( "DrumsInvisible" ) )
 											{
 												this.eInvisible.Drums = (EInvisible) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eInvisible.Drums );
-											}
-											else if ( str3.Equals( "GuitarInvisible" ) )
-											{
-												this.eInvisible.Guitar = (EInvisible) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eInvisible.Guitar ); 
-											}
-											else if ( str3.Equals( "BassInvisible" ) )
-											{
-												this.eInvisible.Bass = (EInvisible) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eInvisible.Bass );
 											}
 											//else if ( str3.Equals( "InvisibleDisplayTimeMs" ) )
 											//{
@@ -2514,61 +2468,13 @@ namespace DTXMania
 											{
 												this.bReverse.Drums = C変換.bONorOFF( str4[ 0 ] );
 											}
-											else if( str3.Equals( "GuitarReverse" ) )
-											{
-												this.bReverse.Guitar = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "BassReverse" ) )
-											{
-												this.bReverse.Bass = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "GuitarRandom" ) )
-											{
-												this.eRandom.Guitar = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eRandom.Guitar );
-											}
-											else if( str3.Equals( "BassRandom" ) )
-											{
-												this.eRandom.Bass = (Eランダムモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eRandom.Bass );
-											}
-											else if( str3.Equals( "GuitarLight" ) )
-											{
-												this.bLight.Guitar = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "BassLight" ) )
-											{
-												this.bLight.Bass = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "GuitarLeft" ) )
-											{
-												this.bLeft.Guitar = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "BassLeft" ) )
-											{
-												this.bLeft.Bass = C変換.bONorOFF( str4[ 0 ] );
-											}
 											else if( str3.Equals( "DrumsPosition" ) )
 											{
 												this.判定文字表示位置.Drums = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.判定文字表示位置.Drums );
 											}
-											else if( str3.Equals( "GuitarPosition" ) )
-											{
-												this.判定文字表示位置.Guitar = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.判定文字表示位置.Guitar );
-											}
-											else if( str3.Equals( "BassPosition" ) )
-											{
-												this.判定文字表示位置.Bass = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.判定文字表示位置.Bass );
-											}
 											else if( str3.Equals( "DrumsScrollSpeed" ) )
 											{
 												this.n譜面スクロール速度.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度.Drums );
-											}
-											else if( str3.Equals( "GuitarScrollSpeed" ) )
-											{
-												this.n譜面スクロール速度.Guitar = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度.Guitar );
-											}
-											else if( str3.Equals( "BassScrollSpeed" ) )
-											{
-												this.n譜面スクロール速度.Bass = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度.Bass );
 											}
 											else if( str3.Equals( "PlaySpeed" ) )
 											{
