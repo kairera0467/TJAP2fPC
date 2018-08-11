@@ -293,26 +293,24 @@ namespace DTXMania
                 //    else if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.DORON )
                 //        this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 44, 162, 44 ) );
                 //}
-                if( CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.mtaikoに画像で表示 )
+                if (CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度] != null)
                 {
-                    if(CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度] != null )
+                    CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度].t2D描画(CDTXMania.app.Device,
+                        CDTXMania.Skin.Game_CourseSymbol_X[i],
+                        CDTXMania.Skin.Game_CourseSymbol_Y[i]
+                        );
+                }
+
+                if (CDTXMania.DTX.nScoreModeTmp == 3)
+                {
+                    if (CDTXMania.Tx.Couse_Symbol[5] != null)
                     {
-                        CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度].t2D描画( CDTXMania.app.Device, 
+                        CDTXMania.Tx.Couse_Symbol[5].t2D描画(CDTXMania.app.Device,
                             CDTXMania.Skin.Game_CourseSymbol_X[i],
                             CDTXMania.Skin.Game_CourseSymbol_Y[i]
                             );
                     }
 
-                    if ( CDTXMania.DTX.nScoreModeTmp == 3 )
-                    {
-                        if(CDTXMania.Tx.Couse_Symbol[ 5 ] != null )
-                        {
-                            CDTXMania.Tx.Couse_Symbol[ 5 ].t2D描画( CDTXMania.app.Device,
-                                CDTXMania.Skin.Game_CourseSymbol_X[i],
-                                CDTXMania.Skin.Game_CourseSymbol_Y[i]
-                                );
-                        }
-                    }
                 }
 
 

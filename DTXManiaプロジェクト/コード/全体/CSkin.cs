@@ -1864,7 +1864,7 @@ namespace DTXMania
         public int[] Game_Taiko_Combo_Y = new int[] { 270, 448 };
         public int[] Game_Taiko_Combo_Ex_X = new int[] { 268, 268 };
         public int[] Game_Taiko_Combo_Ex_Y = new int[] { 270, 448 };
-        public int[] Game_Taiko_Combo_Padding = new int[] { 14, 30, 36 };
+        public int[] Game_Taiko_Combo_Padding = new int[] { 28, 30, 24 };
         public int[] Game_Taiko_Combo_Size = new int[] { 42, 48 };
         public int[] Game_Taiko_Combo_Size_Ex = new int[] { 42, 56 };
         public float[] Game_Taiko_Combo_Scale = new float[] { 1.0f, 1.0f, 0.8f };

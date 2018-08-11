@@ -1531,9 +1531,6 @@ namespace DTXMania
 			sw.WriteLine( "; Transparency for background image in playing screen.(0:tranaparent - 255:no transparent)" );
 			sw.WriteLine( "BGAlpha={0}", this.nBGAlpha );
 			sw.WriteLine();
-			sw.WriteLine( "; Missヒット時のゲージ減少割合(0:少, 1:普通, 2:大)" );
-			sw.WriteLine( "DamageLevel={0}", (int) this.eダメージレベル );
-			sw.WriteLine();
 			sw.WriteLine( "; ゲージゼロでSTAGE FAILED (0:OFF, 1:ON)" );
 			sw.WriteLine( "StageFailed={0}", this.bSTAGEFAILED有効 ? 1 : 0 );
 			sw.WriteLine();
