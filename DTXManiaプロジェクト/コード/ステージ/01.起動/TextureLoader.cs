@@ -334,10 +334,14 @@ namespace DTXMania
             Gauge_Line = new CTexture[2];
             Gauge_Line[0] = TxC(GAME + GAUGE + @"1P_Line.png");
             Gauge_Line[1] = TxC(GAME + GAUGE + @"2P_Line.png");
-            Gauge_Rainbow = new CTexture[12];
-            for (int i = 0; i < 12; i++)
+            CDTXMania.Skin.Game_Gauge_Rainbow_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"Rainbow\"));
+            if (CDTXMania.Skin.Game_Gauge_Rainbow_Ptn != 0)
             {
-                Gauge_Rainbow[i] = TxC(GAME + GAUGE + @"Rainbow\" + i.ToString() + ".png");
+                Gauge_Rainbow = new CTexture[CDTXMania.Skin.Game_Gauge_Rainbow_Ptn];
+                for (int i = 0; i < CDTXMania.Skin.Game_Gauge_Rainbow_Ptn; i++)
+                {
+                    Gauge_Rainbow[i] = TxC(GAME + GAUGE + @"Rainbow\" + i.ToString() + ".png");
+                }
             }
             Gauge_Soul = TxC(GAME + GAUGE + @"Soul.png");
             Gauge_Soul_Fire = TxC(GAME + GAUGE + @"Fire.png");
@@ -654,7 +658,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref Gauge_Base[1]);
             CDTXMania.tテクスチャの解放(ref Gauge_Line[0]);
             CDTXMania.tテクスチャの解放(ref Gauge_Line[1]);
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < CDTXMania.Skin.Game_Gauge_Rainbow_Ptn; i++)
             {
                 CDTXMania.tテクスチャの解放(ref Gauge_Rainbow[i]);
             }
@@ -876,7 +880,6 @@ namespace DTXMania
             Gauge_Base,
             Gauge_Line,
             Gauge_Rainbow,
-
             Gauge_Soul_Explosion;
         public CTexture Gauge_Soul,
             Gauge_Soul_Fire;
