@@ -1202,7 +1202,6 @@ namespace DTXMania
                                 Game_Mob_Ptn_Beat = int.Parse(strParam);
                             }
                             #endregion
-                            #region Taiko
                             #region Score
                             else if (strCommand == "Game_Score_X")
                             {
@@ -1267,6 +1266,7 @@ namespace DTXMania
                                 }
                             }
                             #endregion
+                            #region Taiko
                             else if (strCommand == "Game_Taiko_NamePlate_X")
                             {
                                 string[] strSplit = strParam.Split(',');
@@ -1406,7 +1406,15 @@ namespace DTXMania
                                     Game_Taiko_Combo_Text_Size[i] = int.Parse(strSplit[i]);
                                 }
                             }
-
+                            #endregion
+			    #region Gauge
+                            else if (strCommand == "Game_Gauge_Rainbow_Timer")
+                            {
+                                if (int.Parse(strParam) != 0)
+                                {
+                                    Game_Gauge_Rainbow_Timer = int.Parse(strParam);
+                                }
+                            }
                             #endregion
                             #region Balloon
                             else if (strCommand == "Game_Balloon_Combo_X")
@@ -1871,6 +1879,10 @@ namespace DTXMania
         public int[] Game_Taiko_Combo_Text_X = new int[] { 268, 268 };
         public int[] Game_Taiko_Combo_Text_Y = new int[] { 295, 472 };
         public int[] Game_Taiko_Combo_Text_Size = new int[] { 100, 50 };
+        #endregion
+	#region Gauge
+        public int Game_Gauge_Rainbow_Ptn;
+        public int Game_Gauge_Rainbow_Timer = 50;
         #endregion
         #region Balloon
         public int[] Game_Balloon_Combo_X = new int[] { 253, 253 };

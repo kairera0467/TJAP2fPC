@@ -148,8 +148,8 @@ namespace DTXMania
                 //{
                 //    this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\Gauge\Gauge_rainbow_" + i.ToString() + ".png") );
                 //}
-                this.ct虹アニメ = new CCounter( 0, 11, 80, CDTXMania.Timer );
-
+                this.ct虹アニメ = new CCounter( 0, CDTXMania.Skin.Game_Gauge_Rainbow_Ptn -1, CDTXMania.Skin.Game_Gauge_Rainbow_Timer, CDTXMania.Timer );
+                this.ct虹透明度 = new CCounter(0, CDTXMania.Skin.Game_Gauge_Rainbow_Timer-1, 1, CDTXMania.Timer);
                 //this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_taiko_notes.png"));
                 base.OnManagedリソースの作成();
 			}
@@ -198,6 +198,21 @@ namespace DTXMania
 
                 int nRectX = (int)( this.db現在のゲージ値[ 0 ] / 2 ) * 14;
                 int nRectX2P = (int)( this.db現在のゲージ値[ 1 ] / 2 ) * 14;
+                int 虹ベース = ct虹アニメ.n現在の値 + 1;
+                if (虹ベース == ct虹アニメ.n終了値+1) 虹ベース = 0;
+                /*
+
+                新虹ゲージの仕様  2018/08/10 ろみゅ～？
+                 
+                 フェードで動く虹ゲージが、ある程度強化できたので放出。
+                 透明度255の虹ベースを描画し、その上から透明度可変式の虹ゲージを描画する。
+                 ゲージのパターン枚数は、読み込み枚数によって決定する。
+                 ゲージ描画の切り替え速度は、タイマーの値をSkinConfigで指定して行う(初期値50,1にするとエラーを吐く模様)。進行速度は1ms、高フレームレートでの滑らかさを重視。
+                 虹ゲージの透明度調整値は、「255/パターン数」で算出する。
+                 こんな簡単なことを考えるのに30分(60f/s換算で108000f)を費やす。
+                 
+                */
+
 
                 if( CDTXMania.Tx.Gauge_Base[0] != null )
                 {
@@ -217,11 +232,14 @@ namespace DTXMania
                         if( this.db現在のゲージ値[ 0 ] >= 100.0 )
                         {
                             this.ct虹アニメ.t進行Loop();
+			    this.ct虹透明度.t進行Loop();
                             if(CDTXMania.Tx.Gauge_Rainbow[ this.ct虹アニメ.n現在の値 ] != null )
                             {
-                                CDTXMania.Tx.Gauge_Rainbow[ this.ct虹アニメ.n現在の値 ].t2D描画( CDTXMania.app.Device, 492, 144 );
+				CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].n透明度 = 255;
+				CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D描画(CDTXMania.app.Device, 492, 144);
+                                CDTXMania.Tx.Gauge_Rainbow[虹ベース].n透明度 = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値)/1;
+                                CDTXMania.Tx.Gauge_Rainbow[虹ベース].t2D描画(CDTXMania.app.Device, 492, 144);
                             }
-
                         }
                         CDTXMania.Tx.Gauge_Line[0].t2D描画( CDTXMania.app.Device, 492, 144 );
                     }
@@ -246,10 +264,13 @@ namespace DTXMania
                         if (this.db現在のゲージ値[1] >= 100.0)
                         {
                             this.ct虹アニメ.t進行Loop();
+			    this.ct虹透明度.t進行Loop();
                             if (CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値] != null)
                             {
-                                CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D上下反転描画(CDTXMania.app.Device, 492, 532);
-
+                                CDTXMania.Tx.Gauge_Rainbow[ct虹アニメ.n現在の値].n透明度 = 255;
+                                CDTXMania.Tx.Gauge_Rainbow[ct虹アニメ.n現在の値].t2D上下反転描画(CDTXMania.app.Device, 492, 532);
+                                CDTXMania.Tx.Gauge_Rainbow[虹ベース].n透明度 = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値) / 1;
+                                CDTXMania.Tx.Gauge_Rainbow[虹ベース].t2D上下反転描画(CDTXMania.app.Device, 492, 532);
                             }
                         }
                         CDTXMania.Tx.Gauge_Line[1].t2D描画( CDTXMania.app.Device, 492, 532 );

@@ -443,6 +443,7 @@ namespace DTXMania
 		public double[] db現在のゲージ値 = new double[ 4 ];
         protected CCounter ct炎;
         protected CCounter ct虹アニメ;
+	protected CCounter ct虹透明度;
         //protected CTexture txゲージ;
         //      protected CTexture txゲージ背景;
         //protected CTexture txゲージ2P;
