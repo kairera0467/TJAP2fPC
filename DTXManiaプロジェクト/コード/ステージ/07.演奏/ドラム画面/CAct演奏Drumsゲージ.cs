@@ -148,6 +148,10 @@ namespace DTXMania
                 //{
                 //    this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\Gauge\Gauge_rainbow_" + i.ToString() + ".png") );
                 //}
+                if(CDTXMania.Skin.Game_Gauge_Rainbow_Timer <= 1)
+                {
+                    throw new DivideByZeroException("SkinConfigの設定\"Game_Gauge_Rainbow_Timer\"を1以下にすることは出来ません。");
+                }
                 this.ct虹アニメ = new CCounter( 0, CDTXMania.Skin.Game_Gauge_Rainbow_Ptn -1, CDTXMania.Skin.Game_Gauge_Rainbow_Timer, CDTXMania.Timer );
                 this.ct虹透明度 = new CCounter(0, CDTXMania.Skin.Game_Gauge_Rainbow_Timer-1, 1, CDTXMania.Timer);
                 //this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_taiko_notes.png"));

@@ -1677,7 +1677,7 @@ namespace DTXMania
                             //{
                                 if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                                 {
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && this.actChara.ctキャラクターアクション_ノルマ.b進行中 == false)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_ノルマ.b進行中db)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                         {
@@ -1691,7 +1691,7 @@ namespace DTXMania
                                             //this.actChara.マイどん_アクション_10コンボ();
                                         }
                                     }
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && this.actChara.ctキャラクターアクション_魂MAX.b進行中 == false)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_魂MAX.b進行中db)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                         {

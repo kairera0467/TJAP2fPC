@@ -91,6 +91,15 @@ namespace DTXMania
                                     this.n現在表示中のAddScore--;
                                 this.stScore[ i ].ctTimer.t停止();
                                 this.stScore[ i ].b使用中 = false;
+                                if (ct点数アニメタイマ[stScore[i].nPlayer].b終了値に達してない)
+                                {
+                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                    this.ct点数アニメタイマ[stScore[i].nPlayer].n現在の値 = 1;
+                                }
+                                else
+                                {
+                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                }
                             }
 
                             int xAdd = 0;
@@ -177,18 +186,6 @@ namespace DTXMania
                             {
                                 yAdd = 12;
                                 alpha = 150;
-
-                                if (ct点数アニメタイマ[stScore[i].nPlayer].b終了値に達してない)
-                                {
-                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
-                                    this.ct点数アニメタイマ[stScore[i].nPlayer].n現在の値 = 1;
-                                }
-                                else
-                                {
-                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
-                                }
-
-
                             }
                             if (this.stScore[i].ctTimer.n現在の値 > 390)
                             {
