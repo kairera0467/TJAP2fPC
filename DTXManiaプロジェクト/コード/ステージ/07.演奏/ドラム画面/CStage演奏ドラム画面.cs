@@ -1215,7 +1215,7 @@ namespace DTXMania
 					//-----------------------------
 					int pad = nPad;	// 以下、nPad の代わりに pad を用いる。（成りすまし用）
 					// BAD or TIGHT 時の処理。
-					if( CDTXMania.ConfigIni.bTight )
+					if( CDTXMania.ConfigIni.bTight && !b連打中[nUsePlayer]) // 18/8/13 - 連打時にこれが発動すると困る!!! (AioiLight)
 						this.tチップのヒット処理_BadならびにTight時のMiss( E楽器パート.DRUMS, 0, E楽器パート.TAIKO );
 					//-----------------------------
 					#endregion
