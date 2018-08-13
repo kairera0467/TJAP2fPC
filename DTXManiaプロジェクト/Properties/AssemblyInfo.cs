@@ -6,7 +6,7 @@ using System.Resources;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("TJAPlayer3")]
+[assembly: AssemblyTitle("TJAPlayer3 - A .tja file player.")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
@@ -34,8 +34,8 @@ using System.Resources;
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.3.0.0")]
-[assembly: AssemblyFileVersion("0.0.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("ja-JP")]
+[assembly: AssemblyFileVersion("1.3.0.0")]
+[assembly: NeutralResourcesLanguage("ja-JP")]
 
 // このアセンブリは「ライブラリ」である（難読化ツールへの指示）。
 // → デフォルトの true のままだと、アセンブリ public なメンバもすべて難読化されてしまう。
