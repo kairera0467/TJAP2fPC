@@ -285,7 +285,7 @@ namespace DTXMania
 			get;
 			set;
 		}
-		public Device Device
+		public DeviceCache Device
 		{
 			get { return base.GraphicsDeviceManager.Direct3D9.Device; }
 		}
