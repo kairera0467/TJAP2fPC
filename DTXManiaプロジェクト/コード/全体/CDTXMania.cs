@@ -1705,6 +1705,20 @@ for (int i = 0; i < 3; i++) {
             return num;
         }
 
+        /// <summary>
+        /// 曲名テクスチャの縮小倍率を返す。
+        /// </summary>
+        /// <param name="cTexture">曲名テクスチャ。</param>
+        /// <returns>曲名テクスチャの縮小倍率。そのテクスチャがnullならば一倍(1f)を返す。</returns>
+        public static float GetSongNameXScaling(ref CTexture cTexture)
+        {
+            if (cTexture == null) return 1f;
+            float scalingRate = 660.0f / cTexture.szテクスチャサイズ.Width;
+            if (cTexture.szテクスチャサイズ.Width <= 660.0f)
+                scalingRate = 1.0f;
+            return scalingRate;
+        }
+
         //-----------------
         #endregion
 

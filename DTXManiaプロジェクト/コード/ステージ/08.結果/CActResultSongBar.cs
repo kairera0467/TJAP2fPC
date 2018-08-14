@@ -48,9 +48,10 @@ namespace DTXMania
 
             bmpStageText = pfStageText.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
             this.txStageText = CDTXMania.tテクスチャの生成(bmpStageText, false);
+            
 
             this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
-            
+            txMusicName.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txMusicName);
 
 			base.On活性化();
 		}
@@ -94,7 +95,7 @@ namespace DTXMania
 			}
 			this.ct登場用.t進行();
 
-			this.txMusicName.t2D描画( CDTXMania.app.Device, 1268 - this.txMusicName.szテクスチャサイズ.Width, 6 );
+			this.txMusicName.t2D描画( CDTXMania.app.Device, 1268 - this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X, 6 );
 
             this.txStageText.t2D描画(CDTXMania.app.Device, 230, 6);
 

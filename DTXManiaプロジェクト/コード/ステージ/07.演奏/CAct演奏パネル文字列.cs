@@ -275,9 +275,7 @@ namespace DTXMania
                     #endregion
                     if( this.txMusicName != null )
                     {
-                        float fRate = 660.0f / this.txMusicName.szテクスチャサイズ.Width;
-                        if (this.txMusicName.szテクスチャサイズ.Width <= 660.0f)
-                            fRate = 1.0f;
+                        float fRate = CDTXMania.GetSongNameXScaling(ref txMusicName);
                         this.txMusicName.vc拡大縮小倍率.X = fRate;
                         this.txMusicName.t2D描画( CDTXMania.app.Device, 1260 - ( this.txMusicName.szテクスチャサイズ.Width * fRate ), 14 );
                     }

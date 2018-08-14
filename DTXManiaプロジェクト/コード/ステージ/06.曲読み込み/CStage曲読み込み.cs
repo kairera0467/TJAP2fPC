@@ -105,6 +105,7 @@ namespace DTXMania
                         Bitmap bmpSongTitle = new Bitmap(1, 1);
                         bmpSongTitle = this.pfTITLE.DrawPrivateFont( this.str曲タイトル, Color.White, Color.Black );
 						this.txタイトル = new CTexture( CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false );
+                        txタイトル.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txタイトル);
                         Bitmap bmpSongSubTitle = new Bitmap(1, 1);
                         bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( this.strサブタイトル, Color.White, Color.Black );
 						this.txサブタイトル = new CTexture( CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false );
@@ -219,7 +220,7 @@ namespace DTXMania
                 int nサブタイトル補正 = string.IsNullOrEmpty(CDTXMania.stage選曲.r確定されたスコア.譜面情報.strサブタイトル) ? 15 : 0;
 
                 this.txタイトル.n透明度 = C変換.nParsentTo255( ( this.ct曲名表示.n現在の値 / 30.0 ) );
-				this.txタイトル.t2D描画( CDTXMania.app.Device, ( 640 - ( this.txタイトル.sz画像サイズ.Width / 2 ) ), 340 - ( this.txタイトル.sz画像サイズ.Height / 2 ) + nサブタイトル補正 );
+				this.txタイトル.t2D描画( CDTXMania.app.Device, ( 640 - ( (this.txタイトル.sz画像サイズ.Width * txタイトル.vc拡大縮小倍率.X) / 2 ) ), 340 - ( this.txタイトル.sz画像サイズ.Height / 2 ) + nサブタイトル補正 );
 			}
 			if( this.txサブタイトル != null )
 			{
