@@ -95,7 +95,7 @@ namespace DTXMania
 			}
 			this.ct登場用.t進行();
 
-			this.txMusicName.t2D描画( CDTXMania.app.Device, 1268 - this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X, 6 );
+			this.txMusicName.t2D描画( CDTXMania.app.Device, 1254 - this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X, 6 );
 
             this.txStageText.t2D描画(CDTXMania.app.Device, 230, 6);
 

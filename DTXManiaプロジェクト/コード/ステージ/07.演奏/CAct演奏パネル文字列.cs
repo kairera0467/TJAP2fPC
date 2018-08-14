@@ -226,7 +226,7 @@ namespace DTXMania
                     this.ct進行用.n現在の値 = 300;
                 }
                 if( this.txGENRE != null )
-                    this.txGENRE.t2D描画( CDTXMania.app.Device, 1118, 69 );
+                    this.txGENRE.t2D描画( CDTXMania.app.Device, 1114, 74);
 
                 if( CDTXMania.Skin.b現在のステージ数を表示しない )
                 {
@@ -236,7 +236,7 @@ namespace DTXMania
                         if (this.txMusicName.szテクスチャサイズ.Width <= 660.0f)
                             fRate = 1.0f;
                         this.txMusicName.vc拡大縮小倍率.X = fRate;
-                        this.txMusicName.t2D描画( CDTXMania.app.Device, 1260 - ( this.txMusicName.szテクスチャサイズ.Width * fRate ), 14 );
+                        this.txMusicName.t2D描画( CDTXMania.app.Device, 1254 - ( this.txMusicName.szテクスチャサイズ.Width * fRate ), 14 );
                     }
                 }
                 else
@@ -275,12 +275,15 @@ namespace DTXMania
                     #endregion
                     if( this.txMusicName != null )
                     {
-                        float fRate = CDTXMania.GetSongNameXScaling(ref txMusicName);
-                        this.txMusicName.vc拡大縮小倍率.X = fRate;
-                        this.txMusicName.t2D描画( CDTXMania.app.Device, 1260 - ( this.txMusicName.szテクスチャサイズ.Width * fRate ), 14 );
+                        if(this.b初めての進行描画)
+                        {
+                            this.txMusicName.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txMusicName);
+                            b初めての進行描画 = false;
+                        }
+                        this.txMusicName.t2D描画( CDTXMania.app.Device, 1254 - ( this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X), 14 );
                     }
                     if( this.tx難易度とステージ数 != null )
-	    			    this.tx難易度とステージ数.t2D描画( CDTXMania.app.Device, 1260 - this.tx難易度とステージ数.szテクスチャサイズ.Width, 14 );
+	    			    this.tx難易度とステージ数.t2D描画( CDTXMania.app.Device, 1254 - this.tx難易度とステージ数.szテクスチャサイズ.Width, 14 );
                 }
 
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.ct進行用.n現在の値.ToString() );
