@@ -265,6 +265,7 @@ namespace DTXMania
 				this.r現在選択中の曲 = this.r現在選択中の曲.list子リスト[ 0 ];
 				this.t現在選択中の曲を元に曲バーを再構成する();
 				this.t選択曲が変更された(false);									// #27648 項目数変更を反映させる
+				this.b選択曲が変更された = true;
 			}
 			return ret;
 		}
@@ -298,6 +299,7 @@ namespace DTXMania
 				this.r現在選択中の曲 = this.r現在選択中の曲.r親ノード;
 				this.t現在選択中の曲を元に曲バーを再構成する();
 				this.t選択曲が変更された(false);									// #27648 項目数変更を反映させる
+				this.b選択曲が変更された = true;
 			}
 			return ret;
 		}
@@ -315,6 +317,7 @@ namespace DTXMania
 			{
 				this.n目標のスクロールカウンタ += 100;
 			}
+			this.b選択曲が変更された = true;
 		}
 		public void t前に移動()
 		{
@@ -322,6 +325,7 @@ namespace DTXMania
 			{
 				this.n目標のスクロールカウンタ -= 100;
 			}
+			this.b選択曲が変更された = true;
 		}
 		public void t難易度レベルをひとつ進める()
 		{
