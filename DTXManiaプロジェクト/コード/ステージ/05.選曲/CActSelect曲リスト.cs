@@ -778,286 +778,12 @@ namespace DTXMania
 
 
 
-            if ( !this.b登場アニメ全部完了 )
-			{
-				#region [ (1) 登場アニメフェーズの進行。]
-				//-----------------
-				for( int i = 0; i < 13; i++ )	// パネルは全13枚。
-				{
-					this.ct登場アニメ用[ i ].t進行();
-
-					if( this.ct登場アニメ用[ i ].b終了値に達した )
-						this.ct登場アニメ用[ i ].t停止();
-				}
-
-				// 全部の進行が終わったら、this.b登場アニメ全部完了 を true にする。
-
-				this.b登場アニメ全部完了 = true;
-				for( int i = 0; i < 13; i++ )	// パネルは全13枚。
-				{
-					if( this.ct登場アニメ用[ i ].b進行中 )
-					{
-						this.b登場アニメ全部完了 = false;	// まだ進行中のアニメがあるなら false のまま。
-						break;
-					}
-				}
-				//-----------------
-				#endregion
-			}
-			else
-			{
-				#region [ (2) 通常フェーズの進行。]
-				//-----------------
-				long n現在時刻 = CSound管理.rc演奏用タイマ.n現在時刻;
-				
-				if( n現在時刻 < this.nスクロールタイマ )	// 念のため
-					this.nスクロールタイマ = n現在時刻;
-
-				const int nアニメ間隔 = 2;
-				while( ( n現在時刻 - this.nスクロールタイマ ) >= nアニメ間隔 )
-				{
-					int n加速度 = 1;
-					int n残距離 = Math.Abs( (int) ( this.n目標のスクロールカウンタ - this.n現在のスクロールカウンタ ) );
-
-                    #region [ 残距離が遠いほどスクロールを速くする（＝n加速度を多くする）。]
-                    //-----------------
-                    if (n残距離 <= 10)
-                    {
-                        n加速度 = 1;
-                    }
-                    else if ( n残距離 <= 100 )
-					{
-						n加速度 = 2;
-					}
-					else if( n残距離 <= 300 )
-					{
-						n加速度 = 3;
-					}
-					else if( n残距離 <= 500 )
-					{
-						n加速度 = 4;
-					}
-					else
-					{
-						n加速度 = 8;
-					}
-					//-----------------
-					#endregion
-
-					#region [ 加速度を加算し、現在のスクロールカウンタを目標のスクロールカウンタまで近づける。 ]
-					//-----------------
-					if( this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ )		// (A) 正の方向に未達の場合：
-					{
-						this.n現在のスクロールカウンタ += n加速度;								// カウンタを正方向に移動する。
-
-						if( this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ )
-							this.n現在のスクロールカウンタ = this.n目標のスクロールカウンタ;	// 到着！スクロール停止！
-					}
-
-					else if( this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ )	// (B) 負の方向に未達の場合：
-					{
-						this.n現在のスクロールカウンタ -= n加速度;								// カウンタを負方向に移動する。
-
-						if( this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ )	// 到着！スクロール停止！
-							this.n現在のスクロールカウンタ = this.n目標のスクロールカウンタ;
-					}
-					//-----------------
-					#endregion
-
-					if( this.n現在のスクロールカウンタ >= 100 )		// １行＝100カウント。
-					{
-						#region [ パネルを１行上にシフトする。]
-						//-----------------
-
-						// 選択曲と選択行を１つ下の行に移動。
-
-						this.r現在選択中の曲 = this.r次の曲( this.r現在選択中の曲 );
-						this.n現在の選択行 = ( this.n現在の選択行 + 1 ) % 13;
-
-
-						// 選択曲から７つ下のパネル（＝新しく最下部に表示されるパネル。消えてしまう一番上のパネルを再利用する）に、新しい曲の情報を記載する。
-
-						C曲リストノード song = this.r現在選択中の曲;
-						for( int i = 0; i < 7; i++ )
-							song = this.r次の曲( song );
-
-						int index = ( this.n現在の選択行 + 7 ) % 13;	// 新しく最下部に表示されるパネルのインデックス（0～12）。
-						this.stバー情報[ index ].strタイトル文字列 = song.strタイトル;
-                        this.stバー情報[index].ForeColor = song.ForeColor;
-                        this.stバー情報[index].BackColor = song.BackColor;
-                        this.stバー情報[ index ].strジャンル = song.strジャンル;
-                        this.stバー情報[ index ].strサブタイトル = song.strサブタイトル;
-                        this.stバー情報[ index ].ar難易度 = song.nLevel;
-                        this.t曲名バーの生成(index, this.stバー情報[index].strタイトル文字列, this.stバー情報[index].ForeColor, this.stバー情報[index].BackColor);
-                        for ( int f = 0; f < 5; f++ )
-                        {
-                            if( song.arスコア[ f ] != null )
-                                this.stバー情報[ index ].b分岐 = song.arスコア[ f ].譜面情報.b譜面分岐;
-                        }
-
-
-						// stバー情報[] の内容を1行ずつずらす。
-						
-						C曲リストノード song2 = this.r現在選択中の曲;
-						for( int i = 0; i < 5; i++ )
-							song2 = this.r前の曲( song2 );
-
-						for( int i = 0; i < 13; i++ )
-						{
-							int n = ( ( ( this.n現在の選択行 - 5 ) + i ) + 13 ) % 13;
-							this.stバー情報[ n ].eバー種別 = this.e曲のバー種別を返す( song2 );
-							song2 = this.r次の曲( song2 );
-                            this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
-
-						}
-
-						
-						// 新しく最下部に表示されるパネル用のスキル値を取得。
-
-						for( int i = 0; i < 3; i++ )
-							this.stバー情報[ index ].nスキル値[ i ] = (int) song.arスコア[ this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( song ) ].譜面情報.最大スキル[ i ];
-
-
-						// 1行(100カウント)移動完了。
-
-						this.n現在のスクロールカウンタ -= 100;
-						this.n目標のスクロールカウンタ -= 100;
-
-						this.t選択曲が変更された(false);				// スクロールバー用に今何番目を選択しているかを更新
-
-                        if( this.tx選択している曲の曲名 != null )
-                        {
-                            this.tx選択している曲の曲名.Dispose();
-                            this.tx選択している曲の曲名 = null;
-                        }
-                        if( this.tx選択している曲のサブタイトル != null )
-                        {
-                            this.tx選択している曲のサブタイトル.Dispose();
-                            this.tx選択している曲のサブタイトル = null;
-                        }
-
-						if( this.n目標のスクロールカウンタ == 0 )
-							CDTXMania.stage選曲.t選択曲変更通知();		// スクロール完了＝選択曲変更！
-
-						//-----------------
-						#endregion
-					}
-					else if( this.n現在のスクロールカウンタ <= -100 )
-					{
-						#region [ パネルを１行下にシフトする。]
-						//-----------------
-
-						// 選択曲と選択行を１つ上の行に移動。
-
-						this.r現在選択中の曲 = this.r前の曲( this.r現在選択中の曲 );
-						this.n現在の選択行 = ( ( this.n現在の選択行 - 1 ) + 13 ) % 13;
-
-
-						// 選択曲から５つ上のパネル（＝新しく最上部に表示されるパネル。消えてしまう一番下のパネルを再利用する）に、新しい曲の情報を記載する。
-
-						C曲リストノード song = this.r現在選択中の曲;
-						for( int i = 0; i < 5; i++ )
-							song = this.r前の曲( song );
-
-						int index = ( ( this.n現在の選択行 - 5 ) + 13 ) % 13;	// 新しく最上部に表示されるパネルのインデックス（0～12）。
-						this.stバー情報[ index ].strタイトル文字列 = song.strタイトル;
-                        this.stバー情報[index].ForeColor = song.ForeColor;
-                        this.stバー情報[index].BackColor = song.BackColor;
-                        this.stバー情報[ index ].strサブタイトル = song.strサブタイトル;
-                        this.stバー情報[ index ].strジャンル = song.strジャンル;
-                        this.stバー情報[ index ].ar難易度 = song.nLevel;
-                        this.t曲名バーの生成(index, this.stバー情報[index].strタイトル文字列, this.stバー情報[index].ForeColor, this.stバー情報[index].BackColor);
-                        for ( int f = 0; f < 5; f++ )
-                        {
-                            if( song.arスコア[ f ] != null )
-                                this.stバー情報[ index ].b分岐 = song.arスコア[ f ].譜面情報.b譜面分岐;
-                        }
-
-						// stバー情報[] の内容を1行ずつずらす。
-						
-						C曲リストノード song2 = this.r現在選択中の曲;
-						for( int i = 0; i < 5; i++ )
-							song2 = this.r前の曲( song2 );
-
-						for( int i = 0; i < 13; i++ )
-						{
-							int n = ( ( ( this.n現在の選択行 - 5 ) + i ) + 13 ) % 13;
-							this.stバー情報[ n ].eバー種別 = this.e曲のバー種別を返す( song2 );
-							song2 = this.r次の曲( song2 );
-                            this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
-						}
-
-		
-						// 新しく最上部に表示されるパネル用のスキル値を取得。
-						
-						for( int i = 0; i < 3; i++ )
-							this.stバー情報[ index ].nスキル値[ i ] = (int) song.arスコア[ this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( song ) ].譜面情報.最大スキル[ i ];
-
-
-						// 1行(100カウント)移動完了。
-
-						this.n現在のスクロールカウンタ += 100;
-						this.n目標のスクロールカウンタ += 100;
-
-						this.t選択曲が変更された(false);				// スクロールバー用に今何番目を選択しているかを更新
-
-                        if( this.tx選択している曲の曲名 != null )
-                        {
-                            this.tx選択している曲の曲名.Dispose();
-                            this.tx選択している曲の曲名 = null;
-                        }
-                        if( this.tx選択している曲のサブタイトル != null )
-                        {
-                            this.tx選択している曲のサブタイトル.Dispose();
-                            this.tx選択している曲のサブタイトル = null;
-                        }
-						
-						if( this.n目標のスクロールカウンタ == 0 )
-							CDTXMania.stage選曲.t選択曲変更通知();		// スクロール完了＝選択曲変更！
-						//-----------------
-						#endregion
-					}
-
-					this.nスクロールタイマ += nアニメ間隔;
-				}
-				//-----------------
-				#endregion
-			}
-
-
-			// 描画。
-
-			if( this.r現在選択中の曲 == null )
-			{
-				#region [ 曲が１つもないなら「Songs not found.」を表示してここで帰れ。]
-				//-----------------
-				if ( bIsEnumeratingSongs )
-				{
-					if ( this.txEnumeratingSongs != null )
-					{
-						this.txEnumeratingSongs.t2D描画( CDTXMania.app.Device, 320, 160 );
-					}
-				}
-				else
-				{
-					if ( this.txSongNotFound != null )
-						this.txSongNotFound.t2D描画( CDTXMania.app.Device, 320, 160 );
-				}
-				//-----------------
-				#endregion
-
-				return 0;
-			}
-
-            int i選曲バーX座標 = 673; //選曲バーの座標用
-            int i選択曲バーX座標 = 665; //選択曲バーの座標用
-
 			if( !this.b登場アニメ全部完了 )
 			{
                 if( this.n現在のスクロールカウンタ == 0 )
                 {
                     if( CDTXMania.Tx.SongSelect_Bar_Center != null )
-                        CDTXMania.Tx.SongSelect_Bar_Center.t2D描画( CDTXMania.app.Device, 448, nバーの高さ);
+                        CDTXMania.Tx.SongSelect_Bar_Center.t2D描画( CDTXMania.app.Device, 448, CDTXMania.Skin.SongSelect_Overall_Y);
                     switch (r現在選択中の曲.eノード種別)
                     {
                         case C曲リストノード.Eノード種別.SCORE:
@@ -1074,11 +800,11 @@ namespace DTXMania
                                             else if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
                                             {
                                                 // エディット
-                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), nバーの高さ + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
                                             }
                                             else if (i != 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), nバーの高さ + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
                                             }
                                         }
                                         else
@@ -1089,11 +815,11 @@ namespace DTXMania
                                             else if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
                                             {
                                                 // エディット
-                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), nバーの高さ + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
                                             }
                                             else if (i != 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), nバーの高さ + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
                                             }
 
                                         }
@@ -1113,11 +839,11 @@ namespace DTXMania
                                             if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) break;
                                             if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), nバーの高さ + 403 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 403 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
                                             }
                                             if (i != 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), nバーの高さ + 403 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), CDTXMania.Skin.SongSelect_Overall_Y + 403 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
                                             }
                                         }
                                     }
@@ -1128,17 +854,17 @@ namespace DTXMania
 
                         case C曲リストノード.Eノード種別.BOX:
                             if (CDTXMania.Tx.SongSelect_Frame_Box != null)
-                                CDTXMania.Tx.SongSelect_Frame_Box.t2D描画(CDTXMania.app.Device, 450, nバーの高さ);
+                                CDTXMania.Tx.SongSelect_Frame_Box.t2D描画(CDTXMania.app.Device, 450, CDTXMania.Skin.SongSelect_Overall_Y);
                             break;
 
                         case C曲リストノード.Eノード種別.BACKBOX:
                             if (CDTXMania.Tx.SongSelect_Frame_BackBox != null)
-                                CDTXMania.Tx.SongSelect_Frame_BackBox.t2D描画(CDTXMania.app.Device, 450, nバーの高さ);
+                                CDTXMania.Tx.SongSelect_Frame_BackBox.t2D描画(CDTXMania.app.Device, 450, CDTXMania.Skin.SongSelect_Overall_Y);
                             break;
 
                         case C曲リストノード.Eノード種別.RANDOM:
                             if (CDTXMania.Tx.SongSelect_Frame_Random != null)
-                                CDTXMania.Tx.SongSelect_Frame_Random.t2D描画(CDTXMania.app.Device, 450, nバーの高さ);
+                                CDTXMania.Tx.SongSelect_Frame_Random.t2D描画(CDTXMania.app.Device, 450, CDTXMania.Skin.SongSelect_Overall_Y);
                             break;
                             //case C曲リストノード.Eノード種別.DANI:
                             //    if (CDTXMania.Tx.SongSelect_Frame_Dani != null)
@@ -1173,18 +899,18 @@ namespace DTXMania
 
                             if( this.tx選択している曲のサブタイトル != null )
                             {
-                                int nサブタイY = (int)(nバーの高さ + 460 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
+                                int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 460 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
 							    this.tx選択している曲のサブタイトル.t2D描画( CDTXMania.app.Device, 707, nサブタイY );
                                 if( this.tx選択している曲の曲名 != null )
                                 {
-				    		    	this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, nバーの高さ+23);
+				    		    	this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y+23);
                                 }
                             }
                             else
                             {
                                 if( this.tx選択している曲の曲名 != null )
                                 {
-	    		    				this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, nバーの高さ + 23);
+	    		    				this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
                                 }
                             }
 
@@ -1199,9 +925,9 @@ namespace DTXMania
 							int width = (int) ( ( (double) ( ( 640 - this.ptバーの基本座標[ i ].X ) + 1 ) ) / Math.Sin( Math.PI * 3 / 5 ) );
                             int x = i選曲バーX座標 + 500 - ( (int) ( db割合0to1 * 500 ) );
 							int y = this.ptバーの基本座標[ i ].Y;
-                            this.tジャンル別選択されていない曲バーの描画( this.ptバーの座標[ nパネル番号 ].X, nバーの高さ, this.stバー情報[ nパネル番号 ].strジャンル );
+                            this.tジャンル別選択されていない曲バーの描画( this.ptバーの座標[ nパネル番号 ].X, CDTXMania.Skin.SongSelect_Overall_Y, this.stバー情報[ nパネル番号 ].strジャンル );
                             if( this.stバー情報[ nパネル番号 ].b分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] == true && i != 5 )
-                                CDTXMania.Tx.SongSelect_Branch.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ nパネル番号 ].X + 66, nバーの高さ-5);
+                                CDTXMania.Tx.SongSelect_Branch.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ nパネル番号 ].X + 66, CDTXMania.Skin.SongSelect_Overall_Y-5);
                             if( this.stバー情報[ nパネル番号 ].ar難易度 != null )
                             {
                                 int nX補正 = 0;
@@ -1213,7 +939,7 @@ namespace DTXMania
 							#endregion
 							#region [ タイトル名テクスチャを描画。]
                             if( this.stバー情報[ nパネル番号 ].txタイトル != null )
-                                this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ i ].X + 28, nバーの高さ+23);
+                                this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ i ].X + 28, CDTXMania.Skin.SongSelect_Overall_Y+23);
 							#endregion
 						}
 					}
@@ -1244,20 +970,20 @@ namespace DTXMania
                         #region [ バーテクスチャを描画。]
                         //-----------------
                         if (n現在のスクロールカウンタ != 0)
-                            this.tジャンル別選択されていない曲バーの描画( xAnime, nバーの高さ, this.stバー情報[ nパネル番号 ].strジャンル );
+                            this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.SongSelect_Overall_Y, this.stバー情報[ nパネル番号 ].strジャンル );
                         else if (n見た目の行番号 != 5)
-                            this.tジャンル別選択されていない曲バーの描画(xAnime, nバーの高さ, this.stバー情報[nパネル番号].strジャンル);
+                            this.tジャンル別選択されていない曲バーの描画(xAnime, CDTXMania.Skin.SongSelect_Overall_Y, this.stバー情報[nパネル番号].strジャンル);
                         if (this.stバー情報[nパネル番号].b分岐[CDTXMania.stage選曲.n現在選択中の曲の難易度] == true && n見た目の行番号 != 5)
-                            CDTXMania.Tx.SongSelect_Branch.t2D描画(CDTXMania.app.Device, xAnime + 66, nバーの高さ - 5);
+                            CDTXMania.Tx.SongSelect_Branch.t2D描画(CDTXMania.app.Device, xAnime + 66, CDTXMania.Skin.SongSelect_Overall_Y - 5);
 						//-----------------
 						#endregion
 						#region [ タイトル名テクスチャを描画。]
                         if( this.stバー情報[ nパネル番号 ].txタイトル != null && n見た目の行番号 != 5)
                         {
                             if (n現在のスクロールカウンタ != 0)
-                                this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, xAnime + 28, nバーの高さ+23);
+                                this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, xAnime + 28, CDTXMania.Skin.SongSelect_Overall_Y+23);
                             else if (n見た目の行番号 != 5)
-                                this.stバー情報[nパネル番号].txタイトル.t2D描画(CDTXMania.app.Device, xAnime + 28, nバーの高さ + 23);
+                                this.stバー情報[nパネル番号].txタイトル.t2D描画(CDTXMania.app.Device, xAnime + 28, CDTXMania.Skin.SongSelect_Overall_Y + 23);
                         }
 
                         if( this.stバー情報[ nパネル番号 ].ar難易度 != null )
@@ -1276,7 +1002,7 @@ namespace DTXMania
                 if( this.n現在のスクロールカウンタ == 0 )
                 {
                     if( CDTXMania.Tx.SongSelect_Bar_Center != null )
-                        CDTXMania.Tx.SongSelect_Bar_Center.t2D描画( CDTXMania.app.Device, 448, nバーの高さ);
+                        CDTXMania.Tx.SongSelect_Bar_Center.t2D描画( CDTXMania.app.Device, 448, CDTXMania.Skin.SongSelect_Overall_Y);
                     switch (r現在選択中の曲.eノード種別)
                     {
                         case C曲リストノード.Eノード種別.SCORE:
@@ -1293,11 +1019,11 @@ namespace DTXMania
                                             else if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
                                             {
                                                 // エディット
-                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), nバーの高さ + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
                                             }
                                             else if (i != 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), nバーの高さ + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
                                             }
                                         }
                                         else
@@ -1308,11 +1034,11 @@ namespace DTXMania
                                             else if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
                                             {
                                                 // エディット
-                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), nバーの高さ + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
                                             }
                                             else if (i != 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), nバーの高さ + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
+                                                CDTXMania.Tx.SongSelect_Frame_Score.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443, new Rectangle(60 * i, 0, 60, CDTXMania.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Height));
                                             }
 
                                         }
@@ -1332,11 +1058,11 @@ namespace DTXMania
                                             if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) break;
                                             if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), nバーの高さ + 413 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 413 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
                                             }
                                             if (i != 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), nバーの高さ + 413 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), CDTXMania.Skin.SongSelect_Overall_Y + 413 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
                                             }
                                         }
                                     }
@@ -1345,11 +1071,11 @@ namespace DTXMania
                                 #region 選択カーソル
                                 if(CDTXMania.stage選曲.n現在選択中の曲の難易度 != 4)
                                 {
-                                    CDTXMania.Tx.SongSelect_Score_Select?.t2D下中央基準描画(CDTXMania.app.Device, 494 + (CDTXMania.stage選曲.n現在選択中の曲の難易度 * 60), nバーの高さ + 443);
+                                    CDTXMania.Tx.SongSelect_Score_Select?.t2D下中央基準描画(CDTXMania.app.Device, 494 + (CDTXMania.stage選曲.n現在選択中の曲の難易度 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443);
                                 }
                                 else
                                 {
-                                    CDTXMania.Tx.SongSelect_Score_Select?.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), nバーの高さ + 443);
+                                    CDTXMania.Tx.SongSelect_Score_Select?.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 443);
 
                                 }
                                 #endregion
@@ -1358,17 +1084,17 @@ namespace DTXMania
 
                         case C曲リストノード.Eノード種別.BOX:
                             if (CDTXMania.Tx.SongSelect_Frame_Box != null)
-                                CDTXMania.Tx.SongSelect_Frame_Box.t2D描画(CDTXMania.app.Device, 450, nバーの高さ);
+                                CDTXMania.Tx.SongSelect_Frame_Box.t2D描画(CDTXMania.app.Device, 450, CDTXMania.Skin.SongSelect_Overall_Y);
                             break;
 
                         case C曲リストノード.Eノード種別.BACKBOX:
                             if (CDTXMania.Tx.SongSelect_Frame_BackBox != null)
-                                CDTXMania.Tx.SongSelect_Frame_BackBox.t2D描画(CDTXMania.app.Device, 450, nバーの高さ);
+                                CDTXMania.Tx.SongSelect_Frame_BackBox.t2D描画(CDTXMania.app.Device, 450, CDTXMania.Skin.SongSelect_Overall_Y);
                             break;
 
                         case C曲リストノード.Eノード種別.RANDOM:
                             if (CDTXMania.Tx.SongSelect_Frame_Random != null)
-                                CDTXMania.Tx.SongSelect_Frame_Random.t2D描画(CDTXMania.app.Device, 450, nバーの高さ);
+                                CDTXMania.Tx.SongSelect_Frame_Random.t2D描画(CDTXMania.app.Device, 450, CDTXMania.Skin.SongSelect_Overall_Y);
                             break;
                             //case C曲リストノード.Eノード種別.DANI:
                             //    if (CDTXMania.Tx.SongSelect_Frame_Dani != null)
@@ -1378,7 +1104,7 @@ namespace DTXMania
                     //if( CDTXMania.Tx.SongSelect_Level != null )
                     //    CDTXMania.Tx.SongSelect_Level.t2D描画( CDTXMania.app.Device, 518, 169 );
                     if ( CDTXMania.Tx.SongSelect_Branch_Text != null && CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] )
-                        CDTXMania.Tx.SongSelect_Branch_Text.t2D描画( CDTXMania.app.Device, 483, nバーの高さ+21);
+                        CDTXMania.Tx.SongSelect_Branch_Text.t2D描画( CDTXMania.app.Device, 483, CDTXMania.Skin.SongSelect_Overall_Y+21);
 
                 }
 
@@ -1438,18 +1164,18 @@ namespace DTXMania
 
                         if( this.tx選択している曲のサブタイトル != null )
                         {
-                            int nサブタイY = (int)(nバーの高さ + 460 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
+                            int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 460 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
 							this.tx選択している曲のサブタイトル.t2D描画( CDTXMania.app.Device, 707, nサブタイY );
                             if( this.tx選択している曲の曲名 != null )
                             {
-						    	this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, nバーの高さ + 23);
+						    	this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
                             }
                         }
                         else
                         {
                             if( this.tx選択している曲の曲名 != null )
                             {
-	    						this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, nバーの高さ + 23);
+	    						this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
                             }
                         }
 
@@ -1492,12 +1218,8 @@ namespace DTXMania
             if( ( ( this.e曲のバー種別を返す( this.r現在選択中の曲 ) ) == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート != CActSortSongs.EOrder.Title ) && this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) != 8 )
             {
                 if( CDTXMania.Tx.SongSelect_GenreText != null )
-                    CDTXMania.Tx.SongSelect_GenreText.t2D描画( CDTXMania.app.Device, 496, 33, new Rectangle( 0, 60 * this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ), 288, 60 ) );
+                    CDTXMania.Tx.SongSelect_GenreText.t2D描画( CDTXMania.app.Device, 496, CDTXMania.Skin.SongSelect_Overall_Y-64, new Rectangle( 0, 60 * this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ), 288, 60 ) );
             }
-
-
-
-
 			return 0;
 		}
 		
@@ -1625,7 +1347,6 @@ namespace DTXMania
 		private int n現在のスクロールカウンタ;
 		private int n現在の選択行;
 		private int n目標のスクロールカウンタ;
-		private int nバーの高さ=103;
         private readonly Point[] ptバーの基本座標 = new Point[] { new Point( 0x2c4, 5 ), new Point( 0x272, 56 ), new Point( 0x242, 107 ), new Point( 0x222, 158 ), new Point( 0x210, 209 ), new Point( 0x1d0, 270 ), new Point( 0x224, 362 ), new Point( 0x242, 413 ), new Point( 0x270, 464 ), new Point( 0x2ae, 515 ), new Point( 0x314, 566 ), new Point( 0x3e4, 617 ), new Point( 0x500, 668 ) };
         private Point[] ptバーの座標 = new Point[]
         { new Point( -60, 180 ), new Point( 40, 180 ), new Point( 140, 180 ), new Point( 241, 180 ), new Point( 341, 180 ),
