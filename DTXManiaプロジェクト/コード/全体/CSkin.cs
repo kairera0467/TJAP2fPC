@@ -1357,12 +1357,12 @@ namespace DTXMania
                                     Game_Taiko_Combo_Ex_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_Taiko_Combo_Ex_X")
+                            else if (strCommand == "Game_Taiko_Combo_Ex4_X")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
                                 {
-                                    Game_Taiko_Combo_Ex_X[i] = int.Parse(strSplit[i]);
+                                    Game_Taiko_Combo_Ex4_X[i] = int.Parse(strSplit[i]);
                                 }
                             }
                             else if (strCommand == "Game_Taiko_Combo_Ex4_Y")
