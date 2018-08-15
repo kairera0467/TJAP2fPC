@@ -248,7 +248,7 @@ namespace DTXMania
                 //this.tx難易度別背景[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Master.png" ) );
                 //this.tx難易度別背景[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Edit.png" ) );
                 //this.tx下部テキスト = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer text.png" ) );
-
+                this.ct背景スクロール用タイマー = new CCounter(0, CDTXMania.Tx.SongSelect_Background.szテクスチャサイズ.Width, 30, CDTXMania.Timer);
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -277,6 +277,7 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
+			this.ct背景スクロール用タイマー.t進行Loop();
 				#region [ 初めての進行描画 ]
 				//---------------------
 				if( base.b初めての進行描画 )
@@ -309,7 +310,9 @@ namespace DTXMania
                     {
                         if (CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
                         {
-                            CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ].t2D描画( CDTXMania.app.Device, 0, 0 );
+                        for( int i = 0 ; i <(1280 / CDTXMania.Tx.SongSelect_Background.szテクスチャサイズ.Width) + 2; i++ )
+                        if (CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
+                            CDTXMania.Tx.SongSelect_GenreBack[this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)].t2D描画(CDTXMania.app.Device, -ct背景スクロール用タイマー.n現在の値 + CDTXMania.Tx.SongSelect_Background.szテクスチャサイズ.Width * i , 0);
                         }
                     }
                     else
@@ -766,6 +769,7 @@ namespace DTXMania
 		private bool bBGM再生済み;
 		private STキー反復用カウンタ ctキー反復用;
 		public CCounter ct登場時アニメ用共通;
+		private CCounter ct背景スクロール用タイマー;
 		private E戻り値 eフェードアウト完了時の戻り値;
 		private Font ftフォント;
 		//private CTexture tx下部パネル;
