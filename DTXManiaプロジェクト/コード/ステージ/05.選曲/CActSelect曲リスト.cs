@@ -1156,7 +1156,7 @@ namespace DTXMania
                             //    break;
                     }
                     if (CDTXMania.Tx.SongSelect_Branch_Text != null && CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] )
-                        CDTXMania.Tx.SongSelect_Branch_Text.t2D描画( CDTXMania.app.Device, 483, 138 );
+                        CDTXMania.Tx.SongSelect_Branch_Text.t2D描画( CDTXMania.app.Device, 483, CDTXMania.Skin.SongSelect_Overall_Y+21 );
 
                 }
 				#region [ (1) 登場アニメフェーズの描画。]
