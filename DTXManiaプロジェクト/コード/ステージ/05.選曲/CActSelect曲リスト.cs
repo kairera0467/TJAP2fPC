@@ -1123,11 +1123,11 @@ namespace DTXMania
                                             if (i == 3 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4) break;
                                             if (i == 4 && CDTXMania.stage選曲.n現在選択中の曲の難易度 == 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 403 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (3 * 60), CDTXMania.Skin.SongSelect_Overall_Y + 413 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
                                             }
                                             if (i != 4)
                                             {
-                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), CDTXMania.Skin.SongSelect_Overall_Y + 403 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
+                                                CDTXMania.Tx.SongSelect_Level.t2D下中央基準描画(CDTXMania.app.Device, 494 + (i * 60), CDTXMania.Skin.SongSelect_Overall_Y + 413 - (n * 17), new Rectangle(32 * i, 0, 32, 32));
                                             }
                                         }
                                     }
@@ -1183,7 +1183,7 @@ namespace DTXMania
 
                             if( this.tx選択している曲のサブタイトル != null )
                             {
-                                int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 460 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
+                                int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 440 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
 							    this.tx選択している曲のサブタイトル.t2D描画( CDTXMania.app.Device, 707, nサブタイY );
                                 if( this.tx選択している曲の曲名 != null )
                                 {
@@ -1446,7 +1446,7 @@ namespace DTXMania
 
                         if ( this.tx選択している曲のサブタイトル != null )
                         {
-                            int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 460 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
+                            int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 440 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
 							this.tx選択している曲のサブタイトル.t2D描画( CDTXMania.app.Device, 707, nサブタイY );
                             if( this.tx選択している曲の曲名 != null )
                             {
