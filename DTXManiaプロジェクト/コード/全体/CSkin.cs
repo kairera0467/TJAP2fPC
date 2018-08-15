@@ -1357,6 +1357,22 @@ namespace DTXMania
                                     Game_Taiko_Combo_Ex_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
+                            else if (strCommand == "Game_Taiko_Combo_Ex_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Ex_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Game_Taiko_Combo_Ex4_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Game_Taiko_Combo_Ex4_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
                             else if (strCommand == "Game_Taiko_Combo_Padding")
                             {
                                 string[] strSplit = strParam.Split(',');
@@ -1652,6 +1668,22 @@ namespace DTXMania
                             #endregion
                             #endregion
                             #region Result
+                            else if (strCommand == "Result_NamePlate_X")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Result_NamePlate_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == "Result_NamePlate_Y")
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    Result_NamePlate_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
                             #endregion
                             #endregion
                         }
@@ -1792,7 +1824,7 @@ namespace DTXMania
         #region General
         public string Skin_Name = "Unknown";
         public string Skin_Version = "Unknown";
-        public string Skin_Crea tor = "Unknown";
+        public string Skin_Creator = "Unknown";
         #endregion
         #region SongSelect
         public int SongSelect_Overall_Y = 123;
@@ -1880,6 +1912,8 @@ namespace DTXMania
         public int[] Game_Taiko_Combo_Y = new int[] { 270, 448 };
         public int[] Game_Taiko_Combo_Ex_X = new int[] { 268, 268 };
         public int[] Game_Taiko_Combo_Ex_Y = new int[] { 270, 448 };
+        public int[] Game_Taiko_Combo_Ex4_X = new int[] { 268, 268 };
+        public int[] Game_Taiko_Combo_Ex4_Y = new int[] { 270, 448 };
         public int[] Game_Taiko_Combo_Padding = new int[] { 28, 30, 24 };
         public int[] Game_Taiko_Combo_Size = new int[] { 42, 48 };
         public int[] Game_Taiko_Combo_Size_Ex = new int[] { 42, 56 };

@@ -387,7 +387,7 @@ namespace DTXMania
             else if (n桁数 == 4)
             {
                 // 四桁ならSkinconfigの座標+パディング/2 + パディングを使用する
-                rightX = CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[2] / 2 + CDTXMania.Skin.Game_Taiko_Combo_Padding[2];
+                rightX = CDTXMania.Skin.Game_Taiko_Combo_Ex4_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[2] / 2 + CDTXMania.Skin.Game_Taiko_Combo_Padding[2];
             }
             else
             {
@@ -400,14 +400,14 @@ namespace DTXMania
                         // パディング/2を足す必要がある
                         // 右に表示される桁数を求め、-1する
                         rightDigit = n桁数 / 2 - 1;
-                        rightX = CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[2] / 2 + CDTXMania.Skin.Game_Taiko_Combo_Padding[2] * rightDigit;
+                        rightX = CDTXMania.Skin.Game_Taiko_Combo_Ex4_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[2] / 2 + CDTXMania.Skin.Game_Taiko_Combo_Padding[2] * rightDigit;
                         break;
                     case 1:
                         // 2で割るとあまりが出る
                         // そのままパディングを足していく
                         // 右に表示される桁数を求める(中央除く -1)
                         rightDigit = (n桁数 - 1) /2;
-                        rightX = CDTXMania.Skin.Game_Taiko_Combo_Text_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[2] * rightDigit;
+                        rightX = CDTXMania.Skin.Game_Taiko_Combo_Ex4_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[2] * rightDigit;
                         break;
                     default:
                         break;
@@ -519,7 +519,7 @@ namespace DTXMania
                         // this.txCOMBO太鼓.vc拡大縮小倍率.Y = this.nコンボ拡大率_座標[ this.ctコンボ加算[ nPlayer ].n現在の値, 0 ];
                         CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Taiko_Combo_Scale[2] + ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 0];
                         CDTXMania.Tx.Taiko_Combo[1].vc拡大縮小倍率.X = CDTXMania.Skin.Game_Taiko_Combo_Scale[2];
-                        CDTXMania.Tx.Taiko_Combo[1].t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, rightX - CDTXMania.Skin.Game_Taiko_Combo_Padding[2] * i, CDTXMania.Skin.Game_Taiko_Combo_Y[nPlayer] + (int)ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 1], new Rectangle(n位の数[i] * CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1]));
+                        CDTXMania.Tx.Taiko_Combo[1].t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, rightX - CDTXMania.Skin.Game_Taiko_Combo_Padding[2] * i, CDTXMania.Skin.Game_Taiko_Combo_Ex4_Y[nPlayer] + (int)ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 1], new Rectangle(n位の数[i] * CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], 0, CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0], CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1]));
                     }
                     if (CDTXMania.Tx.Taiko_Combo_Effect != null)
                     {
@@ -531,7 +531,7 @@ namespace DTXMania
                             if (this.ctコンボラメ.n現在の値 < 7) CDTXMania.Tx.Taiko_Combo_Effect.n透明度 = 255;
                             else if (this.ctコンボラメ.n現在の値 >= 7 && this.ctコンボラメ.n現在の値 < 14) CDTXMania.Tx.Taiko_Combo_Effect.n透明度 = (int)(204 - (24 * this.ctコンボラメ.n現在の値));
                             #endregion
-                            CDTXMania.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, (rightX - CDTXMania.Skin.Game_Taiko_Combo_Padding[1] * i) - ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]), CDTXMania.Skin.Game_Taiko_Combo_Ex_Y[nPlayer] - ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]) - (int)(1.05 * this.ctコンボラメ.n現在の値));
+                            CDTXMania.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, (rightX - CDTXMania.Skin.Game_Taiko_Combo_Padding[1] * i) - ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]), CDTXMania.Skin.Game_Taiko_Combo_Ex4_Y[nPlayer] - ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]) - (int)(1.05 * this.ctコンボラメ.n現在の値));
                         }
                         if (ctコンボラメ.n現在の値 > 4 && ctコンボラメ.n現在の値 < 24)
                         {
@@ -540,7 +540,7 @@ namespace DTXMania
                             if (this.ctコンボラメ.n現在の値 < 11) CDTXMania.Tx.Taiko_Combo_Effect.n透明度 = 255;
                             else if (this.ctコンボラメ.n現在の値 >= 11 && this.ctコンボラメ.n現在の値 < 24) CDTXMania.Tx.Taiko_Combo_Effect.n透明度 = (int)(204 - (12 * this.ctコンボラメ.n現在の値));
                             #endregion
-                            CDTXMania.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, (rightX - CDTXMania.Skin.Game_Taiko_Combo_Padding[1] * i) + ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]), CDTXMania.Skin.Game_Taiko_Combo_Ex_Y[nPlayer] - ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]) - (int)(1.05 * this.ctコンボラメ.n現在の値));
+                            CDTXMania.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, (rightX - CDTXMania.Skin.Game_Taiko_Combo_Padding[1] * i) + ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[0] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]), CDTXMania.Skin.Game_Taiko_Combo_Ex4_Y[nPlayer] - ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]) - (int)(1.05 * this.ctコンボラメ.n現在の値));
 
                         }
                         if (ctコンボラメ.n現在の値 > 14)
@@ -550,7 +550,7 @@ namespace DTXMania
                             if (this.ctコンボラメ.n現在の値 < 22) CDTXMania.Tx.Taiko_Combo_Effect.n透明度 = 255;
                             else if (this.ctコンボラメ.n現在の値 >= 22 && this.ctコンボラメ.n現在の値 < 30) CDTXMania.Tx.Taiko_Combo_Effect.n透明度 = (int)(204 - (6 * this.ctコンボラメ.n現在の値));
                             #endregion
-                            CDTXMania.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, (rightX - CDTXMania.Skin.Game_Taiko_Combo_Padding[1] * i), CDTXMania.Skin.Game_Taiko_Combo_Ex_Y[nPlayer] - ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]) - (int)(1.05 * this.ctコンボラメ.n現在の値));
+                            CDTXMania.Tx.Taiko_Combo_Effect.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, (rightX - CDTXMania.Skin.Game_Taiko_Combo_Padding[1] * i), CDTXMania.Skin.Game_Taiko_Combo_Ex4_Y[nPlayer] - ((CDTXMania.Skin.Game_Taiko_Combo_Size_Ex[1] / 4) * CDTXMania.Skin.Game_Taiko_Combo_Scale[2]) - (int)(1.05 * this.ctコンボラメ.n現在の値));
 
                         }                        /*
                         x -= 33;
