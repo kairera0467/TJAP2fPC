@@ -978,6 +978,13 @@ namespace DTXMania
 
                             #region 新・SkinConfig
                             #region SongSelect
+                            else if (strCommand == "SongSelect_Overall_Y")
+                            {
+                                if (int.Parse(strParam) != 0)
+                                {
+                                    SongSelect_Overall_Y = int.Parse(strParam);
+                                }
+                            }
                             else if (strCommand == "SongSelect_NamePlate_X")
                             {
                                 string[] strSplit = strParam.Split(',');
@@ -1785,9 +1792,10 @@ namespace DTXMania
         #region General
         public string Skin_Name = "Unknown";
         public string Skin_Version = "Unknown";
-        public string Skin_Creator = "Unknown";
+        public string Skin_Crea tor = "Unknown";
         #endregion
         #region SongSelect
+        public int SongSelect_Overall_Y = 123;
         public int[] SongSelect_NamePlate_X = new int[] { 60, 950 };
         public int[] SongSelect_NamePlate_Y = new int[] { 650, 650 };
         public int[] SongSelect_Auto_X = new int[] { 60, 950 };
