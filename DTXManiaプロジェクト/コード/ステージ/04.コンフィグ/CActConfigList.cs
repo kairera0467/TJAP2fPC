@@ -41,8 +41,7 @@ namespace DTXMania
 			get
 			{
 				CItemBase currentItem = this.list項目リスト[ this.n現在の選択項目 ];
-				if ( currentItem == this.iSystemReturnToMenu || currentItem == this.iDrumsReturnToMenu ||
-					currentItem == this.iGuitarReturnToMenu || currentItem == this.iBassReturnToMenu )
+				if ( currentItem == this.iSystemReturnToMenu || currentItem == this.iDrumsReturnToMenu)
 				{
 					return true;
 				}
@@ -775,42 +774,6 @@ namespace DTXMania
 			this.eメニュー種別 = Eメニュー種別.Drums;
 		}
 		#endregion
-		#region [ t項目リストの設定_Guitar() ]
-		public void t項目リストの設定_Guitar()
-		{
-			this.tConfigIniへ記録する();
-			this.list項目リスト.Clear();
-
-			// #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
-
-			this.iGuitarReturnToMenu = new CItemBase( "<< Return To Menu", CItemBase.Eパネル種別.その他,
-				"左側のメニューに戻ります。",
-				"Return to left menu." );
-			this.list項目リスト.Add( this.iGuitarReturnToMenu );
-
-            OnListMenuの初期化();
-            this.n現在の選択項目 = 0;
-			this.eメニュー種別 = Eメニュー種別.Guitar;
-		}
-		#endregion
-		#region [ t項目リストの設定_Bass() ]
-		public void t項目リストの設定_Bass()
-		{
-			this.tConfigIniへ記録する();
-			this.list項目リスト.Clear();
-
-			// #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
-
-			this.iBassReturnToMenu = new CItemBase( "<< Return To Menu", CItemBase.Eパネル種別.その他,
-				"左側のメニューに戻ります。",
-				"Return to left menu." );
-			this.list項目リスト.Add( this.iBassReturnToMenu );
-
-            OnListMenuの初期化();
-			this.n現在の選択項目 = 0;
-			this.eメニュー種別 = Eメニュー種別.Bass;
-		}
-		#endregion
 
 		/// <summary>Sud+Hidの初期値を返す</summary>
 		/// <param name="eInst"></param>
@@ -855,14 +818,6 @@ namespace DTXMania
 			else if ( this.eメニュー種別 == Eメニュー種別.KeyAssignDrums )
 			{
 				t項目リストの設定_Drums();
-			}
-			else if ( this.eメニュー種別 == Eメニュー種別.KeyAssignGuitar )
-			{
-				t項目リストの設定_Guitar();
-			}
-			else if ( this.eメニュー種別 == Eメニュー種別.KeyAssignBass )
-			{
-				t項目リストの設定_Bass();
 			}
 			// これ以外なら何もしない
 		}
@@ -953,12 +908,6 @@ namespace DTXMania
 					CDTXMania.ConfigIni.b垂直帰線待ちを行う = this.iSystemVSyncWait.bON;
 					CDTXMania.app.b次のタイミングで垂直帰線同期切り替えを行う = true;
 				}
-				#region [ AutoPlay #23886 2012.5.8 yyagi ]
-				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iBassAutoPlayAll )
-				{
-					this.t全部のベースパッドのAutoを切り替える( this.iBassAutoPlayAll.e現在の状態 == CItemThreeState.E状態.ON );
-				}
-				#endregion
 				#region [ キーアサインへの遷移と脱出 ]
 				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemGoToKeyAssign )			// #24609 2011.4.12 yyagi
 				{
@@ -980,17 +929,9 @@ namespace DTXMania
 				{
 					t項目リストの設定_KeyAssignGuitar();
 				}
-				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignGuitarReturnToMenu )	// #24525 2011.3.15 yyagi
-				{
-					t項目リストの設定_Guitar();
-				}
 				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iBassGoToKeyAssign )				// #24525 2011.3.15 yyagi
 				{
 					t項目リストの設定_KeyAssignBass();
-				}
-				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignBassReturnToMenu )		// #24525 2011.3.15 yyagi
-				{
-					t項目リストの設定_Bass();
 				}
 				#endregion
 				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemUseBoxDefSkin )			// #28195 2012.5.6 yyagi
@@ -1331,8 +1272,6 @@ namespace DTXMania
 			this.prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\fonts\mplus-1p-heavy.ttf" ), 20 );	// t項目リストの設定 の前に必要
 //			this.listMenu = new List<stMenuItemRight>();
 
-			this.t項目リストの設定_Bass();		// #27795 2012.3.11 yyagi; System設定の中でDrumsの設定を参照しているため、
-			this.t項目リストの設定_Guitar();	// 活性化の時点でDrumsの設定も入れ込んでおかないと、System設定中に例外発生することがある。
 			this.t項目リストの設定_Drums();	// 
 			this.t項目リストの設定_System();	// 順番として、最後にSystemを持ってくること。設定一覧の初期位置がSystemのため。
 			this.b要素値にフォーカス中 = false;
@@ -1801,8 +1740,8 @@ namespace DTXMania
 		{
 			System,
 			Drums,
-			Guitar,
-			Bass,
+//			Guitar,
+//			Bass,
 			KeyAssignSystem,		// #24609 2011.4.12 yyagi: 画面キャプチャキーのアサイン
 			KeyAssignDrums,
 			KeyAssignGuitar,
@@ -1907,26 +1846,6 @@ namespace DTXMania
 		private CItemBase iBassGoToKeyAssign;
 		private CItemBase iSystemGoToKeyAssign;		// #24609
 
-		private CItemList iSystemGRmode;
-
-		//private CItemToggle iBassAutoPlay;
-		private CItemThreeState iBassAutoPlayAll;			// #23886 2012.5.8 yyagi
-		private CItemToggle iBassR;							//
-		private CItemToggle iBassG;							//
-		private CItemToggle iBassB;							//
-		private CItemToggle iBassPick;						//
-		private CItemToggle iBassW;							//
-	
-		//private CItemToggle iBassHidden;
-		private CItemToggle iBassLeft;
-		private CItemToggle iBassLight;
-		private CItemList iBassPosition;
-		private CItemList iBassRandom;
-		private CItemBase iBassReturnToMenu;
-		private CItemToggle iBassReverse;
-		private CItemInteger iBassScrollSpeed;
-		//private CItemToggle iBassSudden;
-		private CItemList iCommonDark;
 		private CItemInteger iCommonPlaySpeed;
 //		private CItemBase iCommonReturnToMenu;
 
@@ -1978,10 +1897,6 @@ namespace DTXMania
 			}
 			return nItem;
 		}
-		private void t全部のベースパッドのAutoを切り替える( bool bAutoON )
-		{
-			this.iBassR.bON = this.iBassG.bON = this.iBassB.bON = this.iBassPick.bON = this.iBassW.bON = bAutoON;
-		}
 		private void tConfigIniへ記録する()
 		{
 			switch( this.eメニュー種別 )
@@ -1996,15 +1911,15 @@ namespace DTXMania
 					this.tConfigIniへ記録する_KeyAssignDrums();
 					return;
 
-				case Eメニュー種別.Guitar:
-					this.tConfigIniへ記録する_Guitar();
-					this.tConfigIniへ記録する_KeyAssignGuitar();
-					return;
+				//case Eメニュー種別.Guitar:
+				//	this.tConfigIniへ記録する_Guitar();
+				//	this.tConfigIniへ記録する_KeyAssignGuitar();
+				//	return;
 
-				case Eメニュー種別.Bass:
-					this.tConfigIniへ記録する_Bass();
-					this.tConfigIniへ記録する_KeyAssignBass();
-					return;
+				//case Eメニュー種別.Bass:
+				//	this.tConfigIniへ記録する_Bass();
+				//	this.tConfigIniへ記録する_KeyAssignBass();
+				//	return;
 			}
 		}
 		private void tConfigIniへ記録する_KeyAssignBass()

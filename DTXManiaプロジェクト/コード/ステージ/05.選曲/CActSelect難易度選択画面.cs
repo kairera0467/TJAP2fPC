@@ -67,7 +67,7 @@ namespace DTXMania
         
         public void t次に移動()
 		{
-			if( this.n現在の選択行 < this.list難易度選択項目.Count - 1 )
+            if (this.n現在の選択行 < this.list難易度選択項目.Count - 1)
             {
                 this.n現在の選択行 += 1;
             }
@@ -268,7 +268,7 @@ namespace DTXMania
 			if( this.b活性化してない )
 				return 0;
 
-			#region [ 初めての進行描画 ]
+#region [ 初めての進行描画 ]
 			//-----------------
 			if( this.b初めての進行描画 )
 			{
@@ -280,8 +280,12 @@ namespace DTXMania
                 this.n矢印スクロール用タイマ値 = CSound管理.rc演奏用タイマ.n現在時刻;
 				this.ct三角矢印アニメ.t開始( 0, 19, 40, CDTXMania.Timer );
 
-				// 現在位置をかんたん～おに(エディット)の間に移動させる
+                // 現在位置をかんたん～おに(エディット)の間に移動させる
+#if DEBUG
+                this.n現在の選択行 = 0;
+#else
                 this.n現在の選択行 = 3 + CDTXMania.stage選曲.act曲リスト.n現在選択中の曲の現在の難易度レベル;
+#endif
 
                 Point[] ptパネル座標 = new Point[]
                 {
@@ -311,7 +315,7 @@ namespace DTXMania
 				base.b初めての進行描画 = false;
 			}
 			//-----------------
-			#endregion
+#endregion
 
 			// 本ステージは、(1)登場アニメフェーズ → (2)通常フェーズ　と二段階にわけて進む。
 			// ２つしかフェーズがないので CStage.eフェーズID を使ってないところがまた本末転倒。
@@ -334,7 +338,7 @@ namespace DTXMania
 			//}
 			//else
 			{
-                #region [ (2) 通常フェーズの進行。]
+#region [ (2) 通常フェーズの進行。]
                 //-----------------
 
                 //キー操作
@@ -438,7 +442,7 @@ namespace DTXMania
 
 
 				//-----------------
-				#endregion
+#endregion
 			}
 
 
@@ -461,7 +465,7 @@ namespace DTXMania
 			//}
 			//else
 			{
-				#region [ (2) 通常フェーズの描画。]
+#region [ (2) 通常フェーズの描画。]
 				//-----------------
                 int nバー基準X = 64;
                 CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.白, this.n現在の選択行.ToString() );
@@ -489,7 +493,7 @@ namespace DTXMania
                 }
 
 				//-----------------
-				#endregion
+#endregion
 			}
             //if( this.txヘッダー != null )
             //    this.txヘッダー.t2D描画( CDTXMania.app.Device, 0, 0 );
@@ -502,7 +506,7 @@ namespace DTXMania
 
 		// その他
 
-		#region [ private ]
+#region [ private ]
 		//-----------------
 
 		private bool b登場アニメ全部完了;
@@ -568,6 +572,6 @@ namespace DTXMania
         }
 
 
-		#endregion
+#endregion
 	}
 }

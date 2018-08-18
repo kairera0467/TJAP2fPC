@@ -300,7 +300,7 @@ namespace DTXMania
 		}
 		public override int On進行描画()
 		{
-			base.sw.Start();
+//			base.sw.Start();
 			if( !base.b活性化してない )
 			{
 				bool bIsFinishedPlaying = false;
@@ -474,7 +474,7 @@ namespace DTXMania
 
 				if( bIsFinishedFadeout )
 				{
-					Debug.WriteLine( "Total On進行描画=" + sw.ElapsedMilliseconds + "ms" );
+//					Debug.WriteLine( "Total On進行描画=" + sw.ElapsedMilliseconds + "ms" );
 					return (int) this.eフェードアウト完了時の戻り値;
 				}
 
@@ -485,7 +485,7 @@ namespace DTXMania
 				if( CDTXMania.act現在入力を占有中のプラグイン == null )
 					this.tキー入力();
 			}
-			base.sw.Stop();
+//			base.sw.Stop();
 			return 0;
 		}
 

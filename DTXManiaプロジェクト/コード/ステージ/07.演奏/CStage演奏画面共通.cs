@@ -321,8 +321,8 @@ namespace DTXMania
 			}
 			#endregion
 
-			this.sw = new Stopwatch();
-			this.sw2 = new Stopwatch();
+//			this.sw = new Stopwatch();
+//			this.sw2 = new Stopwatch();
 //			this.gclatencymode = GCSettings.LatencyMode;
 //			GCSettings.LatencyMode = GCLatencyMode.Batch;	// 演奏画面中はGCを抑止する
 		}
@@ -703,8 +703,8 @@ namespace DTXMania
 
         public bool[] bMiss中;
 
-		protected Stopwatch sw;		// 2011.6.13 最適化検討用のストップウォッチ
-		protected Stopwatch sw2;
+//		protected Stopwatch sw;		// 2011.6.13 最適化検討用のストップウォッチ
+//		protected Stopwatch sw2;
 //		protected GCLatencyMode gclatencymode;
 
         public struct STBranchStatus
@@ -817,14 +817,14 @@ namespace DTXMania
 		}
 		protected CDTX.CChip r指定時刻に一番近いChip_ヒット未済問わず不可視考慮( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
 		{
-			sw2.Start();
+//			sw2.Start();
 //Trace.TraceInformation( "NTime={0}, nChannel={1:x2}", nTime, nChannel );
 			nTime += nInputAdjustTime;						// #24239 2011.1.23 yyagi InputAdjust
 
 			int nIndex_InitialPositionSearchingToPast;
 			if ( this.n現在のトップChip == -1 )				// 演奏データとして1個もチップがない場合は
 			{
-				sw2.Stop();
+//				sw2.Stop();
 				return null;
 			}
 			int count = listChip[ nPlayer ].Count;
@@ -882,13 +882,13 @@ namespace DTXMania
 				}
 				else 								// 検索対象が未来方向には見つからなかった(しかし過去方向には見つかった)場合
 				{
-					sw2.Stop();
+//					sw2.Stop();
 					return listChip[ nPlayer ][ nIndex_NearestChip_Past ];
 				}
 			}
 			else if ( nIndex_NearestChip_Past < 0 )	// 検索対象が過去方向には見つからなかった(しかし未来方向には見つかった)場合
 			{
-				sw2.Stop();
+//				sw2.Stop();
 				return listChip[ nPlayer ][ nIndex_NearestChip_Future ];
 			}
 													// 検索対象が過去未来の双方に見つかったなら、より近い方を採用する
@@ -898,10 +898,10 @@ namespace DTXMania
 			int nDiffTime_Past   = Math.Abs( (int) ( nTime - nearestChip_Past.n発声時刻ms ) );
 			if ( nDiffTime_Future >= nDiffTime_Past )
 			{
-				sw2.Stop();
+//				sw2.Stop();
 				return nearestChip_Past;
 			}
-			sw2.Stop();
+//			sw2.Stop();
 			return nearestChip_Future;
 		}
 
@@ -911,14 +911,14 @@ namespace DTXMania
         }
 		protected CDTX.CChip r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
 		{
-			sw2.Start();
+//			sw2.Start();
 //Trace.TraceInformation( "NTime={0}, nChannel={1:x2}", nTime, nChannel );
 			nTime += nInputAdjustTime;						// #24239 2011.1.23 yyagi InputAdjust
 
 			int nIndex_InitialPositionSearchingToPast;
 			if ( this.n現在のトップChip == -1 )				// 演奏データとして1個もチップがない場合は
 			{
-				sw2.Stop();
+//				sw2.Stop();
 				return null;
 			}
 			int count = listChip[ nPlayer ].Count;
@@ -976,13 +976,13 @@ namespace DTXMania
 				}
 				else 								// 検索対象が未来方向には見つからなかった(しかし過去方向には見つかった)場合
 				{
-					sw2.Stop();
+//					sw2.Stop();
 					return listChip[ nPlayer ][ nIndex_NearestChip_Past ];
 				}
 			}
 			else if ( nIndex_NearestChip_Past < 0 )	// 検索対象が過去方向には見つからなかった(しかし未来方向には見つかった)場合
 			{
-				sw2.Stop();
+//				sw2.Stop();
 				return listChip[ nPlayer ][ nIndex_NearestChip_Future ];
 			}
 													// 検索対象が過去未来の双方に見つかったなら、より近い方を採用する
@@ -992,10 +992,10 @@ namespace DTXMania
 			int nDiffTime_Past   = Math.Abs( (int) ( nTime - nearestChip_Past.n発声時刻ms ) );
 			if ( nDiffTime_Future >= nDiffTime_Past )
 			{
-				sw2.Stop();
+//				sw2.Stop();
 				return nearestChip_Past;
 			}
-			sw2.Stop();
+//			sw2.Stop();
 			return nearestChip_Future;
 		}
 		protected void tサウンド再生( CDTX.CChip rChip, long n再生開始システム時刻ms, E楽器パート part )
