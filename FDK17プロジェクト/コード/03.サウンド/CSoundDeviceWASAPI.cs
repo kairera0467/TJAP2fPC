@@ -8,7 +8,7 @@ using Un4seen.Bass.AddOn.Mix;
 
 namespace FDK
 {
-	public class CSoundDeviceWASAPI : ISoundDevice
+	internal class CSoundDeviceWASAPI : ISoundDevice
 	{
 		// プロパティ
 
@@ -349,23 +349,18 @@ namespace FDK
 			BassWasapi.BASS_WASAPI_Start();
 		}
 		#region [ tサウンドを作成する() ]
-		public CSound tサウンドを作成する( string strファイル名 )
+		public CSound tサウンドを作成する( string strファイル名, ESoundGroup soundGroup )
 		{
-			var sound = new CSound();
+			var sound = new CSound(soundGroup);
 			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.e出力デバイス );
 			return sound;
 		}
-		public CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ )
-		{
-			var sound = new CSound();
-			sound.tWASAPIサウンドを作成する( byArrWAVファイルイメージ, this.hMixer, this.e出力デバイス );
-			return sound;
-		}
-		public void tサウンドを作成する( string strファイル名, ref CSound sound )
+
+		public void tサウンドを作成する( string strファイル名, CSound sound )
 		{
 			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.e出力デバイス );
 		}
-		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, ref CSound sound )
+		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound )
 		{
 			sound.tWASAPIサウンドを作成する( byArrWAVファイルイメージ, this.hMixer, this.e出力デバイス );
 		}

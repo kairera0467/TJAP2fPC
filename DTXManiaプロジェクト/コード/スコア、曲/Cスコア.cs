@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
+using FDK;
 
 namespace DTXMania
 {
@@ -69,6 +70,9 @@ namespace DTXMania
 			public double Bpm;
 			public int Duration;
             public string strBGMファイル名;
+            public int SongVol;
+            public Lufs? SongIntegratedLoudness;
+            public Lufs? SongPeakLoudness;
             public int nデモBGMオフセット;
             public bool[] b譜面分岐;
             public int ハイスコア;
@@ -281,6 +285,9 @@ namespace DTXMania
 			this.譜面情報.Bpm = 120.0;
 			this.譜面情報.Duration = 0;
             this.譜面情報.strBGMファイル名 = "";
+            this.譜面情報.SongVol = CSound.DefaultSongVol;
+            this.譜面情報.SongIntegratedLoudness = null;
+            this.譜面情報.SongPeakLoudness = null;
             this.譜面情報.nデモBGMオフセット = 0;
             this.譜面情報.b譜面分岐 = new bool[5];
             this.譜面情報.ハイスコア = 0;

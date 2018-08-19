@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.IO;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using System.Threading;
-using SlimDX;
 using SlimDX.DirectSound;
 using SlimDX.Multimedia;
 using Un4seen.Bass;
@@ -14,18 +12,18 @@ using Un4seen.BassAsio;
 using Un4seen.BassWasapi;
 using Un4seen.Bass.AddOn.Mix;
 using Un4seen.Bass.AddOn.Fx;
-using DirectShowLib;
+
 
 namespace FDK
 {
 	#region [ DTXMania用拡張 ]
 	public class CSound管理	// : CSound
 	{
-		public static ISoundDevice SoundDevice
+		private static ISoundDevice SoundDevice
 		{
 			get; set;
 		}
-		public static ESoundDeviceType SoundDeviceType
+		private static ESoundDeviceType SoundDeviceType
 		{
 			get; set;
 		}
@@ -189,17 +187,6 @@ namespace FDK
 		#endregion
 
 
-		/// <summary>
-		/// DTXC用コンストラクタ
-		/// </summary>
-		/// <param name="handle"></param>
-		public CSound管理( IntPtr handle )	// #30803 従来のコンストラクタ相当のI/Fを追加。(DTXC用)
-		{
-			WindowHandle = handle;
-			SoundDevice = null;
-			bUseOSTimer = true;
-			t初期化( ESoundDeviceType.DirectSound, 0, 0, 0 );
-		}
 		/// <summary>
 		/// DTXMania用コンストラクタ
 		/// </summary>
@@ -372,7 +359,7 @@ namespace FDK
 
 			CSound.tすべてのサウンドを再構築する( SoundDevice );		// すでに生成済みのサウンドがあれば作り直す。
 		}
-		public CSound tサウンドを生成する( string filename )
+		public CSound tサウンドを生成する( string filename, ESoundGroup soundGroup )
 		{
             if( !File.Exists( filename ) )
             {
@@ -383,7 +370,7 @@ namespace FDK
 			{
 				throw new Exception( string.Format( "未対応の SoundDeviceType です。[{0}]", SoundDeviceType.ToString() ) );
 			}
-			return SoundDevice.tサウンドを作成する( filename );
+			return SoundDevice.tサウンドを作成する( filename, soundGroup );
 		}
 
 		private static DateTime lastUpdateTime = DateTime.MinValue;
@@ -410,11 +397,7 @@ namespace FDK
 
 		public void tサウンドを破棄する( CSound csound )
 		{
-            if( csound != null )
-            {
-			    csound.t解放する( true );			// インスタンスは存続→破棄にする。
-			    csound = null;
-            }
+		    csound?.t解放する( true );			// インスタンスは存続→破棄にする。
 		}
 
 		public float GetCPUusage()
@@ -480,9 +463,31 @@ namespace FDK
 	// CSound は、サウンドデバイスが変更されたときも、インスタンスを再作成することなく、新しいデバイスで作り直せる必要がある。
 	// そのため、デバイスごとに別のクラスに分割するのではなく、１つのクラスに集約するものとする。
 
-	public class CSound : IDisposable, ICloneable
+	public class CSound : IDisposable
 	{
+	    public const int DefaultGain = 100;
+	    public const int MinimumSongVol = 0;
+	    public const int MaximumSongVol = 100;
+	    public const int DefaultSongVol = DefaultGain;
+
+        // 2018-08-19 twopointzero: Note the present absence of a MinimumAutomationLevel.
+        // We will revisit this if/when song select BGM fade-in/fade-out needs
+        // updating due to changing the type or range of AutomationLevel
+	    public const int MaximumAutomationLevel = 100;
+	    public const int DefaultAutomationLevel = 100;
+
+	    public const int MinimumGroupLevel = 0;
+	    public const int MaximumGroupLevel = 100;
+	    public const int DefaultGroupLevel = 100;
+	    public const int DefaultSoundEffectLevel = 100;
+	    public const int DefaultVoiceLevel = 100;
+	    public const int DefaultSongPreviewLevel = 80;
+	    public const int DefaultSongPlaybackLevel = 80;
+
+		public readonly ESoundGroup SoundGroup;
+
 		#region [ DTXMania用拡張 ]
+
 		public int n総演奏時間ms
 		{
 			get;
@@ -574,27 +579,103 @@ namespace FDK
 		private SYNCPROC _cbEndofStream;	// ストリームの終端まで再生されたときに呼び出されるコールバック
 //		private WaitCallback _cbRemoveMixerChannel;
 
+	    /// <summary>
+	    /// Gain is applied "first" to the audio data, much as in a physical or
+	    /// software mixer. Later steps in the flow of audio apply "channel" level
+	    /// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
+	    /// the audio is output.
+	    /// 
+	    /// This is currently used for mixing in the SONGVOL value, when available.
+	    /// It is also currently used for DTXViewer preview mode.
+	    ///
+	    /// It will in the near future also be used for adjustments based on
+	    /// loudness metadata, either when SONGVOL is unavailable or when loudness
+	    /// metadata is prioritized over it.
+	    /// </summary>
+	    public int Gain
+	    {
+	        private get => _gain;
+	        set
+	        {
+	            if (_gain == value)
+	            {
+	                return;
+	            }
+
+	            _gain = value;
+	            SetVolume();
+	        }
+	    }
+
+        /// <summary>
+        /// AutomationLevel is applied "second" to the audio data, much as in a
+        /// physical or sofware mixer and its channel level. Before this Gain is
+        /// applied, and after this the mixing group level is applied.
+        ///
+        /// This is currently used only for automated fade in and out as is the
+        /// case right now for the song selection screen background music fade
+        /// in and fade out.
+        /// </summary>
+	    public int AutomationLevel
+	    {
+	        get => _automationLevel;
+	        set
+	        {
+	            if (_automationLevel == value)
+	            {
+	                return;
+	            }
+
+	            _automationLevel = value;
+	            SetVolume();
+	        }
+	    }
+
+        /// <summary>
+        /// GroupLevel is applied "third" to the audio data, much as in the sub
+        /// mixer groups of a physical or software mixer. Before this both the
+        /// Gain and AutomationLevel are applied, and after this the audio
+        /// flows into the audio subsystem for mixing and output based on the
+        /// master volume.
+        ///
+        /// This is currently automatically managed for each sound based on the
+        /// configured and dynamically adjustable sound group levels for each of
+        /// sound effects, voice, song preview, and song playback.
+        ///
+        /// See the SoundGroupLevelController and related classes for more.
+        /// </summary>
+	    public int GroupLevel
+	    {
+	        private get => _groupLevel;
+	        set
+	        {
+	            if (_groupLevel == value)
+	            {
+	                return;
+	            }
+
+	            _groupLevel = value;
+	            SetVolume();
+	        }
+	    }
+
+	    private void SetVolume()
+	    {
+	        // 2018-08-18 twopointzero: For this version we will continue to mix integers via multiplication and use linear integer volume.
+	        // An upcoming revision will move as many values as possible to floating point logarithmic levels and use addition/subtraction.
+	        n音量 = (int) Math.Round(MixLinearLevelsLinearly(MixLinearLevelsLinearly(Gain, AutomationLevel), GroupLevel));
+	    }
+
+        private static double MixLinearLevelsLinearly(double left, double right)
+        {
+            return left * right * 0.01;
+        }
+
 		/// <summary>
 		/// <para>0:最小～100:原音</para>
 		/// </summary>
-		public int n音量
+		private int n音量
 		{
-			get
-			{
-				if( this.bBASSサウンドである )
-				{
-					float f音量 = 0.0f;
-					if ( !Bass.BASS_ChannelGetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, ref f音量 ) )
-					//if ( BassMix.BASS_Mixer_ChannelGetEnvelopePos( this.hBassStream, BASSMIXEnvelope.BASS_MIXER_ENV_VOL, ref f音量 ) == -1 )
-					    return 100;
-					return (int) ( f音量 * 100 );
-				}
-				else if( this.bDirectSoundである )
-				{
-					return this._n音量;
-				}
-				return -1;
-			}
 			set
 			{
 				if( this.bBASSサウンドである )
@@ -607,18 +688,16 @@ namespace FDK
 				}
 				else if( this.bDirectSoundである )
 				{
-					this._n音量 = value;
-
-					if( this._n音量 == 0 )
+					int n音量db;
+					if( value == 0 )
 					{
-						this._n音量db = -10000;
+						n音量db = -10000;
 					}
 					else
 					{
-						this._n音量db = (int) ( ( 20.0 * Math.Log10( ( (double) this._n音量 ) / 100.0 ) ) * 100.0 );
+						n音量db = (int) ( ( 20.0 * Math.Log10( ( (double) value ) / 100.0 ) ) * 100.0 );
 					}
-
-					this.Buffer.Volume = this._n音量db;
+					this.Buffer.Volume = n音量db;
 				}
 			}
 		}
@@ -705,7 +784,7 @@ namespace FDK
 		/// <para>全インスタンスリスト。</para>
 		/// <para>～を作成する() で追加され、t解放する() or Dispose() で解放される。</para>
 		/// </summary>
-		public static List<CSound> listインスタンス = new List<CSound>();
+		public static readonly ObservableCollection<CSound> listインスタンス = new ObservableCollection<CSound>();
 
 		public static void ShowAllCSoundFiles()
 		{
@@ -716,9 +795,9 @@ namespace FDK
 			}
 		}
 
-		public CSound()
+		public CSound(ESoundGroup soundGroup)
 		{
-			this.n音量 = 100;
+		    SoundGroup = soundGroup;
 			this.n位置 = 0;
 			this._db周波数倍率 = 1.0;
 			this._db再生速度 = 1.0;
@@ -728,39 +807,25 @@ namespace FDK
 			this._hTempoStream = 0;
 		}
 
-		public object Clone()
-		{
-			if ( !bDirectSoundである )
-			{
-				throw new NotImplementedException();
-			}
-			CSound clone = (CSound) MemberwiseClone();	// これだけだとCY連打が途切れる＆タイトルに戻る際にNullRef例外発生
-			this.DirectSound.DuplicateSoundBuffer( this.Buffer, out clone.Buffer );
-
-			// CSound.listインスタンス.Add( this );			// インスタンスリストに登録。
-			// 本来これを加えるべきだが、Add後Removeできなくなっている。Clone()の仕方の問題であろう。
-
-			return clone;
-		}
 		public void tASIOサウンドを作成する( string strファイル名, int hMixer )
 		{
+		    this.eデバイス種別 = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( strファイル名, hMixer, BASSFlag.BASS_STREAM_DECODE );
-			this.eデバイス種別 = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 		}
 		public void tASIOサウンドを作成する( byte[] byArrWAVファイルイメージ, int hMixer )
 		{
+		    this.eデバイス種別 = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( byArrWAVファイルイメージ, hMixer, BASSFlag.BASS_STREAM_DECODE );
-			this.eデバイス種別 = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 		}
 		public void tWASAPIサウンドを作成する( string strファイル名, int hMixer, ESoundDeviceType eデバイス種別 )
 		{
+		    this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( strファイル名, hMixer, BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_SAMPLE_FLOAT );
-			this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 		}
 		public void tWASAPIサウンドを作成する( byte[] byArrWAVファイルイメージ, int hMixer, ESoundDeviceType eデバイス種別 )
 		{
+		    this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( byArrWAVファイルイメージ, hMixer, BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_SAMPLE_FLOAT );
-			this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 		}
 		public void tDirectSoundサウンドを作成する( string strファイル名, DirectSound DirectSound )
 		{
@@ -1106,7 +1171,7 @@ namespace FDK
 		{
 			tサウンドを再生する( false );
 		}
-		public void tサウンドを再生する( bool bループする )
+		private void tサウンドを再生する( bool bループする )
 		{
 			if ( this.bBASSサウンドである )			// BASSサウンド時のループ処理は、t再生を開始する()側に実装。ここでは「bループする」は未使用。
 			{
@@ -1278,7 +1343,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				sound.t解放する( false );
 			}
 		}
-		public static void tすべてのサウンドを再構築する( ISoundDevice device )
+		internal static void tすべてのサウンドを再構築する( ISoundDevice device )
 		{
 			if( CSound.listインスタンス.Count == 0 )
 				return;
@@ -1300,7 +1365,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 					case E作成方法.ファイルから:
 						string strファイル名 = sounds[ i ].strファイル名;
 						sounds[ i ].Dispose( true, false );
-						device.tサウンドを作成する( strファイル名, ref sounds[ i ] );
+						device.tサウンドを作成する( strファイル名, sounds[ i ] );
 						break;
 					#endregion
 					#region [ WAVファイルイメージから ]
@@ -1309,14 +1374,14 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 						{
 							byte[] byArrWaveファイルイメージ = sounds[ i ].byArrWAVファイルイメージ;
 							sounds[ i ].Dispose( true, false );
-							device.tサウンドを作成する( byArrWaveファイルイメージ, ref sounds[ i ] );
+							device.tサウンドを作成する( byArrWaveファイルイメージ, sounds[ i ] );
 						}
 						else if( sounds[ i ].bDirectSoundである )
 						{
 							byte[] byArrWaveファイルイメージ = sounds[ i ].byArrWAVファイルイメージ;
 							var flags = sounds[ i ].DirectSoundBufferFlags;
 							sounds[ i ].Dispose( true, false );
-							( (CSoundDeviceDirectSound) device ).tサウンドを作成する( byArrWaveファイルイメージ, flags, ref sounds[ i ] );
+							( (CSoundDeviceDirectSound) device ).tサウンドを作成する( byArrWaveファイルイメージ, flags, sounds[ i ] );
 						}
 						break;
 					#endregion
@@ -1331,7 +1396,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			this.Dispose( true, true );
 			GC.SuppressFinalize( this );
 		}
-		protected void Dispose( bool bManagedも解放する, bool bインスタンス削除 )
+		private void Dispose( bool bManagedも解放する, bool bインスタンス削除 )
 		{
 			if( this.bBASSサウンドである )
 			{
@@ -1397,6 +1462,8 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				{
 					this.byArrWAVファイルイメージ = null;
 				}
+
+			    this.eデバイス種別 = ESoundDeviceType.Unknown;
 
 				if ( bインスタンス削除 )
 				{
@@ -1479,8 +1546,9 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		}
 		private int _n位置 = 0;
 		private int _n位置db;
-		private int _n音量 = 100;
-		private int _n音量db;
+		private int _gain = DefaultGain;
+		private int _automationLevel = DefaultAutomationLevel;
+		private int _groupLevel = DefaultGroupLevel;
 		private long nBytes = 0;
 		private int n一時停止回数 = 0;
 		private int nオリジナルの周波数 = 0;
@@ -1660,10 +1728,6 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			_cbEndofStream = new SYNCPROC( CallbackEndofStream );
 			Bass.BASS_ChannelSetSync( hBassStream, BASSSync.BASS_SYNC_END | BASSSync.BASS_SYNC_MIXTIME, 0, _cbEndofStream, IntPtr.Zero );
 
-			// インスタンスリストに登録。
-
-			CSound.listインスタンス.Add( this );
-
 			// n総演奏時間の取得; DTXMania用に追加。
 			double seconds = Bass.BASS_ChannelBytes2Seconds( this._hBassStream, nBytes );
 			this.n総演奏時間ms = (int) ( seconds * 1000 );
@@ -1676,6 +1740,10 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				throw new Exception( string.Format( "サウンドストリームの周波数取得に失敗しました。(BASS_ChannelGetAttribute)[{0}]", Bass.BASS_ErrorGetCode().ToString() ) );
 			}
 			this.nオリジナルの周波数 = (int) freq;
+
+		    // インスタンスリストに登録。
+
+		    CSound.listインスタンス.Add( this );
 		}
 		//-----------------
 

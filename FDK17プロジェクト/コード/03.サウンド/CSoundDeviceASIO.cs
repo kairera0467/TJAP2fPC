@@ -38,7 +38,7 @@ namespace FDK
 		}
 	}
 
-	public class CSoundDeviceASIO : ISoundDevice
+	internal class CSoundDeviceASIO : ISoundDevice
 	{
 		// プロパティ
 
@@ -353,23 +353,18 @@ namespace FDK
 		}
 
 		#region [ tサウンドを作成する() ]
-		public CSound tサウンドを作成する( string strファイル名 )
+		public CSound tサウンドを作成する( string strファイル名, ESoundGroup soundGroup )
 		{
-			var sound = new CSound();
+			var sound = new CSound(soundGroup);
 			sound.tASIOサウンドを作成する( strファイル名, this.hMixer );
 			return sound;
 		}
-		public CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ )
-		{
-			var sound = new CSound();
-			sound.tASIOサウンドを作成する( byArrWAVファイルイメージ, this.hMixer );
-			return sound;
-		}
-		public void tサウンドを作成する( string strファイル名, ref CSound sound )
+
+		public void tサウンドを作成する( string strファイル名, CSound sound )
 		{
 			sound.tASIOサウンドを作成する( strファイル名, this.hMixer );
 		}
-		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, ref CSound sound )
+		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound )
 		{
 			sound.tASIOサウンドを作成する( byArrWAVファイルイメージ, this.hMixer );
 		}

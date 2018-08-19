@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Diagnostics;
-using System.Web;
 using FDK;
+using FDK.ExtensionMethods;
 
 namespace DTXMania
 {
-	internal class CConfigIni
+	internal class CConfigIni : INotifyPropertyChanged
 	{
+	    private const int MinimumKeyboardSoundLevelIncrement = 1;
+	    private const int MaximumKeyboardSoundLevelIncrement = 20;
+	    private const int DefaultKeyboardSoundLevelIncrement = 5;
+
 		// クラス
 
 		#region [ CKeyAssign ]
@@ -629,7 +634,6 @@ namespace DTXMania
 		public bool bストイックモード;
 		public bool bランダムセレクトで子BOXを検索対象とする;
 		public bool bログ出力;
-		public STDGBVALUE<bool> b演奏音を強調する;
 		public bool b演奏情報を表示する;
 		public bool b垂直帰線待ちを行う;
 		public bool b全画面モード;
@@ -647,9 +651,51 @@ namespace DTXMania
 		public int n演奏速度;
 		public int n曲が選択されてからプレビュー音が鳴るまでのウェイトms;
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
-		public int n自動再生音量;
-		public int n手動再生音量;
-        public STDGBVALUE<int> n表示可能な最小コンボ数;
+
+	    private int _soundEffectLevel;
+
+	    public int SoundEffectLevel
+	    {
+	        get => _soundEffectLevel;
+	        set => SetProperty(ref _soundEffectLevel, value, nameof(SoundEffectLevel));
+	    }
+
+	    private int _voiceLevel;
+
+	    public int VoiceLevel
+	    {
+	        get => _voiceLevel;
+	        set => SetProperty(ref _voiceLevel, value, nameof(VoiceLevel));
+	    }
+
+	    private int _songPreviewLevel;
+
+	    public int SongPreviewLevel
+	    {
+	        get => _songPreviewLevel;
+	        set => SetProperty(ref _songPreviewLevel, value, nameof(SongPreviewLevel));
+	    }
+
+	    private int _songPlaybackLevel;
+
+	    public int SongPlaybackLevel
+	    {
+	        get => _songPlaybackLevel;
+	        set => SetProperty(ref _songPlaybackLevel, value, nameof(SongPlaybackLevel));
+	    }
+
+	    private int _keyboardSoundLevelIncrement;
+
+	    public int KeyboardSoundLevelIncrement
+	    {
+	        get => _keyboardSoundLevelIncrement;
+	        set => SetProperty(
+	            ref _keyboardSoundLevelIncrement,
+	            value.Clamp(MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement),
+	            nameof(KeyboardSoundLevelIncrement));
+	    }
+
+	    public STDGBVALUE<int> n表示可能な最小コンボ数;
 		public STDGBVALUE<int> n譜面スクロール速度;
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
@@ -1203,10 +1249,12 @@ namespace DTXMania
 			this.n表示可能な最小コンボ数.Bass = 2;
 			this.n表示可能な最小コンボ数.Taiko = 3;
             this.FontName = "MS UI Gothic";
-            this.n自動再生音量 = 80;
-			this.n手動再生音量 = 100;
+		    this.SoundEffectLevel = CSound.DefaultSoundEffectLevel;
+		    this.VoiceLevel = CSound.DefaultVoiceLevel;
+		    this.SongPreviewLevel = CSound.DefaultSongPreviewLevel;
+		    this.SongPlaybackLevel = CSound.DefaultSongPlaybackLevel;
+		    this.KeyboardSoundLevelIncrement = DefaultKeyboardSoundLevelIncrement;
 			this.bログ出力 = true;
-			this.b演奏音を強調する = new STDGBVALUE<bool>();
 			this.bSudden = new STDGBVALUE<bool>();
 			this.bHidden = new STDGBVALUE<bool>();
 			this.bReverse = new STDGBVALUE<bool>();
@@ -1221,7 +1269,6 @@ namespace DTXMania
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
 			for ( int i = 0; i < 3; i++ )
 			{
-				this.b演奏音を強調する[ i ] = true;
 				this.bSudden[ i ] = false;
 				this.bHidden[ i ] = false;
 				this.bReverse[ i ] = false;
@@ -1320,7 +1367,7 @@ namespace DTXMania
             this.bNoInfo = false;
             
             //this.bNoMP3Streaming = false;
-			this.nMasterVolume = 25;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
+			this.nMasterVolume = 100;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
 
             this.bHispeedRandom = false;
             this.nDefaultSongSort = 2;
@@ -1570,13 +1617,25 @@ namespace DTXMania
 			sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
 			sw.WriteLine( "ShowDebugStatus={0}", this.b演奏情報を表示する ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; 打音の音量(0～100%)" );
-			sw.WriteLine( "; Sound volume (you're playing) (0-100%)" );
-			sw.WriteLine( "ChipVolume={0}", this.n手動再生音量 );
+		    sw.WriteLine( $"; [i18n] Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( "{0}={1}", nameof(SoundEffectLevel), SoundEffectLevel );
+		    sw.WriteLine();
+		    sw.WriteLine( $"; [i18n] Voice level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; Voice level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( "{0}={1}", nameof(VoiceLevel), VoiceLevel );
+		    sw.WriteLine();
+		    sw.WriteLine( $"; [i18n] Song preview level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; Song preview level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( "{0}={1}", nameof(SongPreviewLevel), SongPreviewLevel );
 			sw.WriteLine();
-			sw.WriteLine( "; 自動再生音の音量(0～100%)" );
-			sw.WriteLine( "; Sound volume (auto playing) (0-100%)" );
-			sw.WriteLine( "AutoChipVolume={0}", this.n自動再生音量 );
+		    sw.WriteLine( $"; [i18n] Song playback level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; Song playback level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( "{0}={1}", nameof(SongPlaybackLevel), SongPlaybackLevel );
+			sw.WriteLine();
+		    sw.WriteLine( $"; [i18n] Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
+		    sw.WriteLine( "{0}={1}", nameof(KeyboardSoundLevelIncrement), KeyboardSoundLevelIncrement );
 			sw.WriteLine();
 			sw.WriteLine( "; ストイックモード(0:OFF, 1:ON)" );
 			sw.WriteLine( "; Stoic mode. (0:OFF, 1:ON)" );
@@ -2168,20 +2227,6 @@ namespace DTXMania
 											{
 												this.bランダムセレクトで子BOXを検索対象とする = C変換.bONorOFF( str4[ 0 ] );
 											}
-											#region [ SoundMonitor ]
-											else if( str3.Equals( "SoundMonitorDrums" ) )
-											{
-												this.b演奏音を強調する.Drums = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "SoundMonitorGuitar" ) )
-											{
-												this.b演奏音を強調する.Guitar = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "SoundMonitorBass" ) )
-											{
-												this.b演奏音を強調する.Bass = C変換.bONorOFF( str4[ 0 ] );
-											}
-											#endregion
 											#region [ コンボ数 ]
 											else if( str3.Equals( "MinComboDrums" ) )
 											{
@@ -2200,13 +2245,30 @@ namespace DTXMania
 											{
 												this.b演奏情報を表示する = C変換.bONorOFF( str4[ 0 ] );
 											}
-                                            else if( str3.Equals( "ChipVolume" ) )
-											{
-												this.n手動再生音量 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.n手動再生音量 );
-											}
 											else if( str3.Equals( "AutoChipVolume" ) )
 											{
-												this.n自動再生音量 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.n自動再生音量 );
+                                                // 2018-08-18 twopointzero: For backward compatibility, upgrade AutoChipVolume config values to SongPlaybackLevel
+											    this.SongPlaybackLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel );
+											}
+											else if( str3.Equals( nameof(SoundEffectLevel) ) )
+											{
+												this.SoundEffectLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SoundEffectLevel );
+											}
+											else if( str3.Equals( nameof(VoiceLevel) ) )
+											{
+												this.VoiceLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.VoiceLevel );
+											}
+											else if( str3.Equals( nameof(SongPreviewLevel) ) )
+											{
+												this.SongPreviewLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPreviewLevel );
+											}
+											else if( str3.Equals( nameof(SongPlaybackLevel) ) )
+											{
+												this.SongPlaybackLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel );
+											}
+											else if( str3.Equals( nameof(KeyboardSoundLevelIncrement) ) )
+											{
+												this.KeyboardSoundLevelIncrement = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement, this.KeyboardSoundLevelIncrement );
 											}
 											else if( str3.Equals( "StoicMode" ) )
 											{
@@ -2936,5 +2998,25 @@ Capture=K065
 		}
 		//-----------------
 		#endregion
+
+
+	    public event PropertyChangedEventHandler PropertyChanged;
+
+	    private bool SetProperty<T>(ref T storage, T value, string propertyName = null)
+	    {
+	        if (Equals(storage, value))
+	        {
+	            return false;
+	        }
+
+	        storage = value;
+	        OnPropertyChanged(propertyName);
+	        return true;
+	    }
+
+	    private void OnPropertyChanged(string propertyName)
+	    {
+	        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	    }
 	}
 }

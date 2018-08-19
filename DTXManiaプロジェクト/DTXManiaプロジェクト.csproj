@@ -89,6 +89,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="コード\全体\CConfigIni.cs" />
     <Compile Include="コード\全体\CDTXMania.cs" />
     <Compile Include="コード\全体\CDTXVersion.cs" />
+    <Compile Include="コード\全体\ConfigIniToSoundGroupLevelControllerBinder.cs" />
     <Compile Include="コード\全体\CPad.cs" />
     <Compile Include="コード\全体\CPrivateFastFont.cs" />
     <Compile Include="コード\全体\CVeirticalSongNameFont.cs" />
@@ -226,6 +228,7 @@
     <Compile Include="コード\全体\CSkin.cs" />
     <Compile Include="コード\全体\C定数.cs" />
     <Compile Include="コード\全体\C文字コンソール.cs" />
+    <Compile Include="コード\全体\KeyboardSoundGroupLevelControlHandler.cs" />
     <Compile Include="コード\全体\Program.cs" />
   </ItemGroup>
   <ItemGroup>

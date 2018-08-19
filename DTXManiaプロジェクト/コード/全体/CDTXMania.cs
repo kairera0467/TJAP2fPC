@@ -201,6 +201,13 @@ namespace DTXMania
 			get;
 			private set;
 		}
+
+	    public static SoundGroupLevelController SoundGroupLevelController
+	    {
+	        get;
+	        private set;
+	    }
+
 		public static CStage起動 stage起動 
 		{
 			get; 
@@ -585,8 +592,8 @@ namespace DTXMania
 									this.previewSound.Dispose();
 									this.previewSound = null;
 								}
-								this.previewSound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename );
-								this.previewSound.n音量 = DTXVmode.previewVolume;
+								this.previewSound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPlayback );
+								this.previewSound.Gain = DTXVmode.previewVolume;
 								this.previewSound.n位置 = DTXVmode.previewPan;
 								this.previewSound.t再生を開始する();
 								Trace.TraceInformation( "DTXCからの指示で、サウンドを生成しました。({0})", strPreviewFilename );
@@ -2089,7 +2096,10 @@ for (int i = 0; i < 3; i++) {
 				);
 				//Sound管理 = FDK.CSound管理.Instance;
 				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
-	
+
+				SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
+				ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigIni, SoundGroupLevelController);
+
 				ShowWindowTitleWithSoundType();
 				FDK.CSound管理.bIsTimeStretch = CDTXMania.ConfigIni.bTimeStretch;
 				Sound管理.nMasterVolume = CDTXMania.ConfigIni.nMasterVolume;
@@ -2542,6 +2552,10 @@ for (int i = 0; i < 3; i++) {
 				{
 					Trace.Unindent();
 				}
+
+			    SoundGroupLevelController = null;
+			    ConfigIni = null;
+
 				//---------------------
 				#endregion
 				#region [ DTXVmodeの終了処理 ]

@@ -287,9 +287,9 @@ namespace DTXMania
 
     //            this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
 
-                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\dong.ogg" ) );
-                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\ka.ogg" ) );
-                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Adlib.ogg" ) );
+                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\dong.ogg" ), ESoundGroup.SoundEffect );
+                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\ka.ogg" ), ESoundGroup.SoundEffect );
+                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Adlib.ogg" ), ESoundGroup.SoundEffect );
 
 				base.OnManagedリソースの作成();
 			}
@@ -1302,7 +1302,7 @@ namespace DTXMania
                             int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
 
                             this.tチップのヒット処理(pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, true, nLane + n大音符, nPlayer);
-                            this.tサウンド再生(pChip, pChip.n発声時刻ms, E楽器パート.TAIKO, dTX.nモニタを考慮した音量(E楽器パート.DRUMS), false, false, nPlayer);
+                            this.tサウンド再生(pChip, nPlayer);
                             return;
                         }
                     }
