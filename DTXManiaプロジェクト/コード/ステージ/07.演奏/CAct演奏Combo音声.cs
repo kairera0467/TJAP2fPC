@@ -77,97 +77,63 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-                this.tReadSoundConfig();
+                // フォルダ内を走査してコンボボイスをListに入れていく
+                Console.WriteLine(CSkin.Path(@"Sounds\Combo_1P\"));
+                // 1P コンボボイス
+                if (Directory.Exists(CSkin.Path(@"Sounds\Combo_1P\")))
+                {
+                    foreach (var item in System.IO.Directory.GetFiles(CSkin.Path(@"Sounds\Combo_1P\")))
+                    {
+                        var comboVoice = new CComboVoice();
+                        comboVoice.bFileFound = true;
+                        comboVoice.nPlayer = 0;
+                        comboVoice.strFilePath = item;
+                        comboVoice.soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する(item);
+                        comboVoice.nCombo = int.Parse(Path.GetFileNameWithoutExtension(item));
+                        listComboVoice.Add(comboVoice);
+                    }
+                    if (listComboVoice.Count > 0)
+                        listComboVoice.Sort();
+                }
 
-                for( int i = 0; i < this.listComboVoice.Count; i++ )
+                // 2P コンボボイス
+                if (Directory.Exists(CSkin.Path(@"Sounds\Combo_2P\")))
                 {
-                    if( this.listComboVoice[ i ].bFileFound )
-                        this.listComboVoice[ i ].soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\" + this.listComboVoice[ i ].strFilePath ) );
+                    foreach (var item in System.IO.Directory.GetFiles(CSkin.Path(@"Sounds\Combo_2P\")))
+                    {
+                        var comboVoice = new CComboVoice();
+                        comboVoice.bFileFound = true;
+                        comboVoice.nPlayer = 1;
+                        comboVoice.strFilePath = item;
+                        comboVoice.soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する(item);
+                        comboVoice.nCombo = int.Parse(Path.GetFileNameWithoutExtension(item));
+                        listComboVoiceP2.Add(comboVoice);
+                    }
+                    if (listComboVoiceP2.Count > 0)
+                        listComboVoiceP2.Sort();
                 }
-                for( int i = 0; i < this.listComboVoiceP2.Count; i++ )
-                {
-                    if( this.listComboVoiceP2[ i ].bFileFound )
-                        this.listComboVoiceP2[ i ].soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\" + this.listComboVoiceP2[ i ].strFilePath ) );
-                }
-				base.OnManagedリソースの作成();
+
+    			base.OnManagedリソースの作成();
 			}
 		}
 		public override void OnManagedリソースの解放()
 		{
 			if( !base.b活性化してない )
 			{
-                for( int i = 0; i < this.listComboVoice.Count; i++ )
+                foreach (var item in listComboVoice)
                 {
-                    CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoice[ i ].soundComboVoice );
+                    CDTXMania.Sound管理.tサウンドを破棄する(item.soundComboVoice);
                 }
-                for( int i = 0; i < this.listComboVoiceP2.Count; i++ )
+                listComboVoice?.Clear();
+                foreach (var item in listComboVoiceP2)
                 {
-                    CDTXMania.Sound管理.tサウンドを破棄する( this.listComboVoiceP2[ i ].soundComboVoice );
+                    CDTXMania.Sound管理.tサウンドを破棄する(item.soundComboVoice);
                 }
+                listComboVoiceP2?.Clear();
+
 				base.OnManagedリソースの解放();
 			}
 		}
-
-		// その他
-        private void tReadSoundConfig()
-        {
-            if( File.Exists( CSkin.Path( @"Sound.csv" ) ) )
-            {
-                string str;
-                using( StreamReader reader = new StreamReader( CSkin.Path( @"Sound.csv" ) ) )
-                {
-                    str = reader.ReadToEnd();
-                }
-
-                this.t文字列から読み込み( str );
-            }
-
-            //ここでコンボ数をキーにしてソート。
-            this.listComboVoice.Sort();
-            this.listComboVoiceP2.Sort();
-        }
-
-        private void t文字列から読み込み( string strAllSettings )
-        {
-            string[] delimiter = { "\n" };
-            string[] strSingleLine = strAllSettings.Split( delimiter, StringSplitOptions.RemoveEmptyEntries );
-            foreach( string s in strSingleLine )
-            {
-                if( s[ 0 ] != '#' ) //先頭文字が#でなければその行は無視
-                    continue;
-                s.Replace( '\r', ' ' );
-
-                //正常なら5個になる。
-                string[] strArray = s.Split( ',' );
-
-                if( strArray.Length != 4 )
-                    continue;
-                if( strArray[ 0 ] != "#SE" && ( strArray[ 1 ] != "COMBOVOICE" || strArray[ 1 ] != "COMBOVOICE_P2" ) )
-                    continue;
-
-                if( strArray[ 1 ] == "COMBOVOICE" )
-                {
-                    var voice = new CComboVoice();
-                    voice.strFilePath = strArray[ 2 ];
-                    voice.nCombo = Convert.ToInt32( strArray[ 3 ] );
-                    voice.bFileFound = File.Exists( CSkin.Path( @"Sounds\" + strArray[ 2 ] ) );
-                    voice.nPlayer = 0;
-
-                    this.listComboVoice.Add( voice );
-                }
-                else if( strArray[ 1 ] == "COMBOVOICE_P2" )
-                {
-                    var voice = new CComboVoice();
-                    voice.strFilePath = strArray[ 2 ];
-                    voice.nCombo = Convert.ToInt32( strArray[ 3 ] );
-                    voice.bFileFound = File.Exists( CSkin.Path( @"Sounds\" + strArray[ 2 ] ) );
-                    voice.nPlayer = 1;
-
-                    this.listComboVoiceP2.Add( voice );
-                }
-            }
-        }
-
 
 		#region [ private ]
 		//-----------------
