@@ -1786,53 +1786,78 @@ namespace DTXMania
                             }
                         }
 
+                        //kairera0467氏 の TJAPlayer2forPC のコードを参考にし、打数に応じて色を変える(打数の変更以外はほとんどそのまんま) ろみゅ～？ 2018/8/20
+                        float f減少するカラー = pChip.nRollCount < 5 ? 1.0f - ((0.95f / 5) * pChip.nRollCount) : 0.05f; //仮で5打
+                        float f末端ノーツのテクスチャ位置調整=65f;
 
-                        if ( pChip.nチャンネル番号 == 0x15 )
+                        if ( pChip.nチャンネル番号 == 0x15 ) //連打(小)
                         {
-                            //x = ( x + 10 ) - ( ( int ) ( ( 130.0 * pChip.dbチップサイズ倍率 ) / 2.0 ) );
                             int index = x末端 - x; //連打の距離
-                            if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
+                            if ( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                             {
-                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = index - 65;
-                                CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 65, y, new Rectangle( 780, 0, 1, 130 ) );
+                                #region[末端をテクスチャ側で中央に持ってくる場合の方式]
+                                
+                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, f減少するカラー, f減少するカラー);
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整+1) / 128.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(910, 0, 130, 130));
-                                CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 650, num9, 130, 130 ) );
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(910, num9, 130, 130));
+                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+                                
+                                #endregion
+                                #region[末端をテクスチャ側でつなげる場合の方式]
+                                /*
+                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f,f減少するカラー, f減少するカラー);
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整+1) / 128.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
+                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+                                */
+                                #endregion
                             }
-
-                            CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = index - 34;
+                            CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = index - 44;
                             CDTXMania.Tx.SenNotes.t2D描画( CDTXMania.app.Device, x + 90, y + nSenotesY, new Rectangle( 60, 240, 1, 30 ) );
                             CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = 1.0f;
                             CDTXMania.Tx.SenNotes.t2D描画( CDTXMania.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                             CDTXMania.Tx.SenNotes.t2D描画( CDTXMania.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-                            //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 58, C文字コンソール.Eフォント種別.白, pChip.dbBPM.ToString());
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 42, C文字コンソール.Eフォント種別.白, pChip.dbSCROLL.ToString());
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 26, C文字コンソール.Eフォント種別.白, pChip.n発声時刻ms.ToString());
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 10, C文字コンソール.Eフォント種別.白, pChip.nノーツ終了時刻ms.ToString());
                         }
                         if( pChip.nチャンネル番号 == 0x16 )
                         {
-                            //x = ( x + 10 ) - ( ( int ) ( ( 130.0 * pChip.dbチップサイズ倍率 ) / 2.0 ) );
                             int index = x末端 - x; //連打の距離
 
                             if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                             {
-                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = index - 65;
-                                CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 65, y, new Rectangle( 1170, 0, 1, 130 ) );
+                                #region[末端をテクスチャ側で中央に持ってくる場合の方式]
+                                
+                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, f減少するカラー, f減少するカラー);
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整+1) / 128f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(1300, num9, 130, 130));
+                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
+                                
+                                #endregion
+                                #region[末端をテクスチャ側でつなげる場合の方式]
+                                /*
+                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f,f減少するカラー , f減少するカラー);
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整+1) /128f;
+                                CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 64, y, new Rectangle( 1171, 0, 128, 130 ) );
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
+                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 1040, num9, 130, 130 ) );
+                                */
+                                #endregion
                             }
-
-                            CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = index - 60;
+                            CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = index - 70;
                             CDTXMania.Tx.SenNotes.t2D描画( CDTXMania.app.Device, x + 116, y + nSenotesY, new Rectangle( 60, 240, 1, 30 ) );
                             CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = 1.0f;
                             CDTXMania.Tx.SenNotes.t2D描画(CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                             CDTXMania.Tx.SenNotes.t2D描画(CDTXMania.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 26, C文字コンソール.Eフォント種別.白, pChip.n発声時刻ms.ToString());
-                            //CDTXMania.act文字コンソール.tPrint( x, y - 10, C文字コンソール.Eフォント種別.白, pChip.nノーツ終了時刻ms.ToString() );
-                            //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
                         }
                         if( pChip.nチャンネル番号 == 0x17 )
                         {
