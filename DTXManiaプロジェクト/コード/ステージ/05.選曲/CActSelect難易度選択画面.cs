@@ -316,10 +316,7 @@ namespace DTXMania
 			}
 			//-----------------
 #endregion
-
-			// 本ステージは、(1)登場アニメフェーズ → (2)通常フェーズ　と二段階にわけて進む。
-			// ２つしかフェーズがないので CStage.eフェーズID を使ってないところがまた本末転倒。
-
+            
 			
 			// 進行。
             //this.ct三角矢印アニメ.t進行Loop();
@@ -378,7 +375,8 @@ namespace DTXMania
                                         case C曲リストノード.Eノード種別.RANDOM:
                                             {
                                                 CDTXMania.Skin.sound曲決定音.t再生する();
-                                                CDTXMania.stage選曲.t曲を選択する( (int)this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 );
+                                                CDTXMania.stage選曲.n確定された曲の難易度 = (int)this.list難易度選択項目[this.n現在の選択行].e項目種類;
+                                                CDTXMania.stage選曲.t曲をランダム選択する();
                                             }
                                             break;
                                     }

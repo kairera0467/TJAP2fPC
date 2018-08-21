@@ -3816,6 +3816,10 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
+            else if( InputText.StartsWith( "#BRANCHEND" ) )
+            {
+Trace.TraceInformation( "BRANCHEND命令は未実装です" );
+            }
             else if( InputText.StartsWith( "#BARLINEOFF" ) )
             {
                 var chip = new CChip();

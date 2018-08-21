@@ -1481,7 +1481,7 @@ namespace DTXMania
 
                 #region [ 項目リストにフォーカスがあって、かつスクロールが停止しているなら、パネルの上下に▲印を描画する。]
 	    		//-----------------
-		    	if( ( this.n目標のスクロールカウンタ == 0 ) && !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect )
+		    	if( ( this.n目標のスクロールカウンタ == 0 ) && ( CDTXMania.stage選曲.ctDiffSelect戻り待ち.b進行中 ? CDTXMania.stage選曲.ctDiffSelect戻り待ち.b終了値に達した : !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect ) )
 			    {
     				int y;
 	    			int x_upper;
@@ -1489,20 +1489,10 @@ namespace DTXMania
 			
 			    	// 位置決定。
 
-				    //if( this.b要素値にフォーカス中 )
-    				{
-
-	    				x_upper = CDTXMania.Skin.nSelectSongPanelCursorLX - this.ct三角矢印アニメ.n現在の値;
-		    			x_lower = CDTXMania.Skin.nSelectSongPanelCursorRX + this.ct三角矢印アニメ.n現在の値;
-			    		y = CDTXMania.Skin.nSelectSongPanelCursorY;
-				    }
-    				//else
-	    			//{
-		    			//x = 276;	// 項目名の上下あたり。
-			    		//y_upper = 186 - this.ct三角矢印アニメ.n現在の値;
-				    	//y_lower = 254 + this.ct三角矢印アニメ.n現在の値;
-    				//}
-
+				    x_upper = CDTXMania.Skin.nSelectSongPanelCursorLX - this.ct三角矢印アニメ.n現在の値;
+		    		x_lower = CDTXMania.Skin.nSelectSongPanelCursorRX + this.ct三角矢印アニメ.n現在の値;
+			    	y = CDTXMania.Skin.nSelectSongPanelCursorY;
+    				
 	    			// 描画。
 				
 		    		if( this.txカーソル左 != null )

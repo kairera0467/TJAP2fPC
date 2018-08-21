@@ -54,7 +54,7 @@ namespace DTXMania
 		public int n確定された曲の難易度
 		{
 			get;
-			private set;
+			set;
 		}
 		public Cスコア r確定されたスコア
 		{
@@ -563,7 +563,7 @@ namespace DTXMania
                             C共通.bToggleBoolian( ref CDTXMania.ConfigIni.bZeroSpeed );
 						}
                         #endregion
-                        #region [ not used ]
+                        #region [ TEST ]
                         if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F11 ) )
                         //if( false )
                         {
@@ -593,11 +593,23 @@ namespace DTXMania
 									switch ( this.act曲リスト.r現在選択中の曲.eノード種別 )
 									{
 										case C曲リストノード.Eノード種別.SCORE:
-                                            if( CDTXMania.Skin.sound曲決定音.b読み込み成功 )
-                                                CDTXMania.Skin.sound曲決定音.t再生する();
-                                            else
+                                            if( CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.曲から選ぶ )
+                                            {
                                                 CDTXMania.Skin.sound決定音.t再生する();
-											this.t曲を選択する();
+                                                CDTXMania.Skin.sound曲読込開始音.t再生する();
+                                                if( !this.act難易度選択画面.bIsDifficltSelect )
+                                                    this.ctDiffSelect移動待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
+                                                this.act難易度選択画面.t選択画面初期化();
+                                                C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
+                                            }
+                                            else
+                                            {
+                                                if( CDTXMania.Skin.sound曲決定音.b読み込み成功 )
+                                                    CDTXMania.Skin.sound曲決定音.t再生する();
+                                                else
+                                                    CDTXMania.Skin.sound決定音.t再生する();
+											    this.t曲を選択する();
+                                            }
 											break;
 
 										case C曲リストノード.Eノード種別.BOX:
@@ -625,11 +637,23 @@ namespace DTXMania
 											break;
 
 										case C曲リストノード.Eノード種別.RANDOM:
-                                            if( CDTXMania.Skin.sound曲決定音.b読み込み成功 )
-                                                CDTXMania.Skin.sound曲決定音.t再生する();
-                                            else
+                                            if( CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.曲から選ぶ )
+                                            {
                                                 CDTXMania.Skin.sound決定音.t再生する();
-											this.t曲をランダム選択する();
+                                                CDTXMania.Skin.sound曲読込開始音.t再生する();
+                                                if( !this.act難易度選択画面.bIsDifficltSelect )
+                                                    this.ctDiffSelect移動待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
+                                                this.act難易度選択画面.t選択画面初期化();
+                                                C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
+                                            }
+                                            else
+                                            {
+                                                if( CDTXMania.Skin.sound曲決定音.b読み込み成功 )
+                                                    CDTXMania.Skin.sound曲決定音.t再生する();
+                                                else
+                                                    CDTXMania.Skin.sound決定音.t再生する();
+											    this.t曲をランダム選択する();
+                                            }
 											break;
 									}
 								}
@@ -967,7 +991,7 @@ namespace DTXMania
 			CDTXMania.Skin.soundカーソル移動音.t再生する();
 			this.act曲リスト.t前に移動();
 		}
-		private void t曲をランダム選択する()
+		public void t曲をランダム選択する()
 		{
 			C曲リストノード song = this.act曲リスト.r現在選択中の曲;
 			if( ( song.stackランダム演奏番号.Count == 0 ) || ( song.listランダム用ノードリスト == null ) )

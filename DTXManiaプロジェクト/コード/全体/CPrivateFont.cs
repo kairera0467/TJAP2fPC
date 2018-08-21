@@ -626,10 +626,10 @@ namespace DTXMania
                 else if( strName[ i ] == " " )
                     nNowPos = nNowPos + 10;
 
-
-                //if( this._pt < 20 ) bmpV.Save( "String_s" + i.ToString() + "_s.png" );
-                //else bmpV.Save( "String_" + i.ToString() + ".png" );
-
+#if VerticalFont
+                if( this._pt < 20 ) bmpV.Save( "String_s" + i.ToString() + "_s.png" );
+                else bmpV.Save( "String_" + i.ToString() + ".png" );
+#endif
                 if( i == 0 )
                 {
                     nNowPos = 0;
@@ -637,10 +637,12 @@ namespace DTXMania
                 Gcambus.DrawImage( bmpV, ( bmpCambus.Width / 2 ) - ( bmpV.Size.Width / 2 ) + n補正, nNowPos );
                 nNowPos += (int)( bmpV.Size.Height * fMargin );
 
-                //if( this._pt < 20 )
-                //    bmpCambus.Save( "test_S.png" );
-                //else
-                //    bmpCambus.Save( "test.png" );
+#if VerticalFont
+                if( this._pt < 20 )
+                    bmpCambus.Save( "test_S.png" );
+                else
+                    bmpCambus.Save( "test.png" );
+#endif
 
                 if( bmpV != null ) bmpV.Dispose();
                 if( gCal != null ) gCal.Dispose();
@@ -988,7 +990,7 @@ namespace DTXMania
 			}
 		}
 
-		#region [ IDisposable 実装 ]
+#region [ IDisposable 実装 ]
 		//-----------------
 		public void Dispose()
 		{
@@ -1030,9 +1032,9 @@ namespace DTXMania
 			this.Dispose(false);
 		}
 		//-----------------
-		#endregion
+#endregion
 
-		#region [ private ]
+#region [ private ]
 		//-----------------
 		protected bool bDispose完了済み;
 		protected Font _font;
@@ -1045,6 +1047,6 @@ namespace DTXMania
         private string _baseFontname = null;
         private bool bIsSystemFont;
 		//-----------------
-		#endregion
+#endregion
 	}
 }
