@@ -2505,15 +2505,7 @@ namespace DTXMania
 		protected void ChangeInputAdjustTimeInPlaying( IInputDevice keyboard, int plusminus )		// #23580 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
 		{
 			int part, offset = plusminus;
-			if ( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftShift ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightShift ) )	// Guitar InputAdjustTime
-			{
-				part = (int) E楽器パート.GUITAR;
-			}
-			else if ( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftAlt ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightAlt ) )	// Bass InputAdjustTime
-			{
-				part = (int) E楽器パート.BASS;
-			}
-			else	// Drums InputAdjustTime
+	    	// Drums InputAdjustTime
 			{
 				part = (int) E楽器パート.DRUMS;
 			}
@@ -3557,10 +3549,7 @@ namespace DTXMania
                             //if( n現在のコース == pChip.nコース )
                                 this.n分岐した回数[ nPlayer ]++;
 
-                            if( configIni.bAutoSection )
-                            {
-                                this.tBranchReset( nPlayer );
-                            }
+                            
 
 
                             pChip.bHit = true;

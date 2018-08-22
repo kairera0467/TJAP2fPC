@@ -383,12 +383,6 @@ namespace DTXMania
 			);
 			this.list項目リスト.Add( this.iSystemSoundTimerType );
 
-            this.iTaikoAutoSection = new CItemToggle( "AutoSection", CDTXMania.ConfigIni.bAutoSection,
-                "譜面分岐時に自動でSECTION処理をします。\n" +
-                "tjaにSECTIONをつけるのが面倒な時に使用してください。",
-                "\n" +
-                "");
-            this.list項目リスト.Add( this.iTaikoAutoSection );
 
             ShowChara = new CItemToggle("ShowChara", CDTXMania.ConfigIni.ShowChara,
                 "キャラクター画像を表示するかどうか\n",
@@ -2151,7 +2145,6 @@ namespace DTXMania
         private CItemToggle iTaikoBranchGuide;
         private CItemList iTaikoDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
         private CItemList iTaikoScoreMode;
-        private CItemToggle iTaikoAutoSection;
         private CItemToggle iTaikoHispeedRandom;
         private CItemList iTaikoBranchAnime;
         private CItemToggle iTaikoChara;
@@ -2317,7 +2310,6 @@ namespace DTXMania
 //Trace.TraceInformation( "Skin現在BoxDef  : " + CSkin.strBoxDefSkinSubfolderFullName );
 			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度 = (E判定表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
-            CDTXMania.ConfigIni.bAutoSection = this.iTaikoAutoSection.bON;
             CDTXMania.ConfigIni.ShowChara = this.ShowChara.bON;
             CDTXMania.ConfigIni.ShowDancer = this.ShowDancer.bON;
             CDTXMania.ConfigIni.ShowRunner = this.ShowRunner.bON;
