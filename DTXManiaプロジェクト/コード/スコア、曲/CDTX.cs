@@ -604,7 +604,7 @@ namespace DTXMania
 
 			public int CompareTo( CDTX.CChip other )
 			{
-				// まずは位置で比較。
+                // まずは位置で比較。
 
                 //BGMチップだけ発声位置
                 //if( this.nチャンネル番号 == 0x01 || this.nチャンネル番号 == 0x02 )
@@ -623,14 +623,21 @@ namespace DTXMania
                 //    return 1;
 
                 //譜面解析メソッドV4では発声時刻msで比較する。
-			    var n発声時刻msCompareToResult = this.n発声時刻ms.CompareTo(other.n発声時刻ms);
+                var n発声時刻msCompareToResult = 0;
+                n発声時刻msCompareToResult = this.n発声時刻ms.CompareTo(other.n発声時刻ms);
 			    if (n発声時刻msCompareToResult != 0)
 			    {
 			        return n発声時刻msCompareToResult;
 			    }
 
-				// 位置が同じなら優先度で比較。
-			    return n優先度[this.nチャンネル番号].CompareTo(n優先度[other.nチャンネル番号]);
+                n発声時刻msCompareToResult = this.db発声時刻ms.CompareTo(other.db発声時刻ms);
+                if (n発声時刻msCompareToResult != 0)
+                {
+                    return n発声時刻msCompareToResult;
+                }
+
+                // 位置が同じなら優先度で比較。
+                return n優先度[this.nチャンネル番号].CompareTo(n優先度[other.nチャンネル番号]);
 			}
 			//-----------------
 			#endregion
@@ -1237,6 +1244,9 @@ namespace DTXMania
 
         public bool bHIDDENBRANCH; //2016.04.01 kairera0467 選曲画面上、譜面分岐開始前まで譜面分岐の表示を隠す
         public bool bGOGOTIME; //2018.03.11 kairera0467
+
+        public bool IsEndedBranching; // BRANCHENDが呼び出されたかどうか
+
 
 
 #if TEST_NOTEOFFMODE
@@ -3347,7 +3357,7 @@ namespace DTXMania
                 chip1.nチャンネル番号 = 0x54;
                 //chip1.n発声位置 = 384;
                 //chip1.n発声時刻ms = (int)this.dbNowTime;
-                if( this.nMOVIEOFFSET == 0 )
+                if (this.nMOVIEOFFSET == 0)
                     chip1.n発声時刻ms = (int)this.dbNowTime;
                 else
                     chip1.n発声時刻ms = (int)this.nMOVIEOFFSET;
@@ -3369,7 +3379,7 @@ namespace DTXMania
                 chip.nチャンネル番号 = 0xFF;
                 chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
                 //chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
-                chip.n発声時刻ms = (int)( this.dbNowTime + 1000 ); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
+                chip.n発声時刻ms = (int)(this.dbNowTime + 1000); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
                 chip.n整数値 = 0xFF;
                 chip.n整数値_内部番号 = 1;
                 // チップを配置。
@@ -3388,9 +3398,9 @@ namespace DTXMania
             else if (InputText.StartsWith("#BPMCHANGE"))
             {
                 //strArray = InputText.Split(chDelimiter);
-                this.SplitOrder( InputText, out strArray, "#BPMCHANGE" );
-                if( InputText.IndexOf( "," ) != -1 )
-                    InputText = InputText.Replace( ',', '.' );
+                this.SplitOrder(InputText, out strArray, "#BPMCHANGE");
+                if (InputText.IndexOf(",") != -1)
+                    InputText = InputText.Replace(',', '.');
 
                 double dbBPM = Convert.ToDouble(strArray[1]);
                 this.dbNowBPM = dbBPM;
@@ -3430,34 +3440,34 @@ namespace DTXMania
             else if (InputText.StartsWith("#SCROLL"))
             {
                 //2016.08.13 kairera0467 複素数スクロールもどきのテスト
-                if( InputText.IndexOf( 'i' ) != -1 )
+                if (InputText.IndexOf('i') != -1)
                 {
                     //iが入っていた場合、複素数スクロールとみなす。
 
                     //strArray = InputText.Split(chDelimiter);
-                    this.SplitOrder( InputText, out strArray, "#SCROLL" );
+                    this.SplitOrder(InputText, out strArray, "#SCROLL");
 
-                    double[] dbComplexNum = new double[ 2 ];
-                    this.tParsedComplexNumber( strArray[ 1 ], ref dbComplexNum );
+                    double[] dbComplexNum = new double[2];
+                    this.tParsedComplexNumber(strArray[1], ref dbComplexNum);
 
-                    this.dbNowScroll = dbComplexNum[ 0 ];
-                    this.dbNowScrollY = dbComplexNum[ 1 ];
+                    this.dbNowScroll = dbComplexNum[0];
+                    this.dbNowScrollY = dbComplexNum[1];
 
-                    this.listSCROLL.Add(this.n内部番号SCROLL1to, new CSCROLL() { n内部番号 = this.n内部番号SCROLL1to, n表記上の番号 = 0, dbSCROLL値 = dbComplexNum[ 0 ], dbSCROLL値Y = dbComplexNum[ 1 ] });
+                    this.listSCROLL.Add(this.n内部番号SCROLL1to, new CSCROLL() { n内部番号 = this.n内部番号SCROLL1to, n表記上の番号 = 0, dbSCROLL値 = dbComplexNum[0], dbSCROLL値Y = dbComplexNum[1] });
 
                     switch (this.n現在のコース)
                     {
                         case 0:
-                            this.dbNowSCROLL_Normal[ 0 ] = dbComplexNum[ 0 ];
-                            this.dbNowSCROLL_Normal[ 1 ] = dbComplexNum[ 1 ];
+                            this.dbNowSCROLL_Normal[0] = dbComplexNum[0];
+                            this.dbNowSCROLL_Normal[1] = dbComplexNum[1];
                             break;
                         case 1:
-                            this.dbNowSCROLL_Expert[ 0 ] = dbComplexNum[ 0 ];
-                            this.dbNowSCROLL_Expert[ 1 ] = dbComplexNum[ 1 ];
+                            this.dbNowSCROLL_Expert[0] = dbComplexNum[0];
+                            this.dbNowSCROLL_Expert[1] = dbComplexNum[1];
                             break;
                         case 2:
-                            this.dbNowSCROLL_Master[ 0 ] = dbComplexNum[ 0 ];
-                            this.dbNowSCROLL_Master[ 1 ] = dbComplexNum[ 1 ];
+                            this.dbNowSCROLL_Master[0] = dbComplexNum[0];
+                            this.dbNowSCROLL_Master[1] = dbComplexNum[1];
                             break;
                     }
 
@@ -3468,8 +3478,8 @@ namespace DTXMania
                     chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
                     chip.n発声時刻ms = (int)this.dbNowTime;
                     chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
-                    chip.dbSCROLL = dbComplexNum[ 0 ];
-                    chip.dbSCROLL_Y = dbComplexNum[ 1 ];
+                    chip.dbSCROLL = dbComplexNum[0];
+                    chip.dbSCROLL_Y = dbComplexNum[1];
                     chip.nコース = this.n現在のコース;
 
                     // チップを配置。
@@ -3479,8 +3489,8 @@ namespace DTXMania
                 else
                 {
                     strArray = InputText.Split(chDelimiter);
-                    if( InputText.IndexOf( "," ) != -1 )
-                        InputText = InputText.Replace( ',', '.' );
+                    if (InputText.IndexOf(",") != -1)
+                        InputText = InputText.Replace(',', '.');
                     double dbSCROLL = Convert.ToDouble(strArray[1]);
                     this.dbNowScroll = dbSCROLL;
                     this.dbNowScrollY = 0.0;
@@ -3490,13 +3500,13 @@ namespace DTXMania
                     switch (this.n現在のコース)
                     {
                         case 0:
-                            this.dbNowSCROLL_Normal[ 0 ] = dbSCROLL;
+                            this.dbNowSCROLL_Normal[0] = dbSCROLL;
                             break;
                         case 1:
-                            this.dbNowSCROLL_Expert[ 0 ] = dbSCROLL;
+                            this.dbNowSCROLL_Expert[0] = dbSCROLL;
                             break;
                         case 2:
-                            this.dbNowSCROLL_Master[ 0 ] = dbSCROLL;
+                            this.dbNowSCROLL_Master[0] = dbSCROLL;
                             break;
                     }
 
@@ -3524,7 +3534,7 @@ namespace DTXMania
             else if (InputText.StartsWith("#MEASURE"))
             {
                 //strArray = InputText.Split(chDelimiter);
-                this.SplitOrder( InputText, out strArray, "#MEASURE" );
+                this.SplitOrder(InputText, out strArray, "#MEASURE");
                 strArray = strArray[1].Split(new char[] { '/' });
 
                 double[] dbLength = new double[2];
@@ -3550,14 +3560,14 @@ namespace DTXMania
 
                 //lbMaster.Items.Add( ";拍子変更 " + strArray[0] + "/" + strArray[1] );
             }
-            else if( InputText.StartsWith( "#DELAY" ) )
+            else if (InputText.StartsWith("#DELAY"))
             {
                 //strArray = InputText.Split( chDelimiter );
-                this.SplitOrder( InputText, out strArray, "#DELAY" );
-                double nDELAY = ( Convert.ToDouble( strArray[ 1 ] ) * 1000.0 );
+                this.SplitOrder(InputText, out strArray, "#DELAY");
+                double nDELAY = (Convert.ToDouble(strArray[1]) * 1000.0);
 
 
-                this.listDELAY.Add( this.n内部番号DELAY1to, new CDELAY() { n内部番号 = this.n内部番号DELAY1to, n表記上の番号 = 0, nDELAY値 = (int)nDELAY, delay_bmscroll_time = this.dbLastBMScrollTime, delay_bpm = this.dbNowBPM, delay_course = this.n現在のコース, delay_time = this.dbLastTime });
+                this.listDELAY.Add(this.n内部番号DELAY1to, new CDELAY() { n内部番号 = this.n内部番号DELAY1to, n表記上の番号 = 0, nDELAY値 = (int)nDELAY, delay_bmscroll_time = this.dbLastBMScrollTime, delay_bpm = this.dbNowBPM, delay_course = this.n現在のコース, delay_time = this.dbLastTime });
 
 
                 //チップ追加して割り込んでみる。
@@ -3574,7 +3584,7 @@ namespace DTXMania
                 this.dbNowTime += nDELAY;
                 this.dbNowBMScollTime += nDELAY * this.dbNowBPM / 15000;
 
-                this.listChip.Add( chip );
+                this.listChip.Add(chip);
                 this.n内部番号DELAY1to++;
             }
 
@@ -3621,13 +3631,14 @@ namespace DTXMania
             }
             else if (InputText.StartsWith("#BRANCHSTART"))
             {
+                IsEndedBranching = false;
                 this.bチップがある.Branch = true;
                 this.b最初の分岐である = false;
 
                 //分岐:分岐スタート
                 int n条件 = 0;
                 //strArray = InputText.Split(chDelimiter);
-                this.SplitOrder( InputText, out strArray, "#BRANCHSTART" );
+                this.SplitOrder(InputText, out strArray, "#BRANCHSTART");
                 strArray = strArray[1].Split(',');
 
                 //条件数値。めちゃくちゃ無理やりな実装でスマン。
@@ -3719,7 +3730,7 @@ namespace DTXMania
 
                 chip.nチャンネル番号 = 0xDE;
                 chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
-                chip.n発声時刻ms = (int)(this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 16.0 )); //ここの時間設定は前の小節の開始時刻である必要があるのだが...
+                chip.n発声時刻ms = (int)(this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 16.0)); //ここの時間設定は前の小節の開始時刻である必要があるのだが...
                 //chip.n発声時刻ms = (int)this.dbLastTime;
                 chip.dbSCROLL = this.dbNowScroll;
                 chip.dbBPM = this.dbNowBPM;
@@ -3750,7 +3761,7 @@ namespace DTXMania
                 this.dbNowTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].db分岐時間ms;
                 this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
                 this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
-                this.dbNowBMScollTime = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].dbBMScrollTime;
+                this.dbNowBMScollTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBMScrollTime;
             }
             else if (InputText.StartsWith("#E"))
             {
@@ -3760,7 +3771,7 @@ namespace DTXMania
                 this.dbNowTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].db分岐時間ms;
                 this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
                 this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
-                this.dbNowBMScollTime = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].dbBMScrollTime;
+                this.dbNowBMScollTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBMScrollTime;
             }
             else if (InputText.StartsWith("#M"))
             {
@@ -3770,9 +3781,9 @@ namespace DTXMania
                 this.dbNowTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].db分岐時間ms;
                 this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
                 this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
-                this.dbNowBMScollTime = this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].dbBMScrollTime;
+                this.dbNowBMScollTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBMScrollTime;
             }
-            else if( InputText.StartsWith( "#LEVELHOLD" ) )
+            else if (InputText.StartsWith("#LEVELHOLD"))
             {
                 var chip = new CChip();
 
@@ -3784,7 +3795,11 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if( InputText.StartsWith( "#BARLINEOFF" ) )
+            else if (InputText.StartsWith("#BRANCHEND"))
+            {
+                IsEndedBranching = true;
+            }
+            else if (InputText.StartsWith("#BARLINEOFF"))
             {
                 var chip = new CChip();
 
@@ -3793,11 +3808,11 @@ namespace DTXMania
                 chip.n発声時刻ms = (int)this.dbNowTime + 1;
                 chip.n整数値_内部番号 = 1;
                 chip.nコース = this.n現在のコース;
-                this.bBARLINECUE[ 0 ] = 1;
+                this.bBARLINECUE[0] = 1;
 
                 this.listChip.Add(chip);
             }
-            else if( InputText.StartsWith( "#BARLINEON" ) )
+            else if (InputText.StartsWith("#BARLINEON"))
             {
                 var chip = new CChip();
 
@@ -3806,11 +3821,11 @@ namespace DTXMania
                 chip.n発声時刻ms = (int)this.dbNowTime + 1;
                 chip.n整数値_内部番号 = 2;
                 chip.nコース = this.n現在のコース;
-                this.bBARLINECUE[ 0 ] = 0;
+                this.bBARLINECUE[0] = 0;
 
                 this.listChip.Add(chip);
             }
-            else if( InputText.StartsWith("#LYRIC") )
+            else if (InputText.StartsWith("#LYRIC"))
             {
                 strArray = InputText.Split(chDelimiter);
 
@@ -3827,7 +3842,7 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if( InputText.StartsWith( "#DIRECTION" ) )
+            else if (InputText.StartsWith("#DIRECTION"))
             {
                 strArray = InputText.Split(chDelimiter);
                 double dbSCROLL = Convert.ToDouble(strArray[1]);
@@ -3847,7 +3862,7 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if( InputText.StartsWith( "#SUDDEN" ) )
+            else if (InputText.StartsWith("#SUDDEN"))
             {
                 strArray = InputText.Split(chDelimiter);
                 double db出現時刻 = Convert.ToDouble(strArray[1]);
@@ -3870,7 +3885,7 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if( InputText.StartsWith( "#JPOSSCROLL" ) )
+            else if (InputText.StartsWith("#JPOSSCROLL"))
             {
                 strArray = InputText.Split(chDelimiter);
                 double db移動時刻 = Convert.ToDouble(strArray[1]);
@@ -3888,8 +3903,8 @@ namespace DTXMania
 
                 // チップを配置。
 
-                this.listJPOSSCROLL.Add( this.n内部番号JSCROLL1to, new CJPOSSCROLL() { n内部番号 = this.n内部番号JSCROLL1to, n表記上の番号 = 0, db移動時間 = db移動時刻, n移動距離px = n移動px, n移動方向 = n移動方向 });
-                this.listChip.Add( chip );
+                this.listJPOSSCROLL.Add(this.n内部番号JSCROLL1to, new CJPOSSCROLL() { n内部番号 = this.n内部番号JSCROLL1to, n表記上の番号 = 0, db移動時間 = db移動時刻, n移動距離px = n移動px, n移動方向 = n移動方向 });
+                this.listChip.Add(chip);
                 this.n内部番号JSCROLL1to++;
             }
 
@@ -4012,6 +4027,10 @@ namespace DTXMania
                                 }
                             }
 
+                            for (int i = 0; i < (IsEndedBranching == true ? 3 : 1); i++)
+                            {
+                                // IsEndedBranchingがfalseで1回
+                                // trueで3回だよ3回
                             var chip = new CChip();
 
                             chip.bHit = false;
@@ -4030,7 +4049,10 @@ namespace DTXMania
                             chip.dbSCROLL = this.dbNowScroll;
                             chip.dbSCROLL_Y = this.dbNowScrollY;
                             chip.nスクロール方向 = this.nスクロール方向;
-                            chip.nコース = this.n現在のコース;
+                                if (IsEndedBranching)
+                                    chip.nコース = i;
+                                else
+                                    chip.nコース = n現在のコース;
                             chip.n分岐回数 = this.n内部番号BRANCH1to;
                             chip.e楽器パート = E楽器パート.TAIKO;
                             chip.nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0);
@@ -4173,6 +4195,8 @@ namespace DTXMania
 
 
                             this.listChip.Add(chip);
+
+                            }
                         }
 
                         this.dbLastTime = this.dbNowTime;
