@@ -3525,7 +3525,7 @@ namespace DTXMania
             for( int A = n分岐開始位置のChip番号; A < dTX.listChip.Count; A++ )
             {
                 //if( dTX.listChip[ A ].n発声時刻ms < dTX.listBRANCH[ this.n分岐した回数 ].db分岐時間ms )
-                if( dTX.listChip[ A ].n整数値 <= n分岐開始位置のChip番号 )
+                if( dTX.listChip[ A ].n整数値 <= n分岐開始位置のChip番号 || !dTX.listChip[ A ].bBranch )
                 {
                     dTX.listChip[ A ].b可視 = true;
                     continue;

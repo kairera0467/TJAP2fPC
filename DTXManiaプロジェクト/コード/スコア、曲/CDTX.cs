@@ -342,7 +342,8 @@ namespace DTXMania
 			public bool bHit; //プレイヤーの手によって叩かれた(判定イベントが発生した)か
 			public bool b可視 = true; //falseにすると処理しない音符として扱う
             public bool bShow; //(特殊フラグ)SUDDEN命令を使用した時用
-            public bool bBranch = false; //(特殊フラグ)分岐小節線であるか
+            public bool bBranchLine = false; //(特殊フラグ)分岐小節線であるか
+            public bool bBranch = false; //譜面分岐対象のチップであるか
 			public double dbチップサイズ倍率 = 1.0;
 			public double db実数値;
             public double dbBPM;
@@ -436,6 +437,7 @@ namespace DTXMania
 			public void t初期化()
 			{
                 this.bBranch = false;
+                this.bBranchLine = false;
 				this.nチャンネル番号 = 0;
 				this.n整数値 = 0; //整数値をList上の番号として用いる。
 				this.n整数値_内部番号 = 0;
@@ -1186,6 +1188,7 @@ namespace DTXMania
         public int[] n風船数 = new int[ 4 ]; //0～2:各コース 3:共通
         private bool b次の小節が分岐である;
         private bool b次の分岐で数値リセット; //2018.03.16 kairera0467 SECTION処理を分岐判定と同時に行う。
+        private bool bBranch中である = false;
 
         private string strTemp;
         private int n文字数;
@@ -2386,7 +2389,7 @@ namespace DTXMania
 
                                         if( this.listBRANCH[ this.n内部番号BRANCH1to ].n現在の小節 == nBar )
                                         {
-                                            chip.bBranch = true;
+                                            chip.bBranchLine = true;
                                             this.b次の小節が分岐である = false;
                                             this.n内部番号BRANCH1to++;
                                         }
@@ -3701,13 +3704,13 @@ namespace DTXMania
                             n条件 = 0;
                             break;
                     }
-
-
                 }
 
                 // 2018.05.22 kairera0467 開始時の拍子情報を保存しておく
                 this.fMeasure_BranchStart_m = this.fNow_Measure_m;
                 this.fMeasure_BranchStart_s = this.fNow_Measure_s;
+
+                this.bBranch中である = true; // 2018.08.22 kairera0467 譜面分岐中かのフラグ
 
 
                 //まずはリストに現在の小節、発声位置、分岐条件を追加。
@@ -3818,7 +3821,9 @@ namespace DTXMania
             }
             else if( InputText.StartsWith( "#BRANCHEND" ) )
             {
-Trace.TraceInformation( "BRANCHEND命令は未実装です" );
+                // 2018.08.22 kairera0467 譜面分岐終了後は現在のコースを普通譜面に戻し、他のコースには配置しない。
+                this.bBranch中である = false;
+                this.n現在のコース = 0;
             }
             else if( InputText.StartsWith( "#BARLINEOFF" ) )
             {
@@ -3957,6 +3962,7 @@ Trace.TraceInformation( "BRANCHEND命令は未実装です" );
                     if( this.b小節線を挿入している == false )
                     {
                         CChip chip = new CChip();
+                        chip.bBranch = this.bBranch中である;
                         chip.nチャンネル番号 = 0x50;
                         chip.n発声位置 = ( ( this.n現在の小節数 ) * 384 );
                         chip.n発声時刻ms = (int)this.dbNowTime;
@@ -3978,7 +3984,7 @@ Trace.TraceInformation( "BRANCHEND命令は未実装です" );
                         {
                             if (this.listBRANCH[ this.n内部番号BRANCH1to - 1 ].n現在の小節 == this.n現在の小節数)
                             {
-                                chip.bBranch = true;
+                                chip.bBranchLine = true;
                             }
                         }
                         this.listChip.Add(chip);
@@ -4049,6 +4055,7 @@ Trace.TraceInformation( "BRANCHEND命令は未実装です" );
 
                             var chip = new CChip();
 
+                            chip.bBranch = this.bBranch中である;
                             chip.bHit = false;
                             chip.b可視 = true;
                             chip.bShow = true;

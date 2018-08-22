@@ -533,19 +533,19 @@ namespace DTXMania
 
                         if( this.stBranch[ i ].nY座標 == 0 )
                         {
-                            switch( CDTXMania.stage演奏ドラム画面.n次回のコース[ 0 ] )
+                            switch( CDTXMania.stage演奏ドラム画面.n次回のコース[ i ] )
                             {
                                 case 0:
                                     this.tx普通譜面[ 1 ].n透明度 = 255;
-                                    this.tx普通譜面[ 1 ].t2D描画( CDTXMania.app.Device, 333, 192 );
+                                    this.tx普通譜面[ 1 ].t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
                                 case 1:
                                     this.tx玄人譜面[ 1 ].n透明度 = 255;
-                                    this.tx玄人譜面[ 1 ].t2D描画( CDTXMania.app.Device, 333, 192 );
+                                    this.tx玄人譜面[ 1 ].t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
                                 case 2:
                                     this.tx達人譜面[ 1 ].n透明度 = 255;
-                                    this.tx達人譜面[ 1 ].t2D描画( CDTXMania.app.Device, 333, 192 );
+                                    this.tx達人譜面[ 1 ].t2D描画( CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
                             }
                         }
@@ -567,8 +567,8 @@ namespace DTXMania
                                 //this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 - this.stBranch[ i ].nY座標);
                                 //this.tx玄人譜面[1].n透明度 = this.stBranch[ i ].nBranchレイヤー透明度;
                                 //this.tx普通譜面[1].n透明度 = 255 - this.stBranch[ i ].nBranchレイヤー透明度;
-                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVUpB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
-                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVUpA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVUpB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVUpA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
                                 this.tx玄人譜面[1].n透明度 = nLVDownB_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                                 this.tx普通譜面[1].n透明度 = nLVDownA_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                             }
@@ -579,8 +579,8 @@ namespace DTXMania
                                 //this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 - this.stBranch[ i ].nY座標);
                                 //this.tx達人譜面[1].n透明度 = this.stBranch[ i ].nBranchレイヤー透明度;
                                 //this.tx普通譜面[1].n透明度 = 255 - this.stBranch[ i ].nBranchレイヤー透明度;
-                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVUpB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
-                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVUpA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVUpB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVUpA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
                                 this.tx達人譜面[1].n透明度 = nLVDownB_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                                 this.tx普通譜面[1].n透明度 = nLVDownA_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                             }
@@ -593,8 +593,8 @@ namespace DTXMania
                                 //this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 212 - this.stBranch[ i ].nY座標);
                                 //this.tx玄人譜面[1].n透明度 = 255 - this.stBranch[ i ].nBranchレイヤー透明度;
                                 //this.tx達人譜面[1].n透明度 = this.stBranch[ i ].nBranchレイヤー透明度;
-                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVUpB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
-                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVUpA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVUpB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVUpA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
                                 this.tx達人譜面[1].n透明度 = nLVDownB_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                                 this.tx玄人譜面[1].n透明度 = nLVDownA_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                             }
@@ -606,8 +606,8 @@ namespace DTXMania
                                 //this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + this.stBranch[ i ].nY座標);
                                 //this.tx普通譜面[1].n透明度 = this.stBranch[ i ].nBranchレイヤー透明度;
                                 //this.tx玄人譜面[1].n透明度 = 255 - this.stBranch[ i ].nBranchレイヤー透明度;
-                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVDownB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
-                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVDownA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVDownB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVDownA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
                                 this.tx普通譜面[1].n透明度 = nLVDownB_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                                 this.tx玄人譜面[1].n透明度 = nLVDownA_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                             }
@@ -619,8 +619,8 @@ namespace DTXMania
                                 //this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333, 192 + this.stBranch[ i ].nY座標);
                                 //this.tx普通譜面[1].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                                 //this.tx達人譜面[1].n透明度 = 255 - this.stBranch[ i ].nBranchレイヤー透明度;
-                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVDownB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
-                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVDownA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVDownB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVDownA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
                                 this.tx普通譜面[1].n透明度 = nLVDownB_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                                 this.tx達人譜面[1].n透明度 = nLVDownA_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                             }
@@ -630,8 +630,8 @@ namespace DTXMania
                                 //this.tx達人譜面[ 1 ].t2D描画( CDTXMania.app.Device, 333, 192 + this.stBranch[ i ].nY座標 );
                                 //this.tx玄人譜面[ 1 ].n透明度 = this.stBranch[ i ].nBranchレイヤー透明度;
                                 //this.tx達人譜面[ 1 ].n透明度 = 255 - this.stBranch[ i ].nBranchレイヤー透明度;
-                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVDownB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
-                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, 192.0f + fLVDownA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVDownB[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
+                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, 333.0f, CDTXMania.Skin.nScrollFieldY[ i ] + fLVDownA[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ] );
                                 this.tx玄人譜面[1].n透明度 = nLVDownB_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                                 this.tx達人譜面[1].n透明度 = nLVDownA_T[ this.stBranch[i].ct分岐アニメ進行.n現在の値 / 10 ];
                             }

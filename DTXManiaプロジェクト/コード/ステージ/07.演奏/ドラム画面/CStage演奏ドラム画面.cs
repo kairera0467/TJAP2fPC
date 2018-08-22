@@ -1984,7 +1984,7 @@ namespace DTXMania
 		}
 		protected override void t進行描画_チップ_小節線( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer )
 		{
-            if( pChip.nコース != this.n現在のコース[ nPlayer ] )
+            if( pChip.bBranch && ( pChip.nコース != this.n現在のコース[ nPlayer ] ) ) // 2018.08.22 kairera0467 譜面分岐をしていない場合はどのコースからでも通す(本当は通常の音符と同じ処理にするべきだが...)
                 return;
 
 			//int n小節番号plus1 = pChip.n発声位置 / 384;
@@ -2024,7 +2024,7 @@ namespace DTXMania
 			{
                 if( x >= 0 )
                 {
-                    if( pChip.bBranch )
+                    if( pChip.bBranchLine )
                     {
                         //this.tx小節線_branch.t2D描画( CDTXMania.app.Device, x - 3, y, new Rectangle( 0, 0, 3, 130 ) );
                         this.tx小節線_branch.t3D描画( CDTXMania.app.Device, mat, new Rectangle( 0, 0, 3, 130 ) );
