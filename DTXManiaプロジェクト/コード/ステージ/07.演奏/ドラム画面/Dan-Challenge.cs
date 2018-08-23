@@ -26,6 +26,7 @@ namespace DTXMania
             Challenge[0] = CDTXMania.DTX.Dan_C[0];
             Challenge[1] = CDTXMania.DTX.Dan_C[1];
             Challenge[2] = CDTXMania.DTX.Dan_C[2];
+            Update();
             base.On活性化();
         }
 

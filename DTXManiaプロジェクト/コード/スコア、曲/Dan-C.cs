@@ -36,60 +36,32 @@ namespace DTXMania
         public void Update(int nowValue)
         {
             if (!IsEnable) return;
+            Amount = nowValue;
             switch (Type)
             {
                 case ExamType.Gauge:
-                    Amount = nowValue;
                     SetCleared();
                     break;
                 case ExamType.JudgePerfect:
-                    if (Amount < nowValue)
-                    {
-                        Amount = nowValue;
                         SetCleared();
-                    }
                     break;
                 case ExamType.JudgeGood:
-                    if (Amount < nowValue)
-                    {
-                        Amount = nowValue;
                         SetCleared();
-                    }
                     break;
                 case ExamType.JudgeBad:
-                    if (Amount < nowValue)
-                    {
-                        Amount = nowValue;
                         SetCleared();
-                    }
                     break;
                 case ExamType.Score:
-                    if (Amount < nowValue)
-                    {
-                        Amount = nowValue;
                         SetCleared();
-                    }
                     break;
                 case ExamType.Roll:
-                    if (Amount < nowValue)
-                    {
-                        Amount = nowValue;
                         SetCleared();
-                    }
                     break;
                 case ExamType.Hit:
-                    if (Amount < nowValue)
-                    {
-                        Amount = nowValue;
                         SetCleared();
-                    }
                     break;
                 case ExamType.Combo:
-                    if (Amount < nowValue)
-                    {
-                        Amount = nowValue;
                         SetCleared();
-                    }
                     break;
                 default:
                     break;
@@ -124,18 +96,18 @@ namespace DTXMania
                 if (Amount < Value[1])
                 {
                     IsCleared[1] = true;
-                    if (Amount < Value[0])
-                    {
-                        IsCleared[0] = true;
-                    }
-                    else
-                    {
-                        IsCleared[0] = false;
-                    }
                 }
                 else
                 {
                     IsCleared[1] = false;
+                }
+                if (Amount < Value[0])
+                {
+                    IsCleared[0] = true;
+                }
+                else
+                {
+                    IsCleared[0] = false;
                 }
             }        
         }
