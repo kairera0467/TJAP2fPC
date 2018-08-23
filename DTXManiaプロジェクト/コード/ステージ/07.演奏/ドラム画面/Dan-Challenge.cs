@@ -23,9 +23,9 @@ namespace DTXMania
 
         public override void On活性化()
         {
-            Challenge[0] = new Dan_C(Dan_C.ExamType.Gauge, new int[] { 95, 100 }, Dan_C.ExamRange.More);
-            Challenge[1] = new Dan_C(Dan_C.ExamType.Combo, new int[] { 360, 520 }, Dan_C.ExamRange.More);
-            Challenge[2] = new Dan_C(Dan_C.ExamType.Hit, new int[] { 1800, 1900 }, Dan_C.ExamRange.More);
+            Challenge[0] = CDTXMania.DTX.Dan_C[0];
+            Challenge[1] = CDTXMania.DTX.Dan_C[1];
+            Challenge[2] = CDTXMania.DTX.Dan_C[2];
             base.On活性化();
         }
 
@@ -33,6 +33,7 @@ namespace DTXMania
         {
             for (int i = 0; i < 3; i++)
             {
+                if (Challenge[i] == null || !Challenge[i].IsEnable) return;
                 switch (Challenge[i].Type)
                 {
                     case Dan_C.ExamType.Gauge:
@@ -45,7 +46,7 @@ namespace DTXMania
                         Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great);
                         break;
                     case Dan_C.ExamType.JudgeBad:
-                        Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss);
+                        Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss);
                         break;
                     case Dan_C.ExamType.Score:
                         Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.actScore.GetScore(0));
@@ -88,7 +89,10 @@ namespace DTXMania
         {
             for (int i = 0; i < 3; i++)
             {
-                CDTXMania.act文字コンソール.tPrint(0, 20 * i, C文字コンソール.Eフォント種別.白, String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6}", Challenge[i].Type.ToString(), Challenge[i].Value[0].ToString(), Challenge[i].Value[1].ToString(), Challenge[i].Range.ToString(), Challenge[i].Amount.ToString(), Challenge[i].IsCleared[0].ToString(), Challenge[i].IsCleared[1].ToString()));
+                if (Challenge[i] != null && Challenge[i].IsEnable)
+                    CDTXMania.act文字コンソール.tPrint(0, 20 * i, C文字コンソール.Eフォント種別.白, String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6}", Challenge[i].Type.ToString(), Challenge[i].Value[0].ToString(), Challenge[i].Value[1].ToString(), Challenge[i].Range.ToString(), Challenge[i].Amount.ToString(), Challenge[i].IsCleared[0].ToString(), Challenge[i].IsCleared[1].ToString()));
+                else
+                    CDTXMania.act文字コンソール.tPrint(0, 20 * i, C文字コンソール.Eフォント種別.白, "None");
             }
 
             return base.On進行描画();
