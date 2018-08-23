@@ -598,6 +598,7 @@ namespace DTXMania
         public CAct演奏DrumsFooter actFooter;
         public CAct演奏DrumsRunner actRunner;
         public CAct演奏DrumsMob actMob;
+        public Dan_Challenge actDan;
 		public bool bPAUSE;
         public bool[] bIsAlreadyCleared;
         public bool[] bIsAlreadyMaxed;
@@ -618,7 +619,7 @@ namespace DTXMania
                                                               //   HH SD BD HT LT FT CY HHO RD LC LP LBD
         protected readonly int[] nパッド0Atoレーン07 = new int[] { 1, 2, 3, 4, 5, 6, 7, 1, 9, 0, 8, 8 };
 		public STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含まない;
-		protected STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含む;
+		public STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含む;
 		protected int n現在のトップChip = -1;
 		protected int[] n最後に再生したBGMの実WAV番号 = new int[ 50 ];
 		protected int n最後に再生したHHのチャンネル番号;
@@ -1649,6 +1650,8 @@ namespace DTXMania
 								break;
 						}
 					}
+                    actDan.Update();
+                
                     #region[ コンボ音声 ]
                     if( pChip.nチャンネル番号 < 0x15 || ( pChip.nチャンネル番号 >= 0x1A ) )
                     {
@@ -3889,6 +3892,11 @@ namespace DTXMania
                     dTX.listChip[ A ].eNoteState = ENoteState.none;
                 }
             }
+        }
+
+        public int GetRoll(int player)
+        {
+            return n合計連打数[player];
         }
 
         protected float GetNowPBMTime( CDTX tja, float play_time )

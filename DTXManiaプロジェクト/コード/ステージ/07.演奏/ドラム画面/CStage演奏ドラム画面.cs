@@ -61,7 +61,7 @@ namespace DTXMania
             base.list子Activities.Add(this.actFooter = new CAct演奏DrumsFooter());
             base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
             base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
-
+            base.list子Activities.Add(this.actDan = new Dan_Challenge());
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
 			ST文字位置 st文字位置 = new ST文字位置();
@@ -477,7 +477,7 @@ namespace DTXMania
                 this.actPanel.t歌詞テクスチャを描画する();
                 this.t全体制御メソッド();
 
-
+                this.actDan.On進行描画();
                 
                 this.actPauseMenu.t進行描画();
                 //this.actEnd.On進行描画();
