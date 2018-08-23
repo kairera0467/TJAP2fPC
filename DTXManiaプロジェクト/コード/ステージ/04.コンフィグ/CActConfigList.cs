@@ -215,6 +215,11 @@ namespace DTXMania
 				"To save high-scores/skills, turn it ON.\nTurn OFF in case your song data are\n in read-only media (CD-ROM etc).\nNote that the score files also contain\n 'BGM Adjust' parameter. So if you\n want to keep adjusting parameter,\n you need to set SaveScore=ON." );
 			this.list項目リスト.Add( this.iSystemSaveScore );
 
+		    this.iSystemApplySongVol = new CItemToggle( "Apply SONGVOL", CDTXMania.ConfigIni.ApplySongVol,
+		        "[i18n] To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls.", // JDG NEEDS I18N
+		        "To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls." );
+		    this.list項目リスト.Add( this.iSystemApplySongVol );
+
 		    this.iSystemSoundEffectLevel = new CItemInteger( "Sound Effect Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.SoundEffectLevel,
 		        $"[i18n] Sound Effect Level：\n[i18n] The level adjustment for sound effects.\n定します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n", // JDG NEEDS I18N
 		        $"The level adjustment for sound effects.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
@@ -2017,6 +2022,7 @@ namespace DTXMania
 		private CItemToggle iLogOutputLog;
 		private CItemToggle iSystemAdjustWaves;
 		private CItemToggle iSystemAudienceSound;
+		private CItemToggle iSystemApplySongVol;
 		private CItemInteger iSystemSoundEffectLevel;
 		private CItemInteger iSystemVoiceLevel;
 		private CItemInteger iSystemSongPreviewLevel;
@@ -2300,6 +2306,7 @@ namespace DTXMania
 			//CDTXMania.ConfigIni.eダメージレベル = (Eダメージレベル) this.iSystemDamageLevel.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.bScoreIniを出力する = this.iSystemSaveScore.bON;
 
+		    CDTXMania.ConfigIni.ApplySongVol = this.iSystemApplySongVol.bON;
 		    CDTXMania.ConfigIni.SoundEffectLevel = this.iSystemSoundEffectLevel.n現在の値;
 		    CDTXMania.ConfigIni.VoiceLevel = this.iSystemVoiceLevel.n現在の値;
 		    CDTXMania.ConfigIni.SongPreviewLevel = this.iSystemSongPreviewLevel.n現在の値;

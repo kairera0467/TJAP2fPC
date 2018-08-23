@@ -202,6 +202,12 @@ namespace DTXMania
 			private set;
 		}
 
+	    public static SongGainController SongGainController
+	    {
+	        get;
+	        private set;
+	    }
+
 	    public static SoundGroupLevelController SoundGroupLevelController
 	    {
 	        get;
@@ -593,7 +599,12 @@ namespace DTXMania
 									this.previewSound = null;
 								}
 								this.previewSound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPlayback );
+
+							    // 2018-08-23 twopointzero: DTXVmode previewVolume will always set
+							    // Gain since in this mode it should override the application of
+							    // SONGVOL or any other Gain source regardless of configuration.
 								this.previewSound.Gain = DTXVmode.previewVolume;
+
 								this.previewSound.n位置 = DTXVmode.previewPan;
 								this.previewSound.t再生を開始する();
 								Trace.TraceInformation( "DTXCからの指示で、サウンドを生成しました。({0})", strPreviewFilename );
@@ -2096,6 +2107,9 @@ for (int i = 0; i < 3; i++) {
 				);
 				//Sound管理 = FDK.CSound管理.Instance;
 				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
+
+			    SongGainController = new SongGainController();
+			    ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
 
 				SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
 				ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigIni, SoundGroupLevelController);

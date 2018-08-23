@@ -652,6 +652,14 @@ namespace DTXMania
 		public int n曲が選択されてからプレビュー音が鳴るまでのウェイトms;
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
 
+	    private bool _applySongVol;
+
+	    public bool ApplySongVol
+	    {
+	        get => _applySongVol;
+	        set => SetProperty(ref _applySongVol, value, nameof(ApplySongVol));
+	    }
+
 	    private int _soundEffectLevel;
 
 	    public int SoundEffectLevel
@@ -1248,6 +1256,7 @@ namespace DTXMania
 			this.n表示可能な最小コンボ数.Bass = 2;
 			this.n表示可能な最小コンボ数.Taiko = 3;
             this.FontName = "MS UI Gothic";
+		    this.ApplySongVol = false;
 		    this.SoundEffectLevel = CSound.DefaultSoundEffectLevel;
 		    this.VoiceLevel = CSound.DefaultVoiceLevel;
 		    this.SongPreviewLevel = CSound.DefaultSongPreviewLevel;
@@ -1615,6 +1624,10 @@ namespace DTXMania
 			sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
 			sw.WriteLine( "ShowDebugStatus={0}", this.b演奏情報を表示する ? 1 : 0 );
 			sw.WriteLine();
+		    sw.WriteLine( "; [i18n] Apply SONGVOL (0:OFF, 1:ON)" ); // JDG NEEDS I18N
+		    sw.WriteLine( "; Apply SONGVOL (0:OFF, 1:ON)" );
+		    sw.WriteLine( "{0}={1}", nameof(ApplySongVol), this.ApplySongVol ? 1 : 0 );
+		    sw.WriteLine();
 		    sw.WriteLine( $"; [i18n] Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
 		    sw.WriteLine( $"; Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( "{0}={1}", nameof(SoundEffectLevel), SoundEffectLevel );
@@ -2244,6 +2257,10 @@ namespace DTXMania
 											{
                                                 // 2018-08-18 twopointzero: For backward compatibility, upgrade AutoChipVolume config values to SongPlaybackLevel
 											    this.SongPlaybackLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel );
+											}
+											else if( str3.Equals( nameof(ApplySongVol) ) )
+											{
+												this.ApplySongVol = C変換.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( nameof(SoundEffectLevel) ) )
 											{

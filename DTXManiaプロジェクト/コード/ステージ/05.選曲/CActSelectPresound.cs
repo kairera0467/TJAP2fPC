@@ -167,7 +167,7 @@ namespace DTXMania
                 {
                     strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
                     this.sound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPreview );
-                    this.sound.Gain = cスコア.譜面情報.SongVol;
+                    CDTXMania.SongGainController.Set( cスコア.譜面情報.SongVol, this.sound );
                     this.sound.t再生を開始する( true );
                     if( long再生位置 == -1 )
                     {

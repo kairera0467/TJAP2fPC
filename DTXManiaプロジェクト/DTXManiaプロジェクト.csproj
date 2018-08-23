@@ -220,6 +220,7 @@
     <Compile Include="コード\全体\CConfigIni.cs" />
     <Compile Include="コード\全体\CDTXMania.cs" />
     <Compile Include="コード\全体\CDTXVersion.cs" />
+    <Compile Include="コード\全体\ConfigIniToSongGainControllerBinder.cs" />
     <Compile Include="コード\全体\ConfigIniToSoundGroupLevelControllerBinder.cs" />
     <Compile Include="コード\全体\CPad.cs" />
     <Compile Include="コード\全体\CPrivateFastFont.cs" />
