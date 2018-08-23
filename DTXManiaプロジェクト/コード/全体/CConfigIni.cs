@@ -709,7 +709,6 @@ namespace DTXMania
         public bool b太鼓パートAutoPlay;
         public bool b太鼓パートAutoPlay2P; //2017.08.16 kairera0467 マルチプレイ対応
         public bool bAuto先生の連打;
-        public bool bAutoSection;
         public bool b大音符判定;
         public int n両手判定の待ち時間;
         public int nBranchAnime;
@@ -1348,7 +1347,6 @@ namespace DTXMania
             this.bBranchGuide = false;
             this.nScoreMode = 2;
             this.nDefaultCourse = 3;
-            this.bAutoSection = false;
             this.nBranchAnime = 1;
 
             this.b大音符判定 = false;
@@ -1800,9 +1798,6 @@ namespace DTXMania
 			sw.WriteLine();
 			sw.WriteLine( "; スコア計算方法(0:1～7, 1:8～14, 2:15以降, 3:真打)" );
 			sw.WriteLine( "ScoreMode={0}", this.nScoreMode );
-			sw.WriteLine();
-			sw.WriteLine( "; 譜面分岐の際に自動でSECTION処理を行う。(0:OFF, 1:ON)" );
-			sw.WriteLine( "AutoSection={0}", this.bAutoSection ? 1 : 0 );
 			sw.WriteLine();
 			//sw.WriteLine( "; 1ノーツごとのスクロール速度をランダムで変更します。(0:OFF, 1:ON)" );
 			//sw.WriteLine( "HispeedRandom={0}", this.bHispeedRandom ? 1 : 0 );
@@ -2570,10 +2565,6 @@ namespace DTXMania
 											else if ( str3.Equals( "ScoreMode" ) )
 											{
 												this.nScoreMode = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, this.nScoreMode );
-											}
-											else if ( str3.Equals( "AutoSection" ) )
-											{
-												this.bAutoSection = C変換.bONorOFF( str4[ 0 ] );
 											}
 											else if ( str3.Equals( "HispeedRandom" ) )
 											{
