@@ -1091,6 +1091,7 @@ namespace DTXMania
         public int nPlayerSide; //2017.08.14 kairera0467 引数で指定する
         public bool bDP譜面が存在する;
         public bool bSession譜面を読み込む;
+        public bool IsDanChallenge; // 2018/8/24 段位チャレンジが存在するか否か (AioiLight)
 
 		public string ARTIST;
 		public string BACKGROUND;
@@ -1246,6 +1247,7 @@ namespace DTXMania
         public bool bGOGOTIME; //2018.03.11 kairera0467
 
         public bool IsEndedBranching; // BRANCHENDが呼び出されたかどうか
+        public Dan_C[] Dan_C;
 
 
 
@@ -1360,6 +1362,7 @@ namespace DTXMania
 #endif
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
+            Dan_C = new Dan_C[3];
         }
 		public CDTX( string str全入力文字列 )
 			: this()
@@ -2791,7 +2794,7 @@ namespace DTXMania
                 {
                     if( !string.IsNullOrEmpty( input[ n ] ) && ( input[ n ].Substring( 0, 1 ) == "#" || this.CharConvertNote( input[ n ].Substring( 0, 1 ) ) != -1 ) )
                     {
-                        if( input[ n ].StartsWith( "BALLOON" ) || input[ n ].StartsWith( "BPM" ) )
+                        if( input[ n ].StartsWith( "BALLOON" ) || input[ n ].StartsWith( "BPM" ))
                         {
                             //A～Fで始まる命令が削除されない不具合の対策
                         }
@@ -3054,7 +3057,7 @@ namespace DTXMania
 
         private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
         private static readonly Regex regexForStrippingHeadingLines = new Regex(
-            @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
+            @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
             RegexOptions.Multiline | RegexOptions.Compiled);
 
         /// <summary>
@@ -4354,8 +4357,69 @@ namespace DTXMania
                     this.b配点が指定されている[ 1, this.n参照中の難易度 ] = true;
                 }
             }
+            else if (strCommandName.Equals("EXAM1") || strCommandName.Equals("EXAM2") || strCommandName.Equals("EXAM3"))
+            {
+                if (!string.IsNullOrEmpty(strCommandParam))
+                {
+                    var dan = new Dan_C();
+                    var splitExam = strCommandParam.Split(',');
+                    dan.IsEnable = true;
+                    switch (splitExam[0])
+                    {
+                        case "g":
+                            dan.Type = DTXMania.Dan_C.ExamType.Gauge;
+                            break;
+                        case "jp":
+                            dan.Type = DTXMania.Dan_C.ExamType.JudgePerfect;
+                            break;
+                        case "jg":
+                            dan.Type = DTXMania.Dan_C.ExamType.JudgeGood;
+                            break;
+                        case "jb":
+                            dan.Type = DTXMania.Dan_C.ExamType.JudgeBad;
+                            break;
+                        case "s":
+                            dan.Type = DTXMania.Dan_C.ExamType.Score;
+                            break;
+                        case "r":
+                            dan.Type = DTXMania.Dan_C.ExamType.Roll;
+                            break;
+                        case "h":
+                            dan.Type = DTXMania.Dan_C.ExamType.Hit;
+                            break;
+                        case "c":
+                            dan.Type = DTXMania.Dan_C.ExamType.Combo;
+                            break;
+                        default:
+                            dan.Type = DTXMania.Dan_C.ExamType.Gauge;
+                            break;
+                    }
+                    try
+                    {
+                        dan.Value = new int[] { int.Parse(splitExam[1]), int.Parse(splitExam[2]) };
+                    }
+                    catch (Exception)
+                    {
+                        dan.Value = new int[] { 100, 100 };
+                    }
+                    switch (splitExam[3])
+                    {
+                        case "m":
+                            dan.Range = DTXMania.Dan_C.ExamRange.More;
+                            break;
+                        case "l":
+                            dan.Range = DTXMania.Dan_C.ExamRange.Less;
+                            break;
+                        default:
+                            dan.Range = DTXMania.Dan_C.ExamRange.More;
+                            break;
+                    }
+                    Dan_C[int.Parse(strCommandName.Substring(4)) - 1] = dan;
+                }
+            }
 
-            if( this.nScoreModeTmp == 99 ) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
+
+            if ( this.nScoreModeTmp == 99 ) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
             {
                 this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
@@ -4498,7 +4562,7 @@ namespace DTXMania
                 //tbOFFSET.Text = strCommandParam;
             }
             #region[移動→不具合が起こるのでここも一応復活させておく]
-            else if( strCommandName.Equals( "BALLOON" ) )
+            else if ( strCommandName.Equals( "BALLOON" ) )
             {
                 string[] strParam = strCommandParam.Split( ',' );
                 for( int n = 0; n < strParam.Length; n++ )
@@ -4791,7 +4855,7 @@ namespace DTXMania
 
             // 小文字大文字区別しない正規表現で仮対応。 (AioiLight)
             // 相変わらず原始的なやり方だが、正常に動作した。
-            string[] Matchptn = new string[6] { "easy", "normal", "hard", "oni", "edit", "tower" };
+            string[] Matchptn = new string[7] { "easy", "normal", "hard", "oni", "edit", "tower", "dan" };
             for (int i = 0; i < Matchptn.Length; i++)
             {
                 if (Regex.IsMatch(str, Matchptn[i], RegexOptions.IgnoreCase))
@@ -4814,6 +4878,8 @@ namespace DTXMania
         			return 4;
         		case "5":
         			return 5;
+                case "6":
+                    return 6;
         		default:
         			return 3;
         	}
