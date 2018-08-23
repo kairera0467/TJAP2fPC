@@ -66,6 +66,7 @@ namespace DTXMania
             base.list子Activities.Add(this.FireWorks = new FireWorks());
 
 
+            base.list子Activities.Add(this.actDan = new Dan_Challenge());
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
 			ST文字位置 st文字位置 = new ST文字位置();
@@ -488,7 +489,7 @@ namespace DTXMania
                 actChara.OnDraw_Balloon();
                 this.t全体制御メソッド();
 
-
+                this.actDan.On進行描画();
                 
                 this.actPauseMenu.t進行描画();
                 //this.actEnd.On進行描画();
