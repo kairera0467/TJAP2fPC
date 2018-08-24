@@ -36,6 +36,7 @@ namespace DTXMania
         const string GAMEMODE = @"14_GameMode\";
         const string FAILED = @"15_Failed\";
         const string RUNNER = @"16_Runner\";
+        const string DANCHALLENGE = @"17_DanChallenge\";
 
         // InGame_Effects
         const string FIRE = @"Fire\";
@@ -463,6 +464,19 @@ namespace DTXMania
             #endregion
             #region ランナー
             Runner = TxC(GAME + RUNNER + @"0.png");
+            #endregion
+            #region DanC
+            DanC_Gauge = new CTexture[4];
+            var type = new string[] { "Normal", "Reach", "Clear", "Flush" };
+            for (int i = 0; i < 4; i++)
+            {
+                DanC_Gauge[i] = TxC(GAME + DANCHALLENGE + @"Gauge_" + type[i] + ".png");
+            }
+            DanC_Base = TxC(GAME + DANCHALLENGE + @"Base.png");
+            DanC_Number = TxC(GAME + DANCHALLENGE + @"Number.png");
+            DanC_ExamType = TxC(GAME + DANCHALLENGE + @"ExamType.png");
+            DanC_ExamRange = TxC(GAME + DANCHALLENGE + @"ExamRange.png");
+            DanC_ExamUnit = TxC(GAME + DANCHALLENGE + @"ExamUnit.png");
             #endregion
             #endregion
 
@@ -962,6 +976,14 @@ namespace DTXMania
         #endregion
         #region ランナー
         public CTexture Runner;
+        #endregion
+        #region DanC
+        public CTexture[] DanC_Gauge;
+        public CTexture DanC_Base;
+        public CTexture DanC_Number,
+            DanC_ExamType,
+            DanC_ExamRange,
+            DanC_ExamUnit;
         #endregion
         #endregion
 

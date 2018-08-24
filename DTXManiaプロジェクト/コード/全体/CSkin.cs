@@ -2075,6 +2075,26 @@ namespace DTXMania
         public int[] Game_Runner_StartPoint_Y = new int[] { 40, 560 };
         public int Game_Runner_Timer = 16;
         #endregion
+        #region Dan-C
+        public int[] Game_DanC_X = new int[] { 302, 302, 302 };
+        public int[] Game_DanC_Y = new int[] { 473, 302, 365 };
+        public int[] Game_DanC_Size = new int[] { 956, 92 };
+        public int Game_DanC_Padding = 5;
+        public int Game_DanC_Growing = 9;
+        public int[] Game_DanC_Offset = new int[] { 15, 17 };
+        public int[] Game_DanC_Number_Size = new int[] { 50, 62 };
+        public int Game_DanC_Number_Padding = 50;
+        public float Game_DanC_Number_Small_Scale = 0.5f;
+        public int Game_DanC_Number_Small_Padding = 26;
+        public int[] Game_DanC_Number_XY = new int[] { 218, 610 };
+        public int[] Game_DanC_Number_Small_Number_Offset = new int[] { 178, 43 };
+        public int[] Game_DanC_ExamType_Size = new int[] { 100, 36 };
+        public int[] Game_DanC_ExamRange_Size = new int[] { 60, 36 };
+        public int Game_DanC_ExamRange_Padding = 46;
+        public int[] Game_DanC_Percent_Hit_Score_Padding = new int[] { 20, 20, 20 };
+        public int[] Game_DanC_ExamUnit_Size = new int[] { 30, 36 };
+        public int[] Game_DanC_Exam_Offset = new int[] { 932, 17 };
+        #endregion
         #endregion
         #region Result
         public int[] Result_NamePlate_X = new int[] { 260, 260 };

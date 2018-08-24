@@ -72,6 +72,68 @@ namespace DTXMania
         {
             return IsCleared;
         }
+
+        /// <summary>
+        /// ゲージの描画のための百分率を返す。
+        /// </summary>
+        /// <returns>Amountの百分率。</returns>
+        public int GetAmountToPercent()
+        {
+            var percent = 0.0D;
+            if(Value[0] == 0)
+            {
+                return 0;
+            }
+            if(Range == ExamRange.More)
+            {
+                switch (Type)
+                {
+                    case ExamType.Gauge:
+                        // ゲージに関してはそのまま返す。
+                        percent = Amount;
+                        break;
+                    case ExamType.JudgePerfect:
+                    case ExamType.JudgeGood:
+                    case ExamType.JudgeBad:
+                    case ExamType.Score:
+                    case ExamType.Roll:
+                    case ExamType.Hit:
+                    case ExamType.Combo:
+                        percent = 1.0 * Amount / Value[0];
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (Type)
+                {
+                    case ExamType.Gauge:
+                        // ゲージに関してはそのまま返す。
+                        percent = Amount;
+                        break;
+                    case ExamType.JudgePerfect:
+                    case ExamType.JudgeGood:
+                    case ExamType.JudgeBad:
+                    case ExamType.Score:
+                    case ExamType.Roll:
+                    case ExamType.Hit:
+                    case ExamType.Combo:
+                        percent = (1.0 * (Value[0] - Amount)) / Value[0];
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (Type != ExamType.Gauge)
+                percent = percent * 100.0;
+            if (percent < 0.0)
+                percent = 0.0D;
+            if (percent > 100.0)
+                percent = 100.0D;
+            return (int)percent;
+        }
         
         private void SetCleared()
         {
