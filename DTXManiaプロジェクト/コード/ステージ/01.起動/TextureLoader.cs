@@ -454,6 +454,7 @@ namespace DTXMania
                 DanC_Gauge[i] = TxC(GAME + DANCHALLENGE + @"Gauge_" + type[i] + ".png");
             }
             DanC_Base = TxC(GAME + DANCHALLENGE + @"Base.png");
+            DanC_Failed = TxC(GAME + DANCHALLENGE + @"Failed.png");
             DanC_Number = TxC(GAME + DANCHALLENGE + @"Number.png");
             DanC_ExamType = TxC(GAME + DANCHALLENGE + @"ExamType.png");
             DanC_ExamRange = TxC(GAME + DANCHALLENGE + @"ExamRange.png");
@@ -761,6 +762,7 @@ namespace DTXMania
                 DanC_Gauge[i]?.Dispose();
             }
             DanC_Base?.Dispose();
+            DanC_Failed?.Dispose();
             DanC_Number?.Dispose();
             DanC_ExamRange?.Dispose();
             DanC_ExamUnit?.Dispose();
@@ -963,7 +965,7 @@ namespace DTXMania
         #region DanC
         public CTexture DanC_Background;
         public CTexture[] DanC_Gauge;
-        public CTexture DanC_Base;
+        public CTexture DanC_Base, DanC_Failed;
         public CTexture DanC_Number,
             DanC_ExamType,
             DanC_ExamRange,
