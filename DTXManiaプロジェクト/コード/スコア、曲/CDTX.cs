@@ -4409,24 +4409,42 @@ namespace DTXMania
             }
 
             //パラメータを分別、そこから割り当てていきます。
-            if( strCommandName.Equals( "TITLE" ) )
+            if (strCommandName.Equals("TITLE"))
             {
-                this.TITLE = strCommandParam;
+                //this.TITLE = strCommandParam;
+                var subTitle = "";
+                for (int i = 0; i < strArray.Length; i++)
+                {
+                    subTitle += strArray[i];
+                }
+                this.TITLE = subTitle.Substring(5);
                 //tbTitle.Text = strCommandParam;
             }
-            if( strCommandName.Equals( "SUBTITLE" ) )
+            if (strCommandName.Equals("SUBTITLE"))
             {
-                if( strCommandParam.StartsWith("--") )
+                if (strCommandParam.StartsWith("--"))
                 {
-                    this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    //this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    var subTitle = "";
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        subTitle += strArray[i];
+                    }
+                    this.SUBTITLE = subTitle.Substring(10);
                 }
-                else if( strCommandParam.StartsWith("++") )
+                else if (strCommandParam.StartsWith("++"))
                 {
-                //    //this.TITLE += strCommandParam.Remove( 0, 2 ); //このままだと選曲画面の表示がうまくいかない。
-                    this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    //    //this.TITLE += strCommandParam.Remove( 0, 2 ); //このままだと選曲画面の表示がうまくいかない。
+                    //this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    var subTitle = "";
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        subTitle += strArray[i];
+                    }
+                    this.SUBTITLE = subTitle.Substring(10);
                 }
             }
-            else if( strCommandName.Equals( "LEVEL" ) )
+            else if ( strCommandName.Equals( "LEVEL" ) )
             {
                 this.LEVEL.Drums = (int)Convert.ToDouble( strCommandParam );
                 this.LEVEL.Taiko = (int)Convert.ToDouble( strCommandParam );
