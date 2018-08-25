@@ -33,9 +33,12 @@ namespace DTXMania
         /// 条件と現在の値を評価して、クリアしたかどうかを判断します。
         /// </summary>
         /// <param name="nowValue">その条件の現在の値。</param>
-        public void Update(int nowValue)
+        public bool Update(int nowValue)
         {
-            if (!IsEnable) return;
+            var isChangedAmount = false;
+            if (!IsEnable) return isChangedAmount;
+            if (Amount < nowValue) isChangedAmount = true;
+            if (Range == ExamRange.Less && nowValue > Value[0]) isChangedAmount = false; // n未満でその数を超えたらfalseを返す。
             Amount = nowValue;
             switch (Type)
             {
@@ -66,6 +69,7 @@ namespace DTXMania
                 default:
                     break;
             }
+            return isChangedAmount;
         }
 
         public bool[] GetCleared()
@@ -89,9 +93,6 @@ namespace DTXMania
                 switch (Type)
                 {
                     case ExamType.Gauge:
-                        // ゲージに関してはそのまま返す。
-                        percent = Amount;
-                        break;
                     case ExamType.JudgePerfect:
                     case ExamType.JudgeGood:
                     case ExamType.JudgeBad:
@@ -110,9 +111,6 @@ namespace DTXMania
                 switch (Type)
                 {
                     case ExamType.Gauge:
-                        // ゲージに関してはそのまま返す。
-                        percent = Amount;
-                        break;
                     case ExamType.JudgePerfect:
                     case ExamType.JudgeGood:
                     case ExamType.JudgeBad:
@@ -126,8 +124,7 @@ namespace DTXMania
                         break;
                 }
             }
-            if (Type != ExamType.Gauge)
-                percent = percent * 100.0;
+            percent = percent * 100.0;
             if (percent < 0.0)
                 percent = 0.0D;
             if (percent > 100.0)
