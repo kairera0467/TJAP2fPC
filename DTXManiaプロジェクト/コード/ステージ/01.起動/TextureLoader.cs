@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DTXMania
 {
-    class TextureLoader : CActivity
+    class TextureLoader
     {
         const string BASE = @"Graphics\";
 
@@ -446,6 +446,7 @@ namespace DTXMania
             Runner = TxC(GAME + RUNNER + @"0.png");
             #endregion
             #region DanC
+            DanC_Background = TxC(GAME + DANCHALLENGE + @"Background.png");
             DanC_Gauge = new CTexture[4];
             var type = new string[] { "Normal", "Reach", "Clear", "Flush" };
             for (int i = 0; i < 4; i++)
@@ -753,6 +754,18 @@ namespace DTXMania
             #region ランナー
             CDTXMania.tテクスチャの解放(ref Runner);
             #endregion
+            #region DanC
+            DanC_Background?.Dispose();
+            for (int i = 0; i < 4; i++)
+            {
+                DanC_Gauge[i]?.Dispose();
+            }
+            DanC_Base?.Dispose();
+            DanC_Number?.Dispose();
+            DanC_ExamRange?.Dispose();
+            DanC_ExamUnit?.Dispose();
+            DanC_ExamType?.Dispose();
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -948,6 +961,7 @@ namespace DTXMania
         public CTexture Runner;
         #endregion
         #region DanC
+        public CTexture DanC_Background;
         public CTexture[] DanC_Gauge;
         public CTexture DanC_Base;
         public CTexture DanC_Number,

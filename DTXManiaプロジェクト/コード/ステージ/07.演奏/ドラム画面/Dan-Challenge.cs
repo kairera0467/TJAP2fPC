@@ -4,6 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using FDK;
+using System.IO;
 
 namespace DTXMania
 {
@@ -117,11 +118,13 @@ namespace DTXMania
 
         public override void OnManagedリソースの作成()
         {
+            Dan_Plate = CDTXMania.tテクスチャの生成(Path.GetDirectoryName(CDTXMania.DTX.strファイル名の絶対パス) + @"\Dan_Plate.png");
             base.OnManagedリソースの作成();
         }
 
         public override void OnManagedリソースの解放()
         {
+            Dan_Plate?.Dispose();
             base.OnManagedリソースの解放();
         }
 
@@ -143,10 +146,16 @@ namespace DTXMania
 
             // 背景を描画する。
 
+            CDTXMania.Tx.DanC_Background?.t2D描画(CDTXMania.app.Device, 0, 0);
+        
+
             // 残り音符数を描画する。
             var notesRemain = CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss);
 
             DrawNumber(notesRemain, CDTXMania.Skin.Game_DanC_Number_XY[0], CDTXMania.Skin.Game_DanC_Number_XY[1], CDTXMania.Skin.Game_DanC_Number_Padding);
+
+            // 段プレートを描画する。
+            Dan_Plate?.t2D中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_Dan_Plate[0], CDTXMania.Skin.Game_DanC_Dan_Plate[1]);
 
             for (int i = 0; i < this.ExamCount; i++)
             {
@@ -321,6 +330,7 @@ namespace DTXMania
         //-----------------
         private int ExamCount;
         private ChallengeStatus[] Status = new ChallengeStatus[3];
+        private CTexture Dan_Plate;
         //-----------------
         #endregion
     }
