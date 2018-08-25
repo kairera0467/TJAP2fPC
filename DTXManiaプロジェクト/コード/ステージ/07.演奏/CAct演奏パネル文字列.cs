@@ -183,6 +183,7 @@ namespace DTXMania
             CDTXMania.t安全にDisposeする( ref this.pf歌詞フォント );
 			CDTXMania.tテクスチャの解放( ref this.txMusicName );
             CDTXMania.tテクスチャの解放( ref this.txGENRE );
+            CDTXMania.t安全にDisposeする( ref this.tx難易度とステージ数 );
 
 			this.ct進行用 = null;
 			base.On非活性化();

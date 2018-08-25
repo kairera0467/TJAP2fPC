@@ -620,8 +620,8 @@ namespace DTXMania
                 {
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txバー中央, CSkin.Path( @"Graphics\5_中央パネル.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txバー中央_アニメ中, CSkin.Path( @"Graphics\5_中央パネルアニメ中.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_JPOP, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_アニメ, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
+                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_JPOP, CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false, false );
+                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_アニメ, CSkin.Path( @"Graphics\5_songboard_anime.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ゲーム, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ナムコ, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_クラシック, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
@@ -1495,13 +1495,16 @@ namespace DTXMania
     				
 	    			// 描画。
 				
-		    		if( this.txカーソル左 != null )
-			    	{
-				    	this.txカーソル左.t2D描画( CDTXMania.app.Device, x_upper, y );
-    				}
-                    if( this.txカーソル右 != null )
+                    if( !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect )
                     {
-			    		this.txカーソル右.t2D描画( CDTXMania.app.Device, x_lower, y );
+		    		    if( this.txカーソル左 != null )
+			    	    {
+				    	    this.txカーソル左.t2D描画( CDTXMania.app.Device, x_upper, y );
+    				    }
+                        if( this.txカーソル右 != null )
+                        {
+			    		    this.txカーソル右.t2D描画( CDTXMania.app.Device, x_lower, y );
+                        }
                     }
 			    }
 			    //-----------------

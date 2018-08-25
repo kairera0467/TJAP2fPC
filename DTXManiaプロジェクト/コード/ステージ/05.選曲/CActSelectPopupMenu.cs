@@ -221,7 +221,7 @@ namespace DTXMania
 				{
 					this.ctキー反復用[ i ] = null;
 				}
-                this.finallize();
+                //this.finallize();
 				base.On非活性化();
 			}
 		}

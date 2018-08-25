@@ -1352,22 +1352,25 @@ namespace DTXMania
                     if( eJudgeResult != E判定.Miss )
                     {
                         pChip.bShow = false;
+                        if( eJudgeResult != E判定.Auto )
+                        {
+				            this.actJudgeString.Start( 0, bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
+                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true, nPlayer );
+                            CDTXMania.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult, nPlayer );
+                            if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
+                            {
+                                if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
+                                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
+                                else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
+                                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
+                            }
+                        }
                     }
                 }
 
                 if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
                 {
-				    this.actJudgeString.Start( 0, bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
-                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true, nPlayer );
-                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult, nPlayer );
 
-                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
-                    {
-                        if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
-                            CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
-                        else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
-                            CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
-                    }
                 }
                 else if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
                 {
