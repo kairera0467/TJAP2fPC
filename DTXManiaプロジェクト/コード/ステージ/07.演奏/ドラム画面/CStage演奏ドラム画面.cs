@@ -287,8 +287,8 @@ namespace DTXMania
 
     //            this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
 
-                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\dong.ogg" ) );
-                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\ka.ogg" ) );
+                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\neiro\dong.ogg" ) );
+                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\neiro\ka.ogg" ) );
                 this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Adlib.ogg" ) );
 
 				base.OnManagedリソースの作成();
