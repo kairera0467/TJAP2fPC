@@ -154,7 +154,6 @@ namespace DTXMania
 			string path = str基点フォルダ + "set.def";
 			if( File.Exists( path ) )
 			{
-				new FileInfo( path );
 				if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
 				{
 					Trace.TraceInformation( "set.def検出 : {0}", path );

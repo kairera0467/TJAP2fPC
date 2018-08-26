@@ -339,7 +339,6 @@ namespace DTXMania
                 //-----------------
 
                 //キー操作
-                //this.txパネル?.t2D描画( CDTXMania.app.Device, 234, 37 );
                 if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.RightArrow ) )
                 {
                     CDTXMania.Skin.soundカーソル移動音.t再生する();
@@ -400,7 +399,7 @@ namespace DTXMania
                 }
                 else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) )
                 {
-                    this.bIsDifficltSelect = false;
+                    CDTXMania.stage選曲.t難易度選択画面を閉じる();
                 }
 
                 foreach( var item in this.list難易度選択項目 )
@@ -427,13 +426,13 @@ namespace DTXMania
                     case E項目種類.おに:
                     case E項目種類.エディット:
                         if( this.txカーソル大 != null )
-                            this.txカーソル大.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y );
+                            this.txカーソル大.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y, new Rectangle( 0, 0, 102, 530 ) );
                         break;
                     case E項目種類.戻る:
                     case E項目種類.オプション:
                     case E項目種類.音色:
                         if( this.txカーソル小 != null )
-                            this.txカーソル小.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y );
+                            this.txカーソル小.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y, new Rectangle( 0, 0, 70, 310 ) );
                         break;
                 }
 
@@ -443,58 +442,23 @@ namespace DTXMania
 #endregion
 			}
 
+            #region[ デバッグ用表示 ]
+            //-----------------
+#if DEBUG
+            int nバー基準Y = 64;
+            CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.白, this.n現在の選択行.ToString() );
 
-			// 描画。
+            for( int i = 0; i < this.list難易度選択項目.Count; i++ )
+            {
+                C文字コンソール.Eフォント種別 bColorFlag = this.n現在の選択行 == i ? C文字コンソール.Eフォント種別.赤 : (this.list難易度選択項目[i].b選択可 ? C文字コンソール.Eフォント種別.白 : C文字コンソール.Eフォント種別.灰);
 
-            int i選曲バーX座標 = 673; //選曲バーの座標用
-            int i選択曲バーX座標 = 665; //選択曲バーの座標用
+                nバー基準Y = nバー基準Y + 16;
+                CDTXMania.act文字コンソール.tPrint( 0, nバー基準Y, bColorFlag, this.list難易度選択項目[ i ].str項目名 );
+            }
+            //-----------------
+#endif
+            #endregion
 
-
-			//if( !this.b登場アニメ全部完了 )
-			//{
-			//	#region [ (1) 登場アニメフェーズの描画。]
-			//	//-----------------
-			//	for( int i = 0; i < 4; i++ )	// パネルは全13枚。
-			//	{
-
-			//	}
-			//	//-----------------
-			//	#endregion
-			//}
-			//else
-			{
-#region [ (2) 通常フェーズの描画。]
-				//-----------------
-                int nバー基準X = 64;
-                CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.白, this.n現在の選択行.ToString() );
-
-				//for( int i = 0; i < 5; i++ )
-				//{
-    //                if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] == null )
-    //                    continue;
-
-    //                string strFlag = this.n現在の選択行 == i ? "NowSelect" : "UnSelect";
-    //                C文字コンソール.Eフォント種別 bColorFlag = this.n現在の選択行 == i ? C文字コンソール.Eフォント種別.赤 : C文字コンソール.Eフォント種別.灰;
-
-    //                nバー基準X = nバー基準X + 16;
-    //                CDTXMania.act文字コンソール.tPrint( 0, nバー基準X, bColorFlag, strFlag );
-
-                    
-				//}
-
-                for( int i = 0; i < this.list難易度選択項目.Count; i++ )
-                {
-                    C文字コンソール.Eフォント種別 bColorFlag = this.n現在の選択行 == i ? C文字コンソール.Eフォント種別.赤 : (this.list難易度選択項目[i].b選択可 ? C文字コンソール.Eフォント種別.白 : C文字コンソール.Eフォント種別.灰);
-
-                    nバー基準X = nバー基準X + 16;
-                    CDTXMania.act文字コンソール.tPrint( 0, nバー基準X, bColorFlag, this.list難易度選択項目[ i ].str項目名 );
-                }
-
-				//-----------------
-#endregion
-			}
-            //if( this.txヘッダー != null )
-            //    this.txヘッダー.t2D描画( CDTXMania.app.Device, 0, 0 );
             if( this.txフッター != null )
                 this.txフッター.t2D描画( CDTXMania.app.Device, 0, 720 - this.txフッター.sz画像サイズ.Height );
 

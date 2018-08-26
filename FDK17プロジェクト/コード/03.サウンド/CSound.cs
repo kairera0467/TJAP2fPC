@@ -1631,9 +1631,10 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		{
 			CSound管理.nStreams++;
 
-			// 個々のストリームの出力をテンポ変更のストリームに入力する。テンポ変更ストリームの出力を、Mixerに出力する。
+            // 個々のストリームの出力をテンポ変更のストリームに入力する。テンポ変更ストリームの出力を、Mixerに出力する。
 
-//			if ( CSound管理.bIsTimeStretch )	// TimeStretchのON/OFFに関わりなく、テンポ変更のストリームを生成する。後からON/OFF切り替え可能とするため。
+            _hTempoStream = 0;
+            if ( CSound管理.bIsTimeStretch )	// TimeStretchのON/OFFに関わりなく、テンポ変更のストリームを生成する。後からON/OFF切り替え可能とするため。
 			{
 				this._hTempoStream = BassFx.BASS_FX_TempoCreate( this._hBassStream, BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_FX_FREESOURCE );
 				if ( this._hTempoStream == 0 )

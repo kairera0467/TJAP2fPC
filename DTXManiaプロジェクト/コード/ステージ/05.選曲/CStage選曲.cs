@@ -246,6 +246,7 @@ namespace DTXMania
                 this.tx難易度別背景[2] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Hard.png" ) );
                 this.tx難易度別背景[3] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Master.png" ) );
                 this.tx難易度別背景[4] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_background_Edit.png" ) );
+                this.tx左上テキスト = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_header text.png" ) );
                 this.tx下部テキスト = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer text.png" ) );
 
 
@@ -282,6 +283,7 @@ namespace DTXMania
 				CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
 				//CDTXMania.tテクスチャの解放( ref this.txFLIP );
                 CDTXMania.tテクスチャの解放( ref this.tx難易度名 );
+                CDTXMania.tテクスチャの解放( ref this.tx左上テキスト );
                 CDTXMania.tテクスチャの解放( ref this.tx下部テキスト );
                 for( int j = 0; j < 9; j++ )
                 {
@@ -354,14 +356,25 @@ namespace DTXMania
 			//	this.bIsEnumeratingSongs = !this.actPreimageパネル.bIsPlayingPremovie;				// #27060 2011.3.2 yyagi: #PREMOVIE再生中は曲検索を中断する
 
 				this.act曲リスト.On進行描画();
+                int x = 0;
 				int y = 0;
 				if( this.ct登場時アニメ用共通.b進行中 )
 				{
 					double db登場割合 = ( (double) this.ct登場時アニメ用共通.n現在の値 ) / 100.0;	// 100が最終値
 					double dbY表示割合 = Math.Sin( Math.PI / 2 * db登場割合 );
-					y = ( (int) ( this.tx上部パネル.sz画像サイズ.Height * dbY表示割合 ) ) - this.tx上部パネル.sz画像サイズ.Height;
+                    if( this.tx上部パネル != null )
+					    y = ( (int) ( this.tx上部パネル.sz画像サイズ.Height * dbY表示割合 ) ) - this.tx上部パネル.sz画像サイズ.Height;
+                    if( this.tx左上テキスト != null )
+                        x = ( (int)( this.tx左上テキスト.sz画像サイズ.Width * dbY表示割合 ) );
+                        
 				}
-				this.tx上部パネル?.t2D描画( CDTXMania.app.Device, 0, 0 );
+
+                this.tx上部パネル?.t2D描画( CDTXMania.app.Device, 0, 0 );
+
+                if( !this.act難易度選択画面.bIsDifficltSelect )
+                    this.tx左上テキスト?.t2D描画( CDTXMania.app.Device, -this.tx左上テキスト.sz画像サイズ.Width + x, 0, new Rectangle( 0, 0, this.tx左上テキスト.sz画像サイズ.Width, 90 ) );
+                else if( this.act難易度選択画面.bIsDifficltSelect && this.ctDiffSelect移動待ち.b終了値に達した )
+                    this.tx左上テキスト?.t2D描画( CDTXMania.app.Device, -this.tx左上テキスト.sz画像サイズ.Width + x, 0, new Rectangle( 0, 90, this.tx左上テキスト.sz画像サイズ.Width, 90 ) );
 
 				this.actInformation.On進行描画();
 				this.tx下部パネル?.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.sz画像サイズ.Height );
@@ -425,7 +438,7 @@ namespace DTXMania
 				this.actShowCurrentPosition.On進行描画();								// #27648 2011.3.28 yyagi
 
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, this.n現在選択中の曲の難易度.ToString() );
-                if( !this.act難易度選択画面.bIsDifficltSelect )
+                if( CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.難易度から選ぶ )
                     this.tx難易度名?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectDiffStringX, CDTXMania.Skin.nSelectDiffStringY, new Rectangle( 0, 70 * this.n現在選択中の曲の難易度, 260, 70 ) );
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
@@ -884,6 +897,7 @@ namespace DTXMania
         private CTexture[] txジャンル別背景 = new CTexture[9];
         private CTexture[] tx難易度別背景 = new CTexture[5];
         private CTexture tx難易度名;
+        private CTexture tx左上テキスト;
         private CTexture tx下部テキスト;
         public CCounter ctDiffSelect移動待ち;
         public CCounter ctDiffSelect戻り待ち;

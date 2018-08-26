@@ -3863,6 +3863,7 @@ namespace DTXMania
                 chip.n発声時刻ms = (int)this.dbNowTime;
                 chip.n整数値_内部番号 = 0;
                 chip.nコース = this.n現在のコース;
+                chip.nPlayerSide = this.nPlayerSide;  // Issue#11 DP時に歌詞が2つ進んでしまうのを修正
 
                 // チップを配置。
 

@@ -1230,9 +1230,7 @@ namespace DTXMania
 		protected unsafe E判定 tチップのヒット処理( long nHitTime, CDTX.CChip pChip, E楽器パート screenmode, bool bCorrectLane, int nNowInput, int nPlayer )
 		{
             //unsafeコードにつき、デバッグ中の変更厳禁!
-
-            //if( ( pChip.nコース != this.n現在のコース ) && !CDTXMania.DTX.bチップがある.Branch )
-                //return E判定.Auto;
+            
             bool bAutoPlay = false;
             switch( nPlayer )
             {
@@ -1331,24 +1329,29 @@ namespace DTXMania
                 }
                 else if( pChip.nチャンネル番号 == 0x18 )
                 {
+                    #region[ 連打終わり ]
                     if( pChip.nノーツ終了時刻ms <= CSound管理.rc演奏用タイマ.n現在時刻ms )
                     {
                         this.b連打中[ nPlayer ] = false;
                         //this.actChara.b風船連打中 = false;
                         pChip.bHit = true;
                     }
+                    #endregion
                 }
                 else if( pChip.nチャンネル番号 == 0x1F )
                 {
+                    #region[ AD-LIB ]
                     if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
                     {
 	    			    this.actJudgeString.Start( 0, E判定.Bad, pChip.nLag, pChip, nPlayer );
                         CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( 0x11, eJudgeResult, true, nPlayer );
                         CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0x11, eJudgeResult, nPlayer );
                     }
+                    #endregion
                 }
                 else
                 {
+                    #region[ 通常音符 ]
                     if( eJudgeResult != E判定.Miss )
                     {
                         pChip.bShow = false;
@@ -1366,38 +1369,31 @@ namespace DTXMania
                             }
                         }
                     }
-                }
 
-                if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
-                {
+                    if ( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
+                    {
+				        this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
+                    }
 
-                }
-                else if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
-                {
-				    this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
-                }
-			}
-
-            if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
-            {
-                if( actGauge.db現在のゲージ値[ 0 ] < 80.0 )
-                {
-                    CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
-                    CDTXMania.stage演奏ドラム画面.actBackground.t下背景FadeIn();
-                }
-            }
-
-			if ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) )
-			{
-                if( pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 && pChip.nチャンネル番号 != 0x1F )
-                {
                     if( pChip.nコース == this.n現在のコース[ nPlayer ] )
                     {
 				        actGauge.Damage( screenmode, pChip.e楽器パート, eJudgeResult, nPlayer );
                     }
-                }
 
+                    if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
+                    {
+                        if( actGauge.db現在のゲージ値[ 0 ] < 80.0 )
+                        {
+                            CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
+                            CDTXMania.stage演奏ドラム画面.actBackground.t下背景FadeIn();
+                        }
+                    }
+                    #endregion
+                }
 			}
+
+
+            
 			if ( eJudgeResult == E判定.Poor || eJudgeResult == E判定.Miss || eJudgeResult == E判定.Bad )
 			{
 				cInvisibleChip.ShowChipTemporally( pChip.e楽器パート );
@@ -3224,7 +3220,7 @@ namespace DTXMania
                     case 0xF1:
                         if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
-                            if( dTX.listLiryc.Count > this.n表示した歌詞 )
+                            if( ( dTX.listLiryc.Count > this.n表示した歌詞 ) && pChip.nPlayerSide == 0 ) // Issue#11 DP時に歌詞が2つ進んでしまうのを修正
                             {
                                 this.actPanel.t歌詞テクスチャを生成する( dTX.listLiryc[ this.n表示した歌詞 ] );
                                 this.n表示した歌詞++;

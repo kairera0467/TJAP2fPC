@@ -615,37 +615,27 @@ namespace DTXMania
                 CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txカーソル左, CSkin.Path( @"Graphics\5_cursor left.png" ), false, false );
                 CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txカーソル右, CSkin.Path( @"Graphics\5_cursor right.png" ), false, false );
 
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txバー中央, CSkin.Path( @"Graphics\5_center panel.png" ), false, false );  
+
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_JPOP, CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_アニメ, CSkin.Path( @"Graphics\5_songboard_anime.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ゲーム, CSkin.Path( @"Graphics\5_songboard_game.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ナムコ, CSkin.Path( @"Graphics\5_songboard_namco.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_クラシック, CSkin.Path( @"Graphics\5_songboard_classic.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_バラエティ, CSkin.Path( @"Graphics\5_songboard_variety.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_どうよう, CSkin.Path( @"Graphics\5_songboard_child.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ボカロ, CSkin.Path( @"Graphics\5_songboard_vocaloid.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー, CSkin.Path( @"Graphics\5_songboard.png" ), false, false );
                 //2018.7.7 kairera0467 リリース時には戻します
                 if( CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.曲から選ぶ )
                 {
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txバー中央, CSkin.Path( @"Graphics\5_中央パネル.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txバー中央_アニメ中, CSkin.Path( @"Graphics\5_中央パネルアニメ中.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_JPOP, CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_アニメ, CSkin.Path( @"Graphics\5_songboard_anime.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ゲーム, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ナムコ, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_クラシック, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_バラエティ, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_どうよう, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ボカロ, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー, CSkin.Path( @"Graphics\5_曲パネル.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度パネル, CSkin.Path( @"Graphics\5_中央パネル難易度看板素材.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度文字中央パネル用, CSkin.Path( @"Graphics\5_難易度看板文字.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度アイコン, CSkin.Path( @"Graphics\5_center difficon.png" ), false, false );
                 }
                 else
                 {
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txバー中央, CSkin.Path( @"Graphics\5_center panel.png" ), false, false );  
-                    //2018.5.3 kairera0467
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_JPOP, CSkin.Path( @"Graphics\5_songboard_JPOP.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_アニメ, CSkin.Path( @"Graphics\5_songboard_anime.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ゲーム, CSkin.Path( @"Graphics\5_songboard_game.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ナムコ, CSkin.Path( @"Graphics\5_songboard_namco.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_クラシック, CSkin.Path( @"Graphics\5_songboard_classic.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_バラエティ, CSkin.Path( @"Graphics\5_songboard_variety.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_どうよう, CSkin.Path( @"Graphics\5_songboard_child.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー_ボカロ, CSkin.Path( @"Graphics\5_songboard_vocaloid.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx曲バー, CSkin.Path( @"Graphics\5_songboard.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度パネル, CSkin.Path( @"Graphics\5_level_panel.png" ), false, false );
                 }
 
@@ -845,6 +835,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.txバー中央_アニメ中 );
             CDTXMania.tテクスチャの解放( ref this.tx難易度アイコン );
             CDTXMania.tテクスチャの解放( ref this.tx難易度星 );
+            CDTXMania.tテクスチャの解放( ref this.tx難易度文字中央パネル用 );
             CDTXMania.tテクスチャの解放( ref this.tx譜面分岐中央パネル用 );
             CDTXMania.tテクスチャの解放( ref this.tx上部ジャンル名 );
             CDTXMania.tテクスチャの解放( ref this.txレベル数字フォント );
@@ -1019,7 +1010,7 @@ namespace DTXMania
 
 						for( int i = 0; i < panelcount; i++ )
 						{
-							int n = ( ( ( this.n現在の選択行 - panelcount_half ) + i ) + panelcount ) % panelcount;
+							int n = ( ( ( this.n現在の選択行 - 6 ) + i ) + panelcount ) % panelcount;
 							this.stバー情報[ n ].eバー種別 = this.e曲のバー種別を返す( song2 );
 							song2 = this.r次の曲( song2 );
                             this.stバー情報[ i ].txタイトル?.Dispose();
@@ -1183,7 +1174,7 @@ namespace DTXMania
                     }
                     else if( CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect && CDTXMania.stage選曲.ctDiffSelect移動待ち.b終了値に達した )
                     {
-                        xAnime = 500;
+                        xAnime = 1280 + this.tx曲バー.szテクスチャサイズ.Width + 2;
                     }
                     else if( CDTXMania.stage選曲.ctDiffSelect戻り待ち?.n現在の値 >= 0 && !CDTXMania.stage選曲.ctDiffSelect戻り待ち.b終了値に達した )
                     {
@@ -1193,11 +1184,9 @@ namespace DTXMania
                         else if( i > 6 )
                             xAnime += CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 > 582 ? 500 - (int)(500 * ((CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 - 582) / 480.0f)) : 500;
                     }
-
                     
-
 					//else
-                    //if( i != 5 )
+                    //if( !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect )
 					{
 						// (B) スクロール中の選択曲バー、またはその他のバーの描画。
 
@@ -1207,18 +1196,28 @@ namespace DTXMania
                         {
                             if( this.stバー情報[ nパネル番号 ].eバー種別 == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
                             {
-                                this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.nSelectSongPanelY, "難易度ソート" );
+                                if( i != 6 ? true : this.n現在のスクロールカウンタ != 0 )
+                                {
+                                    this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.nSelectSongPanelY, "難易度ソート" );
+                                }
+                            }
+                            else if( this.stバー情報[ nパネル番号 ].eバー種別 == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート != CActSortSongs.EOrder.Title )
+                            {
+                                if( i != 6 ? true : this.n現在のスクロールカウンタ != 0 )
+                                {
+                                    //this.tジャンル別バーの描画( x, y, this.stバー情報[ nパネル番号 ].strジャンル );
+                                    //this.tジャンル別選択されていない曲バーの描画( this.ptバーの座標[ n見た目の行番号 ].X, 180, this.stバー情報[ nパネル番号 ].strジャンル );
+                                    this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.nSelectSongPanelY, this.stバー情報[ nパネル番号 ].strジャンル );
+                                }
                             }
                             else if( this.stバー情報[ nパネル番号 ].eバー種別 != Eバー種別.Score || CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
                             {
-                                this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.nSelectSongPanelY, "" );
+                                if( i != 6 ? true : this.n現在のスクロールカウンタ != 0 )
+                                {
+                                    this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.nSelectSongPanelY, "" );
+                                }
                             }
-                            else
-                            {
-                                //this.tジャンル別バーの描画( x, y, this.stバー情報[ nパネル番号 ].strジャンル );
-                                //this.tジャンル別選択されていない曲バーの描画( this.ptバーの座標[ n見た目の行番号 ].X, 180, this.stバー情報[ nパネル番号 ].strジャンル );
-                                this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.nSelectSongPanelY, this.stバー情報[ nパネル番号 ].strジャンル );
-                            }
+
                             if( ( this.stバー情報[ nパネル番号 ].b分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] == true && i != 6 ) && CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.難易度から選ぶ )
                             {
                                 //this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ n見た目の行番号 ].X + 76, 160 );

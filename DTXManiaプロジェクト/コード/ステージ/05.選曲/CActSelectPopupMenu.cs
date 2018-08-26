@@ -91,7 +91,7 @@ namespace DTXMania
                     this.lciMenuItems[ i ].cItem = null;
                 }
             }
-            CDTXMania.t安全にDisposeする( ref this.prvFont );
+            //CDTXMania.t安全にDisposeする( ref this.prvFont );
             CDTXMania.t安全にDisposeする( ref this.font );
             this.stqMenuTitle.cItem = null;
             CDTXMania.t安全にDisposeする( ref this.stqMenuTitle.txName );
@@ -248,7 +248,7 @@ namespace DTXMania
 			{
 				CDTXMania.tテクスチャの解放( ref this.txPopupMenuBackground );
 				CDTXMania.tテクスチャの解放( ref this.txCursor );
-                CDTXMania.t安全にDisposeする( ref this.prvFont );
+                //CDTXMania.t安全にDisposeする( ref this.prvFont );
 			}
 			base.OnManagedリソースの解放();
 		}
