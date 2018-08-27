@@ -220,6 +220,11 @@ namespace DTXMania
 		        "To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls." );
 		    this.list項目リスト.Add( this.iSystemApplyLoudnessMetadata );
 
+		    this.iSystemTargetLoudness = new CItemInteger( "Target Loudness", (int)Math.Round(CSound.MinimumLufs.ToDouble() * 10.0), (int)Math.Round(CSound.MaximumLufs.ToDouble() * 10.0), (int)Math.Round(CDTXMania.ConfigIni.TargetLoudness * 10.0),
+		        "[i18n] When applying BS1770GAIN loudness\nmetadata while playing songs, song levels\nwill be adjusted to target this loudness,\nmeasured in cB (centibels) relative to full scale.", // JDG NEEDS I18N
+		        "When applying BS1770GAIN loudness\nmetadata while playing songs, song levels\nwill be adjusted to target this loudness,\nmeasured in cB (centibels) relative to full scale." );
+		    this.list項目リスト.Add( this.iSystemTargetLoudness );
+
 		    this.iSystemApplySongVol = new CItemToggle( "Apply SONGVOL", CDTXMania.ConfigIni.ApplySongVol,
 		        "[i18n] To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls.", // JDG NEEDS I18N
 		        "To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls." );
@@ -2028,6 +2033,7 @@ namespace DTXMania
 		private CItemToggle iSystemAdjustWaves;
 		private CItemToggle iSystemAudienceSound;
 		private CItemToggle iSystemApplyLoudnessMetadata;
+		private CItemInteger iSystemTargetLoudness;
 		private CItemToggle iSystemApplySongVol;
 		private CItemInteger iSystemSoundEffectLevel;
 		private CItemInteger iSystemVoiceLevel;
@@ -2313,6 +2319,7 @@ namespace DTXMania
 			CDTXMania.ConfigIni.bScoreIniを出力する = this.iSystemSaveScore.bON;
 
 		    CDTXMania.ConfigIni.ApplyLoudnessMetadata = this.iSystemApplyLoudnessMetadata.bON;
+		    CDTXMania.ConfigIni.TargetLoudness = this.iSystemTargetLoudness.n現在の値 / 10.0;
 		    CDTXMania.ConfigIni.ApplySongVol = this.iSystemApplySongVol.bON;
 		    CDTXMania.ConfigIni.SoundEffectLevel = this.iSystemSoundEffectLevel.n現在の値;
 		    CDTXMania.ConfigIni.VoiceLevel = this.iSystemVoiceLevel.n現在の値;

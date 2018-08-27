@@ -13,18 +13,17 @@ namespace FDK
     /// </summary>
     public sealed class SongGainController
     {
-        public bool ApplyLoudnessMetadata { get; set; }
-        public bool ApplySongVol { get; set; }
+        public bool ApplyLoudnessMetadata { private get; set; }
+        public Lufs TargetLoudness { private get; set; }
+        public bool ApplySongVol { private get; set; }
 
         public void Set(int songVol, LoudnessMetadata? songLoudnessMetadata, CSound sound)
         {
             if (ApplyLoudnessMetadata && songLoudnessMetadata.HasValue)
             {
-                var target = -23.0; // JDG For now there is an assumed target of -23 as per EBU R128.
-
                 // JDG Also for now, we're going to hack the gain value into place right here and now
                 // JDG and will flow it through further in a later revision.
-                var dbGain = target - songLoudnessMetadata.Value.Integrated.ToDouble();
+                var dbGain = TargetLoudness.ToDouble() - songLoudnessMetadata.Value.Integrated.ToDouble();
 
                 // JDG Once more logic moves to CSound, safe gain can account for the other mixed values
                 var safeTruePeakDbGain = 0.0 - songLoudnessMetadata.Value.TruePeak?.ToDouble() ?? 0.0;

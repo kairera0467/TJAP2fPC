@@ -484,6 +484,9 @@ namespace FDK
 	    public const int DefaultSongPreviewLevel = 80;
 	    public const int DefaultSongPlaybackLevel = 80;
 
+	    public static readonly Lufs MinimumLufs = new Lufs(-100.0); // JDG Find a better location for this value.
+	    public static readonly Lufs MaximumLufs = new Lufs(100.0); // JDG Find a better location and value for this.
+
 		public readonly ESoundGroup SoundGroup;
 
 		#region [ DTXMania用拡張 ]

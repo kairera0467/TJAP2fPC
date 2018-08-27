@@ -660,6 +660,14 @@ namespace DTXMania
 	        set => SetProperty(ref _applyLoudnessMetadata, value, nameof(ApplyLoudnessMetadata));
 	    }
 
+	    private double _targetLoudness;
+
+	    public double TargetLoudness
+	    {
+	        get => _targetLoudness;
+	        set => SetProperty(ref _targetLoudness, value, nameof(TargetLoudness));
+	    }
+
 	    private bool _applySongVol;
 
 	    public bool ApplySongVol
@@ -1265,6 +1273,7 @@ namespace DTXMania
 			this.n表示可能な最小コンボ数.Taiko = 3;
             this.FontName = "MS UI Gothic";
 		    this.ApplyLoudnessMetadata = true;
+		    this.TargetLoudness = -23.0; // JDG EBU R128 default value until we calculate one more suitable to TJAP3
 		    this.ApplySongVol = false;
 		    this.SoundEffectLevel = CSound.DefaultSoundEffectLevel;
 		    this.VoiceLevel = CSound.DefaultVoiceLevel;
@@ -1636,6 +1645,10 @@ namespace DTXMania
 		    sw.WriteLine( "; [i18n] Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" ); // JDG NEEDS I18N
 		    sw.WriteLine( "; Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" );
 		    sw.WriteLine( "{0}={1}", nameof(ApplyLoudnessMetadata), this.ApplyLoudnessMetadata ? 1 : 0 );
+			sw.WriteLine();
+		    sw.WriteLine( $"; [i18n] Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs.ToDouble()}-{CSound.MaximumLufs.ToDouble()})" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs.ToDouble()}-{CSound.MaximumLufs.ToDouble()})" );
+		    sw.WriteLine( "{0}={1}", nameof(TargetLoudness), TargetLoudness );
 			sw.WriteLine();
 		    sw.WriteLine( "; [i18n] Apply SONGVOL (0:OFF, 1:ON)" ); // JDG NEEDS I18N
 		    sw.WriteLine( "; Apply SONGVOL (0:OFF, 1:ON)" );
@@ -2274,6 +2287,10 @@ namespace DTXMania
 											else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
 											{
 												this.ApplyLoudnessMetadata = C変換.bONorOFF( str4[ 0 ] );
+											}
+											else if( str3.Equals( nameof(TargetLoudness) ) )
+											{
+												this.TargetLoudness = C変換.db値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumLufs.ToDouble(), CSound.MaximumLufs.ToDouble(), this.TargetLoudness );
 											}
 											else if( str3.Equals( nameof(ApplySongVol) ) )
 											{

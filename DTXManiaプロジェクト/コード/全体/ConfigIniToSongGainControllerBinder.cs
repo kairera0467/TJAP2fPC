@@ -15,6 +15,7 @@ namespace DTXMania
         internal static void Bind(CConfigIni configIni, SongGainController songGainController)
         {
             songGainController.ApplyLoudnessMetadata = configIni.ApplyLoudnessMetadata;
+            songGainController.TargetLoudness = new Lufs(configIni.TargetLoudness);
             songGainController.ApplySongVol = configIni.ApplySongVol;
 
             configIni.PropertyChanged += (sender, args) =>
@@ -23,6 +24,9 @@ namespace DTXMania
                 {
                     case nameof(CConfigIni.ApplyLoudnessMetadata):
                         songGainController.ApplyLoudnessMetadata = configIni.ApplyLoudnessMetadata;
+                        break;
+                    case nameof(CConfigIni.TargetLoudness):
+                        songGainController.TargetLoudness = new Lufs(configIni.TargetLoudness);
                         break;
                     case nameof(CConfigIni.ApplySongVol):
                         songGainController.ApplySongVol = configIni.ApplySongVol;
