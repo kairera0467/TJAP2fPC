@@ -2108,6 +2108,8 @@ for (int i = 0; i < 3; i++) {
 				//Sound管理 = FDK.CSound管理.Instance;
 				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
 
+                LoudnessMetadataLoader.StartBackgroundScanning(); // JDG Make this appropriately conditional
+
 			    SongGainController = new SongGainController();
 			    ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
 
@@ -2568,6 +2570,8 @@ for (int i = 0; i < 3; i++) {
 				}
 
 			    SoundGroupLevelController = null;
+			    SongGainController = null;
+                LoudnessMetadataLoader.StopBackgroundScanning(joinImmediately: true);
 			    ConfigIni = null;
 
 				//---------------------
