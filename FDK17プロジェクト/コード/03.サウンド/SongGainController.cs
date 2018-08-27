@@ -21,21 +21,13 @@ namespace FDK
         {
             if (ApplyLoudnessMetadata && songLoudnessMetadata.HasValue)
             {
-                // JDG Also for now, we're going to hack the gain value into place right here and now
-                // JDG and will flow it through further in a later revision.
                 var dbGain = TargetLoudness.ToDouble() - songLoudnessMetadata.Value.Integrated.ToDouble();
 
-                // JDG Once more logic moves to CSound, safe gain can account for the other mixed values
-                var safeTruePeakDbGain = 0.0 - songLoudnessMetadata.Value.TruePeak?.ToDouble() ?? 0.0;
-                var safeDbGain = dbGain < safeTruePeakDbGain ? dbGain : safeTruePeakDbGain;
-
-                var gainMultiplier = Math.Pow(10, safeDbGain / 20.0);
-                var gain = gainMultiplier * 100.0;
-                sound.Gain = (int)Math.Round(gain);
+                sound.SetGain(new Lufs(dbGain), songLoudnessMetadata.Value.TruePeak);
             }
             else
             {
-                sound.Gain = ApplySongVol ? songVol : CSound.DefaultSongVol;
+                sound.SetGain(ApplySongVol ? songVol : CSound.DefaultSongVol);
             }
         }
     }

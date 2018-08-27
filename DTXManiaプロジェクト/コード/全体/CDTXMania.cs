@@ -603,7 +603,7 @@ namespace DTXMania
 							    // 2018-08-23 twopointzero: DTXVmode previewVolume will always set
 							    // Gain since in this mode it should override the application of
 							    // SONGVOL or any other Gain source regardless of configuration.
-								this.previewSound.Gain = DTXVmode.previewVolume;
+								this.previewSound.SetGain(DTXVmode.previewVolume);
 
 								this.previewSound.n位置 = DTXVmode.previewPan;
 								this.previewSound.t再生を開始する();

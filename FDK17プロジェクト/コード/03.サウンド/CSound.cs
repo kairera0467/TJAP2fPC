@@ -465,10 +465,9 @@ namespace FDK
 
 	public class CSound : IDisposable
 	{
-	    public const int DefaultGain = 100;
-	    public const int MinimumSongVol = 0;
+	    public const int MinimumSongVol = 0; // JDG Move MinimumSongVol and MaximumSongVol closer to parsing and raise MaximumSongVol
 	    public const int MaximumSongVol = 100;
-	    public const int DefaultSongVol = DefaultGain;
+	    public const int DefaultSongVol = 100;
 
         // 2018-08-19 twopointzero: Note the present absence of a MinimumAutomationLevel.
         // We will revisit this if/when song select BGM fade-in/fade-out needs
@@ -486,6 +485,8 @@ namespace FDK
 
 	    public static readonly Lufs MinimumLufs = new Lufs(-100.0); // JDG Find a better location for this value.
 	    public static readonly Lufs MaximumLufs = new Lufs(100.0); // JDG Find a better location and value for this.
+
+	    private static readonly Lufs DefaultGain = new Lufs(0.0);
 
 		public readonly ESoundGroup SoundGroup;
 
@@ -595,22 +596,30 @@ namespace FDK
 	    /// loudness metadata, either when SONGVOL is unavailable or when loudness
 	    /// metadata is prioritized over it.
 	    /// </summary>
-	    public int Gain
+	    public void SetGain(int songVol)
 	    {
-	        private get => _gain;
-	        set
-	        {
-	            if (_gain == value)
-	            {
-	                return;
-	            }
-
-	            _gain = value;
-	            SetVolume();
-	        }
+            SetGain(IntegerPercentToLufs(songVol), null);
 	    }
 
-        /// <summary>
+	    private static Lufs IntegerPercentToLufs(int percent)
+	    {
+	        return new Lufs((percent - 100.0) * 0.7); // JDG Extract a const or otherwise explain 0.7
+	    }
+
+	    public void SetGain(Lufs gain, Lufs? truePeak)
+	    {
+	        if (Equals(_gain, gain))
+	        {
+	            return;
+	        }
+
+	        _gain = gain;
+	        _truePeak = truePeak;
+
+	        SetVolume();
+	    }
+
+	    /// <summary>
         /// AutomationLevel is applied "second" to the audio data, much as in a
         /// physical or sofware mixer and its channel level. Before this Gain is
         /// applied, and after this the mixing group level is applied.
@@ -630,6 +639,7 @@ namespace FDK
 	            }
 
 	            _automationLevel = value;
+
 	            SetVolume();
 	        }
 	    }
@@ -658,35 +668,43 @@ namespace FDK
 	            }
 
 	            _groupLevel = value;
+
 	            SetVolume();
 	        }
 	    }
 
 	    private void SetVolume()
 	    {
-	        // 2018-08-18 twopointzero: For this version we will continue to mix integers via multiplication and use linear integer volume.
-	        // An upcoming revision will move as many values as possible to floating point logarithmic levels and use addition/subtraction.
-	        n音量 = (int) Math.Round(MixLinearLevelsLinearly(MixLinearLevelsLinearly(Gain, AutomationLevel), GroupLevel));
-	    }
+            // JDG Remember to pull together all of the Lufs math, into Lufs itself.
+	        var gain =
+	            _gain.ToDouble() +
+	            IntegerPercentToLufs(AutomationLevel).ToDouble() +
+	            IntegerPercentToLufs(GroupLevel).ToDouble();
 
-        private static double MixLinearLevelsLinearly(double left, double right)
-        {
-            return left * right * 0.01;
-        }
+	        var safeTruePeakGain = 0.0 - _truePeak?.ToDouble() ?? 0.0;
+	        var safeGain = Math.Min(gain, safeTruePeakGain);
+
+            // JDG Temporary conversion back into linear
+	        var gainMultiplier = Math.Pow(10, safeGain / 20.0);
+            // JDG Temporary conversion into 0-100 scale
+	        db音量 = gainMultiplier * 100.0;
+
+            Console.WriteLine($"{_gain.ToDouble()} + {IntegerPercentToLufs(AutomationLevel).ToDouble()} + {IntegerPercentToLufs(GroupLevel).ToDouble()} = {gain}. {nameof(safeTruePeakGain)} = {safeTruePeakGain}. {nameof(safeGain)} = {safeGain}. {nameof(gainMultiplier)} = {gainMultiplier}. ({this.strファイル名})");
+	    }
 
 		/// <summary>
 		/// <para>0:最小～100:原音</para>
 		/// </summary>
-		private int n音量
+		private double db音量
 		{
 			set
 			{
 				if( this.bBASSサウンドである )
 				{
-					float f音量 = Math.Min( Math.Max( value, 0 ), 100 ) / 100.0f;	// 0～100 → 0.0～1.0
+					double db音量 = Math.Min( Math.Max( value, 0.0 ), 100.0 ) / 100.0;	// 0～100 → 0.0～1.0
 					//var nodes = new BASS_MIXER_NODE[ 1 ] { new BASS_MIXER_NODE( 0, f音量 ) };
 					//BassMix.BASS_Mixer_ChannelSetEnvelope( this.hBassStream, BASSMIXEnvelope.BASS_MIXER_ENV_VOL, nodes );
-					Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, f音量 );
+					Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float)db音量 );
 
 				}
 				else if( this.bDirectSoundである )
@@ -698,7 +716,7 @@ namespace FDK
 					}
 					else
 					{
-						n音量db = (int) ( ( 20.0 * Math.Log10( ( (double) value ) / 100.0 ) ) * 100.0 );
+						n音量db = (int) ( ( 20.0 * Math.Log10( value / 100.0 ) ) * 100.0 );
 					}
 					this.Buffer.Volume = n音量db;
 				}
@@ -1549,7 +1567,8 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		}
 		private int _n位置 = 0;
 		private int _n位置db;
-		private int _gain = DefaultGain;
+		private Lufs _gain = DefaultGain;
+	    private Lufs? _truePeak = null;
 		private int _automationLevel = DefaultAutomationLevel;
 		private int _groupLevel = DefaultGroupLevel;
 		private long nBytes = 0;

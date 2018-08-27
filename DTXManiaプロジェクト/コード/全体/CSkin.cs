@@ -613,7 +613,7 @@ namespace DTXMania
 			this.bgm起動画面			= new Cシステムサウンド( @"Sounds\Setup BGM.ogg",		true,  true,  false, ESoundGroup.Unknown );
 			this.bgmオプション画面		= new Cシステムサウンド( @"Sounds\Option BGM.ogg",		true,  true,  false, ESoundGroup.Unknown );
 			this.bgmコンフィグ画面		= new Cシステムサウンド( @"Sounds\Config BGM.ogg",		true,  true,  false, ESoundGroup.Unknown );
-			this.bgm選曲画面			= new Cシステムサウンド( @"Sounds\Select BGM.ogg",		true,  true,  false, ESoundGroup.Unknown );
+			this.bgm選曲画面			= new Cシステムサウンド( @"Sounds\Select BGM.ogg",		true,  true,  false, ESoundGroup.SongPreview );
 
             //this.soundRed               = new Cシステムサウンド( @"Sounds\dong.ogg",            false, false, true, ESoundType.SoundEffect );
             //this.soundBlue              = new Cシステムサウンド( @"Sounds\ka.ogg",              false, false, true, ESoundType.SoundEffect );

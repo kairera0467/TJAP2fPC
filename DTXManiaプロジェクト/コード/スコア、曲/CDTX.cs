@@ -4504,7 +4504,7 @@ namespace DTXMania
 
                 foreach (var kvp in this.listWAV)
                 {
-                    kvp.Value.SongVol = SongVol;
+                    kvp.Value.SongVol = this.SongVol;
                 }
             }
             else if( strCommandName.Equals( "SEVOL" ) )
