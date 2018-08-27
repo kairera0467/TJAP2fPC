@@ -1646,8 +1646,8 @@ namespace DTXMania
 		    sw.WriteLine( "; Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" );
 		    sw.WriteLine( "{0}={1}", nameof(ApplyLoudnessMetadata), this.ApplyLoudnessMetadata ? 1 : 0 );
 			sw.WriteLine();
-		    sw.WriteLine( $"; [i18n] Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs.ToDouble()}-{CSound.MaximumLufs.ToDouble()})" ); // JDG NEEDS I18N
-		    sw.WriteLine( $"; Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs.ToDouble()}-{CSound.MaximumLufs.ToDouble()})" );
+		    sw.WriteLine( $"; [i18n] Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" );
 		    sw.WriteLine( "{0}={1}", nameof(TargetLoudness), TargetLoudness );
 			sw.WriteLine();
 		    sw.WriteLine( "; [i18n] Apply SONGVOL (0:OFF, 1:ON)" ); // JDG NEEDS I18N

@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using FDK.ExtensionMethods;
 using SlimDX.DirectSound;
 using SlimDX.Multimedia;
 using Un4seen.Bass;
@@ -465,8 +466,8 @@ namespace FDK
 
 	public class CSound : IDisposable
 	{
-	    public const int MinimumSongVol = 0; // JDG Move MinimumSongVol and MaximumSongVol closer to parsing and raise MaximumSongVol
-	    public const int MaximumSongVol = 100;
+	    public const int MinimumSongVol = 0;
+	    public const int MaximumSongVol = 100; // JDG Raise MaximumSongVol to an appropriate value after addressing SetGain songVol linear conversion.
 	    public const int DefaultSongVol = 100;
 
         // 2018-08-19 twopointzero: Note the present absence of a MinimumAutomationLevel.
@@ -483,8 +484,8 @@ namespace FDK
 	    public const int DefaultSongPreviewLevel = 80;
 	    public const int DefaultSongPlaybackLevel = 80;
 
-	    public static readonly Lufs MinimumLufs = new Lufs(-100.0); // JDG Find a better location for this value.
-	    public static readonly Lufs MaximumLufs = new Lufs(100.0); // JDG Find a better location and value for this.
+	    public static readonly Lufs MinimumLufs = new Lufs(-100.0);
+	    public static readonly Lufs MaximumLufs = new Lufs(100.0); // JDG Set a better value for this, likely in alignment with what you will do on the linear side for MaximumSongVOl.
 
 	    private static readonly Lufs DefaultGain = new Lufs(0.0);
 
@@ -598,7 +599,13 @@ namespace FDK
 	    /// </summary>
 	    public void SetGain(int songVol)
 	    {
-            SetGain(IntegerPercentToLufs(songVol), null);
+	        // JDG Run CSound SetGain for songVol should convert from linear
+            // JDG since the previous and expected behaviour would be linear
+            // JDG Once you've done this you can set a reasonable value for MaximumSongVol.
+            // JDG This is especially important for SONGVOL > 100,
+            // JDG since a 120 should NOT be amplified by 20 dB.
+
+	        SetGain(IntegerPercentToLufs(songVol), null);
 	    }
 
 	    private static Lufs IntegerPercentToLufs(int percent)
@@ -675,35 +682,29 @@ namespace FDK
 
 	    private void SetVolume()
 	    {
-            // JDG Remember to pull together all of the Lufs math, into Lufs itself.
 	        var gain =
-	            _gain.ToDouble() +
-	            IntegerPercentToLufs(AutomationLevel).ToDouble() +
-	            IntegerPercentToLufs(GroupLevel).ToDouble();
+	            _gain +
+	            IntegerPercentToLufs(AutomationLevel) +
+	            IntegerPercentToLufs(GroupLevel);
 
-	        var safeTruePeakGain = 0.0 - _truePeak?.ToDouble() ?? 0.0;
-	        var safeGain = Math.Min(gain, safeTruePeakGain);
+	        var safeTruePeakGain = _truePeak?.Negate() ?? new Lufs(0);
+	        var safeGain = gain.Min(safeTruePeakGain);
 
-	        if (strファイル名.Contains("ETERNAL")) // JDG TEMP
-	        {
-	            Console.WriteLine($"{_gain.ToDouble()} + {IntegerPercentToLufs(AutomationLevel).ToDouble()} + {IntegerPercentToLufs(GroupLevel).ToDouble()} = {gain}. {nameof(safeTruePeakGain)} = {safeTruePeakGain}. {nameof(safeGain)} = {safeGain}. ({this.strファイル名})");
-	        }
-
-	        db音量dB = safeGain;
+	        lufs音量 = safeGain;
 	    }
 
-		private double db音量dB
+		private Lufs lufs音量
 		{
 			set
 			{
 				if( this.bBASSサウンドである )
 				{
-				    double db音量 = Math.Max(0.0, Math.Min((value / 100.0) + 1.0, 1.0));
+				    var db音量 = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
 					Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float)db音量 );
 				}
 				else if( this.bDirectSoundである )
 				{
-				    double db音量 = Math.Max(-10000, Math.Min(value * 100.0, 0.0));
+				    var db音量 = (value.ToDouble() * 100.0).Clamp(-10000, 0);
 				    this.Buffer.Volume = (int)Math.Round(db音量);
 				}
 			}

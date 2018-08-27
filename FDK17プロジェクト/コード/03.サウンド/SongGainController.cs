@@ -21,9 +21,9 @@ namespace FDK
         {
             if (ApplyLoudnessMetadata && songLoudnessMetadata.HasValue)
             {
-                var dbGain = TargetLoudness.ToDouble() - songLoudnessMetadata.Value.Integrated.ToDouble();
+                var gain = TargetLoudness - songLoudnessMetadata.Value.Integrated;
 
-                sound.SetGain(new Lufs(dbGain), songLoudnessMetadata.Value.TruePeak);
+                sound.SetGain(gain, songLoudnessMetadata.Value.TruePeak);
             }
             else
             {
