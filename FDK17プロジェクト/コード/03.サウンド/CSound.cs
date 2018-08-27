@@ -467,7 +467,7 @@ namespace FDK
 	public class CSound : IDisposable
 	{
 	    public const int MinimumSongVol = 0;
-	    public const int MaximumSongVol = 100; // JDG Raise MaximumSongVol to an appropriate value after addressing SetGain songVol linear conversion.
+	    public const int MaximumSongVol = 200; // support an approximate doubling in volume.
 	    public const int DefaultSongVol = 100;
 
         // 2018-08-19 twopointzero: Note the present absence of a MinimumAutomationLevel.
@@ -485,7 +485,7 @@ namespace FDK
 	    public const int DefaultSongPlaybackLevel = 80;
 
 	    public static readonly Lufs MinimumLufs = new Lufs(-100.0);
-	    public static readonly Lufs MaximumLufs = new Lufs(100.0); // JDG Set a better value for this, likely in alignment with what you will do on the linear side for MaximumSongVOl.
+	    public static readonly Lufs MaximumLufs = new Lufs(10.0); // support an approximate doubling in volume.
 
 	    private static readonly Lufs DefaultGain = new Lufs(0.0);
 
@@ -599,18 +599,13 @@ namespace FDK
 	    /// </summary>
 	    public void SetGain(int songVol)
 	    {
-	        // JDG Run CSound SetGain for songVol should convert from linear
-            // JDG since the previous and expected behaviour would be linear
-            // JDG Once you've done this you can set a reasonable value for MaximumSongVol.
-            // JDG This is especially important for SONGVOL > 100,
-            // JDG since a 120 should NOT be amplified by 20 dB.
-
-	        SetGain(IntegerPercentToLufs(songVol), null);
+	        SetGain(LinearIntegerPercentToLufs(songVol), null);
 	    }
 
-	    private static Lufs IntegerPercentToLufs(int percent)
+	    private static Lufs LinearIntegerPercentToLufs(int percent)
 	    {
-	        return new Lufs(percent - 100.0);
+	        // 2018-08-27 twopointzero: We'll use the standard conversion until an appropriate curve can be selected
+            return new Lufs(20.0 * Math.Log10(percent / 100.0));
 	    }
 
 	    public void SetGain(Lufs gain, Lufs? truePeak)
@@ -684,8 +679,8 @@ namespace FDK
 	    {
 	        var gain =
 	            _gain +
-	            IntegerPercentToLufs(AutomationLevel) +
-	            IntegerPercentToLufs(GroupLevel);
+	            LinearIntegerPercentToLufs(AutomationLevel) +
+	            LinearIntegerPercentToLufs(GroupLevel);
 
 	        var safeTruePeakGain = _truePeak?.Negate() ?? new Lufs(0);
 	        var safeGain = gain.Min(safeTruePeakGain);
