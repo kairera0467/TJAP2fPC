@@ -215,6 +215,11 @@ namespace DTXMania
 				"To save high-scores/skills, turn it ON.\nTurn OFF in case your song data are\n in read-only media (CD-ROM etc).\nNote that the score files also contain\n 'BGM Adjust' parameter. So if you\n want to keep adjusting parameter,\n you need to set SaveScore=ON." );
 			this.list項目リスト.Add( this.iSystemSaveScore );
 
+		    this.iSystemApplyLoudnessMetadata = new CItemToggle( "Apply Loudness Metadata", CDTXMania.ConfigIni.ApplyLoudnessMetadata,
+		        "[i18n] To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls.", // JDG NEEDS I18N
+		        "To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls." );
+		    this.list項目リスト.Add( this.iSystemApplyLoudnessMetadata );
+
 		    this.iSystemApplySongVol = new CItemToggle( "Apply SONGVOL", CDTXMania.ConfigIni.ApplySongVol,
 		        "[i18n] To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls.", // JDG NEEDS I18N
 		        "To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls." );
@@ -2022,6 +2027,7 @@ namespace DTXMania
 		private CItemToggle iLogOutputLog;
 		private CItemToggle iSystemAdjustWaves;
 		private CItemToggle iSystemAudienceSound;
+		private CItemToggle iSystemApplyLoudnessMetadata;
 		private CItemToggle iSystemApplySongVol;
 		private CItemInteger iSystemSoundEffectLevel;
 		private CItemInteger iSystemVoiceLevel;
@@ -2306,6 +2312,7 @@ namespace DTXMania
 			//CDTXMania.ConfigIni.eダメージレベル = (Eダメージレベル) this.iSystemDamageLevel.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.bScoreIniを出力する = this.iSystemSaveScore.bON;
 
+		    CDTXMania.ConfigIni.ApplyLoudnessMetadata = this.iSystemApplyLoudnessMetadata.bON;
 		    CDTXMania.ConfigIni.ApplySongVol = this.iSystemApplySongVol.bON;
 		    CDTXMania.ConfigIni.SoundEffectLevel = this.iSystemSoundEffectLevel.n現在の値;
 		    CDTXMania.ConfigIni.VoiceLevel = this.iSystemVoiceLevel.n現在の値;

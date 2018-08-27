@@ -13,12 +13,12 @@ namespace FDK
     /// </summary>
     public sealed class SongGainController
     {
+        public bool ApplyLoudnessMetadata { get; set; }
         public bool ApplySongVol { get; set; }
 
         public void Set(int songVol, LoudnessMetadata? songLoudnessMetadata, CSound sound)
         {
-            // JDG For now there is no disabling of loudness metadata support. Add that later.
-            if (songLoudnessMetadata.HasValue)
+            if (ApplyLoudnessMetadata && songLoudnessMetadata.HasValue)
             {
                 var target = -23.0; // JDG For now there is an assumed target of -23 as per EBU R128.
 

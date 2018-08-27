@@ -652,6 +652,14 @@ namespace DTXMania
 		public int n曲が選択されてからプレビュー音が鳴るまでのウェイトms;
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
 
+	    private bool _applyLoudnessMetadata;
+
+	    public bool ApplyLoudnessMetadata
+	    {
+	        get => _applyLoudnessMetadata;
+	        set => SetProperty(ref _applyLoudnessMetadata, value, nameof(ApplyLoudnessMetadata));
+	    }
+
 	    private bool _applySongVol;
 
 	    public bool ApplySongVol
@@ -1256,6 +1264,7 @@ namespace DTXMania
 			this.n表示可能な最小コンボ数.Bass = 2;
 			this.n表示可能な最小コンボ数.Taiko = 3;
             this.FontName = "MS UI Gothic";
+		    this.ApplyLoudnessMetadata = true;
 		    this.ApplySongVol = false;
 		    this.SoundEffectLevel = CSound.DefaultSoundEffectLevel;
 		    this.VoiceLevel = CSound.DefaultVoiceLevel;
@@ -1623,6 +1632,10 @@ namespace DTXMania
 			sw.WriteLine( "; 演奏情報を表示する (0:OFF, 1:ON)" );
 			sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
 			sw.WriteLine( "ShowDebugStatus={0}", this.b演奏情報を表示する ? 1 : 0 );
+			sw.WriteLine();
+		    sw.WriteLine( "; [i18n] Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" ); // JDG NEEDS I18N
+		    sw.WriteLine( "; Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" );
+		    sw.WriteLine( "{0}={1}", nameof(ApplyLoudnessMetadata), this.ApplyLoudnessMetadata ? 1 : 0 );
 			sw.WriteLine();
 		    sw.WriteLine( "; [i18n] Apply SONGVOL (0:OFF, 1:ON)" ); // JDG NEEDS I18N
 		    sw.WriteLine( "; Apply SONGVOL (0:OFF, 1:ON)" );
@@ -2257,6 +2270,10 @@ namespace DTXMania
 											{
                                                 // 2018-08-18 twopointzero: For backward compatibility, upgrade AutoChipVolume config values to SongPlaybackLevel
 											    this.SongPlaybackLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel );
+											}
+											else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
+											{
+												this.ApplyLoudnessMetadata = C変換.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( nameof(ApplySongVol) ) )
 											{
