@@ -1244,8 +1244,7 @@ namespace DTXMania
 
         public string strBGM_PATH;
 	    public int SongVol;
-	    public Lufs? SongIntegratedLoudness;
-	    public Lufs? SongPeakLoudness;
+	    public LoudnessMetadata? SongLoudnessMetadata;
 
         public bool bHIDDENBRANCH; //2016.04.01 kairera0467 選曲画面上、譜面分岐開始前まで譜面分岐の表示を隠す
         public bool bGOGOTIME; //2018.03.11 kairera0467
@@ -1358,8 +1357,7 @@ namespace DTXMania
             this.b次の小節が分岐である = false;
 
 		    this.SongVol = CSound.DefaultSongVol;
-		    this.SongIntegratedLoudness = null;
-		    this.SongPeakLoudness = null;
+		    this.SongLoudnessMetadata = null;
 
 #if TEST_NOTEOFFMODE
 			this.bHH演奏で直前のHHを消音する = true;

@@ -765,10 +765,14 @@ namespace DTXMania
             cスコア.譜面情報.SongVol = br.ReadInt32();
 		    var hasSongIntegratedLoudness = br.ReadBoolean();
 		    var songIntegratedLoudness = br.ReadDouble();
-		    cスコア.譜面情報.SongIntegratedLoudness = hasSongIntegratedLoudness ? new Lufs(songIntegratedLoudness) : default(Lufs?);
+		    var integratedLoudness = hasSongIntegratedLoudness ? new Lufs(songIntegratedLoudness) : default(Lufs?);
 		    var hasSongPeakLoudness = br.ReadBoolean();
 		    var songPeakLoudness = br.ReadDouble();
-		    cスコア.譜面情報.SongPeakLoudness = hasSongPeakLoudness ? new Lufs(songPeakLoudness) : default(Lufs?);
+		    var peakLoudness = hasSongPeakLoudness ? new Lufs(songPeakLoudness) : default(Lufs?);
+		    var songLoudnessMetadata = hasSongIntegratedLoudness
+		        ? new LoudnessMetadata(integratedLoudness.Value, peakLoudness)
+		        : default(LoudnessMetadata?);
+		    cスコア.譜面情報.SongLoudnessMetadata = songLoudnessMetadata;
             cスコア.譜面情報.nデモBGMオフセット = br.ReadInt32();
             cスコア.譜面情報.b譜面分岐[0] = br.ReadBoolean();
             cスコア.譜面情報.b譜面分岐[1] = br.ReadBoolean();
@@ -847,8 +851,7 @@ namespace DTXMania
 									c曲リストノード.arスコア[ i ].譜面情報.Duration = 0;	//  (cdtx.listChip == null)? 0 : cdtx.listChip[ cdtx.listChip.Count - 1 ].n発声時刻ms;
                                     c曲リストノード.arスコア[ i ].譜面情報.strBGMファイル名 = cdtx.strBGM_PATH;
                                     c曲リストノード.arスコア[ i ].譜面情報.SongVol = cdtx.SongVol;
-                                    c曲リストノード.arスコア[ i ].譜面情報.SongIntegratedLoudness = cdtx.SongIntegratedLoudness;
-                                    c曲リストノード.arスコア[ i ].譜面情報.SongPeakLoudness = cdtx.SongPeakLoudness;
+                                    c曲リストノード.arスコア[ i ].譜面情報.SongLoudnessMetadata = cdtx.SongLoudnessMetadata;
 								    c曲リストノード.arスコア[ i ].譜面情報.nデモBGMオフセット = cdtx.nデモBGMオフセット;
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[0] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 0 ];
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[1] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 1 ];
@@ -1185,10 +1188,10 @@ namespace DTXMania
 					bw.Write( node.arスコア[ i ].譜面情報.Duration );
                     bw.Write( node.arスコア[ i ].譜面情報.strBGMファイル名 );
                     bw.Write( node.arスコア[ i ].譜面情報.SongVol );
-                    bw.Write( node.arスコア[ i ].譜面情報.SongIntegratedLoudness.HasValue );
-                    bw.Write( node.arスコア[ i ].譜面情報.SongIntegratedLoudness?.ToDouble() ?? 0.0 );
-                    bw.Write( node.arスコア[ i ].譜面情報.SongPeakLoudness.HasValue );
-                    bw.Write( node.arスコア[ i ].譜面情報.SongPeakLoudness?.ToDouble() ?? 0.0 );
+                    bw.Write( node.arスコア[ i ].譜面情報.SongLoudnessMetadata.HasValue );
+                    bw.Write( node.arスコア[ i ].譜面情報.SongLoudnessMetadata?.Integrated.ToDouble() ?? 0.0 );
+                    bw.Write( node.arスコア[ i ].譜面情報.SongLoudnessMetadata?.TruePeak.HasValue ?? false );
+                    bw.Write( node.arスコア[ i ].譜面情報.SongLoudnessMetadata?.TruePeak?.ToDouble() ?? 0.0 );
 				    bw.Write( node.arスコア[ i ].譜面情報.nデモBGMオフセット );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[0] );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[1] );
