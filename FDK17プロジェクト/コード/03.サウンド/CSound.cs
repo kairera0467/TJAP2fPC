@@ -603,7 +603,7 @@ namespace FDK
 
 	    private static Lufs IntegerPercentToLufs(int percent)
 	    {
-	        return new Lufs((percent - 100.0) * 0.7); // JDG Extract a const or otherwise explain 0.7
+	        return new Lufs(percent - 100.0);
 	    }
 
 	    public void SetGain(Lufs gain, Lufs? truePeak)
@@ -684,41 +684,29 @@ namespace FDK
 	        var safeTruePeakGain = 0.0 - _truePeak?.ToDouble() ?? 0.0;
 	        var safeGain = Math.Min(gain, safeTruePeakGain);
 
-            // JDG Temporary conversion back into linear
-	        var gainMultiplier = Math.Pow(10, safeGain / 20.0);
-            // JDG Temporary conversion into 0-100 scale
-	        db音量 = gainMultiplier * 100.0;
+	        if (strファイル名.Contains("ETERNAL")) // JDG TEMP
+	        {
+	            Console.WriteLine($"{_gain.ToDouble()} + {IntegerPercentToLufs(AutomationLevel).ToDouble()} + {IntegerPercentToLufs(GroupLevel).ToDouble()} = {gain}. {nameof(safeTruePeakGain)} = {safeTruePeakGain}. {nameof(safeGain)} = {safeGain}. ({this.strファイル名})");
+	        }
 
-            Console.WriteLine($"{_gain.ToDouble()} + {IntegerPercentToLufs(AutomationLevel).ToDouble()} + {IntegerPercentToLufs(GroupLevel).ToDouble()} = {gain}. {nameof(safeTruePeakGain)} = {safeTruePeakGain}. {nameof(safeGain)} = {safeGain}. {nameof(gainMultiplier)} = {gainMultiplier}. ({this.strファイル名})");
+	        db音量dB = safeGain;
 	    }
 
-		/// <summary>
-		/// <para>0:最小～100:原音</para>
-		/// </summary>
-		private double db音量
+		private double db音量dB
 		{
 			set
 			{
 				if( this.bBASSサウンドである )
 				{
-					double db音量 = Math.Min( Math.Max( value, 0.0 ), 100.0 ) / 100.0;	// 0～100 → 0.0～1.0
-					//var nodes = new BASS_MIXER_NODE[ 1 ] { new BASS_MIXER_NODE( 0, f音量 ) };
-					//BassMix.BASS_Mixer_ChannelSetEnvelope( this.hBassStream, BASSMIXEnvelope.BASS_MIXER_ENV_VOL, nodes );
-					Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float)db音量 );
+				    // JDG Temporary conversion back into linear
+				    var gainMultiplier = Math.Pow(10, value / 20.0);
 
+					double db音量 = Math.Min( Math.Max( gainMultiplier, 0.0 ), 100.0 );
+					Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float)db音量 );
 				}
 				else if( this.bDirectSoundである )
 				{
-					int n音量db;
-					if( value == 0 )
-					{
-						n音量db = -10000;
-					}
-					else
-					{
-						n音量db = (int) ( ( 20.0 * Math.Log10( value / 100.0 ) ) * 100.0 );
-					}
-					this.Buffer.Volume = n音量db;
+					this.Buffer.Volume = (int)Math.Round(value * 100.0);
 				}
 			}
 		}
