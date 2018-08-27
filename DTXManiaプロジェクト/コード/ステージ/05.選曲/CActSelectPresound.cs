@@ -167,7 +167,14 @@ namespace DTXMania
                 {
                     strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
                     this.sound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPreview );
-                    CDTXMania.SongGainController.Set( cスコア.譜面情報.SongVol, cスコア.譜面情報.SongLoudnessMetadata, this.sound );
+
+                    // 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
+                    //                           Initialization, song enumeration, and/or interactions may have
+                    //                           caused background scanning and the metadata may now be available.
+                    //                           If is not yet available then we wish to queue scanning.
+                    var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata ?? LoudnessMetadataLoader.Load(strPreviewFilename);
+                    CDTXMania.SongGainController.Set( cスコア.譜面情報.SongVol, loudnessMetadata, this.sound );
+
                     this.sound.t再生を開始する( true );
                     if( long再生位置 == -1 )
                     {

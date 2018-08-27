@@ -1724,7 +1724,12 @@ namespace DTXMania
 						sound.db周波数倍率 = 1.0;
 						sound.db再生速度 = ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0;
 						// 再生速度によって、WASAPI/ASIOで使う使用mixerが決まるため、付随情報の設定(音量/PAN)は、再生速度の設定後に行う
+
+                        // 2018-08-27 twopointzero - DON'T attempt to load (or queue scanning) loudness metadata here.
+                        //                           This code is called right after loading the .tja, and that code
+                        //                           will have just made such an attempt.
 						CDTXMania.SongGainController.Set( wc.SongVol, wc.SongLoudnessMetadata, sound );
+
 						sound.n位置 = wc.n位置;
 						sound.t再生を開始する();
 					}
@@ -4345,7 +4350,12 @@ namespace DTXMania
                 //tbWave.Text = strCommandParam;
                 if( this.listWAV != null )
                 {
-                    this.SongLoudnessMetadata = LoudnessMetadataLoader.Load(Path.Combine(this.strフォルダ名, this.strBGM_PATH));
+                    // 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
+                    //                           TJAP3 is either launching, enumerating songs, or is about to
+                    //                           begin playing a song. If metadata is available, we want it now.
+                    //                           If is not yet available then we wish to queue scanning.
+                    var absoluteBgmPath = Path.Combine(this.strフォルダ名, this.strBGM_PATH);
+                    this.SongLoudnessMetadata = LoudnessMetadataLoader.Load(absoluteBgmPath);
 
                     var wav = new CWAV() {
 				        n内部番号 = this.n内部番号WAV1to,
