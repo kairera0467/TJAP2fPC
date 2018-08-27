@@ -157,6 +157,8 @@ namespace FDK
 			if( !Bass.BASS_Init( nデバイス, n周波数, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero ) )
 				throw new Exception( string.Format( "BASS (WASAPI) の初期化に失敗しました。(BASS_Init)[{0}]", Bass.BASS_ErrorGetCode().ToString() ) );
 
+		    Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_CURVE_VOL, true);
+
 			#region [ デバッグ用: WASAPIデバイスのenumerateと、ログ出力 ]
 			// (デバッグ用)
 			//Trace.TraceInformation( "WASAPIデバイス一覧:" );

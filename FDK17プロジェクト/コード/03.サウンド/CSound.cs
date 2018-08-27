@@ -698,15 +698,13 @@ namespace FDK
 			{
 				if( this.bBASSサウンドである )
 				{
-				    // JDG Temporary conversion back into linear
-				    var gainMultiplier = Math.Pow(10, value / 20.0);
-
-					double db音量 = Math.Min( Math.Max( gainMultiplier, 0.0 ), 100.0 );
+				    double db音量 = Math.Max(0.0, Math.Min((value / 100.0) + 1.0, 1.0));
 					Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float)db音量 );
 				}
 				else if( this.bDirectSoundである )
 				{
-					this.Buffer.Volume = (int)Math.Round(value * 100.0);
+				    double db音量 = Math.Max(-10000, Math.Min(value * 100.0, 0.0));
+				    this.Buffer.Volume = (int)Math.Round(db音量);
 				}
 			}
 		}

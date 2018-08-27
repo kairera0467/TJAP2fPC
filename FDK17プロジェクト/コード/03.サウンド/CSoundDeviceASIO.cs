@@ -165,6 +165,8 @@ namespace FDK
 			if( !Bass.BASS_Init( nデバイス, n周波数, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero ) )
 				throw new Exception( string.Format( "BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.BASS_ErrorGetCode().ToString() ) );
 
+		    Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_CURVE_VOL, true);
+
 //Debug.WriteLine( "BASS_Init()完了。" );
 			#region [ デバッグ用: ASIOデバイスのenumerateと、ログ出力 ]
 //			CEnumerateAllAsioDevices.GetAllASIODevices();
