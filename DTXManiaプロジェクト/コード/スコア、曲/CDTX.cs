@@ -659,6 +659,7 @@ namespace DTXMania
 			public int n位置;
 			public long[] n一時停止時刻 = new long[ CDTXMania.ConfigIni.nPoliphonicSounds ];	// 4
 			public int SongVol = CSound.DefaultSongVol;
+		    public LoudnessMetadata? SongLoudnessMetadata = null;
 			public int n現在再生中のサウンド番号;
 			public long[] n再生開始時刻 = new long[ CDTXMania.ConfigIni.nPoliphonicSounds ];	// 4
 			public int n内部番号;
@@ -695,7 +696,7 @@ namespace DTXMania
 				{
 					sb.Append( string.Format( "CWAV{0}(内部{1}): ", CDTX.tZZ( this.n表記上の番号 ), this.n内部番号 ) );
 				}
-				sb.Append(
+				sb.Append( // JDG Consider including loudness metadata
 				    $"{nameof(SongVol)}:{this.SongVol}, 位置:{this.n位置}, サイズ:{this.nチップサイズ}, BGM:{(this.bBGMとして使う ? 'Y' : 'N')}, File:{this.strファイル名}, Comment:{this.strコメント文}");
 				
 				return sb.ToString();
@@ -1723,7 +1724,7 @@ namespace DTXMania
 						sound.db周波数倍率 = 1.0;
 						sound.db再生速度 = ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0;
 						// 再生速度によって、WASAPI/ASIOで使う使用mixerが決まるため、付随情報の設定(音量/PAN)は、再生速度の設定後に行う
-						CDTXMania.SongGainController.Set( wc.SongVol, sound );
+						CDTXMania.SongGainController.Set( wc.SongVol, wc.SongLoudnessMetadata, sound );
 						sound.n位置 = wc.n位置;
 						sound.t再生を開始する();
 					}
@@ -4344,12 +4345,15 @@ namespace DTXMania
                 //tbWave.Text = strCommandParam;
                 if( this.listWAV != null )
                 {
+                    this.SongLoudnessMetadata = LoudnessMetadataLoader.Load(Path.Combine(this.strフォルダ名, this.strBGM_PATH));
+
                     var wav = new CWAV() {
 				        n内部番号 = this.n内部番号WAV1to,
 				        n表記上の番号 = 1,
 			    	    nチップサイズ = this.n無限管理SIZE[ this.n内部番号WAV1to ],
 		        		n位置 = this.n無限管理PAN[ this.n内部番号WAV1to ],
 	        			SongVol = this.SongVol,
+                        SongLoudnessMetadata = this.SongLoudnessMetadata,
         				strファイル名 = this.strBGM_PATH,
     				    strコメント文 = "TJA BGM",
                     };

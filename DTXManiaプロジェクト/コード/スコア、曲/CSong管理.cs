@@ -1188,10 +1188,11 @@ namespace DTXMania
 					bw.Write( node.arスコア[ i ].譜面情報.Duration );
                     bw.Write( node.arスコア[ i ].譜面情報.strBGMファイル名 );
                     bw.Write( node.arスコア[ i ].譜面情報.SongVol );
-                    bw.Write( node.arスコア[ i ].譜面情報.SongLoudnessMetadata.HasValue );
-                    bw.Write( node.arスコア[ i ].譜面情報.SongLoudnessMetadata?.Integrated.ToDouble() ?? 0.0 );
-                    bw.Write( node.arスコア[ i ].譜面情報.SongLoudnessMetadata?.TruePeak.HasValue ?? false );
-                    bw.Write( node.arスコア[ i ].譜面情報.SongLoudnessMetadata?.TruePeak?.ToDouble() ?? 0.0 );
+				    var songLoudnessMetadata = node.arスコア[ i ].譜面情報.SongLoudnessMetadata;
+				    bw.Write( songLoudnessMetadata.HasValue );
+                    bw.Write( songLoudnessMetadata?.Integrated.ToDouble() ?? 0.0 );
+                    bw.Write( songLoudnessMetadata?.TruePeak.HasValue ?? false );
+                    bw.Write( songLoudnessMetadata?.TruePeak?.ToDouble() ?? 0.0 );
 				    bw.Write( node.arスコア[ i ].譜面情報.nデモBGMオフセット );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[0] );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[1] );

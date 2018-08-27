@@ -1,5 +1,8 @@
-﻿namespace FDK
+﻿using System;
+
+namespace FDK
 {
+    // JDG Update SongGainController doco for loudness metadata support
     /// <summary>
     /// SongGainController provides a central place through which song preview
     /// and song playback attempt to apply SONGVOL as the Gain of a song sound.
@@ -12,9 +15,29 @@
     {
         public bool ApplySongVol { get; set; }
 
-        public void Set(int songVol, CSound sound)
+        public void Set(int songVol, LoudnessMetadata? songLoudnessMetadata, CSound sound)
         {
-            sound.Gain = ApplySongVol ? songVol : CSound.DefaultSongVol;
+            // JDG For now there is no disabling of loudness metadata support. Add that later.
+            if (songLoudnessMetadata.HasValue)
+            {
+                var target = -23.0; // JDG For now there is an assumed target of -23 as per EBU R128.
+
+                // JDG Also for now, we're going to hack the gain value into place right here and now
+                // JDG and will flow it through further in a later revision.
+                var dbGain = target - songLoudnessMetadata.Value.Integrated.ToDouble();
+
+                // JDG Once more logic moves to CSound, safe gain can account for the other mixed values
+                var safeTruePeakDbGain = 0.0 - songLoudnessMetadata.Value.TruePeak?.ToDouble() ?? 0.0;
+                var safeDbGain = dbGain < safeTruePeakDbGain ? dbGain : safeTruePeakDbGain;
+
+                var gainMultiplier = Math.Pow(10, safeDbGain / 20.0);
+                var gain = gainMultiplier * 100.0;
+                sound.Gain = (int)Math.Round(gain);
+            }
+            else
+            {
+                sound.Gain = ApplySongVol ? songVol : CSound.DefaultSongVol;
+            }
         }
     }
 }
