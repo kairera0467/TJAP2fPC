@@ -16,8 +16,8 @@ namespace FDK
         private static readonly Stack<string> Jobs = new Stack<string>();
         private static readonly object LockObject = new object();
 
-        private static Semaphore Semaphore = null;
         private static Thread ScanningThread;
+        private static Semaphore Semaphore;
 
         // JDG Need to stop and start around song play.
         public static void StartBackgroundScanning()
@@ -135,8 +135,15 @@ namespace FDK
                 }
 
                 var arguments = $"-it --xml \"{Path.GetFileName(absoluteBgmPath)}\"";
-                var xml = Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments);
-                File.WriteAllText(GetLoudnessMetadataPath(absoluteBgmPath), xml);
+                try
+                {
+                    var xml = Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments, true);
+                    File.WriteAllText(GetLoudnessMetadataPath(absoluteBgmPath), xml);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e); // JDG Integrate this temporary output with the standard logging for the app.
+                }
             }
         }
 
@@ -151,9 +158,14 @@ namespace FDK
             {
                 return false;
             }
+            catch (Exception)
+            {
+                return false; // JDG Consider logging this one. Win32Exception is reasonably expected. This is not.
+            }
         }
 
-        private static string Execute(string workingDirectory, string fileName, string arguments)
+        private static string Execute(
+            string workingDirectory, string fileName, string arguments, bool shouldFailOnStdErrDataReceived = false)
         {
             var processStartInfo = new ProcessStartInfo(fileName, arguments)
             {
@@ -164,7 +176,7 @@ namespace FDK
                 WorkingDirectory = workingDirectory ?? ""
             };
 
-            var allOutput = new StringWriter();
+            var stdout = new StringWriter();
             var stderr = new StringWriter();
             using (var process = Process.Start(processStartInfo))
             {
@@ -172,35 +184,33 @@ namespace FDK
                 {
                     if (e.Data != null)
                     {
-                        allOutput.Write(e.Data);
-                        allOutput.Write('\n');
+                        stdout.Write(e.Data);
+                        stdout.Write(Environment.NewLine);
                     }
                 };
+                var errorDataReceived = false;
                 process.ErrorDataReceived += (s, e) =>
                 {
                     if (e.Data != null)
                     {
-                        allOutput.Write(e.Data);
-                        allOutput.Write('\n');
+                        errorDataReceived = true;
                         stderr.Write(e.Data);
-                        stderr.Write('\n');
+                        stderr.Write(Environment.NewLine);
                     }
                 };
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
                 process.WaitForExit();
 
-                // JDG Better detect missing bgm file cases, like happened with that Dummy one.
-                // JDG That'll involve being more selective with allOutput Write calls, for example.
-
-                if (process.ExitCode != 0)
+                if ((shouldFailOnStdErrDataReceived && errorDataReceived) || process.ExitCode != 0)
                 {
                     var err = stderr.ToString();
-                    if (string.IsNullOrEmpty(err)) err = allOutput.ToString();
+                    if (string.IsNullOrEmpty(err)) err = stdout.ToString();
                     throw new Exception(
                         $"Execution of {processStartInfo.FileName} with arguments {processStartInfo.Arguments} failed with exit code {process.ExitCode}: {err}");
                 }
-                return allOutput.ToString();
+
+                return stdout.ToString();
             }
         }
     }
