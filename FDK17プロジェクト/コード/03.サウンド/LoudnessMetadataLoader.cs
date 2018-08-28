@@ -11,6 +11,8 @@ namespace FDK
     // JDG DOCO!
     public static class LoudnessMetadataLoader
     {
+        private const string Bs1770GainExeFileName = "bs1770gain.exe";
+
         private static readonly Stack<string> Jobs = new Stack<string>();
         private static readonly object LockObject = new object();
 
@@ -91,12 +93,7 @@ namespace FDK
         {
             return Path.Combine(
                 Path.GetDirectoryName(absoluteBgmPath),
-                GetLoudnessMetadataFileName(absoluteBgmPath));
-        }
-
-        private static string GetLoudnessMetadataFileName(string absoluteBgmPath)
-        {
-            return Path.GetFileNameWithoutExtension(absoluteBgmPath) + ".bs1770gain.xml";
+                Path.GetFileNameWithoutExtension(absoluteBgmPath) + ".bs1770gain.xml");
         }
 
         private static void Push(string absoluteBgmPath)
@@ -131,19 +128,15 @@ namespace FDK
                     return;
                 }
 
-                string absoluteBgmPath = null;
+                string absoluteBgmPath;
                 lock (LockObject)
                 {
                     absoluteBgmPath = Jobs.Pop();
                 }
 
-                // JDG Try passing just the local path but with the corrected quoting. 
-                var arguments = $"-it --xml \"{absoluteBgmPath}\"";
-                var xml = Execute(Path.GetDirectoryName(absoluteBgmPath), "bs1770gain.exe", arguments);
-                var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
-                File.Delete(loudnessMetadataPath);
-                File.WriteAllText(loudnessMetadataPath, xml);
-                Console.WriteLine(xml);
+                var arguments = $"-it --xml \"{Path.GetFileName(absoluteBgmPath)}\"";
+                var xml = Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments);
+                File.WriteAllText(GetLoudnessMetadataPath(absoluteBgmPath), xml);
             }
         }
 
@@ -151,7 +144,7 @@ namespace FDK
         {
             try
             {
-                Execute(null, "bs1770gain.exe", "-h");
+                Execute(null, Bs1770GainExeFileName, "-h");
                 return true;
             }
             catch (Win32Exception)
@@ -195,7 +188,7 @@ namespace FDK
                 };
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
-                process.WaitForExit(); // JDG Provide a timeout
+                process.WaitForExit();
 
                 // JDG Better detect missing bgm file cases, like happened with that Dummy one.
                 // JDG That'll involve being more selective with allOutput Write calls, for example.
