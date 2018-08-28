@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Xml.XPath;
@@ -17,7 +20,12 @@ namespace FDK
         // JDG Need to stop and start around song play.
         public static void StartBackgroundScanning()
         {
-            // JDG Make background scanning conditional on configuration and availability of the binary
+            // JDG Make background scanning conditional on configuration
+
+            if (!IsBs1770GainAvailable())
+            {
+                return;
+            }
 
             lock (LockObject)
             {
@@ -35,20 +43,26 @@ namespace FDK
         public static void StopBackgroundScanning(bool joinImmediately)
         {
             var scanningThread = ScanningThread;
+
+            // JDG Clean up the start and stop, especially wrt detection of bs1770gain
+            if (scanningThread == null)
+            {
+                return;
+            }
+
             ScanningThread = null;
             Semaphore.Release();
+            Semaphore = null;
 
             if (joinImmediately)
             {
-                scanningThread?.Join();
+                scanningThread.Join();
             }
         }
 
         public static LoudnessMetadata? Load(string absoluteBgmPath)
         {
-            var metadataPath = Path.Combine(
-                Path.GetDirectoryName(absoluteBgmPath),
-                Path.GetFileNameWithoutExtension(absoluteBgmPath) + ".bs1770gain.xml");
+            var metadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
 
             if (!File.Exists(metadataPath))
             {
@@ -71,6 +85,18 @@ namespace FDK
                 .SelectSingleNode(@"true-peak/@tpfs").ValueAsDouble;
 
             return new LoudnessMetadata(new Lufs(integrated), new Lufs(truePeak));
+        }
+
+        private static string GetLoudnessMetadataPath(string absoluteBgmPath)
+        {
+            return Path.Combine(
+                Path.GetDirectoryName(absoluteBgmPath),
+                GetLoudnessMetadataFileName(absoluteBgmPath));
+        }
+
+        private static string GetLoudnessMetadataFileName(string absoluteBgmPath)
+        {
+            return Path.GetFileNameWithoutExtension(absoluteBgmPath) + ".bs1770gain.xml";
         }
 
         private static void Push(string absoluteBgmPath)
@@ -98,7 +124,7 @@ namespace FDK
         {
             while (ScanningThread != null)
             {
-                Semaphore.WaitOne();
+                Semaphore?.WaitOne();
 
                 if (ScanningThread == null)
                 {
@@ -111,8 +137,77 @@ namespace FDK
                     absoluteBgmPath = Jobs.Pop();
                 }
 
-                // JDG For now we'll just sleep for a bit, to emulate processing.
-                Thread.Sleep(2000);
+                // JDG Try passing just the local path but with the corrected quoting. 
+                var arguments = $"-it --xml \"{absoluteBgmPath}\"";
+                var xml = Execute(Path.GetDirectoryName(absoluteBgmPath), "bs1770gain.exe", arguments);
+                var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
+                File.Delete(loudnessMetadataPath);
+                File.WriteAllText(loudnessMetadataPath, xml);
+                Console.WriteLine(xml);
+            }
+        }
+
+        private static bool IsBs1770GainAvailable()
+        {
+            try
+            {
+                Execute(null, "bs1770gain.exe", "-h");
+                return true;
+            }
+            catch (Win32Exception)
+            {
+                return false;
+            }
+        }
+
+        private static string Execute(string workingDirectory, string fileName, string arguments)
+        {
+            var processStartInfo = new ProcessStartInfo(fileName, arguments)
+            {
+                CreateNoWindow = true,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                WorkingDirectory = workingDirectory ?? ""
+            };
+
+            var allOutput = new StringWriter();
+            var stderr = new StringWriter();
+            using (var process = Process.Start(processStartInfo))
+            {
+                process.OutputDataReceived += (s, e) =>
+                {
+                    if (e.Data != null)
+                    {
+                        allOutput.Write(e.Data);
+                        allOutput.Write('\n');
+                    }
+                };
+                process.ErrorDataReceived += (s, e) =>
+                {
+                    if (e.Data != null)
+                    {
+                        allOutput.Write(e.Data);
+                        allOutput.Write('\n');
+                        stderr.Write(e.Data);
+                        stderr.Write('\n');
+                    }
+                };
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                process.WaitForExit(); // JDG Provide a timeout
+
+                // JDG Better detect missing bgm file cases, like happened with that Dummy one.
+                // JDG That'll involve being more selective with allOutput Write calls, for example.
+
+                if (process.ExitCode != 0)
+                {
+                    var err = stderr.ToString();
+                    if (string.IsNullOrEmpty(err)) err = allOutput.ToString();
+                    throw new Exception(
+                        $"Execution of {processStartInfo.FileName} with arguments {processStartInfo.Arguments} failed with exit code {process.ExitCode}: {err}");
+                }
+                return allOutput.ToString();
             }
         }
     }
