@@ -64,21 +64,21 @@ namespace FDK
 
         public static LoudnessMetadata? Load(string absoluteBgmPath)
         {
-            var metadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
+            var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
 
-            if (!File.Exists(metadataPath))
+            if (!File.Exists(loudnessMetadataPath))
             {
                 Push(absoluteBgmPath);
 
                 return null;
             }
 
-            var xPathDocument = new XPathDocument(metadataPath);
+            var xPathDocument = new XPathDocument(loudnessMetadataPath);
 
             var trackNavigator = xPathDocument.CreateNavigator()
                 .SelectSingleNode(@"//bs1770gain/album/track[@total=""1"" and @number=""1""]");
 
-            // JDG Layer in good error handling
+            // JDG Layer in good error handling, especially for parsing cases like Dummy (opening and closing root element but nothing else)
 
             var integrated = trackNavigator
                 .SelectSingleNode(@"integrated/@lufs").ValueAsDouble;
@@ -128,19 +128,40 @@ namespace FDK
                     return;
                 }
 
+                int jobCount;
                 string absoluteBgmPath;
                 lock (LockObject)
                 {
+                    jobCount = Jobs.Count;
                     absoluteBgmPath = Jobs.Pop();
                 }
 
-                var arguments = $"-it --xml \"{Path.GetFileName(absoluteBgmPath)}\"";
+                if (!File.Exists(absoluteBgmPath))
+                {
+                    Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount - 1}. Missing audio file. Skipping {absoluteBgmPath}...");
+                    continue;
+                }
+
+                var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
+
+                if (File.Exists(loudnessMetadataPath))
+                {
+                    Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount - 1}. Pre-existing metadata. Skipping {absoluteBgmPath}...");
+                    continue;
+                }
+
+                Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount}. Scanning {absoluteBgmPath}...");
+                var stopwatch = Stopwatch.StartNew();
+
+                var arguments = $"-it --xml -f \"{Path.GetFileName(loudnessMetadataPath)}\" \"{Path.GetFileName(absoluteBgmPath)}\"";
                 try
                 {
-                    var xml = Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments, true);
-                    File.WriteAllText(GetLoudnessMetadataPath(absoluteBgmPath), xml);
+                    File.Delete(loudnessMetadataPath);
+                    Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments, true);
+                    var elapsed = stopwatch.Elapsed;
+                    Console.WriteLine($"JDG Scanned in {elapsed.TotalSeconds}s. Estimated remaining: {elapsed.TotalSeconds * (jobCount - 1)}s.");
                 }
-                catch (Exception e)
+                catch (Exception e) // JDG Remember to review the clipping cases now copied under devtestsongs/Loudness
                 {
                     Console.WriteLine(e); // JDG Integrate this temporary output with the standard logging for the app.
                 }
