@@ -1273,7 +1273,24 @@ namespace DTXMania
 			this.n表示可能な最小コンボ数.Taiko = 3;
             this.FontName = "MS UI Gothic";
 		    this.ApplyLoudnessMetadata = true;
-		    this.TargetLoudness = -23.0; // JDG EBU R128 default value until we calculate one more suitable to TJAP3
+
+		    // 2018-08-28 twopointzero:
+            // There exists a particular large, well-known, well-curated, and
+            // regularly-updated collection of content for use with Taiko no
+            // Tatsujin simulators. A statistical analysis was performed on the
+            // the integrated loudness and true peak loudness of the thousands
+            // of songs within this collection as of late August 2018.
+            //
+            // The analysis allows us to select a target loudness which
+            // results in the smallest total amount of loudness adjustment
+            // applied to the songs of that collection. The selected target
+            // loudness should result in the least-noticeable average
+            // adjustment for the most users, assuming their collection is
+            // similar to the exemplar.
+            //
+            // The target loudness which achieves this is -7.4 LUFS.
+		    this.TargetLoudness = -7.4;
+
 		    this.ApplySongVol = false;
 		    this.SoundEffectLevel = CSound.DefaultSoundEffectLevel;
 		    this.VoiceLevel = CSound.DefaultVoiceLevel;
