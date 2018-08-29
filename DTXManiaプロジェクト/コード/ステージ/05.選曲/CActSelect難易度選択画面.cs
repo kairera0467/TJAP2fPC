@@ -374,7 +374,8 @@ namespace DTXMania
                                         case C曲リストノード.Eノード種別.RANDOM:
                                             {
                                                 CDTXMania.Skin.sound曲決定音.t再生する();
-                                                CDTXMania.stage選曲.n確定された曲の難易度 = (int)this.list難易度選択項目[this.n現在の選択行].e項目種類;
+                                                //CDTXMania.stage選曲.n確定された曲の難易度 = (int)this.list難易度選択項目[this.n現在の選択行].e項目種類;
+                                                CDTXMania.stage選曲.act曲リスト.n現在のアンカ難易度レベル_渡( (int)this.list難易度選択項目[this.n現在の選択行].e項目種類 );
                                                 CDTXMania.stage選曲.t曲をランダム選択する();
                                             }
                                             break;

@@ -33,6 +33,10 @@ namespace DTXMania
 				return true;
 			}
 		}
+        public void n現在のアンカ難易度レベル_渡( int nCurrentLevel )
+        {
+            this.n現在のアンカ難易度レベル = nCurrentLevel;
+        }
 		public int n現在のアンカ難易度レベル 
 		{
 			get;
