@@ -479,8 +479,8 @@ namespace FDK
 	    public const int MinimumGroupLevel = 0;
 	    public const int MaximumGroupLevel = 100;
 	    public const int DefaultGroupLevel = 100;
-	    public const int DefaultSoundEffectLevel = 80;
-	    public const int DefaultVoiceLevel = 80;
+	    public const int DefaultSoundEffectLevel = 85;
+	    public const int DefaultVoiceLevel = 85;
 	    public const int DefaultSongPreviewLevel = 75;
 	    public const int DefaultSongPlaybackLevel = 95;
 
