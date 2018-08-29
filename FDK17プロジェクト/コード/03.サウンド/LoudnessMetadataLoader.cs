@@ -62,7 +62,7 @@ namespace FDK
             }
         }
 
-        public static LoudnessMetadata? Load(string absoluteBgmPath)
+        public static LoudnessMetadata? LoadForAudioPath(string absoluteBgmPath)
         {
             var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
 
@@ -73,6 +73,18 @@ namespace FDK
                 return null;
             }
 
+            return LoadFromMetadataPath(loudnessMetadataPath);
+        }
+
+        private static string GetLoudnessMetadataPath(string absoluteBgmPath)
+        {
+            return Path.Combine(
+                Path.GetDirectoryName(absoluteBgmPath),
+                Path.GetFileNameWithoutExtension(absoluteBgmPath) + ".bs1770gain.xml");
+        }
+
+        private static LoudnessMetadata? LoadFromMetadataPath(string loudnessMetadataPath)
+        {
             var xPathDocument = new XPathDocument(loudnessMetadataPath);
 
             var trackNavigator = xPathDocument.CreateNavigator()
@@ -87,13 +99,6 @@ namespace FDK
                 .SelectSingleNode(@"true-peak/@tpfs").ValueAsDouble;
 
             return new LoudnessMetadata(new Lufs(integrated), new Lufs(truePeak));
-        }
-
-        private static string GetLoudnessMetadataPath(string absoluteBgmPath)
-        {
-            return Path.Combine(
-                Path.GetDirectoryName(absoluteBgmPath),
-                Path.GetFileNameWithoutExtension(absoluteBgmPath) + ".bs1770gain.xml");
         }
 
         private static void Push(string absoluteBgmPath)
@@ -163,6 +168,7 @@ namespace FDK
                 }
                 catch (Exception e) // JDG Remember to review the clipping cases now copied under devtestsongs/Loudness
                 {
+                    Console.WriteLine($"JDG Exception encountered scanning {absoluteBgmPath}");
                     Console.WriteLine(e); // JDG Integrate this temporary output with the standard logging for the app.
                 }
             }

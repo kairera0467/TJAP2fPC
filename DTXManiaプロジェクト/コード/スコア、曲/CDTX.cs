@@ -4355,7 +4355,7 @@ namespace DTXMania
                     //                           begin playing a song. If metadata is available, we want it now.
                     //                           If is not yet available then we wish to queue scanning.
                     var absoluteBgmPath = Path.Combine(this.strフォルダ名, this.strBGM_PATH);
-                    this.SongLoudnessMetadata = LoudnessMetadataLoader.Load(absoluteBgmPath);
+                    this.SongLoudnessMetadata = LoudnessMetadataLoader.LoadForAudioPath(absoluteBgmPath);
 
                     var wav = new CWAV() {
 				        n内部番号 = this.n内部番号WAV1to,

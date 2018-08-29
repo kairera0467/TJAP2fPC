@@ -172,7 +172,8 @@ namespace DTXMania
                     //                           Initialization, song enumeration, and/or interactions may have
                     //                           caused background scanning and the metadata may now be available.
                     //                           If is not yet available then we wish to queue scanning.
-                    var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata ?? LoudnessMetadataLoader.Load(strPreviewFilename);
+                    var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata
+                                           ?? LoudnessMetadataLoader.LoadForAudioPath(strPreviewFilename);
                     CDTXMania.SongGainController.Set( cスコア.譜面情報.SongVol, loudnessMetadata, this.sound );
 
                     this.sound.t再生を開始する( true );
