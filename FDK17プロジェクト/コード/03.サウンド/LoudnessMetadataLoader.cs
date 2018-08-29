@@ -9,6 +9,7 @@ using System.Xml.XPath;
 namespace FDK
 {
     // JDG DOCO!
+    // JDG Integrate all of the temporary console output with the standard logging for the app.
     public static class LoudnessMetadataLoader
     {
         private const string Bs1770GainExeFileName = "bs1770gain.exe";
@@ -68,14 +69,22 @@ namespace FDK
 
         public static LoudnessMetadata? LoadForAudioPath(string absoluteBgmPath)
         {
-            var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
-
-            if (File.Exists(loudnessMetadataPath))
+            try
             {
-                return LoadFromMetadataPath(loudnessMetadataPath);
-            }
+                var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
 
-            SubmitForBackgroundScanning(absoluteBgmPath);
+                if (File.Exists(loudnessMetadataPath))
+                {
+                    return LoadFromMetadataPath(loudnessMetadataPath);
+                }
+
+                SubmitForBackgroundScanning(absoluteBgmPath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"JDG LoadForAudioPath encountered an exception while attempting to load {absoluteBgmPath}");
+                Console.WriteLine(e);
+            }
 
             return null;
         }
@@ -94,13 +103,23 @@ namespace FDK
             var trackNavigator = xPathDocument.CreateNavigator()
                 .SelectSingleNode(@"//bs1770gain/album/track[@total=""1"" and @number=""1""]");
 
-            // JDG Layer in good error handling, especially for parsing cases like Dummy (opening and closing root element but nothing else)
+            var integratedLufsNode = trackNavigator?.SelectSingleNode(@"integrated/@lufs");
+            var truePeakTpfsNode = trackNavigator?.SelectSingleNode(@"true-peak/@tpfs");
 
-            var integrated = trackNavigator
-                .SelectSingleNode(@"integrated/@lufs").ValueAsDouble;
+            if (trackNavigator == null || integratedLufsNode == null || truePeakTpfsNode == null)
+            {
+                Console.WriteLine($"JDG LoadFromMetadataPath encountered incorrect xml element structure while parsing {loudnessMetadataPath}. Returning null...");
+                return null;
+            }
 
-            var truePeak = trackNavigator
-                .SelectSingleNode(@"true-peak/@tpfs").ValueAsDouble;
+            var integrated = integratedLufsNode.ValueAsDouble;
+            var truePeak = truePeakTpfsNode.ValueAsDouble;
+
+            if (integrated <= -70.0 || truePeak >= 12.04)
+            {
+                Console.WriteLine($"JDG LoadFromMetadataPath encountered evidence of extreme clipping while parsing {loudnessMetadataPath}. Returning null...");
+                return null;
+            }
 
             return new LoudnessMetadata(new Lufs(integrated), new Lufs(truePeak));
         }
@@ -130,53 +149,62 @@ namespace FDK
 
         private static void Scan()
         {
-            while (ScanningThread != null)
+            try
             {
-                Semaphore?.WaitOne();
-
-                if (ScanningThread == null)
+                while (ScanningThread != null)
                 {
-                    return;
-                }
+                    Semaphore?.WaitOne();
 
-                int jobCount;
-                string absoluteBgmPath;
-                lock (LockObject)
-                {
-                    jobCount = Jobs.Count;
-                    absoluteBgmPath = Jobs.Pop();
-                }
+                    if (ScanningThread == null)
+                    {
+                        return;
+                    }
 
-                if (!File.Exists(absoluteBgmPath))
-                {
-                    Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount - 1}. Missing audio file. Skipping {absoluteBgmPath}...");
-                    continue;
-                }
+                    int jobCount;
+                    string absoluteBgmPath;
+                    lock (LockObject)
+                    {
+                        jobCount = Jobs.Count;
+                        absoluteBgmPath = Jobs.Pop();
+                    }
 
-                var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
+                    try
+                    {
+                        if (!File.Exists(absoluteBgmPath))
+                        {
+                            Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount - 1}. Missing audio file. Skipping {absoluteBgmPath}...");
+                            continue;
+                        }
 
-                if (File.Exists(loudnessMetadataPath))
-                {
-                    Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount - 1}. Pre-existing metadata. Skipping {absoluteBgmPath}...");
-                    continue;
-                }
+                        var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
 
-                Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount}. Scanning {absoluteBgmPath}...");
-                var stopwatch = Stopwatch.StartNew();
+                        if (File.Exists(loudnessMetadataPath))
+                        {
+                            Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount - 1}. Pre-existing metadata. Skipping {absoluteBgmPath}...");
+                            continue;
+                        }
 
-                var arguments = $"-it --xml -f \"{Path.GetFileName(loudnessMetadataPath)}\" \"{Path.GetFileName(absoluteBgmPath)}\"";
-                try
-                {
-                    File.Delete(loudnessMetadataPath);
-                    Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments, true);
-                    var elapsed = stopwatch.Elapsed;
-                    Console.WriteLine($"JDG Scanned in {elapsed.TotalSeconds}s. Estimated remaining: {elapsed.TotalSeconds * (jobCount - 1)}s.");
+                        Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount}. Scanning {absoluteBgmPath}...");
+                        var stopwatch = Stopwatch.StartNew();
+
+                        File.Delete(loudnessMetadataPath);
+                        var arguments = $"-it --xml -f \"{Path.GetFileName(loudnessMetadataPath)}\" \"{Path.GetFileName(absoluteBgmPath)}\"";
+                        Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments, true);
+
+                        var elapsed = stopwatch.Elapsed;
+                        Console.WriteLine($"JDG Scanned in {elapsed.TotalSeconds}s. Estimated remaining: {elapsed.TotalSeconds * (jobCount - 1)}s.");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"JDG Exception encountered scanning {absoluteBgmPath}");
+                        Console.WriteLine(e);
+                    }
                 }
-                catch (Exception e) // JDG Remember to review the clipping cases now copied under devtestsongs/Loudness
-                {
-                    Console.WriteLine($"JDG Exception encountered scanning {absoluteBgmPath}");
-                    Console.WriteLine(e); // JDG Integrate this temporary output with the standard logging for the app.
-                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("JDG LoudnessMetadataLoader caught an exception at the level of the thread method. Terminating the background thread.");
+                Console.WriteLine(e);
             }
         }
 
