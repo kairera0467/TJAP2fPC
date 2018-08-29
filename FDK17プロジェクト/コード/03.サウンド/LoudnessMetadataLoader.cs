@@ -19,13 +19,14 @@ namespace FDK
         private static Thread ScanningThread;
         private static Semaphore Semaphore;
 
-        // JDG Need to stop and start around song play.
         public static void StartBackgroundScanning()
         {
             if (!IsBs1770GainAvailable())
             {
                 return;
             }
+
+            Console.WriteLine("JDG Starting background scanning thread...");
 
             lock (LockObject)
             {
@@ -38,6 +39,8 @@ namespace FDK
                 };
                 ScanningThread.Start();
             }
+
+            Console.WriteLine("JDG Background scanning thread started.");
         }
 
         public static void StopBackgroundScanning(bool joinImmediately)
@@ -49,6 +52,8 @@ namespace FDK
                 return;
             }
 
+            Console.WriteLine("JDG Stopping background scanning thread...");
+
             ScanningThread = null;
             Semaphore.Release();
             Semaphore = null;
@@ -57,6 +62,8 @@ namespace FDK
             {
                 scanningThread.Join();
             }
+
+            Console.WriteLine("JDG Background scanning thread stopped.");
         }
 
         public static LoudnessMetadata? LoadForAudioPath(string absoluteBgmPath)

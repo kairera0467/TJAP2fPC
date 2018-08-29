@@ -180,6 +180,8 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
+            LoudnessMetadataLoader.StopBackgroundScanning(joinImmediately: false);
+
 			this.bフィルイン中 = false;
             this.n待機中の大音符の座標 = 0;
             this.actGame.t叩ききりまショー_初期化();
@@ -268,6 +270,8 @@ namespace DTXMania
 		{
             this.ct手つなぎ = null;
 			base.On非活性化();
+
+            LoudnessMetadataLoader.StartBackgroundScanning();
 		}
 		public override void OnManagedリソースの作成()
 		{
