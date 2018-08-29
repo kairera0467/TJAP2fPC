@@ -480,8 +480,8 @@ namespace FDK
 	    public const int MaximumGroupLevel = 100;
 	    public const int DefaultGroupLevel = 100;
 	    public const int DefaultSoundEffectLevel = 85;
-	    public const int DefaultVoiceLevel = 85;
-	    public const int DefaultSongPreviewLevel = 75;
+	    public const int DefaultVoiceLevel = 75;
+	    public const int DefaultSongPreviewLevel = 45;
 	    public const int DefaultSongPlaybackLevel = 95;
 
 	    public static readonly Lufs MinimumLufs = new Lufs(-100.0);
