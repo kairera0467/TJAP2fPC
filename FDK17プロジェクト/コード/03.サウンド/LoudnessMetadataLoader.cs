@@ -22,8 +22,6 @@ namespace FDK
         // JDG Need to stop and start around song play.
         public static void StartBackgroundScanning()
         {
-            // JDG Make background scanning conditional on configuration
-
             if (!IsBs1770GainAvailable())
             {
                 return;
@@ -46,7 +44,6 @@ namespace FDK
         {
             var scanningThread = ScanningThread;
 
-            // JDG Clean up the start and stop, especially wrt detection of bs1770gain
             if (scanningThread == null)
             {
                 return;
@@ -66,14 +63,14 @@ namespace FDK
         {
             var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
 
-            if (!File.Exists(loudnessMetadataPath))
+            if (File.Exists(loudnessMetadataPath))
             {
-                Push(absoluteBgmPath);
-
-                return null;
+                return LoadFromMetadataPath(loudnessMetadataPath);
             }
 
-            return LoadFromMetadataPath(loudnessMetadataPath);
+            SubmitForBackgroundScanning(absoluteBgmPath);
+
+            return null;
         }
 
         private static string GetLoudnessMetadataPath(string absoluteBgmPath)
@@ -101,19 +98,21 @@ namespace FDK
             return new LoudnessMetadata(new Lufs(integrated), new Lufs(truePeak));
         }
 
-        private static void Push(string absoluteBgmPath)
+        private static void SubmitForBackgroundScanning(string absoluteBgmPath)
         {
             lock (LockObject)
             {
-                // Quite often, the loading process will cause the same job to be enqueued many times.
+                // Quite often, the loading process will cause the same job to be submitted many times.
                 // As such, we'll do a quick check as when this happens an equivalent job will often
                 // already be at the top of the stack and we need not add it again.
                 //
                 // Note that we will not scan the whole stack as that is an O(n) operation on the main
                 // thread, whereas redundant file existence checks on the background thread are not harmful.
                 //
-                // We also do not want to scan the whole stack because we want to re-queue jobs as the
-                // user interacts with their data, usually by scrolling through songs and previewing them.
+                // We also do not want to scan the whole stack, for example to skip pushing a new item onto it,
+                // because we want to re-submit jobs as the user interacts with their data, usually by
+                // scrolling through songs and previewing them. Their current interests should drive
+                // scanning priorities, and it is for this reason that a stack is used instead of a queue.
                 if (Jobs.Count == 0 || Jobs.Peek() != absoluteBgmPath)
                 {
                     Jobs.Push(absoluteBgmPath);
