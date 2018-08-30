@@ -402,6 +402,36 @@ namespace DTXMania
                 {
                     CDTXMania.stage選曲.t難易度選択画面を閉じる();
                 }
+				#region [ F2 簡易オプション ]
+				if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F2 ) )
+				{
+                    CDTXMania.Skin.sound変更音.t再生する();
+                    CDTXMania.stage選曲.actQuickConfig.tActivatePopupMenu( E楽器パート.DRUMS );
+				}
+				#endregion
+				#region [ F3 オートON/OFF ]
+				if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F3 ) )
+				{	// [ESC]
+					CDTXMania.Skin.sound変更音.t再生する();
+                    C共通.bToggleBoolian( ref CDTXMania.ConfigIni.b太鼓パートAutoPlay );
+				}
+				#endregion
+				#region [ F4 ゲージ ]
+				if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F4 ) )
+				{
+					CDTXMania.Skin.sound変更音.t再生する();
+                    if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.Normal )
+                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.IIDX;
+                    else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.IIDX )
+                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.HARD;
+                    else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
+                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.EXHARD;
+                    else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD )
+                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.DEATH;
+                    else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
+                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.Normal;
+				}
+				#endregion
 
                 foreach( var item in this.list難易度選択項目 )
                 {

@@ -746,7 +746,6 @@ namespace DTXMania
 						}
 					}
 					this.actSortSongs.t進行描画();
-					this.actQuickConfig.t進行描画();
 				}
                 //------------------------------
                 if (this.act難易度選択画面.bIsDifficltSelect)
@@ -769,7 +768,8 @@ namespace DTXMania
                     CDTXMania.act文字コンソール.tPrint(0, 48, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect戻り待ち?.n現在の値);
                 }
                 //------------------------------
-				switch ( base.eフェーズID )
+                this.actQuickConfig.t進行描画(); // 2018.8.29 kairera0467 描画優先度が難易度選択より上になるよう修正
+                switch ( base.eフェーズID )
 				{
 					case CStage.Eフェーズ.共通_フェードイン:
 						if( this.actFIFO.On進行描画() != 0 )

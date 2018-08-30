@@ -577,6 +577,7 @@ namespace DTXMania
 			this.tバーの初期化();
 
             this.ct三角矢印アニメ = new CCounter();
+            this.ct譜面分岐文字アニメ = new CCounter();
 
 			base.On活性化();
 
@@ -593,6 +594,7 @@ namespace DTXMania
 				this.ct登場アニメ用[ i ] = null;
 
             this.ct三角矢印アニメ = null;
+            this.ct譜面分岐文字アニメ = null;
 
 			base.On非活性化();
 		}
@@ -860,7 +862,7 @@ namespace DTXMania
 				return 0;
 
             int panelcount = CDTXMania.Skin.nSelectSongPanelCount;
-            int panelcount_half = 5; //CDTXMania.Skin.nSelectSongPanelCount / 2;
+            int panelcount_half = 6; //CDTXMania.Skin.nSelectSongPanelCount / 2;
 			#region [ 初めての進行描画 ]
 			//-----------------
 			if( this.b初めての進行描画 )
@@ -873,6 +875,7 @@ namespace DTXMania
 
                 this.n矢印スクロール用タイマ値 = CSound管理.rc演奏用タイマ.n現在時刻;
 				this.ct三角矢印アニメ.t開始( 0, 19, 40, CDTXMania.Timer );
+                this.ct譜面分岐文字アニメ.t開始( 1, 200, 10, CDTXMania.Timer );
 				
 				base.b初めての進行描画 = false;
 			}
@@ -892,6 +895,7 @@ namespace DTXMania
 			
 			// 進行。
             this.ct三角矢印アニメ.t進行Loop();
+            this.ct譜面分岐文字アニメ.t進行Loop();
 
 
 			if( !this.b登場アニメ全部完了 )
@@ -1414,7 +1418,7 @@ namespace DTXMania
                                 {
                                     this.tx難易度パネル.n透明度 = 255 - (int)(( (CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値) / 110.0f) * 255);
                                     this.tx難易度文字中央パネル用.n透明度 = 255 - (int)(( (CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値) / 110.0f) * 255);
-                                    this.tx難易度星.n透明度 = 255 - (int)(( (CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値) / 110.0f) * 255);
+                                    this.tx難易度星.n透明度 = 255 - (int)(((CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値) / 110.0f) * 255);
                                     this.tx難易度アイコン.n透明度 = 255 - (int)(( (CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値) / 110.0f) * 255);
                                 }
                                 else if( CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値 > 110 )
@@ -1439,15 +1443,22 @@ namespace DTXMania
                             this.tx難易度文字中央パネル用?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i), rectDiffString );
                             this.tx難易度アイコン.t2D描画( CDTXMania.app.Device, (CDTXMania.Skin.nSelectSongDiffPanelX + (this.tx難易度パネル.szテクスチャサイズ.Width / 2) + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i)) - 32, (CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i)) - 38, new Rectangle( 0, 60 * i, 65, 60 ) );
 
-                            int lv = CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ i ];
-                            for( int j = 0; j < 10; j++ )
+                            if( CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ i ] ? ( this.ct譜面分岐文字アニメ.n現在の値 >= 0 && this.ct譜面分岐文字アニメ.n現在の値 < 100 ) : false )
                             {
-                                this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX + (starwidth * i), CDTXMania.Skin.nSelectSongDiffIconY - (starheight * j), new Rectangle( 0, CDTXMania.Skin.nSelectSongDiffIconHeight, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                                CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
                             }
-                            for( int j = 0; j < lv; j++ )
+                            else
                             {
-                                if( j > 9 ) break;
-                                this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX + (starwidth * i), CDTXMania.Skin.nSelectSongDiffIconY - (starheight * j), new Rectangle( 0, 0, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                                int lv = CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ i ];
+                                for( int j = 0; j < 10; j++ )
+                                {
+                                    this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX + (starwidth * i), CDTXMania.Skin.nSelectSongDiffIconY - (starheight * j), new Rectangle( 0, CDTXMania.Skin.nSelectSongDiffIconHeight, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                                }
+                                for( int j = 0; j < lv; j++ )
+                                {
+                                    if( j > 9 ) break;
+                                    this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX + (starwidth * i), CDTXMania.Skin.nSelectSongDiffIconY - (starheight * j), new Rectangle( 0, 0, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                                }
                             }
                         }
                     }
@@ -1769,6 +1780,7 @@ namespace DTXMania
 		private Color color文字影 = Color.FromArgb( 0x40, 10, 10, 10 );
 		private CCounter[] ct登場アニメ用 = new CCounter[ 13 ];
         private CCounter ct三角矢印アニメ;
+        private CCounter ct譜面分岐文字アニメ;
         private CPrivateFastFont pfMusicName;
         private CPrivateFastFont pfSubtitle;
 		private E楽器パート e楽器パート;
