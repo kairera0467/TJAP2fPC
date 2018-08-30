@@ -9,7 +9,6 @@ using System.Xml.XPath;
 namespace FDK
 {
     // JDG DOCO!
-    // JDG Integrate all of the temporary console output with the standard logging for the app.
     public static class LoudnessMetadataScanner
     {
         private const string Bs1770GainExeFileName = "bs1770gain.exe";
@@ -22,12 +21,15 @@ namespace FDK
 
         public static void StartBackgroundScanning()
         {
+            var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(StartBackgroundScanning)}";
+
             if (!IsBs1770GainAvailable())
             {
+                Trace.TraceInformation($"{tracePrefix}: BS1770GAIN is not available. A background scanning thread will not be started.");
                 return;
             }
 
-            Console.WriteLine("JDG Starting background scanning thread...");
+            Trace.TraceInformation($"{tracePrefix}: BS1770GAIN is available. Starting background scanning thread...");
 
             lock (LockObject)
             {
@@ -41,7 +43,7 @@ namespace FDK
                 ScanningThread.Start();
             }
 
-            Console.WriteLine("JDG Background scanning thread started.");
+            Trace.TraceInformation($"{tracePrefix}: Background scanning thread started.");
         }
 
         public static void StopBackgroundScanning(bool joinImmediately)
@@ -53,7 +55,9 @@ namespace FDK
                 return;
             }
 
-            Console.WriteLine("JDG Stopping background scanning thread...");
+            var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(StopBackgroundScanning)}";
+
+            Trace.TraceInformation($"{tracePrefix}: Stopping background scanning thread...");
 
             ScanningThread = null;
             Semaphore.Release();
@@ -64,7 +68,7 @@ namespace FDK
                 scanningThread.Join();
             }
 
-            Console.WriteLine("JDG Background scanning thread stopped.");
+            Trace.TraceInformation($"{tracePrefix}: Background scanning thread stopped.");
         }
 
         public static LoudnessMetadata? LoadForAudioPath(string absoluteBgmPath)
@@ -82,8 +86,9 @@ namespace FDK
             }
             catch (Exception e)
             {
-                Console.WriteLine($"JDG LoadForAudioPath encountered an exception while attempting to load {absoluteBgmPath}");
-                Console.WriteLine(e);
+                var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(LoadForAudioPath)}";
+                Trace.TraceError($"{tracePrefix}: Encountered an exception while attempting to load {absoluteBgmPath}");
+                Trace.TraceError(e.ToString());
             }
 
             return null;
@@ -108,7 +113,8 @@ namespace FDK
 
             if (trackNavigator == null || integratedLufsNode == null || truePeakTpfsNode == null)
             {
-                Console.WriteLine($"JDG LoadFromMetadataPath encountered incorrect xml element structure while parsing {loudnessMetadataPath}. Returning null...");
+                var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(LoadFromMetadataPath)}";
+                Trace.TraceWarning($"{tracePrefix}: Encountered incorrect xml element structure while parsing {loudnessMetadataPath}. Returning null...");
                 return null;
             }
 
@@ -117,7 +123,8 @@ namespace FDK
 
             if (integrated <= -70.0 || truePeak >= 12.04)
             {
-                Console.WriteLine($"JDG LoadFromMetadataPath encountered evidence of extreme clipping while parsing {loudnessMetadataPath}. Returning null...");
+                var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(LoadFromMetadataPath)}";
+                Trace.TraceWarning($"{tracePrefix}: Encountered evidence of extreme clipping while parsing {loudnessMetadataPath}. Returning null...");
                 return null;
             }
 
@@ -168,11 +175,13 @@ namespace FDK
                         absoluteBgmPath = Jobs.Pop();
                     }
 
+                    var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(Scan)}";
+
                     try
                     {
                         if (!File.Exists(absoluteBgmPath))
                         {
-                            Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount - 1}. Missing audio file. Skipping {absoluteBgmPath}...");
+                            Trace.TraceWarning($"{tracePrefix}: Scanning jobs outstanding: {jobCount - 1}. Missing audio file. Skipping {absoluteBgmPath}...");
                             continue;
                         }
 
@@ -180,11 +189,11 @@ namespace FDK
 
                         if (File.Exists(loudnessMetadataPath))
                         {
-                            Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount - 1}. Pre-existing metadata. Skipping {absoluteBgmPath}...");
+                            Trace.TraceWarning($"{tracePrefix}: Scanning jobs outstanding: {jobCount - 1}. Pre-existing metadata. Skipping {absoluteBgmPath}...");
                             continue;
                         }
 
-                        Console.WriteLine($"JDG Scanning jobs outstanding: {jobCount}. Scanning {absoluteBgmPath}...");
+                        Trace.TraceInformation($"{tracePrefix}: Scanning jobs outstanding: {jobCount}. Scanning {absoluteBgmPath}...");
                         var stopwatch = Stopwatch.StartNew();
 
                         File.Delete(loudnessMetadataPath);
@@ -192,19 +201,20 @@ namespace FDK
                         Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments, true);
 
                         var elapsed = stopwatch.Elapsed;
-                        Console.WriteLine($"JDG Scanned in {elapsed.TotalSeconds}s. Estimated remaining: {elapsed.TotalSeconds * (jobCount - 1)}s.");
+                        Trace.TraceInformation($"{tracePrefix}: Scanned in {elapsed.TotalSeconds}s. Estimated remaining: {elapsed.TotalSeconds * (jobCount - 1)}s.");
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine($"JDG Exception encountered scanning {absoluteBgmPath}");
-                        Console.WriteLine(e);
+                        Trace.TraceError($"{tracePrefix}: Encountered an exception while attempting to scan {absoluteBgmPath}");
+                        Trace.TraceError(e.ToString());
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("JDG LoudnessMetadataScanner caught an exception at the level of the thread method. Terminating the background thread.");
-                Console.WriteLine(e);
+                var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(Scan)}";
+                Trace.TraceError($"{tracePrefix}: caught an exception at the level of the thread method. The background scanning thread will now terminate.");
+                Trace.TraceError(e.ToString());
             }
         }
 
@@ -219,9 +229,13 @@ namespace FDK
             {
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false; // JDG Consider logging this one. Win32Exception is reasonably expected. This is not.
+                var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(IsBs1770GainAvailable)}";
+                Trace.TraceError($"{tracePrefix}: Encountered an exception. Returning false...");
+                Trace.TraceError(e.ToString());
+
+                return false;
             }
         }
 
@@ -237,41 +251,47 @@ namespace FDK
                 WorkingDirectory = workingDirectory ?? ""
             };
 
-            var stdout = new StringWriter();
-            var stderr = new StringWriter();
+            var stdoutWriter = new StringWriter();
+            var stderrWriter = new StringWriter();
             using (var process = Process.Start(processStartInfo))
             {
                 process.OutputDataReceived += (s, e) =>
                 {
                     if (e.Data != null)
                     {
-                        stdout.Write(e.Data);
-                        stdout.Write(Environment.NewLine);
+                        stdoutWriter.Write(e.Data);
+                        stdoutWriter.Write(Environment.NewLine);
                     }
                 };
+
                 var errorDataReceived = false;
                 process.ErrorDataReceived += (s, e) =>
                 {
                     if (e.Data != null)
                     {
                         errorDataReceived = true;
-                        stderr.Write(e.Data);
-                        stderr.Write(Environment.NewLine);
+                        stderrWriter.Write(e.Data);
+                        stderrWriter.Write(Environment.NewLine);
                     }
                 };
+
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
                 process.WaitForExit();
 
                 if ((shouldFailOnStdErrDataReceived && errorDataReceived) || process.ExitCode != 0)
                 {
-                    var err = stderr.ToString();
-                    if (string.IsNullOrEmpty(err)) err = stdout.ToString();
+                    var stderr = stderrWriter.ToString();
+                    if (string.IsNullOrEmpty(stderr))
+                    {
+                        stderr = stdoutWriter.ToString();
+                    }
+
                     throw new Exception(
-                        $"Execution of {processStartInfo.FileName} with arguments {processStartInfo.Arguments} failed with exit code {process.ExitCode}: {err}");
+                        $"Execution of {processStartInfo.FileName} with arguments {processStartInfo.Arguments} failed with exit code {process.ExitCode}: {stderr}");
                 }
 
-                return stdout.ToString();
+                return stdoutWriter.ToString();
             }
         }
     }
