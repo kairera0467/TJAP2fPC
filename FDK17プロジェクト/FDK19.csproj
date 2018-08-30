@@ -124,7 +124,7 @@
     <Compile Include="コード\03.サウンド\ESoundDeviceType.cs" />
     <Compile Include="コード\03.サウンド\ESoundGroup.cs" />
     <Compile Include="コード\03.サウンド\LoudnessMetadata.cs" />
-    <Compile Include="コード\03.サウンド\LoudnessMetadataLoader.cs" />
+    <Compile Include="コード\03.サウンド\LoudnessMetadataScanner.cs" />
     <Compile Include="コード\03.サウンド\Lufs.cs" />
     <Compile Include="コード\03.サウンド\SongGainController.cs" />
     <Compile Include="コード\03.サウンド\SoundDecoder.cs" />

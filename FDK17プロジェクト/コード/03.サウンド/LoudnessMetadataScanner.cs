@@ -10,7 +10,7 @@ namespace FDK
 {
     // JDG DOCO!
     // JDG Integrate all of the temporary console output with the standard logging for the app.
-    public static class LoudnessMetadataLoader
+    public static class LoudnessMetadataScanner
     {
         private const string Bs1770GainExeFileName = "bs1770gain.exe";
 
@@ -35,7 +35,7 @@ namespace FDK
                 ScanningThread = new Thread(Scan)
                 {
                     IsBackground = true,
-                    Name = "LoudnessMetadataLoader background scanning thread.",
+                    Name = "LoudnessMetadataScanner background scanning thread.",
                     Priority = ThreadPriority.Lowest
                 };
                 ScanningThread.Start();
@@ -203,7 +203,7 @@ namespace FDK
             }
             catch (Exception e)
             {
-                Console.WriteLine("JDG LoudnessMetadataLoader caught an exception at the level of the thread method. Terminating the background thread.");
+                Console.WriteLine("JDG LoudnessMetadataScanner caught an exception at the level of the thread method. Terminating the background thread.");
                 Console.WriteLine(e);
             }
         }
