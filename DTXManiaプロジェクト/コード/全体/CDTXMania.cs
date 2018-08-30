@@ -2108,7 +2108,7 @@ for (int i = 0; i < 3; i++) {
 				//Sound管理 = FDK.CSound管理.Instance;
 				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
 
-                LoudnessMetadataScanner.StartBackgroundScanning(); // JDG Make this appropriately conditional, and enable and disable on the fly
+                LoudnessMetadataScanner.StartBackgroundScanning();
 
 			    SongGainController = new SongGainController();
 			    ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
