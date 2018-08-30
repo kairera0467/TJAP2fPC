@@ -2296,11 +2296,6 @@ namespace DTXMania
 											{
 												this.b演奏情報を表示する = C変換.bONorOFF( str4[ 0 ] );
 											}
-											else if( str3.Equals( "AutoChipVolume" ) )
-											{
-                                                // 2018-08-18 twopointzero: For backward compatibility, upgrade AutoChipVolume config values to SongPlaybackLevel
-											    this.SongPlaybackLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel );
-											}
 											else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
 											{
 												this.ApplyLoudnessMetadata = C変換.bONorOFF( str4[ 0 ] );
