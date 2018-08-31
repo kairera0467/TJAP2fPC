@@ -18,8 +18,9 @@ namespace DTXMania
 			base.eステージID = CStage.Eステージ.タイトル;
 			base.b活性化してない = true;
 			base.list子Activities.Add( this.actFIfromSetup = new CActFIFOWhite() );
-			base.list子Activities.Add( this.actFI = new CActFIFOWhite() );
-			base.list子Activities.Add( this.actFO = new CActFIFOWhite() );
+			base.list子Activities.Add( this.actFI = new CActFIFOFace() );
+			//base.list子Activities.Add( this.actFO = new CActFIFOWhite() );
+            base.list子Activities.Add( this.actFO = new CActFIFOFace() );
 		}
 
 
@@ -139,12 +140,12 @@ namespace DTXMania
 				#region [ カーソルフラッシュ ]
 				//---------------------
 				this.ctカーソルフラッシュ用.t進行Loop();
-				//---------------------
-				#endregion
+                //---------------------
+                #endregion
 
-				// キー入力
+                // キー入力
 
-				if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態		// 通常状態、かつ
+                if( base.eフェーズID == CStage.Eフェーズ.共通_通常状態		// 通常状態、かつ
 					&& CDTXMania.act現在入力を占有中のプラグイン == null )	// プラグインの入力占有がない
 				{
 					if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) Key.Escape ) )
@@ -267,6 +268,7 @@ namespace DTXMania
 						}
 						break;
 				}
+                
 			}
 			return 0;
 		}
@@ -336,9 +338,10 @@ namespace DTXMania
 			}
 		}
 
-		private CActFIFOWhite actFI;
+		private CActFIFOFace actFI;
 		private CActFIFOWhite actFIfromSetup;
-		private CActFIFOWhite actFO;
+        //private CActFIFOWhite actFO;
+        private CActFIFOFace actFO;
 		private CCounter ctカーソルフラッシュ用;
 		private STキー反復用カウンタ ctキー反復用;
 		private CCounter ct下移動用;

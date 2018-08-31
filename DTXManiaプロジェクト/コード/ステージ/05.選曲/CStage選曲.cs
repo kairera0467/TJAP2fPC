@@ -99,6 +99,7 @@ namespace DTXMania
 			base.list子Activities.Add( this.actFIfrom結果画面 = new CActFIFOBlack() );
 			//base.list子Activities.Add( this.actFOtoNowLoading = new CActFIFOBlack() );
             base.list子Activities.Add( this.actFOtoNowLoading = new CActFIFOStart() );
+            base.list子Activities.Add( this.actFIFOタイトル画面 = new CActFIFOFace() );
 			base.list子Activities.Add( this.act曲リスト = new CActSelect曲リスト() );
 			base.list子Activities.Add( this.actステータスパネル = new CActSelectステータスパネル() );
 			base.list子Activities.Add( this.act演奏履歴パネル = new CActSelect演奏履歴パネル() );
@@ -310,6 +311,11 @@ namespace DTXMania
 						this.actFIfrom結果画面.tフェードイン開始();
 						base.eフェーズID = CStage.Eフェーズ.選曲_結果画面からのフェードイン;
 					}
+                    else if( CDTXMania.r直前のステージ == CDTXMania.stageタイトル )
+                    {
+						this.actFIFOタイトル画面.tフェードイン開始();
+						base.eフェーズID = CStage.Eフェーズ.選曲_タイトル画面からのフェードイン;
+                    }
 					else
 					{
 						this.actFIFO.tフェードイン開始();
@@ -478,8 +484,9 @@ namespace DTXMania
 						{	// [ESC]
 							CDTXMania.Skin.sound取消音.t再生する();
 							this.eフェードアウト完了時の戻り値 = E戻り値.タイトルに戻る;
-							this.actFIFO.tフェードアウト開始();
-							base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+                            //this.actFIFO.tフェードアウト開始();
+                            this.actFIFOタイトル画面.tフェードアウト開始();
+							base.eフェーズID = CStage.Eフェーズ.選曲_タイトル画面へのフェードアウト;
 							return 0;
 						}
 						#endregion
@@ -792,6 +799,20 @@ namespace DTXMania
 						}
 						break;
 
+					case CStage.Eフェーズ.選曲_タイトル画面からのフェードイン:
+						if( this.actFIFOタイトル画面.On進行描画() != 0 )
+						{
+							base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
+						}
+						break;
+
+                    case CStage.Eフェーズ.選曲_タイトル画面へのフェードアウト:
+						if( this.actFIFOタイトル画面.On進行描画() == 0 )
+						{
+                            break;
+						}
+						return (int) this.eフェードアウト完了時の戻り値;
+
 					case CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト:
 						if( this.actFOtoNowLoading.On進行描画() == 0 )
 						{
@@ -871,6 +892,7 @@ namespace DTXMania
 		private CActSelectArtistComment actArtistComment;
 		private CActFIFOBlack actFIFO;
 		private CActFIFOBlack actFIfrom結果画面;
+        private CActFIFOFace actFIFOタイトル画面;
 		//private CActFIFOBlack actFOtoNowLoading;
         private CActFIFOStart actFOtoNowLoading;
 		private CActSelectInformation actInformation;

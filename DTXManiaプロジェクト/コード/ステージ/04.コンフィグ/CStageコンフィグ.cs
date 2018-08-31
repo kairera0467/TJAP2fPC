@@ -25,7 +25,7 @@ namespace DTXMania
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			this.actFont = font = new CActDFPFont();
 			base.list子Activities.Add( font );
-			base.list子Activities.Add( this.actFIFO = new CActFIFOWhite() );
+			base.list子Activities.Add( this.actFIFO = new CActFIFOFace() );
 			base.list子Activities.Add( this.actList = new CActConfigList() );
 			base.list子Activities.Add( this.actKeyAssign = new CActConfigKeyAssign() );
 			base.list子Activities.Add( this.actオプションパネル = new CActオプションパネル() );
@@ -434,7 +434,7 @@ namespace DTXMania
 			}
 		}
 
-		private CActFIFOWhite actFIFO;
+		private CActFIFOFace actFIFO;
 		private CActConfigKeyAssign actKeyAssign;
 		private CActConfigList actList;
 		private CActオプションパネル actオプションパネル;
