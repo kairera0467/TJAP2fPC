@@ -470,9 +470,9 @@ namespace FDK
 	    public const int MaximumSongVol = 200; // support an approximate doubling in volume.
 	    public const int DefaultSongVol = 100;
 
-        // 2018-08-19 twopointzero: Note the present absence of a MinimumAutomationLevel.
-        // We will revisit this if/when song select BGM fade-in/fade-out needs
-        // updating due to changing the type or range of AutomationLevel
+	    // 2018-08-19 twopointzero: Note the present absence of a MinimumAutomationLevel.
+	    // We will revisit this if/when song select BGM fade-in/fade-out needs
+	    // updating due to changing the type or range of AutomationLevel
 	    public const int MaximumAutomationLevel = 100;
 	    public const int DefaultAutomationLevel = 100;
 
@@ -489,7 +489,7 @@ namespace FDK
 
 	    private static readonly Lufs DefaultGain = new Lufs(0.0);
 
-		public readonly ESoundGroup SoundGroup;
+	    public readonly ESoundGroup SoundGroup;
 
 		#region [ DTXMania用拡張 ]
 
@@ -605,7 +605,7 @@ namespace FDK
 	    private static Lufs LinearIntegerPercentToLufs(int percent)
 	    {
 	        // 2018-08-27 twopointzero: We'll use the standard conversion until an appropriate curve can be selected
-            return new Lufs(20.0 * Math.Log10(percent / 100.0));
+	        return new Lufs(20.0 * Math.Log10(percent / 100.0));
 	    }
 
 	    public void SetGain(Lufs gain, Lufs? truePeak)
@@ -627,14 +627,14 @@ namespace FDK
 	    }
 
 	    /// <summary>
-        /// AutomationLevel is applied "second" to the audio data, much as in a
-        /// physical or sofware mixer and its channel level. Before this Gain is
-        /// applied, and after this the mixing group level is applied.
-        ///
-        /// This is currently used only for automated fade in and out as is the
-        /// case right now for the song selection screen background music fade
-        /// in and fade out.
-        /// </summary>
+	    /// AutomationLevel is applied "second" to the audio data, much as in a
+	    /// physical or sofware mixer and its channel level. Before this Gain is
+	    /// applied, and after this the mixing group level is applied.
+	    ///
+	    /// This is currently used only for automated fade in and out as is the
+	    /// case right now for the song selection screen background music fade
+	    /// in and fade out.
+	    /// </summary>
 	    public int AutomationLevel
 	    {
 	        get => _automationLevel;
@@ -656,19 +656,19 @@ namespace FDK
 	        }
 	    }
 
-        /// <summary>
-        /// GroupLevel is applied "third" to the audio data, much as in the sub
-        /// mixer groups of a physical or software mixer. Before this both the
-        /// Gain and AutomationLevel are applied, and after this the audio
-        /// flows into the audio subsystem for mixing and output based on the
-        /// master volume.
-        ///
-        /// This is currently automatically managed for each sound based on the
-        /// configured and dynamically adjustable sound group levels for each of
-        /// sound effects, voice, song preview, and song playback.
-        ///
-        /// See the SoundGroupLevelController and related classes for more.
-        /// </summary>
+	    /// <summary>
+	    /// GroupLevel is applied "third" to the audio data, much as in the sub
+	    /// mixer groups of a physical or software mixer. Before this both the
+	    /// Gain and AutomationLevel are applied, and after this the audio
+	    /// flows into the audio subsystem for mixing and output based on the
+	    /// master volume.
+	    ///
+	    /// This is currently automatically managed for each sound based on the
+	    /// configured and dynamically adjustable sound group levels for each of
+	    /// sound effects, voice, song preview, and song playback.
+	    ///
+	    /// See the SoundGroupLevelController and related classes for more.
+	    /// </summary>
 	    public int GroupLevel
 	    {
 	        private get => _groupLevel;
@@ -705,28 +705,29 @@ namespace FDK
 
 	        if (SoundGroup == ESoundGroup.SongPlayback)
 	        {
-	            Trace.TraceInformation($"{nameof(CSound)}.{nameof(SetVolume)}: Gain:{_gain}. Automation Level: {automationLevel}. Group Level: {groupLevel}. Summed Gain: {gain}. Safe True Peak Gain: {safeTruePeakGain}. Final Gain: {finalGain}.");
+	            Trace.TraceInformation(
+	                $"{nameof(CSound)}.{nameof(SetVolume)}: Gain:{_gain}. Automation Level: {automationLevel}. Group Level: {groupLevel}. Summed Gain: {gain}. Safe True Peak Gain: {safeTruePeakGain}. Final Gain: {finalGain}.");
 	        }
 
 	        lufs音量 = finalGain;
 	    }
 
-		private Lufs lufs音量
-		{
-			set
-			{
-				if( this.bBASSサウンドである )
-				{
-				    var db音量 = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
-					Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float)db音量 );
-				}
-				else if( this.bDirectSoundである )
-				{
-				    var db音量 = (value.ToDouble() * 100.0).Clamp(-10000, 0);
-				    this.Buffer.Volume = (int)Math.Round(db音量);
-				}
-			}
-		}
+	    private Lufs lufs音量
+	    {
+	        set
+	        {
+	            if (this.bBASSサウンドである)
+	            {
+	                var db音量 = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
+	                Bass.BASS_ChannelSetAttribute(this.hBassStream, BASSAttribute.BASS_ATTRIB_VOL, (float) db音量);
+	            }
+	            else if (this.bDirectSoundである)
+	            {
+	                var db音量 = (value.ToDouble() * 100.0).Clamp(-10000, 0);
+	                this.Buffer.Volume = (int) Math.Round(db音量);
+	            }
+	        }
+	    }
 
 		/// <summary>
 		/// <para>左:-100～中央:0～100:右。set のみ。</para>
