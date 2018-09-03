@@ -618,6 +618,11 @@ namespace FDK
 	        _gain = gain;
 	        _truePeak = truePeak;
 
+	        if (SoundGroup == ESoundGroup.SongPlayback)
+	        {
+	            Trace.TraceInformation($"{nameof(CSound)}.{nameof(SetGain)}: Gain: {_gain}. True Peak: {_truePeak}");
+	        }
+
 	        SetVolume();
 	    }
 
@@ -641,6 +646,11 @@ namespace FDK
 	            }
 
 	            _automationLevel = value;
+
+	            if (SoundGroup == ESoundGroup.SongPlayback)
+	            {
+	                Trace.TraceInformation($"{nameof(CSound)}.{nameof(AutomationLevel)} set: {AutomationLevel}");
+	            }
 
 	            SetVolume();
 	        }
@@ -671,21 +681,34 @@ namespace FDK
 
 	            _groupLevel = value;
 
+	            if (SoundGroup == ESoundGroup.SongPlayback)
+	            {
+	                Trace.TraceInformation($"{nameof(CSound)}.{nameof(GroupLevel)} set: {GroupLevel}");
+	            }
+
 	            SetVolume();
 	        }
 	    }
 
 	    private void SetVolume()
 	    {
+	        var automationLevel = LinearIntegerPercentToLufs(AutomationLevel);
+	        var groupLevel = LinearIntegerPercentToLufs(GroupLevel);
+
 	        var gain =
 	            _gain +
-	            LinearIntegerPercentToLufs(AutomationLevel) +
-	            LinearIntegerPercentToLufs(GroupLevel);
+	            automationLevel +
+	            groupLevel;
 
 	        var safeTruePeakGain = _truePeak?.Negate() ?? new Lufs(0);
-	        var safeGain = gain.Min(safeTruePeakGain);
+	        var finalGain = gain.Min(safeTruePeakGain);
 
-	        lufs音量 = safeGain;
+	        if (SoundGroup == ESoundGroup.SongPlayback)
+	        {
+	            Trace.TraceInformation($"{nameof(CSound)}.{nameof(SetVolume)}: Gain:{_gain}. Automation Level: {automationLevel}. Group Level: {groupLevel}. Summed Gain: {gain}. Safe True Peak Gain: {safeTruePeakGain}. Final Gain: {finalGain}.");
+	        }
+
+	        lufs音量 = finalGain;
 	    }
 
 		private Lufs lufs音量
