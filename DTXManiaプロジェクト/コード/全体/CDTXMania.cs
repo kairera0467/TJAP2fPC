@@ -2108,13 +2108,24 @@ for (int i = 0; i < 3; i++) {
 				//Sound管理 = FDK.CSound管理.Instance;
 				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
 
-                LoudnessMetadataScanner.StartBackgroundScanning();
 
-			    SongGainController = new SongGainController();
-			    ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
+				Trace.TraceInformation("Initializing loudness scanning, song gain control, and sound group level control...");
+				Trace.Indent();
+				try
+				{
+					LoudnessMetadataScanner.StartBackgroundScanning();
 
-				SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
-				ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigIni, SoundGroupLevelController);
+					SongGainController = new SongGainController();
+					ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
+
+					SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
+					ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigIni, SoundGroupLevelController);
+				}
+				finally
+				{
+					Trace.Unindent();
+					Trace.TraceInformation("Initialized loudness scanning, song gain control, and sound group level control.");
+				}
 
 				ShowWindowTitleWithSoundType();
 				FDK.CSound管理.bIsTimeStretch = CDTXMania.ConfigIni.bTimeStretch;
