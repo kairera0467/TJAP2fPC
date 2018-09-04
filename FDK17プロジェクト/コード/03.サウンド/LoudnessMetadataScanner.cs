@@ -160,14 +160,18 @@ namespace FDK
         {
             try
             {
-                while (ScanningThread != null)
+                while (true)
                 {
+                    RaiseScanningStateChanged(false);
+
                     Semaphore?.WaitOne();
 
                     if (ScanningThread == null)
                     {
                         return;
                     }
+
+                    RaiseScanningStateChanged(true);
 
                     int jobCount;
                     string absoluteBgmPath;
@@ -302,5 +306,22 @@ namespace FDK
                 return stdoutWriter.ToString();
             }
         }
+
+        private static void RaiseScanningStateChanged(bool isActivelyScanning)
+        {
+            ScanningStateChanged?.Invoke(null, new ScanningStateChangedEventArgs(isActivelyScanning));
+        }
+
+        public class ScanningStateChangedEventArgs : EventArgs
+        {
+            public ScanningStateChangedEventArgs(bool isActivelyScanning)
+            {
+                IsActivelyScanning = isActivelyScanning;
+            }
+
+            public bool IsActivelyScanning { get; private set; }
+        }
+
+        public static event EventHandler<ScanningStateChangedEventArgs> ScanningStateChanged;
     }
 }

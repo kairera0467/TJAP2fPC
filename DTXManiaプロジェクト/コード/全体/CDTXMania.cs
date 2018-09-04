@@ -190,6 +190,11 @@ namespace DTXMania
 			get;
 			private set;
 		}
+		public static CActScanningLoudness actScanningLoudness
+		{
+			get;
+			private set;
+		}
 		public static CActFlushGPU actFlushGPU
 		{
 			get;
@@ -1516,6 +1521,9 @@ for (int i = 0; i < 3; i++) {
 						#endregion
 						break;
 				}
+
+			    actScanningLoudness.On進行描画();
+
                 // オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
                 if(r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && CDTXMania.Tx.Overlay != null)
                 {
@@ -2113,7 +2121,11 @@ for (int i = 0; i < 3; i++) {
 				Trace.Indent();
 				try
 				{
-					LoudnessMetadataScanner.StartBackgroundScanning();
+                    actScanningLoudness = new CActScanningLoudness();
+				    actScanningLoudness.On活性化();
+				    LoudnessMetadataScanner.ScanningStateChanged +=
+				        (_, args) => actScanningLoudness.bIsActivelyScanning = args.IsActivelyScanning;
+				    LoudnessMetadataScanner.StartBackgroundScanning();
 
 					SongGainController = new SongGainController();
 					ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
@@ -2580,9 +2592,22 @@ for (int i = 0; i < 3; i++) {
 					Trace.Unindent();
 				}
 
-			    SoundGroupLevelController = null;
-			    SongGainController = null;
-                LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: true);
+			    Trace.TraceInformation("Deinitializing loudness scanning, song gain control, and sound group level control...");
+			    Trace.Indent();
+			    try
+			    {
+			        SoundGroupLevelController = null;
+			        SongGainController = null;
+                    actScanningLoudness.On非活性化();
+			        actScanningLoudness = null;
+			        LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: true);
+			    }
+			    finally
+			    {
+			        Trace.Unindent();
+			        Trace.TraceInformation("Deinitialized loudness scanning, song gain control, and sound group level control.");
+			    }
+
 			    ConfigIni = null;
 
 				//---------------------
