@@ -504,12 +504,12 @@ namespace DTXMania
 
 
                 //できるだけ正確な値を計算しておきたい...!
-                Bitmap bmpDummy = new Bitmap( 150, 150 ); //とりあえず150
+                Bitmap bmpDummy = new Bitmap( 1, 1 ); //とりあえず150
                 Graphics gCal = Graphics.FromImage( bmpDummy );
                 Rectangle rect正確なサイズ = this.MeasureStringPrecisely( gCal, strName[ i ], this._font, strSize, sFormat );
                 int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
-                Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, strSize.Width + (int)(fEdgePt * 1.5), strSize.Height + (int)(fEdgePt * 1.5) );
+                Rectangle rect = new Rectangle( 0, 0, rect正確なサイズ.Width + (int)(fEdgePt * 1.4), rect正確なサイズ.Height + (int)(fEdgePt * 1.4) );
 
                 if( strName[ i ] == "ー" || strName[ i ] == "-" || strName[ i ] == "～" || strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "「" || strName[ i ] == "」" || strName[ i ] == "[" || strName[ i ] == "]" )
                 {
@@ -522,22 +522,22 @@ namespace DTXMania
                 { nHeight += ( 12 ); }
                 else {
                     //nHeight += ( rect正確なサイズ.Height ) + 6;
-                    nHeight += rect正確なサイズ.Height + (int)(fEdgePt * 1.5);
-                    arHeight[ i ] = rect正確なサイズ.Height + (int)(fEdgePt * 1.5);
+                    nHeight += rect正確なサイズ.Height + (int)(fEdgePt * 1.4);
+                    arHeight[ i ] = rect正確なサイズ.Height + (int)(fEdgePt * 1.4);
                 }
 
-                if( nMaxWidth < rect正確なサイズ.Height + (int)(fEdgePt * 1.5) ) { nMaxWidth = rect正確なサイズ.Width + (int)(fEdgePt * 1.5); }
+                if( nMaxWidth < rect正確なサイズ.Width + (int)(fEdgePt * 1.4) ) { nMaxWidth = rect正確なサイズ.Width + (int)(fEdgePt * 1.4); }
 
                 //念のため解放
-                bmpDummy.Dispose();
-                gCal.Dispose();
+                bmpDummy?.Dispose();
+                gCal?.Dispose();
 
                 //stream.WriteLine( "文字の大きさ{0},大きさ合計{1}", ( rect正確なサイズ.Height ) + 6, nHeight );
                 
             }
             #endregion
 
-            Bitmap bmpCambus = new Bitmap( nMaxWidth, (int)(nHeight * fMargin) );
+            Bitmap bmpCambus = new Bitmap( nMaxWidth, (int)(nHeight * ( drawstr.Length > 1 ? 1 : 1 ) ) );
             Graphics Gcambus = Graphics.FromImage( bmpCambus );
 
             //キャンバス作成→1文字ずつ作成してキャンバスに描画という形がよさそうかな?
@@ -566,14 +566,24 @@ namespace DTXMania
                 
                 //Bitmap bmpV = new Bitmap( 36, ( strSize.Height + 12 ) - 6 );
 
-                Bitmap bmpV = new Bitmap( (rect正確なサイズ.Width + (int)(fEdgePt * 1.5)), ( rect正確なサイズ.Height + (int)(fEdgePt * 1.5) ) );
+                Bitmap bmpV = new Bitmap( (rect正確なサイズ.Width + (int)(fEdgePt * 1.4)), ( rect正確なサイズ.Height + (int)(fEdgePt * 1.4) ) );
 
 			    bmpV.MakeTransparent();
 			    Graphics gV = Graphics.FromImage( bmpV );
 			    gV.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
+                Point pt描画位置補正 = new Point( 0, 0 );
+                if( strName[ i ] == "ッ" )
+                {
+                    pt描画位置補正.Y = -3;
+                }
+                else if( strName[ i ] == "ー" || strName[ i ] == "～" || strName[ i ] == "・" )
+                {
+                    pt描画位置補正.Y = 6;
+                }
 
-                Rectangle rect = new Rectangle( -2 + nAdded, -rect正確なサイズ.Y - 2, (rect正確なサイズ.Width + (int)(fEdgePt * 1.5)), ( strSize.Height + 12 ));
+                // 描画開始位置など
+                Rectangle rect = new Rectangle( -(rect正確なサイズ.X / 2) + pt描画位置補正.X, (2 + pt描画位置補正.Y) - (rect正確なサイズ.Y / 2), (rect正確なサイズ.Width + (int)(fEdgePt * 1.4)) , rect正確なサイズ.Height + (int)(fEdgePt * 1.4));
                 //Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
                 
                 // DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
@@ -621,6 +631,14 @@ namespace DTXMania
                 {
                     n補正 = 4;
                 }
+                else if( strName[ i ] == "ッ" )
+                {
+                    nY補正 = 0;
+                }
+                else if( strName[ i ] == "・" )
+                {
+                    nY補正 = 2;
+                }
                 //else if( strName[ i ] == "_" )
                 //    nNowPos = nNowPos + 20;
                 else if( strName[ i ] == " " )
@@ -634,7 +652,7 @@ namespace DTXMania
                 {
                     nNowPos = 0;
                 }
-                Gcambus.DrawImage( bmpV, ( bmpCambus.Width / 2 ) - ( bmpV.Size.Width / 2 ) + n補正, nNowPos );
+                Gcambus.DrawImage( bmpV, ( bmpCambus.Width / 2 ) - ( bmpV.Size.Width / 2 ) + n補正, nNowPos + nY補正 );
                 nNowPos += (int)( bmpV.Size.Height * fMargin );
 
 #if VerticalFont
@@ -828,7 +846,7 @@ namespace DTXMania
         /// <param name="stringFormat">描画に使用するStringFormat</param>
         /// <returns>文字列が描画される範囲。
         /// 見つからなかった時は、Rectangle.Empty。</returns>
-        public Rectangle MeasureStringPrecisely(Graphics g,
+        private Rectangle MeasureStringPrecisely(Graphics g,
             string text, Font font, Size proposedSize, StringFormat stringFormat)
         {
             //解像度を引き継いで、Bitmapを作成する

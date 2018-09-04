@@ -709,6 +709,8 @@ namespace DTXMania
                     {
                         this.stバー情報[ i ].txタイトル?.Dispose();
                         this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列 );
+                        this.stバー情報[ i ].txタイトル_非選択?.Dispose();
+                        this.stバー情報[ i ].txタイトル_非選択 = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, CDTXMania.Skin.tReadGenreColor( this.stバー情報[ i ].strジャンル ) );
                     }
                 }
 
@@ -812,6 +814,7 @@ namespace DTXMania
 			for( int i = 0; i < this.stバー情報.Length; i++ )
             {
                 CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル );
+                CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル_非選択 );
             }
             CDTXMania.t安全にDisposeする( ref this.tx選択している曲の曲名 );
             CDTXMania.t安全にDisposeする( ref this.tx選択している曲のサブタイトル );
@@ -1023,6 +1026,8 @@ namespace DTXMania
 							song2 = this.r次の曲( song2 );
                             this.stバー情報[ i ].txタイトル?.Dispose();
                             this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列 );
+                            this.stバー情報[ i ].txタイトル_非選択?.Dispose();
+                            this.stバー情報[ i ].txタイトル_非選択 = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, CDTXMania.Skin.tReadGenreColor( this.stバー情報[ i ].strジャンル ) );
 						}
 
 						
@@ -1092,6 +1097,8 @@ namespace DTXMania
 							song2 = this.r次の曲( song2 );
                             CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル );
                             this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列 );
+                            this.stバー情報[ i ].txタイトル_非選択?.Dispose();
+                            this.stバー情報[ i ].txタイトル_非選択 = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, CDTXMania.Skin.tReadGenreColor( this.stバー情報[ i ].strジャンル ) );
 						}
 
 		
@@ -1241,8 +1248,8 @@ namespace DTXMania
 
                         if( this.stバー情報[ nパネル番号 ].txタイトル != null )
                         {
-                            //this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ n見た目の行番号 ].X + 30, 210 );
-                            this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, xAnime + CDTXMania.Skin.nSelectSongPanelTitleX, CDTXMania.Skin.nSelectSongPanelY + CDTXMania.Skin.nSelectSongPanelTitleY );
+                            //this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, xAnime + CDTXMania.Skin.nSelectSongPanelTitleX, CDTXMania.Skin.nSelectSongPanelY + CDTXMania.Skin.nSelectSongPanelTitleY );
+                            this.stバー情報[ nパネル番号 ].txタイトル_非選択.t2D描画( CDTXMania.app.Device, xAnime + CDTXMania.Skin.nSelectSongPanelTitleX, CDTXMania.Skin.nSelectSongPanelY + CDTXMania.Skin.nSelectSongPanelTitleY );
                         }
 
                         if( this.stバー情報[ nパネル番号 ].ar難易度 != null && CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.難易度から選ぶ )
@@ -1443,7 +1450,7 @@ namespace DTXMania
                             this.tx難易度文字中央パネル用?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i), rectDiffString );
                             this.tx難易度アイコン.t2D描画( CDTXMania.app.Device, (CDTXMania.Skin.nSelectSongDiffPanelX + (this.tx難易度パネル.szテクスチャサイズ.Width / 2) + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i)) - 32, (CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i)) - 38, new Rectangle( 0, 60 * i, 65, 60 ) );
 
-                            if( CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ i ] ? ( this.ct譜面分岐文字アニメ.n現在の値 >= 0 && this.ct譜面分岐文字アニメ.n現在の値 < 100 ) : false )
+                            if( CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ i ] && !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect ? ( this.ct譜面分岐文字アニメ.n現在の値 >= 0 && this.ct譜面分岐文字アニメ.n現在の値 < 100 ) : false )
                             {
                                 CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
                             }
@@ -1666,6 +1673,14 @@ namespace DTXMania
                     this.tx上部ジャンル名.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectGenreStringX - (this.tx上部ジャンル名.szテクスチャサイズ.Width / 2), CDTXMania.Skin.nSelectGenreStringY, new Rectangle( 0, 60 * this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ), 288, 60 ) );
                 }
             }
+            //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D7 ) )
+            //{
+            //    this.t曲名テクスチャを生成する( "～" );
+            //}
+            //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D8 ) )
+            //{
+            //    this.pfMusicName.tCacheDelete(); ;
+            //}
             return 0;
 		}
 		
@@ -1730,6 +1745,7 @@ namespace DTXMania
             public string strジャンル;
             public string strサブタイトル;
             public CTexture txタイトル;
+            public CTexture txタイトル_非選択;
             public CTexture txサブタイトル;
 		}
 
@@ -2116,9 +2132,13 @@ namespace DTXMania
         }
         private CTexture t曲名テクスチャを生成する( string str文字 )
         {
+            return this.t曲名テクスチャを生成する( str文字, Color.Black );
+        }
+        private CTexture t曲名テクスチャを生成する( string str文字, Color EdgeColor )
+        {
             Bitmap bmp;
             
-            bmp = this.pfMusicName.DrawPrivateFont( str文字, Color.White, Color.Black, true );
+            bmp = this.pfMusicName.DrawPrivateFont( str文字, Color.White, EdgeColor, true );
 
             CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成( bmp, false );
 

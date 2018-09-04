@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 using System.IO;
 using System.Diagnostics;
 using FDK;
@@ -864,6 +865,7 @@ namespace DTXMania
 
         public void tReadSkinConfig()
         {
+            this.tGenreColorSetting();
             if( File.Exists( CSkin.Path( @"SkinConfig.ini" ) ) )
             {
                 string str;
@@ -1153,6 +1155,30 @@ namespace DTXMania
             }
         }
 
+        private void tGenreColorSetting()
+        {
+            this.dicSongNameFontColor.Add( "アニメ", Color.FromArgb( 169, 65, 0 ) );
+            this.dicSongNameFontColor.Add( "J-POP", Color.FromArgb( 0, 72, 100 ) );
+            this.dicSongNameFontColor.Add( "ゲームミュージック", Color.FromArgb( 75, 31, 139 ) );
+            this.dicSongNameFontColor.Add( "ナムコオリジナル", Color.FromArgb( 168, 25, 0 ) );
+            this.dicSongNameFontColor.Add( "バラエティ", Color.FromArgb( 54, 96, 0 ) );
+            this.dicSongNameFontColor.Add( "クラシック", Color.FromArgb( 149, 88, 0 ) );
+            this.dicSongNameFontColor.Add( "どうよう", Color.FromArgb( 164, 0, 36 ) );
+            this.dicSongNameFontColor.Add( "VOCALOID", Color.FromArgb( 84, 97, 127 ) );
+            this.dicSongNameFontColor.Add( "ボーカロイド", Color.FromArgb( 84, 97, 127 ) );
+        }
+        public Color tReadGenreColor( string strGenre )
+        {
+            try
+            {
+                return this.dicSongNameFontColor[ strGenre ];
+            }
+            catch( Exception ex )
+            {
+                return Color.Black;
+            }
+        }
+
 		#region [ IDisposable 実装 ]
 		//-----------------
 		public void Dispose()
@@ -1174,9 +1200,15 @@ namespace DTXMania
 		#region [ private ]
 		//-----------------
 		private bool bDisposed済み;
-		//-----------------
-		#endregion
+        //-----------------
+        #endregion
 
+        #region[ 色 ]
+        /// <summary>
+        /// 非選択時の曲名の縁に使う色
+        /// </summary>
+        public Dictionary<string, Color> dicSongNameFontColor = new Dictionary<string, Color>();
+        #endregion
 
         #region[ 座標 ]
         //2017.08.11 kairera0467 DP実用化に向けてint配列に変更

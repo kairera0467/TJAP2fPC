@@ -143,6 +143,12 @@ namespace DTXMania
 			return DrawPrivateFont_V( drawstr, fontColor, edgeColor, bVertical );
 		}
 
+        // デバッグ用。キャッシュの強制破棄
+        public void tCacheDelete()
+        {
+            this.listFontCache.Clear();
+        }
+
 #if こちらは使わない // (Bitmapではなく、CTextureを返す版)
 		/// <summary>
 		/// 文字列を描画したテクスチャを返す
