@@ -80,7 +80,7 @@ namespace DTXMania
                             else if (str.StartsWith("#BACKCOLOR", StringComparison.OrdinalIgnoreCase))
                             {
                                 this.BackColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
-                                IsChangedBackColor = false;
+                                IsChangedBackColor = true;
                             }
                         }
 						continue;

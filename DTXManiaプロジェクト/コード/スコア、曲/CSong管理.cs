@@ -291,6 +291,21 @@ namespace DTXMania
                                     }
                                 }
 
+                                if (c曲リストノード.r親ノード != null)
+                                {
+                                    if (c曲リストノード.r親ノード.IsChangedForeColor)
+                                    {
+                                        c曲リストノード.ForeColor = c曲リストノード.r親ノード.ForeColor;
+                                        c曲リストノード.IsChangedForeColor = true;
+                                    }
+                                    if (c曲リストノード.r親ノード.IsChangedBackColor)
+                                    {
+                                        c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
+                                        c曲リストノード.IsChangedBackColor = true;
+                                    }
+                                }
+
+
                                 switch (this.nStrジャンルtoNum_AC15(c曲リストノード.strジャンル))
                                 {
                                     case 0:
@@ -329,17 +344,6 @@ namespace DTXMania
                                         break;
                                 }
 
-                                if (c曲リストノード.r親ノード != null)
-                                {
-                                    if (c曲リストノード.r親ノード.IsChangedForeColor)
-                                    {
-                                        c曲リストノード.ForeColor = c曲リストノード.r親ノード.ForeColor;
-                                    }
-                                    if (c曲リストノード.r親ノード.IsChangedBackColor)
-                                    {
-                                        c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
-                                    }
-                                }
 
                                 c曲リストノード.nLevel = dtx.LEVELtaiko;
 
@@ -441,11 +445,11 @@ namespace DTXMania
 						{
 							c曲リストノード.strジャンル = boxdef.Genre;
 						}
-						if( boxdef.ForeColor != Color.White )
+						if(boxdef.IsChangedForeColor)
 						{
 							c曲リストノード.ForeColor = boxdef.ForeColor;
 						}
-                        if (boxdef.BackColor != Color.Black)
+                        if (boxdef.IsChangedBackColor)
                         {
                             c曲リストノード.BackColor = boxdef.BackColor;
                         }
@@ -495,6 +499,17 @@ namespace DTXMania
 					c曲リストノード.strタイトル = boxdef.Title;
 					c曲リストノード.strジャンル = boxdef.Genre;
 
+                    if (boxdef.IsChangedForeColor)
+                    {
+                        c曲リストノード.ForeColor = boxdef.ForeColor;
+                        c曲リストノード.IsChangedForeColor = true;
+                    }
+                    if (boxdef.IsChangedBackColor)
+                    {
+                        c曲リストノード.BackColor = boxdef.BackColor;
+                        c曲リストノード.IsChangedBackColor = true;
+                    }
+
                     switch (this.nStrジャンルtoNum_AC15(c曲リストノード.strジャンル))
                     {
                         case 0:
@@ -533,14 +548,7 @@ namespace DTXMania
                             break;
                     }
 
-                    if (boxdef.IsChangedForeColor)
-                    {
-                        c曲リストノード.ForeColor = boxdef.ForeColor;
-                    }
-                    if (boxdef.IsChangedBackColor)
-                    {
-                        c曲リストノード.BackColor = boxdef.BackColor;
-                    }
+
 
                     c曲リストノード.nスコア数 = 1;
 					c曲リストノード.arスコア[ 0 ] = new Cスコア();
@@ -576,11 +584,11 @@ namespace DTXMania
 							{
 								sb.Append( ", Genre=" + c曲リストノード.strジャンル );
 							}
-                            if (c曲リストノード.ForeColor != Color.White)
+                            if (c曲リストノード.IsChangedForeColor)
                             {
                                 sb.Append(", ForeColor=" + c曲リストノード.ForeColor.ToString());
                             }
-                            if (c曲リストノード.BackColor != Color.Black)
+                            if (c曲リストノード.IsChangedBackColor)
                             {
                                 sb.Append(", BackColor=" + c曲リストノード.BackColor.ToString());
                             }
