@@ -590,12 +590,9 @@ namespace FDK
 	    /// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
 	    /// the audio is output.
 	    /// 
-	    /// This is currently used for mixing in the SONGVOL value, when available.
-	    /// It is also currently used for DTXViewer preview mode.
-	    ///
-	    /// It will in the near future also be used for adjustments based on
-	    /// loudness metadata, either when SONGVOL is unavailable or when loudness
-	    /// metadata is prioritized over it.
+	    /// This method, taking an integer representing a percent value, is used
+	    /// for mixing in the SONGVOL value, when available. It is also used for
+	    /// DTXViewer preview mode.
 	    /// </summary>
 	    public void SetGain(int songVol)
 	    {
@@ -608,6 +605,15 @@ namespace FDK
 	        return new Lufs(20.0 * Math.Log10(percent / 100.0));
 	    }
 
+	    /// <summary>
+	    /// Gain is applied "first" to the audio data, much as in a physical or
+	    /// software mixer. Later steps in the flow of audio apply "channel" level
+	    /// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
+	    /// the audio is output.
+	    /// 
+	    /// This method, taking a LUFS gain value and a LUFS true audio peak value,
+	    /// is used for mixing in the loudness-metadata-base gain value, when available.
+	    /// </summary>
 	    public void SetGain(Lufs gain, Lufs? truePeak)
 	    {
 	        if (Equals(_gain, gain))
