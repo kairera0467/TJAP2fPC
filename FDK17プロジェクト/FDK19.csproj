@@ -13,7 +13,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>slimdx_key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>slimdx_kairera0467.snk</AssemblyOriginatorKeyFile>
     <ApplicationIcon>
     </ApplicationIcon>
     <FileUpgradeFlags>
@@ -31,7 +31,7 @@
     </DocumentationFile>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <NoWarn>0219</NoWarn>
-    <DefineConstants>DEBUG;TRACE;TEST_CancelEnterCodeInAltEnter2 TEST_Direct3D9Ex_</DefineConstants>
+    <DefineConstants>TRACE;TEST_CancelEnterCodeInAltEnter2 TEST_Direct3D9Ex_</DefineConstants>
     <Optimize>false</Optimize>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="slimdx_kairera0467.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

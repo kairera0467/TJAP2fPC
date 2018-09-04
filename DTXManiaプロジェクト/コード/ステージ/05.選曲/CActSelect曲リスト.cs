@@ -1199,14 +1199,11 @@ namespace DTXMania
                         else if( i > 6 )
                             xAnime += CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 > 582 ? 500 - (int)(500 * ((CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 - 582) / 480.0f)) : 500;
                     }
-                    
-					//else
-                    //if( !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect )
-					{
-						// (B) スクロール中の選択曲バー、またはその他のバーの描画。
 
-						#region [ バーテクスチャを描画。]
-						//-----------------
+                    #region[ 選択されていない曲バー ]
+                    //------------------------------
+                        #region [ バー ]
+                        //-----------------
                         if( this.stバー情報[ nパネル番号 ].ar難易度 != null )
                         {
                             if( this.stバー情報[ nパネル番号 ].eバー種別 == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
@@ -1241,15 +1238,12 @@ namespace DTXMania
                         }
 						//-----------------
 						#endregion
-						#region [ タイトル名テクスチャを描画。]
+					    #region [ 曲名 ]
 						//-----------------
-						//if( this.stバー情報[ nパネル番号 ].txタイトル名 != null )
-						//	this.stバー情報[ nパネル番号 ].txタイトル名.t2D描画( CDTXMania.app.Device, x + 88, y + 10 );
-
                         if( this.stバー情報[ nパネル番号 ].txタイトル != null )
                         {
                             //this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, xAnime + CDTXMania.Skin.nSelectSongPanelTitleX, CDTXMania.Skin.nSelectSongPanelY + CDTXMania.Skin.nSelectSongPanelTitleY );
-                            this.stバー情報[ nパネル番号 ].txタイトル_非選択.t2D描画( CDTXMania.app.Device, xAnime + CDTXMania.Skin.nSelectSongPanelTitleX, CDTXMania.Skin.nSelectSongPanelY + CDTXMania.Skin.nSelectSongPanelTitleY );
+                            this.stバー情報[ nパネル番号 ].txタイトル_非選択.t2D描画( CDTXMania.app.Device, xAnime + (this.tx曲バー.sz画像サイズ.Width / 2) - (this.stバー情報[ nパネル番号 ].txタイトル.sz画像サイズ.Width / 2), CDTXMania.Skin.nSelectSongPanelY + CDTXMania.Skin.nSelectSongPanelTitleY );
                         }
 
                         if( this.stバー情報[ nパネル番号 ].ar難易度 != null && CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.難易度から選ぶ )
@@ -1262,18 +1256,18 @@ namespace DTXMania
                         }
 						//-----------------
 						#endregion
-						#region [ スキル値を描画。]
+					    #region [ スキル値を描画。]
 						//-----------------
 						if( ( this.stバー情報[ nパネル番号 ].eバー種別 == Eバー種別.Score ) && ( this.e楽器パート != E楽器パート.UNKNOWN ) )
 							this.tスキル値の描画( x + 14, y + 14, this.stバー情報[ nパネル番号 ].nスキル値[ (int) this.e楽器パート ] );
-						//-----------------
-						#endregion
-					}
+                    //-----------------
+                    #endregion
+                    #endregion
+                    //------------------------------
+                }
 
-				}
-                
                 //CDTXMania.act文字コンソール.tPrint(0, 100, C文字コンソール.Eフォント種別.灰, CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ].ToString() );
-                if( this.n現在のスクロールカウンタ == 0 )
+                if ( this.n現在のスクロールカウンタ == 0 )
                 {
                     if( CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.曲から選ぶ )
                     {

@@ -181,7 +181,7 @@ namespace DTXMania
                             this.list難易度選択項目.Add( stDiffList );
                             break;
                         case 3:
-                            stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 0 ] != null ? true : false;
+                            stDiffList.b選択可 = false;
                             stDiffList.e項目種類 = E項目種類.かんたん;
                             stDiffList.str項目名 = "Diff:0";
                             stDiffList.ptパネル座標 = new Point( 450, 80 );
@@ -190,7 +190,7 @@ namespace DTXMania
                             this.list難易度選択項目.Add( stDiffList );
                             break;
                         case 4:
-                            stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 1 ] != null ? true : false;
+                            stDiffList.b選択可 = false;
                             stDiffList.e項目種類 = E項目種類.ふつう;
                             stDiffList.str項目名 = "Diff:1";
                             stDiffList.ptパネル座標 = new Point( 550, 80 );
@@ -199,7 +199,7 @@ namespace DTXMania
                             this.list難易度選択項目.Add( stDiffList );
                             break;
                         case 5:
-                            stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 2 ] != null ? true : false;
+                            stDiffList.b選択可 = false;
                             stDiffList.e項目種類 = E項目種類.むずかしい;
                             stDiffList.str項目名 = "Diff:2";
                             stDiffList.ptパネル座標 = new Point( 650, 0 );
@@ -208,7 +208,7 @@ namespace DTXMania
                             this.list難易度選択項目.Add( stDiffList );
                             break;
                         case 6:
-                            stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ 3 ] != null ? true : false;
+                            stDiffList.b選択可 = false;
                             stDiffList.e項目種類 = E項目種類.おに;
                             stDiffList.str項目名 = "Diff:3";
                             stDiffList.ptパネル座標 = new Point( 750, 0 );
