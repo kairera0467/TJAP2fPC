@@ -2121,7 +2121,7 @@ for (int i = 0; i < 3; i++) {
 				Trace.Indent();
 				try
 				{
-                    actScanningLoudness = new CActScanningLoudness();
+				    actScanningLoudness = new CActScanningLoudness();
 				    actScanningLoudness.On活性化();
 				    LoudnessMetadataScanner.ScanningStateChanged +=
 				        (_, args) => actScanningLoudness.bIsActivelyScanning = args.IsActivelyScanning;
