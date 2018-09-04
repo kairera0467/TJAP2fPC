@@ -9,7 +9,23 @@ using System.Xml.XPath;
 
 namespace FDK
 {
-    // JDG DOCO!
+    /// <summary>
+    /// The LoudnessMetadataScanner plays two roles:
+    /// 1. Scanning of song audio files using BS1770GAIN (http://bs1770gain.sourceforge.net/)
+    ///    to determine their perceived loudness. Running on a background thread while not
+    ///    in song gameplay, songs without existing loudness metadata files (e.g. *.bs1770gain.xml)
+    ///    have their perceived loudness determined and saved into an associated metadata file
+    ///    without modifying the original audio file. This scanning process begins running
+    ///    with scanning jobs ordered based on the order in which songs are enumerated when
+    ///    the application starts, but shifts to prioritize songs which are browsed and previewed
+    ///    while on the song select screen.
+    /// 2. Loading of loudness metadata from the BS1770GAIN metadata file alongside each audio file.
+    ///    This occurs when parsing .tja files, when song preview begins, and when song playback
+    ///    begins. When no file is available on disk, a scanning job is passed to the background
+    ///    scanning thread for processing. The loaded metadata is then passed into the
+    ///    SongGainController for combination with a configured target loudness, resulting in a
+    ///    gain value assigned to the sound object just before playback begins.
+    /// </summary>
     public static class LoudnessMetadataScanner
     {
         private const string Bs1770GainExeFileName = "bs1770gain.exe";
