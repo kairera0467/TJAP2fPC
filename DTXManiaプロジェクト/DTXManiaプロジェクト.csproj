@@ -276,10 +276,9 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>;copy /y "$(TargetDir)$(TargetName).exe" "$(SolutionDir)Test\"
-;copy /y "$(TargetDir)$(TargetName).exe.config" "$(SolutionDir)Test\"
-;copy /y "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)Test\"
+    <PostBuildEvent>
 move /y "$(TargetDir)FDK.dll" "$(SolutionDir)Test\dll\"
+move /y "$(TargetDir)FDK.pdb" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)Bass.Net.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)DirectShowLib-2005.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)SlimDXc_net20x86_Jun2010.dll" "$(SolutionDir)Test\dll\"
