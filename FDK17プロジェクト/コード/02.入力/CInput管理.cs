@@ -165,8 +165,9 @@ namespace FDK
 					{
 						device.tポーリング(bWindowがアクティブ中, bバッファ入力を使用する);
 					}
-					catch (DirectInputException)							// #24016 2011.1.6 yyagi: catch exception for unplugging USB joystick, and remove the device object from the polling items.
+					catch (DirectInputException e)							// #24016 2011.1.6 yyagi: catch exception for unplugging USB joystick, and remove the device object from the polling items.
 					{
+						Trace.TraceError( e.ToString() );
 						this.list入力デバイス.Remove(device);
 						device.Dispose();
 						Trace.TraceError("tポーリング時に対象deviceが抜かれており例外発生。同deviceをポーリング対象からRemoveしました。");

@@ -240,8 +240,10 @@ namespace DTXMania
 					{
 						t読み込み();
 					}
-					catch
+					catch (Exception e)
 					{
+						Trace.TraceError( e.ToString() );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 						this.b読み込み未試行 = false;
 					}
 				}
@@ -657,13 +659,14 @@ namespace DTXMania
 							cシステムサウンド.t読み込み();
 							Trace.TraceInformation( "システムサウンドを読み込みました。({0})", cシステムサウンド.strファイル名 );
 						}
-						catch ( FileNotFoundException )
+						catch ( FileNotFoundException e )
 						{
+							Trace.TraceWarning( e.ToString() );
 							Trace.TraceWarning( "システムサウンドが存在しません。({0})", cシステムサウンド.strファイル名 );
 						}
 						catch ( Exception e )
 						{
-							Trace.TraceError( e.Message );
+							Trace.TraceWarning( e.ToString() );
 							Trace.TraceWarning( "システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strファイル名 );
 						}
 					}
@@ -1691,7 +1694,8 @@ namespace DTXMania
                     }
                     catch( Exception exception )
                     {
-                        Trace.TraceError( exception.Message );
+                        Trace.TraceError( exception.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         continue;
                     }
                 }

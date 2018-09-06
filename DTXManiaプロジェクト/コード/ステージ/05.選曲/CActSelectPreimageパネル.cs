@@ -299,8 +299,9 @@ namespace DTXMania
 					this.tサーフェイスをクリアする( this.sfAVI画像 );
 					Trace.TraceInformation( "動画を生成しました。({0})", new object[] { filename } );
 				}
-				catch
+				catch (Exception e)
 				{
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "動画の生成に失敗しました。({0})", new object[] { filename } );
 					this.avi = null;
 					this.nAVI再生開始時刻 = -1;
@@ -349,8 +350,9 @@ namespace DTXMania
 					this.txプレビュー画像 = new CTexture( CDTXMania.app.Device, bitmap3, CDTXMania.TextureFormat );
 					this.r表示するプレビュー画像 = this.txプレビュー画像;
 				}
-				catch
+				catch (Exception e)
 				{
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "背景画像の読み込みに失敗しました。({0})", new object[] { this.str現在のファイル名 } );
 					this.r表示するプレビュー画像 = this.txプレビュー画像がないときの画像;
 					return false;
@@ -547,8 +549,11 @@ namespace DTXMania
 						{
 							CDTXMania.app.Device.UpdateSurface( this.sfAVI画像, new Rectangle( 0, 0, this.sfAVI画像.Description.Width, this.sfAVI画像.Description.Height ), surface, new Point( x, y ) );
 						}
-						catch	// #32335 2013.10.26 yyagi: codecがないと、D3DERR_INVALIDCALLが発生する場合がある
+						catch( Exception e )	// #32335 2013.10.26 yyagi: codecがないと、D3DERR_INVALIDCALLが発生する場合がある
 						{
+							Trace.TraceError( "codecがないと、D3DERR_INVALIDCALLが発生する場合がある" );
+							Trace.TraceError( e.ToString() );
+							Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 						}
 						return;
 					}

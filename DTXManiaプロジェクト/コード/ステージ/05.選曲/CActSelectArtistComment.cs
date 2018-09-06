@@ -45,8 +45,9 @@ namespace DTXMania
 						this.txArtist.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 						bitmap2.Dispose();
 					}
-					catch( CTextureCreateFailedException )
+					catch( CTextureCreateFailedException e )
 					{
+						Trace.TraceError( e.ToString() );
 						Trace.TraceError( "ARTISTテクスチャの生成に失敗しました。" );
 						this.txArtist = null;
 					}
@@ -102,8 +103,9 @@ namespace DTXMania
 						this.txComment = new CTexture( CDTXMania.app.Device, bitmap4, CDTXMania.TextureFormat );
 						this.txComment.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 					}
-					catch( CTextureCreateFailedException )
+					catch( CTextureCreateFailedException e )
 					{
+						Trace.TraceError( e.ToString() );
 						Trace.TraceError( "COMMENTテクスチャの生成に失敗しました。" );
 						this.txComment = null;
 					}

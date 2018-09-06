@@ -575,9 +575,11 @@ namespace SampleFramework
 			{
 				Direct3D9.Device.Dispose();
 			}
-			catch( ObjectDisposedException )
+			catch( ObjectDisposedException e )
 			{
 				// 時々発生するのでキャッチしておく。
+				Trace.TraceError( e.ToString() );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
             Direct3D9Object.Dispose();
 

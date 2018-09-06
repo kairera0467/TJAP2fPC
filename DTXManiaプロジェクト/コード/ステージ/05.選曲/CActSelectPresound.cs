@@ -191,8 +191,9 @@ namespace DTXMania
                     //Trace.TraceInformation( "プレビューサウンドを生成しました。({0})", strPreviewFilename );
                     #endregion
                 }
-				catch
+				catch (Exception e)
 				{
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "プレビューサウンドの生成に失敗しました。({0})", strPreviewFilename );
 					if( this.sound != null )
 					{

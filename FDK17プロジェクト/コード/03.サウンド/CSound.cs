@@ -283,7 +283,8 @@ namespace FDK
 				}
 				catch ( Exception e )
 				{
-					Trace.TraceInformation( e.Message );
+					Trace.TraceError( e.ToString() );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 					if ( ESoundDeviceTypes[ n初期デバイス ] == ESoundDeviceType.Unknown )
 					{
 						Trace.TraceError( string.Format( "サウンドデバイスの初期化に失敗しました。" ) );
@@ -1214,6 +1215,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				}
 				catch( Exception e )
 				{
+					Trace.TraceError( e.ToString() );
 					Trace.TraceInformation( Path.GetFileName( this.strファイル名 ) + ": Seek error: " + e.ToString() + ": " + n位置ms + "ms" );
 				}
 				finally
@@ -1238,7 +1240,9 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				}
 				catch ( DirectSoundException e )
 				{
-					Trace.TraceError( "{0}: Seek error: {1}", Path.GetFileName( this.strファイル名 ), n位置ms, e.Message );
+					Trace.TraceError( "{0}: Seek error: {1}", Path.GetFileName( this.strファイル名 ), n位置ms);
+					Trace.TraceError( e.ToString() );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				}
 				//if ( this.n総演奏時間ms > 5000 )
 				//{
@@ -1374,9 +1378,11 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 						{
 							this.Buffer.Stop();
 						}
-						catch
+						catch (Exception e)
 						{
 							// 演奏終了後、長時間解放しないでいると、たまに AccessViolationException が発生することがある。
+							Trace.TraceError( e.ToString() );
+							Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 						}
 						C共通.tDisposeする( ref this.Buffer );
 					}
@@ -1581,8 +1587,9 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				// DirectShowのデコードに失敗したら、次はACMでのデコードを試すことになるため、ここではエラーログを出さない。
 				// Trace.TraceWarning( "Warning: " + Path.GetFileName( strファイル名 ) + " : デコードに失敗しました。" );
 			}
-			catch ( Exception )
+			catch ( Exception e )
 			{
+				Trace.TraceWarning( e.ToString() );
 				Trace.TraceWarning( "Warning: " + Path.GetFileName( strファイル名 ) + " : 読み込みに失敗しました。" );
 			}
 			#endregion
