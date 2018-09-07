@@ -609,10 +609,10 @@ namespace DTXMania
 			this.soundステージクリア音	= new Cシステムサウンド( @"Sounds\Stage clear.ogg",		false, true,  true, ESoundGroup.Voice );
 			this.soundフルコンボ音		= new Cシステムサウンド( @"Sounds\Full combo.ogg",		false, false, true, ESoundGroup.Voice );
 			this.sound曲読込開始音		= new Cシステムサウンド( @"Sounds\Now loading.ogg",		false, true,  true, ESoundGroup.Unknown );
-			this.soundタイトル音		= new Cシステムサウンド( @"Sounds\Title.ogg",			false, true,  false, ESoundGroup.Unknown );
-			this.bgm起動画面			= new Cシステムサウンド( @"Sounds\Setup BGM.ogg",		true,  true,  false, ESoundGroup.Unknown );
-			this.bgmオプション画面		= new Cシステムサウンド( @"Sounds\Option BGM.ogg",		true,  true,  false, ESoundGroup.Unknown );
-			this.bgmコンフィグ画面		= new Cシステムサウンド( @"Sounds\Config BGM.ogg",		true,  true,  false, ESoundGroup.Unknown );
+			this.soundタイトル音		= new Cシステムサウンド( @"Sounds\Title.ogg",			false, true,  false, ESoundGroup.SongPlayback );
+			this.bgm起動画面			= new Cシステムサウンド( @"Sounds\Setup BGM.ogg",		true,  true,  false, ESoundGroup.SongPlayback );
+			this.bgmオプション画面		= new Cシステムサウンド( @"Sounds\Option BGM.ogg",		true,  true,  false, ESoundGroup.SongPlayback );
+			this.bgmコンフィグ画面		= new Cシステムサウンド( @"Sounds\Config BGM.ogg",		true,  true,  false, ESoundGroup.SongPlayback );
 			this.bgm選曲画面			= new Cシステムサウンド( @"Sounds\Select BGM.ogg",		true,  true,  false, ESoundGroup.SongPreview );
 
             //this.soundRed               = new Cシステムサウンド( @"Sounds\dong.ogg",            false, false, true, ESoundType.SoundEffect );
