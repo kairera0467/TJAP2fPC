@@ -104,6 +104,7 @@ namespace DTXMania
 			// 曲リスト文字は２倍（面積４倍）でテクスチャに描画してから縮小表示するので、フォントサイズは２倍とする。
             this.ct三角矢印アニメ = new CCounter();
             this.ct移動 = new CCounter();
+            this.ct譜面分岐 = new CCounter();
 
 			base.On活性化();
 		}
@@ -117,6 +118,7 @@ namespace DTXMania
 
             this.ct移動 = null;
             this.ct三角矢印アニメ = null;
+            this.ct譜面分岐 = null;
 
 			base.On非活性化();
 		}
@@ -137,6 +139,7 @@ namespace DTXMania
             this.tx説明1 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_information.png" ) );
 
             this.txレベル星 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffboard_star.png" ) );
+            this.tx譜面分岐 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffboard_branch.png" ) );
 
             this.soundSelectAnnounce = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\DiffSelect.ogg" ) );
             
@@ -247,6 +250,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.tx説明背景 );
             CDTXMania.tテクスチャの解放( ref this.tx説明1 );
 
+            this.tx譜面分岐?.Dispose();
             this.txレベル星?.Dispose();
 
             this.txカーソル大?.Dispose();
@@ -274,6 +278,7 @@ namespace DTXMania
 			{
 				for( int i = 0; i < 13; i++ )
 					this.ct登場アニメ用[ i ] = new CCounter( -i * 10, 100, 3, CDTXMania.Timer );
+                this.ct譜面分岐.t開始( 1, 200, 10, CDTXMania.Timer );
 				this.nスクロールタイマ = CSound管理.rc演奏用タイマ.n現在時刻;
 				CDTXMania.stage選曲.t選択曲変更通知();
 
@@ -301,6 +306,7 @@ namespace DTXMania
                     ST難易度選択項目 stDiffList = new ST難易度選択項目();
 
                     stDiffList.b選択可 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ j - 3 ] != null ? true : false;
+                    stDiffList.b譜面分岐 = CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ j - 3 ] != null ? CDTXMania.stage選曲.act曲リスト.r現在選択中の曲.arスコア[ j - 3 ].譜面情報.b譜面分岐[ j - 3 ] : false;
                     stDiffList.e項目種類 = (E項目種類)(j - 3);
                     stDiffList.str項目名 = "Diff:" + j;
                     stDiffList.ptパネル座標 = ptパネル座標[ j - 3 ];
@@ -314,12 +320,13 @@ namespace DTXMania
 
 				base.b初めての進行描画 = false;
 			}
-			//-----------------
-#endregion
-            
-			
-			// 進行。
+            //-----------------
+            #endregion
+
+
+            // 進行。
             //this.ct三角矢印アニメ.t進行Loop();
+            this.ct譜面分岐.t進行Loop();
 
             //if( this.tx背景 != null )
             //    this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
@@ -441,9 +448,17 @@ namespace DTXMania
                         item.txパネル.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X, item.ptパネル座標.Y );
                         if( item.b譜面 )
                         {
-                            for ( int i = 0; i < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ (int)item.e項目種類 ]; i++ )
+                            if( item.b譜面分岐 ? ( this.ct譜面分岐.n現在の値 >= 0 && this.ct譜面分岐.n現在の値 < 100 ) : false )
                             {
-                                this.txレベル星.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X + 40, (item.ptパネル座標.Y + 392) - (20 * i ) );
+                                this.tx譜面分岐?.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X, item.ptパネル座標.Y );
+                                //CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
+                            }
+                            else
+                            {
+                                for ( int i = 0; i < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ (int)item.e項目種類 ]; i++ )
+                                {
+                                    this.txレベル星.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X + 40, (item.ptパネル座標.Y + 392) - (20 * i ) );
+                                }
                             }
                         }
                     }
@@ -506,6 +521,7 @@ namespace DTXMania
 		private CCounter[] ct登場アニメ用 = new CCounter[ 13 ];
         private CCounter ct三角矢印アニメ;
         private CCounter ct移動;
+        private CCounter ct譜面分岐;
 		private long nスクロールタイマ;
 		private int n現在のスクロールカウンタ;
 		private int n現在の選択行;
@@ -522,6 +538,7 @@ namespace DTXMania
         private CTexture txカーソル大;
         private CTexture txカーソル小;
         private CTexture txレベル星;
+        private CTexture tx譜面分岐;
 
         private CSound soundSelectAnnounce;
 
@@ -549,6 +566,7 @@ namespace DTXMania
                     return (int)e項目種類 < 5 ? true : false;
                 }
             }
+            public bool b譜面分岐;
         }
 
         public enum E項目種類

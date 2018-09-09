@@ -614,6 +614,7 @@ namespace DTXMania
                 //CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度パネル, CSkin.Path( @"Graphics\5_level_panel.png" ), false, false );
                 CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx譜面分岐曲バー用, CSkin.Path( @"Graphics\5_songboard_branch.png" ), false, false );
                 CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx譜面分岐中央パネル用, CSkin.Path( @"Graphics\5_center panel_branch.png" ), false, false );
+                CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度パネル, CSkin.Path( @"Graphics\5_level_panel.png" ), false, false );
 
                 CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx上部ジャンル名, CSkin.Path( @"Graphics\5_genrename.png" ), false, false );
                 CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txレベル数字フォント, CSkin.Path( @"Graphics\5_levelfont.png" ), false, false );
@@ -636,13 +637,12 @@ namespace DTXMania
                 if( CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.曲から選ぶ )
                 {
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.txバー中央_アニメ中, CSkin.Path( @"Graphics\5_中央パネルアニメ中.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度パネル, CSkin.Path( @"Graphics\5_中央パネル難易度看板素材.png" ), false, false );
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度文字中央パネル用, CSkin.Path( @"Graphics\5_難易度看板文字.png" ), false, false );
+                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度文字中央パネル用, CSkin.Path( @"Graphics\5_diff_panelstring.png" ), false, false );
                     CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度アイコン, CSkin.Path( @"Graphics\5_center difficon.png" ), false, false );
                 }
                 else
                 {
-                    CDTXMania.tオブジェクトを確認してテクスチャを生成( ref this.tx難易度パネル, CSkin.Path( @"Graphics\5_level_panel.png" ), false, false );
+
                 }
 
                 int c = ( CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
@@ -1439,14 +1439,15 @@ namespace DTXMania
                             }
 
 
-                            Rectangle rectDiffString = new Rectangle( (this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 4) * i, 0, this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 4, this.tx難易度文字中央パネル用.szテクスチャサイズ.Height );
+                            Rectangle rectDiffString = new Rectangle( (this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5) + (this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5) * i, 0, this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5, this.tx難易度文字中央パネル用.szテクスチャサイズ.Height );
                             this.tx難易度パネル?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i) );
                             this.tx難易度文字中央パネル用?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i), rectDiffString );
                             this.tx難易度アイコン.t2D描画( CDTXMania.app.Device, (CDTXMania.Skin.nSelectSongDiffPanelX + (this.tx難易度パネル.szテクスチャサイズ.Width / 2) + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i)) - 32, (CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i)) - 38, new Rectangle( 0, 60 * i, 65, 60 ) );
 
                             if( CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ i ] && !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect ? ( this.ct譜面分岐文字アニメ.n現在の値 >= 0 && this.ct譜面分岐文字アニメ.n現在の値 < 100 ) : false )
                             {
-                                CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
+                                this.tx難易度文字中央パネル用?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i), new Rectangle( 0, 0, rectDiffString.Width, rectDiffString.Height ) );
+                                //CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
                             }
                             else
                             {
