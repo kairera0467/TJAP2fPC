@@ -250,13 +250,29 @@ namespace DTXMania
             if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking != 0)
             {
                 Chara_Balloon_Breaking = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_SoulIn; i++)
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking; i++)
                 {
-                    Chara_Become_Maxed[i] = TxC(GAME + CHARA + @"SoulIn\" + i.ToString() + ".png");
+                    Chara_Balloon_Breaking[i] = TxC(GAME + CHARA + @"Balloon_Breaking\" + i.ToString() + ".png");
                 }
             }
-            Chara_Balloon_Breaking = TxC(GAME + CHARA + @"Breaking.png");
-            Chara_Balloon_Broken = TxC(GAME + CHARA + @"Broken.png");
+            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Broke\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
+            {
+                Chara_Balloon_Broke = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke; i++)
+                {
+                    Chara_Balloon_Broke[i] = TxC(GAME + CHARA + @"Balloon_Broke\" + i.ToString() + ".png");
+                }
+            }
+            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Miss\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
+            {
+                Chara_Balloon_Miss = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss; i++)
+                {
+                    Chara_Balloon_Miss[i] = TxC(GAME + CHARA + @"Balloon_Miss\" + i.ToString() + ".png");
+                }
+            }
             #endregion
             #region 踊り子
             CDTXMania.Skin.Game_Dancer_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + DANCER + @"1\"));
@@ -600,8 +616,18 @@ namespace DTXMania
             {
                 CDTXMania.tテクスチャの解放(ref Chara_Become_Maxed[i]);
             }
-            CDTXMania.tテクスチャの解放(ref Chara_Balloon_Breaking);
-            CDTXMania.tテクスチャの解放(ref Chara_Balloon_Broken);
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Breaking[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Broke[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Miss[i]);
+            }
             #endregion
             #region 踊り子
             for (int i = 0; i < 5; i++)

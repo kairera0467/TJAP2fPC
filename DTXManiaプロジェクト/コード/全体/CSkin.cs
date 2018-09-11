@@ -1876,7 +1876,9 @@ namespace DTXMania
         public int Game_Chara_Beat_Normal = 1;
         public int Game_Chara_Beat_Clear = 2;
         public int Game_Chara_Beat_GoGo = 2;
-        #endregion
+        public int Game_Chara_Balloon_Timer = 28;
+        public int Game_Chara_Balloon_Delay = 500;
+            #endregion
         #region Dancer
         public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
         public int[] Game_Dancer_Y = new int[] { 500, 500, 500, 500, 500 };
