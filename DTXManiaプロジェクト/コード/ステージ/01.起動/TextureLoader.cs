@@ -246,6 +246,15 @@ namespace DTXMania
                     Chara_Become_Maxed[i] = TxC(GAME + CHARA + @"SoulIn\" + i.ToString() + ".png");
                 }
             }
+            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Breaking\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking != 0)
+            {
+                Chara_Balloon_Breaking = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_SoulIn; i++)
+                {
+                    Chara_Become_Maxed[i] = TxC(GAME + CHARA + @"SoulIn\" + i.ToString() + ".png");
+                }
+            }
             Chara_Balloon_Breaking = TxC(GAME + CHARA + @"Breaking.png");
             Chara_Balloon_Broken = TxC(GAME + CHARA + @"Broken.png");
             #endregion
@@ -838,9 +847,10 @@ namespace DTXMania
             Chara_GoGoStart,
             Chara_GoGoStart_Maxed,
             Chara_Become_Cleared,
-            Chara_Become_Maxed;
-        public CTexture Chara_Balloon_Breaking,
-            Chara_Balloon_Broken;
+            Chara_Become_Maxed,
+            Chara_Balloon_Breaking,
+            Chara_Balloon_Broke,
+            Chara_Balloon_Miss;
         #endregion
         #region 踊り子
         public CTexture[][] Dancer;
