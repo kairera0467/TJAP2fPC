@@ -250,7 +250,7 @@ namespace DTXMania
             //CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Breaking?.b進行中.ToString());
             if (bマイどんアクション中)
             {
-                if (CharaAction_Balloon_Broke?.b進行中 == true)
+                if (CharaAction_Balloon_Broke?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
                 {
                     CDTXMania.Tx.Chara_Balloon_Broke[CharaAction_Balloon_Broke.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
                     if(CharaAction_Balloon_Broke.b終了値に達した)
@@ -260,7 +260,7 @@ namespace DTXMania
                         bマイどんアクション中 = false;
                     }
                 }
-                else if (CharaAction_Balloon_Miss?.b進行中 == true)
+                else if (CharaAction_Balloon_Miss?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
                 {
                     CDTXMania.Tx.Chara_Balloon_Miss[CharaAction_Balloon_Miss.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
                     if (CharaAction_Balloon_Miss.b終了値に達した)
@@ -270,7 +270,7 @@ namespace DTXMania
                         bマイどんアクション中 = false;
                     }
                 }
-                else if (CharaAction_Balloon_Breaking?.b進行中 == true)
+                else if (CharaAction_Balloon_Breaking?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking != 0)
                 {
                     CDTXMania.Tx.Chara_Balloon_Breaking[CharaAction_Balloon_Breaking.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
                 }
