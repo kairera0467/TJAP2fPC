@@ -385,6 +385,7 @@ namespace DTXMania
             public int nPlayerSide;
             public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
             public int nList上の位置;
+            public bool IsFixedSENote;
             public bool bBPMチップである
 			{
 				get
@@ -1247,6 +1248,9 @@ namespace DTXMania
 
         public bool IsEndedBranching; // BRANCHENDが呼び出されたかどうか
 
+        public bool IsEnabledFixSENote;
+        public int FixSENote;
+
 
 
 #if TEST_NOTEOFFMODE
@@ -1703,13 +1707,14 @@ namespace DTXMania
                                 break;
                             case 0x13:
                                 chip.nチャンネル番号 = 0x14;
+                                chip.nSenote = 6;
                                 break;
                             case 0x14:
                                 chip.nチャンネル番号 = 0x13;
+                                chip.nSenote = 5;
                                 break;
                         }
                     }
-                    this.tSenotes_Core_V2( this.listChip );
                     break;
                 case Eランダムモード.RANDOM:
                     foreach( var chip in this.listChip )
@@ -1728,14 +1733,15 @@ namespace DTXMania
                                     break;
                                 case 0x13:
                                     chip.nチャンネル番号 = 0x14;
+                                    chip.nSenote = 6;
                                     break;
                                 case 0x14:
                                     chip.nチャンネル番号 = 0x13;
+                                    chip.nSenote = 5;
                                     break;
                             }
                         }
                     }
-                    this.tSenotes_Core_V2( this.listChip );
                     break;
                 case Eランダムモード.SUPERRANDOM:
                     foreach( var chip in this.listChip )
@@ -1754,14 +1760,15 @@ namespace DTXMania
                                     break;
                                 case 0x13:
                                     chip.nチャンネル番号 = 0x14;
+                                    chip.nSenote = 6;
                                     break;
                                 case 0x14:
                                     chip.nチャンネル番号 = 0x13;
+                                    chip.nSenote = 5;
                                     break;
                             }
                         }
                     }
-                    this.tSenotes_Core_V2( this.listChip );
                     break;
                 case Eランダムモード.HYPERRANDOM:
                     foreach( var chip in this.listChip )
@@ -1780,23 +1787,47 @@ namespace DTXMania
                                     break;
                                 case 0x13:
                                     chip.nチャンネル番号 = 0x14;
+                                    chip.nSenote = 6;
                                     break;
                                 case 0x14:
                                     chip.nチャンネル番号 = 0x13;
+                                    chip.nSenote = 5;
                                     break;
                             }
                         }
                     }
-                    this.tSenotes_Core_V2( this.listChip );
                     break;
                 case Eランダムモード.OFF:
                 default:
                     break;
             }
+            if(eRandom != Eランダムモード.OFF)
+            {
+                #region[ list作成 ]
+                //ひとまずチップだけのリストを作成しておく。
+                List<CDTX.CChip> list音符のみのリスト;
+                list音符のみのリスト = new List<CChip>();
+                int nCount = 0;
+                int dkdkCount = 0;
+
+                foreach (CChip chip in this.listChip)
+                {
+                    if (chip.nチャンネル番号 >= 0x11 && chip.nチャンネル番号 < 0x18)
+                    {
+                        list音符のみのリスト.Add(chip);
+                    }
+                }
+                #endregion
+
+                this.tSenotes_Core_V2(list音符のみのリスト);
+
+            }
+
+
         }
 
-		#region [ チップの再生と停止 ]
-		public void tチップの再生( CChip rChip, long n再生開始システム時刻ms, int nLane )
+        #region [ チップの再生と停止 ]
+        public void tチップの再生( CChip rChip, long n再生開始システム時刻ms, int nLane )
 		{
 			this.tチップの再生( rChip, n再生開始システム時刻ms, nLane, CDTXMania.ConfigIni.n自動再生音量, false, false );
 		}
@@ -3907,7 +3938,12 @@ namespace DTXMania
                 this.listChip.Add(chip);
                 this.n内部番号JSCROLL1to++;
             }
-
+            else if(InputText.StartsWith("#SENOTECHANGE"))
+            {
+                strArray = InputText.Split(chDelimiter);
+                FixSENote = int.Parse(strArray[1]);
+                IsEnabledFixSENote = true;
+            }
         }
 
         private void t入力_行解析譜面_V4(string InputText)
@@ -4145,6 +4181,12 @@ namespace DTXMania
                                 //continue;
                             }
 
+                            if(IsEnabledFixSENote)
+                                {
+                                    chip.IsFixedSENote = true;
+                                    chip.nSenote = FixSENote - 1;
+                                }
+
                             #region[ 固定される種類のsenotesはここで設定しておく。 ]
                                 switch ( nObjectNum )
                                 {
@@ -4198,6 +4240,8 @@ namespace DTXMania
 
                             }
                         }
+
+                        if (IsEnabledFixSENote) IsEnabledFixSENote = false;
 
                         this.dbLastTime = this.dbNowTime;
                         this.dbLastBMScrollTime = this.dbNowBMScollTime;
@@ -4891,7 +4935,7 @@ namespace DTXMania
             try
             {
                 //this.tSenotes_Core( list音符のみのリスト );
-                this.tSenotes_Core_V2( list音符のみのリスト );
+                this.tSenotes_Core_V2( list音符のみのリスト, true );
             }
             catch(Exception ex)
             {
@@ -5288,7 +5332,7 @@ namespace DTXMania
                 }
 
                 //this.tSenotes_Core( list音符のみのリスト );
-                this.tSenotes_Core_V2( list音符のみのリスト );
+                this.tSenotes_Core_V2( list音符のみのリスト, true );
             }
 
         }
@@ -6164,7 +6208,7 @@ namespace DTXMania
         /// コア部分Ver2。TJAP2から移植しただけ。
         /// </summary>
         /// <param name="list音符のみのリスト"></param>
-        private void tSenotes_Core_V2( List<CChip> list音符のみのリスト )
+        private void tSenotes_Core_V2( List<CChip> list音符のみのリスト, bool ignoreSENote = false )
         {
 	        const int DATA = 3;
 	        int doco_count = 0;
@@ -6202,6 +6246,8 @@ namespace DTXMania
                     time[j] = (time[j] - time_tmp) * scroll[j];
                     if (time[j] < 0) time[j] *= -1;
                 }
+
+                if (ignoreSENote && list音符のみのリスト[i].IsFixedSENote) continue;
 
                 switch( list音符のみのリスト[i].nチャンネル番号 )
                 {
