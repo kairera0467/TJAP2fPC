@@ -1847,14 +1847,19 @@ namespace DTXMania
             Game_Chara_Ptn_GoGoStart,
             Game_Chara_Ptn_GoGoStart_Max,
             Game_Chara_Ptn_ClearIn,
-            Game_Chara_Ptn_SoulIn = 0;
+            Game_Chara_Ptn_SoulIn,
+            Game_Chara_Ptn_Balloon_Breaking,
+            Game_Chara_Ptn_Balloon_Broke,
+            Game_Chara_Ptn_Balloon_Miss;
         public string Game_Chara_Motion_Normal,
             Game_Chara_Motion_Clear,
             Game_Chara_Motion_GoGo = "0";
         public int Game_Chara_Beat_Normal = 1;
         public int Game_Chara_Beat_Clear = 2;
         public int Game_Chara_Beat_GoGo = 2;
-        #endregion
+        public int Game_Chara_Balloon_Timer = 28;
+        public int Game_Chara_Balloon_Delay = 500;
+            #endregion
         #region Dancer
         public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
         public int[] Game_Dancer_Y = new int[] { 500, 500, 500, 500, 500 };
@@ -1903,7 +1908,7 @@ namespace DTXMania
         public int[] Game_Taiko_Combo_Text_Y = new int[] { 295, 472 };
         public int[] Game_Taiko_Combo_Text_Size = new int[] { 100, 50 };
         #endregion
-	#region Gauge
+	    #region Gauge
         public int Game_Gauge_Rainbow_Ptn;
         public int Game_Gauge_Rainbow_Timer = 50;
         #endregion

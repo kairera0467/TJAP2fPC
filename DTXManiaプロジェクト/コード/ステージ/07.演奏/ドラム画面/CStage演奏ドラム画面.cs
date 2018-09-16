@@ -291,8 +291,8 @@ namespace DTXMania
 
     //            this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
 
-                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\dong.ogg" ), ESoundGroup.SoundEffect );
-                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\ka.ogg" ), ESoundGroup.SoundEffect );
+                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\dong.ogg" ), ESoundGroup.SoundEffect );
+                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\ka.ogg" ), ESoundGroup.SoundEffect );
                 this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Adlib.ogg" ), ESoundGroup.SoundEffect );
 
 				base.OnManagedリソースの作成();
@@ -479,6 +479,7 @@ namespace DTXMania
 
                 this.t進行描画_演奏情報();
                 this.actPanel.t歌詞テクスチャを描画する();
+                actChara.OnDraw_Balloon();
                 this.t全体制御メソッド();
 
 
@@ -1985,7 +1986,28 @@ namespace DTXMania
                             this.actBalloon.On進行描画( this.chip現在処理中の連打チップ[ i ].nBalloon, this.n風船残り[ i ], i );
                         }
                         else
-                            this.n現在の連打数[ i ] = 0;
+                        {
+                            this.n現在の連打数[i] = 0;
+
+
+                        }
+                       
+
+                    }
+                    else
+                    {
+                        if (actChara.CharaAction_Balloon_Breaking.b進行中)
+                        {
+                            this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
+                            if (actChara.CharaAction_Balloon_Miss != null)
+                            {
+                                actChara.アクションタイマーリセット();
+                                actChara.bマイどんアクション中 = true;
+                                actChara.CharaAction_Balloon_Miss = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                                if (actChara.CharaAction_Balloon_Delay != null) actChara.CharaAction_Balloon_Delay = new CCounter(0, CDTXMania.Skin.Game_Chara_Balloon_Delay - 1, 1, CDTXMania.Timer);
+
+                            }
+                        }
                     }
                 }
             }

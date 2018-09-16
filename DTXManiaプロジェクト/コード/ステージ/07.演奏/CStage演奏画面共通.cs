@@ -1171,6 +1171,13 @@ namespace DTXMania
                 }
 
                 this.b連打中[ player ] = true;
+                if(actChara.CharaAction_Balloon_Breaking != null)
+                {
+                    actChara.アクションタイマーリセット();
+                    actChara.bマイどんアクション中 = true;
+                    actChara.CharaAction_Balloon_Breaking = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                   
+                }
                 if (this.actBalloon.ct風船アニメ[player].b終了値に達してない)
                 {
                     this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, CDTXMania.Timer);
@@ -1208,6 +1215,13 @@ namespace DTXMania
                     //this.actChara.b風船連打中 = false;
                     pChip.b可視 = false;
                     this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
+                    if (actChara.CharaAction_Balloon_Broke != null)
+                    {
+                        actChara.アクションタイマーリセット();
+                        actChara.bマイどんアクション中 = true;
+                        actChara.CharaAction_Balloon_Broke = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                        if(actChara.CharaAction_Balloon_Delay != null )actChara.CharaAction_Balloon_Delay = new CCounter(0, CDTXMania.Skin.Game_Chara_Balloon_Delay - 1, 1, CDTXMania.Timer);
+                    }
                     this.eRollState = E連打State.none;
                 }
                 else
@@ -1225,12 +1239,14 @@ namespace DTXMania
             }
             else
             {
-                if( chip現在処理中の連打チップ[ player ] != null )
+                if ( chip現在処理中の連打チップ[ player ] != null )
                     chip現在処理中の連打チップ[ player ].bHit = true;
                 this.b連打中[ player ] = false;
                 this.actChara.b風船連打中 = false;
                 return false;
             }
+
+            
 
             return true;
         }
@@ -1327,6 +1343,22 @@ namespace DTXMania
                                 this.eRollState = E連打State.roll;
                                 this.tRollProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, 1, nNowInput, 0, nPlayer );
                             }
+
+                            //if ((int)CSound管理.rc演奏用タイマ.n現在時刻ms >= pChip.nノーツ終了時刻ms)
+                            //{
+                            //    if (actChara.CharaAction_Balloon_Breaking.b進行中)
+                            //    {
+                            //        this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
+                            //        if (actChara.CharaAction_Balloon_Miss != null)
+                            //        {
+                            //            actChara.アクションタイマーリセット();
+                            //            actChara.bマイどんアクション中 = true;
+                            //            actChara.CharaAction_Balloon_Miss = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                            //            System.Windows.Forms.MessageBox.Show("");
+                            //        }
+                            //    }
+
+                            //}
 
                             break;
                             //---------------------------
@@ -1433,7 +1465,7 @@ namespace DTXMania
 
                 if ((int)actGauge.db現在のゲージ値[nPlayer] >= 100 && this.bIsAlreadyMaxed[nPlayer] == false)
                 {
-                    if(CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0 && nPlayer == 0)
+                    if(CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                     {
                         this.actChara.アクションタイマーリセット();
                         this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_SoulIn - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_SoulIn) * 2, CSound管理.rc演奏用タイマ);
@@ -1445,7 +1477,7 @@ namespace DTXMania
                 }
                 if ((int)actGauge.db現在のゲージ値[nPlayer] >= 80 && this.bIsAlreadyCleared[nPlayer] == false)
                 {
-                    if(CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0 && nPlayer == 0)
+                    if(CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                     {
                         this.actChara.アクションタイマーリセット();
                         this.actChara.ctキャラクターアクション_ノルマ = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_ClearIn - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_ClearIn) * 2, CSound管理.rc演奏用タイマ);
@@ -1616,7 +1648,7 @@ namespace DTXMania
                             //{
                                 if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                                 {
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_ノルマ.b進行中db)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_ノルマ.b進行中db && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                         {
@@ -1630,7 +1662,7 @@ namespace DTXMania
                                             //this.actChara.マイどん_アクション_10コンボ();
                                         }
                                     }
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_魂MAX.b進行中db)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_魂MAX.b進行中db && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                         {
@@ -3327,7 +3359,7 @@ namespace DTXMania
                             double dbUnit = (((60.0 / pChip.dbBPM)));
                             if(nPlayer == 0)
                             {
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0 && nPlayer == 0)
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                 {
                                     if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                     {
@@ -3341,7 +3373,7 @@ namespace DTXMania
                                         //this.actChara.マイどん_アクション_10コンボ();
                                     }
                                 }
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0 && nPlayer == 0)
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                 {
                                     if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                     {
