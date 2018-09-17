@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Diagnostics;
 using System.Drawing.Text;
-
+using CSharpTest.Net.Collections;
 using SlimDX;
 using FDK;
 
@@ -538,6 +538,9 @@ namespace DTXMania
                 this.pfSubtitle = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 20);
             }
 
+		    _titleTextures.ItemRemoved += OnTitleTexturesOnItemRemoved;
+		    _titleTextures.ItemUpdated += OnTitleTexturesOnItemUpdated;
+
             this.e楽器パート = E楽器パート.DRUMS;
 			this.b登場アニメ全部完了 = false;
 			this.n目標のスクロールカウンタ = 0;
@@ -573,6 +576,9 @@ namespace DTXMania
 		{
 			if( this.b活性化してない )
 				return;
+
+		    _titleTextures.ItemRemoved -= OnTitleTexturesOnItemRemoved;
+		    _titleTextures.ItemUpdated -= OnTitleTexturesOnItemUpdated;
 
 			CDTXMania.t安全にDisposeする( ref this.ft曲リスト用フォント );
 
@@ -737,9 +743,8 @@ namespace DTXMania
          //   CDTXMania.tテクスチャの解放( ref this.txカーソル左 );
          //   CDTXMania.tテクスチャの解放( ref this.txカーソル右 );
 
-            CDTXMania.tテクスチャの解放( ref this.txMusicName ); // JDG How is this being used?
-            CDTXMania.t安全にDisposeする(ref pfMusicName); // JDG How is this being used?
-            CDTXMania.t安全にDisposeする(ref pfSubtitle); // JDG How is this being used?
+            CDTXMania.t安全にDisposeする(ref pfMusicName);
+            CDTXMania.t安全にDisposeする(ref pfSubtitle);
 
 			base.OnManagedリソースの解放();
 		}
@@ -1564,7 +1569,6 @@ namespace DTXMania
             public string strジャンル;
             public string strサブタイトル;
             public TitleTextureKey ttkタイトル;
-            public TitleTextureKey ttkサブタイトル; // JDG How his this one being used?
 		}
 
 		private struct ST選曲バー
@@ -1619,6 +1623,14 @@ namespace DTXMania
         private EFIFOモード mode;
         private CPrivateFastFont pfMusicName;
         private CPrivateFastFont pfSubtitle;
+
+	    // 2018-09-17 twopointzero: I can scroll through 2300 songs consuming approx. 200MB of memory.
+	    //                          I have set the title texture cache size to a nearby round number (2500.)
+        //                          If we'd like title textures to take up no more than 100MB, for example,
+        //                          then a cache size of 1000 would be roughly correct.
+	    private readonly LurchTable<TitleTextureKey, CTexture> _titleTextures =
+	        new LurchTable<TitleTextureKey, CTexture>(LurchTableOrder.Access, 2500);
+
 		private E楽器パート e楽器パート;
 		private Font ft曲リスト用フォント;
 		private long nスクロールタイマ;
@@ -1660,8 +1672,6 @@ namespace DTXMania
 
         //private CTexture txカーソル左;
         //private CTexture txカーソル右;
-
-        private CTexture txMusicName; // JDG How his this one being used?
 
         //private CTexture tx難易度星;
         //private CTexture tx譜面分岐中央パネル用;
@@ -2001,7 +2011,13 @@ namespace DTXMania
 
 	    private CTexture ResolveTitleTexture(TitleTextureKey titleTextureKey)
 	    {
-	        return GenerateTitleTexture(titleTextureKey);
+	        if (!_titleTextures.TryGetValue(titleTextureKey, out var texture))
+	        {
+	            texture = GenerateTitleTexture(titleTextureKey);
+                _titleTextures.Add(titleTextureKey, texture);
+	        }
+
+	        return texture;
 	    }
 
 	    private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
@@ -2019,9 +2035,26 @@ namespace DTXMania
 	        }
 	    }
 
+	    private static void OnTitleTexturesOnItemUpdated(
+	        KeyValuePair<TitleTextureKey, CTexture> previous, KeyValuePair<TitleTextureKey, CTexture> next)
+	    {
+            previous.Value.Dispose();
+	    }
+
+	    private static void OnTitleTexturesOnItemRemoved(
+	        KeyValuePair<TitleTextureKey, CTexture> kvp)
+	    {
+	        kvp.Value.Dispose();
+	    }
+
 	    private void ClearTitleTextureCache()
 	    {
+	        foreach (var titleTexture in _titleTextures.Values)
+	        {
+	            titleTexture.Dispose();
+	        }
 
+            _titleTextures.Clear();
 	    }
 
 	    private sealed class TitleTextureKey
