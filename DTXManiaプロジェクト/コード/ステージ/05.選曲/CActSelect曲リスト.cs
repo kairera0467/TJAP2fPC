@@ -626,7 +626,7 @@ namespace DTXMania
 			for( int i = 0; i < 13; i++ )
             {
                 //this.t曲名バーの生成(i, this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
-                this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
+                this.stバー情報[ i ].ttkタイトル = this.ttk曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
             }
 
 			int c = ( CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
@@ -696,8 +696,10 @@ namespace DTXMania
 			for( int i = 0; i < 13; i++ )
             {
                 CDTXMania.tテクスチャの解放( ref this.stバー情報[ i ].txタイトル名 );
-                CDTXMania.tテクスチャの解放( ref this.stバー情報[ i ].txタイトル );
+                this.stバー情報[ i ].ttkタイトル = null;
             }
+
+		    ClearTitleTextureCache();
 
             //CDTXMania.t安全にDisposeする( ref this.txスキル数字 );
             CDTXMania.tテクスチャの解放( ref this.txEnumeratingSongs );
@@ -735,11 +737,9 @@ namespace DTXMania
          //   CDTXMania.tテクスチャの解放( ref this.txカーソル左 );
          //   CDTXMania.tテクスチャの解放( ref this.txカーソル右 );
 
-            CDTXMania.tテクスチャの解放( ref this.txMusicName );
-            //CDTXMania.t安全にDisposeする(ref this.pfMusicName);
-            //CDTXMania.t安全にDisposeする(ref this.pfSubtitle);
-            CDTXMania.t安全にDisposeする(ref pfMusicName);
-            CDTXMania.t安全にDisposeする(ref pfSubtitle);
+            CDTXMania.tテクスチャの解放( ref this.txMusicName ); // JDG How is this being used?
+            CDTXMania.t安全にDisposeする(ref pfMusicName); // JDG How is this being used?
+            CDTXMania.t安全にDisposeする(ref pfSubtitle); // JDG How is this being used?
 
 			base.OnManagedリソースの解放();
 		}
@@ -911,7 +911,7 @@ namespace DTXMania
 							int n = ( ( ( this.n現在の選択行 - 5 ) + i ) + 13 ) % 13;
 							this.stバー情報[ n ].eバー種別 = this.e曲のバー種別を返す( song2 );
 							song2 = this.r次の曲( song2 );
-                            this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
+                            this.stバー情報[ i ].ttkタイトル = this.ttk曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 
 						}
 
@@ -979,7 +979,7 @@ namespace DTXMania
 							int n = ( ( ( this.n現在の選択行 - 5 ) + i ) + 13 ) % 13;
 							this.stバー情報[ n ].eバー種別 = this.e曲のバー種別を返す( song2 );
 							song2 = this.r次の曲( song2 );
-                            this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
+                            this.stバー情報[ i ].ttkタイトル = this.ttk曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 						}
 
 		
@@ -996,16 +996,8 @@ namespace DTXMania
 
 						this.t選択曲が変更された(false);				// スクロールバー用に今何番目を選択しているかを更新
 
-                        if( this.tx選択している曲の曲名 != null )
-                        {
-                            this.tx選択している曲の曲名.Dispose();
-                            this.tx選択している曲の曲名 = null;
-                        }
-                        if( this.tx選択している曲のサブタイトル != null )
-                        {
-                            this.tx選択している曲のサブタイトル.Dispose();
-                            this.tx選択している曲のサブタイトル = null;
-                        }
+					    this.ttk選択している曲の曲名 = null;
+					    this.ttk選択している曲のサブタイトル = null;
 						
 						if( this.n目標のスクロールカウンタ == 0 )
 							CDTXMania.stage選曲.t選択曲変更通知();		// スクロール完了＝選択曲変更！
@@ -1015,16 +1007,14 @@ namespace DTXMania
 
                     if(this.b選択曲が変更された && n現在のスクロールカウンタ==0)
                     {
-                        if (this.tx選択している曲の曲名 != null)
+                        if (this.ttk選択している曲の曲名 != null)
                         {
-                            this.tx選択している曲の曲名.Dispose();
-                            this.tx選択している曲の曲名 = null;
+                            this.ttk選択している曲の曲名 = null;
                             this.b選択曲が変更された = false;
                         }
-                        if (this.tx選択している曲のサブタイトル != null)
+                        if (this.ttk選択している曲のサブタイトル != null)
                         {
-                            this.tx選択している曲のサブタイトル.Dispose();
-                            this.tx選択している曲のサブタイトル = null;
+                            this.ttk選択している曲のサブタイトル = null;
                             this.b選択曲が変更された = false;
                         }
                     }
@@ -1175,26 +1165,27 @@ namespace DTXMania
 
 							#region [ タイトル名テクスチャを描画。]
 							//-----------------
-                            if( this.stバー情報[ nパネル番号 ].strタイトル文字列 != "" && this.stバー情報[ nパネル番号 ].strタイトル文字列 != null && this.tx選択している曲の曲名 == null )
-                                this.tx選択している曲の曲名 = this.t曲名テクスチャを生成する( this.stバー情報[ nパネル番号 ].strタイトル文字列, Color.White, Color.Black);
-                            if( this.stバー情報[ nパネル番号 ].strサブタイトル != "" && this.stバー情報[ nパネル番号 ].strサブタイトル != null && this.tx選択している曲のサブタイトル == null )
-                                this.tx選択している曲のサブタイトル = this.tサブタイトルテクスチャを生成する( this.stバー情報[ nパネル番号 ].strサブタイトル );
+                            if( this.stバー情報[ nパネル番号 ].strタイトル文字列 != "" && this.stバー情報[ nパネル番号 ].strタイトル文字列 != null && this.ttk選択している曲の曲名 == null )
+                                this.ttk選択している曲の曲名 = this.ttk曲名テクスチャを生成する( this.stバー情報[ nパネル番号 ].strタイトル文字列, Color.White, Color.Black);
+                            if( this.stバー情報[ nパネル番号 ].strサブタイトル != "" && this.stバー情報[ nパネル番号 ].strサブタイトル != null && this.ttk選択している曲のサブタイトル == null )
+                                this.ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する( this.stバー情報[ nパネル番号 ].strサブタイトル );
 
 
-                            if( this.tx選択している曲のサブタイトル != null )
+                            if( this.ttk選択している曲のサブタイトル != null )
                             {
-                                int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 440 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
-							    this.tx選択している曲のサブタイトル.t2D描画( CDTXMania.app.Device, 707, nサブタイY );
-                                if( this.tx選択している曲の曲名 != null )
+                                var tx選択している曲のサブタイトル = ResolveTitleTexture(ttk選択している曲のサブタイトル);
+                                int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 440 - (tx選択している曲のサブタイトル.sz画像サイズ.Height * tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
+							    tx選択している曲のサブタイトル.t2D描画( CDTXMania.app.Device, 707, nサブタイY );
+                                if( this.ttk選択している曲の曲名 != null )
                                 {
-				    		    	this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y+23);
+                                    ResolveTitleTexture(this.ttk選択している曲の曲名).t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y+23);
                                 }
                             }
                             else
                             {
-                                if( this.tx選択している曲の曲名 != null )
+                                if( this.ttk選択している曲の曲名 != null )
                                 {
-	    		    				this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
+                                    ResolveTitleTexture(this.ttk選択している曲の曲名).t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
                                 }
                             }
 
@@ -1222,8 +1213,8 @@ namespace DTXMania
 							//-----------------
 							#endregion
 							#region [ タイトル名テクスチャを描画。]
-                            if( this.stバー情報[ nパネル番号 ].txタイトル != null )
-                                this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ i ].X + 28, CDTXMania.Skin.SongSelect_Overall_Y+23);
+                            if( this.stバー情報[ nパネル番号 ].ttkタイトル != null )
+                                ResolveTitleTexture(this.stバー情報[ nパネル番号 ].ttkタイトル).t2D描画( CDTXMania.app.Device, this.ptバーの座標[ i ].X + 28, CDTXMania.Skin.SongSelect_Overall_Y+23);
 							#endregion
 						}
 					}
@@ -1265,9 +1256,9 @@ namespace DTXMania
                         #region [ タイトル名テクスチャを描画。]
 
                         if (n現在のスクロールカウンタ != 0)
-                            this.stバー情報[ nパネル番号 ].txタイトル.t2D描画( CDTXMania.app.Device, xAnime + 28, CDTXMania.Skin.SongSelect_Overall_Y+23);
+                            ResolveTitleTexture(this.stバー情報[ nパネル番号 ].ttkタイトル).t2D描画( CDTXMania.app.Device, xAnime + 28, CDTXMania.Skin.SongSelect_Overall_Y+23);
                         else if (n見た目の行番号 != 5)
-                            this.stバー情報[nパネル番号].txタイトル.t2D描画(CDTXMania.app.Device, xAnime + 28, CDTXMania.Skin.SongSelect_Overall_Y + 23);
+                            ResolveTitleTexture(this.stバー情報[nパネル番号].ttkタイトル).t2D描画(CDTXMania.app.Device, xAnime + 28, CDTXMania.Skin.SongSelect_Overall_Y + 23);
                         
                         #endregion
                         
@@ -1437,27 +1428,28 @@ namespace DTXMania
 
                         #region [ タイトル名テクスチャを描画。]
                         //-----------------
-                        if (this.stバー情報[nパネル番号].strタイトル文字列 != "" &&  this.tx選択している曲の曲名 == null)
-                            this.tx選択している曲の曲名 = this.t曲名テクスチャを生成する(this.stバー情報[nパネル番号].strタイトル文字列, Color.White, Color.Black);
-                        if ( this.stバー情報[ nパネル番号 ].strサブタイトル != "" && this.tx選択している曲のサブタイトル == null )
-                            this.tx選択している曲のサブタイトル = this.tサブタイトルテクスチャを生成する( this.stバー情報[ nパネル番号 ].strサブタイトル );
+                        if (this.stバー情報[nパネル番号].strタイトル文字列 != "" &&  this.ttk選択している曲の曲名 == null)
+                            this.ttk選択している曲の曲名 = this.ttk曲名テクスチャを生成する(this.stバー情報[nパネル番号].strタイトル文字列, Color.White, Color.Black);
+                        if ( this.stバー情報[ nパネル番号 ].strサブタイトル != "" && this.ttk選択している曲のサブタイトル == null )
+                            this.ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する( this.stバー情報[ nパネル番号 ].strサブタイトル );
 
                         //サブタイトルがあったら700
 
-                        if ( this.tx選択している曲のサブタイトル != null )
+                        if ( this.ttk選択している曲のサブタイトル != null )
                         {
-                            int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 440 - (this.tx選択している曲のサブタイトル.sz画像サイズ.Height * this.tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
-							this.tx選択している曲のサブタイトル.t2D描画( CDTXMania.app.Device, 707, nサブタイY );
-                            if( this.tx選択している曲の曲名 != null )
+                            var tx選択している曲のサブタイトル = ResolveTitleTexture(ttk選択している曲のサブタイトル);
+                            int nサブタイY = (int)(CDTXMania.Skin.SongSelect_Overall_Y + 440 - (tx選択している曲のサブタイトル.sz画像サイズ.Height * tx選択している曲のサブタイトル.vc拡大縮小倍率.Y ));
+							tx選択している曲のサブタイトル.t2D描画( CDTXMania.app.Device, 707, nサブタイY );
+                            if( this.ttk選択している曲の曲名 != null )
                             {
-						    	this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
+						    	ResolveTitleTexture(this.ttk選択している曲の曲名).t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
                             }
                         }
                         else
                         {
-                            if( this.tx選択している曲の曲名 != null )
+                            if( this.ttk選択している曲の曲名 != null )
                             {
-	    						this.tx選択している曲の曲名.t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
+	    						ResolveTitleTexture(this.ttk選択している曲の曲名).t2D描画( CDTXMania.app.Device, 750, CDTXMania.Skin.SongSelect_Overall_Y + 23);
                             }
                         }
 
@@ -1571,8 +1563,8 @@ namespace DTXMania
             public bool[] b分岐;
             public string strジャンル;
             public string strサブタイトル;
-            public CTexture txタイトル;
-            public CTexture txサブタイトル;
+            public TitleTextureKey ttkタイトル;
+            public TitleTextureKey ttkサブタイトル; // JDG How his this one being used?
 		}
 
 		private struct ST選曲バー
@@ -1646,8 +1638,8 @@ namespace DTXMania
 		//private STバー tx曲名バー;
 		//private ST選曲バー tx選曲バー;
   //      private CTexture txバー中央;
-        private CTexture tx選択している曲の曲名;
-        private CTexture tx選択している曲のサブタイトル;
+        private TitleTextureKey ttk選択している曲の曲名;
+        private TitleTextureKey ttk選択している曲のサブタイトル;
 
         //private CTexture tx曲バー_アニメ;
         //private CTexture tx曲バー_JPOP;
@@ -1669,7 +1661,7 @@ namespace DTXMania
         //private CTexture txカーソル左;
         //private CTexture txカーソル右;
 
-        private CTexture txMusicName;
+        private CTexture txMusicName; // JDG How his this one being used?
 
         //private CTexture tx難易度星;
         //private CTexture tx譜面分岐中央パネル用;
@@ -1817,7 +1809,7 @@ namespace DTXMania
 				for( int j = 0; j < 3; j++ )
 					this.stバー情報[ i ].nスキル値[ j ] = (int) song.arスコア[ this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( song ) ].譜面情報.最大スキル[ j ];
 
-                this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
+                this.stバー情報[ i ].ttkタイトル = this.ttk曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
 
 				song = this.r次の曲( song );
 			}
@@ -1996,21 +1988,19 @@ namespace DTXMania
 
             return nGenre;
         }
-        private CTexture t曲名テクスチャを生成する( string str文字, Color forecolor, Color backcolor)
+
+        private TitleTextureKey ttk曲名テクスチャを生成する( string str文字, Color forecolor, Color backcolor)
         {
-            return GenerateTitleTexture(str文字, pfMusicName, forecolor, backcolor, 410);
+            return new TitleTextureKey(str文字, pfMusicName, forecolor, backcolor, 410);
         }
 
-	    private CTexture tサブタイトルテクスチャを生成する( string str文字 )
+	    private TitleTextureKey ttkサブタイトルテクスチャを生成する( string str文字 )
         {
-            return GenerateTitleTexture(str文字, pfSubtitle, Color.White, Color.Black, 390);
+            return new TitleTextureKey(str文字, pfSubtitle, Color.White, Color.Black, 390);
         }
 
-	    private static CTexture GenerateTitleTexture(
-	        string str文字, CPrivateFastFont cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight)
+	    private CTexture ResolveTitleTexture(TitleTextureKey titleTextureKey)
 	    {
-	        var titleTextureKey = new TitleTextureKey(str文字, cPrivateFastFont, forecolor, backcolor, maxHeight);
-
 	        return GenerateTitleTexture(titleTextureKey);
 	    }
 
@@ -2029,7 +2019,12 @@ namespace DTXMania
 	        }
 	    }
 
-	    private struct TitleTextureKey
+	    private void ClearTitleTextureCache()
+	    {
+
+	    }
+
+	    private sealed class TitleTextureKey
 	    {
 	        public readonly string str文字;
 	        public readonly CPrivateFastFont cPrivateFastFont;
@@ -2046,10 +2041,10 @@ namespace DTXMania
 	            this.maxHeight = maxHeight;
 	        }
 
-	        public bool Equals(TitleTextureKey other)
+	        private bool Equals(TitleTextureKey other)
 	        {
 	            return string.Equals(str文字, other.str文字) &&
-	                   ReferenceEquals(cPrivateFastFont, other.cPrivateFastFont) &&
+	                   cPrivateFastFont.Equals(other.cPrivateFastFont) &&
 	                   forecolor.Equals(other.forecolor) &&
 	                   backcolor.Equals(other.backcolor) &&
 	                   maxHeight == other.maxHeight;
@@ -2058,6 +2053,7 @@ namespace DTXMania
 	        public override bool Equals(object obj)
 	        {
 	            if (ReferenceEquals(null, obj)) return false;
+	            if (ReferenceEquals(this, obj)) return true;
 	            return obj is TitleTextureKey other && Equals(other);
 	        }
 
@@ -2076,12 +2072,12 @@ namespace DTXMania
 
 	        public static bool operator ==(TitleTextureKey left, TitleTextureKey right)
 	        {
-	            return left.Equals(right);
+	            return Equals(left, right);
 	        }
 
 	        public static bool operator !=(TitleTextureKey left, TitleTextureKey right)
 	        {
-	            return !left.Equals(right);
+	            return !Equals(left, right);
 	        }
 	    }
 
