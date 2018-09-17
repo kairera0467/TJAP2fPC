@@ -26,8 +26,8 @@ namespace DTXMania
             CSkin skin,
             bool isSongPreview)
         {
-            var isAdjustmentPositive = keyboard.bキーが押された((int) SlimDX.DirectInput.Key.Equals);
-            if (!(isAdjustmentPositive || keyboard.bキーが押された((int) SlimDX.DirectInput.Key.Minus)))
+            var isAdjustmentPositive = keyboard.bキーが押された((int) SlimDX.DirectInput.Key.RightBracket);
+            if (!(isAdjustmentPositive || keyboard.bキーが押された((int) SlimDX.DirectInput.Key.LeftBracket)))
             {
                 return;
             }

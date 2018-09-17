@@ -216,42 +216,42 @@ namespace DTXMania
 			this.list項目リスト.Add( this.iSystemSaveScore );
 
 		    this.iSystemApplyLoudnessMetadata = new CItemToggle( "Apply Loudness Metadata", CDTXMania.ConfigIni.ApplyLoudnessMetadata,
-		        "[i18n] To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls.", // JDG NEEDS I18N
-		        "To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls." );
+		        "BS1770GAIN によるラウドネスメータの測量を適用します。\n利用するにはBS1770GAINが必要です。", 
+		        "To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls.\nIt needs BS1770GAIN." );
 		    this.list項目リスト.Add( this.iSystemApplyLoudnessMetadata );
 
 		    this.iSystemTargetLoudness = new CItemInteger( "Target Loudness", (int)Math.Round(CSound.MinimumLufs.ToDouble() * 10.0), (int)Math.Round(CSound.MaximumLufs.ToDouble() * 10.0), (int)Math.Round(CDTXMania.ConfigIni.TargetLoudness * 10.0),
-		        "[i18n] When applying BS1770GAIN loudness\nmetadata while playing songs, song levels\nwill be adjusted to target this loudness,\nmeasured in cB (centibels) relative to full scale.", // JDG NEEDS I18N
-		        "When applying BS1770GAIN loudness\nmetadata while playing songs, song levels\nwill be adjusted to target this loudness,\nmeasured in cB (centibels) relative to full scale." );
+		        "BS1770GAIN によるラウドネスメータの目標値を指定します。",
+                "When applying BS1770GAIN loudness\nmetadata while playing songs, song levels\nwill be adjusted to target this loudness,\nmeasured in cB (centibels) relative to full scale.\n");
 		    this.list項目リスト.Add( this.iSystemTargetLoudness );
 
 		    this.iSystemApplySongVol = new CItemToggle( "Apply SONGVOL", CDTXMania.ConfigIni.ApplySongVol,
-		        "[i18n] To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls.", // JDG NEEDS I18N
+		        ".tjaファイルのSONGVOLヘッダを音源の音量に適用します。設定による音量調整を使用する場合はこの設定をOFFにしてください。",
 		        "To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls." );
 		    this.list項目リスト.Add( this.iSystemApplySongVol );
 
 		    this.iSystemSoundEffectLevel = new CItemInteger( "Sound Effect Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.SoundEffectLevel,
-		        $"[i18n] Sound Effect Level：\n[i18n] The level adjustment for sound effects.\n定します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n", // JDG NEEDS I18N
+		        $"効果音の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
 		        $"The level adjustment for sound effects.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
 		    this.list項目リスト.Add( this.iSystemSoundEffectLevel );
 
 		    this.iSystemVoiceLevel = new CItemInteger( "Voice Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.VoiceLevel,
-		        $"[i18n] Voice Level：\n[i18n] The level adjustment for voices.\n定します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n", // JDG NEEDS I18N
+		        $"各画面で流れるボイス、コンボボイスの音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
 		        $"The level adjustment for voices.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
 		    this.list項目リスト.Add( this.iSystemVoiceLevel );
 
 		    this.iSystemSongPreviewLevel = new CItemInteger( "Song Preview Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.SongPreviewLevel,
-		        $"[i18n] Song Preview Level：\n[i18n] The level adjustment for song previews.\n定します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n", // JDG NEEDS I18N
+		        $"選曲画面のプレビュー時の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
 		        $"The level adjustment for song previews.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
 		    this.list項目リスト.Add( this.iSystemSongPreviewLevel );
 
 		    this.iSystemSongPlaybackLevel = new CItemInteger( "Song Playback Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.SongPlaybackLevel,
-		        $"[i18n] Song Playback Level：\n[i18n] The level adjustment for songs during gameplay.\n定します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n", // JDG NEEDS I18N
+		        $"ゲーム中の音源の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
 		        $"The level adjustment for songs during gameplay.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
 		    this.list項目リスト.Add( this.iSystemSongPlaybackLevel );
 
 		    this.iSystemKeyboardSoundLevelIncrement = new CItemInteger( "Keyboard Level Increment", 1, 20, CDTXMania.ConfigIni.KeyboardSoundLevelIncrement,
-		        "[i18n] Keyboard Sound Level Increment：\n[i18n] The amount of sound level change for each press\nof a sound level control key.\n定します。\n1 ～ 20 の値が指定可能です。\n", // JDG NEEDS I18N
+		        "キーボードで音量調整をするときの増加量、減少量を指定します。\n1 ～ 20 の値が指定可能です。\n",
 		        "The amount of sound level change for each press\nof a sound level control key.\nYou can specify from 1 to 20." );
 		    this.list項目リスト.Add( this.iSystemKeyboardSoundLevelIncrement );
 

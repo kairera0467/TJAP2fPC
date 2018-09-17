@@ -1659,35 +1659,35 @@ namespace DTXMania
 			sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
 			sw.WriteLine( "ShowDebugStatus={0}", this.b演奏情報を表示する ? 1 : 0 );
 			sw.WriteLine();
-		    sw.WriteLine( "; [i18n] Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" ); // JDG NEEDS I18N
+		    sw.WriteLine("; BS1770GAIN によるラウドネスメータの測量を適用する (0:OFF, 1:ON)");
 		    sw.WriteLine( "; Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" );
 		    sw.WriteLine( "{0}={1}", nameof(ApplyLoudnessMetadata), this.ApplyLoudnessMetadata ? 1 : 0 );
 			sw.WriteLine();
-		    sw.WriteLine( $"; [i18n] Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; BS1770GAIN によるラウドネスメータの目標値 (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" );
 		    sw.WriteLine( $"; Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" );
 		    sw.WriteLine( "{0}={1}", nameof(TargetLoudness), TargetLoudness );
 			sw.WriteLine();
-		    sw.WriteLine( "; [i18n] Apply SONGVOL (0:OFF, 1:ON)" ); // JDG NEEDS I18N
+		    sw.WriteLine("; .tjaファイルのSONGVOLヘッダを音源の音量に適用する (0:OFF, 1:ON)");
 		    sw.WriteLine( "; Apply SONGVOL (0:OFF, 1:ON)" );
 		    sw.WriteLine( "{0}={1}", nameof(ApplySongVol), this.ApplySongVol ? 1 : 0 );
 		    sw.WriteLine();
-		    sw.WriteLine( $"; [i18n] Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; 効果音の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( $"; Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( "{0}={1}", nameof(SoundEffectLevel), SoundEffectLevel );
 		    sw.WriteLine();
-		    sw.WriteLine( $"; [i18n] Voice level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; 各ボイス、コンボボイスの音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( $"; Voice level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( "{0}={1}", nameof(VoiceLevel), VoiceLevel );
 		    sw.WriteLine();
-		    sw.WriteLine( $"; [i18n] Song preview level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; 選曲画面のプレビュー時の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( $"; Song preview level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( "{0}={1}", nameof(SongPreviewLevel), SongPreviewLevel );
 			sw.WriteLine();
-		    sw.WriteLine( $"; [i18n] Song playback level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; ゲーム中の音源の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( $"; Song playback level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 		    sw.WriteLine( "{0}={1}", nameof(SongPlaybackLevel), SongPlaybackLevel );
 			sw.WriteLine();
-		    sw.WriteLine( $"; [i18n] Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" ); // JDG NEEDS I18N
+		    sw.WriteLine( $"; キーボードによる音量変更の増加量、減少量 ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
 		    sw.WriteLine( $"; Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
 		    sw.WriteLine( "{0}={1}", nameof(KeyboardSoundLevelIncrement), KeyboardSoundLevelIncrement );
 			sw.WriteLine();
