@@ -190,6 +190,11 @@ namespace DTXMania
 			get;
 			private set;
 		}
+		public static CActScanningLoudness actScanningLoudness
+		{
+			get;
+			private set;
+		}
 		public static CActFlushGPU actFlushGPU
 		{
 			get;
@@ -201,6 +206,19 @@ namespace DTXMania
 			get;
 			private set;
 		}
+
+	    public static SongGainController SongGainController
+	    {
+	        get;
+	        private set;
+	    }
+
+	    public static SoundGroupLevelController SoundGroupLevelController
+	    {
+	        get;
+	        private set;
+	    }
+
 		public static CStage起動 stage起動 
 		{
 			get; 
@@ -585,8 +603,13 @@ namespace DTXMania
 									this.previewSound.Dispose();
 									this.previewSound = null;
 								}
-								this.previewSound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename );
-								this.previewSound.n音量 = DTXVmode.previewVolume;
+								this.previewSound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPlayback );
+
+							    // 2018-08-23 twopointzero: DTXVmode previewVolume will always set
+							    // Gain since in this mode it should override the application of
+							    // SONGVOL or any other Gain source regardless of configuration.
+								this.previewSound.SetGain(DTXVmode.previewVolume);
+
 								this.previewSound.n位置 = DTXVmode.previewPan;
 								this.previewSound.t再生を開始する();
 								Trace.TraceInformation( "DTXCからの指示で、サウンドを生成しました。({0})", strPreviewFilename );
@@ -1498,6 +1521,9 @@ for (int i = 0; i < 3; i++) {
 						#endregion
 						break;
 				}
+
+			    actScanningLoudness.On進行描画();
+
                 // オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
                 if(r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && CDTXMania.Tx.Overlay != null)
                 {
@@ -2089,7 +2115,30 @@ for (int i = 0; i < 3; i++) {
 				);
 				//Sound管理 = FDK.CSound管理.Instance;
 				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
-	
+
+
+				Trace.TraceInformation("Initializing loudness scanning, song gain control, and sound group level control...");
+				Trace.Indent();
+				try
+				{
+				    actScanningLoudness = new CActScanningLoudness();
+				    actScanningLoudness.On活性化();
+				    LoudnessMetadataScanner.ScanningStateChanged +=
+				        (_, args) => actScanningLoudness.bIsActivelyScanning = args.IsActivelyScanning;
+				    LoudnessMetadataScanner.StartBackgroundScanning();
+
+					SongGainController = new SongGainController();
+					ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
+
+					SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
+					ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigIni, SoundGroupLevelController);
+				}
+				finally
+				{
+					Trace.Unindent();
+					Trace.TraceInformation("Initialized loudness scanning, song gain control, and sound group level control.");
+				}
+
 				ShowWindowTitleWithSoundType();
 				FDK.CSound管理.bIsTimeStretch = CDTXMania.ConfigIni.bTimeStretch;
 				Sound管理.nMasterVolume = CDTXMania.ConfigIni.nMasterVolume;
@@ -2542,6 +2591,25 @@ for (int i = 0; i < 3; i++) {
 				{
 					Trace.Unindent();
 				}
+
+			    Trace.TraceInformation("Deinitializing loudness scanning, song gain control, and sound group level control...");
+			    Trace.Indent();
+			    try
+			    {
+			        SoundGroupLevelController = null;
+			        SongGainController = null;
+                    actScanningLoudness.On非活性化();
+			        actScanningLoudness = null;
+			        LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: true);
+			    }
+			    finally
+			    {
+			        Trace.Unindent();
+			        Trace.TraceInformation("Deinitialized loudness scanning, song gain control, and sound group level control.");
+			    }
+
+			    ConfigIni = null;
+
 				//---------------------
 				#endregion
 				#region [ DTXVmodeの終了処理 ]

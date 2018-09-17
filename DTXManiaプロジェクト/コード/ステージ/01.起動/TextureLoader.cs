@@ -71,6 +71,7 @@ namespace DTXMania
             Menu_Title = TxC(@"Menu_Title.png");
             Menu_Highlight = TxC(@"Menu_Highlight.png");
             Enum_Song = TxC(@"Enum_Song.png");
+            Scanning_Loudness = TxC(@"Scanning_Loudness.png");
             Overlay = TxC(@"Overlay.png");
             NamePlate = new CTexture[2];
             NamePlate[0] = TxC(@"1P_NamePlate.png");
@@ -500,6 +501,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref Menu_Title);
             CDTXMania.tテクスチャの解放(ref Menu_Highlight);
             CDTXMania.tテクスチャの解放(ref Enum_Song);
+            CDTXMania.tテクスチャの解放(ref Scanning_Loudness);
             CDTXMania.tテクスチャの解放(ref Overlay);
             for (int i = 0; i < 2; i++)
             {
@@ -801,6 +803,7 @@ namespace DTXMania
             Menu_Title,
             Menu_Highlight,
             Enum_Song,
+            Scanning_Loudness,
             Overlay;
         public CTexture[] NamePlate;
         #endregion

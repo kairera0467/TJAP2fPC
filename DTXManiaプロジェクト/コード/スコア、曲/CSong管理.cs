@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Drawing;
 using System.Threading;
+using FDK;
 
 namespace DTXMania
 {
@@ -769,6 +770,17 @@ namespace DTXMania
 			cスコア.譜面情報.Bpm = br.ReadDouble();
 			cスコア.譜面情報.Duration = br.ReadInt32();
             cスコア.譜面情報.strBGMファイル名 = br.ReadString();
+            cスコア.譜面情報.SongVol = br.ReadInt32();
+		    var hasSongIntegratedLoudness = br.ReadBoolean();
+		    var songIntegratedLoudness = br.ReadDouble();
+		    var integratedLoudness = hasSongIntegratedLoudness ? new Lufs(songIntegratedLoudness) : default(Lufs?);
+		    var hasSongPeakLoudness = br.ReadBoolean();
+		    var songPeakLoudness = br.ReadDouble();
+		    var peakLoudness = hasSongPeakLoudness ? new Lufs(songPeakLoudness) : default(Lufs?);
+		    var songLoudnessMetadata = hasSongIntegratedLoudness
+		        ? new LoudnessMetadata(integratedLoudness.Value, peakLoudness)
+		        : default(LoudnessMetadata?);
+		    cスコア.譜面情報.SongLoudnessMetadata = songLoudnessMetadata;
             cスコア.譜面情報.nデモBGMオフセット = br.ReadInt32();
             cスコア.譜面情報.b譜面分岐[0] = br.ReadBoolean();
             cスコア.譜面情報.b譜面分岐[1] = br.ReadBoolean();
@@ -846,7 +858,9 @@ namespace DTXMania
 									c曲リストノード.arスコア[ i ].譜面情報.Bpm = cdtx.BPM;
 									c曲リストノード.arスコア[ i ].譜面情報.Duration = 0;	//  (cdtx.listChip == null)? 0 : cdtx.listChip[ cdtx.listChip.Count - 1 ].n発声時刻ms;
                                     c曲リストノード.arスコア[ i ].譜面情報.strBGMファイル名 = cdtx.strBGM_PATH;
-                                    c曲リストノード.arスコア[ i ].譜面情報.nデモBGMオフセット = cdtx.nデモBGMオフセット;
+                                    c曲リストノード.arスコア[ i ].譜面情報.SongVol = cdtx.SongVol;
+                                    c曲リストノード.arスコア[ i ].譜面情報.SongLoudnessMetadata = cdtx.SongLoudnessMetadata;
+								    c曲リストノード.arスコア[ i ].譜面情報.nデモBGMオフセット = cdtx.nデモBGMオフセット;
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[0] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 0 ];
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[1] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 1 ];
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[2] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 2 ];
@@ -1181,7 +1195,13 @@ namespace DTXMania
 					bw.Write( node.arスコア[ i ].譜面情報.Bpm );
 					bw.Write( node.arスコア[ i ].譜面情報.Duration );
                     bw.Write( node.arスコア[ i ].譜面情報.strBGMファイル名 );
-                    bw.Write( node.arスコア[ i ].譜面情報.nデモBGMオフセット );
+                    bw.Write( node.arスコア[ i ].譜面情報.SongVol );
+				    var songLoudnessMetadata = node.arスコア[ i ].譜面情報.SongLoudnessMetadata;
+				    bw.Write( songLoudnessMetadata.HasValue );
+                    bw.Write( songLoudnessMetadata?.Integrated.ToDouble() ?? 0.0 );
+                    bw.Write( songLoudnessMetadata?.TruePeak.HasValue ?? false );
+                    bw.Write( songLoudnessMetadata?.TruePeak?.ToDouble() ?? 0.0 );
+				    bw.Write( node.arスコア[ i ].譜面情報.nデモBGMオフセット );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[0] );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[1] );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[2] );
@@ -1941,7 +1961,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 
 		#region [ private ]
 		//-----------------
-		private const string SONGSDB_VERSION = "SongsDB3";
+		private const string SONGSDB_VERSION = "SongsDB4";
 		private List<string> listStrBoxDefSkinSubfolderFullName;
 
 		private int t比較0_共通( C曲リストノード n1, C曲リストノード n2 )

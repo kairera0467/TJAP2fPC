@@ -1023,83 +1023,22 @@ namespace DTXMania
 			//sw2.Stop();
 			return nearestChip_Future;
 		}
-		protected void tサウンド再生( CDTX.CChip rChip, long n再生開始システム時刻ms, E楽器パート part )
+		protected void tサウンド再生( CDTX.CChip pChip, int nPlayer )
 		{
-			this.tサウンド再生( rChip, n再生開始システム時刻ms, part, CDTXMania.ConfigIni.n手動再生音量, false, false, 0 );
+			int index = pChip.nチャンネル番号;
+            if( index == 0x11 || index == 0x13 || index == 0x1A )
+                this.soundRed.t再生を開始する();
+            else if( index == 0x12 || index == 0x14 || index == 0x1B )
+                this.soundBlue.t再生を開始する();
+            else if( index == 0x1F )
+                this.soundAdlib.t再生を開始する();
+
+            if( this.nHand[ nPlayer ] == 0 )
+                this.nHand[ nPlayer ]++;
+            else
+                this.nHand[ nPlayer ] = 0;
 		}
-		protected void tサウンド再生( CDTX.CChip rChip, long n再生開始システム時刻ms, E楽器パート part, int n音量 )
-		{
-			this.tサウンド再生( rChip, n再生開始システム時刻ms, part, n音量, false, false, 0 );
-		}
-		protected void tサウンド再生( CDTX.CChip rChip, long n再生開始システム時刻ms, E楽器パート part, int n音量, bool bモニタ )
-		{
-			this.tサウンド再生( rChip, n再生開始システム時刻ms, part, n音量, bモニタ, false, 0 );
-		}
-		protected void tサウンド再生( CDTX.CChip pChip, long n再生開始システム時刻ms, E楽器パート part, int n音量, bool bモニタ, bool b音程をずらして再生, int nPlayer )
-		{
-			// mute sound (auto)
-			// 4A: HH
-			// 4B: CY
-			// 4C: RD
-			// 4D: LC
-			// 2A: Gt
-			// AA: Bs
-			//
 
-			if ( pChip != null )
-			{
-				bool overwrite = false;
-				switch ( part )
-				{
-					case E楽器パート.DRUMS:
-					#region [ DRUMS ]
-						return;
-					#endregion
-					case E楽器パート.GUITAR:
-					#region [ GUITAR ]
-						return;
-					#endregion
-					case E楽器パート.BASS:
-					#region [ BASS ]
-						return;
-					#endregion
-                    case E楽器パート.TAIKO:
-						{
-                            //switch( nPlayer )
-                            //{
-                            //    case 0:
-                            //        this.soundRed.n位置 = -50;
-                            //        this.soundBlue.n位置 = -50;
-                            //        this.soundAdlib.n位置 = -50;
-                            //        break;
-                            //    case 1:
-                            //        this.soundRed.n位置 = 50;
-                            //        this.soundBlue.n位置 = 50;
-                            //        this.soundAdlib.n位置 = 50;
-                            //        break;
-                            //}
-
-							int index = pChip.nチャンネル番号;
-                            if( index == 0x11 || index == 0x13 || index == 0x1A )
-                                this.soundRed.t再生を開始する();
-                            else if( index == 0x12 || index == 0x14 || index == 0x1B )
-                                this.soundBlue.t再生を開始する();
-                            else if( index == 0x1F )
-                                this.soundAdlib.t再生を開始する();
-
-                            if( this.nHand[ nPlayer ] == 0 )
-                                this.nHand[ nPlayer ]++;
-                            else
-                                this.nHand[ nPlayer ] = 0;
-
-							return;
-						}
-
-					default:
-						break;
-				}
-			}
-		}
 		protected void tステータスパネルの選択()
 		{
 			if ( CDTXMania.bコンパクトモード )
@@ -2736,6 +2675,11 @@ namespace DTXMania
 					CDTXMania.ConfigIni.b演奏情報を表示する = !CDTXMania.ConfigIni.b演奏情報を表示する;
 				}
             }
+
+		    #region [ Minus & Equals Sound Group Level ]
+		    KeyboardSoundGroupLevelControlHandler.Handle(
+		        keyboard, CDTXMania.SoundGroupLevelController, CDTXMania.Skin, false);
+		    #endregion
 		}
 
 		protected void t入力メソッド記憶( E楽器パート part )
@@ -2965,7 +2909,7 @@ namespace DTXMania
 							pChip.bHit = true;
 							if ( configIni.bBGM音を発声する )
 							{
-								dTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM, dTX.nモニタを考慮した音量( E楽器パート.UNKNOWN ) );
+								dTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM );
 							}
 						}
 						break;
@@ -4177,7 +4121,7 @@ namespace DTXMania
 
 						if ( ( wc.bIsBGMSound && CDTXMania.ConfigIni.bBGM音を発声する ) || ( !wc.bIsBGMSound ) )
 						{
-							CDTXMania.DTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM, CDTXMania.DTX.nモニタを考慮した音量( E楽器パート.UNKNOWN ) );
+							CDTXMania.DTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM );
 							#region [ PAUSEする ]
 							int j = wc.n現在再生中のサウンド番号;
 							if ( wc.rSound[ j ] != null )

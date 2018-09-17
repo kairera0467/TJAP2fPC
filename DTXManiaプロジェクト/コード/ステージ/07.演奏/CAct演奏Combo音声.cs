@@ -88,7 +88,7 @@ namespace DTXMania
                         comboVoice.bFileFound = true;
                         comboVoice.nPlayer = 0;
                         comboVoice.strFilePath = item;
-                        comboVoice.soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する(item);
+                        comboVoice.soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する(item, ESoundGroup.Voice);
                         comboVoice.nCombo = int.Parse(Path.GetFileNameWithoutExtension(item));
                         listComboVoice.Add(comboVoice);
                     }
@@ -105,7 +105,7 @@ namespace DTXMania
                         comboVoice.bFileFound = true;
                         comboVoice.nPlayer = 1;
                         comboVoice.strFilePath = item;
-                        comboVoice.soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する(item);
+                        comboVoice.soundComboVoice = CDTXMania.Sound管理.tサウンドを生成する(item, ESoundGroup.Voice);
                         comboVoice.nCombo = int.Parse(Path.GetFileNameWithoutExtension(item));
                         listComboVoiceP2.Add(comboVoice);
                     }
