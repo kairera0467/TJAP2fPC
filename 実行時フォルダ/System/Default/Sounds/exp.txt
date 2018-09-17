@@ -1,0 +1,60 @@
+音声ファイルの説明
+DTXManiaから搭載されている音声の説明は必要最低限のものしか載せていません。
+そちらのほうに興味がある方はDTXManiaのQ&Aをお読みください。
+
+○dong.ogg
+○ka.ogg
+演奏中の音色です。後々拡張予定。
+
+○balloon.ogg
+風船を割った時に鳴る音声
+
+○Adlib.ogg
+アドリブ音符を叩いた時に鳴る音声
+
+○Cancel.ogg
+項目をキャンセルした時に鳴る音声
+
+○Change.ogg
+項目の値を変更させた時に鳴る音声
+
+○Move.ogg
+カーソルを移動させた時に鳴る音声
+
+○Decide.ogg
+項目を決定した時に鳴る音声
+
+○Full combo.ogg
+フルコンボの場合に演奏終了前に鳴る音声
+
+○Clear.ogg
+クリアの場合に演奏終了前時に鳴る音声
+
+○Stage failed.ogg
+演奏失敗(閉店)した時に鳴る音声
+
+○Game start.ogg
+タイトル画面で「Game Start」を選んだ時に鳴る音声
+
+○Game end.ogg
+
+○SongDecide.ogg
+曲を決定した時に鳴る音声(定義があやふや)
+
+○ResultIn.ogg
+演奏画面からリザルト画面に入る時に鳴る音声
+
+○DiffDecide.ogg
+難易度を決定した時に鳴る音声
+
+○DiffSelect.ogg
+難易度選択画面に入った時に鳴る音声
+
+○NG.ogg
+選択できない項目を選んだ時に鳴る音声
+
+○Title.ogg
+タイトル画面で鳴る音声
+
+○Now loading.ogg
+曲読み込み開始時に鳴る音声
