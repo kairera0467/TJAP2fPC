@@ -130,7 +130,6 @@ namespace DTXMania
             this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffselect_background.png" ) );
             this.txヘッダー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffselect_header_panel.png" ) );
             this.txフッター = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer panel.png" ) );
-            this.txパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5-1_パネル.png" ) );
 
             this.txカーソル大 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diff_coursol1.png" ) );
             this.txカーソル小 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diff_coursol2.png" ) );
@@ -142,7 +141,8 @@ namespace DTXMania
             this.tx譜面分岐 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffboard_branch.png" ) );
 
             this.soundSelectAnnounce = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\DiffSelect.ogg" ) );
-            
+
+            this.list難易度選択項目 = new List<ST難易度選択項目>();
             if( this.list難易度選択項目 != null )
             {
                 for( int i = 0; i < 8; i++ )
@@ -316,7 +316,7 @@ namespace DTXMania
                     this.list難易度選択項目[j] = stDiffList;
                 }
 
-                this.soundSelectAnnounce.tサウンドを再生する();
+                this.soundSelectAnnounce?.tサウンドを再生する();
 
 				base.b初めての進行描画 = false;
 			}
@@ -326,7 +326,7 @@ namespace DTXMania
 
             // 進行。
             //this.ct三角矢印アニメ.t進行Loop();
-            this.ct譜面分岐.t進行Loop();
+            this.ct譜面分岐?.t進行Loop();
 
             //if( this.tx背景 != null )
             //    this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
@@ -534,7 +534,6 @@ namespace DTXMania
         private CTexture tx説明背景;
         private CTexture tx説明1;
 
-        private CTexture txパネル;
         private CTexture txカーソル大;
         private CTexture txカーソル小;
         private CTexture txレベル星;

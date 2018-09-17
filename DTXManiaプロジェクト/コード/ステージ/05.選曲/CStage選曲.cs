@@ -584,8 +584,8 @@ namespace DTXMania
 						}
                         #endregion
                         #region [ TEST ]
-                        if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F11 ) )
-                        //if( false )
+                        //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F11 ) )
+                        if( false )
                         {
                             CDTXMania.Skin.sound決定音.t再生する();
                             CDTXMania.Skin.sound曲読込開始音.t再生する();
@@ -594,8 +594,8 @@ namespace DTXMania
                             this.act難易度選択画面.t選択画面初期化();
                             C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
                         }
-                        if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.NumberPad7 ) )
-                        //if( false )
+                        //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.NumberPad7 ) )
+                        if( false )
                         {
                             this.t難易度選択画面を閉じる();
                         }
@@ -760,9 +760,9 @@ namespace DTXMania
                     if (this.ctDiffSelect移動待ち?.n現在の値 == this.ctDiffSelect移動待ち?.n終了値)
                     {
                         this.act難易度選択画面.On進行描画();
-                        CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, "NowStage:DifficltSelect");
+                        //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, "NowStage:DifficltSelect");
                     }
-                    CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect移動待ち?.n現在の値);
+                    //CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect移動待ち?.n現在の値);
 
                 }
                 else if( this.ctDiffSelect戻り待ち.n現在の値 > 0 && this.ctDiffSelect戻り待ち.b終了値に達してない )
@@ -772,7 +772,7 @@ namespace DTXMania
                         this.act難易度選択画面.On進行描画();
                         //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, "NowStage:DifficltSelect");
                     }
-                    CDTXMania.act文字コンソール.tPrint(0, 48, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect戻り待ち?.n現在の値);
+                    //CDTXMania.act文字コンソール.tPrint(0, 48, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect戻り待ち?.n現在の値);
                 }
                 //------------------------------
                 this.actQuickConfig.t進行描画(); // 2018.8.29 kairera0467 描画優先度が難易度選択より上になるよう修正
