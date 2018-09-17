@@ -38,6 +38,11 @@ namespace DTXMania
             this.ctキャラクターアクション_ノルマ = new CCounter();
             this.ctキャラクターアクション_魂MAX = new CCounter();
 
+            CharaAction_Balloon_Breaking = new CCounter();
+            CharaAction_Balloon_Broke = new CCounter();
+            CharaAction_Balloon_Miss = new CCounter();
+            CharaAction_Balloon_Delay = new CCounter();
+
             this.b風船連打中 = false;
             this.b演奏中 = false;
 
@@ -57,6 +62,11 @@ namespace DTXMania
             this.ctキャラクターアクション_ゴーゴースタートMAX = null;
             this.ctキャラクターアクション_ノルマ = null;
             this.ctキャラクターアクション_魂MAX = null;
+
+            CharaAction_Balloon_Breaking = null;
+            CharaAction_Balloon_Broke = null;
+            CharaAction_Balloon_Miss = null;
+            CharaAction_Balloon_Delay = null;
        
             base.On非活性化();
         }
@@ -72,6 +82,7 @@ namespace DTXMania
             ctChara_Normal = new CCounter(0, arモーション番号.Length - 1, 10, CSound管理.rc演奏用タイマ);
             ctChara_GoGo = new CCounter(0, arゴーゴーモーション番号.Length - 1, 10, CSound管理.rc演奏用タイマ);
             ctChara_Clear = new CCounter(0, arクリアモーション番号.Length - 1, 10, CSound管理.rc演奏用タイマ);
+            if (CharaAction_Balloon_Delay != null) CharaAction_Balloon_Delay.n現在の値 = CharaAction_Balloon_Delay.n終了値;
             base.OnManagedリソースの作成();
         }
 
@@ -92,7 +103,8 @@ namespace DTXMania
             if (this.ctキャラクターアクション_ノルマ != null || CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0) this.ctキャラクターアクション_ノルマ.t進行db();
             if (this.ctキャラクターアクション_魂MAX != null || CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0) this.ctキャラクターアクション_魂MAX.t進行db();
 
-            if ( this.b風船連打中 != true && this.bマイどんアクション中 != true)
+
+            if ( this.b風船連打中 != true && this.bマイどんアクション中 != true && CharaAction_Balloon_Delay.b終了値に達した)
             {
                 if ( !CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[ 0 ] )
                 {
@@ -129,9 +141,9 @@ namespace DTXMania
                             CDTXMania.Tx.Chara_GoGoTime[ this.arゴーゴーモーション番号[ (int)this.ctChara_GoGo.db現在の値 ] ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_X[0], CDTXMania.Skin.Game_Chara_Y[0] );
                     }
                 }
-            
             }
-            if (this.b風船連打中 != true && bマイどんアクション中 == true)
+
+            if (this.b風船連打中 != true && bマイどんアクション中 == true && CharaAction_Balloon_Delay.b終了値に達した)
             {
 
                 if (this.ctキャラクターアクション_10コンボ.b進行中db)
@@ -226,6 +238,52 @@ namespace DTXMania
             return base.On進行描画();
         }
 
+        public void OnDraw_Balloon()
+        {
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking != 0) CharaAction_Balloon_Breaking?.t進行();
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke != 0) CharaAction_Balloon_Broke?.t進行();
+            CharaAction_Balloon_Delay?.t進行();
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss != 0) CharaAction_Balloon_Miss?.t進行();
+            //CharaAction_Balloon_Delay?.t進行();
+            //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Broke?.b進行中.ToString());
+            //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Miss?.b進行中.ToString());
+            //CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Breaking?.b進行中.ToString());
+            if (bマイどんアクション中)
+            {
+                if (CharaAction_Balloon_Broke?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
+                {
+                    CDTXMania.Tx.Chara_Balloon_Broke[CharaAction_Balloon_Broke.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
+                    if(CharaAction_Balloon_Broke.b終了値に達した)
+                    {
+                        CharaAction_Balloon_Broke.t停止();
+                        CharaAction_Balloon_Broke.n現在の値 = 0;
+                        bマイどんアクション中 = false;
+                    }
+                }
+                else if (CharaAction_Balloon_Miss?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
+                {
+                    CDTXMania.Tx.Chara_Balloon_Miss[CharaAction_Balloon_Miss.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
+                    if (CharaAction_Balloon_Miss.b終了値に達した)
+                    {
+                        CharaAction_Balloon_Miss.t停止();
+                        CharaAction_Balloon_Miss.n現在の値 = 0;
+                        bマイどんアクション中 = false;
+                    }
+                }
+                else if (CharaAction_Balloon_Breaking?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking != 0)
+                {
+                    CDTXMania.Tx.Chara_Balloon_Breaking[CharaAction_Balloon_Breaking.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
+                }
+
+                //if (CDTXMania.stage演奏ドラム画面.actChara.CharaAction_Balloon_Breaking?.b終了値に達した == true)
+                //{
+                //    CDTXMania.stage演奏ドラム画面.actChara.bマイどんアクション中 = false;
+                //    CDTXMania.stage演奏ドラム画面.actChara.CharaAction_Balloon_Breaking.t停止();
+                //    CDTXMania.stage演奏ドラム画面.actChara.CharaAction_Balloon_Breaking.n現在の値 = 0;
+                //}
+            }
+        }
+
         public void アクションタイマーリセット()
         {
             ctキャラクターアクション_10コンボ.t停止();
@@ -240,6 +298,14 @@ namespace DTXMania
             ctキャラクターアクション_ゴーゴースタートMAX.db現在の値 = 0D;
             ctキャラクターアクション_ノルマ.db現在の値 = 0D;
             ctキャラクターアクション_魂MAX.db現在の値 = 0D;
+            CharaAction_Balloon_Breaking?.t停止();
+            CharaAction_Balloon_Broke?.t停止();
+            CharaAction_Balloon_Miss?.t停止();
+            //CharaAction_Balloon_Delay?.t停止();
+            CharaAction_Balloon_Breaking.n現在の値 = 0;
+            CharaAction_Balloon_Broke.n現在の値 = 0;
+            CharaAction_Balloon_Miss.n現在の値 = 0;
+            //CharaAction_Balloon_Delay.n現在の値 = 0;
         }
 
         public int[] arモーション番号;
@@ -252,6 +318,10 @@ namespace DTXMania
         public CCounter ctキャラクターアクション_ゴーゴースタートMAX;
         public CCounter ctキャラクターアクション_ノルマ;
         public CCounter ctキャラクターアクション_魂MAX;
+        public CCounter CharaAction_Balloon_Breaking;
+        public CCounter CharaAction_Balloon_Broke;
+        public CCounter CharaAction_Balloon_Miss;
+        public CCounter CharaAction_Balloon_Delay;
 
         public CCounter ctChara_Normal;
         public CCounter ctChara_GoGo;

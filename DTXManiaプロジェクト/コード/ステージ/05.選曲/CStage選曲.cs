@@ -394,7 +394,6 @@ namespace DTXMania
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
 				{
-					CDTXMania.Skin.bgm選曲画面.n音量_次に鳴るサウンド = 100;
 					CDTXMania.Skin.bgm選曲画面.t再生する();
 					this.bBGM再生済み = true;
 				}
@@ -634,6 +633,12 @@ namespace DTXMania
 							#endregion
 						}
 					}
+
+				    #region [ Minus & Equals Sound Group Level ]
+				    KeyboardSoundGroupLevelControlHandler.Handle(
+				        CDTXMania.Input管理.Keyboard, CDTXMania.SoundGroupLevelController, CDTXMania.Skin, true);
+				    #endregion
+
 					this.actSortSongs.t進行描画();
 					this.actQuickConfig.t進行描画();
 				}

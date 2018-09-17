@@ -180,6 +180,8 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
+            LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: false);
+
 			this.bフィルイン中 = false;
             this.n待機中の大音符の座標 = 0;
             this.actGame.t叩ききりまショー_初期化();
@@ -268,6 +270,8 @@ namespace DTXMania
 		{
             this.ct手つなぎ = null;
 			base.On非活性化();
+
+            LoudnessMetadataScanner.StartBackgroundScanning();
 		}
 		public override void OnManagedリソースの作成()
 		{
@@ -287,9 +291,9 @@ namespace DTXMania
 
     //            this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
 
-                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\dong.ogg" ) );
-                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\ka.ogg" ) );
-                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Adlib.ogg" ) );
+                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\dong.ogg" ), ESoundGroup.SoundEffect );
+                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\ka.ogg" ), ESoundGroup.SoundEffect );
+                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Adlib.ogg" ), ESoundGroup.SoundEffect );
 
 				base.OnManagedリソースの作成();
 			}
@@ -475,6 +479,7 @@ namespace DTXMania
 
                 this.t進行描画_演奏情報();
                 this.actPanel.t歌詞テクスチャを描画する();
+                actChara.OnDraw_Balloon();
                 this.t全体制御メソッド();
 
 
@@ -1302,7 +1307,7 @@ namespace DTXMania
                             int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
 
                             this.tチップのヒット処理(pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, true, nLane + n大音符, nPlayer);
-                            this.tサウンド再生(pChip, pChip.n発声時刻ms, E楽器パート.TAIKO, dTX.nモニタを考慮した音量(E楽器パート.DRUMS), false, false, nPlayer);
+                            this.tサウンド再生(pChip, nPlayer);
                             return;
                         }
                     }
@@ -1981,7 +1986,28 @@ namespace DTXMania
                             this.actBalloon.On進行描画( this.chip現在処理中の連打チップ[ i ].nBalloon, this.n風船残り[ i ], i );
                         }
                         else
-                            this.n現在の連打数[ i ] = 0;
+                        {
+                            this.n現在の連打数[i] = 0;
+
+
+                        }
+                       
+
+                    }
+                    else
+                    {
+                        if (actChara.CharaAction_Balloon_Breaking.b進行中)
+                        {
+                            this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
+                            if (actChara.CharaAction_Balloon_Miss != null)
+                            {
+                                actChara.アクションタイマーリセット();
+                                actChara.bマイどんアクション中 = true;
+                                actChara.CharaAction_Balloon_Miss = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                                if (actChara.CharaAction_Balloon_Delay != null) actChara.CharaAction_Balloon_Delay = new CCounter(0, CDTXMania.Skin.Game_Chara_Balloon_Delay - 1, 1, CDTXMania.Timer);
+
+                            }
+                        }
                     }
                 }
             }

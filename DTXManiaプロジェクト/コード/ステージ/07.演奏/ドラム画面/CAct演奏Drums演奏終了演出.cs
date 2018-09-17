@@ -57,7 +57,7 @@ namespace DTXMania
             //if( this.tx文字マスク != null )
             //    this.tx文字マスク.b加算合成 = true;
 
-            this.soundClear = CDTXMania.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Clear.ogg"));
+            this.soundClear = CDTXMania.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Clear.ogg"), ESoundGroup.SoundEffect);
             base.OnManagedリソースの作成();
         }
 

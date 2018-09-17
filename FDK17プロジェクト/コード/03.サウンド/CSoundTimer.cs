@@ -63,7 +63,7 @@ namespace FDK
 			}
 		}
 
-		public CSoundTimer( ISoundDevice device )
+		internal CSoundTimer( ISoundDevice device )
 		{
 			this.Device = device;
 
@@ -202,7 +202,7 @@ Debug.WriteLine( "B" );
 			}
 		}
 
-		public ISoundDevice Device = null;	// debugのため、一時的にprotectedをpublicにする。後で元に戻しておくこと。
+		internal ISoundDevice Device = null;	// debugのため、一時的にprotectedをpublicにする。後で元に戻しておくこと。
 		//protected Thread thSendInput = null;
 		//protected Thread thSnapTimers = null;
 		private CTimer ctDInputTimer = null;
