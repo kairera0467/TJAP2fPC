@@ -9,3 +9,4 @@
 *.db
 /Test/Capture_img
 /Test/Config.ini
+/Test/bs1770gain**

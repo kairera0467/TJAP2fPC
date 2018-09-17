@@ -8,7 +8,7 @@ using Un4seen.Bass.AddOn.Mix;
 
 namespace FDK
 {
-	public class CSoundDeviceWASAPI : ISoundDevice
+	internal class CSoundDeviceWASAPI : ISoundDevice
 	{
 		// プロパティ
 
@@ -156,6 +156,8 @@ namespace FDK
 			int n周波数 = 44100;	// 仮決め。lデバイス（≠ドライバ）がネイティブに対応している周波数であれば何でもいい？ようだ。BASSWASAPIでデバイスの周波数は変えられる。いずれにしろBASSMXで自動的にリサンプリングされる。
 			if( !Bass.BASS_Init( nデバイス, n周波数, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero ) )
 				throw new Exception( string.Format( "BASS (WASAPI) の初期化に失敗しました。(BASS_Init)[{0}]", Bass.BASS_ErrorGetCode().ToString() ) );
+
+		    Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_CURVE_VOL, true);
 
 			#region [ デバッグ用: WASAPIデバイスのenumerateと、ログ出力 ]
 			// (デバッグ用)
@@ -349,23 +351,18 @@ namespace FDK
 			BassWasapi.BASS_WASAPI_Start();
 		}
 		#region [ tサウンドを作成する() ]
-		public CSound tサウンドを作成する( string strファイル名 )
+		public CSound tサウンドを作成する( string strファイル名, ESoundGroup soundGroup )
 		{
-			var sound = new CSound();
+			var sound = new CSound(soundGroup);
 			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.e出力デバイス );
 			return sound;
 		}
-		public CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ )
-		{
-			var sound = new CSound();
-			sound.tWASAPIサウンドを作成する( byArrWAVファイルイメージ, this.hMixer, this.e出力デバイス );
-			return sound;
-		}
-		public void tサウンドを作成する( string strファイル名, ref CSound sound )
+
+		public void tサウンドを作成する( string strファイル名, CSound sound )
 		{
 			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.e出力デバイス );
 		}
-		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, ref CSound sound )
+		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound )
 		{
 			sound.tWASAPIサウンドを作成する( byArrWAVファイルイメージ, this.hMixer, this.e出力デバイス );
 		}

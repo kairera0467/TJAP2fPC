@@ -38,7 +38,7 @@ namespace FDK
 		}
 	}
 
-	public class CSoundDeviceASIO : ISoundDevice
+	internal class CSoundDeviceASIO : ISoundDevice
 	{
 		// プロパティ
 
@@ -164,6 +164,8 @@ namespace FDK
 			int n周波数 = 44100;	// 仮決め。最終的な周波数はデバイス（≠ドライバ）が決める。
 			if( !Bass.BASS_Init( nデバイス, n周波数, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero ) )
 				throw new Exception( string.Format( "BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.BASS_ErrorGetCode().ToString() ) );
+
+		    Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_CURVE_VOL, true);
 
 //Debug.WriteLine( "BASS_Init()完了。" );
 			#region [ デバッグ用: ASIOデバイスのenumerateと、ログ出力 ]
@@ -353,23 +355,18 @@ namespace FDK
 		}
 
 		#region [ tサウンドを作成する() ]
-		public CSound tサウンドを作成する( string strファイル名 )
+		public CSound tサウンドを作成する( string strファイル名, ESoundGroup soundGroup )
 		{
-			var sound = new CSound();
+			var sound = new CSound(soundGroup);
 			sound.tASIOサウンドを作成する( strファイル名, this.hMixer );
 			return sound;
 		}
-		public CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ )
-		{
-			var sound = new CSound();
-			sound.tASIOサウンドを作成する( byArrWAVファイルイメージ, this.hMixer );
-			return sound;
-		}
-		public void tサウンドを作成する( string strファイル名, ref CSound sound )
+
+		public void tサウンドを作成する( string strファイル名, CSound sound )
 		{
 			sound.tASIOサウンドを作成する( strファイル名, this.hMixer );
 		}
-		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, ref CSound sound )
+		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound )
 		{
 			sound.tASIOサウンドを作成する( byArrWAVファイルイメージ, this.hMixer );
 		}
