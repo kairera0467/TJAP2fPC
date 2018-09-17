@@ -2009,15 +2009,79 @@ namespace DTXMania
 	    private static CTexture GenerateTitleTexture(
 	        string str文字, CPrivateFastFont cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight)
 	    {
-	        using (var bmp = new Bitmap(cPrivateFastFont.DrawPrivateFont(str文字, forecolor, backcolor, true)))
+	        var titleTextureKey = new TitleTextureKey(str文字, cPrivateFastFont, forecolor, backcolor, maxHeight);
+
+	        return GenerateTitleTexture(titleTextureKey);
+	    }
+
+	    private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
+	    {
+	        using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
+	            titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
 	        {
 	            CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成(bmp, false);
-	            if (tx文字テクスチャ.szテクスチャサイズ.Height > maxHeight)
+	            if (tx文字テクスチャ.szテクスチャサイズ.Height > titleTextureKey.maxHeight)
 	            {
-	                tx文字テクスチャ.vc拡大縮小倍率.Y = (float) (((double) maxHeight) / tx文字テクスチャ.szテクスチャサイズ.Height);
+	                tx文字テクスチャ.vc拡大縮小倍率.Y = (float) (((double) titleTextureKey.maxHeight) / tx文字テクスチャ.szテクスチャサイズ.Height);
 	            }
 
 	            return tx文字テクスチャ;
+	        }
+	    }
+
+	    private struct TitleTextureKey
+	    {
+	        public readonly string str文字;
+	        public readonly CPrivateFastFont cPrivateFastFont;
+	        public readonly Color forecolor;
+	        public readonly Color backcolor;
+	        public readonly int maxHeight;
+
+	        public TitleTextureKey(string str文字, CPrivateFastFont cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight)
+	        {
+	            this.str文字 = str文字;
+	            this.cPrivateFastFont = cPrivateFastFont;
+	            this.forecolor = forecolor;
+	            this.backcolor = backcolor;
+	            this.maxHeight = maxHeight;
+	        }
+
+	        public bool Equals(TitleTextureKey other)
+	        {
+	            return string.Equals(str文字, other.str文字) &&
+	                   ReferenceEquals(cPrivateFastFont, other.cPrivateFastFont) &&
+	                   forecolor.Equals(other.forecolor) &&
+	                   backcolor.Equals(other.backcolor) &&
+	                   maxHeight == other.maxHeight;
+	        }
+
+	        public override bool Equals(object obj)
+	        {
+	            if (ReferenceEquals(null, obj)) return false;
+	            return obj is TitleTextureKey other && Equals(other);
+	        }
+
+	        public override int GetHashCode()
+	        {
+	            unchecked
+	            {
+	                var hashCode = str文字.GetHashCode();
+	                hashCode = (hashCode * 397) ^ cPrivateFastFont.GetHashCode();
+	                hashCode = (hashCode * 397) ^ forecolor.GetHashCode();
+	                hashCode = (hashCode * 397) ^ backcolor.GetHashCode();
+	                hashCode = (hashCode * 397) ^ maxHeight;
+	                return hashCode;
+	            }
+	        }
+
+	        public static bool operator ==(TitleTextureKey left, TitleTextureKey right)
+	        {
+	            return left.Equals(right);
+	        }
+
+	        public static bool operator !=(TitleTextureKey left, TitleTextureKey right)
+	        {
+	            return !left.Equals(right);
 	        }
 	    }
 
