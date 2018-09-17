@@ -1998,46 +1998,30 @@ namespace DTXMania
         }
         private CTexture t曲名テクスチャを生成する( string str文字, Color forecolor, Color backcolor)
         {
-            //Bitmap bmp;
-            using (var bmp = new Bitmap(pfMusicName.DrawPrivateFont(str文字, forecolor, backcolor, true)))
-            {
-                CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成(bmp, false);
-                if (tx文字テクスチャ.szテクスチャサイズ.Height > 410)
-                {
-                    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(410.0f / tx文字テクスチャ.szテクスチャサイズ.Height);
-                }
-                return tx文字テクスチャ;
-            }
-            //bmp = pfMusicName.DrawPrivateFont(str文字, Color.White, Color.Black, true);
-            //using (var bmp = new Bitmap(pfSubtitle.DrawPrivateFont(str文字, Color.White, Color.Black, true)));
-            //bmp.Dispose();
-            //bmp = null;
-
+            return GenerateTitleTexture(str文字, pfMusicName, forecolor, backcolor, 410);
         }
-        private CTexture tサブタイトルテクスチャを生成する( string str文字 )
+
+	    private CTexture tサブタイトルテクスチャを生成する( string str文字 )
         {
-            //Bitmap bmp;
-            //bmp = pfSubtitle.DrawPrivateFont( str文字, Color.White, Color.Black, true );
-            //CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成( bmp, false );
-            //if( tx文字テクスチャ.szテクスチャサイズ.Height > 360 )
-            //{
-            //    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)( 360.0f / tx文字テクスチャ.szテクスチャサイズ.Height );
-            //}
-            //bmp.Dispose();
-            //bmp = null;
-            //return tx文字テクスチャ;
-            using (var bmp = new Bitmap(pfSubtitle.DrawPrivateFont(str文字, Color.White, Color.Black, true)))
-            {
-                CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成(bmp, false);
-                if (tx文字テクスチャ.szテクスチャサイズ.Height > 390)
-                {
-                    tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(390.0f / tx文字テクスチャ.szテクスチャサイズ.Height);
-                }
-                return tx文字テクスチャ;
-            }
+            return GenerateTitleTexture(str文字, pfSubtitle, Color.White, Color.Black, 390);
         }
 
-		private void t曲名バーの生成( int nバー番号, string str曲名, Color forecolor, Color backcolor )
+	    private static CTexture GenerateTitleTexture(
+	        string str文字, CPrivateFastFont cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight)
+	    {
+	        using (var bmp = new Bitmap(cPrivateFastFont.DrawPrivateFont(str文字, forecolor, backcolor, true)))
+	        {
+	            CTexture tx文字テクスチャ = CDTXMania.tテクスチャの生成(bmp, false);
+	            if (tx文字テクスチャ.szテクスチャサイズ.Height > maxHeight)
+	            {
+	                tx文字テクスチャ.vc拡大縮小倍率.Y = (float) (((double) maxHeight) / tx文字テクスチャ.szテクスチャサイズ.Height);
+	            }
+
+	            return tx文字テクスチャ;
+	        }
+	    }
+
+	    private void t曲名バーの生成( int nバー番号, string str曲名, Color forecolor, Color backcolor )
 		{
             return;
 			if( nバー番号 < 0 || nバー番号 > 12 )
