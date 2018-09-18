@@ -4289,9 +4289,9 @@ namespace DTXMania
             {
                 this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
-            if( CDTXMania.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
-                this.nScoreModeTmp = 3;
-            }
+            //if( CDTXMania.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
+            //    this.nScoreModeTmp = 3;
+            //}
         }
 
         private void t入力_行解析ヘッダ( string InputText )
