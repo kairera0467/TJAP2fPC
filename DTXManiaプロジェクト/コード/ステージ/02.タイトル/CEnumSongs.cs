@@ -267,13 +267,15 @@ namespace DTXMania
 									//	cシステムサウンド.t再生する();
 									//}
 								}
-								catch ( FileNotFoundException )
+								catch ( FileNotFoundException e )
 								{
 									Trace.TraceWarning( "システムサウンドが存在しません。({0})", cシステムサウンド.strファイル名 );
+									Trace.TraceWarning( e.ToString() );
+									Trace.TraceWarning( "例外が発生しましたが処理を継続します。" );
 								}
 								catch ( Exception e )
 								{
-									Trace.TraceError( e.Message );
+									Trace.TraceWarning( e.ToString() );
 									Trace.TraceWarning( "システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strファイル名 );
 								}
 							}
@@ -353,9 +355,11 @@ namespace DTXMania
 						{
 							this.Songs管理.tSongsDBを読み込む( strPathSongsDB );
 						}
-						catch
+						catch (Exception e)
 						{
 							Trace.TraceError( "songs.db の読み込みに失敗しました。" );
+							Trace.TraceError( e.ToString() );
+							Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 						}
 
 						int scores = ( this.Songs管理 == null ) ? 0 : this.Songs管理.nSongsDBから取得できたスコア数;	// 読み込み途中でアプリ終了した場合など、CDTXMania.Songs管理 がnullの場合があるので注意
@@ -448,8 +452,7 @@ namespace DTXMania
 									}
 									catch ( Exception e )
 									{
-										Trace.TraceError( e.Message );
-										Trace.TraceError( e.StackTrace );
+										Trace.TraceError( e.ToString() );
 										Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 								}
 										finally
@@ -491,8 +494,7 @@ namespace DTXMania
 				}
 				catch ( Exception e )
 				{
-					Trace.TraceError( e.Message );
-					Trace.TraceError( e.StackTrace );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				}
 				finally
@@ -522,8 +524,7 @@ namespace DTXMania
 				}
 				catch ( Exception e )
 				{
-					Trace.TraceError( e.Message );
-					Trace.TraceError( e.StackTrace );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				}
 				finally
@@ -550,8 +551,7 @@ namespace DTXMania
 				}
 				catch ( Exception e )
 				{
-					Trace.TraceError( e.Message );
-					Trace.TraceError( e.StackTrace );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				}
 				finally
@@ -578,8 +578,7 @@ namespace DTXMania
 				}
 				catch ( Exception e )
 				{
-					Trace.TraceError( e.Message );
-					Trace.TraceError( e.StackTrace );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				}
 				finally
@@ -637,8 +636,7 @@ namespace DTXMania
 			catch ( Exception e )
 			{
 				bSucceededSerialize = false;
-				Trace.TraceError( e.Message );
-				Trace.TraceError( e.StackTrace );
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
 			finally
@@ -650,9 +648,10 @@ namespace DTXMania
 					{
 						File.Delete( strPathSongList );	// serializeに失敗したら、songs2.dbファイルを消しておく
 					}
-					catch ( Exception )
+					catch ( Exception e )
 					{
-						// 特に何もしない
+						Trace.TraceError( e.ToString() );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 					}
 				}
 			}
@@ -678,16 +677,21 @@ namespace DTXMania
 						BinaryFormatter formatter = new BinaryFormatter();
 						songs管理 = (CSongs管理) formatter.Deserialize( input );
 					}
-					catch ( Exception )
+					catch ( Exception e )
 					{
 						// songs管理 = null;
+
+						Trace.TraceError( e.ToString() );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 					}
 				}
 				#endregion
 			}
-			catch
+			catch (Exception e)
 			{
 				Trace.TraceError( "songlist.db の読み込みに失敗しました。" );
+				Trace.TraceError( e.ToString() );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
 			return songs管理;
 		}

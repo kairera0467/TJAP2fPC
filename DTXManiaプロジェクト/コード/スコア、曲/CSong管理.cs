@@ -716,9 +716,11 @@ namespace DTXMania
 												Trace.TraceInformation( "演奏記録ファイルから HiSkill 情報と演奏履歴を取得しました。({0})", strFileNameScoreIni );
 											}
 										}
-										catch
+										catch (Exception e)
 										{
 											Trace.TraceError( "演奏記録ファイルの読み込みに失敗しました。({0})", strFileNameScoreIni );
+											Trace.TraceError( e.ToString() );
+											Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 										}
 									}
 								}
@@ -903,7 +905,7 @@ namespace DTXMania
 								}
 								catch( Exception exception )
 								{
-									Trace.TraceError( exception.Message );
+									Trace.TraceError( exception.ToString() );
 									c曲リストノード.arスコア[ i ] = null;
 									c曲リストノード.nスコア数--;
 									this.n検索されたスコア数--;
@@ -927,9 +929,10 @@ namespace DTXMania
                                     this.tScoreIniを読み込んで譜面情報を設定する( dtxscoreini[ 0 ], ref c曲リストノード.arスコア[ i ] );
                                 }
                             }
-                            catch
+                            catch (Exception e)
                             {
-
+                                Trace.TraceError( e.ToString() );
+                                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                             }
 
 							//-----------------
@@ -1139,9 +1142,11 @@ namespace DTXMania
 				this.tSongsDBにリストを１つ出力する( bw, this.list曲ルート );
 				bw.Close();
 			}
-			catch
+			catch (Exception e)
 			{
 				Trace.TraceError( "songs.dbの出力に失敗しました。" );
+				Trace.TraceError( e.ToString() );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
 		}
 		private void tSongsDBにノードを１つ出力する( BinaryWriter bw, C曲リストノード node )
@@ -1757,7 +1762,8 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.Message);
+                Trace.TraceError(ex.ToString());
+                Trace.TraceError("例外が発生しましたが処理を継続します。");
             }
 
         }
@@ -1872,9 +1878,11 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 				for( int i = 0; i < 5; i++ )
 					score.譜面情報.演奏履歴[ i ] = ini.stファイル.History[ i ];
 			}
-			catch
+			catch (Exception e)
 			{
 				Trace.TraceError( "演奏記録ファイルの読み込みに失敗しました。[{0}]", strScoreIniファイルパス );
+				Trace.TraceError( e.ToString() );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
 		}
 		//-----------------

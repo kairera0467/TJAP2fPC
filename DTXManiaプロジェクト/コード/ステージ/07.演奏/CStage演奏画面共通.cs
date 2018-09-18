@@ -4422,8 +4422,10 @@ namespace DTXMania
                 else
                     this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( DefaultBgFilename ) );
             }
-            catch
+            catch (Exception e)
             {
+                Trace.TraceError( e.ToString() );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                 this.tx背景 = null;
             }
 		}

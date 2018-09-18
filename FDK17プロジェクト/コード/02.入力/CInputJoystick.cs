@@ -46,8 +46,10 @@ namespace FDK
 			{
 				this.devJoystick.Acquire();
 			}
-			catch( DirectInputException )
+			catch( DirectInputException e )
 			{
+				Trace.TraceError( e.ToString() );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
 
 			for( int i = 0; i < this.bButtonState.Length; i++ )

@@ -84,8 +84,9 @@ namespace DTXMania
 					this._pfc.AddFontFile(fontpath);								//PrivateFontCollectionにフォントを追加する
 					_fontfamily = _pfc.Families[0];
 				}
-				catch (System.IO.FileNotFoundException)
+				catch (System.IO.FileNotFoundException e)
 				{
+					Trace.TraceWarning( e.ToString() );
 					Trace.TraceWarning("プライベートフォントの追加に失敗しました({0})。代わりにMS UI Gothicの使用を試みます。", fontpath);
 					//throw new FileNotFoundException( "プライベートフォントの追加に失敗しました。({0})", Path.GetFileName( fontpath ) );
 					//return;

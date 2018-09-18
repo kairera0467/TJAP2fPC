@@ -95,7 +95,8 @@ namespace FDK
 				// timerが実際に停止したことを検出してから次の設定をすべきだが、実装が難しいため、
 				// ここで単に例外破棄することで代替する
 				{
-					Trace.TraceInformation("FDK: CSoundTimer.SnapTimers(): 例外発生しましたが、継続します。" + e.Message );
+					Trace.TraceInformation( e.ToString() );
+					Trace.TraceInformation("FDK: CSoundTimer.SnapTimers(): 例外発生しましたが、継続します。" );
 				}
 			}
 		}

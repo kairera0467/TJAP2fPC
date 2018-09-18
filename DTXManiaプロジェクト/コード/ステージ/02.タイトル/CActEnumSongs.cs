@@ -117,9 +117,11 @@ namespace DTXMania
 					this.txMessage = null;
 				}
 			}
-			catch ( CTextureCreateFailedException )
+			catch ( CTextureCreateFailedException e )
 			{
 				Trace.TraceError( "テクスチャの生成に失敗しました。(txMessage)" );
+				Trace.TraceError( e.ToString() );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				this.txMessage = null;
 			}
 	
