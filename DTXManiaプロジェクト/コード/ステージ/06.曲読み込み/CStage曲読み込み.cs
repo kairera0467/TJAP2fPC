@@ -121,8 +121,9 @@ namespace DTXMania
                         this.txサブタイトル = null;
                     }
 				}
-				catch( CTextureCreateFailedException )
+				catch( CTextureCreateFailedException e )
 				{
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "テクスチャの生成に失敗しました。({0})", new object[] { this.strSTAGEFILE } );
 					this.txタイトル = null;
                     this.txサブタイトル = null;

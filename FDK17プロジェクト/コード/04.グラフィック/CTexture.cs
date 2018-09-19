@@ -142,7 +142,7 @@ namespace FDK
             catch (Exception e)
             {
                 this.Dispose();
-                throw new CTextureCreateFailedException("ビットマップからのテクスチャの生成に失敗しました。(" + e.Message + ")");
+                throw new CTextureCreateFailedException("ビットマップからのテクスチャの生成に失敗しました。", e);
             }
         }
 

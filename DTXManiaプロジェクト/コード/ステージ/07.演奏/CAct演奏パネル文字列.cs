@@ -80,8 +80,9 @@ namespace DTXMania
                         CDTXMania.t安全にDisposeする( ref bmpDiff );
                         CDTXMania.t安全にDisposeする( ref bmpSongTitle );
 					}
-					catch( CTextureCreateFailedException )
+					catch( CTextureCreateFailedException e )
 					{
+						Trace.TraceError( e.ToString() );
 						Trace.TraceError( "パネル文字列テクスチャの生成に失敗しました。" );
 						this.txPanel = null;
 					}

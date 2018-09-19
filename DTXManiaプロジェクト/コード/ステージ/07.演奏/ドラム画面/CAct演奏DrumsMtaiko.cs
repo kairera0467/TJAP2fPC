@@ -301,7 +301,7 @@ namespace DTXMania
                         );
                 }
 
-                if (CDTXMania.DTX.nScoreModeTmp == 3)
+                if (CDTXMania.ConfigIni.ShinuchiMode)
                 {
                     if (CDTXMania.Tx.Couse_Symbol[5] != null)
                     {

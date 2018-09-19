@@ -657,8 +657,9 @@ namespace DTXMania
 					this.txSongNotFound.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );	// 半分のサイズで表示する。
 				}
 			}
-			catch( CTextureCreateFailedException )
+			catch( CTextureCreateFailedException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "SoungNotFoundテクスチャの作成に失敗しました。" );
 				this.txSongNotFound = null;
 			}
@@ -681,8 +682,9 @@ namespace DTXMania
 					this.txEnumeratingSongs.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );	// 半分のサイズで表示する。
 				}
 			}
-			catch ( CTextureCreateFailedException )
+			catch ( CTextureCreateFailedException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "txEnumeratingSongsテクスチャの作成に失敗しました。" );
 				this.txEnumeratingSongs = null;
 			}
@@ -2161,8 +2163,9 @@ namespace DTXMania
                 //bmpSongTitle = pfMusicName.DrawSongNameFont( str曲名, Color.White, Color.Black );
                 //this.stバー情報[ nバー番号 ].txタイトル名 = new CTexture( CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false );
 			}
-			catch( CTextureCreateFailedException )
+			catch( CTextureCreateFailedException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "曲名テクスチャの作成に失敗しました。[{0}]", str曲名 );
 				this.stバー情報[ nバー番号 ].txタイトル名 = null;
 			}

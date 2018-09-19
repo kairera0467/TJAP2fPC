@@ -1085,8 +1085,9 @@ namespace DTXMania
                 this.actRollChara.Start(0);
 
                 //2017.01.28 DD CDTXから直接呼び出す
-                if (pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+                if (pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                 {
+                    // 旧配点・旧筐体配点
                     if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
@@ -1094,6 +1095,7 @@ namespace DTXMania
                         else
                             this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, (long)( 360 * 1.2f ), nPlayer );
                     }
+                    // 新配点
                     else
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
@@ -1104,13 +1106,15 @@ namespace DTXMania
                 }
                 else
                 {
+                    // 旧配点・旧筐体配点
                     if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
-                            this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 100L, nPlayer );
+                            this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 300L, nPlayer );
                         else
-                            this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 200L, nPlayer );
+                            this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 360L, nPlayer );
                     }
+                    // 新配点
                     else
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
@@ -1202,7 +1206,7 @@ namespace DTXMania
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
                     CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
-                    if(pChip.bGOGOTIME)
+                    if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 6000L, player);
                     } else
@@ -1226,7 +1230,7 @@ namespace DTXMania
                 }
                 else
                 {
-                    if(pChip.bGOGOTIME)
+                    if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 360L, player);
                     } else
@@ -1728,7 +1732,7 @@ namespace DTXMania
                 long nDiff = CDTXMania.DTX.nScoreDiff[ CDTXMania.stage選曲.n確定された曲の難易度 ];
                 long nAddScore = 0;
 
-                if( CDTXMania.DTX.nScoreModeTmp == 3 )  //2016.07.04 kairera0467 真打モード。
+                if( CDTXMania.ConfigIni.ShinuchiMode )  //2016.07.04 kairera0467 真打モード。
                 {
                     nAddScore = CDTXMania.DTX.nScoreInit[ 1, CDTXMania.stage選曲.n確定された曲の難易度 ];
                     if( nAddScore == 0 )
@@ -4418,8 +4422,10 @@ namespace DTXMania
                 else
                     this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( DefaultBgFilename ) );
             }
-            catch
+            catch (Exception e)
             {
+                Trace.TraceError( e.ToString() );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                 this.tx背景 = null;
             }
 		}

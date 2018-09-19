@@ -60,7 +60,7 @@ namespace DTXMania
 				}
 				catch( Exception e )
 				{
-					Trace.TraceError( e.Message );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "動画の生成に失敗しました。({0})({1})", this.strコメント文, strAVIファイル名 );
 					this.avi = null;
 				}
@@ -161,7 +161,7 @@ namespace DTXMania
 				}
 				catch( Exception e )
 				{
-					Trace.TraceError( e.Message );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "DirectShowの生成に失敗しました。({0})({1})", this.strコメント文, str動画ファイル名 );
 					this.dshow= null;
 				}
@@ -1563,13 +1563,15 @@ namespace DTXMania
 	                {
 	                    cwav.rSound[i] = null;
 	                    Trace.TraceError("サウンドの作成に失敗しました。({0})({1})", cwav.strコメント文, str);
-	                    Trace.TraceError("例外: " + e.Message);
+	                    Trace.TraceError(e.ToString());
 	                }
 	            }
 	        }
 	        catch (Exception exception)
 	        {
-	            Trace.TraceError("サウンドの生成に失敗しました。({0})({1})({2})", exception.Message, cwav.strコメント文, str);
+	            Trace.TraceError("サウンドの生成に失敗しました。({0})({1})", cwav.strコメント文, str);
+	            Trace.TraceError(exception.ToString());
+
 	            for (int j = 0; j < nPolyphonicSounds; j++)
 	            {
 	                cwav.rSound[j] = null;
@@ -1909,7 +1911,8 @@ namespace DTXMania
 				{
                     //MessageBox.Show( "おや?エラーが出たようです。お兄様。" );
                     Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                    Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                    Trace.TraceError( ex.ToString() );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				}
 			}
 		}
@@ -3146,7 +3149,8 @@ namespace DTXMania
                 }
                 catch( Exception ex )
                 {
-                    Trace.TraceError( ex.StackTrace );
+                    Trace.TraceError( ex.ToString() );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                 }
 
                 //if( bLog && stream != null )
@@ -3202,7 +3206,8 @@ namespace DTXMania
                 }
                 catch( Exception ex )
                 {
-
+                    Trace.TraceError( ex.ToString() );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                 }
                 //if( stream != null )
                 //{
@@ -4181,7 +4186,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4203,7 +4209,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4225,7 +4232,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Expert.Add( n打数 );
@@ -4248,7 +4256,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Master.Add( n打数 );
@@ -4289,9 +4298,9 @@ namespace DTXMania
             {
                 this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
-            if( CDTXMania.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
-                this.nScoreModeTmp = 3;
-            }
+            //if( CDTXMania.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
+            //    this.nScoreModeTmp = 3;
+            //}
         }
 
         private void t入力_行解析ヘッダ( string InputText )
@@ -4470,7 +4479,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4492,7 +4502,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4514,7 +4525,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Expert.Add( n打数 );
@@ -4537,7 +4549,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Master.Add( n打数 );
@@ -4838,7 +4851,8 @@ namespace DTXMania
             }
             catch(Exception ex)
             {
-
+                Trace.TraceError( ex.ToString() );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
             }
 
 
@@ -5960,7 +5974,8 @@ namespace DTXMania
                     }
                     catch( Exception ex )
                     {
-
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                     }
                 }
                 else

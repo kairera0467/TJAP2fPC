@@ -748,7 +748,6 @@ namespace DTXMania
         public bool ShowPuchiChara; // リザーブ
         //
 
-        public E難易度表示タイプ eDiffShowType;
         public EScrollMode eScrollMode = EScrollMode.Normal;
         public bool bスクロールモードを上書き = false;
 
@@ -764,7 +763,6 @@ namespace DTXMania
 
         public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
 
-        public EWindowMovieMode eWindowMovieMode;
 
 		public STDGBVALUE<E判定文字表示位置> 判定文字表示位置;
 //		public int nハイハット切り捨て下限Velocity;
@@ -867,6 +865,7 @@ namespace DTXMania
 		public bool bViewerDrums有効, bViewerGuitar有効;
 		//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
 		public int nMasterVolume;
+        public bool ShinuchiMode; // 真打モード
 #if false
 		[StructLayout( LayoutKind.Sequential )]
 		public struct STAUTOPLAY								// C定数のEレーンとindexを一致させること
@@ -1416,6 +1415,7 @@ namespace DTXMania
             this.eGameMode = EGame.OFF;
             this.bEndingAnime = false;
             this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
+            ShinuchiMode = false;
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;
@@ -1652,6 +1652,9 @@ namespace DTXMania
 			sw.WriteLine( "; 演奏記録（～.score.ini）の出力 (0:OFF, 1:ON)" );
 			sw.WriteLine( "SaveScoreIni={0}", this.bScoreIniを出力する ? 1 : 0 );
 			sw.WriteLine();
+            sw.WriteLine("; 最小表示コンボ数");
+            sw.WriteLine("MinComboDrums={0}", this.n表示可能な最小コンボ数.Drums);
+            sw.WriteLine();
 			sw.WriteLine( "; RANDOM SELECT で子BOXを検索対象に含める (0:OFF, 1:ON)" );
 			sw.WriteLine( "RandomFromSubBox={0}", this.bランダムセレクトで子BOXを検索対象とする ? 1 : 0 );
 			sw.WriteLine();
@@ -1852,13 +1855,16 @@ namespace DTXMania
             sw.WriteLine( "; 譜面分岐のガイド表示(0:OFF, 1:ON)" );
 			sw.WriteLine( "BranchGuide={0}", this.bGraph.Drums ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; スコア計算方法(0:1～7, 1:8～14, 2:15以降, 3:真打)" );
+			sw.WriteLine( "; スコア計算方法(0:旧配点, 1:旧筐体配点, 2:新配点)" );
 			sw.WriteLine( "ScoreMode={0}", this.nScoreMode );
 			sw.WriteLine();
-			//sw.WriteLine( "; 1ノーツごとのスクロール速度をランダムで変更します。(0:OFF, 1:ON)" );
-			//sw.WriteLine( "HispeedRandom={0}", this.bHispeedRandom ? 1 : 0 );
-			//sw.WriteLine();
-			sw.WriteLine( "; 大音符の両手入力待機時間(ms)" );
+            sw.WriteLine("; 真打モード (0:OFF, 1:ON)");
+            sw.WriteLine("; Fixed score mode (0:OFF, 1:ON)");
+            sw.WriteLine("{0}={1}", nameof(ShinuchiMode), ShinuchiMode ? 1 : 0);
+            //sw.WriteLine( "; 1ノーツごとのスクロール速度をランダムで変更します。(0:OFF, 1:ON)" );
+            //sw.WriteLine( "HispeedRandom={0}", this.bHispeedRandom ? 1 : 0 );
+            //sw.WriteLine();
+            sw.WriteLine( "; 大音符の両手入力待機時間(ms)" );
 			sw.WriteLine( "BigNotesWaitTime={0}", this.n両手判定の待ち時間 );
 			sw.WriteLine();
 			sw.WriteLine( "; 大音符の両手判定(0:OFF, 1:ON)" );
@@ -1891,6 +1897,7 @@ namespace DTXMania
 			sw.WriteLine();
             sw.WriteLine( "; プレイ人数" );
             sw.WriteLine( "PlayerCount={0}", this.nPlayerCount );
+            sw.WriteLine();
             //sw.WriteLine( "; 選曲画面の初期選択難易度(ベータ版)" );
 			//sw.WriteLine( "DifficultPriority={0}", this.bJudgeCountDisplay ? 1 : 0 );
 			//sw.WriteLine();
@@ -2135,9 +2142,13 @@ namespace DTXMania
 												}
 												this.strSystemSkinSubfolderFullName = absSkinPath;
 											}
-											#endregion
-											#region [ Window関係 ]
-											else if ( str3.Equals( "WindowX" ) )		// #30675 2013.02.04 ikanick add
+                                            #endregion
+                                            #region [ Window関係 ]
+                                            else if (str3.Equals("FullScreen"))
+                                            {
+                                                this.b全画面モード = C変換.bONorOFF(str4[0]);
+                                            }
+                                            else if ( str3.Equals( "WindowX" ) )		// #30675 2013.02.04 ikanick add
 											{
 												this.n初期ウィンドウ開始位置X = C変換.n値を文字列から取得して範囲内に丸めて返す(
                                                     str4, 0,  System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - 1 , this.n初期ウィンドウ開始位置X );
@@ -2282,14 +2293,6 @@ namespace DTXMania
 											else if( str3.Equals( "MinComboDrums" ) )
 											{
 												this.n表示可能な最小コンボ数.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数.Drums );
-											}
-											else if( str3.Equals( "MinComboGuitar" ) )
-											{
-												this.n表示可能な最小コンボ数.Guitar = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数.Guitar );
-											}
-											else if( str3.Equals( "MinComboBass" ) )
-											{
-												this.n表示可能な最小コンボ数.Bass = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数.Bass );
 											}
 											#endregion
 											else if( str3.Equals( "ShowDebugStatus" ) )
@@ -2649,78 +2652,6 @@ namespace DTXMania
 											{
 												this.bNoInfo = C変換.bONorOFF( str4[ 0 ] );
 											}
-     						//			    else if ( str3.Equals( "CharaMotionCount" ) )
-											//{
-											//	this.nCharaMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount );
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionCountClear" ) )
-											//{
-											//	this.nCharaMotionCount_clear = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_clear );
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionCountGogo" ) )
-											//{
-											//	this.nCharaMotionCount_gogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount );
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionCountMax" ) )
-											//{
-											//	this.nCharaMotionCount_max = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_max );
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionCountMaxGogo" ) )
-											//{
-											//	this.nCharaMotionCount_maxgogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_maxgogo );
-											//}
-           //                                 else if ( str3.Equals("nCharaAction_10combo"))
-           //                                 {
-           //                                     this.nCharaAction_10combo = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_10combo_max"))
-           //                                 {
-           //                                     this.nCharaAction_10combo_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo_max);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_gogostart"))
-           //                                 {
-           //                                     this.nCharaAction_gogostart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_gogostart_max"))
-           //                                 {
-           //                                     this.nCharaAction_gogostart_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart_max);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_clearstart"))
-           //                                 {
-           //                                     this.nCharaAction_clearstart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_clearstart);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_fullgauge"))
-           //                                 {
-           //                                     this.nCharaAction_fullgauge = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_fullgauge);
-           //                                 }
-           //                                 else if ( str3.Equals( "CharaMotionList" ) )
-											//{
-											//	this.strCharaMotionList = str4;
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionListGogo" ) )
-											//{
-											//	this.strCharaMotionList_gogo = str4;
-											//}
-           //                                 else if ( str3.Equals( "CharaMotionListClear" ) )
-											//{
-											//	this.strCharaMotionList_clear = str4;
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionListMax" ) )
-											//{
-											//	this.strCharaMotionList_max = str4;
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionListMaxGogo" ) )
-											//{
-											//	this.strCharaMotionList_maxgogo = str4;
-											//}
-                                            //else if (str3.Equals("nDancerMotionCount"))
-                                            //{
-                                            //    this.nDancerMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nDancerMotionCount);
-                                            //}
-                                            //else if (str3.Equals("strDancerMotionList"))
-                                            //{
-                                            //    this.strDancerMotionList = str4;
-                                            //}
                                             else if ( str3.Equals( "DefaultSongSort" ) )
                                             {
                                                 this.nDefaultSongSort = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nDefaultSongSort );
@@ -2748,6 +2679,10 @@ namespace DTXMania
                                             else if( str3.Equals( "PlayerCount" ) )
                                             {
                                                 this.nPlayerCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
+                                            }
+                                            else if(str3.Equals(nameof(ShinuchiMode)))
+                                            {
+                                                ShinuchiMode = C変換.bONorOFF(str4[0]);
                                             }
 											continue;
 										}
@@ -2866,7 +2801,8 @@ namespace DTXMania
 					}
 					catch ( Exception exception )
 					{
-						Trace.TraceError( exception.Message );
+						Trace.TraceError( exception.ToString() );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 						continue;
 					}
 				}

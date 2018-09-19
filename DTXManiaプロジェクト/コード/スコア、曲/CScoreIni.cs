@@ -1174,7 +1174,8 @@ namespace DTXMania
 						}
 						catch( Exception exception )
 						{
-							Trace.TraceError( "{0}読み込みを中断します。({1})",  exception.Message, iniファイル名 );
+							Trace.TraceError( exception.ToString() );
+							Trace.TraceError( "読み込みを中断します。({0})", iniファイル名 );
 							break;
 						}
 					}
