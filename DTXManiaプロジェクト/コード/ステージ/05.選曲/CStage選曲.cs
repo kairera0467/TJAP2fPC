@@ -114,7 +114,7 @@ namespace DTXMania
 			base.list子Activities.Add( this.actSortSongs = new CActSortSongs() );
 			base.list子Activities.Add( this.actShowCurrentPosition = new CActSelectShowCurrentPosition() );
 			base.list子Activities.Add( this.actQuickConfig = new CActSelectQuickConfig() );
-			base.list子Activities.Add( this.act難易度選択画面 = new CActSelect難易度選択画面() );
+			//base.list子Activities.Add( this.act難易度選択画面 = new CActSelect難易度選択画面() );
 
 			this.CommandHistory = new CCommandHistory();		// #24063 2011.1.16 yyagi
 		}
@@ -186,7 +186,7 @@ namespace DTXMania
 				for( int i = 0; i < 4; i++ )
 					this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, CDTXMania.Timer );
 
-                this.act難易度選択画面.bIsDifficltSelect = false;
+                //this.act難易度選択画面.bIsDifficltSelect = true;
 				base.On活性化();
 
 				this.actステータスパネル.t選択曲が変更された();	// 最大ランクを更新
@@ -419,7 +419,7 @@ namespace DTXMania
 						return 0;
 					}
 					#endregion
-					if ( !this.actSortSongs.bIsActivePopupMenu && !this.actQuickConfig.bIsActivePopupMenu && !this.act難易度選択画面.bIsDifficltSelect )
+					if ( !this.actSortSongs.bIsActivePopupMenu && !this.actQuickConfig.bIsActivePopupMenu /*&&  !this.act難易度選択画面.bIsDifficltSelect */ )
 					{
                         #region [ ESC ]
                         if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.Escape) && (this.act曲リスト.r現在選択中の曲 != null))// && (  ) ) )
@@ -643,16 +643,16 @@ namespace DTXMania
 					this.actQuickConfig.t進行描画();
 				}
                 //------------------------------
-                if (this.act難易度選択画面.bIsDifficltSelect)
-                {
+                //if (this.act難易度選択画面.bIsDifficltSelect)
+                //{
 
-                    if (this.ctDiffSelect移動待ち.n現在の値 == this.ctDiffSelect移動待ち.n終了値)
-                    {
-                        this.act難易度選択画面.On進行描画();
-                        CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, "NowStage:DifficltSelect");
-                    }
-                    CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect移動待ち.n現在の値);
-                }
+                //    if (this.ctDiffSelect移動待ち.n現在の値 == this.ctDiffSelect移動待ち.n終了値)
+                //    {
+                //        this.act難易度選択画面.On進行描画();
+                //        CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, "NowStage:DifficltSelect");
+                //    }
+                //    CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect移動待ち.n現在の値);
+                //}
                 //------------------------------
 				switch ( base.eフェーズID )
 				{
