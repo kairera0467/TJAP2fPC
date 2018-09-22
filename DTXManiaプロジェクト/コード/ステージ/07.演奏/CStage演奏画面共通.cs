@@ -1072,6 +1072,20 @@ namespace DTXMania
                 {
                     this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, CDTXMania.Timer);
                 }
+
+
+                pChip.RollEffectLevel += 10;
+                if(pChip.RollEffectLevel >= 100)
+                {
+                    pChip.RollEffectLevel = 100;
+                    pChip.RollInputTime = new CCounter(0, 1500, 1, CDTXMania.Timer);
+                    pChip.RollDelay?.t停止();
+                } else
+                {
+                    pChip.RollInputTime = new CCounter(0, 150, 1, CDTXMania.Timer);
+                    pChip.RollDelay?.t停止(); 
+                }
+
                 if ( pChip.nチャンネル番号 == 0x15 )
                     this.eRollState = E連打State.roll;
                 else

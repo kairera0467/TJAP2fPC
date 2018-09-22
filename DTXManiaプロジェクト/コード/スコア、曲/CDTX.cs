@@ -424,8 +424,11 @@ namespace DTXMania
 			}
 			public bool bIsAutoPlayed;							// 2011.6.10 yyagi
 			public bool b演奏終了後も再生が続くチップである;	// #32248 2013.10.14 yyagi
+            public CCounter RollDelay; // 18.9.22 AioiLight Add 連打時に赤くなるやつのタイマー
+            public CCounter RollInputTime; // 18.9.22 AioiLight Add  連打入力後、RollDelayが作動するまでのタイマー
+            public int RollEffectLevel; // 18.9.22 AioiLight Add 連打時に赤くなるやつの度合い
 
-			public CChip()
+            public CChip()
 			{
 				this.nバーからの距離dot = new STDGBVALUE<int>() {
 					Drums = 0,
