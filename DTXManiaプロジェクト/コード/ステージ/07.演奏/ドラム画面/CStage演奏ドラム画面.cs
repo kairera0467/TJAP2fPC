@@ -2038,7 +2038,7 @@ namespace DTXMania
                     }
                     else
                     {
-                        if (actChara.CharaAction_Balloon_Breaking.b進行中)
+                        if (actChara.CharaAction_Balloon_Breaking.b進行中 && chip現在処理中の連打チップ[i].nPlayerSide == 0)
                         {
                             this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
                             if (actChara.CharaAction_Balloon_Miss != null)

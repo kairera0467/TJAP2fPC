@@ -1189,7 +1189,7 @@ namespace DTXMania
                 }
 
                 this.b連打中[ player ] = true;
-                if(actChara.CharaAction_Balloon_Breaking != null)
+                if(actChara.CharaAction_Balloon_Breaking != null && player == 0)
                 {
                     actChara.アクションタイマーリセット();
                     actChara.bマイどんアクション中 = true;
@@ -1233,7 +1233,7 @@ namespace DTXMania
                     //this.actChara.b風船連打中 = false;
                     pChip.b可視 = false;
                     this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
-                    if (actChara.CharaAction_Balloon_Broke != null)
+                    if (actChara.CharaAction_Balloon_Broke != null && player == 0)
                     {
                         actChara.アクションタイマーリセット();
                         actChara.bマイどんアクション中 = true;
