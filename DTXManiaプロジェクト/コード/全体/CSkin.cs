@@ -1071,6 +1071,10 @@ namespace DTXMania
                             {
                                 Game_StageText_IsRed = C変換.bONorOFF(strParam[0]);
                             }
+                            else if (strCommand == nameof(Game_RollColorMode))
+                            {
+                                Game_RollColorMode = (RollColorMode)int.Parse(strParam);
+                            }
                             #region CourseSymbol
                             else if (strCommand == "Game_CourseSymbol_X")
                             {
@@ -1121,6 +1125,16 @@ namespace DTXMania
                                 {
                                     Game_Chara_Balloon_Y[i] = int.Parse(strSplit[i]);
                                 }
+                            }
+                            else if (strCommand == nameof(Game_Chara_Balloon_Timer))
+                            {
+                                if(int.Parse(strParam) > 0)
+                                    Game_Chara_Balloon_Timer = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Chara_Balloon_Delay))
+                            {
+                                if (int.Parse(strParam) > 0)
+                                    Game_Chara_Balloon_Delay = int.Parse(strParam);
                             }
                             // パターン数の設定はTextureLoader.csで反映されます。
                             else if (strCommand == "Game_Chara_Motion_Normal")
@@ -1414,7 +1428,7 @@ namespace DTXMania
                                 }
                             }
                             #endregion
-			    #region Gauge
+			                #region Gauge
                             else if (strCommand == "Game_Gauge_Rainbow_Timer")
                             {
                                 if (int.Parse(strParam) != 0)
@@ -1805,6 +1819,13 @@ namespace DTXMania
         public int nResultGaugeBodyP1Y = 125;
         #endregion
 
+        public enum RollColorMode
+        {
+            None, // PS4, Switchなど
+            All, // 旧筐体(旧作含む)
+            WithoutStart // 新筐体
+        }
+
         #region 新・SkinConfig
         #region General
         public string Skin_Name = "Unknown";
@@ -1838,6 +1859,7 @@ namespace DTXMania
         public bool Game_Notes_Anime = false;
         public string Game_StageText = "1曲目";
         public bool Game_StageText_IsRed = false;
+        public RollColorMode Game_RollColorMode = RollColorMode.All;
         #region Chara
         public int[] Game_Chara_X = new int[] { 0, 0 };
         public int[] Game_Chara_Y = new int[] { 0, 537 };

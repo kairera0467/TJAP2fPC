@@ -1810,7 +1810,9 @@ namespace DTXMania
                         }
 
                         float f減少するカラー = 1.0f - ((0.95f / 100) * pChip.RollEffectLevel);
-                        float f末端ノーツのテクスチャ位置調整=65f;
+                        var effectedColor = new Color4(1.0f, f減少するカラー, f減少するカラー);
+                        var normalColor = new Color4(1.0f, 1.0f, 1.0f);
+                        float f末端ノーツのテクスチャ位置調整 = 65f;
 
                         if ( pChip.nチャンネル番号 == 0x15 ) //連打(小)
                         {
@@ -1830,12 +1832,19 @@ namespace DTXMania
                                 #endregion
                                 #region[末端をテクスチャ側でつなげる場合の方式]
 
-                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, f減少するカラー, f減少するカラー);
+                                if (CDTXMania.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+                                    CDTXMania.Tx.Notes.color4 = effectedColor;
+                                else
+                                    CDTXMania.Tx.Notes.color4 = normalColor;
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
-                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
+                                if (CDTXMania.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+                                    CDTXMania.Tx.Notes.color4 = effectedColor;
+                                else
+                                    CDTXMania.Tx.Notes.color4 = normalColor;
+                                
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
 
                                 #endregion
@@ -1865,12 +1874,21 @@ namespace DTXMania
                                 #endregion
                                 #region[末端をテクスチャ側でつなげる場合の方式]
 
-                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, f減少するカラー, f減少するカラー);
+                                if (CDTXMania.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+                                    CDTXMania.Tx.Notes.color4 = effectedColor;
+                                else
+                                    CDTXMania.Tx.Notes.color4 = normalColor;
+
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
+
                                 CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
-                                CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
+                                if (CDTXMania.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+                                    CDTXMania.Tx.Notes.color4 = effectedColor;
+                                else
+                                    CDTXMania.Tx.Notes.color4 = normalColor;
+
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
 
                                 #endregion
