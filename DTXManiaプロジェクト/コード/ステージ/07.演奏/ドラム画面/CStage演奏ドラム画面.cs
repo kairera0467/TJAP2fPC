@@ -1846,7 +1846,7 @@ namespace DTXMania
                                     CDTXMania.Tx.Notes.color4 = normalColor;
                                 
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
-
+                                CDTXMania.Tx.Notes.color4 = normalColor;
                                 #endregion
                             }
                             CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = index - 44;
@@ -1890,7 +1890,7 @@ namespace DTXMania
                                     CDTXMania.Tx.Notes.color4 = normalColor;
 
                                 CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
-
+                                CDTXMania.Tx.Notes.color4 = normalColor;
                                 #endregion
                             }
                             CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = index - 70;
