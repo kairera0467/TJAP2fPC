@@ -293,7 +293,7 @@ namespace DTXMania
 
                 this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\dong.ogg" ), ESoundGroup.SoundEffect );
                 this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\ka.ogg" ), ESoundGroup.SoundEffect );
-                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Adlib.ogg" ), ESoundGroup.SoundEffect );
+                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path(@"Sounds\Taiko\Adlib.ogg"), ESoundGroup.SoundEffect );
 
 				base.OnManagedリソースの作成();
 			}
