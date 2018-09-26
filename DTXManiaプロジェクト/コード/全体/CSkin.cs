@@ -1965,6 +1965,21 @@ namespace DTXMania
         public float Game_Balloon_Roll_Number_Scale = 1.000f;
         public float Game_Balloon_Balloon_Number_Scale = 0.879f;
         #endregion
+        #region Effects
+        public int[] Game_Effect_Roll_StartPoint_X = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };
+        public int[] Game_Effect_Roll_StartPoint_Y = new int[] { 720 };
+        public int[] Game_Effect_Roll_StartPoint_1P_X = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };
+        public int[] Game_Effect_Roll_StartPoint_1P_Y = new int[] { 240 };
+        public int[] Game_Effect_Roll_StartPoint_2P_X = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };
+        public int[] Game_Effect_Roll_StartPoint_2P_Y = new int[] { 360 };
+        public float[] Game_Effect_Roll_Speed_X = new float[] { 0.6f };
+        public float[] Game_Effect_Roll_Speed_Y = new float[] { -0.6f };
+        public float[] Game_Effect_Roll_Speed_1P_X = new float[] { 0.6f };
+        public float[] Game_Effect_Roll_Speed_1P_Y = new float[] { -0.6f };
+        public float[] Game_Effect_Roll_Speed_2P_X = new float[] { 0.6f };
+        public float[] Game_Effect_Roll_Speed_2P_Y = new float[] { 0.6f };
+        public int Game_Effect_Roll_Ptn;
+        #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };
         public int Game_Runner_Ptn = 48;

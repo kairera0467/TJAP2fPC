@@ -424,8 +424,9 @@ namespace DTXMania
                 Effects_Hit_Good[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good\" + i.ToString() + ".png");
                 Effects_Hit_Good_Big[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good_Big\" + i.ToString() + ".png");
             }
-            Effects_Roll = new CTexture[4];
-            for (int i = 0; i < 4; i++)
+            CDTXMania.Skin.Game_Effect_Roll_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + EFFECTS + @"Roll\"));
+            Effects_Roll = new CTexture[CDTXMania.Skin.Game_Effect_Roll_Ptn];
+            for (int i = 0; i < CDTXMania.Skin.Game_Effect_Roll_Ptn; i++)
             {
                 Effects_Roll[i] = TxC(GAME + EFFECTS + @"Roll\" + i.ToString() + ".png");
             }
@@ -737,7 +738,7 @@ namespace DTXMania
                 CDTXMania.tテクスチャの解放(ref Effects_Hit_Good[i]);
                 CDTXMania.tテクスチャの解放(ref Effects_Hit_Good_Big[i]);
             }
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < CDTXMania.Skin.Game_Effect_Roll_Ptn; i++)
             {
                 CDTXMania.tテクスチャの解放(ref Effects_Roll[i]);
             }
