@@ -1623,6 +1623,116 @@ namespace DTXMania
                             }
 
                             #endregion
+                            #region Effects
+                            else if(strCommand == nameof(Game_Effect_Roll_StartPoint_X))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_StartPoint_X = new int[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_StartPoint_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_StartPoint_Y))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_StartPoint_Y = new int[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_StartPoint_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_StartPoint_1P_X))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_StartPoint_1P_X = new int[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_StartPoint_1P_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_StartPoint_1P_Y))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_StartPoint_1P_Y = new int[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_StartPoint_1P_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_StartPoint_2P_X))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_StartPoint_2P_X = new int[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_StartPoint_2P_X[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_StartPoint_2P_Y))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_StartPoint_2P_Y = new int[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_StartPoint_2P_Y[i] = int.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_Speed_X))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_Speed_X = new float[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_Speed_X[i] = float.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_Speed_Y))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_Speed_Y = new float[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_Speed_Y[i] = float.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_Speed_1P_X))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_Speed_1P_X = new float[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_Speed_1P_X[i] = float.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_Speed_1P_Y))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_Speed_1P_Y = new float[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_Speed_1P_Y[i] = float.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_Speed_2P_X))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_Speed_2P_X = new float[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_Speed_2P_X[i] = float.Parse(strSplit[i]);
+                                }
+                            }
+                            else if (strCommand == nameof(Game_Effect_Roll_Speed_2P_Y))
+                            {
+                                string[] strSplit = strParam.Split(',');
+                                Game_Effect_Roll_Speed_2P_Y = new float[strSplit.Length + 1];
+                                for (int i = 0; i < strSplit.Length; i++)
+                                {
+                                    Game_Effect_Roll_Speed_2P_Y[i] = float.Parse(strSplit[i]);
+                                }
+                            }
+                            #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
                             {
