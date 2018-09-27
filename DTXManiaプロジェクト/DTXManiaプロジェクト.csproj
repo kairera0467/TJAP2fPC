@@ -170,6 +170,7 @@
     <Compile Include="コード\ステージ\07.演奏\CAct演奏判定文字列共通.cs" />
     <Compile Include="コード\ステージ\07.演奏\CAct演奏演奏情報.cs" />
     <Compile Include="コード\ステージ\07.演奏\CInvisibleChip.cs" />
+    <Compile Include="コード\ステージ\07.演奏\CLagLogger.cs" />
     <Compile Include="コード\ステージ\07.演奏\CStage演奏画面共通.cs" />
     <Compile Include="コード\ステージ\07.演奏\C演奏判定ライン座標共通.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsRunner.cs" />

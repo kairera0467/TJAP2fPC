@@ -360,6 +360,8 @@ namespace DTXMania
 			cInvisibleChip = null;
 //			GCSettings.LatencyMode = this.gclatencymode;
 
+			CLagLogger.Log();
+
             base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
@@ -1331,6 +1333,12 @@ namespace DTXMania
                         //連打が短すぎると発声されない
                         int nInputAdjustTime = bPChipIsAutoPlay ? 0 : this.nInputAdjustTimeMs.Taiko;
 						eJudgeResult = (bCorrectLane)? this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip, nInputAdjustTime ) : E判定.Miss;
+
+					    if (!bAutoPlay && eJudgeResult != E判定.Miss)
+					    {
+					        CLagLogger.Add(nPlayer, pChip);
+					    }
+
                         if( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
                         {
                             #region[ 連打 ]

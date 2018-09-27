@@ -2151,7 +2151,6 @@ namespace DTXMania
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( ( int ) CSound管理.rc演奏用タイマ.n現在時刻ms, 0, i );
-                E判定 e判定 = (chipNoHit != null) ? this.e指定時刻からChipのJUDGEを返す(chipNoHit.nProcessTime, chipNoHit, 0) : E判定.Miss;
 
                 if( chipNoHit != null && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B ) )
                 {
