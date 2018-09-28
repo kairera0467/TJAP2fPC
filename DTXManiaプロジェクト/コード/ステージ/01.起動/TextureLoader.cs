@@ -138,7 +138,7 @@ namespace DTXMania
             #region 共通
             Notes = TxC(GAME + @"Notes.png");
             Judge_Frame = TxC(GAME + @"Notes.png");
-            SenNotes = TxC(GAME + @"SenNotes.png");
+            SENotes = TxC(GAME + @"SENotes.png");
             Notes_Arm = TxC(GAME + @"Notes_Arm.png");
             Judge = TxC(GAME + @"Judge.png");
 
@@ -570,7 +570,7 @@ namespace DTXMania
             #region 共通
             CDTXMania.tテクスチャの解放(ref Notes);
             CDTXMania.tテクスチャの解放(ref Judge_Frame);
-            CDTXMania.tテクスチャの解放(ref SenNotes);
+            CDTXMania.tテクスチャの解放(ref SENotes);
             CDTXMania.tテクスチャの解放(ref Notes_Arm);
             CDTXMania.tテクスチャの解放(ref Judge);
 
@@ -859,7 +859,7 @@ namespace DTXMania
         #region 共通
         public CTexture Notes,
             Judge_Frame,
-            SenNotes,
+            SENotes,
             Notes_Arm,
             Judge;
         public CTexture Judge_Meter,
