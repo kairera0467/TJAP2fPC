@@ -71,6 +71,7 @@ twopointzero氏 - プログラムの最適化
 この4つのルールを守っていただければ幸いです。どうかよろしくおねがいします。
 
 === 各連絡先 ===
+不具合報告、新規機能追加のリクエスト等、大歓迎です。
 Twitter: @TJAPlayer3
 メール: info@aioilight.space
 Discord: AioiLight#7839
