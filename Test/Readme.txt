@@ -51,6 +51,7 @@ kairera0467氏 - TJAPlayer2 forPC 開発者
 コーシー氏 - バグ報告、不具合報告
 twopointzero氏 - プログラムの最適化
 
+
 == 不具合報告、連絡先など ==
 
 === 既知の問題点 ===
@@ -70,6 +71,7 @@ twopointzero氏 - プログラムの最適化
 この4つのルールを守っていただければ幸いです。どうかよろしくおねがいします。
 
 === 各連絡先 ===
+不具合報告、新規機能追加のリクエスト等、大歓迎です。
 Twitter: @TJAPlayer3
 メール: info@aioilight.space
 Discord: AioiLight#7839
