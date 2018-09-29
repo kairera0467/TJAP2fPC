@@ -739,16 +739,16 @@ namespace DTXMania
 
 
 			// #23580 2011.1.3 yyagi
-			this.iDrumsInputAdjustTimeMs = new CItemInteger( "InputAdjust", -99, 99, CDTXMania.ConfigIni.nInputAdjustTimeMs.Drums,
+			this.iInputAdjustTimeMs = new CItemInteger( "InputAdjust", -99, 99, CDTXMania.ConfigIni.nInputAdjustTimeMs,
 				"ドラムの入力タイミングの微調整を\n" +
 				"行います。\n" +
 				"-99 ～ 99ms まで指定可能です。\n" +
 				"入力ラグを軽減するためには、負の\n" +
 				"値を指定してください。\n",
-				"To adjust the drums input timing.\n" +
+				"To adjust the input timing.\n" +
 				"You can set from -99 to 99ms.\n" +
 				"To decrease input lag, set minus value." );
-			this.list項目リスト.Add( this.iDrumsInputAdjustTimeMs );
+			this.list項目リスト.Add( this.iInputAdjustTimeMs );
 
 			// #24074 2011.01.23 add ikanick
             //this.iDrumsGraph = new CItemToggle( "Graph", CDTXMania.ConfigIni.bGraph.Drums,
@@ -2218,9 +2218,7 @@ namespace DTXMania
 		private CItemToggle iGuitarReverse;
 		private CItemInteger iGuitarScrollSpeed;
 		//private CItemToggle iGuitarSudden;
-		private CItemInteger iDrumsInputAdjustTimeMs;		// #23580 2011.1.3 yyagi
-		private CItemInteger iGuitarInputAdjustTimeMs;		//
-		private CItemInteger iBassInputAdjustTimeMs;		//
+		private CItemInteger iInputAdjustTimeMs;
 		private CItemList iSystemSkinSubfolder;				// #28195 2012.5.2 yyagi
 		private CItemToggle iSystemUseBoxDefSkin;			// #28195 2012.5.6 yyagi
 		private CItemList iDrumsSudHid;						// #32072 2013.9.20 yyagi
@@ -2386,9 +2384,7 @@ namespace DTXMania
             //CDTXMania.ConfigIni.判定文字表示位置.Drums = (E判定文字表示位置) this.iDrumsPosition.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.bTight = this.iDrumsTight.bON;
 
-			var configScreenInputAdjustTimeMs = this.iDrumsInputAdjustTimeMs.n現在の値;
-		    CDTXMania.ConfigIni.nInputAdjustTimeMs.Drums = configScreenInputAdjustTimeMs;
-			CDTXMania.ConfigIni.nInputAdjustTimeMs.Taiko = configScreenInputAdjustTimeMs;
+		    CDTXMania.ConfigIni.nInputAdjustTimeMs = this.iInputAdjustTimeMs.n現在の値;
 
 			CDTXMania.ConfigIni.n表示可能な最小コンボ数.Drums = this.iSystemMinComboDrums.n現在の値;
 			CDTXMania.ConfigIni.nRisky = this.iSystemRisky.n現在の値;						// #23559 2911.7.27 yyagi
