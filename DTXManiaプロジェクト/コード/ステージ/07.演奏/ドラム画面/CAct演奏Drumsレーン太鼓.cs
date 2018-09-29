@@ -660,11 +660,11 @@ namespace DTXMania
 
             if( this.tx枠線 != null )
             {
-                this.tx枠線.t2D描画( CDTXMania.app.Device, 329, 136, new Rectangle( 0, 0, 951, 224 ) );
+                this.tx枠線.t2D描画( CDTXMania.app.Device, 1280 - ( this.tx枠線.szテクスチャサイズ.Width ), 136, new Rectangle( 0, 0, this.tx枠線.szテクスチャサイズ.Width, 224 ) );
 
                 if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
                 {
-                    this.tx枠線.t2D描画( CDTXMania.app.Device, 329, 360, new Rectangle( 0, 224, 951, 224 ) );
+                    this.tx枠線.t2D描画( CDTXMania.app.Device, 1280 - ( this.tx枠線.szテクスチャサイズ.Width ), 360, new Rectangle( 0, 224, this.tx枠線.szテクスチャサイズ.Width, 224 ) );
                 }
             }
 

@@ -245,7 +245,6 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放( ref this.tx背景 );
             CDTXMania.tテクスチャの解放( ref this.txヘッダー );
             CDTXMania.tテクスチャの解放( ref this.txフッター );
-            CDTXMania.tテクスチャの解放( ref this.txパネル );
 
             CDTXMania.tテクスチャの解放( ref this.tx説明背景 );
             CDTXMania.tテクスチャの解放( ref this.tx説明1 );
