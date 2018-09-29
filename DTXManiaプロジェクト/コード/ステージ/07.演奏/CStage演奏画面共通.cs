@@ -1,17 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Diagnostics;
-using System.Threading;
-using SlimDX;
-using SlimDX.Direct3D9;
 using FDK;
-using System.Timers;
+using FDK.ExtensionMethods;
 
 namespace DTXMania
 {
@@ -1318,9 +1311,7 @@ namespace DTXMania
 			{
 				//cInvisibleChip.StartSemiInvisible( pChip.e楽器パート );
 			}
-			bool bPChipIsAutoPlay = bCheckAutoPlay( pChip );
 
-			pChip.bIsAutoPlayed = bPChipIsAutoPlay;			// 2011.6.10 yyagi
 			E判定 eJudgeResult = E判定.Auto;
 			switch ( pChip.e楽器パート )
 			{
@@ -1331,7 +1322,7 @@ namespace DTXMania
 				case E楽器パート.TAIKO:
 					{
                         //連打が短すぎると発声されない
-                        int nInputAdjustTime = bPChipIsAutoPlay ? 0 : this.nInputAdjustTimeMs.Taiko;
+                        int nInputAdjustTime = bCheckAutoPlay( pChip ) ? 0 : this.nInputAdjustTimeMs.Taiko;
 						eJudgeResult = (bCorrectLane)? this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip, nInputAdjustTime ) : E判定.Miss;
 
 					    if (!bAutoPlay && eJudgeResult != E判定.Miss)
@@ -2501,26 +2492,25 @@ namespace DTXMania
 
 		protected void ChangeInputAdjustTimeInPlaying( IInputDevice keyboard, int plusminus )		// #23580 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
 		{
-			int part, offset = plusminus;
-	    	// Drums InputAdjustTime
+			int offset;
+			if (keyboard.bキーが押されている((int) SlimDX.DirectInput.Key.LeftControl) ||
+				keyboard.bキーが押されている((int) SlimDX.DirectInput.Key.RightControl))
 			{
-				part = (int) E楽器パート.DRUMS;
+				offset = plusminus;
 			}
-			if ( !keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftControl ) && !keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightControl ) )
+			else
 			{
-				offset *= 10;
+				offset = plusminus * 10;
 			}
 
-			this.nInputAdjustTimeMs[ part ] += offset;
-			if ( this.nInputAdjustTimeMs[ part ] > 99 )
-			{
-				this.nInputAdjustTimeMs[ part ] = 99;
-			}
-			else if ( this.nInputAdjustTimeMs[ part ] < -99 )
-			{
-				this.nInputAdjustTimeMs[ part ] = -99;
-			}
-			CDTXMania.ConfigIni.nInputAdjustTimeMs[ part ] = this.nInputAdjustTimeMs[ part ];
+			var oldInputAdjustTimeMs = this.nInputAdjustTimeMs[ (int) E楽器パート.DRUMS ];
+			var newInputAdjustTimeMs = (oldInputAdjustTimeMs + offset).Clamp(-99, 99);
+
+			this.nInputAdjustTimeMs[ (int) E楽器パート.DRUMS ] = newInputAdjustTimeMs;
+			this.nInputAdjustTimeMs[ (int) E楽器パート.TAIKO ] = newInputAdjustTimeMs;
+
+			CDTXMania.ConfigIni.nInputAdjustTimeMs[ (int) E楽器パート.DRUMS ] = newInputAdjustTimeMs;
+			CDTXMania.ConfigIni.nInputAdjustTimeMs[ (int) E楽器パート.TAIKO ] = newInputAdjustTimeMs;
 		}
 
 		protected abstract void t入力処理_ドラム();
@@ -4251,11 +4241,10 @@ namespace DTXMania
 			CDTXMania.ConfigIni.nRisky = 0;
 		}
 
-
-		private bool bCheckAutoPlay( CDTX.CChip pChip )
+		private static bool bCheckAutoPlay( CDTX.CChip pChip )
 		{
             if( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x1F )
-                return true;
+                return false;
 
 			return true;
 		}

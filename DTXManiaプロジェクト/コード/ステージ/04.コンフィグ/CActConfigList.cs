@@ -2385,7 +2385,11 @@ namespace DTXMania
             //CDTXMania.ConfigIni.bReverse.Drums = this.iDrumsReverse.bON;
             //CDTXMania.ConfigIni.判定文字表示位置.Drums = (E判定文字表示位置) this.iDrumsPosition.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.bTight = this.iDrumsTight.bON;
-			CDTXMania.ConfigIni.nInputAdjustTimeMs.Drums = this.iDrumsInputAdjustTimeMs.n現在の値;		// #23580 2011.1.3 yyagi
+
+			var configScreenInputAdjustTimeMs = this.iDrumsInputAdjustTimeMs.n現在の値;
+		    CDTXMania.ConfigIni.nInputAdjustTimeMs.Drums = configScreenInputAdjustTimeMs;
+			CDTXMania.ConfigIni.nInputAdjustTimeMs.Taiko = configScreenInputAdjustTimeMs;
+
 			CDTXMania.ConfigIni.n表示可能な最小コンボ数.Drums = this.iSystemMinComboDrums.n現在の値;
 			CDTXMania.ConfigIni.nRisky = this.iSystemRisky.n現在の値;						// #23559 2911.7.27 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度.Drums = (E判定表示優先度) this.iDrumsJudgeDispPriority.n現在選択されている項目番号;

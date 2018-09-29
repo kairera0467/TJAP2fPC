@@ -2351,6 +2351,7 @@ namespace DTXMania
 											else if( str3.Equals( "InputAdjustTimeDrums" ) )		// #23580 2011.1.3 yyagi
 											{
 												this.nInputAdjustTimeMs.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nInputAdjustTimeMs.Drums );
+											    this.nInputAdjustTimeMs.Taiko = this.nInputAdjustTimeMs.Drums;
 											}
 											else if( str3.Equals( "InputAdjustTimeGuitar" ) )	// #23580 2011.1.3 yyagi
 											{
