@@ -1161,15 +1161,20 @@ namespace DTXMania
 
         private void tGenreColorSetting()
         {
-            this.dicSongNameFontColor.Add( "アニメ", Color.FromArgb( 169, 65, 0 ) );
-            this.dicSongNameFontColor.Add( "J-POP", Color.FromArgb( 0, 72, 100 ) );
-            this.dicSongNameFontColor.Add( "ゲームミュージック", Color.FromArgb( 75, 31, 139 ) );
-            this.dicSongNameFontColor.Add( "ナムコオリジナル", Color.FromArgb( 168, 25, 0 ) );
-            this.dicSongNameFontColor.Add( "バラエティ", Color.FromArgb( 54, 96, 0 ) );
-            this.dicSongNameFontColor.Add( "クラシック", Color.FromArgb( 149, 88, 0 ) );
-            this.dicSongNameFontColor.Add( "どうよう", Color.FromArgb( 164, 0, 36 ) );
-            this.dicSongNameFontColor.Add( "VOCALOID", Color.FromArgb( 84, 97, 127 ) );
-            this.dicSongNameFontColor.Add( "ボーカロイド", Color.FromArgb( 84, 97, 127 ) );
+            if( this.dicSongNameFontColor != null )
+            {
+                this.dicSongNameFontColor.Clear(); // スキン再読込のことを考えて一度Dictionaryの中身をクリアしてから読み込む
+
+                this.dicSongNameFontColor.Add( "アニメ", Color.FromArgb( 169, 65, 0 ) );
+                this.dicSongNameFontColor.Add( "J-POP", Color.FromArgb( 0, 72, 100 ) );
+                this.dicSongNameFontColor.Add( "ゲームミュージック", Color.FromArgb( 75, 31, 139 ) );
+                this.dicSongNameFontColor.Add( "ナムコオリジナル", Color.FromArgb( 168, 25, 0 ) );
+                this.dicSongNameFontColor.Add( "バラエティ", Color.FromArgb( 54, 96, 0 ) );
+                this.dicSongNameFontColor.Add( "クラシック", Color.FromArgb( 149, 88, 0 ) );
+                this.dicSongNameFontColor.Add( "どうよう", Color.FromArgb( 164, 0, 36 ) );
+                this.dicSongNameFontColor.Add( "VOCALOID", Color.FromArgb( 84, 97, 127 ) );
+                this.dicSongNameFontColor.Add( "ボーカロイド", Color.FromArgb( 84, 97, 127 ) );
+            }
         }
         public Color tReadGenreColor( string strGenre )
         {

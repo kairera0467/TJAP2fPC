@@ -28,7 +28,7 @@ namespace DTXMania
 			base.list子Activities.Add( this.actFIFO = new CActFIFOFace() );
 			base.list子Activities.Add( this.actList = new CActConfigList() );
 			base.list子Activities.Add( this.actKeyAssign = new CActConfigKeyAssign() );
-			base.list子Activities.Add( this.actオプションパネル = new CActオプションパネル() );
+			//base.list子Activities.Add( this.actオプションパネル = new CActオプションパネル() );
 			base.b活性化してない = true;
 		}
 		
@@ -85,8 +85,8 @@ namespace DTXMania
 			    Trace.Indent();
 			    try
 			    {
-				    CDTXMania.ConfigIni.t書き出し( CDTXMania.strEXEのあるフォルダ + "Config.ini" );	// CONFIGだけ
-				    this.ftフォント?.Dispose();
+				    CDTXMania.ConfigIni.t書き出し( CDTXMania.strEXEのあるフォルダ + "Config.ini" );    // CONFIGだけ
+                    CDTXMania.t安全にDisposeする( ref this.ftフォント );
 				    for( int i = 0; i < 4; i++ )
 				    {
 					    this.ctキー反復用[ i ] = null;
@@ -142,18 +142,18 @@ namespace DTXMania
 		}
 		public override void OnManagedリソースの解放()											// OPTIONと同じ(COnfig.iniの書き出しタイミングのみ異なるが、無視して良い)
 		{
-			if( !base.b活性化してる )
+			if( base.b活性化してる )
 			{
 				CDTXMania.tテクスチャの解放( ref this.tx背景 );
 				CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
 				CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
 				CDTXMania.tテクスチャの解放( ref this.txMenuカーソル );
 				CDTXMania.tテクスチャの解放( ref this.tx説明文パネル );
-				prvFont.Dispose();
+                CDTXMania.t安全にDisposeする( ref this.prvFont );
 				for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
 				{
-					txMenuItemLeft[ i, 0 ]?.Dispose();
-					txMenuItemLeft[ i, 1 ]?.Dispose();
+                    CDTXMania.t安全にDisposeする( ref txMenuItemLeft[ i, 0 ] );
+                    CDTXMania.t安全にDisposeする( ref txMenuItemLeft[ i, 1 ] );
 				}
 				txMenuItemLeft = null;
 				base.OnManagedリソースの解放();
@@ -437,7 +437,7 @@ namespace DTXMania
 		private CActFIFOFace actFIFO;
 		private CActConfigKeyAssign actKeyAssign;
 		private CActConfigList actList;
-		private CActオプションパネル actオプションパネル;
+		//private CActオプションパネル actオプションパネル;
 		private bool bメニューにフォーカス中;
 		private STキー反復用カウンタ ctキー反復用;
 		private const int DESC_H = 0x80;
