@@ -865,7 +865,7 @@ namespace DTXMania
 				return 0;
 
             int panelcount = CDTXMania.Skin.nSelectSongPanelCount;
-            int panelcount_half = 6; //CDTXMania.Skin.nSelectSongPanelCount / 2;
+            int panelcount_half = (CDTXMania.Skin.nSelectSongPanelCount - 1) / 2;
 			#region [ 初めての進行描画 ]
 			//-----------------
 			if( this.b初めての進行描画 )
@@ -1233,7 +1233,7 @@ namespace DTXMania
                             if( ( this.stバー情報[ nパネル番号 ].b分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] == true && i != 6 ) && CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.難易度から選ぶ )
                             {
                                 //this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ n見た目の行番号 ].X + 76, 160 );
-                                this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, xAnime + 76, CDTXMania.Skin.nSelectSongPanelY );
+                                this.tx譜面分岐曲バー用?.t2D描画( CDTXMania.app.Device, xAnime + 76, CDTXMania.Skin.nSelectSongPanelY );
                             }
                         }
 						//-----------------
@@ -1432,36 +1432,41 @@ namespace DTXMania
                             }
                             else
                             {
-                                this.tx難易度パネル.n透明度 = 255;
-                                this.tx難易度文字中央パネル用.n透明度 = 255;
-                                this.tx難易度星.n透明度 = 255;
-                                this.tx難易度アイコン.n透明度 = 255;
+                                if( this.tx難易度パネル != null ) this.tx難易度パネル.n透明度 = 255;
+                                if( this.tx難易度文字中央パネル用 != null ) this.tx難易度文字中央パネル用.n透明度 = 255;
+                                if( this.tx難易度星 != null ) this.tx難易度星.n透明度 = 255;
+                                if( this.tx難易度アイコン != null ) this.tx難易度アイコン.n透明度 = 255;
                             }
 
-
-                            Rectangle rectDiffString = new Rectangle( (this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5) + (this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5) * i, 0, this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5, this.tx難易度文字中央パネル用.szテクスチャサイズ.Height );
                             this.tx難易度パネル?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i) );
-                            this.tx難易度文字中央パネル用?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i), rectDiffString );
-                            this.tx難易度アイコン.t2D描画( CDTXMania.app.Device, (CDTXMania.Skin.nSelectSongDiffPanelX + (this.tx難易度パネル.szテクスチャサイズ.Width / 2) + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i)) - 32, (CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i)) - 38, new Rectangle( 0, 60 * i, 65, 60 ) );
+                            if( this.tx難易度文字中央パネル用 != null )
+                            {
+                                Rectangle rectDiffString = new Rectangle( (this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5) + (this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5) * i, 0, this.tx難易度文字中央パネル用.szテクスチャサイズ.Width / 5, this.tx難易度文字中央パネル用.szテクスチャサイズ.Height );
+                                this.tx難易度文字中央パネル用?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i), rectDiffString );
 
-                            if( CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ i ] && !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect ? ( this.ct譜面分岐文字アニメ.n現在の値 >= 0 && this.ct譜面分岐文字アニメ.n現在の値 < 100 ) : false )
-                            {
-                                this.tx難易度文字中央パネル用?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i), new Rectangle( 0, 0, rectDiffString.Width, rectDiffString.Height ) );
-                                //CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
-                            }
-                            else
-                            {
-                                int lv = CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ i ];
-                                for( int j = 0; j < 10; j++ )
+                                if ( CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.b譜面分岐[ i ] && !CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect ? ( this.ct譜面分岐文字アニメ.n現在の値 >= 0 && this.ct譜面分岐文字アニメ.n現在の値 < 100 ) : false )
                                 {
-                                    this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX + (starwidth * i), CDTXMania.Skin.nSelectSongDiffIconY - (starheight * j), new Rectangle( 0, CDTXMania.Skin.nSelectSongDiffIconHeight, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                                    this.tx難易度文字中央パネル用?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffPanelX + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i), CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i), new Rectangle( 0, 0, rectDiffString.Width, rectDiffString.Height ) );
+                                    //CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
                                 }
-                                for( int j = 0; j < lv; j++ )
+                                else
                                 {
-                                    if( j > 9 ) break;
-                                    this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX + (starwidth * i), CDTXMania.Skin.nSelectSongDiffIconY - (starheight * j), new Rectangle( 0, 0, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                                    int lv = CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ i ];
+                                    for( int j = 0; j < 10; j++ )
+                                    {
+                                        this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX + (starwidth * i), CDTXMania.Skin.nSelectSongDiffIconY - (starheight * j), new Rectangle( 0, CDTXMania.Skin.nSelectSongDiffIconHeight, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                                    }
+                                    for( int j = 0; j < lv; j++ )
+                                    {
+                                        if( j > 9 ) break;
+                                        this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX + (starwidth * i), CDTXMania.Skin.nSelectSongDiffIconY - (starheight * j), new Rectangle( 0, 0, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                                    }
                                 }
                             }
+                            if( this.tx難易度アイコン != null )
+                                this.tx難易度アイコン.t2D描画( CDTXMania.app.Device, (CDTXMania.Skin.nSelectSongDiffPanelX + (this.tx難易度パネル.szテクスチャサイズ.Width / 2) + CDTXMania.Skin.nSelectSongDiffPanelStringX + ( CDTXMania.Skin.nSelectSongDiffPanelSpacingX * i)) - 32, (CDTXMania.Skin.nSelectSongDiffPanelY + CDTXMania.Skin.nSelectSongDiffPanelStringY + (CDTXMania.Skin.nSelectSongDiffPanelSpacingY * i)) - 38, new Rectangle( 0, 60 * i, 65, 60 ) );
+
+
                         }
                     }
                     else

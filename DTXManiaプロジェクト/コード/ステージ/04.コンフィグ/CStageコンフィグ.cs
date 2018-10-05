@@ -54,61 +54,63 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
-			Trace.TraceInformation( "コンフィグステージを活性化します。" );
-			Trace.Indent();
-			try
-			{
-				this.n現在のメニュー番号 = 0;													//
-				this.ftフォント = new Font( "MS PGothic", 18.0f, FontStyle.Bold, GraphicsUnit.Pixel );			//
-				for( int i = 0; i < 4; i++ )													//
-				{																				//
-					this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, CDTXMania.Timer );			//
-				}																				//
-				this.bメニューにフォーカス中 = true;											// ここまでOPTIONと共通
-				this.eItemPanelモード = EItemPanelモード.パッド一覧;
-			}
-			finally
-			{
-				Trace.TraceInformation( "コンフィグステージの活性化を完了しました。" );
-				Trace.Unindent();
-			}
-			base.On活性化();		// 2011.3.14 yyagi: On活性化()をtryの中から外に移動
+            if( base.b活性化してない )
+            {
+			    Trace.TraceInformation( "コンフィグステージを活性化します。" );
+			    Trace.Indent();
+			    try
+			    {
+				    this.n現在のメニュー番号 = 0;													//
+				    this.ftフォント = new Font( "MS PGothic", 18.0f, FontStyle.Bold, GraphicsUnit.Pixel );			//
+				    for( int i = 0; i < 4; i++ )													//
+				    {																				//
+					    this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, CDTXMania.Timer );			//
+				    }																				//
+				    this.bメニューにフォーカス中 = true;											// ここまでOPTIONと共通
+				    this.eItemPanelモード = EItemPanelモード.パッド一覧;
+			    }
+			    finally
+			    {
+				    Trace.TraceInformation( "コンフィグステージの活性化を完了しました。" );
+				    Trace.Unindent();
+			    }
+			    base.On活性化();		// 2011.3.14 yyagi: On活性化()をtryの中から外に移動
+            }
 		}
 		public override void On非活性化()
 		{
-			Trace.TraceInformation( "コンフィグステージを非活性化します。" );
-			Trace.Indent();
-			try
-			{
-				CDTXMania.ConfigIni.t書き出し( CDTXMania.strEXEのあるフォルダ + "Config.ini" );	// CONFIGだけ
-				if( this.ftフォント != null )													// 以下OPTIONと共通
-				{
-					this.ftフォント.Dispose();
-					this.ftフォント = null;
-				}
-				for( int i = 0; i < 4; i++ )
-				{
-					this.ctキー反復用[ i ] = null;
-				}
-				base.On非活性化();
-			}
-			catch ( UnauthorizedAccessException e )
-			{
-				Trace.TraceError( e.Message + "ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい" );
-			}
-			catch ( Exception e )
-			{
-				Trace.TraceError( e.Message );
-			}
-			finally
-			{
-				Trace.TraceInformation( "コンフィグステージの非活性化を完了しました。" );
-				Trace.Unindent();
-			}
+            if( base.b活性化してる )
+            {
+			    Trace.TraceInformation( "コンフィグステージを非活性化します。" );
+			    Trace.Indent();
+			    try
+			    {
+				    CDTXMania.ConfigIni.t書き出し( CDTXMania.strEXEのあるフォルダ + "Config.ini" );	// CONFIGだけ
+				    this.ftフォント?.Dispose();
+				    for( int i = 0; i < 4; i++ )
+				    {
+					    this.ctキー反復用[ i ] = null;
+				    }
+				    base.On非活性化();
+			    }
+			    catch ( UnauthorizedAccessException e )
+			    {
+				    Trace.TraceError( e.Message + "ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい" );
+			    }
+			    catch ( Exception e )
+			    {
+				    Trace.TraceError( e.Message );
+			    }
+			    finally
+			    {
+				    Trace.TraceInformation( "コンフィグステージの非活性化を完了しました。" );
+				    Trace.Unindent();
+			    }
+            }
 		}
 		public override void OnManagedリソースの作成()											// OPTIONと画像以外共通
 		{
-			if( !base.b活性化してない )
+			if( base.b活性化してる )
 			{
 				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_background.jpg" ), false );
 				this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_header panel.png" ) );
@@ -140,7 +142,7 @@ namespace DTXMania
 		}
 		public override void OnManagedリソースの解放()											// OPTIONと同じ(COnfig.iniの書き出しタイミングのみ異なるが、無視して良い)
 		{
-			if( !base.b活性化してない )
+			if( !base.b活性化してる )
 			{
 				CDTXMania.tテクスチャの解放( ref this.tx背景 );
 				CDTXMania.tテクスチャの解放( ref this.tx上部パネル );
@@ -150,10 +152,8 @@ namespace DTXMania
 				prvFont.Dispose();
 				for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
 				{
-					txMenuItemLeft[ i, 0 ].Dispose();
-					txMenuItemLeft[ i, 0 ] = null;
-					txMenuItemLeft[ i, 1 ].Dispose();
-					txMenuItemLeft[ i, 1 ] = null;
+					txMenuItemLeft[ i, 0 ]?.Dispose();
+					txMenuItemLeft[ i, 1 ]?.Dispose();
 				}
 				txMenuItemLeft = null;
 				base.OnManagedリソースの解放();

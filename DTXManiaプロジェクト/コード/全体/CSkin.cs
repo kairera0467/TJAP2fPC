@@ -861,10 +861,14 @@ namespace DTXMania
         {
             this.eDiffDispMode = E難易度表示タイプ.n曲目に表示;
             this.b現在のステージ数を表示しない = false;
+
+            this.nSelectSongPanelX = new int[] { -218, -77, 64, 205, 346, 590, 833, 974, 1115, 1256, 1397 };
+            this.nSelectSongPanelCount = this.nSelectSongPanelX.Length;
         }
 
         public void tReadSkinConfig()
         {
+            this.tSkinConfigInit();
             this.tGenreColorSetting();
             if( File.Exists( CSkin.Path( @"SkinConfig.ini" ) ) )
             {
@@ -1228,7 +1232,7 @@ namespace DTXMania
         //分岐背景、ゴーゴー背景が連動する。(全て同じ大きさ、位置で作成すること。)
         //左上基準描画
         public bool bFieldBgPointOverride = false;
-        public int[] nScrollFieldBGX = new int[]{ 333, 333, 333, 333 };
+        public int[] nScrollFieldBGX = new int[]{ 332, 332, 332, 332 };
         public int[] nScrollFieldBGY = new int[]{ 192, 368, 0, 0 };
 
         //SEnotes
@@ -1305,15 +1309,9 @@ namespace DTXMania
         public EDiffSelectMode eDiffSelectMode = EDiffSelectMode.難易度から選ぶ;
         public int nSelectBGScrollSpeed = 50;
         public int nSelectBGLoopWidth = 1280;
-        public int[] nSelectSongPanelX = new int[] { -218, -77, 64, 205, 346, 590, 833, 974, 1115, 1256, 1397, 1397, 1397 };
+        public int[] nSelectSongPanelX = new int[] { -218, -77, 64, 205, 346, 590, 833, 974, 1115, 1256, 1397 };
         public int nSelectSongPanelY = 137;
-        public int nSelectSongPanelCount
-        {
-            get
-            {
-                return nSelectSongPanelX.Length;
-            }
-        }
+        public int nSelectSongPanelCount = 13;
         public int nSelectGenreStringX = 640;
         public int nSelectGenreStringY = 63;
         public int nSelectDiffStringX = 980;
