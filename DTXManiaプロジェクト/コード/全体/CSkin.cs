@@ -1037,6 +1037,7 @@ namespace DTXMania
                             else if( strCommand == "SelectSongPanelX")
                             {
                                 this.nSelectSongPanelX = C変換.ar配列形式のstringをint配列に変換して返す( strParam );
+                                this.nSelectSongPanelCount = this.nSelectSongPanelX.Length;
                             }
                             else if( strCommand == "SelectSongPanelY")
                             {

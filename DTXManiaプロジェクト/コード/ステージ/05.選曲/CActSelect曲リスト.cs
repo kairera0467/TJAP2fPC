@@ -707,9 +707,9 @@ namespace DTXMania
                 {
                     if( !String.IsNullOrEmpty( this.stバー情報[ i ].strタイトル文字列 ) )
                     {
-                        this.stバー情報[ i ].txタイトル?.Dispose();
+                        CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル );
                         this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列 );
-                        this.stバー情報[ i ].txタイトル_非選択?.Dispose();
+                        CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル_非選択 );
                         this.stバー情報[ i ].txタイトル_非選択 = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, CDTXMania.Skin.tReadGenreColor( this.stバー情報[ i ].strジャンル ) );
                     }
                 }
@@ -997,10 +997,10 @@ namespace DTXMania
 						// 選択曲から７つ下のパネル（＝新しく最下部に表示されるパネル。消えてしまう一番上のパネルを再利用する）に、新しい曲の情報を記載する。
 
 						C曲リストノード song = this.r現在選択中の曲;
-						for( int i = 0; i < 6; i++ )
+						for( int i = 0; i < panelcount_half; i++ )
 							song = this.r次の曲( song );
 
-						int index = ( this.n現在の選択行 + 6 ) % panelcount;	// 新しく最下部に表示されるパネルのインデックス（0～12）。
+						int index = ( this.n現在の選択行 + panelcount_half ) % panelcount;	// 新しく最下部に表示されるパネルのインデックス（0～12）。
 						this.stバー情報[ index ].strタイトル文字列 = song.strタイトル;
 						this.stバー情報[ index ].col文字色 = song.col文字色;
                         this.stバー情報[ index ].strジャンル = song.strジャンル;
@@ -1016,17 +1016,17 @@ namespace DTXMania
 						// stバー情報[] の内容を1行ずつずらす。
 						
 						C曲リストノード song2 = this.r現在選択中の曲;
-						for( int i = 0; i < 6; i++ )
+						for( int i = 0; i < panelcount_half; i++ )
 							song2 = this.r前の曲( song2 );
 
 						for( int i = 0; i < panelcount; i++ )
 						{
-							int n = ( ( ( this.n現在の選択行 - 6 ) + i ) + panelcount ) % panelcount;
+							int n = ( ( ( this.n現在の選択行 - panelcount_half ) + i ) + panelcount ) % panelcount;
 							this.stバー情報[ n ].eバー種別 = this.e曲のバー種別を返す( song2 );
 							song2 = this.r次の曲( song2 );
-                            this.stバー情報[ i ].txタイトル?.Dispose();
+                            CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル );
                             this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列 );
-                            this.stバー情報[ i ].txタイトル_非選択?.Dispose();
+                            CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル_非選択 );
                             this.stバー情報[ i ].txタイトル_非選択 = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, CDTXMania.Skin.tReadGenreColor( this.stバー情報[ i ].strジャンル ) );
 						}
 
@@ -1069,10 +1069,10 @@ namespace DTXMania
 						// 選択曲から５つ上のパネル（＝新しく最上部に表示されるパネル。消えてしまう一番下のパネルを再利用する）に、新しい曲の情報を記載する。
 
 						C曲リストノード song = this.r現在選択中の曲;
-						for( int i = 0; i < 6; i++ )
+						for( int i = 0; i < panelcount_half; i++ )
 							song = this.r前の曲( song );
 
-						int index = ( ( this.n現在の選択行 -6 ) + panelcount ) % panelcount;	// 新しく最上部に表示されるパネルのインデックス（0～12）。
+						int index = ( ( this.n現在の選択行 - panelcount_half ) + panelcount ) % panelcount;	// 新しく最上部に表示されるパネルのインデックス（0～12）。
 						this.stバー情報[ index ].strタイトル文字列 = song.strタイトル;
 						this.stバー情報[ index ].col文字色 = song.col文字色;
                         this.stバー情報[ index ].strサブタイトル = song.strサブタイトル;
@@ -1087,17 +1087,17 @@ namespace DTXMania
 						// stバー情報[] の内容を1行ずつずらす。
 						
 						C曲リストノード song2 = this.r現在選択中の曲;
-						for( int i = 0; i < 6; i++ )
+						for( int i = 0; i < panelcount_half; i++ )
 							song2 = this.r前の曲( song2 );
 
 						for( int i = 0; i < CDTXMania.Skin.nSelectSongPanelCount; i++ )
 						{
-							int n = ( ( ( this.n現在の選択行 - 6 ) + i ) + panelcount ) % panelcount;
+							int n = ( ( ( this.n現在の選択行 - panelcount_half ) + i ) + panelcount ) % panelcount;
 							this.stバー情報[ n ].eバー種別 = this.e曲のバー種別を返す( song2 );
 							song2 = this.r次の曲( song2 );
                             CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル );
                             this.stバー情報[ i ].txタイトル = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列 );
-                            this.stバー情報[ i ].txタイトル_非選択?.Dispose();
+                            CDTXMania.t安全にDisposeする( ref this.stバー情報[ i ].txタイトル_非選択 );
                             this.stバー情報[ i ].txタイトル_非選択 = this.t曲名テクスチャを生成する( this.stバー情報[ i ].strタイトル文字列, CDTXMania.Skin.tReadGenreColor( this.stバー情報[ i ].strジャンル ) );
 						}
 
@@ -1115,9 +1115,9 @@ namespace DTXMania
 
 						this.t選択曲が変更された(false);				// スクロールバー用に今何番目を選択しているかを更新
 
-                        this.tx選択している曲の曲名?.Dispose();
+                        CDTXMania.t安全にDisposeする( ref this.tx選択している曲の曲名 );
                         this.tx選択している曲の曲名 = null;
-                        this.tx選択している曲のサブタイトル?.Dispose();
+                        CDTXMania.t安全にDisposeする( ref this.tx選択している曲のサブタイトル );
                         this.tx選択している曲のサブタイトル = null;
 						
 						if( this.n目標のスクロールカウンタ == 0 )
@@ -1171,7 +1171,7 @@ namespace DTXMania
 						( i == ( panelcount - 1 ) && this.n現在のスクロールカウンタ < 0 ) )		// 最下行は、下に移動中なら表示しない。
 						continue;
 
-					int nパネル番号 = ( ( ( this.n現在の選択行 - 6 ) + i ) + panelcount ) % panelcount;
+					int nパネル番号 = ( ( ( this.n現在の選択行 - panelcount_half ) + i ) + panelcount ) % panelcount;
 					int n見た目の行番号 = i;
                     int n次のパネル番号 = (this.n現在のスクロールカウンタ <= 0) ? ((i + 1) % panelcount ) : ( ( ( i - 1 ) + panelcount ) % panelcount );
 					//int x = this.ptバーの基本座標[ n見た目の行番号 ].X + ( (int) ( ( this.ptバーの基本座標[ n次のパネル番号 ].X - this.ptバーの基本座標[ n見た目の行番号 ].X ) * ( ( (double) Math.Abs( this.n現在のスクロールカウンタ ) ) / 100.0 ) ) );
@@ -1182,9 +1182,9 @@ namespace DTXMania
                     if( CDTXMania.stage選曲.ctDiffSelect移動待ち?.n現在の値 > 0 && !CDTXMania.stage選曲.ctDiffSelect移動待ち.b終了値に達した )
                     {
                         // 難易度選択画面を開くアニメーション
-                        if( i < 6 )
+                        if( i < panelcount_half )
                             xAnime -= CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値 < 480 ? (int)(500 * (CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値 / 480.0f)) : 500;
-                        else if( i > 6 )
+                        else if( i > panelcount_half )
                             xAnime += CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値 < 480 ? (int)(500 * (CDTXMania.stage選曲.ctDiffSelect移動待ち.n現在の値 / 480.0f)) : 500;
                     }
                     else if( CDTXMania.stage選曲.act難易度選択画面.bIsDifficltSelect && CDTXMania.stage選曲.ctDiffSelect移動待ち.b終了値に達した )
@@ -1194,9 +1194,9 @@ namespace DTXMania
                     else if( CDTXMania.stage選曲.ctDiffSelect戻り待ち?.n現在の値 >= 0 && !CDTXMania.stage選曲.ctDiffSelect戻り待ち.b終了値に達した )
                     {
                         // 難易度選択画面を閉じるアニメーション
-                        if( i < 6 )
+                        if( i < panelcount_half )
                             xAnime -= CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 > 582 ? 500 - (int)(500 * ((CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 - 582) / 480.0f)) : 500;
-                        else if( i > 6 )
+                        else if( i > panelcount_half )
                             xAnime += CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 > 582 ? 500 - (int)(500 * ((CDTXMania.stage選曲.ctDiffSelect戻り待ち.n現在の値 - 582) / 480.0f)) : 500;
                     }
 
@@ -1208,14 +1208,14 @@ namespace DTXMania
                         {
                             if( this.stバー情報[ nパネル番号 ].eバー種別 == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
                             {
-                                if( i != 6 ? true : this.n現在のスクロールカウンタ != 0 )
+                                if( i != panelcount_half ? true : this.n現在のスクロールカウンタ != 0 )
                                 {
                                     this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.nSelectSongPanelY, "難易度ソート" );
                                 }
                             }
                             else if( this.stバー情報[ nパネル番号 ].eバー種別 == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート != CActSortSongs.EOrder.Title )
                             {
-                                if( i != 6 ? true : this.n現在のスクロールカウンタ != 0 )
+                                if( i != panelcount_half ? true : this.n現在のスクロールカウンタ != 0 )
                                 {
                                     //this.tジャンル別バーの描画( x, y, this.stバー情報[ nパネル番号 ].strジャンル );
                                     //this.tジャンル別選択されていない曲バーの描画( this.ptバーの座標[ n見た目の行番号 ].X, 180, this.stバー情報[ nパネル番号 ].strジャンル );
@@ -1224,13 +1224,13 @@ namespace DTXMania
                             }
                             else if( this.stバー情報[ nパネル番号 ].eバー種別 != Eバー種別.Score || CDTXMania.stage選曲.actSortSongs.e現在のソート == CActSortSongs.EOrder.Title )
                             {
-                                if( i != 6 ? true : this.n現在のスクロールカウンタ != 0 )
+                                if( i != panelcount_half ? true : this.n現在のスクロールカウンタ != 0 )
                                 {
                                     this.tジャンル別選択されていない曲バーの描画( xAnime, CDTXMania.Skin.nSelectSongPanelY, "" );
                                 }
                             }
 
-                            if( ( this.stバー情報[ nパネル番号 ].b分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] == true && i != 6 ) && CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.難易度から選ぶ )
+                            if( ( this.stバー情報[ nパネル番号 ].b分岐[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ] == true && i != panelcount_half ) && CDTXMania.Skin.eDiffSelectMode == EDiffSelectMode.難易度から選ぶ )
                             {
                                 //this.tx譜面分岐曲バー用.t2D描画( CDTXMania.app.Device, this.ptバーの座標[ n見た目の行番号 ].X + 76, 160 );
                                 this.tx譜面分岐曲バー用?.t2D描画( CDTXMania.app.Device, xAnime + 76, CDTXMania.Skin.nSelectSongPanelY );
@@ -1538,7 +1538,7 @@ namespace DTXMania
 						( i == (panelcount - 1) && this.n現在のスクロールカウンタ < 0 ) )		// 最下行は、下に移動中なら表示しない。
 						continue;
 
-					int nパネル番号 = ( ( ( this.n現在の選択行 - 6 ) + i ) + panelcount ) % panelcount;
+					int nパネル番号 = ( ( ( this.n現在の選択行 -  panelcount_half) + i ) + panelcount ) % panelcount;
 					int n見た目の行番号 = i;
 					int n次のパネル番号 = ( this.n現在のスクロールカウンタ <= 0 ) ? ( ( i + 1 ) % panelcount ) : ( ( ( i - 1 ) + panelcount ) % panelcount );
 					//int x = this.ptバーの基本座標[ n見た目の行番号 ].X + ( (int) ( ( this.ptバーの基本座標[ n次のパネル番号 ].X - this.ptバーの基本座標[ n見た目の行番号 ].X ) * ( ( (double) Math.Abs( this.n現在のスクロールカウンタ ) ) / 100.0 ) ) );
@@ -1548,7 +1548,7 @@ namespace DTXMania
                     int ySelectAnime = 0;
 					int y = this.ptバーの基本座標[ n見た目の行番号 ].Y + ( (int) ( ( this.ptバーの基本座標[ n次のパネル番号 ].Y - this.ptバーの基本座標[ n見た目の行番号 ].Y ) * ( ( (double) Math.Abs( this.n現在のスクロールカウンタ ) ) / 100.0 ) ) );
 
-                    if( ( i == 6 ) && ( this.n現在のスクロールカウンタ == 0 ) )
+                    if( ( i == panelcount_half ) && ( this.n現在のスクロールカウンタ == 0 ) )
 					{
 						// (A) スクロールが停止しているときの選択曲バーの描画。
 
