@@ -443,8 +443,8 @@ namespace DTXMania
                 this.t全体制御メソッド();
 
 
-                
-                this.actPauseMenu.t進行描画();
+                if( this.bポーズメニューを表示する )
+                    this.actPauseMenu.t進行描画();
                 //this.actEnd.On進行描画();
 				this.t進行描画_STAGEFAILED();
 
@@ -1268,7 +1268,7 @@ namespace DTXMania
                             pChip.bShow = false;
                     }
 
-                    float x = ( CDTXMania.Skin.nScrollFieldX[ nPlayer ] ) + pChip.nバーからの距離dot.Taiko;
+                    float x = (float)( CDTXMania.Skin.nScrollFieldX[ nPlayer ] ) + pChip.nバーからの距離dot.Taiko;
                     float y = CDTXMania.Skin.nScrollFieldY[ nPlayer ];
 
                     float xTemp = 0;
@@ -1341,7 +1341,7 @@ namespace DTXMania
                         y = CDTXMania.Skin.nScrollFieldY[ nPlayer ];
                         if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.Normal )
                             y += (float) ( ( ( pChip.n発声時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL_Y * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
-                        else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL )
+                        else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || CDTXMania.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
                             y += pChip.nバーからの距離dot.Taiko;
                     }
 
@@ -1372,7 +1372,7 @@ namespace DTXMania
                             int nHand = this.ct手つなぎ.n現在の値 < 30 ? this.ct手つなぎ.n現在の値 : 60 - this.ct手つなぎ.n現在の値;
 
                             if( CDTXMania.ConfigIni.bZeroSpeed ) x = CDTXMania.Skin.nJudgePointX[ nPlayer ];
-                            x = ( x ) - ( ( float ) ( 130.0f / 2.0f ) );
+                            x = x - ( 130.0f / 2.0f );
 
 #if DEBUG
                             if( CDTXMania.ConfigIni.b演奏情報を表示する )
@@ -1468,8 +1468,8 @@ namespace DTXMania
                                             {
                                                 if( nPlayer == 0 )
                                                 {
-                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, (int)x + 25, (int)( y + 74 ) + nHand );
-                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, (int)x + 60, (int)( y + 104 ) - nHand );
+                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 25, ( y + 74 ) + nHand );
+                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 60, ( y + 104 ) - nHand );
                                                 }
                                                 else if( nPlayer == 1 )
                                                 {
@@ -1487,8 +1487,8 @@ namespace DTXMania
                                             {
                                                 if( nPlayer == 0 )
                                                 {
-                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, (int)x + 25, (int)( y + 74 ) + nHand );
-                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, (int)x + 60, (int)( y + 104 ) - nHand );
+                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 25, ( y + 74 ) + nHand );
+                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 60, ( y + 104 ) - nHand );
                                                 }
                                                 else if( nPlayer == 1 )
                                                 {
@@ -1511,13 +1511,13 @@ namespace DTXMania
                                             {
                                                 if( nPlayer == 0 )
                                                 {
-                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, (int)x + 25, (int)( y + 74 ) + nHand );
-                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, (int)x + 60, (int)( y + 104 ) - nHand );
+                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 25f, ( y + 74f ) + nHand );
+                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 60f, ( y + 104f ) - nHand );
                                                 }
                                                 else if( nPlayer == 1 )
                                                 {
-                                                    this.txHand.t2D描画( CDTXMania.app.Device, x + 25, ( y - 44 ) + nHand );
-                                                    this.txHand.t2D描画( CDTXMania.app.Device, x + 60, ( y - 14 ) - nHand );
+                                                    this.txHand.t2D描画( CDTXMania.app.Device, x + 25f, ( y - 44f ) + nHand );
+                                                    this.txHand.t2D描画( CDTXMania.app.Device, x + 60f, ( y - 14f ) - nHand );
                                                 }
                                                 this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 1820, num9, 130, 130 ) );
                                             }
@@ -1529,13 +1529,13 @@ namespace DTXMania
                                             {
                                                 if( nPlayer == 0 )
                                                 {
-                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, (int)x + 25, (int)( y + 74 ) + nHand );
-                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, (int)x + 60, (int)( y + 104 ) - nHand );
+                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 25f, ( y + 74 ) + nHand );
+                                                    this.txHand.t2D上下反転描画( CDTXMania.app.Device, x + 60f, ( y + 104 ) - nHand );
                                                 }
                                                 else if( nPlayer == 1 )
                                                 {
-                                                    this.txHand.t2D描画( CDTXMania.app.Device, x + 25, ( y - 44 ) + nHand );
-                                                    this.txHand.t2D描画( CDTXMania.app.Device, x + 60, ( y - 14 ) - nHand );
+                                                    this.txHand.t2D描画( CDTXMania.app.Device, x + 25f, ( y - 44 ) + nHand );
+                                                    this.txHand.t2D描画( CDTXMania.app.Device, x + 60f, ( y - 14 ) - nHand );
                                                 }
                                                 this.txモノクロノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 1820, num9, 130, 130 ) );
                                                 //this.tx太鼓ノーツ.t3D描画( CDTXMania.app.Device, mat, new Rectangle( 390, num9, 130, 130 ) );
@@ -2184,7 +2184,13 @@ namespace DTXMania
                     this.bPAUSE = true;
                     this.actPauseMenu.tActivatePopupMenu( E楽器パート.DRUMS );
                 }
-
+                else
+                {
+                    // 2018.10.08 kairera0467
+                    // ポーズ中にF1を押したらポーズメニューを一時的に消す(スクショ用)
+                    CDTXMania.Skin.sound変更音.t再生する();
+                    C共通.bToggleBoolian( ref this.bポーズメニューを表示する );
+                }
             }
             //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F8 ) )
             //{

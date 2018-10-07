@@ -862,8 +862,44 @@ namespace DTXMania
             this.eDiffDispMode = E難易度表示タイプ.n曲目に表示;
             this.b現在のステージ数を表示しない = false;
 
+
+            #region[ 選曲 ]
+            this.nSelectBGLoopWidth = 0;
+            this.nSelectBGScrollSpeed = 0;
+            this.nSelectDiffStringX = 980;
+            this.nSelectDiffStringY = 30;
+            this.nSelectGenreStringX = 640;
+            this.nSelectGenreStringY = 63;
+            this.nSelectSongDiffIconHeight = 32;
+            this.nSelectSongDiffIconSpacingX = 0;
+            this.nSelectSongDiffIconSpacingY = 0;
+            this.nSelectSongDiffIconWidth = 32;
+            this.nSelectSongDiffIconX = 32;
+            this.nSelectSongDiffIconY = 32;
+            this.nSelectSongDiffPanelSpacingX = 0;
+            this.nSelectSongDiffPanelSpacingY = 0;
+            this.nSelectSongDiffPanelStringX = 0;
+            this.nSelectSongDiffPanelStringY = 0;
+            this.nSelectSongDiffPanelX = 518;
+            this.nSelectSongDiffPanelY = 169;
+            this.nSelectSongPanelCenterSubTitleHeight = 400;
+            this.nSelectSongPanelCenterSubTitleX = 34;
+            this.nSelectSongPanelCenterSubTitleY = 30;
+            this.nSelectSongPanelCenterTitleHeight = 415;
+            this.nSelectSongPanelCenterTitleX = new int[] { 670, 700 };
+            this.nSelectSongPanelCenterTitleY = 167;
             this.nSelectSongPanelX = new int[] { -218, -77, 64, 205, 346, 590, 833, 974, 1115, 1256, 1397 };
+            this.nSelectSongPanelY = 137;
             this.nSelectSongPanelCount = this.nSelectSongPanelX.Length;
+            this.nSelectSongPanelCursorLoopTimeMs = 0;
+            this.nSelectSongPanelCursorLX = 370;
+            this.nSelectSongPanelCursorMovePx = 0;
+            this.nSelectSongPanelCursorRX = 810;
+            this.nSelectSongPanelCursorY = 290;
+            this.nSelectSongPanelTitleX = 34;
+            this.nSelectSongPanelTitleY = 30;
+            #endregion
+
         }
 
         public void tReadSkinConfig()
@@ -1058,7 +1094,7 @@ namespace DTXMania
                             }
                             else if( strCommand == "SelectSongPanelCenterTitleY")
                             {
-                                this.nSelectSongPanelCenterTitleY = C変換.n値を文字列から取得して返す( strParam, 137 );
+                                this.nSelectSongPanelCenterTitleY = C変換.n値を文字列から取得して返す( strParam, 167 );
                             }
                             else if( strCommand == "SelectSongPanelCenterSubTitleX")
                             {

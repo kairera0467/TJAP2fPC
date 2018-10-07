@@ -9,7 +9,7 @@ namespace DTXMania
     {
         Normal,
         BMSCROLL,
-        HSSCROLL
+        HBSCROLL
     }
     public enum Eジャンル
     {

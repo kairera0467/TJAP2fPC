@@ -688,13 +688,13 @@ namespace DTXMania
         //0:1～9
         //1:10～19
         //2:20～29
-        //3:
-        //4:
-        //5:
-        //6:
-        //7:
-        //8:
-        //9:
+        //3:30～39
+        //4:40～49
+        //5:50～59
+        //6:60～69
+        //7:70～79
+        //8:80～89
+        //9:90～99
         //10:100以降
         //
         //Type-Cの場合
@@ -717,8 +717,8 @@ namespace DTXMania
 
 
         public bool bDoublePlay; // 2016.08.21 kairera0467 表示だけ。
-
         public bool[] bMiss中;
+        protected bool bポーズメニューを表示する = true; // 2018.10.08 kairera0467
 
 //		protected Stopwatch sw;		// 2011.6.13 最適化検討用のストップウォッチ
 //		protected Stopwatch sw2;
@@ -2620,7 +2620,7 @@ namespace DTXMania
                     if( pChip.nノーツ終了時刻ms != 0 )
                         pChip.nバーからのノーツ末端距離dot.Taiko = (float)( ( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
                 }
-                else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL )
+                else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
                 {
                     pChip.nバーからの距離dot.Taiko = (float)( ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
                     if( pChip.nノーツ終了時刻ms != 0 )
@@ -3321,7 +3321,7 @@ namespace DTXMania
                     if( pChip.nノーツ終了時刻ms != 0 )
                         pChip.nバーからのノーツ末端距離dot.Taiko = (int)( ( ( pChip.fBMSCROLLTime_end * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
                 }
-                else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL )
+                else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
                 {
                     pChip.nバーからの距離dot.Taiko = (int)( ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
                     if( pChip.nノーツ終了時刻ms != 0 )
