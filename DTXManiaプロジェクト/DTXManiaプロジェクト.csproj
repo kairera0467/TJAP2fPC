@@ -72,6 +72,9 @@
       <HintPath>..\Test\dll\Bass.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net20\CSharpTest.Net.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Test\dll\DirectShowLib-2005.dll</HintPath>
@@ -89,6 +92,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +107,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="TJAPlayer3.manifest" />
     <None Include="DTXManiaGR.exe.x86.manifest" />
     <None Include="Properties\Settings.settings">
@@ -126,6 +131,7 @@
     <Compile Include="コード\スコア、曲\CSetDef.cs" />
     <Compile Include="コード\スコア、曲\Dan-C.cs" />
     <Compile Include="コード\ステージ\01.起動\TextureLoader.cs" />
+    <Compile Include="コード\ステージ\02.タイトル\CActScanningLoudness.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CEnumSongs.cs" />
     <Compile Include="コード\スコア、曲\CSong管理.cs" />
     <Compile Include="コード\スコア、曲\Cスコア.cs" />
@@ -221,6 +227,8 @@
     <Compile Include="コード\全体\CConfigIni.cs" />
     <Compile Include="コード\全体\CDTXMania.cs" />
     <Compile Include="コード\全体\CDTXVersion.cs" />
+    <Compile Include="コード\全体\ConfigIniToSongGainControllerBinder.cs" />
+    <Compile Include="コード\全体\ConfigIniToSoundGroupLevelControllerBinder.cs" />
     <Compile Include="コード\全体\CPad.cs" />
     <Compile Include="コード\全体\CPrivateFastFont.cs" />
     <Compile Include="コード\全体\CVeirticalSongNameFont.cs" />
@@ -228,6 +236,7 @@
     <Compile Include="コード\全体\CSkin.cs" />
     <Compile Include="コード\全体\C定数.cs" />
     <Compile Include="コード\全体\C文字コンソール.cs" />
+    <Compile Include="コード\全体\KeyboardSoundGroupLevelControlHandler.cs" />
     <Compile Include="コード\全体\Program.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -278,13 +287,13 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>;copy /y "$(TargetDir)$(TargetName).exe" "$(SolutionDir)Test\"
-;copy /y "$(TargetDir)$(TargetName).exe.config" "$(SolutionDir)Test\"
-;copy /y "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)Test\"
+    <PostBuildEvent>
 move /y "$(TargetDir)FDK.dll" "$(SolutionDir)Test\dll\"
+move /y "$(TargetDir)FDK.pdb" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)Bass.Net.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)DirectShowLib-2005.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)SlimDXc_net20x86_Jun2010.dll" "$(SolutionDir)Test\dll\"
+move /y "$(TargetDir)CSharpTest.Net.Collections.*" "$(SolutionDir)Test\dll\"
 copy /y "$(SolutionDir)Readme.txt" "$(SolutionDir)Test\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" />

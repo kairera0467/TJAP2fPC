@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Diagnostics;
-using System.Web;
 using FDK;
+using FDK.ExtensionMethods;
 
 namespace DTXMania
 {
-	internal class CConfigIni
+	internal class CConfigIni : INotifyPropertyChanged
 	{
+	    private const int MinimumKeyboardSoundLevelIncrement = 1;
+	    private const int MaximumKeyboardSoundLevelIncrement = 20;
+	    private const int DefaultKeyboardSoundLevelIncrement = 5;
+
 		// クラス
 
 		#region [ CKeyAssign ]
@@ -629,7 +634,6 @@ namespace DTXMania
 		public bool bストイックモード;
 		public bool bランダムセレクトで子BOXを検索対象とする;
 		public bool bログ出力;
-		public STDGBVALUE<bool> b演奏音を強調する;
 		public bool b演奏情報を表示する;
 		public bool b垂直帰線待ちを行う;
 		public bool b全画面モード;
@@ -647,9 +651,75 @@ namespace DTXMania
 		public int n演奏速度;
 		public int n曲が選択されてからプレビュー音が鳴るまでのウェイトms;
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
-		public int n自動再生音量;
-		public int n手動再生音量;
-        public STDGBVALUE<int> n表示可能な最小コンボ数;
+
+	    private bool _applyLoudnessMetadata;
+
+	    public bool ApplyLoudnessMetadata
+	    {
+	        get => _applyLoudnessMetadata;
+	        set => SetProperty(ref _applyLoudnessMetadata, value, nameof(ApplyLoudnessMetadata));
+	    }
+
+	    private double _targetLoudness;
+
+	    public double TargetLoudness
+	    {
+	        get => _targetLoudness;
+	        set => SetProperty(ref _targetLoudness, value, nameof(TargetLoudness));
+	    }
+
+	    private bool _applySongVol;
+
+	    public bool ApplySongVol
+	    {
+	        get => _applySongVol;
+	        set => SetProperty(ref _applySongVol, value, nameof(ApplySongVol));
+	    }
+
+	    private int _soundEffectLevel;
+
+	    public int SoundEffectLevel
+	    {
+	        get => _soundEffectLevel;
+	        set => SetProperty(ref _soundEffectLevel, value, nameof(SoundEffectLevel));
+	    }
+
+	    private int _voiceLevel;
+
+	    public int VoiceLevel
+	    {
+	        get => _voiceLevel;
+	        set => SetProperty(ref _voiceLevel, value, nameof(VoiceLevel));
+	    }
+
+	    private int _songPreviewLevel;
+
+	    public int SongPreviewLevel
+	    {
+	        get => _songPreviewLevel;
+	        set => SetProperty(ref _songPreviewLevel, value, nameof(SongPreviewLevel));
+	    }
+
+	    private int _songPlaybackLevel;
+
+	    public int SongPlaybackLevel
+	    {
+	        get => _songPlaybackLevel;
+	        set => SetProperty(ref _songPlaybackLevel, value, nameof(SongPlaybackLevel));
+	    }
+
+	    private int _keyboardSoundLevelIncrement;
+
+	    public int KeyboardSoundLevelIncrement
+	    {
+	        get => _keyboardSoundLevelIncrement;
+	        set => SetProperty(
+	            ref _keyboardSoundLevelIncrement,
+	            value.Clamp(MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement),
+	            nameof(KeyboardSoundLevelIncrement));
+	    }
+
+	    public STDGBVALUE<int> n表示可能な最小コンボ数;
 		public STDGBVALUE<int> n譜面スクロール速度;
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
@@ -678,7 +748,6 @@ namespace DTXMania
         public bool ShowPuchiChara; // リザーブ
         //
 
-        public E難易度表示タイプ eDiffShowType;
         public EScrollMode eScrollMode = EScrollMode.Normal;
         public bool bスクロールモードを上書き = false;
 
@@ -694,7 +763,6 @@ namespace DTXMania
 
         public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
 
-        public EWindowMovieMode eWindowMovieMode;
 
 		public STDGBVALUE<E判定文字表示位置> 判定文字表示位置;
 //		public int nハイハット切り捨て下限Velocity;
@@ -797,6 +865,7 @@ namespace DTXMania
 		public bool bViewerDrums有効, bViewerGuitar有効;
 		//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
 		public int nMasterVolume;
+        public bool ShinuchiMode; // 真打モード
 #if false
 		[StructLayout( LayoutKind.Sequential )]
 		public struct STAUTOPLAY								// C定数のEレーンとindexを一致させること
@@ -1202,10 +1271,32 @@ namespace DTXMania
 			this.n表示可能な最小コンボ数.Bass = 2;
 			this.n表示可能な最小コンボ数.Taiko = 3;
             this.FontName = "MS UI Gothic";
-            this.n自動再生音量 = 80;
-			this.n手動再生音量 = 100;
+		    this.ApplyLoudnessMetadata = true;
+
+		    // 2018-08-28 twopointzero:
+            // There exists a particular large, well-known, well-curated, and
+            // regularly-updated collection of content for use with Taiko no
+            // Tatsujin simulators. A statistical analysis was performed on the
+            // the integrated loudness and true peak loudness of the thousands
+            // of songs within this collection as of late August 2018.
+            //
+            // The analysis allows us to select a target loudness which
+            // results in the smallest total amount of loudness adjustment
+            // applied to the songs of that collection. The selected target
+            // loudness should result in the least-noticeable average
+            // adjustment for the most users, assuming their collection is
+            // similar to the exemplar.
+            //
+            // The target loudness which achieves this is -7.4 LUFS.
+		    this.TargetLoudness = -7.4;
+
+		    this.ApplySongVol = false;
+		    this.SoundEffectLevel = CSound.DefaultSoundEffectLevel;
+		    this.VoiceLevel = CSound.DefaultVoiceLevel;
+		    this.SongPreviewLevel = CSound.DefaultSongPreviewLevel;
+		    this.SongPlaybackLevel = CSound.DefaultSongPlaybackLevel;
+		    this.KeyboardSoundLevelIncrement = DefaultKeyboardSoundLevelIncrement;
 			this.bログ出力 = true;
-			this.b演奏音を強調する = new STDGBVALUE<bool>();
 			this.bSudden = new STDGBVALUE<bool>();
 			this.bHidden = new STDGBVALUE<bool>();
 			this.bReverse = new STDGBVALUE<bool>();
@@ -1220,7 +1311,6 @@ namespace DTXMania
 			this.e判定表示優先度 = E判定表示優先度.Chipより下;
 			for ( int i = 0; i < 3; i++ )
 			{
-				this.b演奏音を強調する[ i ] = true;
 				this.bSudden[ i ] = false;
 				this.bHidden[ i ] = false;
 				this.bReverse[ i ] = false;
@@ -1318,13 +1408,14 @@ namespace DTXMania
             this.bNoInfo = false;
             
             //this.bNoMP3Streaming = false;
-			this.nMasterVolume = 25;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
+			this.nMasterVolume = 100;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
 
             this.bHispeedRandom = false;
             this.nDefaultSongSort = 2;
             this.eGameMode = EGame.OFF;
             this.bEndingAnime = false;
             this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
+            ShinuchiMode = false;
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;
@@ -1561,6 +1652,9 @@ namespace DTXMania
 			sw.WriteLine( "; 演奏記録（～.score.ini）の出力 (0:OFF, 1:ON)" );
 			sw.WriteLine( "SaveScoreIni={0}", this.bScoreIniを出力する ? 1 : 0 );
 			sw.WriteLine();
+            sw.WriteLine("; 最小表示コンボ数");
+            sw.WriteLine("MinComboDrums={0}", this.n表示可能な最小コンボ数.Drums);
+            sw.WriteLine();
 			sw.WriteLine( "; RANDOM SELECT で子BOXを検索対象に含める (0:OFF, 1:ON)" );
 			sw.WriteLine( "RandomFromSubBox={0}", this.bランダムセレクトで子BOXを検索対象とする ? 1 : 0 );
 			sw.WriteLine();
@@ -1568,13 +1662,37 @@ namespace DTXMania
 			sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
 			sw.WriteLine( "ShowDebugStatus={0}", this.b演奏情報を表示する ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; 打音の音量(0～100%)" );
-			sw.WriteLine( "; Sound volume (you're playing) (0-100%)" );
-			sw.WriteLine( "ChipVolume={0}", this.n手動再生音量 );
+		    sw.WriteLine("; BS1770GAIN によるラウドネスメータの測量を適用する (0:OFF, 1:ON)");
+		    sw.WriteLine( "; Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" );
+		    sw.WriteLine( "{0}={1}", nameof(ApplyLoudnessMetadata), this.ApplyLoudnessMetadata ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; 自動再生音の音量(0～100%)" );
-			sw.WriteLine( "; Sound volume (auto playing) (0-100%)" );
-			sw.WriteLine( "AutoChipVolume={0}", this.n自動再生音量 );
+		    sw.WriteLine( $"; BS1770GAIN によるラウドネスメータの目標値 (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" );
+		    sw.WriteLine( $"; Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" );
+		    sw.WriteLine( "{0}={1}", nameof(TargetLoudness), TargetLoudness );
+			sw.WriteLine();
+		    sw.WriteLine("; .tjaファイルのSONGVOLヘッダを音源の音量に適用する (0:OFF, 1:ON)");
+		    sw.WriteLine( "; Apply SONGVOL (0:OFF, 1:ON)" );
+		    sw.WriteLine( "{0}={1}", nameof(ApplySongVol), this.ApplySongVol ? 1 : 0 );
+		    sw.WriteLine();
+		    sw.WriteLine( $"; 効果音の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( $"; Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( "{0}={1}", nameof(SoundEffectLevel), SoundEffectLevel );
+		    sw.WriteLine();
+		    sw.WriteLine( $"; 各ボイス、コンボボイスの音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( $"; Voice level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( "{0}={1}", nameof(VoiceLevel), VoiceLevel );
+		    sw.WriteLine();
+		    sw.WriteLine( $"; 選曲画面のプレビュー時の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( $"; Song preview level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( "{0}={1}", nameof(SongPreviewLevel), SongPreviewLevel );
+			sw.WriteLine();
+		    sw.WriteLine( $"; ゲーム中の音源の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( $"; Song playback level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
+		    sw.WriteLine( "{0}={1}", nameof(SongPlaybackLevel), SongPlaybackLevel );
+			sw.WriteLine();
+		    sw.WriteLine( $"; キーボードによる音量変更の増加量、減少量 ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
+		    sw.WriteLine( $"; Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
+		    sw.WriteLine( "{0}={1}", nameof(KeyboardSoundLevelIncrement), KeyboardSoundLevelIncrement );
 			sw.WriteLine();
 			sw.WriteLine( "; ストイックモード(0:OFF, 1:ON)" );
 			sw.WriteLine( "; Stoic mode. (0:OFF, 1:ON)" );
@@ -1737,13 +1855,16 @@ namespace DTXMania
             sw.WriteLine( "; 譜面分岐のガイド表示(0:OFF, 1:ON)" );
 			sw.WriteLine( "BranchGuide={0}", this.bGraph.Drums ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; スコア計算方法(0:1～7, 1:8～14, 2:15以降, 3:真打)" );
+			sw.WriteLine( "; スコア計算方法(0:旧配点, 1:旧筐体配点, 2:新配点)" );
 			sw.WriteLine( "ScoreMode={0}", this.nScoreMode );
 			sw.WriteLine();
-			//sw.WriteLine( "; 1ノーツごとのスクロール速度をランダムで変更します。(0:OFF, 1:ON)" );
-			//sw.WriteLine( "HispeedRandom={0}", this.bHispeedRandom ? 1 : 0 );
-			//sw.WriteLine();
-			sw.WriteLine( "; 大音符の両手入力待機時間(ms)" );
+            sw.WriteLine("; 真打モード (0:OFF, 1:ON)");
+            sw.WriteLine("; Fixed score mode (0:OFF, 1:ON)");
+            sw.WriteLine("{0}={1}", nameof(ShinuchiMode), ShinuchiMode ? 1 : 0);
+            //sw.WriteLine( "; 1ノーツごとのスクロール速度をランダムで変更します。(0:OFF, 1:ON)" );
+            //sw.WriteLine( "HispeedRandom={0}", this.bHispeedRandom ? 1 : 0 );
+            //sw.WriteLine();
+            sw.WriteLine( "; 大音符の両手入力待機時間(ms)" );
 			sw.WriteLine( "BigNotesWaitTime={0}", this.n両手判定の待ち時間 );
 			sw.WriteLine();
 			sw.WriteLine( "; 大音符の両手判定(0:OFF, 1:ON)" );
@@ -1776,6 +1897,7 @@ namespace DTXMania
 			sw.WriteLine();
             sw.WriteLine( "; プレイ人数" );
             sw.WriteLine( "PlayerCount={0}", this.nPlayerCount );
+            sw.WriteLine();
             //sw.WriteLine( "; 選曲画面の初期選択難易度(ベータ版)" );
 			//sw.WriteLine( "DifficultPriority={0}", this.bJudgeCountDisplay ? 1 : 0 );
 			//sw.WriteLine();
@@ -2020,9 +2142,13 @@ namespace DTXMania
 												}
 												this.strSystemSkinSubfolderFullName = absSkinPath;
 											}
-											#endregion
-											#region [ Window関係 ]
-											else if ( str3.Equals( "WindowX" ) )		// #30675 2013.02.04 ikanick add
+                                            #endregion
+                                            #region [ Window関係 ]
+                                            else if (str3.Equals("FullScreen"))
+                                            {
+                                                this.b全画面モード = C変換.bONorOFF(str4[0]);
+                                            }
+                                            else if ( str3.Equals( "WindowX" ) )		// #30675 2013.02.04 ikanick add
 											{
 												this.n初期ウィンドウ開始位置X = C変換.n値を文字列から取得して範囲内に丸めて返す(
                                                     str4, 0,  System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - 1 , this.n初期ウィンドウ開始位置X );
@@ -2163,45 +2289,47 @@ namespace DTXMania
 											{
 												this.bランダムセレクトで子BOXを検索対象とする = C変換.bONorOFF( str4[ 0 ] );
 											}
-											#region [ SoundMonitor ]
-											else if( str3.Equals( "SoundMonitorDrums" ) )
-											{
-												this.b演奏音を強調する.Drums = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "SoundMonitorGuitar" ) )
-											{
-												this.b演奏音を強調する.Guitar = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "SoundMonitorBass" ) )
-											{
-												this.b演奏音を強調する.Bass = C変換.bONorOFF( str4[ 0 ] );
-											}
-											#endregion
 											#region [ コンボ数 ]
 											else if( str3.Equals( "MinComboDrums" ) )
 											{
 												this.n表示可能な最小コンボ数.Drums = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数.Drums );
-											}
-											else if( str3.Equals( "MinComboGuitar" ) )
-											{
-												this.n表示可能な最小コンボ数.Guitar = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数.Guitar );
-											}
-											else if( str3.Equals( "MinComboBass" ) )
-											{
-												this.n表示可能な最小コンボ数.Bass = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数.Bass );
 											}
 											#endregion
 											else if( str3.Equals( "ShowDebugStatus" ) )
 											{
 												this.b演奏情報を表示する = C変換.bONorOFF( str4[ 0 ] );
 											}
-                                            else if( str3.Equals( "ChipVolume" ) )
+											else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
 											{
-												this.n手動再生音量 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.n手動再生音量 );
+												this.ApplyLoudnessMetadata = C変換.bONorOFF( str4[ 0 ] );
 											}
-											else if( str3.Equals( "AutoChipVolume" ) )
+											else if( str3.Equals( nameof(TargetLoudness) ) )
 											{
-												this.n自動再生音量 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.n自動再生音量 );
+												this.TargetLoudness = C変換.db値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumLufs.ToDouble(), CSound.MaximumLufs.ToDouble(), this.TargetLoudness );
+											}
+											else if( str3.Equals( nameof(ApplySongVol) ) )
+											{
+												this.ApplySongVol = C変換.bONorOFF( str4[ 0 ] );
+											}
+											else if( str3.Equals( nameof(SoundEffectLevel) ) )
+											{
+												this.SoundEffectLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SoundEffectLevel );
+											}
+											else if( str3.Equals( nameof(VoiceLevel) ) )
+											{
+												this.VoiceLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.VoiceLevel );
+											}
+											else if( str3.Equals( nameof(SongPreviewLevel) ) )
+											{
+												this.SongPreviewLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPreviewLevel );
+											}
+											else if( str3.Equals( nameof(SongPlaybackLevel) ) )
+											{
+												this.SongPlaybackLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel );
+											}
+											else if( str3.Equals( nameof(KeyboardSoundLevelIncrement) ) )
+											{
+												this.KeyboardSoundLevelIncrement = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement, this.KeyboardSoundLevelIncrement );
 											}
 											else if( str3.Equals( "StoicMode" ) )
 											{
@@ -2524,78 +2652,6 @@ namespace DTXMania
 											{
 												this.bNoInfo = C変換.bONorOFF( str4[ 0 ] );
 											}
-     						//			    else if ( str3.Equals( "CharaMotionCount" ) )
-											//{
-											//	this.nCharaMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount );
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionCountClear" ) )
-											//{
-											//	this.nCharaMotionCount_clear = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_clear );
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionCountGogo" ) )
-											//{
-											//	this.nCharaMotionCount_gogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount );
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionCountMax" ) )
-											//{
-											//	this.nCharaMotionCount_max = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_max );
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionCountMaxGogo" ) )
-											//{
-											//	this.nCharaMotionCount_maxgogo = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 500, this.nCharaMotionCount_maxgogo );
-											//}
-           //                                 else if ( str3.Equals("nCharaAction_10combo"))
-           //                                 {
-           //                                     this.nCharaAction_10combo = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_10combo_max"))
-           //                                 {
-           //                                     this.nCharaAction_10combo_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_10combo_max);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_gogostart"))
-           //                                 {
-           //                                     this.nCharaAction_gogostart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_gogostart_max"))
-           //                                 {
-           //                                     this.nCharaAction_gogostart_max = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_gogostart_max);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_clearstart"))
-           //                                 {
-           //                                     this.nCharaAction_clearstart = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_clearstart);
-           //                                 }
-           //                                 else if (str3.Equals("nCharaAction_fullgauge"))
-           //                                 {
-           //                                     this.nCharaAction_fullgauge = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nCharaAction_fullgauge);
-           //                                 }
-           //                                 else if ( str3.Equals( "CharaMotionList" ) )
-											//{
-											//	this.strCharaMotionList = str4;
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionListGogo" ) )
-											//{
-											//	this.strCharaMotionList_gogo = str4;
-											//}
-           //                                 else if ( str3.Equals( "CharaMotionListClear" ) )
-											//{
-											//	this.strCharaMotionList_clear = str4;
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionListMax" ) )
-											//{
-											//	this.strCharaMotionList_max = str4;
-											//}
-     						//			    else if ( str3.Equals( "CharaMotionListMaxGogo" ) )
-											//{
-											//	this.strCharaMotionList_maxgogo = str4;
-											//}
-                                            //else if (str3.Equals("nDancerMotionCount"))
-                                            //{
-                                            //    this.nDancerMotionCount = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 500, this.nDancerMotionCount);
-                                            //}
-                                            //else if (str3.Equals("strDancerMotionList"))
-                                            //{
-                                            //    this.strDancerMotionList = str4;
-                                            //}
                                             else if ( str3.Equals( "DefaultSongSort" ) )
                                             {
                                                 this.nDefaultSongSort = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nDefaultSongSort );
@@ -2623,6 +2679,10 @@ namespace DTXMania
                                             else if( str3.Equals( "PlayerCount" ) )
                                             {
                                                 this.nPlayerCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
+                                            }
+                                            else if(str3.Equals(nameof(ShinuchiMode)))
+                                            {
+                                                ShinuchiMode = C変換.bONorOFF(str4[0]);
                                             }
 											continue;
 										}
@@ -2741,7 +2801,8 @@ namespace DTXMania
 					}
 					catch ( Exception exception )
 					{
-						Trace.TraceError( exception.Message );
+						Trace.TraceError( exception.ToString() );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 						continue;
 					}
 				}
@@ -2927,5 +2988,25 @@ Capture=K065
 		}
 		//-----------------
 		#endregion
+
+
+	    public event PropertyChangedEventHandler PropertyChanged;
+
+	    private bool SetProperty<T>(ref T storage, T value, string propertyName = null)
+	    {
+	        if (Equals(storage, value))
+	        {
+	            return false;
+	        }
+
+	        storage = value;
+	        OnPropertyChanged(propertyName);
+	        return true;
+	    }
+
+	    private void OnPropertyChanged(string propertyName)
+	    {
+	        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	    }
 	}
 }

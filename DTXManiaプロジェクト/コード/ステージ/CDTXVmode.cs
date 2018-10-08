@@ -360,8 +360,10 @@ namespace DTXMania
 							filename = filename.Trim( new char[] { '\"' } );
 							bIsNeedReloadDTX( filename );
 						}
-						catch	// 指定ファイルが存在しない
+						catch (Exception e)	// 指定ファイルが存在しない
 						{
+							Trace.TraceError( e.ToString() );
+							Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 						}
 						arg = "";
 						analyzing = false;
@@ -389,9 +391,11 @@ Trace.TraceInformation( "Command: " + s[ (int) this.Command ] );
 					{
 						cc.tファイルから読み込み( path );
 					}
-					catch
+					catch (Exception e)
 					{
 						//ConfigIni = new CConfigIni();	// 存在してなければ新規生成
+						Trace.TraceError( e.ToString() );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 					}
 				}
 				fi = null;

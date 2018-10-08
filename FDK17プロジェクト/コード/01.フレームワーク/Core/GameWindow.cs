@@ -559,13 +559,15 @@ namespace SampleFramework
                 Uri uri = new Uri(Application.ExecutablePath);
                 return Path.GetFileNameWithoutExtension(uri.LocalPath);
             }
-            catch (ArgumentNullException)
+            catch (ArgumentNullException e)
             {
-                // swallow the exception
+                Trace.TraceError( e.ToString() );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
             }
-            catch (UriFormatException)
+            catch (UriFormatException e)
             {
-                // swallow the exception
+                Trace.TraceError( e.ToString() );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
             }
 
             return DefaultTitle;

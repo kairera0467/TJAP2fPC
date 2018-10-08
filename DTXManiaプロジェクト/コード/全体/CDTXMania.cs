@@ -190,6 +190,11 @@ namespace DTXMania
 			get;
 			private set;
 		}
+		public static CActScanningLoudness actScanningLoudness
+		{
+			get;
+			private set;
+		}
 		public static CActFlushGPU actFlushGPU
 		{
 			get;
@@ -201,6 +206,19 @@ namespace DTXMania
 			get;
 			private set;
 		}
+
+	    public static SongGainController SongGainController
+	    {
+	        get;
+	        private set;
+	    }
+
+	    public static SoundGroupLevelController SoundGroupLevelController
+	    {
+	        get;
+	        private set;
+	    }
+
 		public static CStage起動 stage起動 
 		{
 			get; 
@@ -405,8 +423,10 @@ namespace DTXMania
 				{
 					Directory.CreateDirectory( strSavePath );
 				}
-				catch
+				catch (Exception e)
 				{
+					Trace.TraceError( e.ToString() );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 					return false;
 				}
 			}
@@ -585,14 +605,20 @@ namespace DTXMania
 									this.previewSound.Dispose();
 									this.previewSound = null;
 								}
-								this.previewSound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename );
-								this.previewSound.n音量 = DTXVmode.previewVolume;
+								this.previewSound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPlayback );
+
+							    // 2018-08-23 twopointzero: DTXVmode previewVolume will always set
+							    // Gain since in this mode it should override the application of
+							    // SONGVOL or any other Gain source regardless of configuration.
+								this.previewSound.SetGain(DTXVmode.previewVolume);
+
 								this.previewSound.n位置 = DTXVmode.previewPan;
 								this.previewSound.t再生を開始する();
 								Trace.TraceInformation( "DTXCからの指示で、サウンドを生成しました。({0})", strPreviewFilename );
 							}
-							catch
+							catch (Exception e)
 							{
+								Trace.TraceError( e.ToString() );
 								Trace.TraceError( "DTXCからの指示での、サウンドの生成に失敗しました。({0})", strPreviewFilename );
 								if ( this.previewSound != null )
 								{
@@ -1498,6 +1524,9 @@ for (int i = 0; i < 3; i++) {
 						#endregion
 						break;
 				}
+
+			    actScanningLoudness.On進行描画();
+
                 // オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
                 if(r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && CDTXMania.Tx.Overlay != null)
                 {
@@ -1559,13 +1588,15 @@ for (int i = 0; i < 3; i++) {
 			{
 				return new CTexture( app.Device, fileName, TextureFormat, b黒を透過する );
 			}
-			catch ( CTextureCreateFailedException )
+			catch ( CTextureCreateFailedException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "テクスチャの生成に失敗しました。({0})", fileName );
 				return null;
 			}
-			catch ( FileNotFoundException )
+			catch ( FileNotFoundException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "テクスチャファイルが見つかりませんでした。({0})", fileName );
 				return null;
 			}
@@ -1592,8 +1623,9 @@ for (int i = 0; i < 3; i++) {
 			{
 				return new CTexture( app.Device, txData, TextureFormat, b黒を透過する );
 			}
-			catch ( CTextureCreateFailedException )
+			catch ( CTextureCreateFailedException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "テクスチャの生成に失敗しました。(txData)" );
 				return null;
 			}
@@ -1617,8 +1649,9 @@ for (int i = 0; i < 3; i++) {
 			{
 				return new CTexture( app.Device, bitmap, TextureFormat, b黒を透過する );
 			}
-			catch ( CTextureCreateFailedException )
+			catch ( CTextureCreateFailedException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "テクスチャの生成に失敗しました。(txData)" );
 				return null;
 			}
@@ -1638,13 +1671,15 @@ for (int i = 0; i < 3; i++) {
 			{
 				return new CTextureAf( app.Device, fileName, TextureFormat, b黒を透過する );
 			}
-			catch ( CTextureCreateFailedException )
+			catch ( CTextureCreateFailedException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "テクスチャの生成に失敗しました。({0})", fileName );
 				return null;
 			}
-			catch ( FileNotFoundException )
+			catch ( FileNotFoundException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "テクスチャファイルが見つかりませんでした。({0})", fileName );
 				return null;
 			}
@@ -1658,13 +1693,15 @@ for (int i = 0; i < 3; i++) {
                 {
                     ds = new CDirectShow(fileName, hWnd, bオーディオレンダラなし);
                 }
-                catch (FileNotFoundException)
+                catch (FileNotFoundException e)
                 {
+                    Trace.TraceError( e.ToString() );
                     Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
                     ds = null;      // Dispose はコンストラクタ内で実施済み
                 }
-                catch
+                catch (Exception e)
                 {
+                    Trace.TraceError( e.ToString() );
                     Trace.TraceError("DirectShow の生成に失敗しました。[{0}]", fileName);
                     ds = null;      // Dispose はコンストラクタ内で実施済み
                 }
@@ -1774,9 +1811,11 @@ for (int i = 0; i < 3; i++) {
 				{
 					ConfigIni.tファイルから読み込み( path );
 				}
-				catch
+				catch (Exception e)
 				{
 					//ConfigIni = new CConfigIni();	// 存在してなければ新規生成
+					Trace.TraceError( e.ToString() );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				}
 			}
 			this.Window.EnableSystemMenu = CDTXMania.ConfigIni.bIsEnabledSystemMenu;	// #28200 2011.5.1 yyagi
@@ -1893,7 +1932,7 @@ for (int i = 0; i < 3; i++) {
 			catch (DeviceCreationException e)
 			{
 				Trace.TraceError(e.ToString());
-				MessageBox.Show(e.Message + e.ToString(), "DTXMania failed to boot: DirectX9 Initialize Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(e.ToString(), "DTXMania failed to boot: DirectX9 Initialize Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				Environment.Exit(-1);
 			}
 			
@@ -1921,7 +1960,7 @@ for (int i = 0; i < 3; i++) {
 				CDTXMania.ConfigIni.strSystemSkinSubfolderFullName = CDTXMania.Skin.GetCurrentSkinSubfolderFullName( true );	// 旧指定のSkinフォルダが消滅していた場合に備える
 				Trace.TraceInformation( "スキンの初期化を完了しました。" );
 			}
-			catch
+			catch (Exception e)
 			{
 				Trace.TraceInformation( "スキンの初期化に失敗しました。" );
 				throw;
@@ -1979,7 +2018,7 @@ for (int i = 0; i < 3; i++) {
 			}
 			catch( Exception exception )
 			{
-				Trace.TraceError( exception.Message );
+				Trace.TraceError( exception.ToString() );
 				Trace.TraceError( "文字コンソールの初期化に失敗しました。" );
 			}
 			finally
@@ -2027,7 +2066,6 @@ for (int i = 0; i < 3; i++) {
 			}
 			catch( Exception exception2 )
 			{
-				Trace.TraceError( exception2.Message );
 				Trace.TraceError( "DirectInput, MIDI入力の初期化に失敗しました。" );
 				throw;
 			}
@@ -2048,7 +2086,7 @@ for (int i = 0; i < 3; i++) {
 			}
 			catch( Exception exception3 )
 			{
-				Trace.TraceError( exception3.Message );
+				Trace.TraceError( exception3.ToString() );
 				Trace.TraceError( "パッドの初期化に失敗しました。" );
 			}
 			finally
@@ -2089,7 +2127,30 @@ for (int i = 0; i < 3; i++) {
 				);
 				//Sound管理 = FDK.CSound管理.Instance;
 				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
-	
+
+
+				Trace.TraceInformation("Initializing loudness scanning, song gain control, and sound group level control...");
+				Trace.Indent();
+				try
+				{
+				    actScanningLoudness = new CActScanningLoudness();
+				    actScanningLoudness.On活性化();
+				    LoudnessMetadataScanner.ScanningStateChanged +=
+				        (_, args) => actScanningLoudness.bIsActivelyScanning = args.IsActivelyScanning;
+				    LoudnessMetadataScanner.StartBackgroundScanning();
+
+					SongGainController = new SongGainController();
+					ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
+
+					SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
+					ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigIni, SoundGroupLevelController);
+				}
+				finally
+				{
+					Trace.Unindent();
+					Trace.TraceInformation("Initialized loudness scanning, song gain control, and sound group level control.");
+				}
+
 				ShowWindowTitleWithSoundType();
 				FDK.CSound管理.bIsTimeStretch = CDTXMania.ConfigIni.bTimeStretch;
 				Sound管理.nMasterVolume = CDTXMania.ConfigIni.nMasterVolume;
@@ -2098,8 +2159,7 @@ for (int i = 0; i < 3; i++) {
 			}
 			catch (Exception e)
 			{
-				Trace.TraceError( e.Message );
-                throw new NullReferenceException("サウンドデバイスがひとつも有効になっていないため、サウンドデバイスの初期化ができませんでした。");
+                throw new NullReferenceException("サウンドデバイスがひとつも有効になっていないため、サウンドデバイスの初期化ができませんでした。", e);
 			}
 			finally
 			{
@@ -2121,7 +2181,7 @@ for (int i = 0; i < 3; i++) {
 			}
 			catch( Exception e )
 			{
-				Trace.TraceError( e.Message );
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "曲リストの初期化に失敗しました。" );
 			}
 			finally
@@ -2273,7 +2333,7 @@ for (int i = 0; i < 3; i++) {
 					}
 					catch ( Exception e )
 					{
-						Trace.TraceError( e.Message );
+						Trace.TraceError( e.ToString() );
 						Trace.TraceError( "曲検索actの終了処理に失敗しました。" );
 					}
 					finally
@@ -2340,7 +2400,7 @@ for (int i = 0; i < 3; i++) {
 					}
 					catch( Exception exception )
 					{
-						Trace.TraceError( exception.Message );
+						Trace.TraceError( exception.ToString() );
 						Trace.TraceError( "曲リストの終了処理に失敗しました。" );
 					}
 					finally
@@ -2368,7 +2428,7 @@ for (int i = 0; i < 3; i++) {
 					}
 					catch( Exception exception2 )
 					{
-						Trace.TraceError( exception2.Message );
+						Trace.TraceError( exception2.ToString() );
 						Trace.TraceError( "スキンの終了処理に失敗しました。" );
 					}
 					finally
@@ -2392,7 +2452,7 @@ for (int i = 0; i < 3; i++) {
 					}
 					catch( Exception exception3 )
 					{
-						Trace.TraceError( exception3.Message );
+						Trace.TraceError( exception3.ToString() );
 						Trace.TraceError( "DirectSound の終了処理に失敗しました。" );
 					}
 					finally
@@ -2415,7 +2475,7 @@ for (int i = 0; i < 3; i++) {
 					}
 					catch( Exception exception4 )
 					{
-						Trace.TraceError( exception4.Message );
+						Trace.TraceError( exception4.ToString() );
 						Trace.TraceError( "パッドの終了処理に失敗しました。" );
 					}
 					finally
@@ -2439,7 +2499,7 @@ for (int i = 0; i < 3; i++) {
 					}
 					catch( Exception exception5 )
 					{
-						Trace.TraceError( exception5.Message );
+						Trace.TraceError( exception5.ToString() );
 						Trace.TraceError( "DirectInput, MIDI入力の終了処理に失敗しました。" );
 					}
 					finally
@@ -2463,7 +2523,7 @@ for (int i = 0; i < 3; i++) {
 					}
 					catch( Exception exception6 )
 					{
-						Trace.TraceError( exception6.Message );
+						Trace.TraceError( exception6.ToString() );
 						Trace.TraceError( "文字コンソールの終了処理に失敗しました。" );
 					}
 					finally
@@ -2535,13 +2595,32 @@ for (int i = 0; i < 3; i++) {
 				}
 				catch( Exception e )
 				{
-					Trace.TraceError( e.Message );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "Config.ini の出力に失敗しました。({0})", str );
 				}
 				finally
 				{
 					Trace.Unindent();
 				}
+
+			    Trace.TraceInformation("Deinitializing loudness scanning, song gain control, and sound group level control...");
+			    Trace.Indent();
+			    try
+			    {
+			        SoundGroupLevelController = null;
+			        SongGainController = null;
+                    actScanningLoudness.On非活性化();
+			        actScanningLoudness = null;
+			        LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: true);
+			    }
+			    finally
+			    {
+			        Trace.Unindent();
+			        Trace.TraceInformation("Deinitialized loudness scanning, song gain control, and sound group level control.");
+			    }
+
+			    ConfigIni = null;
+
 				//---------------------
 				#endregion
 				#region [ DTXVmodeの終了処理 ]
@@ -2685,8 +2764,9 @@ for (int i = 0; i < 3; i++) {
 						}
 					}
 				}
-				catch
+				catch (Exception e)
 				{
+					Trace.TraceError( e.ToString() );
 					Trace.TraceInformation( dllName + " からプラグインを生成することに失敗しました。スキップします。" );
 				}
 			}

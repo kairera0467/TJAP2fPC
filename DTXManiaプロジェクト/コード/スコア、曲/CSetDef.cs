@@ -212,8 +212,10 @@ namespace DTXMania
 						}
 						continue;
 					}
-					catch
+					catch (Exception e)
 					{
+					    Trace.TraceError( e.ToString() );
+					    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 						continue;
 					}
 				}

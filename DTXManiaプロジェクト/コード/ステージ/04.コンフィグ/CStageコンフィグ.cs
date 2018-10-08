@@ -94,11 +94,14 @@ namespace DTXMania
 			}
 			catch ( UnauthorizedAccessException e )
 			{
-				Trace.TraceError( e.Message + "ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい" );
+			    Trace.TraceError( e.ToString() );
+				Trace.TraceError( "ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
 			catch ( Exception e )
 			{
-				Trace.TraceError( e.Message );
+				Trace.TraceError( e.ToString() );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
 			finally
 			{
@@ -643,8 +646,9 @@ namespace DTXMania
 				this.tx説明文パネル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
 				image.Dispose();
 			}
-			catch( CTextureCreateFailedException )
+			catch( CTextureCreateFailedException e)
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "説明文テクスチャの作成に失敗しました。" );
 				this.tx説明文パネル = null;
 			}
@@ -670,8 +674,9 @@ namespace DTXMania
 				this.tx説明文パネル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
 				image.Dispose();
 			}
-			catch( CTextureCreateFailedException )
+			catch( CTextureCreateFailedException e )
 			{
+				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "説明文パネルテクスチャの作成に失敗しました。" );
 				this.tx説明文パネル = null;
 			}

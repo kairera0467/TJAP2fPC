@@ -9,7 +9,7 @@ using SlimDX.DirectSound;
 
 namespace FDK
 {
-	public class CSoundDeviceDirectSound : ISoundDevice
+	internal class CSoundDeviceDirectSound : ISoundDevice
 	{
 		// プロパティ
 
@@ -107,15 +107,7 @@ namespace FDK
 
 		// メソッド
 
-		public CSoundDeviceDirectSound( IntPtr hWnd, long n遅延時間ms )
-		{
-			t初期化( hWnd, n遅延時間ms, false );
-		}
 		public CSoundDeviceDirectSound( IntPtr hWnd, long n遅延時間ms, bool bUseOSTimer )
-		{
-			t初期化( hWnd, n遅延時間ms, bUseOSTimer );
-		}
-		private void t初期化( IntPtr hWnd, long n遅延時間ms, bool bUseOSTimer )
 		{
 			Trace.TraceInformation( "DirectSound の初期化を開始します。" );
 
@@ -175,7 +167,8 @@ namespace FDK
 				bw.Close();
 				ms = null;
 				bw = null;
-				this.sd経過時間計測用サウンドバッファ = this.tサウンドを作成する( byArrWaveFleImage );
+				this.sd経過時間計測用サウンドバッファ = this.tサウンドを作成する( byArrWaveFleImage, ESoundGroup.Unknown );
+
 				CSound.listインスタンス.Remove( this.sd経過時間計測用サウンドバッファ );	// 特殊用途なのでインスタンスリストからは除外する。
 
 				// サウンドのループ再生開始。
@@ -194,35 +187,30 @@ namespace FDK
 			Trace.TraceInformation( "DirectSound を初期化しました。({0})({1})", ( priority ) ? "Priority" : "Normal", bUseOSTimer? "OStimer" : "FDKtimer" );
 		}
 
-		public CSound tサウンドを作成する( string strファイル名 )
+		public CSound tサウンドを作成する( string strファイル名, ESoundGroup soundGroup )
 		{
-			var sound = new CSound();
+			var sound = new CSound(soundGroup);
 			sound.tDirectSoundサウンドを作成する( strファイル名, this.DirectSound );
 			return sound;
 		}
-		public CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ )
+
+		private CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ, ESoundGroup soundGroup )
 		{
-			var sound = new CSound();
+			var sound = new CSound(soundGroup);
 			sound.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, this.DirectSound );
-			return sound;
-		}
-		public CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ, BufferFlags flags )
-		{
-			var sound = new CSound();
-			sound.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, this.DirectSound, flags );
 			return sound;
 		}
 
 		// 既存のインスタンス（生成直後 or Dispose済み）に対してサウンドを生成する。
-		public void tサウンドを作成する( string strファイル名, ref CSound sound )
+		public void tサウンドを作成する( string strファイル名, CSound sound )
 		{
 			sound.tDirectSoundサウンドを作成する( strファイル名, this.DirectSound );
 		}
-		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, ref CSound sound )
+		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound )
 		{
 			sound.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, this.DirectSound );
 		}
-		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, BufferFlags flags, ref CSound sound )
+		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, BufferFlags flags, CSound sound )
 		{
 			sound.tDirectSoundサウンドを作成する( byArrWAVファイルイメージ, this.DirectSound, flags );
 		}

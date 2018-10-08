@@ -1024,83 +1024,22 @@ namespace DTXMania
 			//sw2.Stop();
 			return nearestChip_Future;
 		}
-		protected void tサウンド再生( CDTX.CChip rChip, long n再生開始システム時刻ms, E楽器パート part )
+		protected void tサウンド再生( CDTX.CChip pChip, int nPlayer )
 		{
-			this.tサウンド再生( rChip, n再生開始システム時刻ms, part, CDTXMania.ConfigIni.n手動再生音量, false, false, 0 );
+			int index = pChip.nチャンネル番号;
+            if( index == 0x11 || index == 0x13 || index == 0x1A )
+                this.soundRed.t再生を開始する();
+            else if( index == 0x12 || index == 0x14 || index == 0x1B )
+                this.soundBlue.t再生を開始する();
+            else if( index == 0x1F )
+                this.soundAdlib.t再生を開始する();
+
+            if( this.nHand[ nPlayer ] == 0 )
+                this.nHand[ nPlayer ]++;
+            else
+                this.nHand[ nPlayer ] = 0;
 		}
-		protected void tサウンド再生( CDTX.CChip rChip, long n再生開始システム時刻ms, E楽器パート part, int n音量 )
-		{
-			this.tサウンド再生( rChip, n再生開始システム時刻ms, part, n音量, false, false, 0 );
-		}
-		protected void tサウンド再生( CDTX.CChip rChip, long n再生開始システム時刻ms, E楽器パート part, int n音量, bool bモニタ )
-		{
-			this.tサウンド再生( rChip, n再生開始システム時刻ms, part, n音量, bモニタ, false, 0 );
-		}
-		protected void tサウンド再生( CDTX.CChip pChip, long n再生開始システム時刻ms, E楽器パート part, int n音量, bool bモニタ, bool b音程をずらして再生, int nPlayer )
-		{
-			// mute sound (auto)
-			// 4A: HH
-			// 4B: CY
-			// 4C: RD
-			// 4D: LC
-			// 2A: Gt
-			// AA: Bs
-			//
 
-			if ( pChip != null )
-			{
-				bool overwrite = false;
-				switch ( part )
-				{
-					case E楽器パート.DRUMS:
-					#region [ DRUMS ]
-						return;
-					#endregion
-					case E楽器パート.GUITAR:
-					#region [ GUITAR ]
-						return;
-					#endregion
-					case E楽器パート.BASS:
-					#region [ BASS ]
-						return;
-					#endregion
-                    case E楽器パート.TAIKO:
-						{
-                            //switch( nPlayer )
-                            //{
-                            //    case 0:
-                            //        this.soundRed.n位置 = -50;
-                            //        this.soundBlue.n位置 = -50;
-                            //        this.soundAdlib.n位置 = -50;
-                            //        break;
-                            //    case 1:
-                            //        this.soundRed.n位置 = 50;
-                            //        this.soundBlue.n位置 = 50;
-                            //        this.soundAdlib.n位置 = 50;
-                            //        break;
-                            //}
-
-							int index = pChip.nチャンネル番号;
-                            if( index == 0x11 || index == 0x13 || index == 0x1A )
-                                this.soundRed.t再生を開始する();
-                            else if( index == 0x12 || index == 0x14 || index == 0x1B )
-                                this.soundBlue.t再生を開始する();
-                            else if( index == 0x1F )
-                                this.soundAdlib.t再生を開始する();
-
-                            if( this.nHand[ nPlayer ] == 0 )
-                                this.nHand[ nPlayer ]++;
-                            else
-                                this.nHand[ nPlayer ] = 0;
-
-							return;
-						}
-
-					default:
-						break;
-				}
-			}
-		}
 		protected void tステータスパネルの選択()
 		{
 			if ( CDTXMania.bコンパクトモード )
@@ -1134,6 +1073,20 @@ namespace DTXMania
                 {
                     this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, CDTXMania.Timer);
                 }
+
+
+                pChip.RollEffectLevel += 10;
+                if(pChip.RollEffectLevel >= 100)
+                {
+                    pChip.RollEffectLevel = 100;
+                    pChip.RollInputTime = new CCounter(0, 1500, 1, CDTXMania.Timer);
+                    pChip.RollDelay?.t停止();
+                } else
+                {
+                    pChip.RollInputTime = new CCounter(0, 150, 1, CDTXMania.Timer);
+                    pChip.RollDelay?.t停止(); 
+                }
+
                 if ( pChip.nチャンネル番号 == 0x15 )
                     this.eRollState = E連打State.roll;
                 else
@@ -1144,11 +1097,12 @@ namespace DTXMania
                 this.n現在の連打数[ nPlayer ]++;
                 this.nBranch_roll[ nPlayer ]++;
                 this.n合計連打数[ nPlayer ]++;
-                this.actRollChara.Start(0);
+                this.actRollChara.Start(nPlayer);
 
                 //2017.01.28 DD CDTXから直接呼び出す
-                if (pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+                if (pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                 {
+                    // 旧配点・旧筐体配点
                     if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
@@ -1156,6 +1110,7 @@ namespace DTXMania
                         else
                             this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, (long)( 360 * 1.2f ), nPlayer );
                     }
+                    // 新配点
                     else
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
@@ -1166,13 +1121,15 @@ namespace DTXMania
                 }
                 else
                 {
+                    // 旧配点・旧筐体配点
                     if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
-                            this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 100L, nPlayer );
+                            this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 300L, nPlayer );
                         else
-                            this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 200L, nPlayer );
+                            this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 360L, nPlayer );
                     }
+                    // 新配点
                     else
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
@@ -1233,6 +1190,13 @@ namespace DTXMania
                 }
 
                 this.b連打中[ player ] = true;
+                if(actChara.CharaAction_Balloon_Breaking != null && player == 0)
+                {
+                    actChara.アクションタイマーリセット();
+                    actChara.bマイどんアクション中 = true;
+                    actChara.CharaAction_Balloon_Breaking = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                   
+                }
                 if (this.actBalloon.ct風船アニメ[player].b終了値に達してない)
                 {
                     this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, CDTXMania.Timer);
@@ -1257,7 +1221,7 @@ namespace DTXMania
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
                     CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
-                    if(pChip.bGOGOTIME)
+                    if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 6000L, player);
                     } else
@@ -1270,11 +1234,18 @@ namespace DTXMania
                     //this.actChara.b風船連打中 = false;
                     pChip.b可視 = false;
                     this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
+                    if (actChara.CharaAction_Balloon_Broke != null && player == 0)
+                    {
+                        actChara.アクションタイマーリセット();
+                        actChara.bマイどんアクション中 = true;
+                        actChara.CharaAction_Balloon_Broke = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                        if(actChara.CharaAction_Balloon_Delay != null )actChara.CharaAction_Balloon_Delay = new CCounter(0, CDTXMania.Skin.Game_Chara_Balloon_Delay - 1, 1, CDTXMania.Timer);
+                    }
                     this.eRollState = E連打State.none;
                 }
                 else
                 {
-                    if(pChip.bGOGOTIME)
+                    if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 360L, player);
                     } else
@@ -1287,12 +1258,14 @@ namespace DTXMania
             }
             else
             {
-                if( chip現在処理中の連打チップ[ player ] != null )
+                if ( chip現在処理中の連打チップ[ player ] != null )
                     chip現在処理中の連打チップ[ player ].bHit = true;
                 this.b連打中[ player ] = false;
                 this.actChara.b風船連打中 = false;
                 return false;
             }
+
+            
 
             return true;
         }
@@ -1389,6 +1362,22 @@ namespace DTXMania
                                 this.eRollState = E連打State.roll;
                                 this.tRollProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, 1, nNowInput, 0, nPlayer );
                             }
+
+                            //if ((int)CSound管理.rc演奏用タイマ.n現在時刻ms >= pChip.nノーツ終了時刻ms)
+                            //{
+                            //    if (actChara.CharaAction_Balloon_Breaking.b進行中)
+                            //    {
+                            //        this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
+                            //        if (actChara.CharaAction_Balloon_Miss != null)
+                            //        {
+                            //            actChara.アクションタイマーリセット();
+                            //            actChara.bマイどんアクション中 = true;
+                            //            actChara.CharaAction_Balloon_Miss = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                            //            System.Windows.Forms.MessageBox.Show("");
+                            //        }
+                            //    }
+
+                            //}
 
                             break;
                             //---------------------------
@@ -1495,7 +1484,7 @@ namespace DTXMania
 
                 if ((int)actGauge.db現在のゲージ値[nPlayer] >= 100 && this.bIsAlreadyMaxed[nPlayer] == false)
                 {
-                    if(CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0 && nPlayer == 0)
+                    if(CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                     {
                         this.actChara.アクションタイマーリセット();
                         this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_SoulIn - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_SoulIn) * 2, CSound管理.rc演奏用タイマ);
@@ -1507,7 +1496,7 @@ namespace DTXMania
                 }
                 if ((int)actGauge.db現在のゲージ値[nPlayer] >= 80 && this.bIsAlreadyCleared[nPlayer] == false)
                 {
-                    if(CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0 && nPlayer == 0)
+                    if(CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                     {
                         this.actChara.アクションタイマーリセット();
                         this.actChara.ctキャラクターアクション_ノルマ = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_ClearIn - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_ClearIn) * 2, CSound管理.rc演奏用タイマ);
@@ -1680,7 +1669,7 @@ namespace DTXMania
                             //{
                                 if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                                 {
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_ノルマ.b進行中db)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_ノルマ.b進行中db && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                         {
@@ -1694,7 +1683,7 @@ namespace DTXMania
                                             //this.actChara.マイどん_アクション_10コンボ();
                                         }
                                     }
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_魂MAX.b進行中db)
+                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_魂MAX.b進行中db && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                     {
                                         if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                         {
@@ -1760,7 +1749,7 @@ namespace DTXMania
                 long nDiff = CDTXMania.DTX.nScoreDiff[ CDTXMania.stage選曲.n確定された曲の難易度 ];
                 long nAddScore = 0;
 
-                if( CDTXMania.DTX.nScoreModeTmp == 3 )  //2016.07.04 kairera0467 真打モード。
+                if( CDTXMania.ConfigIni.ShinuchiMode )  //2016.07.04 kairera0467 真打モード。
                 {
                     nAddScore = CDTXMania.DTX.nScoreInit[ 1, CDTXMania.stage選曲.n確定された曲の難易度 ];
                     if( nAddScore == 0 )
@@ -2707,6 +2696,11 @@ namespace DTXMania
 					CDTXMania.ConfigIni.b演奏情報を表示する = !CDTXMania.ConfigIni.b演奏情報を表示する;
 				}
             }
+
+		    #region [ Minus & Equals Sound Group Level ]
+		    KeyboardSoundGroupLevelControlHandler.Handle(
+		        keyboard, CDTXMania.SoundGroupLevelController, CDTXMania.Skin, false);
+		    #endregion
 		}
 
 		protected void t入力メソッド記憶( E楽器パート part )
@@ -2936,7 +2930,7 @@ namespace DTXMania
 							pChip.bHit = true;
 							if ( configIni.bBGM音を発声する )
 							{
-								dTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM, dTX.nモニタを考慮した音量( E楽器パート.UNKNOWN ) );
+								dTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM );
 							}
 						}
 						break;
@@ -3386,7 +3380,7 @@ namespace DTXMania
                             double dbUnit = (((60.0 / pChip.dbBPM)));
                             if(nPlayer == 0)
                             {
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0 && nPlayer == 0)
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                 {
                                     if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                     {
@@ -3400,7 +3394,7 @@ namespace DTXMania
                                         //this.actChara.マイどん_アクション_10コンボ();
                                     }
                                 }
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0 && nPlayer == 0)
+                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                 {
                                     if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                     {
@@ -4153,7 +4147,7 @@ namespace DTXMania
 
 						if ( ( wc.bIsBGMSound && CDTXMania.ConfigIni.bBGM音を発声する ) || ( !wc.bIsBGMSound ) )
 						{
-							CDTXMania.DTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM, CDTXMania.DTX.nモニタを考慮した音量( E楽器パート.UNKNOWN ) );
+							CDTXMania.DTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM );
 							#region [ PAUSEする ]
 							int j = wc.n現在再生中のサウンド番号;
 							if ( wc.rSound[ j ] != null )
@@ -4450,8 +4444,10 @@ namespace DTXMania
                 else
                     this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( DefaultBgFilename ) );
             }
-            catch
+            catch (Exception e)
             {
+                Trace.TraceError( e.ToString() );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                 this.tx背景 = null;
             }
 		}

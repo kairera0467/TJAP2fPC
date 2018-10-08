@@ -72,6 +72,7 @@ namespace DTXMania
             Menu_Title = TxC(@"Menu_Title.png");
             Menu_Highlight = TxC(@"Menu_Highlight.png");
             Enum_Song = TxC(@"Enum_Song.png");
+            Scanning_Loudness = TxC(@"Scanning_Loudness.png");
             Overlay = TxC(@"Overlay.png");
             NamePlate = new CTexture[2];
             NamePlate[0] = TxC(@"1P_NamePlate.png");
@@ -138,7 +139,7 @@ namespace DTXMania
             #region 共通
             Notes = TxC(GAME + @"Notes.png");
             Judge_Frame = TxC(GAME + @"Notes.png");
-            SenNotes = TxC(GAME + @"SenNotes.png");
+            SENotes = TxC(GAME + @"SENotes.png");
             Notes_Arm = TxC(GAME + @"Notes_Arm.png");
             Judge = TxC(GAME + @"Judge.png");
 
@@ -247,8 +248,33 @@ namespace DTXMania
                     Chara_Become_Maxed[i] = TxC(GAME + CHARA + @"SoulIn\" + i.ToString() + ".png");
                 }
             }
-            Chara_Balloon_Breaking = TxC(GAME + CHARA + @"Breaking.png");
-            Chara_Balloon_Broken = TxC(GAME + CHARA + @"Broken.png");
+            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Breaking\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking != 0)
+            {
+                Chara_Balloon_Breaking = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking; i++)
+                {
+                    Chara_Balloon_Breaking[i] = TxC(GAME + CHARA + @"Balloon_Breaking\" + i.ToString() + ".png");
+                }
+            }
+            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Broke\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
+            {
+                Chara_Balloon_Broke = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke; i++)
+                {
+                    Chara_Balloon_Broke[i] = TxC(GAME + CHARA + @"Balloon_Broke\" + i.ToString() + ".png");
+                }
+            }
+            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Miss\"));
+            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
+            {
+                Chara_Balloon_Miss = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss];
+                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss; i++)
+                {
+                    Chara_Balloon_Miss[i] = TxC(GAME + CHARA + @"Balloon_Miss\" + i.ToString() + ".png");
+                }
+            }
             #endregion
             #region 踊り子
             CDTXMania.Skin.Game_Dancer_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + DANCER + @"1\"));
@@ -399,8 +425,9 @@ namespace DTXMania
                 Effects_Hit_Good[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good\" + i.ToString() + ".png");
                 Effects_Hit_Good_Big[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good_Big\" + i.ToString() + ".png");
             }
-            Effects_Roll = new CTexture[4];
-            for (int i = 0; i < 4; i++)
+            CDTXMania.Skin.Game_Effect_Roll_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + EFFECTS + @"Roll\"));
+            Effects_Roll = new CTexture[CDTXMania.Skin.Game_Effect_Roll_Ptn];
+            for (int i = 0; i < CDTXMania.Skin.Game_Effect_Roll_Ptn; i++)
             {
                 Effects_Roll[i] = TxC(GAME + EFFECTS + @"Roll\" + i.ToString() + ".png");
             }
@@ -491,6 +518,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref Menu_Title);
             CDTXMania.tテクスチャの解放(ref Menu_Highlight);
             CDTXMania.tテクスチャの解放(ref Enum_Song);
+            CDTXMania.tテクスチャの解放(ref Scanning_Loudness);
             CDTXMania.tテクスチャの解放(ref Overlay);
             for (int i = 0; i < 2; i++)
             {
@@ -558,7 +586,7 @@ namespace DTXMania
             #region 共通
             CDTXMania.tテクスチャの解放(ref Notes);
             CDTXMania.tテクスチャの解放(ref Judge_Frame);
-            CDTXMania.tテクスチャの解放(ref SenNotes);
+            CDTXMania.tテクスチャの解放(ref SENotes);
             CDTXMania.tテクスチャの解放(ref Notes_Arm);
             CDTXMania.tテクスチャの解放(ref Judge);
 
@@ -607,8 +635,18 @@ namespace DTXMania
             {
                 CDTXMania.tテクスチャの解放(ref Chara_Become_Maxed[i]);
             }
-            CDTXMania.tテクスチャの解放(ref Chara_Balloon_Breaking);
-            CDTXMania.tテクスチャの解放(ref Chara_Balloon_Broken);
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Breaking[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Broke[i]);
+            }
+            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss; i++)
+            {
+                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Miss[i]);
+            }
             #endregion
             #region 踊り子
             for (int i = 0; i < 5; i++)
@@ -716,7 +754,7 @@ namespace DTXMania
                 CDTXMania.tテクスチャの解放(ref Effects_Hit_Good[i]);
                 CDTXMania.tテクスチャの解放(ref Effects_Hit_Good_Big[i]);
             }
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < CDTXMania.Skin.Game_Effect_Roll_Ptn; i++)
             {
                 CDTXMania.tテクスチャの解放(ref Effects_Roll[i]);
             }
@@ -795,6 +833,7 @@ namespace DTXMania
             Menu_Title,
             Menu_Highlight,
             Enum_Song,
+            Scanning_Loudness,
             Overlay;
         public CTexture[] NamePlate;
         #endregion
@@ -849,7 +888,7 @@ namespace DTXMania
         #region 共通
         public CTexture Notes,
             Judge_Frame,
-            SenNotes,
+            SENotes,
             Notes_Arm,
             Judge;
         public CTexture Judge_Meter,
@@ -867,9 +906,10 @@ namespace DTXMania
             Chara_GoGoStart,
             Chara_GoGoStart_Maxed,
             Chara_Become_Cleared,
-            Chara_Become_Maxed;
-        public CTexture Chara_Balloon_Breaking,
-            Chara_Balloon_Broken;
+            Chara_Become_Maxed,
+            Chara_Balloon_Breaking,
+            Chara_Balloon_Broke,
+            Chara_Balloon_Miss;
         #endregion
         #region 踊り子
         public CTexture[][] Dancer;

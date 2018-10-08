@@ -189,7 +189,7 @@ namespace DTXMania
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
-                string strCreator = "AioiLight";
+                string strCreator = "https://github.com/AioiLight/TJAPlayer3";
                 AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 #if DEBUG
                 strVersion += "  DEBUG";
@@ -235,7 +235,25 @@ namespace DTXMania
                     CDTXMania.Tx.Title_Menu.t2D描画( CDTXMania.app.Device, MENU_X, MENU_Y, new Rectangle( 0, 0, MENU_W, MENU_H ) );
                     CDTXMania.Tx.Title_Menu.t2D描画( CDTXMania.app.Device, MENU_X, MENU_Y + MENU_H, new Rectangle( 0, MENU_H * 2, MENU_W, MENU_H * 2 ) );
 				}
-				CStage.Eフェーズ eフェーズid = base.eフェーズID;
+
+                // URLの座標が押されたらブラウザで開いてやる 兼 マウスクリックのテスト
+                // クライアント領域内のカーソル座標を取得する。
+                // point.X、point.Yは負の値になることもある。
+                var point = CDTXMania.app.Window.PointToClient(System.Windows.Forms.Cursor.Position);
+                // クライアント領域の横幅を取得して、1280で割る。もちろんdouble型。
+                var scaling = 1.000 * CDTXMania.app.Window.ClientSize.Width / 1280;
+                if(CDTXMania.Input管理.Mouse.bキーが押された((int) MouseObject.Button1))
+                {
+                    if (point.X >= 180 * scaling && point.X <= 490 * scaling && point.Y >= 0 && point.Y <= 20 * scaling)
+                        System.Diagnostics.Process.Start(strCreator);
+                }
+
+                //CDTXMania.act文字コンソール.tPrint(0, 80, C文字コンソール.Eフォント種別.白, point.X.ToString());
+                //CDTXMania.act文字コンソール.tPrint(0, 100, C文字コンソール.Eフォント種別.白, point.Y.ToString());
+                //CDTXMania.act文字コンソール.tPrint(0, 120, C文字コンソール.Eフォント種別.白, scaling.ToString());
+
+
+                CStage.Eフェーズ eフェーズid = base.eフェーズID;
 				switch( eフェーズid )
 				{
 					case CStage.Eフェーズ.共通_フェードイン:

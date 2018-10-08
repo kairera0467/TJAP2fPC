@@ -43,7 +43,7 @@ namespace DTXMania
 					lci[ nConfSet ][ nInst ] = MakeListCItemBase( nConfSet, nInst );
 				}
 			}
-			base.Initialize( lci[ nCurrentConfigSet ][ 0 ], true, QuickCfgTitle, 2 );	// ConfSet=0, nInst=Drums
+			base.Initialize( lci[ nCurrentConfigSet ][ 0 ], true, QuickCfgTitle, 0 );	// ConfSet=0, nInst=Drums
 		}
 
 		private List<CItemBase> MakeListCItemBase( int nConfigSet, int nInst )
@@ -91,6 +91,8 @@ namespace DTXMania
                 " \n" +
                 " ",
                 new string[] { "OFF", "完走!", "完走!激辛" }) );
+
+            l.Add(new CItemList(nameof(CDTXMania.ConfigIni.ShinuchiMode), CItemBase.Eパネル種別.通常, CDTXMania.ConfigIni.ShinuchiMode ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
 
 			#endregion
 			#region [ 共通 SET切り替え/More/Return ]
@@ -144,7 +146,9 @@ namespace DTXMania
                     }
 					CDTXMania.ConfigIni.eGameMode = game;
 					break;
-
+                case (int)EOrder.ShinuchiMode:
+                    CDTXMania.ConfigIni.ShinuchiMode = !CDTXMania.ConfigIni.ShinuchiMode;
+                    break;
 				case (int) EOrder.More:
 					SetAutoParameters();			// 簡易CONFIGメニュー脱出に伴い、簡易CONFIG内のAUTOの設定をConfigIniクラスに反映する
 					this.bGotoDetailConfig = true;
@@ -245,6 +249,7 @@ namespace DTXMania
 			Random,
             Stealth,
             GameMode,
+            ShinuchiMode,
 			More,
 			Return, END,
 			Default = 99

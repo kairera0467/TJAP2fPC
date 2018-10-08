@@ -12,6 +12,7 @@ using System.Threading;
 using System.Text.RegularExpressions;
 //using System.Windows.Forms;
 using FDK;
+using FDK.ExtensionMethods;
 
 namespace DTXMania
 {
@@ -59,7 +60,7 @@ namespace DTXMania
 				}
 				catch( Exception e )
 				{
-					Trace.TraceError( e.Message );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "動画の生成に失敗しました。({0})({1})", this.strコメント文, strAVIファイル名 );
 					this.avi = null;
 				}
@@ -160,7 +161,7 @@ namespace DTXMania
 				}
 				catch( Exception e )
 				{
-					Trace.TraceError( e.Message );
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "DirectShowの生成に失敗しました。({0})({1})", this.strコメント文, str動画ファイル名 );
 					this.dshow= null;
 				}
@@ -385,6 +386,7 @@ namespace DTXMania
             public int nPlayerSide;
             public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
             public int nList上の位置;
+            public bool IsFixedSENote;
             public bool bBPMチップである
 			{
 				get
@@ -422,8 +424,11 @@ namespace DTXMania
 			}
 			public bool bIsAutoPlayed;							// 2011.6.10 yyagi
 			public bool b演奏終了後も再生が続くチップである;	// #32248 2013.10.14 yyagi
+            public CCounter RollDelay; // 18.9.22 AioiLight Add 連打時に赤くなるやつのタイマー
+            public CCounter RollInputTime; // 18.9.22 AioiLight Add  連打入力後、RollDelayが作動するまでのタイマー
+            public int RollEffectLevel; // 18.9.22 AioiLight Add 連打時に赤くなるやつの度合い
 
-			public CChip()
+            public CChip()
 			{
 				this.nバーからの距離dot = new STDGBVALUE<int>() {
 					Drums = 0,
@@ -657,7 +662,8 @@ namespace DTXMania
 			public int nチップサイズ = 100;
 			public int n位置;
 			public long[] n一時停止時刻 = new long[ CDTXMania.ConfigIni.nPoliphonicSounds ];	// 4
-			public int n音量 = 100;
+			public int SongVol = CSound.DefaultSongVol;
+		    public LoudnessMetadata? SongLoudnessMetadata = null;
 			public int n現在再生中のサウンド番号;
 			public long[] n再生開始時刻 = new long[ CDTXMania.ConfigIni.nPoliphonicSounds ];	// 4
 			public int n内部番号;
@@ -694,7 +700,8 @@ namespace DTXMania
 				{
 					sb.Append( string.Format( "CWAV{0}(内部{1}): ", CDTX.tZZ( this.n表記上の番号 ), this.n内部番号 ) );
 				}
-				sb.Append( string.Format( "音量:{0}, 位置:{1}, サイズ:{2}, BGM:{3}, File:{4}, Comment:{5}", this.n音量, this.n位置, this.nチップサイズ, this.bBGMとして使う ? 'Y' : 'N', this.strファイル名, this.strコメント文 ) );
+				sb.Append(
+				    $"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, 位置:{this.n位置}, サイズ:{this.nチップサイズ}, BGM:{(this.bBGMとして使う ? 'Y' : 'N')}, File:{this.strファイル名}, Comment:{this.strコメント文}");
 				
 				return sb.ToString();
 			}
@@ -1242,12 +1249,17 @@ namespace DTXMania
         public double db移動待機時刻;
 
         public string strBGM_PATH;
+	    public int SongVol;
+	    public LoudnessMetadata? SongLoudnessMetadata;
 
         public bool bHIDDENBRANCH; //2016.04.01 kairera0467 選曲画面上、譜面分岐開始前まで譜面分岐の表示を隠す
         public bool bGOGOTIME; //2018.03.11 kairera0467
 
         public bool IsEndedBranching; // BRANCHENDが呼び出されたかどうか
         public Dan_C[] Dan_C;
+
+        public bool IsEnabledFixSENote;
+        public int FixSENote;
 
 
 
@@ -1297,7 +1309,6 @@ namespace DTXMania
 			this.strファイル名の絶対パス = "";
 			this.n無限管理WAV = new int[ 36 * 36 ];
 			this.n無限管理BPM = new int[ 36 * 36 ];
-			this.n無限管理VOL = new int[ 36 * 36 ];
 			this.n無限管理PAN = new int[ 36 * 36 ];
 			this.n無限管理SIZE = new int[ 36 * 36 ];
             this.listBalloon_Normal_数値管理 = 0;
@@ -1355,6 +1366,9 @@ namespace DTXMania
             this.b最初の分岐である = true;
             this.b次の小節が分岐である = false;
 
+		    this.SongVol = CSound.DefaultSongVol;
+		    this.SongLoudnessMetadata = null;
+
 #if TEST_NOTEOFFMODE
 			this.bHH演奏で直前のHHを消音する = true;
 			this.bGUITAR演奏で直前のGUITARを消音する = true;
@@ -1404,38 +1418,6 @@ namespace DTXMania
 
 		// メソッド
 
-		public int nモニタを考慮した音量( E楽器パート part )
-		{
-			CConfigIni configIni = CDTXMania.ConfigIni;
-			switch( part )
-			{
-				case E楽器パート.DRUMS:
-					if( configIni.b演奏音を強調する.Drums )
-					{
-						return configIni.n自動再生音量;
-					}
-					return configIni.n手動再生音量;
-
-				case E楽器パート.GUITAR:
-					if( configIni.b演奏音を強調する.Guitar )
-					{
-						return configIni.n自動再生音量;
-					}
-					return configIni.n手動再生音量;
-
-				case E楽器パート.BASS:
-					if( configIni.b演奏音を強調する.Bass )
-					{
-						return configIni.n自動再生音量;
-					}
-					return configIni.n手動再生音量;
-			}
-			if( ( !configIni.b演奏音を強調する.Drums && !configIni.b演奏音を強調する.Guitar ) && !configIni.b演奏音を強調する.Bass )
-			{
-				return configIni.n手動再生音量;
-			}
-			return configIni.n自動再生音量;
-		}
 		public void tAVIの読み込み()
 		{
 			if( this.listAVI != null )
@@ -1544,135 +1526,68 @@ namespace DTXMania
 			}
 		}
 		public void tWAVの読み込み( CWAV cwav )
-		{
-//			Trace.TraceInformation("WAV files={0}", this.listWAV.Count);
-//			int count = 0;
-//			foreach (CWAV cwav in this.listWAV.Values)
-			{
-//				string strCount = count.ToString() + " / " + this.listWAV.Count.ToString();
-//				Debug.WriteLine(strCount);
-//				CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, strCount);
-//				count++;
+	    {
+	        string str = string.IsNullOrEmpty(this.PATH_WAV) ? this.strフォルダ名 : this.PATH_WAV;
+	        str = str + cwav.strファイル名;
 
-				string str = string.IsNullOrEmpty(this.PATH_WAV) ? this.strフォルダ名 : this.PATH_WAV;
-				str = str + cwav.strファイル名;
-				bool bIsDirectSound = ( CDTXMania.Sound管理.GetCurrentSoundDeviceType() == "DirectSound" );
-				try
-				{
-					//try
-					//{
-					//    cwav.rSound[ 0 ] = CDTXMania.Sound管理.tサウンドを生成する( str );
-					//    cwav.rSound[ 0 ].n音量 = 100;
-					//    if ( CDTXMania.ConfigIni.bLog作成解放ログ出力 )
-					//    {
-					//        Trace.TraceInformation( "サウンドを作成しました。({3})({0})({1})({2}bytes)", cwav.strコメント文, str, cwav.rSound[ 0 ].nサウンドバッファサイズ, cwav.rSound[ 0 ].bストリーム再生する ? "Stream" : "OnMemory" );
-					//    }
-					//}
-					//catch
-					//{
-					//    cwav.rSound[ 0 ] = null;
-					//    Trace.TraceError( "サウンドの作成に失敗しました。({0})({1})", cwav.strコメント文, str );
-					//}
-					//if ( cwav.rSound[ 0 ] == null )	// #xxxxx 2012.5.3 yyagi rSound[1-3]もClone()するようにし、これらのストリーム再生がおかしくなる問題を修正
-					//{
-					//    for ( int j = 1; j < nPolyphonicSounds; j++ )
-					//    {
-					//        cwav.rSound[ j ] = null;
-					//    }
-					//}
-					//else
-					//{
-					//    for ( int j = 1; j < nPolyphonicSounds; j++ )
-					//    {
-					//        cwav.rSound[ j ] = (CSound) cwav.rSound[ 0 ].Clone();	// #24007 2011.9.5 yyagi add: to accelerate loading chip sounds
-					//        CDTXMania.Sound管理.tサウンドを登録する( cwav.rSound[ j ] );
-					//    }
-					//}
+	        try
+	        {
+	            #region [ 同時発音数を、チャンネルによって変える ]
 
-					// まず1つめを登録する
-					try
-					{
-						cwav.rSound[ 0 ] = CDTXMania.Sound管理.tサウンドを生成する( str );
-						cwav.rSound[ 0 ].n音量 = 100;
-						if ( !CDTXMania.ConfigIni.bDynamicBassMixerManagement )
-						{
-							cwav.rSound[ 0 ].tBASSサウンドをミキサーに追加する();
-						}
-						if ( CDTXMania.ConfigIni.bLog作成解放ログ出力 )
-						{
-							Trace.TraceInformation( "サウンドを作成しました。({3})({0})({1})({2}bytes)", cwav.strコメント文, str, cwav.rSound[ 0 ].nサウンドバッファサイズ, cwav.rSound[ 0 ].bストリーム再生する ? "Stream" : "OnMemory" );
-						}
-					}
-					catch ( Exception e )
-					{
-						cwav.rSound[ 0 ] = null;
-						Trace.TraceError( "サウンドの作成に失敗しました。({0})({1})", cwav.strコメント文, str );
-						Trace.TraceError( "例外: " + e.Message );
-					}
+	            int nPoly = nPolyphonicSounds;
+	            if (CDTXMania.Sound管理.GetCurrentSoundDeviceType() != "DirectSound") // DShowでの再生の場合はミキシング負荷が高くないため、
+	            {
+	                // チップのライフタイム管理を行わない
+	                if (cwav.bIsBassSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
+	                else if (cwav.bIsGuitarSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
+	                else if (cwav.bIsSESound) nPoly = 1;
+	                else if (cwav.bIsBGMSound) nPoly = 1;
+	            }
 
-					#region [ 同時発音数を、チャンネルによって変える ]
-					int nPoly = nPolyphonicSounds;
-					if ( CDTXMania.Sound管理.GetCurrentSoundDeviceType() != "DirectSound" )	// DShowでの再生の場合はミキシング負荷が高くないため、
-					{																		// チップのライフタイム管理を行わない
-						if      ( cwav.bIsBassSound )   nPoly = (nPolyphonicSounds >= 2)? 2 : 1;
-						else if ( cwav.bIsGuitarSound ) nPoly = (nPolyphonicSounds >= 2)? 2 : 1;
-						else if ( cwav.bIsSESound )     nPoly = 1;
-						else if ( cwav.bIsBGMSound)     nPoly = 1;
-					}
-					if ( cwav.bIsBGMSound ) nPoly = 1;
-					#endregion
+	            if (cwav.bIsBGMSound) nPoly = 1;
 
-					// 残りはClone等で登録する
-					//if ( bIsDirectSound )	// DShowでの再生の場合はCloneする
-					//{
-					//    for ( int i = 1; i < nPoly; i++ )
-					//    {
-					//        cwav.rSound[ i ] = (CSound) cwav.rSound[ 0 ].Clone();	// #24007 2011.9.5 yyagi add: to accelerate loading chip sounds
-					//        // CDTXMania.Sound管理.tサウンドを登録する( cwav.rSound[ j ] );
-					//    }
-					//    for ( int i = nPoly; i < nPolyphonicSounds; i++ )
-					//    {
-					//        cwav.rSound[ i ] = null;
-					//    }
-					//}
-					//else															// WASAPI/ASIO時は通常通り登録
-					{
-						for ( int i = 1; i < nPoly; i++ )
-						{
-							try
-							{
-								cwav.rSound[ i ] = CDTXMania.Sound管理.tサウンドを生成する( str );
-								cwav.rSound[ i ].n音量 = 100;
-								if ( !CDTXMania.ConfigIni.bDynamicBassMixerManagement )
-								{
-									cwav.rSound[ i ].tBASSサウンドをミキサーに追加する();
-								}
-								if ( CDTXMania.ConfigIni.bLog作成解放ログ出力 )
-								{
-									Trace.TraceInformation( "サウンドを作成しました。({3})({0})({1})({2}bytes)", cwav.strコメント文, str, cwav.rSound[ 0 ].nサウンドバッファサイズ, cwav.rSound[ 0 ].bストリーム再生する ? "Stream" : "OnMemory" );
-								}
-							}
-							catch ( Exception e )
-							{
-								cwav.rSound[ i ] = null;
-								Trace.TraceError( "サウンドの作成に失敗しました。({0})({1})", cwav.strコメント文, str );
-								Trace.TraceError( "例外: " + e.Message );
-							}
-						}
-					}
-				}
-				catch( Exception exception )
-				{
-					Trace.TraceError( "サウンドの生成に失敗しました。({0})({1})({2})", exception.Message, cwav.strコメント文, str );
-					for ( int j = 0; j < nPolyphonicSounds; j++ )
-					{
-						cwav.rSound[ j ] = null;
-					}
-					//continue;
-				}
-			}
-		}
-		public static string tZZ( int n )
+	            #endregion
+
+	            for (int i = 0; i < nPoly; i++)
+	            {
+	                try
+	                {
+	                    cwav.rSound[i] = CDTXMania.Sound管理.tサウンドを生成する(str, ESoundGroup.SongPlayback);
+
+	                    if (!CDTXMania.ConfigIni.bDynamicBassMixerManagement)
+	                    {
+	                        cwav.rSound[i].tBASSサウンドをミキサーに追加する();
+	                    }
+
+	                    if (CDTXMania.ConfigIni.bLog作成解放ログ出力)
+	                    {
+	                        Trace.TraceInformation("サウンドを作成しました。({3})({0})({1})({2}bytes)", cwav.strコメント文, str,
+	                            cwav.rSound[0].nサウンドバッファサイズ, cwav.rSound[0].bストリーム再生する ? "Stream" : "OnMemory");
+	                    }
+	                }
+	                catch (Exception e)
+	                {
+	                    cwav.rSound[i] = null;
+	                    Trace.TraceError("サウンドの作成に失敗しました。({0})({1})", cwav.strコメント文, str);
+	                    Trace.TraceError(e.ToString());
+	                }
+	            }
+	        }
+	        catch (Exception exception)
+	        {
+	            Trace.TraceError("サウンドの生成に失敗しました。({0})({1})", cwav.strコメント文, str);
+	            Trace.TraceError(exception.ToString());
+
+	            for (int j = 0; j < nPolyphonicSounds; j++)
+	            {
+	                cwav.rSound[j] = null;
+	            }
+
+	            //continue;
+	        }
+	    }
+
+	    public static string tZZ( int n )
 		{
 			if( n < 0 || n >= 36 * 36 )
 				return "!!";	// オーバー／アンダーフロー。
@@ -1706,13 +1621,14 @@ namespace DTXMania
                                 break;
                             case 0x13:
                                 chip.nチャンネル番号 = 0x14;
+                                chip.nSenote = 6;
                                 break;
                             case 0x14:
                                 chip.nチャンネル番号 = 0x13;
+                                chip.nSenote = 5;
                                 break;
                         }
                     }
-                    this.tSenotes_Core_V2( this.listChip );
                     break;
                 case Eランダムモード.RANDOM:
                     foreach( var chip in this.listChip )
@@ -1731,14 +1647,15 @@ namespace DTXMania
                                     break;
                                 case 0x13:
                                     chip.nチャンネル番号 = 0x14;
+                                    chip.nSenote = 6;
                                     break;
                                 case 0x14:
                                     chip.nチャンネル番号 = 0x13;
+                                    chip.nSenote = 5;
                                     break;
                             }
                         }
                     }
-                    this.tSenotes_Core_V2( this.listChip );
                     break;
                 case Eランダムモード.SUPERRANDOM:
                     foreach( var chip in this.listChip )
@@ -1757,14 +1674,15 @@ namespace DTXMania
                                     break;
                                 case 0x13:
                                     chip.nチャンネル番号 = 0x14;
+                                    chip.nSenote = 6;
                                     break;
                                 case 0x14:
                                     chip.nチャンネル番号 = 0x13;
+                                    chip.nSenote = 5;
                                     break;
                             }
                         }
                     }
-                    this.tSenotes_Core_V2( this.listChip );
                     break;
                 case Eランダムモード.HYPERRANDOM:
                     foreach( var chip in this.listChip )
@@ -1783,35 +1701,47 @@ namespace DTXMania
                                     break;
                                 case 0x13:
                                     chip.nチャンネル番号 = 0x14;
+                                    chip.nSenote = 6;
                                     break;
                                 case 0x14:
                                     chip.nチャンネル番号 = 0x13;
+                                    chip.nSenote = 5;
                                     break;
                             }
                         }
                     }
-                    this.tSenotes_Core_V2( this.listChip );
                     break;
                 case Eランダムモード.OFF:
                 default:
                     break;
             }
+            if(eRandom != Eランダムモード.OFF)
+            {
+                #region[ list作成 ]
+                //ひとまずチップだけのリストを作成しておく。
+                List<CDTX.CChip> list音符のみのリスト;
+                list音符のみのリスト = new List<CChip>();
+                int nCount = 0;
+                int dkdkCount = 0;
+
+                foreach (CChip chip in this.listChip)
+                {
+                    if (chip.nチャンネル番号 >= 0x11 && chip.nチャンネル番号 < 0x18)
+                    {
+                        list音符のみのリスト.Add(chip);
+                    }
+                }
+                #endregion
+
+                this.tSenotes_Core_V2(list音符のみのリスト);
+
+            }
+
+
         }
 
 		#region [ チップの再生と停止 ]
-		public void tチップの再生( CChip rChip, long n再生開始システム時刻ms, int nLane )
-		{
-			this.tチップの再生( rChip, n再生開始システム時刻ms, nLane, CDTXMania.ConfigIni.n自動再生音量, false, false );
-		}
-		public void tチップの再生( CChip rChip, long n再生開始システム時刻ms, int nLane, int nVol )
-		{
-			this.tチップの再生( rChip, n再生開始システム時刻ms, nLane, nVol, false, false );
-		}
-		public void tチップの再生( CChip rChip, long n再生開始システム時刻ms, int nLane, int nVol, bool bMIDIMonitor )
-		{
-			this.tチップの再生( rChip, n再生開始システム時刻ms, nLane, nVol, bMIDIMonitor, false );
-		}
-		public void tチップの再生( CChip pChip, long n再生開始システム時刻ms, int nLane, int nVol, bool bMIDIMonitor, bool bBad )
+		public void tチップの再生( CChip pChip, long n再生開始システム時刻ms, int nLane )
 		{
 			if( pChip.n整数値_内部番号 >= 0 )
 			{
@@ -1830,17 +1760,15 @@ namespace DTXMania
 					CSound sound = wc.rSound[ index ];
 					if( sound != null )
 					{
-						if( bBad )
-						{
-							sound.db周波数倍率 = ( (float) ( 100 + ( ( ( CDTXMania.Random.Next( 3 ) + 1 ) * 7 ) * ( 1 - ( CDTXMania.Random.Next( 2 ) * 2 ) ) ) ) ) / 100f;
-						}
-						else
-						{
-							sound.db周波数倍率 = 1.0;
-						}
+						sound.db周波数倍率 = 1.0;
 						sound.db再生速度 = ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0;
 						// 再生速度によって、WASAPI/ASIOで使う使用mixerが決まるため、付随情報の設定(音量/PAN)は、再生速度の設定後に行う
-						sound.n音量 = (int) ( ( (double) ( nVol * wc.n音量 ) ) / 100.0 );
+
+                        // 2018-08-27 twopointzero - DON'T attempt to load (or queue scanning) loudness metadata here.
+                        //                           This code is called right after loading the .tja, and that code
+                        //                           will have just made such an attempt.
+						CDTXMania.SongGainController.Set( wc.SongVol, wc.SongLoudnessMetadata, sound );
+
 						sound.n位置 = wc.n位置;
 						sound.t再生を開始する();
 					}
@@ -1989,7 +1917,8 @@ namespace DTXMania
 				{
                     //MessageBox.Show( "おや?エラーが出たようです。お兄様。" );
                     Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                    Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                    Trace.TraceError( ex.ToString() );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 				}
 			}
 		}
@@ -2018,7 +1947,6 @@ namespace DTXMania
 				{
 					this.n無限管理WAV[ j ] = -j;
 					this.n無限管理BPM[ j ] = -j;
-					this.n無限管理VOL[ j ] = -j;
 					this.n無限管理PAN[ j ] = -10000 - j;
 					this.n無限管理SIZE[ j ] = -j;
 				}
@@ -2091,7 +2019,6 @@ namespace DTXMania
 					//timeBeginLoad = DateTime.Now;
 					this.n無限管理WAV = null;
 					this.n無限管理BPM = null;
-					this.n無限管理VOL = null;
 					this.n無限管理PAN = null;
 					this.n無限管理SIZE = null;
                     //this.t入力_行解析ヘッダ( str1 );
@@ -2145,10 +2072,6 @@ namespace DTXMania
 							if ( cwav.n位置 <= -10000 )
 							{
 								cwav.n位置 = 0;
-							}
-							if ( cwav.n音量 < 0 )
-							{
-								cwav.n音量 = 100;
 							}
 						}
 						#endregion
@@ -3232,7 +3155,8 @@ namespace DTXMania
                 }
                 catch( Exception ex )
                 {
-                    Trace.TraceError( ex.StackTrace );
+                    Trace.TraceError( ex.ToString() );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                 }
 
                 //if( bLog && stream != null )
@@ -3288,7 +3212,8 @@ namespace DTXMania
                 }
                 catch( Exception ex )
                 {
-
+                    Trace.TraceError( ex.ToString() );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                 }
                 //if( stream != null )
                 //{
@@ -3910,7 +3835,12 @@ namespace DTXMania
                 this.listChip.Add(chip);
                 this.n内部番号JSCROLL1to++;
             }
-
+            else if(InputText.StartsWith("#SENOTECHANGE"))
+            {
+                strArray = InputText.Split(chDelimiter);
+                FixSENote = int.Parse(strArray[1]);
+                IsEnabledFixSENote = true;
+            }
         }
 
         private void t入力_行解析譜面_V4(string InputText)
@@ -4148,6 +4078,12 @@ namespace DTXMania
                                 //continue;
                             }
 
+                            if(IsEnabledFixSENote)
+                                {
+                                    chip.IsFixedSENote = true;
+                                    chip.nSenote = FixSENote - 1;
+                                }
+
                             #region[ 固定される種類のsenotesはここで設定しておく。 ]
                                 switch ( nObjectNum )
                                 {
@@ -4202,6 +4138,8 @@ namespace DTXMania
                             }
                         }
 
+                        if (IsEnabledFixSENote) IsEnabledFixSENote = false;
+
                         this.dbLastTime = this.dbNowTime;
                         this.dbLastBMScrollTime = this.dbNowBMScollTime;
                         this.dbNowTime += ( 15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m) * ( 16.0 / n文字数 ) );
@@ -4254,7 +4192,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4276,7 +4215,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4298,7 +4238,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Expert.Add( n打数 );
@@ -4321,7 +4262,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Master.Add( n打数 );
@@ -4423,9 +4365,9 @@ namespace DTXMania
             {
                 this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
-            if( CDTXMania.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
-                this.nScoreModeTmp = 3;
-            }
+            //if( CDTXMania.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[ 2, this.n参照中の難易度 ] ){ //2017.06.04 kairera0467
+            //    this.nScoreModeTmp = 3;
+            //}
         }
 
         private void t入力_行解析ヘッダ( string InputText )
@@ -4473,24 +4415,42 @@ namespace DTXMania
             }
 
             //パラメータを分別、そこから割り当てていきます。
-            if( strCommandName.Equals( "TITLE" ) )
+            if (strCommandName.Equals("TITLE"))
             {
-                this.TITLE = strCommandParam;
+                //this.TITLE = strCommandParam;
+                var subTitle = "";
+                for (int i = 0; i < strArray.Length; i++)
+                {
+                    subTitle += strArray[i];
+                }
+                this.TITLE = subTitle.Substring(5);
                 //tbTitle.Text = strCommandParam;
             }
-            if( strCommandName.Equals( "SUBTITLE" ) )
+            if (strCommandName.Equals("SUBTITLE"))
             {
-                if( strCommandParam.StartsWith("--") )
+                if (strCommandParam.StartsWith("--"))
                 {
-                    this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    //this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    var subTitle = "";
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        subTitle += strArray[i];
+                    }
+                    this.SUBTITLE = subTitle.Substring(10);
                 }
-                else if( strCommandParam.StartsWith("++") )
+                else if (strCommandParam.StartsWith("++"))
                 {
-                //    //this.TITLE += strCommandParam.Remove( 0, 2 ); //このままだと選曲画面の表示がうまくいかない。
-                    this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    //    //this.TITLE += strCommandParam.Remove( 0, 2 ); //このままだと選曲画面の表示がうまくいかない。
+                    //this.SUBTITLE = strCommandParam.Remove( 0, 2 );
+                    var subTitle = "";
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        subTitle += strArray[i];
+                    }
+                    this.SUBTITLE = subTitle.Substring(10);
                 }
             }
-            else if( strCommandName.Equals( "LEVEL" ) )
+            else if ( strCommandName.Equals( "LEVEL" ) )
             {
                 this.LEVEL.Drums = (int)Convert.ToDouble( strCommandParam );
                 this.LEVEL.Taiko = (int)Convert.ToDouble( strCommandParam );
@@ -4528,12 +4488,20 @@ namespace DTXMania
                 //tbWave.Text = strCommandParam;
                 if( this.listWAV != null )
                 {
+                    // 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
+                    //                           TJAP3 is either launching, enumerating songs, or is about to
+                    //                           begin playing a song. If metadata is available, we want it now.
+                    //                           If is not yet available then we wish to queue scanning.
+                    var absoluteBgmPath = Path.Combine(this.strフォルダ名, this.strBGM_PATH);
+                    this.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(absoluteBgmPath);
+
                     var wav = new CWAV() {
 				        n内部番号 = this.n内部番号WAV1to,
 				        n表記上の番号 = 1,
 			    	    nチップサイズ = this.n無限管理SIZE[ this.n内部番号WAV1to ],
 		        		n位置 = this.n無限管理PAN[ this.n内部番号WAV1to ],
-	        			n音量 = this.n無限管理VOL[ this.n内部番号WAV1to ],
+	        			SongVol = this.SongVol,
+                        SongLoudnessMetadata = this.SongLoudnessMetadata,
         				strファイル名 = this.strBGM_PATH,
     				    strコメント文 = "TJA BGM",
                     };
@@ -4542,7 +4510,7 @@ namespace DTXMania
                     this.n内部番号WAV1to++;
                 }
             }
-            else if( strCommandName.Equals( "OFFSET" ) )
+            else if( strCommandName.Equals( "OFFSET" ) && !string.IsNullOrEmpty( strCommandParam ) )
             {
                 this.nOFFSET = (int)( Convert.ToDouble( strCommandParam ) * 1000 );
                 this.bOFFSETの値がマイナスである = this.nOFFSET < 0 ? true : false;
@@ -4578,7 +4546,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4600,7 +4569,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4622,7 +4592,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Expert.Add( n打数 );
@@ -4645,7 +4616,8 @@ namespace DTXMania
                     catch(Exception ex)
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( "エラー:{0}", ex.StackTrace );
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                         break;
                     }
                     this.listBalloon_Master.Add( n打数 );
@@ -4678,9 +4650,14 @@ namespace DTXMania
                 }
             }
             #endregion
-            else if( strCommandName.Equals( "SONGVOL" ) )
+            else if( strCommandName.Equals( "SONGVOL" ) && !string.IsNullOrEmpty( strCommandParam ) )
             {
-                //tbSongVol.Text = strCommandParam;
+                this.SongVol = Convert.ToInt32( strCommandParam ).Clamp( CSound.MinimumSongVol, CSound.MaximumSongVol );
+
+                foreach (var kvp in this.listWAV)
+                {
+                    kvp.Value.SongVol = this.SongVol;
+                }
             }
             else if( strCommandName.Equals( "SEVOL" ) )
             {
@@ -4939,11 +4916,12 @@ namespace DTXMania
             try
             {
                 //this.tSenotes_Core( list音符のみのリスト );
-                this.tSenotes_Core_V2( list音符のみのリスト );
+                this.tSenotes_Core_V2( list音符のみのリスト, true );
             }
             catch(Exception ex)
             {
-
+                Trace.TraceError( ex.ToString() );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
             }
 
 
@@ -5336,7 +5314,7 @@ namespace DTXMania
                 }
 
                 //this.tSenotes_Core( list音符のみのリスト );
-                this.tSenotes_Core_V2( list音符のみのリスト );
+                this.tSenotes_Core_V2( list音符のみのリスト, true );
             }
 
         }
@@ -6065,7 +6043,8 @@ namespace DTXMania
                     }
                     catch( Exception ex )
                     {
-
+                        Trace.TraceError( ex.ToString() );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
                     }
                 }
                 else
@@ -6212,7 +6191,7 @@ namespace DTXMania
         /// コア部分Ver2。TJAP2から移植しただけ。
         /// </summary>
         /// <param name="list音符のみのリスト"></param>
-        private void tSenotes_Core_V2( List<CChip> list音符のみのリスト )
+        private void tSenotes_Core_V2( List<CChip> list音符のみのリスト, bool ignoreSENote = false )
         {
 	        const int DATA = 3;
 	        int doco_count = 0;
@@ -6250,6 +6229,8 @@ namespace DTXMania
                     time[j] = (time[j] - time_tmp) * scroll[j];
                     if (time[j] < 0) time[j] *= -1;
                 }
+
+                if (ignoreSENote && list音符のみのリスト[i].IsFixedSENote) continue;
 
                 switch( list音符のみのリスト[i].nチャンネル番号 )
                 {
@@ -6868,7 +6849,6 @@ namespace DTXMania
 		private int[] n無限管理BPM;
 		private int[] n無限管理PAN;
 		private int[] n無限管理SIZE;
-		private int[] n無限管理VOL;
 		private int[] n無限管理WAV;
 		private int[] nRESULTIMAGE用優先順位;
 		private int[] nRESULTMOVIE用優先順位;
@@ -7201,9 +7181,8 @@ namespace DTXMania
 
 					// オブジェクト記述コマンドの処理。
 
-					else if( !this.t入力_行解析_WAVVOL_VOLUME( strコマンド, strパラメータ, strコメント ) &&
+					else if(
 						!this.t入力_行解析_WAVPAN_PAN( strコマンド, strパラメータ, strコメント ) &&
-						!this.t入力_行解析_WAV( strコマンド, strBGM_PATH != null ? strBGM_PATH : strパラメータ, strコメント ) &&
                         !this.t入力_行解析_AVIPAN( strコマンド, strパラメータ, strコメント ) &&
 						!this.t入力_行解析_AVI_VIDEO( strコマンド, strパラメータ, strコメント ) &&
 					//	!this.t入力_行解析_BPM_BPMzz( strコマンド, strパラメータ, strコメント ) &&	// bヘッダのみ==trueの場合でもチェックするよう変更
@@ -7670,70 +7649,6 @@ namespace DTXMania
 
 			return true;
 		}
-		private bool t入力_行解析_WAV( string strコマンド, string strパラメータ, string strコメント )
-		{
-			// (1) コマンドを処理。
-
-			#region [ "WAV" で始まらないコマンドは無効。]
-			//-----------------
-			if( !strコマンド.StartsWith( "WAV", StringComparison.OrdinalIgnoreCase ) )
-				return false;
-
-			strコマンド = strコマンド.Substring( 3 );	// strコマンド から先頭の"WAV"文字を除去。
-			//-----------------
-			#endregion
-
-			// (2) パラメータを処理。
-
-			if( strコマンド.Length < 2 )
-				return false;	// WAV番号 zz がないなら無効。
-
-			#region [ WAV番号 zz を取得する。]
-			//-----------------
-			int zz = C変換.n36進数2桁の文字列を数値に変換して返す( strコマンド.Substring( 0, 2 ) );
-			if( zz < 0 || zz >= 36 * 36 )
-			{
-				Trace.TraceError( "WAV番号に 00～ZZ 以外の値または不正な文字列が指定されました。[{0}: {1}行]", this.strファイル名の絶対パス, this.n現在の行数 );
-				return false;
-			}
-			//-----------------
-			#endregion
-
-			var wav = new CWAV() {
-				n内部番号 = this.n内部番号WAV1to,
-				n表記上の番号 = zz,
-				nチップサイズ = this.n無限管理SIZE[ zz ],
-				n位置 = this.n無限管理PAN[ zz ],
-				n音量 = this.n無限管理VOL[ zz ],
-				strファイル名 = strパラメータ,
-				strコメント文 = strコメント,
-			};
-
-			#region [ WAVリストに {内部番号, wav} の組を登録。]
-			//-----------------
-			this.listWAV.Add( this.n内部番号WAV1to, wav );
-			//-----------------
-			#endregion
-
-			#region [ WAV番号が zz である内部番号未設定のWAVチップがあれば、その内部番号を変更する。無限管理対応。]
-			//-----------------
-			if( this.n無限管理WAV[ zz ] == -zz )	// 初期状態では n無限管理WAV[zz] = -zz である。この場合、#WAVzz がまだ出現していないことを意味する。
-			{
-				for( int i = 0; i < this.listChip.Count; i++ )	// これまでに出てきたチップのうち、該当する（内部番号が未設定の）WAVチップの値を変更する（仕組み上、必ず後方参照となる）。
-				{
-					var chip = this.listChip[ i ];
-
-					if( chip.bWAVを使うチャンネルである && ( chip.n整数値_内部番号 == -zz ) )	// この #WAVzz 行より前の行に出現した #WAVzz では、整数値_内部番号は -zz に初期化されている。
-						chip.n整数値_内部番号 = this.n内部番号WAV1to;
-				}
-			}
-			this.n無限管理WAV[ zz ] = this.n内部番号WAV1to;			// 次にこの WAV番号 zz を使うWAVチップが現れたら、この内部番号が格納されることになる。
-			this.n内部番号WAV1to++;		// 内部番号は単純増加連番。
-			//-----------------
-			#endregion
-
-			return true;
-		}
 		private bool t入力_行解析_WAVPAN_PAN( string strコマンド, string strパラメータ, string strコメント )
 		{
 			// (1) コマンドを処理。
@@ -7783,61 +7698,6 @@ namespace DTXMania
 					}
 				}
 				this.n無限管理PAN[ zz ] = n位置;			// 次にこの WAV番号 zz を使うWAVチップが現れたら、この位置が格納されることになる。
-			}
-			//-----------------
-			#endregion
-
-			return true;
-		}
-		private bool t入力_行解析_WAVVOL_VOLUME( string strコマンド, string strパラメータ, string strコメント )
-		{
-			// (1) コマンドを処理。
-
-			#region [ "WAVCOL" or "VOLUME" で始まらないコマンドは無効。]
-			//-----------------
-			if( strコマンド.StartsWith( "WAVVOL", StringComparison.OrdinalIgnoreCase ) )
-				strコマンド = strコマンド.Substring( 6 );		// strコマンド から先頭の"WAVVOL"文字を除去。
-
-			else if( strコマンド.StartsWith( "VOLUME", StringComparison.OrdinalIgnoreCase ) )
-				strコマンド = strコマンド.Substring( 6 );		// strコマンド から先頭の"VOLUME"文字を除去。
-
-			else
-				return false;
-			//-----------------
-			#endregion
-
-			// (2) パラメータを処理。
-
-			if( strコマンド.Length < 2 )
-				return false;	// WAV番号 zz がないなら無効。
-
-			#region [ WAV番号 zz を取得する。]
-			//-----------------
-			int zz = C変換.n36進数2桁の文字列を数値に変換して返す( strコマンド.Substring( 0, 2 ) );
-			if( zz < 0 || zz >= 36 * 36 )
-			{
-				Trace.TraceError( "WAV番号に 00～ZZ 以外の値または不正な文字列が指定されました。[{0}: {1}行]", this.strファイル名の絶対パス, this.n現在の行数 );
-				return false;
-			}
-			//-----------------
-			#endregion
-
-			#region [ WAV番号 zz を持つWAVチップの音量を変更する。無限定義対応。]
-			//-----------------
-			int n音量;
-			if( int.TryParse( strパラメータ, out n音量 ) )
-			{
-				n音量 = Math.Min( Math.Max( n音量, 0 ), 100 );	// 0～100に丸める。
-
-				if( this.n無限管理VOL[ zz ] == -zz )	// 初期状態では n無限管理VOL[zz] = - zz である。この場合、#WAVVOLzz, #VOLUMEzz がまだ出現していないことを意味する。
-				{
-					foreach( CWAV wav in this.listWAV.Values )	// これまでに出てきたチップのうち、該当する（音量が未設定の）WAVチップの値を変更する（仕組み上、必ず後方参照となる）。
-					{
-						if( wav.n音量 == -zz )	// #WAVVOLzz, #VOLUMEzz 行より前の行に出現した #WAVzz では、音量は -zz に初期化されている。
-							wav.n音量 = n音量;
-					}
-				}
-				this.n無限管理VOL[ zz ] = n音量;			// 次にこの WAV番号 zz を使うWAVチップが現れたら、この音量が格納されることになる。
 			}
 			//-----------------
 			#endregion

@@ -85,7 +85,7 @@ namespace DTXMania
 				if( ( this.ctBGMフェードイン用 != null ) && this.ctBGMフェードイン用.b進行中 )
 				{
 					this.ctBGMフェードイン用.t進行();
-					CDTXMania.Skin.bgm選曲画面.n音量_現在のサウンド = this.ctBGMフェードイン用.n現在の値;
+					CDTXMania.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = this.ctBGMフェードイン用.n現在の値;
 					if( this.ctBGMフェードイン用.b終了値に達した )
 					{
 						this.ctBGMフェードイン用.t停止();
@@ -94,7 +94,7 @@ namespace DTXMania
 				if( ( this.ctBGMフェードアウト用 != null ) && this.ctBGMフェードアウト用.b進行中 )
 				{
 					this.ctBGMフェードアウト用.t進行();
-					CDTXMania.Skin.bgm選曲画面.n音量_現在のサウンド = 100 - this.ctBGMフェードアウト用.n現在の値;
+					CDTXMania.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = CSound.MaximumAutomationLevel - this.ctBGMフェードアウト用.n現在の値;
 					if( this.ctBGMフェードアウト用.b終了値に達した )
 					{
 						this.ctBGMフェードアウト用.t停止();
@@ -146,7 +146,7 @@ namespace DTXMania
 				this.ctBGMフェードイン用.t停止();
 			}
 			this.ctBGMフェードアウト用 = new CCounter( 0, 100, 10, CDTXMania.Timer );
-			this.ctBGMフェードアウト用.n現在の値 = 100 - CDTXMania.Skin.bgm選曲画面.n音量_現在のサウンド;
+			this.ctBGMフェードアウト用.n現在の値 = 100 - CDTXMania.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
 		}
 		private void tBGMフェードイン開始()
 		{
@@ -155,7 +155,7 @@ namespace DTXMania
 				this.ctBGMフェードアウト用.t停止();
 			}
 			this.ctBGMフェードイン用 = new CCounter( 0, 100, 20, CDTXMania.Timer );
-			this.ctBGMフェードイン用.n現在の値 = CDTXMania.Skin.bgm選曲画面.n音量_現在のサウンド;
+			this.ctBGMフェードイン用.n現在の値 = CDTXMania.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
 		}
 		private void tプレビューサウンドの作成()
 		{
@@ -166,8 +166,16 @@ namespace DTXMania
 				try
                 {
                     strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
-                    this.sound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename );
-                    this.sound.n音量 = 80;
+                    this.sound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPreview );
+
+                    // 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
+                    //                           Initialization, song enumeration, and/or interactions may have
+                    //                           caused background scanning and the metadata may now be available.
+                    //                           If is not yet available then we wish to queue scanning.
+                    var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata
+                                           ?? LoudnessMetadataScanner.LoadForAudioPath(strPreviewFilename);
+                    CDTXMania.SongGainController.Set( cスコア.譜面情報.SongVol, loudnessMetadata, this.sound );
+
                     this.sound.t再生を開始する( true );
                     if( long再生位置 == -1 )
                     {
@@ -184,15 +192,15 @@ namespace DTXMania
                     Trace.TraceInformation( "プレビューサウンドを生成しました。({0})", strPreviewFilename );
                     #region[ DTXMania(コメントアウト) ]
                     //this.sound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename );
-                    //this.sound.n音量 = 80;	// CDTXMania.ConfigIni.n自動再生音量;			// #25217 changed preview volume from AutoVolume
                     //this.sound.t再生を開始する( true );
                     //this.str現在のファイル名 = strPreviewFilename;
                     //this.tBGMフェードアウト開始();
                     //Trace.TraceInformation( "プレビューサウンドを生成しました。({0})", strPreviewFilename );
                     #endregion
                 }
-				catch
+				catch (Exception e)
 				{
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "プレビューサウンドの生成に失敗しました。({0})", strPreviewFilename );
 					if( this.sound != null )
 					{

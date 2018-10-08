@@ -33,8 +33,9 @@
     <NoWarn>0219</NoWarn>
     <DefineConstants>TRACE;TEST_CancelEnterCodeInAltEnter2 TEST_Direct3D9Ex_</DefineConstants>
     <Optimize>false</Optimize>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <LangVersion>7.3</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -47,6 +48,8 @@
     <DefineConstants>TRACE;TEST_ENGLISH_ TEST_Direct3D9Ex_</DefineConstants>
     <Optimize>true</Optimize>
     <LangVersion>7.3</LangVersion>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
@@ -68,6 +71,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="コード\00.共通\COS.cs" />
@@ -76,6 +80,8 @@
     <Compile Include="コード\00.共通\CTimerBase.cs" />
     <Compile Include="コード\00.共通\C一定間隔処理.cs" />
     <Compile Include="コード\00.共通\C共通.cs" />
+    <Compile Include="コード\00.共通\ExtensionMethods\DoubleExtensions.cs" />
+    <Compile Include="コード\00.共通\ExtensionMethods\Int32Extensions.cs" />
     <Compile Include="コード\01.フレームワーク\Core\GameWindowSize.cs" />
     <Compile Include="コード\01.フレームワーク\Core\Game.cs" />
     <Compile Include="コード\01.フレームワーク\Core\GameClock.cs" />
@@ -119,8 +125,14 @@
     <Compile Include="コード\03.サウンド\CSoundTimer.cs" />
     <Compile Include="コード\03.サウンド\Cxa.cs" />
     <Compile Include="コード\03.サウンド\ESoundDeviceType.cs" />
+    <Compile Include="コード\03.サウンド\ESoundGroup.cs" />
+    <Compile Include="コード\03.サウンド\LoudnessMetadata.cs" />
+    <Compile Include="コード\03.サウンド\LoudnessMetadataScanner.cs" />
+    <Compile Include="コード\03.サウンド\Lufs.cs" />
+    <Compile Include="コード\03.サウンド\SongGainController.cs" />
     <Compile Include="コード\03.サウンド\SoundDecoder.cs" />
     <Compile Include="コード\03.サウンド\ISoundDevice.cs" />
+    <Compile Include="コード\03.サウンド\SoundGroupLevelController.cs" />
     <Compile Include="コード\04.グラフィック\BitmapUtil.cs" />
     <Compile Include="コード\04.グラフィック\CAero.cs" />
     <Compile Include="コード\04.グラフィック\CAvi.cs" />

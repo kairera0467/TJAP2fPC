@@ -87,8 +87,9 @@ namespace DTXMania
 					this.tx文字列パネル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 					image.Dispose();
 				}
-				catch( CTextureCreateFailedException )
+				catch( CTextureCreateFailedException e )
 				{
+					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "演奏履歴文字列テクスチャの作成に失敗しました。" );
 					this.tx文字列パネル = null;
 				}

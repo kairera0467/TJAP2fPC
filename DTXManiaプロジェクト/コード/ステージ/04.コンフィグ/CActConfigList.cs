@@ -215,16 +215,47 @@ namespace DTXMania
 				"To save high-scores/skills, turn it ON.\nTurn OFF in case your song data are\n in read-only media (CD-ROM etc).\nNote that the score files also contain\n 'BGM Adjust' parameter. So if you\n want to keep adjusting parameter,\n you need to set SaveScore=ON." );
 			this.list項目リスト.Add( this.iSystemSaveScore );
 
+		    this.iSystemApplyLoudnessMetadata = new CItemToggle( "Apply Loudness Metadata", CDTXMania.ConfigIni.ApplyLoudnessMetadata,
+		        "BS1770GAIN によるラウドネスメータの測量を適用します。\n利用するにはBS1770GAINが必要です。", 
+		        "To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls.\nIt needs BS1770GAIN." );
+		    this.list項目リスト.Add( this.iSystemApplyLoudnessMetadata );
 
-            //this.iSystemChipVolume = new CItemInteger( "ChipVolume", 0, 100, CDTXMania.ConfigIni.n手動再生音量,
-            //    "打音の音量：\n入力に反応して再生されるチップの音\n量を指定します。\n0 ～ 100 % の値が指定可能です。\n",
-            //    "The volumes for chips you hit.\nYou can specify from 0 to 100%." );
-            //this.list項目リスト.Add( this.iSystemChipVolume );
-            //this.iSystemAutoChipVolume = new CItemInteger( "AutoVolume", 0, 100, CDTXMania.ConfigIni.n自動再生音量,
-            //    "自動再生音の音量：\n自動的に再生されるチップの音量を指\n定します。\n0 ～ 100 % の値が指定可能です。\n",
-            //    "The volumes for AUTO chips.\nYou can specify from 0 to 100%." );
-            //this.list項目リスト.Add( this.iSystemAutoChipVolume );
-            //this.iSystemStoicMode = new CItemToggle( "StoicMode", CDTXMania.ConfigIni.bストイックモード,
+		    this.iSystemTargetLoudness = new CItemInteger( "Target Loudness", (int)Math.Round(CSound.MinimumLufs.ToDouble() * 10.0), (int)Math.Round(CSound.MaximumLufs.ToDouble() * 10.0), (int)Math.Round(CDTXMania.ConfigIni.TargetLoudness * 10.0),
+		        "BS1770GAIN によるラウドネスメータの目標値を指定します。",
+                "When applying BS1770GAIN loudness\nmetadata while playing songs, song levels\nwill be adjusted to target this loudness,\nmeasured in cB (centibels) relative to full scale.\n");
+		    this.list項目リスト.Add( this.iSystemTargetLoudness );
+
+		    this.iSystemApplySongVol = new CItemToggle( "Apply SONGVOL", CDTXMania.ConfigIni.ApplySongVol,
+		        ".tjaファイルのSONGVOLヘッダを音源の音量に適用します。設定による音量調整を使用する場合はこの設定をOFFにしてください。",
+		        "To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls." );
+		    this.list項目リスト.Add( this.iSystemApplySongVol );
+
+		    this.iSystemSoundEffectLevel = new CItemInteger( "Sound Effect Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.SoundEffectLevel,
+		        $"効果音の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
+		        $"The level adjustment for sound effects.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
+		    this.list項目リスト.Add( this.iSystemSoundEffectLevel );
+
+		    this.iSystemVoiceLevel = new CItemInteger( "Voice Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.VoiceLevel,
+		        $"各画面で流れるボイス、コンボボイスの音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
+		        $"The level adjustment for voices.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
+		    this.list項目リスト.Add( this.iSystemVoiceLevel );
+
+		    this.iSystemSongPreviewLevel = new CItemInteger( "Song Preview Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.SongPreviewLevel,
+		        $"選曲画面のプレビュー時の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
+		        $"The level adjustment for song previews.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
+		    this.list項目リスト.Add( this.iSystemSongPreviewLevel );
+
+		    this.iSystemSongPlaybackLevel = new CItemInteger( "Song Playback Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, CDTXMania.ConfigIni.SongPlaybackLevel,
+		        $"ゲーム中の音源の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
+		        $"The level adjustment for songs during gameplay.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
+		    this.list項目リスト.Add( this.iSystemSongPlaybackLevel );
+
+		    this.iSystemKeyboardSoundLevelIncrement = new CItemInteger( "Keyboard Level Increment", 1, 20, CDTXMania.ConfigIni.KeyboardSoundLevelIncrement,
+		        "キーボードで音量調整をするときの増加量、減少量を指定します。\n1 ～ 20 の値が指定可能です。\n",
+		        "The amount of sound level change for each press\nof a sound level control key.\nYou can specify from 1 to 20." );
+		    this.list項目リスト.Add( this.iSystemKeyboardSoundLevelIncrement );
+
+		    //this.iSystemStoicMode = new CItemToggle( "StoicMode", CDTXMania.ConfigIni.bストイックモード,
             //    "ストイック（禁欲）モード：\n以下をまとめて表示ON/OFFします。\n_プレビュー画像/動画\n_リザルト画像/動画\n_NowLoading画像\n_演奏画面の背景画像\n_BGA 画像 / AVI 動画\n_グラフ画像\n",
             //    "Turn ON to disable drawing\n * preview image / movie\n * result image / movie\n * nowloading image\n * wallpaper (in playing screen)\n * BGA / AVI (in playing screen)" );
             //this.list項目リスト.Add( this.iSystemStoicMode );
@@ -744,15 +775,19 @@ namespace DTXMania
 
             this.iTaikoScoreMode = new CItemList("ScoreMode", CItemBase.Eパネル種別.通常, CDTXMania.ConfigIni.nScoreMode,
                 "スコア計算方法\n" +
-                "TYPE-A: 太鼓1～太鼓7\n" +
-                "TYPE-B: 太鼓8～太鼓14\n" +
-                "TYPE-C: 現行の計算方式です。\n" +
-                "TYPE-D: 真打ちモード \n",
+                "TYPE-A: 旧配点\n" +
+                "TYPE-B: 旧筐体配点\n" +
+                "TYPE-C: 新配点\n",
                 " \n" +
                 " \n" +
                 " ",
-                new string[] { "TYPE-A", "TYPE-B", "TYPE-C", "TYPE-D" });
+                new string[] { "TYPE-A", "TYPE-B", "TYPE-C"});
             this.list項目リスト.Add(this.iTaikoScoreMode);
+
+            ShinuchiMode = new CItemToggle(nameof(ShinuchiMode), CDTXMania.ConfigIni.ShinuchiMode, CItemBase.Eパネル種別.通常,
+                "真打モードを有効にする。",
+                "Turn on fixed score mode.");
+            this.list項目リスト.Add(this.ShinuchiMode);
 
             this.iTaikoBranchGuide = new CItemToggle("BranchGuide", CDTXMania.ConfigIni.bBranchGuide,
                 "譜面分岐の参考になる数値などを表示します。\n" +
@@ -2001,13 +2036,19 @@ namespace DTXMania
 		private CItemToggle iLogOutputLog;
 		private CItemToggle iSystemAdjustWaves;
 		private CItemToggle iSystemAudienceSound;
-		private CItemInteger iSystemAutoChipVolume;
+		private CItemToggle iSystemApplyLoudnessMetadata;
+		private CItemInteger iSystemTargetLoudness;
+		private CItemToggle iSystemApplySongVol;
+		private CItemInteger iSystemSoundEffectLevel;
+		private CItemInteger iSystemVoiceLevel;
+		private CItemInteger iSystemSongPreviewLevel;
+	    private CItemInteger iSystemSongPlaybackLevel;
+		private CItemInteger iSystemKeyboardSoundLevelIncrement;
 		private CItemToggle iSystemAVI;
 		private CItemToggle iSystemBGA;
 //		private CItemToggle iSystemGraph; #24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
 		private CItemInteger iSystemBGAlpha;
 		private CItemToggle iSystemBGMSound;
-		private CItemInteger iSystemChipVolume;
 		private CItemList iSystemCYGroup;
 		private CItemToggle iSystemCymbalFree;
 		private CItemList iSystemDamageLevel;
@@ -2031,9 +2072,6 @@ namespace DTXMania
 		private CItemToggle iSystemRandomFromSubBox;
 		private CItemBase iSystemReturnToMenu;
 		private CItemToggle iSystemSaveScore;
-		private CItemToggle iSystemSoundMonitorBass;
-		private CItemToggle iSystemSoundMonitorDrums;
-		private CItemToggle iSystemSoundMonitorGuitar;
 		private CItemToggle iSystemStageFailed;
 		private CItemToggle iSystemStoicMode;
 		private CItemToggle iSystemVSyncWait;
@@ -2162,6 +2200,7 @@ namespace DTXMania
         CItemToggle ShowMob;
         CItemToggle ShowFooter;
         CItemToggle ShowPuchiChara;
+        CItemToggle ShinuchiMode;
 		//private CItemToggle iGuitarAutoPlay;
 		private CItemThreeState iGuitarAutoPlayAll;			// #23886 2012.5.8 yyagi
 		private CItemToggle iGuitarR;						//
@@ -2284,9 +2323,16 @@ namespace DTXMania
 			//CDTXMania.ConfigIni.eダメージレベル = (Eダメージレベル) this.iSystemDamageLevel.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.bScoreIniを出力する = this.iSystemSaveScore.bON;
 
+		    CDTXMania.ConfigIni.ApplyLoudnessMetadata = this.iSystemApplyLoudnessMetadata.bON;
+		    CDTXMania.ConfigIni.TargetLoudness = this.iSystemTargetLoudness.n現在の値 / 10.0;
+		    CDTXMania.ConfigIni.ApplySongVol = this.iSystemApplySongVol.bON;
+		    CDTXMania.ConfigIni.SoundEffectLevel = this.iSystemSoundEffectLevel.n現在の値;
+		    CDTXMania.ConfigIni.VoiceLevel = this.iSystemVoiceLevel.n現在の値;
+		    CDTXMania.ConfigIni.SongPreviewLevel = this.iSystemSongPreviewLevel.n現在の値;
+		    CDTXMania.ConfigIni.SongPlaybackLevel = this.iSystemSongPlaybackLevel.n現在の値;
+		    CDTXMania.ConfigIni.KeyboardSoundLevelIncrement = this.iSystemKeyboardSoundLevelIncrement.n現在の値;
+
 			CDTXMania.ConfigIni.bログ出力 = this.iLogOutputLog.bON;
-			//CDTXMania.ConfigIni.n手動再生音量 = this.iSystemChipVolume.n現在の値;
-			//CDTXMania.ConfigIni.n自動再生音量 = this.iSystemAutoChipVolume.n現在の値;
 			//CDTXMania.ConfigIni.bストイックモード = this.iSystemStoicMode.bON;
 
 			//CDTXMania.ConfigIni.nShowLagType = this.iSystemShowLag.n現在選択されている項目番号;				// #25370 2011.6.3 yyagi
@@ -2320,44 +2366,9 @@ namespace DTXMania
 		}
 		private void tConfigIniへ記録する_Bass()
 		{
-			//CDTXMania.ConfigIni.bAutoPlay.Bass = this.iBassAutoPlay.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.BsR = this.iBassR.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.BsG = this.iBassG.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.BsB = this.iBassB.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.BsPick = this.iBassPick.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.BsW = this.iBassW.bON;
-            //CDTXMania.ConfigIni.n譜面スクロール速度.Bass = this.iBassScrollSpeed.n現在の値;
-            //                                    // "Sudden" || "Sud+Hid"
-            //CDTXMania.ConfigIni.bSudden.Bass = ( this.iBassSudHid.n現在選択されている項目番号 == 1 || this.iBassSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
-            //                                    // "Hidden" || "Sud+Hid"
-            //CDTXMania.ConfigIni.bHidden.Bass = ( this.iBassSudHid.n現在選択されている項目番号 == 2 || this.iBassSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
-            //if      ( this.iBassSudHid.n現在選択されている項目番号 == 4 ) CDTXMania.ConfigIni.eInvisible.Bass = EInvisible.SEMI;	// "S-Invisible"
-            //else if ( this.iBassSudHid.n現在選択されている項目番号 == 5 ) CDTXMania.ConfigIni.eInvisible.Bass = EInvisible.FULL;	// "F-Invisible"
-            //else                                                          CDTXMania.ConfigIni.eInvisible.Bass = EInvisible.OFF;
-            //CDTXMania.ConfigIni.bReverse.Bass = this.iBassReverse.bON;
-            //CDTXMania.ConfigIni.判定文字表示位置.Bass = (E判定文字表示位置) this.iBassPosition.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eRandom.Bass = (Eランダムモード) this.iBassRandom.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.bLight.Bass = this.iBassLight.bON;
-            //CDTXMania.ConfigIni.bLeft.Bass = this.iBassLeft.bON;
-            //CDTXMania.ConfigIni.nInputAdjustTimeMs.Bass = this.iBassInputAdjustTimeMs.n現在の値;		// #23580 2011.1.3 yyagi
-
-            //CDTXMania.ConfigIni.b演奏音を強調する.Bass = this.iSystemSoundMonitorBass.bON;
-            //CDTXMania.ConfigIni.n表示可能な最小コンボ数.Bass = this.iSystemMinComboBass.n現在の値;
-            //CDTXMania.ConfigIni.e判定位置.Bass = (E判定位置) this.iSystemJudgePosBass.n現在選択されている項目番号;					// #33891 2014.6.26 yyagi
-			//CDTXMania.ConfigIni.e判定表示優先度.Bass = (E判定表示優先度) this.iBassJudgeDispPriority.n現在選択されている項目番号;
 		}
 		private void tConfigIniへ記録する_Drums()
 		{
-            //CDTXMania.ConfigIni.bAutoPlay.LC = this.iDrumsLeftCymbal.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.HH = this.iDrumsHiHat.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.SD = this.iDrumsSnare.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.BD = this.iDrumsBass.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.HT = this.iDrumsHighTom.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.LT = this.iDrumsLowTom.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.FT = this.iDrumsFloorTom.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.CY = this.iDrumsCymbalRide.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.LP = this.iDrumsLeftPedal.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.LBD = this.iDrumsLeftBassDrum.bON;
             CDTXMania.ConfigIni.b太鼓パートAutoPlay = this.iTaikoAutoPlay.bON;
             CDTXMania.ConfigIni.b太鼓パートAutoPlay2P = this.iTaikoAutoPlay2P.bON;
             CDTXMania.ConfigIni.bAuto先生の連打 = this.iTaikoAutoRoll.bON;
@@ -2375,28 +2386,14 @@ namespace DTXMania
             //CDTXMania.ConfigIni.判定文字表示位置.Drums = (E判定文字表示位置) this.iDrumsPosition.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.bTight = this.iDrumsTight.bON;
 			CDTXMania.ConfigIni.nInputAdjustTimeMs.Drums = this.iDrumsInputAdjustTimeMs.n現在の値;		// #23580 2011.1.3 yyagi
-            //CDTXMania.ConfigIni.bGraph.Drums = this.iDrumsGraph.bON;// #24074 2011.01.23 add ikanick
-
-            //CDTXMania.ConfigIni.eHHGroup = (EHHGroup) this.iSystemHHGroup.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eFTGroup = (EFTGroup) this.iSystemFTGroup.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eCYGroup = (ECYGroup) this.iSystemCYGroup.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eBDGroup = (EBDGroup) this.iSystemBDGroup.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eHitSoundPriorityHH = (E打ち分け時の再生の優先順位) this.iSystemHitSoundPriorityHH.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eHitSoundPriorityFT = (E打ち分け時の再生の優先順位) this.iSystemHitSoundPriorityFT.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eHitSoundPriorityCY = (E打ち分け時の再生の優先順位) this.iSystemHitSoundPriorityCY.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.bフィルイン有効 = this.iSystemFillIn.bON;
-            //CDTXMania.ConfigIni.b演奏音を強調する.Drums = this.iSystemSoundMonitorDrums.bON;
-            //CDTXMania.ConfigIni.bドラム打音を発声する = this.iSystemHitSound.bON;
 			CDTXMania.ConfigIni.n表示可能な最小コンボ数.Drums = this.iSystemMinComboDrums.n現在の値;
-            //CDTXMania.ConfigIni.bシンバルフリー = this.iSystemCymbalFree.bON;
-
-            //CDTXMania.ConfigIni.eDark = (Eダークモード)this.iCommonDark.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.nRisky = this.iSystemRisky.n現在の値;						// #23559 2911.7.27 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度.Drums = (E判定表示優先度) this.iDrumsJudgeDispPriority.n現在選択されている項目番号;
 
             CDTXMania.ConfigIni.bBranchGuide = this.iTaikoBranchGuide.bON;
             CDTXMania.ConfigIni.nDefaultCourse = this.iTaikoDefaultCourse.n現在選択されている項目番号;
             CDTXMania.ConfigIni.nScoreMode = this.iTaikoScoreMode.n現在選択されている項目番号;
+            CDTXMania.ConfigIni.ShinuchiMode = this.ShinuchiMode.bON;
             CDTXMania.ConfigIni.nBranchAnime = this.iTaikoBranchAnime.n現在選択されている項目番号;
             //CDTXMania.ConfigIni.bHispeedRandom = this.iTaikoHispeedRandom.bON;
             CDTXMania.ConfigIni.bNoInfo = this.iTaikoNoInfo.bON;
@@ -2409,31 +2406,6 @@ namespace DTXMania
 		}
 		private void tConfigIniへ記録する_Guitar()
 		{
-			//CDTXMania.ConfigIni.bAutoPlay.Guitar = this.iGuitarAutoPlay.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.GtR = this.iGuitarR.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.GtG = this.iGuitarG.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.GtB = this.iGuitarB.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.GtPick = this.iGuitarPick.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.GtW = this.iGuitarW.bON;
-            //CDTXMania.ConfigIni.n譜面スクロール速度.Guitar = this.iGuitarScrollSpeed.n現在の値;
-												// "Sudden" || "Sud+Hid"
-			//CDTXMania.ConfigIni.bSudden.Guitar = ( this.iGuitarSudHid.n現在選択されている項目番号 == 1 || this.iGuitarSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
-												// "Hidden" || "Sud+Hid"
-			//CDTXMania.ConfigIni.bHidden.Guitar = ( this.iGuitarSudHid.n現在選択されている項目番号 == 2 || this.iGuitarSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
-            //if      ( this.iGuitarSudHid.n現在選択されている項目番号 == 4 ) CDTXMania.ConfigIni.eInvisible.Guitar = EInvisible.SEMI;	// "S-Invisible"
-            //else if ( this.iGuitarSudHid.n現在選択されている項目番号 == 5 ) CDTXMania.ConfigIni.eInvisible.Guitar = EInvisible.FULL;	// "F-Invisible"
-            //else                                                            CDTXMania.ConfigIni.eInvisible.Guitar = EInvisible.OFF;
-            //CDTXMania.ConfigIni.bReverse.Guitar = this.iGuitarReverse.bON;
-            //CDTXMania.ConfigIni.判定文字表示位置.Guitar = (E判定文字表示位置) this.iGuitarPosition.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eRandom.Guitar = (Eランダムモード) this.iGuitarRandom.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.bLight.Guitar = this.iGuitarLight.bON;
-            //CDTXMania.ConfigIni.bLeft.Guitar = this.iGuitarLeft.bON;
-            //CDTXMania.ConfigIni.nInputAdjustTimeMs.Guitar = this.iGuitarInputAdjustTimeMs.n現在の値;	// #23580 2011.1.3 yyagi
-
-            //CDTXMania.ConfigIni.n表示可能な最小コンボ数.Guitar = this.iSystemMinComboGuitar.n現在の値;
-            //CDTXMania.ConfigIni.b演奏音を強調する.Guitar = this.iSystemSoundMonitorGuitar.bON;
-            //CDTXMania.ConfigIni.e判定位置.Guitar = (E判定位置) this.iSystemJudgePosGuitar.n現在選択されている項目番号;					// #33891 2014.6.26 yyagi
-			//CDTXMania.ConfigIni.e判定表示優先度.Guitar = (E判定表示優先度) this.iGuitarJudgeDispPriority.n現在選択されている項目番号;
 		}
 		//-----------------
 		#endregion

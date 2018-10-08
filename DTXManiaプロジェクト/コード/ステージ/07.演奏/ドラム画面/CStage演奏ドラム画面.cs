@@ -180,6 +180,8 @@ namespace DTXMania
 
 		public override void On活性化()
 		{
+            LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: false);
+
 			this.bフィルイン中 = false;
             this.n待機中の大音符の座標 = 0;
             this.actGame.t叩ききりまショー_初期化();
@@ -268,6 +270,8 @@ namespace DTXMania
 		{
             this.ct手つなぎ = null;
 			base.On非活性化();
+
+            LoudnessMetadataScanner.StartBackgroundScanning();
 		}
 		public override void OnManagedリソースの作成()
 		{
@@ -287,9 +291,9 @@ namespace DTXMania
 
     //            this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
 
-                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\dong.ogg" ) );
-                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\ka.ogg" ) );
-                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Adlib.ogg" ) );
+                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\dong.ogg" ), ESoundGroup.SoundEffect );
+                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\ka.ogg" ), ESoundGroup.SoundEffect );
+                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path(@"Sounds\Taiko\Adlib.ogg"), ESoundGroup.SoundEffect );
 
 				base.OnManagedリソースの作成();
 			}
@@ -475,6 +479,7 @@ namespace DTXMania
 
                 this.t進行描画_演奏情報();
                 this.actPanel.t歌詞テクスチャを描画する();
+                actChara.OnDraw_Balloon();
                 this.t全体制御メソッド();
 
                 this.actDan.On進行描画();
@@ -1302,7 +1307,7 @@ namespace DTXMania
                             int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
 
                             this.tチップのヒット処理(pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, true, nLane + n大音符, nPlayer);
-                            this.tサウンド再生(pChip, pChip.n発声時刻ms, E楽器パート.TAIKO, dTX.nモニタを考慮した音量(E楽器パート.DRUMS), false, false, nPlayer);
+                            this.tサウンド再生(pChip, nPlayer);
                             return;
                         }
                     }
@@ -1487,7 +1492,7 @@ namespace DTXMania
 
                             x = ( x ) - ( ( int ) ( ( 130.0 * pChip.dbチップサイズ倍率 ) / 2.0 ) );
                             CDTXMania.Tx.Notes.b加算合成 = false;
-                            CDTXMania.Tx.SenNotes.b加算合成 = false;
+                            CDTXMania.Tx.SENotes.b加算合成 = false;
                             var device = CDTXMania.app.Device;
                             switch ( pChip.nチャンネル番号 )
                             {
@@ -1497,7 +1502,7 @@ namespace DTXMania
                                     {
                                         if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                                             CDTXMania.Tx.Notes.t2D描画( device, x, y, new Rectangle( 130, num9, 130, 130 ) );
-                                        CDTXMania.Tx.SenNotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
+                                        CDTXMania.Tx.SENotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
                                         //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
                                     }
                                     break;
@@ -1507,7 +1512,7 @@ namespace DTXMania
                                     {
                                         if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                                             CDTXMania.Tx.Notes.t2D描画( device, x, y, new Rectangle( 260, num9, 130, 130) );
-                                        CDTXMania.Tx.SenNotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
+                                        CDTXMania.Tx.SENotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
                                         //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
                                     }
                                     nLane = 1;
@@ -1521,7 +1526,7 @@ namespace DTXMania
                                             CDTXMania.Tx.Notes.t2D描画( device, x, y, new Rectangle( 390, num9, 130, 130 ) );
                                             //CDTXMania.Tx.Notes.t3D描画( device, mat, new Rectangle( 390, num9, 130, 130 ) );
                                         }
-                                        CDTXMania.Tx.SenNotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
+                                        CDTXMania.Tx.SENotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
                                         //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
                                     }
                                     break;
@@ -1531,7 +1536,7 @@ namespace DTXMania
                                     {
                                         if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                                             CDTXMania.Tx.Notes.t2D描画( device, x, y, new Rectangle( 520, num9, 130, 130 ) );
-                                        CDTXMania.Tx.SenNotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
+                                        CDTXMania.Tx.SENotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 30 * pChip.nSenote, 136, 30 ) );
                                         //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
                                     }
                                     nLane = 1;
@@ -1555,7 +1560,7 @@ namespace DTXMania
                                             CDTXMania.Tx.Notes.t2D描画( device, x, y, new Rectangle( 1690, num9, 130, 130 ) );
                                             //CDTXMania.Tx.Notes.t3D描画( device, mat, new Rectangle( 390, num9, 130, 130 ) );
                                         }
-                                        CDTXMania.Tx.SenNotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 390, 136, 30 ) );
+                                        CDTXMania.Tx.SENotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 390, 136, 30 ) );
                                     }
                                     break;
 
@@ -1576,7 +1581,7 @@ namespace DTXMania
                                             }
                                             CDTXMania.Tx.Notes.t2D描画( device, x, y, new Rectangle( 1820, num9, 130, 130 ) );
                                         }
-                                        CDTXMania.Tx.SenNotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 420, 136, 30 ) );
+                                        CDTXMania.Tx.SENotes.t2D描画( device, x - 2, y + nSenotesY, new Rectangle( 0, 420, 136, 30 ) );
                                     }
                                     nLane = 1;
                                     break;
@@ -1786,53 +1791,113 @@ namespace DTXMania
                             }
                         }
 
+                        //kairera0467氏 の TJAPlayer2forPC のコードを参考にし、打数に応じて色を変える(打数の変更以外はほとんどそのまんま) ろみゅ～？ 2018/8/20
+                        pChip.RollInputTime?.t進行();
+                        pChip.RollDelay?.t進行();
 
-                        if ( pChip.nチャンネル番号 == 0x15 )
+                        if (pChip.RollInputTime != null && pChip.RollInputTime.b終了値に達した)
                         {
-                            //x = ( x + 10 ) - ( ( int ) ( ( 130.0 * pChip.dbチップサイズ倍率 ) / 2.0 ) );
-                            int index = x末端 - x; //連打の距離
-                            if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
-                            {
-                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = index - 65;
-                                CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 65, y, new Rectangle( 780, 0, 1, 130 ) );
-                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(910, 0, 130, 130));
-                                CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 650, num9, 130, 130 ) );
-                            }
+                            pChip.RollInputTime.t停止();
+                            pChip.RollInputTime.n現在の値 = 0;
+                            pChip.RollDelay = new CCounter(0, 1, 1, CDTXMania.Timer);
+                        }
+                        
+                        if (pChip.RollDelay != null && pChip.RollDelay.b終了値に達した && pChip.RollEffectLevel > 0)
+                        {
+                            pChip.RollEffectLevel--;
+                            pChip.RollDelay = new CCounter(0, 1, 1, CDTXMania.Timer);
+                            pChip.RollDelay.n現在の値 = 0;
+                        }
 
-                            CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = index - 34;
-                            CDTXMania.Tx.SenNotes.t2D描画( CDTXMania.app.Device, x + 90, y + nSenotesY, new Rectangle( 60, 240, 1, 30 ) );
-                            CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = 1.0f;
-                            CDTXMania.Tx.SenNotes.t2D描画( CDTXMania.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-                            CDTXMania.Tx.SenNotes.t2D描画( CDTXMania.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-                            //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 58, C文字コンソール.Eフォント種別.白, pChip.dbBPM.ToString());
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 42, C文字コンソール.Eフォント種別.白, pChip.dbSCROLL.ToString());
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 26, C文字コンソール.Eフォント種別.白, pChip.n発声時刻ms.ToString());
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 10, C文字コンソール.Eフォント種別.白, pChip.nノーツ終了時刻ms.ToString());
+                        float f減少するカラー = 1.0f - ((0.95f / 100) * pChip.RollEffectLevel);
+                        var effectedColor = new Color4(1.0f, f減少するカラー, f減少するカラー);
+                        var normalColor = new Color4(1.0f, 1.0f, 1.0f);
+                        float f末端ノーツのテクスチャ位置調整 = 65f;
+
+                        if ( pChip.nチャンネル番号 == 0x15 ) //連打(小)
+                        {
+                            int index = x末端 - x; //連打の距離
+                            if ( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
+                            {
+                                #region[末端をテクスチャ側で中央に持ってくる場合の方式]
+
+                                //CDTXMania.Tx.Notes.color4 = new Color4(1.0f, f減少するカラー, f減少するカラー);
+                                //CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整+1) / 128.0f;
+                                //CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
+                                //CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+                                //CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(910, num9, 130, 130));
+                                //CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
+                                //CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+
+                                #endregion
+                                #region[末端をテクスチャ側でつなげる場合の方式]
+
+                                if (CDTXMania.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+                                    CDTXMania.Tx.Notes.color4 = effectedColor;
+                                else
+                                    CDTXMania.Tx.Notes.color4 = normalColor;
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
+                                if (CDTXMania.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+                                    CDTXMania.Tx.Notes.color4 = effectedColor;
+                                else
+                                    CDTXMania.Tx.Notes.color4 = normalColor;
+                                
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+                                CDTXMania.Tx.Notes.color4 = normalColor;
+                                #endregion
+                            }
+                            CDTXMania.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+                            CDTXMania.Tx.SENotes.t2D描画( CDTXMania.app.Device, x + 90, y + nSenotesY, new Rectangle( 60, 240, 1, 30 ) );
+                            CDTXMania.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+                            CDTXMania.Tx.SENotes.t2D描画( CDTXMania.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+                            CDTXMania.Tx.SENotes.t2D描画(CDTXMania.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                         }
                         if( pChip.nチャンネル番号 == 0x16 )
                         {
-                            //x = ( x + 10 ) - ( ( int ) ( ( 130.0 * pChip.dbチップサイズ倍率 ) / 2.0 ) );
                             int index = x末端 - x; //連打の距離
 
                             if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                             {
-                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = index - 65;
-                                CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x + 65, y, new Rectangle( 1170, 0, 1, 130 ) );
-                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(1300, num9, 130, 130));
-                                CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 1040, num9, 130, 130 ) );
-                            }
+                                #region[末端をテクスチャ側で中央に持ってくる場合の方式]
 
-                            CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = index - 60;
-                            CDTXMania.Tx.SenNotes.t2D描画( CDTXMania.app.Device, x + 116, y + nSenotesY, new Rectangle( 60, 240, 1, 30 ) );
-                            CDTXMania.Tx.SenNotes.vc拡大縮小倍率.X = 1.0f;
-                            CDTXMania.Tx.SenNotes.t2D描画(CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-                            CDTXMania.Tx.SenNotes.t2D描画(CDTXMania.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-                            //CDTXMania.act文字コンソール.tPrint(x, y - 26, C文字コンソール.Eフォント種別.白, pChip.n発声時刻ms.ToString());
-                            //CDTXMania.act文字コンソール.tPrint( x, y - 10, C文字コンソール.Eフォント種別.白, pChip.nノーツ終了時刻ms.ToString() );
-                            //CDTXMania.act文字コンソール.tPrint( x + 60, y + 140, C文字コンソール.Eフォント種別.白, pChip.nSenote.ToString() );
+                                //CDTXMania.Tx.Notes.color4 = new Color4(1.0f, f減少するカラー, f減少するカラー);
+                                //CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整+1) / 128f;
+                                //CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
+                                //CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+                                //CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端, y, 0, new Rectangle(1300, num9, 130, 130));
+                                //CDTXMania.Tx.Notes.color4 = new Color4(1.0f, 1.0f, 1.0f); //先端シンボルは色を変えない
+                                //CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
+
+                                #endregion
+                                #region[末端をテクスチャ側でつなげる場合の方式]
+
+                                if (CDTXMania.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+                                    CDTXMania.Tx.Notes.color4 = effectedColor;
+                                else
+                                    CDTXMania.Tx.Notes.color4 = normalColor;
+
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
+
+                                CDTXMania.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
+                                if (CDTXMania.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+                                    CDTXMania.Tx.Notes.color4 = effectedColor;
+                                else
+                                    CDTXMania.Tx.Notes.color4 = normalColor;
+
+                                CDTXMania.Tx.Notes.t2D描画(CDTXMania.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
+                                CDTXMania.Tx.Notes.color4 = normalColor;
+                                #endregion
+                            }
+                            CDTXMania.Tx.SENotes.vc拡大縮小倍率.X = index - 70;
+                            CDTXMania.Tx.SENotes.t2D描画( CDTXMania.app.Device, x + 116, y + nSenotesY, new Rectangle( 60, 240, 1, 30 ) );
+                            CDTXMania.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+                            CDTXMania.Tx.SENotes.t2D描画(CDTXMania.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+                            CDTXMania.Tx.SENotes.t2D描画(CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                         }
                         if( pChip.nチャンネル番号 == 0x17 )
                         {
@@ -1841,7 +1906,7 @@ namespace DTXMania
                             if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                                 CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( 1430, num9, 260, 130 ) );
 
-                            CDTXMania.Tx.SenNotes.t2D描画(CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+                            CDTXMania.Tx.SENotes.t2D描画(CDTXMania.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                         }
                         if( pChip.nチャンネル番号 == 0x18 )
                         {
@@ -1864,7 +1929,7 @@ namespace DTXMania
                             {
                                 //if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                                 //    CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
-                                CDTXMania.Tx.SenNotes.t2D描画(CDTXMania.app.Device, x + 56, y + nSenotesY, new Rectangle( 58, 270, 78, 30 ) );
+                                CDTXMania.Tx.SENotes.t2D描画(CDTXMania.app.Device, x + 56, y + nSenotesY, new Rectangle( 58, 270, 78, 30 ) );
                             }
 
 
@@ -1981,7 +2046,28 @@ namespace DTXMania
                             this.actBalloon.On進行描画( this.chip現在処理中の連打チップ[ i ].nBalloon, this.n風船残り[ i ], i );
                         }
                         else
-                            this.n現在の連打数[ i ] = 0;
+                        {
+                            this.n現在の連打数[i] = 0;
+
+
+                        }
+                       
+
+                    }
+                    else
+                    {
+                        if (actChara.CharaAction_Balloon_Breaking.b進行中 && chip現在処理中の連打チップ[i].nPlayerSide == 0)
+                        {
+                            this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
+                            if (actChara.CharaAction_Balloon_Miss != null)
+                            {
+                                actChara.アクションタイマーリセット();
+                                actChara.bマイどんアクション中 = true;
+                                actChara.CharaAction_Balloon_Miss = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                                if (actChara.CharaAction_Balloon_Delay != null) actChara.CharaAction_Balloon_Delay = new CCounter(0, CDTXMania.Skin.Game_Chara_Balloon_Delay - 1, 1, CDTXMania.Timer);
+
+                            }
+                        }
                     }
                 }
             }
