@@ -1491,7 +1491,7 @@ namespace DTXMania
                         for( int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ CDTXMania.stage選曲.n現在選択中の曲の難易度 ]; n++ )
                         {
                             if( n > 9 ) break;
-                            this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX, CDTXMania.Skin.nSelectSongDiffIconY - ( n * (CDTXMania.Skin.nSelectSongDiffIconHeight + CDTXMania.Skin.nSelectSongDiffIconSpacingY) ), new Rectangle( CDTXMania.Skin.nSelectSongDiffIconX * ( CDTXMania.stage選曲.n現在選択中の曲の難易度 + 1), 0, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
+                            this.tx難易度星?.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nSelectSongDiffIconX, CDTXMania.Skin.nSelectSongDiffIconY - ( n * (CDTXMania.Skin.nSelectSongDiffIconHeight + CDTXMania.Skin.nSelectSongDiffIconSpacingY) ), new Rectangle( CDTXMania.Skin.nSelectSongDiffIconWidth * ( CDTXMania.stage選曲.n現在選択中の曲の難易度 + 1), 0, CDTXMania.Skin.nSelectSongDiffIconWidth, CDTXMania.Skin.nSelectSongDiffIconHeight ) );
                         }
                     }
 

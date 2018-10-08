@@ -157,10 +157,13 @@ namespace DTXMania
 
                 foreach( CTexture tex in this.dicTexture.Values  )
                 {
-                    tex?.Dispose();
+                    if( tex != null )
+                        tex.Dispose();
                 }
                 this.dicTexture.Clear();
                 this.dicParameter.Clear();
+                this.ct上背景FIFOタイマー = null;
+                this.ct下背景FIFOタイマー = null;
                 base.OnManagedリソースの解放();
             }
         }

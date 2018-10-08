@@ -115,6 +115,12 @@ namespace DTXMania
                     this.tx踊り子1_退場 = null;
                 }
 
+                this.ctモブ = null;
+                this.ct登場Y座標 = null;
+                this.ct登場モーション = null;
+                this.ct退場モーション = null;
+                this.ct通常モーション = null;
+
                 base.OnManagedリソースの解放();
             }
         }

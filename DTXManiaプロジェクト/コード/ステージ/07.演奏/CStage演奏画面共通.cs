@@ -1491,7 +1491,7 @@ namespace DTXMania
                         #endregion
                     }
                     #region[ コンボ音声 ]
-                    if( pChip.nチャンネル番号 < 0x15 && pChip.nチャンネル番号 >= 0x1A )
+                    if( !( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 < 0x1A ) )
                     {
                         if( this.actCombo.n現在のコンボ数[ nPlayer ] % 100 == 0 && this.actCombo.n現在のコンボ数[ nPlayer ] > 0 )
                         {

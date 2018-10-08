@@ -864,6 +864,9 @@ namespace DTXMania
 
 
             #region[ 選曲 ]
+            this.fSelectSongFontSize = 22;
+            this.fSelectSongFontSizeSub = 14;
+
             this.nSelectBGLoopWidth = 0;
             this.nSelectBGScrollSpeed = 0;
             this.nSelectDiffStringX = 980;
@@ -872,10 +875,10 @@ namespace DTXMania
             this.nSelectGenreStringY = 63;
             this.nSelectSongDiffIconHeight = 32;
             this.nSelectSongDiffIconSpacingX = 0;
-            this.nSelectSongDiffIconSpacingY = 0;
+            this.nSelectSongDiffIconSpacingY = 5;
             this.nSelectSongDiffIconWidth = 32;
-            this.nSelectSongDiffIconX = 32;
-            this.nSelectSongDiffIconY = 32;
+            this.nSelectSongDiffIconX = 525;
+            this.nSelectSongDiffIconY = 515;
             this.nSelectSongDiffPanelSpacingX = 0;
             this.nSelectSongDiffPanelSpacingY = 0;
             this.nSelectSongDiffPanelStringX = 0;

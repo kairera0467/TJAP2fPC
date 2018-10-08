@@ -47,7 +47,7 @@ namespace DTXMania
         {
             if( !this.b活性化してない )
             {
-                this.txフッター?.Dispose();
+                CDTXMania.t安全にDisposeする( ref this.txフッター );
                 base.OnManagedリソースの解放();
             }
         }
