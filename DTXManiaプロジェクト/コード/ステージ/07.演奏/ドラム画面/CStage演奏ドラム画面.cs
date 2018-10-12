@@ -58,6 +58,7 @@ namespace DTXMania
             base.list子Activities.Add( this.actComboBalloon = new CAct演奏Drumsコンボ吹き出し() );
             base.list子Activities.Add( this.actComboVoice = new CAct演奏Combo音声() );
             base.list子Activities.Add( this.actPauseMenu = new CAct演奏PauseMenu() );
+            base.list子Activities.Add( this.actGogoSplash = new CAct演奏Drumsゴーゴースプラッシュ() );
 
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
@@ -415,10 +416,8 @@ namespace DTXMania
 				    bIsFinishedPlaying = this.t進行描画_チップ( E楽器パート.DRUMS, i );
                     this.t進行描画_チップ_連打( E楽器パート.DRUMS, i );
                 }
-
-
                 this.actMtaiko.On進行描画();
-
+                this.actGogoSplash.On進行描画();
 
                 if( !CDTXMania.ConfigIni.bNoInfo )
 			        this.t進行描画_コンボ();

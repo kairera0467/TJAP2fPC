@@ -590,6 +590,7 @@ namespace DTXMania
         protected CAct演奏Drums連打キャラ actRollChara;
         protected CAct演奏Drumsコンボ吹き出し actComboBalloon;
         protected CAct演奏Combo音声 actComboVoice;
+        protected CAct演奏Drumsゴーゴースプラッシュ actGogoSplash;
         public CAct演奏PauseMenu actPauseMenu;
 		public bool bPAUSE;
 		protected STDGBVALUE<bool> b演奏にMIDI入力を使った;
@@ -2440,6 +2441,10 @@ namespace DTXMania
                         CDTXMania.ConfigIni.b太鼓パートAutoPlay2P = false;
                 }
 #endif
+                if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F8 ) )
+                {
+                    this.actGogoSplash.tSplashStart();
+                }
 			}
             if( !this.actPauseMenu.bIsActivePopupMenu && this.bPAUSE && ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
 			{
@@ -3030,6 +3035,7 @@ namespace DTXMania
                             pChip.bHit = true;
                             this.bIsGOGOTIME[ nPlayer ] = true;
                             CDTXMania.stage演奏ドラム画面.actLaneTaiko.GOGOSTART();
+                            this.actGogoSplash.tSplashStart();
                         }
                         break;
                     case 0x9F: //ゴーゴータイム
