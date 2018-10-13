@@ -917,16 +917,18 @@ namespace DTXMania
 
 							#region [ 対応する .score.ini が存在していれば読み込み、Cスコア.譜面情報 に追加設定する ]
 							//-----------------
-                            //dtxのscoreiniを探す
-                            string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア[ i ].ファイル情報.フォルダの絶対パス, "*.dtx.score.ini");
-
                             try
                             {
-							    if( File.Exists( c曲リストノード.arスコア[ i ].ファイル情報.ファイルの絶対パス + ".score.ini" ) )
-                                    this.tScoreIniを読み込んで譜面情報を設定する( c曲リストノード.arスコア[ i ].ファイル情報.ファイルの絶対パス+ ".score.ini", ref c曲リストノード.arスコア[ i ] );
-                                else if( File.Exists( dtxscoreini[ 0 ] ) )
+                                var scoreIniPath = c曲リストノード.arスコア[ i ].ファイル情報.ファイルの絶対パス + ".score.ini";
+                                if( File.Exists( scoreIniPath ) )
+                                    this.tScoreIniを読み込んで譜面情報を設定する( scoreIniPath, c曲リストノード.arスコア[ i ] );
+                                else
                                 {
-                                    this.tScoreIniを読み込んで譜面情報を設定する( dtxscoreini[ 0 ], ref c曲リストノード.arスコア[ i ] );
+                                    string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア[i].ファイル情報.フォルダの絶対パス, "*.dtx.score.ini");
+                                    if (dtxscoreini.Length != 0 && File.Exists(dtxscoreini[0]))
+                                    {
+                                        this.tScoreIniを読み込んで譜面情報を設定する(dtxscoreini[0], c曲リストノード.arスコア[i]);
+                                    }
                                 }
                             }
                             catch (Exception e)
@@ -1824,7 +1826,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
         #endregion
         #region [ .score.ini を読み込んで Cスコア.譜面情報に設定する ]
         //-----------------
-        public void tScoreIniを読み込んで譜面情報を設定する( string strScoreIniファイルパス, ref Cスコア score )
+        public void tScoreIniを読み込んで譜面情報を設定する( string strScoreIniファイルパス, Cスコア score )
 		{
 			if( !File.Exists( strScoreIniファイルパス ) )
 				return;
