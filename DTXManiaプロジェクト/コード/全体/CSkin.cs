@@ -868,6 +868,19 @@ namespace DTXMania
                             strParam = strArray[1].Trim();
 
                             #region スキン設定
+
+                            void ParseInt32(Action<int> setValue)
+                            {
+                                if (int.TryParse(strParam, out var unparsedValue))
+                                {
+                                    setValue(unparsedValue);
+                                }
+                                else
+                                {
+                                    Trace.TraceWarning($"[i18n] {strCommand} must be an integer value. The provided value is invalid: {strParam}");
+                                }
+                            }
+
                             if (strCommand == "Name")
                             {
                                 this.Skin_Name = strParam;
@@ -1153,15 +1166,15 @@ namespace DTXMania
                             }
                             else if (strCommand == "Game_Chara_Beat_Normal")
                             {
-                                Game_Chara_Beat_Normal = int.Parse(strParam);
+                                ParseInt32(value => Game_Chara_Beat_Normal = value);
                             }
                             else if (strCommand == "Game_Chara_Beat_Clear")
                             {
-                                Game_Chara_Beat_Clear = int.Parse(strParam);
+                                ParseInt32(value => Game_Chara_Beat_Clear = value);
                             }
                             else if (strCommand == "Game_Chara_Beat_GoGo")
                             {
-                                Game_Chara_Beat_GoGo = int.Parse(strParam);
+                                ParseInt32(value => Game_Chara_Beat_GoGo = value);
                             }
                             #endregion
                             #region Dancer
@@ -1188,7 +1201,7 @@ namespace DTXMania
                             // Game_Dancer_PtnはTextrueLoader.csで反映されます。
                             else if (strCommand == "Game_Dancer_Beat")
                             {
-                                Game_Dancer_Beat = int.Parse(strParam);
+                                ParseInt32(value => Game_Dancer_Beat = value);
                             }
                             else if (strCommand == "Game_Dancer_Gauge")
                             {
@@ -1202,11 +1215,11 @@ namespace DTXMania
                             #region Mob
                             else if (strCommand == "Game_Mob_Beat")
                             {
-                                Game_Mob_Beat = int.Parse(strParam);
+                                ParseInt32(value => Game_Mob_Beat = value);
                             }
                             else if (strCommand == "Game_Mob_Ptn_Beat")
                             {
-                                Game_Mob_Ptn_Beat = int.Parse(strParam);
+                                ParseInt32(value => Game_Mob_Ptn_Beat = value);
                             }
                             #endregion
                             #region Score
@@ -1261,8 +1274,7 @@ namespace DTXMania
 
                             else if (strCommand == "Game_Score_Padding")
                             {
-                                Game_Score_Padding = int.Parse(strParam);
-
+                                ParseInt32(value => Game_Score_Padding = value);
                             }
                             else if (strCommand == "Game_Score_Size")
                             {
@@ -1613,15 +1625,15 @@ namespace DTXMania
                             }
                             else if (strCommand == "Game_Balloon_Number_Padding")
                             {
-                                Game_Balloon_Number_Padding = int.Parse(strParam);
+                                ParseInt32(value => Game_Balloon_Number_Padding = value);
                             }
                             else if (strCommand == "Game_Balloon_Roll_Number_Scale")
                             {
-                                Game_Balloon_Roll_Number_Scale = float.Parse(strParam);
+                                ParseInt32(value => Game_Balloon_Roll_Number_Scale = value);
                             }
                             else if (strCommand == "Game_Balloon_Balloon_Number_Scale")
                             {
-                                Game_Balloon_Balloon_Number_Scale = float.Parse(strParam);
+                                ParseInt32(value => Game_Balloon_Balloon_Number_Scale = value);
                             }
 
                             #endregion
@@ -1686,11 +1698,11 @@ namespace DTXMania
                             }
                             else if (strCommand == "Game_Runner_Ptn")
                             {
-                                Game_Runner_Ptn = int.Parse(strParam);
+                                ParseInt32(value => Game_Runner_Ptn = value);
                             }
                             else if (strCommand == "Game_Runner_Type")
                             {
-                                Game_Runner_Type = int.Parse(strParam);
+                                ParseInt32(value => Game_Runner_Type = value);
                             }
                             else if (strCommand == "Game_Runner_StartPoint_X")
                             {
