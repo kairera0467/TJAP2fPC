@@ -3007,8 +3007,13 @@ namespace DTXMania
                 strInput = regexForPrefixingCommaStartingLinesWithZero.Replace( strInput, "0," );
 
                 //2017.02.03 DD ヘッダ内にある命令以外の文字列を削除
-                string strInputHeader = strInput.Remove( strInput.IndexOf( "#START" ) );
-                strInput = strInput.Remove(0, strInput.IndexOf( "#START" ) );
+                var startIndex = strInput.IndexOf( "#START" );
+                if (startIndex < 0)
+                {
+                    Trace.TraceWarning($"[i18n] At least one #START command is required. ({strファイル名の絶対パス})");
+                }
+                string strInputHeader = strInput.Remove( startIndex );
+                strInput = strInput.Remove(0, startIndex );
                 strInputHeader = regexForStrippingHeadingLines.Replace( strInputHeader, "" );
                 strInput = strInputHeader + "\n" + strInput;
 
