@@ -175,7 +175,8 @@ namespace DTXMania
 
 				if( !File.Exists( CSkin.Path( this.strファイル名 ) ) )
 				{
-					throw new FileNotFoundException( this.strファイル名 );
+                    Trace.TraceWarning($"[i18n] File does not exist: {this.strファイル名}");
+				    return;
 				}
 ////				for( int i = 0; i < 2; i++ )		// #27790 2012.3.10 yyagi 2回読み出しを、1回読みだし＋1回メモリコピーに変更
 ////				{
