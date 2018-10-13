@@ -267,11 +267,9 @@ namespace DTXMania
 									//	cシステムサウンド.t再生する();
 									//}
 								}
-								catch ( FileNotFoundException e )
+								catch ( FileNotFoundException )
 								{
 									Trace.TraceWarning( "システムサウンドが存在しません。({0})", cシステムサウンド.strファイル名 );
-									Trace.TraceWarning( e.ToString() );
-									Trace.TraceWarning( "例外が発生しましたが処理を継続します。 (3e365bf5-68e8-4425-9dcd-84ba0aafcffc)" );
 								}
 								catch ( Exception e )
 								{
