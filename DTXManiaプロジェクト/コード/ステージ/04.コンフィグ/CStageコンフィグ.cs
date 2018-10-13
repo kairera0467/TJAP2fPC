@@ -117,20 +117,24 @@ namespace DTXMania
 				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_header panel.png" ) );
 				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_footer panel.png" ) );
 				//this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ) );
-				prvFont = new CPrivateFastFont( CSkin.Path( @"mplus-1p-heavy.ttf" ), 20 );
-				string[] strMenuItem = { "System", "Drums", "Exit" };
-				txMenuItemLeft = new CTexture[ strMenuItem.Length, 2 ];
-				for ( int i = 0; i < strMenuItem.Length; i++ )
-				{
-					Bitmap bmpStr;
-					bmpStr = prvFont.DrawPrivateFont( strMenuItem[ i ], Color.White, Color.Black );
-					txMenuItemLeft[ i, 0 ] = CDTXMania.tテクスチャの生成( bmpStr, false );
-					bmpStr.Dispose();
-					bmpStr = prvFont.DrawPrivateFont( strMenuItem[ i ], Color.White, Color.Black, Color.Yellow, Color.OrangeRed );
-					txMenuItemLeft[ i, 1 ] = CDTXMania.tテクスチャの生成( bmpStr, false );
-					bmpStr.Dispose();
-				}
-				if( this.bメニューにフォーカス中 )
+			    string[] strMenuItem = {"System", "Drums", "Exit"};
+			    txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
+			    using (var prvFont = new CPrivateFastFont(CSkin.Path(@"mplus-1p-heavy.ttf"), 20))
+			    {
+			        for (int i = 0; i < strMenuItem.Length; i++)
+			        {
+			            using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black))
+			            {
+			                txMenuItemLeft[i, 0] = CDTXMania.tテクスチャの生成(bmpStr, false);
+			            }
+			            using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed))
+			            {
+			                txMenuItemLeft[i, 1] = CDTXMania.tテクスチャの生成(bmpStr, false);
+			            }
+			        }
+			    }
+
+			    if( this.bメニューにフォーカス中 )
 				{
 					this.t説明文パネルに現在選択されているメニューの説明を描画する();
 				}
@@ -150,7 +154,6 @@ namespace DTXMania
 				//CDTXMania.tテクスチャの解放( ref this.tx下部パネル );
 				//CDTXMania.tテクスチャの解放( ref this.txMenuカーソル );
 				CDTXMania.tテクスチャの解放( ref this.tx説明文パネル );
-				prvFont.Dispose();
 				for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
 				{
 					txMenuItemLeft[ i, 0 ].Dispose();
@@ -453,7 +456,6 @@ namespace DTXMania
 		//private CTexture tx上部パネル;
 		private CTexture tx説明文パネル;
 		//private CTexture tx背景;
-        private CPrivateFastFont prvFont;
 		private CTexture[ , ] txMenuItemLeft;
 
 		private void tカーソルを下へ移動する()
