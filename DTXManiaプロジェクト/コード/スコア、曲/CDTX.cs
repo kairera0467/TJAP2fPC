@@ -4166,106 +4166,28 @@ namespace DTXMania
                 strCommandParam = strArray[1].Trim();
             }
 
-            if( strCommandName.Equals( "BALLOON" ) )
+            void ParseOptionalInt16(Action<short> setValue)
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (95327158-4e83-4fa9-b5e9-ad3c3d4c2a22)" );
-                        break;
-                    }
-                    this.listBalloon_Normal.Add( n打数 );
-                }
+                this.ParseOptionalInt16(strCommandName, strCommandParam, setValue);
             }
-            else if( strCommandName.Equals( "BALLOONNOR" ) )
-            {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
 
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (2f09063c-bfe9-40f3-90bc-61b6ddf65650)" );
-                        break;
-                    }
-                    this.listBalloon_Normal.Add( n打数 );
-                }
+            if( strCommandName.Equals( "BALLOON" ) || strCommandName.Equals( "BALLOONNOR" ) )
+            {
+                ParseBalloon(strCommandParam, this.listBalloon_Normal);
             }
             else if( strCommandName.Equals( "BALLOONEXP" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (716b8dfd-9a54-4198-ae49-1789098ae74c)" );
-                        break;
-                    }
-                    this.listBalloon_Expert.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Expert);
                 //tbBALLOON.Text = strCommandParam;
             }
             else if( strCommandName.Equals( "BALLOONMAS" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (f27344ad-cca3-4799-9f94-2e6b36f32e8f)" );
-                        break;
-                    }
-                    this.listBalloon_Master.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Master);
                 //tbBALLOON.Text = strCommandParam;
             }
             else if( strCommandName.Equals( "SCOREMODE" ) )
             {
-                if( !string.IsNullOrEmpty( strCommandParam ) )
-                {
-                    this.nScoreModeTmp = Convert.ToInt16( strCommandParam );
-                }
+                ParseOptionalInt16(value => this.nScoreModeTmp = value);
             }
             else if( strCommandName.Equals( "SCOREINIT" ) )
             {
@@ -4273,21 +4195,29 @@ namespace DTXMania
                 {
                     string[] scoreinit = strCommandParam.Split(',');
 
-                    this.nScoreInit[ 0, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 0 ] );
-                    this.b配点が指定されている[ 0, this.n参照中の難易度 ] = true;
-                    if( scoreinit.Length == 2 ){
-                        this.nScoreInit[ 1, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 1 ] );
-                        this.b配点が指定されている[ 2, this.n参照中の難易度 ] = true;
+                    this.ParseOptionalInt16("SCOREINIT first value", scoreinit[0], value =>
+                    {
+                        this.nScoreInit[0, this.n参照中の難易度] = value;
+                        this.b配点が指定されている[0, this.n参照中の難易度] = true;
+                    });
+
+                    if( scoreinit.Length == 2 )
+                    {
+                        this.ParseOptionalInt16("SCOREINIT second value", scoreinit[1], value =>
+                        {
+                            this.nScoreInit[1, this.n参照中の難易度] = value;
+                            this.b配点が指定されている[2, this.n参照中の難易度] = true;
+                        });
                     }
                 }
             }
             else if( strCommandName.Equals( "SCOREDIFF" ) )
             {
-                if( !string.IsNullOrEmpty( strCommandParam ) )
+                ParseOptionalInt16(value =>
                 {
-                    this.nScoreDiff[ this.n参照中の難易度 ] = Convert.ToInt16( strCommandParam );
-                    this.b配点が指定されている[ 1, this.n参照中の難易度 ] = true;
-                }
+                    this.nScoreDiff[this.n参照中の難易度] = value;
+                    this.b配点が指定されている[1, this.n参照中の難易度] = true;
+                });
             }
 
             if( this.nScoreModeTmp == 99 ) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
@@ -4299,7 +4229,49 @@ namespace DTXMania
             //}
         }
 
-        private void t入力_行解析ヘッダ( string InputText )
+	    private void ParseOptionalInt16(string name, string unparsedValue, Action<short> setValue)
+	    {
+	        if (string.IsNullOrEmpty(unparsedValue))
+	        {
+	            return;
+	        }
+
+	        if (short.TryParse(unparsedValue, out var value))
+	        {
+	            setValue(value);
+	        }
+	        else
+	        {
+	            Trace.TraceWarning($"[i18n] Invalid {name} value detected: {unparsedValue} ({strファイル名の絶対パス})");
+	        }
+	    }
+
+	    private void ParseBalloon(string strCommandParam, List<int> listBalloon)
+	    {
+	        string[] strParam = strCommandParam.Split(',');
+	        for (int n = 0; n < strParam.Length; n++)
+	        {
+	            int n打数;
+	            try
+	            {
+	                if (strParam[n] == null || strParam[n] == "")
+	                    break;
+
+	                n打数 = Convert.ToInt32(strParam[n]);
+	            }
+	            catch (Exception ex)
+	            {
+	                Trace.TraceError($"おや?エラーが出たようです。お兄様。 ({strファイル名の絶対パス})");
+	                Trace.TraceError(ex.ToString());
+	                Trace.TraceError("例外が発生しましたが処理を継続します。 (95327158-4e83-4fa9-b5e9-ad3c3d4c2a22)");
+	                break;
+	            }
+
+	            listBalloon.Add(n打数);
+	        }
+	    }
+
+	    private void t入力_行解析ヘッダ( string InputText )
 		{
             //やべー。先頭にコメント行あったらやばいやん。
             string[] strArray = InputText.Split( new char[] { ':' } );
@@ -4344,6 +4316,11 @@ namespace DTXMania
                 //lblMessage.Text = "おや?strArrayのLengthが2じゃないようですね。お兄様。";
             }
 
+		    void ParseOptionalInt16(Action<short> setValue)
+		    {
+		        this.ParseOptionalInt16(strCommandName, strCommandParam, setValue);
+		    }
+
             //パラメータを分別、そこから割り当てていきます。
             if (strCommandName.Equals("TITLE"))
             {
@@ -4382,20 +4359,20 @@ namespace DTXMania
             }
             else if ( strCommandName.Equals( "LEVEL" ) )
             {
-                this.LEVEL.Drums = (int)Convert.ToDouble( strCommandParam );
-                this.LEVEL.Taiko = (int)Convert.ToDouble( strCommandParam );
-                this.LEVELtaiko[ this.n参照中の難易度 ] = (int)Convert.ToDouble( strCommandParam );
+                var level = (int)Convert.ToDouble( strCommandParam );
+                this.LEVEL.Drums = level;
+                this.LEVEL.Taiko = level;
+                this.LEVELtaiko[ this.n参照中の難易度 ] = level;
             }
             else if( strCommandName.Equals( "BPM" ) )
             {
                 if( strCommandParam.IndexOf( "," ) != -1 )
                     strCommandParam = strCommandParam.Replace( ',', '.' );
 
-                this.BPM = Convert.ToDouble( strCommandParam );
-                this.BASEBPM = Convert.ToDouble( strCommandParam );
-                this.dbNowBPM = Convert.ToDouble( strCommandParam );
-
                 double dbBPM = Convert.ToDouble( strCommandParam );
+                this.BPM = dbBPM;
+                this.BASEBPM = dbBPM;
+                this.dbNowBPM = dbBPM;
 
                 this.listBPM.Add( this.n内部番号BPM1to - 1, new CBPM() { n内部番号 = this.n内部番号BPM1to - 1, n表記上の番号 = this.n内部番号BPM1to - 1, dbBPM値 = dbBPM, } );
                 this.n内部番号BPM1to++;
@@ -4460,124 +4437,47 @@ namespace DTXMania
                 //tbOFFSET.Text = strCommandParam;
             }
             #region[移動→不具合が起こるのでここも一応復活させておく]
-            else if( strCommandName.Equals( "BALLOON" ) )
+            else if( strCommandName.Equals( "BALLOON" ) || strCommandName.Equals( "BALLOONNOR" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (34fa93e6-ed79-4ad2-bc69-8064ab9f9aa8)" );
-                        break;
-                    }
-                    this.listBalloon_Normal.Add( n打数 );
-                }
-            }
-            else if( strCommandName.Equals( "BALLOONNOR" ) )
-            {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (2b13e577-068e-4d09-bc09-41b004d9b804)" );
-                        break;
-                    }
-                    this.listBalloon_Normal.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Normal);
             }
             else if( strCommandName.Equals( "BALLOONEXP" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (6de3b837-490c-47e6-8633-ba8bef9e653e)" );
-                        break;
-                    }
-                    this.listBalloon_Expert.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Expert);
                 //tbBALLOON.Text = strCommandParam;
             }
             else if( strCommandName.Equals( "BALLOONMAS" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (0ee8406a-38c1-40aa-b8e9-9e6df74666e0)" );
-                        break;
-                    }
-                    this.listBalloon_Master.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Master);
                 //tbBALLOON.Text = strCommandParam;
             }
             else if( strCommandName.Equals( "SCOREMODE" ) )
-            {
-                if( !string.IsNullOrEmpty( strCommandParam ) )
-                {
-                    this.nScoreModeTmp = Convert.ToInt16( strCommandParam );
-                }
-            }
+		    {
+		        ParseOptionalInt16(value => this.nScoreModeTmp = value);
+		    }
             else if( strCommandName.Equals( "SCOREINIT" ) )
             {
                 if( !string.IsNullOrEmpty( strCommandParam ) )
                 {
                     string[] scoreinit = strCommandParam.Split(',');
 
-                    this.nScoreInit[ 0, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 0 ] );
+                    this.ParseOptionalInt16("SCOREINIT first value", scoreinit[0], value =>
+                    {
+                        this.nScoreInit[0, this.n参照中の難易度] = value;
+                    });
+
                     if( scoreinit.Length == 2 )
-                        this.nScoreInit[ 1, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 1 ] );
+                    {
+                        this.ParseOptionalInt16("SCOREINIT second value", scoreinit[1], value =>
+                        {
+                            this.nScoreInit[1, this.n参照中の難易度] = value;
+                        });
+                    }
                 }
             }
             else if( strCommandName.Equals( "SCOREDIFF" ) )
             {
-                if( !string.IsNullOrEmpty( strCommandParam ) )
-                {
-                    this.nScoreDiff[ this.n参照中の難易度 ] = Convert.ToInt16( strCommandParam );
-                }
+                ParseOptionalInt16(value => this.nScoreDiff[this.n参照中の難易度] = value);
             }
             #endregion
             else if( strCommandName.Equals( "SONGVOL" ) && !string.IsNullOrEmpty( strCommandParam ) )
