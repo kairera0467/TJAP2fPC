@@ -1594,10 +1594,9 @@ for (int i = 0; i < 3; i++) {
 				Trace.TraceError( "テクスチャの生成に失敗しました。({0})", fileName );
 				return null;
 			}
-			catch ( FileNotFoundException e )
+			catch ( FileNotFoundException )
 			{
-				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "テクスチャファイルが見つかりませんでした。({0})", fileName );
+				Trace.TraceWarning( "テクスチャファイルが見つかりませんでした。({0})", fileName );
 				return null;
 			}
 		}
