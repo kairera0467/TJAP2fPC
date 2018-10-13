@@ -4335,6 +4335,7 @@ namespace DTXMania
 
 
                 strArray = strArray[ 0 ].Split( new char[] { ':' } );
+                WarnSplitLength("Header Name & Value", strArray, 2);
 
                 strCommandName = strArray[0].Trim();
                 strCommandParam = strArray[1].Trim();
