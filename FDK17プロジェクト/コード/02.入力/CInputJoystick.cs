@@ -49,7 +49,7 @@ namespace FDK
 			catch( DirectInputException e )
 			{
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (5658360e-2745-4c5c-ab2d-ff82287d3e8a)" );
 			}
 
 			for( int i = 0; i < this.bButtonState.Length; i++ )

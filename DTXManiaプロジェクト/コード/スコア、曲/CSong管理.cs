@@ -720,7 +720,7 @@ namespace DTXMania
 										{
 											Trace.TraceError( "演奏記録ファイルの読み込みに失敗しました。({0})", strFileNameScoreIni );
 											Trace.TraceError( e.ToString() );
-											Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+											Trace.TraceError( "例外が発生しましたが処理を継続します。 (8ed7e0c4-4438-4e30-a8f1-6b718b150401)" );
 										}
 									}
 								}
@@ -934,7 +934,7 @@ namespace DTXMania
                             catch (Exception e)
                             {
                                 Trace.TraceError( e.ToString() );
-                                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                                Trace.TraceError( "例外が発生しましたが処理を継続します。 (c8b6538c-46a1-403e-8cc3-fc7e7ff914fb)" );
                             }
 
 							//-----------------
@@ -1148,7 +1148,7 @@ namespace DTXMania
 			{
 				Trace.TraceError( "songs.dbの出力に失敗しました。" );
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (ca70d133-f092-4351-8ebd-0906d8f1cffa)" );
 			}
 		}
 		private void tSongsDBにノードを１つ出力する( BinaryWriter bw, C曲リストノード node )
@@ -1765,7 +1765,7 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
             catch (Exception ex)
             {
                 Trace.TraceError(ex.ToString());
-                Trace.TraceError("例外が発生しましたが処理を継続します。");
+                Trace.TraceError("例外が発生しましたが処理を継続します。 (bca6dda7-76ad-42fc-a415-250f52c0b17d)");
             }
 
         }
@@ -1884,7 +1884,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 			{
 				Trace.TraceError( "演奏記録ファイルの読み込みに失敗しました。[{0}]", strScoreIniファイルパス );
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (801f823d-a952-4809-a1bb-cf6a56194f5c)" );
 			}
 		}
 		//-----------------

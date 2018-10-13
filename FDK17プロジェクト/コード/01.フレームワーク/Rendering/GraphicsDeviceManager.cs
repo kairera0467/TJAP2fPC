@@ -579,7 +579,7 @@ namespace SampleFramework
 			{
 				// 時々発生するのでキャッチしておく。
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (fc0b6e70-181e-410f-b47f-5490ca4ce0c3)" );
 			}
             Direct3D9Object.Dispose();
 

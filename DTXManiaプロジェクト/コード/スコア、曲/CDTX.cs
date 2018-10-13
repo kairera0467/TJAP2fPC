@@ -1915,7 +1915,7 @@ namespace DTXMania
                     //MessageBox.Show( "おや?エラーが出たようです。お兄様。" );
                     Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                     Trace.TraceError( ex.ToString() );
-                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。 (79ff8639-9b3c-477f-bc4a-f2eea9784860)" );
 				}
 			}
 		}
@@ -3158,7 +3158,7 @@ namespace DTXMania
                 catch( Exception ex )
                 {
                     Trace.TraceError( ex.ToString() );
-                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。 (9e401212-0b78-4073-88d0-f7e791f36a91)" );
                 }
 
                 //if( bLog && stream != null )
@@ -3215,7 +3215,7 @@ namespace DTXMania
                 catch( Exception ex )
                 {
                     Trace.TraceError( ex.ToString() );
-                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。 (2da1e880-6b63-4e82-b018-bf18c3568335)" );
                 }
                 //if( stream != null )
                 //{
@@ -4183,7 +4183,7 @@ namespace DTXMania
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (95327158-4e83-4fa9-b5e9-ad3c3d4c2a22)" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4206,7 +4206,7 @@ namespace DTXMania
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (2f09063c-bfe9-40f3-90bc-61b6ddf65650)" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4229,7 +4229,7 @@ namespace DTXMania
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (716b8dfd-9a54-4198-ae49-1789098ae74c)" );
                         break;
                     }
                     this.listBalloon_Expert.Add( n打数 );
@@ -4253,7 +4253,7 @@ namespace DTXMania
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (f27344ad-cca3-4799-9f94-2e6b36f32e8f)" );
                         break;
                     }
                     this.listBalloon_Master.Add( n打数 );
@@ -4477,7 +4477,7 @@ namespace DTXMania
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (34fa93e6-ed79-4ad2-bc69-8064ab9f9aa8)" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4500,7 +4500,7 @@ namespace DTXMania
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (2b13e577-068e-4d09-bc09-41b004d9b804)" );
                         break;
                     }
                     this.listBalloon_Normal.Add( n打数 );
@@ -4523,7 +4523,7 @@ namespace DTXMania
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (6de3b837-490c-47e6-8633-ba8bef9e653e)" );
                         break;
                     }
                     this.listBalloon_Expert.Add( n打数 );
@@ -4547,7 +4547,7 @@ namespace DTXMania
                     {
                         Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (0ee8406a-38c1-40aa-b8e9-9e6df74666e0)" );
                         break;
                     }
                     this.listBalloon_Master.Add( n打数 );
@@ -4849,7 +4849,7 @@ namespace DTXMania
             catch(Exception ex)
             {
                 Trace.TraceError( ex.ToString() );
-                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。 (b67473e4-1930-44f1-b320-4ead5786e74c)" );
             }
 
 
@@ -5972,7 +5972,7 @@ namespace DTXMania
                     catch( Exception ex )
                     {
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (1503896a-0dfb-4643-87f1-bd821a125137)" );
                     }
                 }
                 else

@@ -562,12 +562,12 @@ namespace SampleFramework
             catch (ArgumentNullException e)
             {
                 Trace.TraceError( e.ToString() );
-                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。 (6216f3e1-e1a5-45ca-bfd8-30bbc44bfa9a)" );
             }
             catch (UriFormatException e)
             {
                 Trace.TraceError( e.ToString() );
-                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。 (771f37b5-0b56-4a47-933e-3c178b3e27a7)" );
             }
 
             return DefaultTitle;
