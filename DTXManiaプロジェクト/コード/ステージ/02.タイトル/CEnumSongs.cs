@@ -664,10 +664,15 @@ namespace DTXMania
 		/// <param name="strPathSongList"></param>
 		private CSongs管理 Deserialize( string strPathSongList )
 		{
-			CSongs管理 songs管理 = null;
 			try
 			{
 				#region [ SongListDB(songlist.db)を読み込む ]
+
+			    if (!File.Exists(strPathSongList))
+			    {
+			        return null;
+			    }
+
 				//	byte[] buf = File.ReadAllBytes( SongListDBファイル名 );			// 一旦メモリにまとめ読みしてからdeserializeした方が高速かと思ったら全く変わらなかったので削除
 				//	using ( MemoryStream input = new MemoryStream(buf, false) )
 				using ( Stream input = File.OpenRead( strPathSongList ) )
@@ -675,7 +680,7 @@ namespace DTXMania
 					try
 					{
 						BinaryFormatter formatter = new BinaryFormatter();
-						songs管理 = (CSongs管理) formatter.Deserialize( input );
+						return (CSongs管理) formatter.Deserialize( input );
 					}
 					catch ( Exception e )
 					{
@@ -693,7 +698,7 @@ namespace DTXMania
 				Trace.TraceError( e.ToString() );
 				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
 			}
-			return songs管理;
+			return null;
 		}
 	}
 }
