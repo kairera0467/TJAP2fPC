@@ -121,7 +121,17 @@ namespace FDK
 
         private static LoudnessMetadata? LoadFromMetadataPath(string loudnessMetadataPath)
         {
-            var xPathDocument = new XPathDocument(loudnessMetadataPath);
+            XPathDocument xPathDocument;
+            try
+            {
+                xPathDocument = new XPathDocument(loudnessMetadataPath);
+            }
+            catch (IOException)
+            {
+                var tracePrefix = $"{nameof(LoudnessMetadataScanner)}.{nameof(LoadFromMetadataPath)}";
+                Trace.TraceWarning($"{tracePrefix}: Encountered IOException while attempting to read {loudnessMetadataPath}. This can occur when attempting to load while scanning the same file. Returning null...");
+                return null;
+            }
 
             var trackNavigator = xPathDocument.CreateNavigator()
                 .SelectSingleNode(@"//bs1770gain/album/track[@total=""1"" and @number=""1""]");
