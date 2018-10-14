@@ -65,15 +65,21 @@ namespace DTXMania
 			stqMenuTitle = new stQuickMenuItem();
 			stqMenuTitle.cItem = new CItemBase();
 			stqMenuTitle.cItem.str項目名 = title;
-			stqMenuTitle.txName = CDTXMania.tテクスチャの生成( prvFont.DrawPrivateFont( title, Color.White, Color.Black ), false );
-			stqMenuTitle.rectName = prvFont.RectStrings;
+		    using (var bitmap = prvFont.DrawPrivateFont( title, Color.White, Color.Black ))
+		    {
+		        stqMenuTitle.txName = CDTXMania.tテクスチャの生成( bitmap, false );
+		        stqMenuTitle.rectName = prvFont.RectStrings;
+		    }
 			lciMenuItems = new stQuickMenuItem[ menulist.Count ];
 			for (int i = 0; i < menulist.Count; i++ )
 			{
 				stQuickMenuItem stqm = new stQuickMenuItem();
 				stqm.cItem = menulist[ i ];
-				stqm.txName = CDTXMania.tテクスチャの生成( prvFont.DrawPrivateFont( menulist[ i ].str項目名, Color.White, Color.Black ), false );
-				stqm.rectName = prvFont.RectStrings;
+			    using (var bitmap = prvFont.DrawPrivateFont( menulist[ i ].str項目名, Color.White, Color.Black ))
+			    {
+			        stqm.txName = CDTXMania.tテクスチャの生成( bitmap, false );
+			        stqm.rectName = prvFont.RectStrings;
+			    }
 				lciMenuItems[ i ] = stqm;
 			}
 
@@ -375,12 +381,15 @@ namespace DTXMania
                                 break;
                         }
                         //font.t文字列描画( (int)(340 * Scale.X), (int)(80 + i * 32), s, bValueBold, 1.0f * Scale.Y);
-                        Bitmap bmpStr = bValueBold ?
+                        using (var bmpStr = bValueBold ?
                             prvFont.DrawPrivateFont(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed) :
-                            prvFont.DrawPrivateFont(s, Color.White, Color.Black);
-                        CTexture ctStr = CDTXMania.tテクスチャの生成(bmpStr, false);
-                        ctStr.t2D描画(CDTXMania.app.Device, 330, 77 + i * 32);
-                        CDTXMania.tテクスチャの解放(ref ctStr);
+                            prvFont.DrawPrivateFont(s, Color.White, Color.Black))
+                        {
+                            using (var ctStr = CDTXMania.tテクスチャの生成(bmpStr, false))
+                            {
+                                ctStr.t2D描画(CDTXMania.app.Device, 330, 77 + i * 32);
+                            }
+                        }
                     }
 				}
 				#endregion
