@@ -365,6 +365,7 @@ namespace FDK
 		{
             if( !File.Exists( filename ) )
             {
+                Trace.TraceWarning($"[i18n] File does not exist: {filename}");
                 return null;
             }
 
