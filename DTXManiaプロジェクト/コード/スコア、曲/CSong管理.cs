@@ -1286,7 +1286,11 @@ namespace DTXMania
 
 	    public void t曲リストのソート2_タイトル順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 	    {
-	        ノードリスト.Sort( new C曲リストノードComparerタイトル(order) );
+	        var comparer = new DelegatingComparerWithFallback<C曲リストノード>(
+	            new C曲リストノードComparerノード種別(),
+	            new C曲リストノードComparerタイトル(order));
+
+	        ノードリスト.Sort( comparer );
 	    }
 
 	    private sealed class C曲リストノードComparerタイトル : IComparer<C曲リストノード>
@@ -1300,15 +1304,6 @@ namespace DTXMania
 
 	        public int Compare(C曲リストノード n1, C曲リストノード n2)
 	        {
-	            if( n1 == n2 )
-	            {
-	                return 0;
-	            }
-	            int num = t比較0_共通( n1, n2 );
-	            if( num != 0 )
-	            {
-	                return num;
-	            }
 	            return _order * n1.strタイトル.CompareTo( n2.strタイトル );
 	        }
 	    }
