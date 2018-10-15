@@ -13,6 +13,7 @@ namespace DTXMania
 		public CActSortSongs()
 		{
 			List<CItemBase> lci = new List<CItemBase>();
+			lci.Add( new CItemList( "絶対パス",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
 			lci.Add( new CItemList( "曲名",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
             //lci.Add( new CItemList( "Level",		CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "99,98,97,...",	"1,2,3,..." } ) );
             //lci.Add( new CItemList( "Best Rank",	CItemBase.Eパネル種別.通常, 0, "", "", new string[] { "E,D,C,...",		"SS,S,A,..." } ) );
@@ -45,14 +46,19 @@ namespace DTXMania
 		{
 			nSortOrder *= 2;	// 0,1  => -1, 1
 			nSortOrder -= 1;
-			switch ( n現在の選択行 )
+			switch ( (EOrder)n現在の選択行 )
 			{
-				case (int) EOrder.Title:
+				case EOrder.Path:
+					this.act曲リスト.t曲リストのソート(
+						CDTXMania.Songs管理.t曲リストのソート1_絶対パス順, eInst, nSortOrder
+					);
+					this.act曲リスト.t選択曲が変更された(true);
+					break;
+				case EOrder.Title:
 					this.act曲リスト.t曲リストのソート(
 						CDTXMania.Songs管理.t曲リストのソート2_タイトル順, eInst, nSortOrder
 					);
 					this.act曲リスト.t選択曲が変更された(true);
-                    this.e現在のソート = EOrder.Title;
 					break;
                 //case (int) EOrder.Level:
                 //    this.act曲リスト.t曲リストのソート(
@@ -99,8 +105,7 @@ namespace DTXMania
 						break;
 #endif
                 //ジャンル順
-				//case (int) EOrder.Date:
-                case 1:
+				case EOrder.Genre:
 					this.act曲リスト.t曲リストのソート(
                         //CDTXMania.Songs管理.t曲リストのソート7_更新日時順, eInst, nSortOrder,
                         //this.act曲リスト.n現在のアンカ難易度レベル
@@ -108,10 +113,8 @@ namespace DTXMania
                         this.act曲リスト.n現在のアンカ難易度レベル
 					);
 					this.act曲リスト.t選択曲が変更された( true );
-                    this.e現在のソート = EOrder.Date;
 					break;
-				//case (int) EOrder.Return:
-                case 2:
+				case EOrder.Return:
 					this.tDeativatePopupMenu();
 					break;
 				default:
@@ -149,20 +152,15 @@ namespace DTXMania
 		//-----------------
 
 		private CActSelect曲リスト act曲リスト;
-        public EOrder e現在のソート;
 
-		public enum EOrder : int
+		private enum EOrder : int
 		{
-			Title = 0, Level, BestRank, PlayCount,
-			Author,
-			SkillPoint,
-#if TEST_SORTBGM
-			BPM,
-#endif
-			Date,
-			Return, END,
-			Default = 99
-		};
+            Path = 0,
+			Title = 1,
+		    Genre = 2,
+            Return = 3
+		}
+
 		//-----------------
 		#endregion
 	}

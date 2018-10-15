@@ -1495,7 +1495,7 @@ namespace DTXMania
 			tアイテム数の描画();
 			#endregion
 
-            if( ( ( this.e曲のバー種別を返す( this.r現在選択中の曲 ) ) == Eバー種別.Score && CDTXMania.stage選曲.actSortSongs.e現在のソート != CActSortSongs.EOrder.Title ) && this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) != 8 )
+            if( this.e曲のバー種別を返す( this.r現在選択中の曲 ) == Eバー種別.Score && this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) != 8 )
             {
                 if( CDTXMania.Tx.SongSelect_GenreText != null )
                     CDTXMania.Tx.SongSelect_GenreText.t2D描画( CDTXMania.app.Device, 496, CDTXMania.Skin.SongSelect_Overall_Y-64, new Rectangle( 0, 60 * this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ), 288, 60 ) );

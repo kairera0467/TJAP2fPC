@@ -306,21 +306,11 @@ namespace DTXMania
 
                 if( this.r現在選択中の曲 != null )
                 {
-                    if( CDTXMania.stage選曲.actSortSongs.e現在のソート != CActSortSongs.EOrder.Title )
+                    if (CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
                     {
-                        if (CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
-                        {
                         for( int i = 0 ; i <(1280 / CDTXMania.Tx.SongSelect_Background.szテクスチャサイズ.Width) + 2; i++ )
-                        if (CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
-                            CDTXMania.Tx.SongSelect_GenreBack[this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)].t2D描画(CDTXMania.app.Device, -ct背景スクロール用タイマー.n現在の値 + CDTXMania.Tx.SongSelect_Background.szテクスチャサイズ.Width * i , 0);
-                        }
-                    }
-                    else
-                    {
-                        //if( this.tx難易度別背景[ this.n現在選択中の曲の難易度 ] != null )
-                        //{
-                        //    this.tx難易度別背景[ this.n現在選択中の曲の難易度 ].t2D描画( CDTXMania.app.Device, 0, 0 );
-                        //}
+                            if (CDTXMania.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
+                                    CDTXMania.Tx.SongSelect_GenreBack[this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)].t2D描画(CDTXMania.app.Device, -ct背景スクロール用タイマー.n現在の値 + CDTXMania.Tx.SongSelect_Background.szテクスチャサイズ.Width * i , 0);
                     }
                 }
 

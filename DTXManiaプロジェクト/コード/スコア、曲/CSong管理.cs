@@ -1069,17 +1069,14 @@ namespace DTXMania
             if( CDTXMania.ConfigIni.nDefaultSongSort == 0 )
             {
 			    this.t曲リストのソート1_絶対パス順( ノードリスト );
-                CDTXMania.stage選曲.actSortSongs.e現在のソート = CActSortSongs.EOrder.Title;
             }
             else if( CDTXMania.ConfigIni.nDefaultSongSort == 1 )
             {
                 this.t曲リストのソート9_ジャンル順( ノードリスト, E楽器パート.TAIKO, 1, 0 );
-                CDTXMania.stage選曲.actSortSongs.e現在のソート = CActSortSongs.EOrder.Date;
             }
             else if( CDTXMania.ConfigIni.nDefaultSongSort == 2 )
             {
                 this.t曲リストのソート9_ジャンル順( ノードリスト, E楽器パート.TAIKO, 2, 0 );
-                CDTXMania.stage選曲.actSortSongs.e現在のソート = CActSortSongs.EOrder.Date;
             }
 			//-----------------------------
 			#endregion
@@ -1204,7 +1201,13 @@ namespace DTXMania
 		
 		#region [ 曲リストソート ]
 		//-----------------
-		public void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト )
+
+	    public void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト )
+	    {
+	        t曲リストのソート1_絶対パス順(ノードリスト, E楽器パート.TAIKO, 1, 0);
+	    }
+
+		public void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 		{
 			ノードリスト.Sort( delegate( C曲リストノード n1, C曲リストノード n2 )
 			{
@@ -1213,14 +1216,14 @@ namespace DTXMania
 				{
 					return 0;
 				}
-				int num = this.t比較0_共通( n1, n2 );
+				int num = t比較0_共通( n1, n2 );
 				if( num != 0 )
 				{
 					return num;
 				}
 				if( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
 				{
-					return n1.arスコア[ 0 ].ファイル情報.フォルダの絶対パス.CompareTo( n2.arスコア[ 0 ].ファイル情報.フォルダの絶対パス );
+					return order * n1.arスコア[ 0 ].ファイル情報.フォルダの絶対パス.CompareTo( n2.arスコア[ 0 ].ファイル情報.フォルダの絶対パス );
 				}
 				#endregion
 				string str = "";
@@ -1263,7 +1266,7 @@ namespace DTXMania
 				{
 					strB = n2.pathSetDefの絶対パス + n2.SetDefのブロック番号.ToString( "00" );
 				}
-				return str.CompareTo( strB );
+				return order * str.CompareTo( strB );
 			} );
 			foreach( C曲リストノード c曲リストノード in ノードリスト )
 			{
@@ -1281,10 +1284,10 @@ namespace DTXMania
 				{
 					return 0;
 				}
-				int num = this.t比較0_共通( n1, n2 );
+				int num = t比較0_共通( n1, n2 );
 				if( num != 0 )
 				{
-					return order * num;
+					return num;
 				}
 				return order * n1.strタイトル.CompareTo( n2.strタイトル );
 			} );
@@ -1315,10 +1318,10 @@ namespace DTXMania
 					{
 						return 0;
 					}
-					int num = this.t比較0_共通( n1, n2 );
+					int num = t比較0_共通( n1, n2 );
 					if( num != 0 )
 					{
-						return order * num;
+						return num;
 					}
 					if( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
 					{
@@ -1379,10 +1382,10 @@ namespace DTXMania
 					{
 						return 0;
 					}
-					int num = this.t比較0_共通( n1, n2 );
+					int num = t比較0_共通( n1, n2 );
 					if ( num != 0 )
 					{
-						return order * num;
+						return num;
 					}
 					if ( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
 					{
@@ -1429,10 +1432,10 @@ namespace DTXMania
 					{
 						return 0;
 					}
-					int num = this.t比較0_共通( n1, n2 );
+					int num = t比較0_共通( n1, n2 );
 					if ( num != 0 )
 					{
-						return order * num;
+						return num;
 					}
 					if ( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
 					{
@@ -1486,10 +1489,10 @@ namespace DTXMania
 					{
 						return 0;
 					}
-					int num = this.t比較0_共通( n1, n2 );
+					int num = t比較0_共通( n1, n2 );
 					if ( num != 0 )
 					{
-						return order * num;
+						return num;
 					}
 					if ( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
 					{
@@ -1535,10 +1538,10 @@ namespace DTXMania
 					{
 						return 0;
 					}
-					int num = this.t比較0_共通( n1, n2 );
+					int num = t比較0_共通( n1, n2 );
 					if ( num != 0 )
 					{
-						return order * num;
+						return num;
 					}
 					if ( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
 					{
@@ -1582,10 +1585,10 @@ namespace DTXMania
 				{
 					return 0;
 				}
-				int num = this.t比較0_共通( n1, n2 );
+				int num = t比較0_共通( n1, n2 );
 				if ( num != 0 )
 				{
-					return order * System.Math.Sign( num );
+					return num;
 				}
 				string strAuthorN1 = "";
 				string strAuthorN2 = "";
@@ -1633,10 +1636,10 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
                         {
                             return 0;
                         }
-                        int num = this.t比較0_共通(n1, n2);
+                        int num = t比較0_共通(n1, n2);
                         if (num != 0)
                         {
-                            return System.Math.Sign(num);
+                            return num;
                         }
                         string strAuthorN1 = "";
                         string strAuthorN2 = "";
@@ -1673,10 +1676,10 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
                         {
                             return 0;
                         }
-                        int num = this.t比較0_共通(n1, n2);
+                        int num = t比較0_共通(n1, n2);
                         if (num != 0)
                         {
-                            return System.Math.Sign(num);
+                            return num;
                         }
                         string strAuthorN1 = "";
                         string strAuthorN2 = "";
@@ -1741,7 +1744,7 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 					int num = this.t比較0_共通( n1, n2 );
 					if ( num != 0 )
 					{
-						return order * num;
+						return num;
 					}
 					if ( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
 					{
@@ -1928,33 +1931,29 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 		private const string SONGSDB_VERSION = "SongsDB4";
 		private List<string> listStrBoxDefSkinSubfolderFullName;
 
-		private int t比較0_共通( C曲リストノード n1, C曲リストノード n2 )
+		private static int t比較0_共通( C曲リストノード n1, C曲リストノード n2 )
 		{
-			if( n1.eノード種別 == C曲リストノード.Eノード種別.BACKBOX )
-			{
-				return -1;
-			}
-			if( n2.eノード種別 == C曲リストノード.Eノード種別.BACKBOX )
-			{
-				return 1;
-			}
-			if( n1.eノード種別 == C曲リストノード.Eノード種別.RANDOM )
-			{
-				return 1;
-			}
-			if( n2.eノード種別 == C曲リストノード.Eノード種別.RANDOM )
-			{
-				return -1;
-			}
-			if( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 != C曲リストノード.Eノード種別.BOX ) )
-			{
-				return -1;
-			}
-			if( ( n1.eノード種別 != C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
-			{
-				return 1;
-			}
-			return 0;
+		    int ToComparable(C曲リストノード c曲リストノード)
+		    {
+		        switch (c曲リストノード.eノード種別)
+		        {
+		            case C曲リストノード.Eノード種別.BOX:
+		                return 0;
+		            case C曲リストノード.Eノード種別.SCORE:
+		            case C曲リストノード.Eノード種別.SCORE_MIDI:
+		                return 1;
+		            case C曲リストノード.Eノード種別.UNKNOWN:
+		                return 2;
+		            case C曲リストノード.Eノード種別.RANDOM:
+		                return 3;
+		            case C曲リストノード.Eノード種別.BACKBOX:
+		                return 4;
+		            default:
+		                throw new ArgumentOutOfRangeException();
+		        }
+		    }
+
+		    return ToComparable(n1).CompareTo(ToComparable(n2));
 		}
 
 		/// <summary>
