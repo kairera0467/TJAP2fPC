@@ -130,7 +130,6 @@
     <Compile Include="コード\スコア、曲\CDTXCompanionFileFinder.cs" />
     <Compile Include="コード\スコア、曲\CDTXStyleExtractor.cs" />
     <Compile Include="コード\スコア、曲\CScoreIni.cs" />
-    <Compile Include="コード\スコア、曲\CSetDef.cs" />
     <Compile Include="コード\ステージ\01.起動\TextureLoader.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CActScanningLoudness.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CEnumSongs.cs" />

@@ -140,21 +140,12 @@ namespace DTXMania
 				if( c曲リストノード != null && cスコア != null && c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE )
 				{
 					string str選択曲ファイル名 = cスコア.ファイル情報.ファイルの絶対パス;
-					CSetDef setDef = null;
-					int nブロック番号inSetDef = -1;
-					int n曲番号inブロック = -1;
-
-					if( !string.IsNullOrEmpty( c曲リストノード.pathSetDefの絶対パス ) && File.Exists( c曲リストノード.pathSetDefの絶対パス ) )
-					{
-						setDef = new CSetDef( c曲リストノード.pathSetDefの絶対パス );
-						nブロック番号inSetDef = c曲リストノード.SetDefのブロック番号;
-						n曲番号inブロック = CDTXMania.stage選曲.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( c曲リストノード );
-					}
+				    int n曲番号inブロック = CDTXMania.stage選曲.act曲リスト.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( c曲リストノード );
 
 					foreach( CDTXMania.STPlugin stPlugin in CDTXMania.app.listプラグイン )
 					{
 						Directory.SetCurrentDirectory( stPlugin.strプラグインフォルダ );
-						stPlugin.plugin.On選択曲変更( str選択曲ファイル名, setDef, nブロック番号inSetDef, n曲番号inブロック );
+						stPlugin.plugin.On選択曲変更( str選択曲ファイル名, n曲番号inブロック );
 						Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
 					}
 				}

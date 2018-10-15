@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DTXMania
 {
@@ -48,9 +46,7 @@ namespace DTXMania
 		public int nPerfect範囲ms = -1;
 		public int nPoor範囲ms = -1;
 		public int nスコア数;
-		public string pathSetDefの絶対パス = "";
 		public C曲リストノード r親ノード;
-		public int SetDefのブロック番号;
 		public Stack<int> stackランダム演奏番号 = new Stack<int>();
 		public string strジャンル = "";
 		public string strタイトル = "";

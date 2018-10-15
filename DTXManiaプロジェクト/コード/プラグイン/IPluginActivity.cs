@@ -70,11 +70,8 @@ namespace DTXMania
 		/// <para>ただし、選択が曲でない（BOX, BACK, RANDOM など）場合には呼び出されません。</para>
 		/// </summary>
 		/// <param name="str選択曲ファイル名">選択されている曲のファイルの名前。絶対パス。</param>
-		/// <param name="setDef">選択されている曲の set.def の情報。set.def が存在しなければ null を渡します。</param>
-		/// <param name="nブロック番号inSetDef">選択されている曲のset.defブロック番号(0～)。setDef.blocks[]の引数です。set.def が存在しなければ負数を渡します。</param>
-		/// <param name="n曲番号inブロック">選択されている曲のブロック内の曲番号(0～4)。setDef.blocks[nブロック番号inSetDef].File[]/Label[]の引数です。set.def が存在しなければ負数を渡します。
-		/// この番号は、選曲画面でプレイヤーが目にしているレベル（L1～L5）に常に対応するとは限りません。</param>
-		void On選択曲変更( string str選択曲ファイル名, DTXMania.CSetDef setDef, int nブロック番号inSetDef, int n曲番号inブロック );
+		/// <param name="n曲番号inブロック">選択されている曲のブロック内の曲番号(0～4)。</param>
+		void On選択曲変更( string str選択曲ファイル名, int n曲番号inブロック );
 
 		void On演奏クリア( DTXMania.CScoreIni scoreIni );
 		void On演奏失敗( DTXMania.CScoreIni scoreIni );

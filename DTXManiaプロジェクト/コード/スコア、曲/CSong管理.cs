@@ -1246,46 +1246,23 @@ namespace DTXMania
 	                return _order * n1.arスコア[ 0 ].ファイル情報.フォルダの絶対パス.CompareTo( n2.arスコア[ 0 ].ファイル情報.フォルダの絶対パス );
 	            }
 	            #endregion
-	            string str = "";
-	            if( string.IsNullOrEmpty( n1.pathSetDefの絶対パス ) )
+
+	            string ファイルの絶対パス(C曲リストノード c曲リストノード)
 	            {
-	                for( int i = 0; i < 5; i++ )
+	                for (int i = 0; i < 5; i++)
 	                {
-	                    if( n1.arスコア[ i ] != null )
+	                    if (c曲リストノード.arスコア[i] != null)
 	                    {
-	                        str = n1.arスコア[ i ].ファイル情報.ファイルの絶対パス;
-	                        if( str == null )
-	                        {
-	                            str = "";
-	                        }
-	                        break;
+	                        return c曲リストノード.arスコア[i].ファイル情報.ファイルの絶対パス ?? "";
 	                    }
 	                }
+
+	                return "";
 	            }
-	            else
-	            {
-	                str = n1.pathSetDefの絶対パス + n1.SetDefのブロック番号.ToString( "00" );
-	            }
-	            string strB = "";
-	            if( string.IsNullOrEmpty( n2.pathSetDefの絶対パス ) )
-	            {
-	                for( int j = 0; j < 5; j++ )
-	                {
-	                    if( n2.arスコア[ j ] != null )
-	                    {
-	                        strB = n2.arスコア[ j ].ファイル情報.ファイルの絶対パス;
-	                        if( strB == null )
-	                        {
-	                            strB = "";
-	                        }
-	                        break;
-	                    }
-	                }
-	            }
-	            else
-	            {
-	                strB = n2.pathSetDefの絶対パス + n2.SetDefのブロック番号.ToString( "00" );
-	            }
+
+	            var str = ファイルの絶対パス(n1);
+	            var strB = ファイルの絶対パス(n2);
+
 	            return _order * str.CompareTo( strB );
 	        }
 	    }
@@ -1658,8 +1635,6 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	            {
 	                return num;
 	            }
-	            string strAuthorN1 = "";
-	            string strAuthorN2 = "";
 	            int nGenreN1 = 8;
 	            int nGenreN2 = 8;
 
@@ -1667,12 +1642,10 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	            if (n1 != null)
 	            {
 	                nGenreN1 = nStrジャンルtoNum(n1.strジャンル);
-	                //strAuthorN1 = n1.arスコア[nL12345].譜面情報.ジャンル;
 	            }
 	            if (n2 != null)
 	            {
 	                nGenreN2 = nStrジャンルtoNum(n2.strジャンル);
-	                //strAuthorN2 = n2.arスコア[nL12345].譜面情報.ジャンル;
 	            }
 	            num = nGenreN1 - nGenreN2;
 	            if (num != 0)
@@ -1680,9 +1653,7 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	                return num;
 	            }
 
-	            return n1.strタイトル.CompareTo(n2.pathSetDefの絶対パス); //ジャンルが同じなら曲名で比較
-	            //return order * nGenreN1.CompareTo( nGenreN2 );
-	            //return order * n1.strジャンル.CompareTo( n2.strジャンル ); //単純なジャンル名によるソート
+	            return n1.strタイトル.CompareTo(n2.strタイトル); // JDG FALLBACK GOES HERE
 	        }
 	    }
 
@@ -1699,8 +1670,6 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	            {
 	                return num;
 	            }
-	            string strAuthorN1 = "";
-	            string strAuthorN2 = "";
 	            int nGenreN1 = 8;
 	            int nGenreN2 = 8;
 
@@ -1708,12 +1677,10 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	            if (n1 != null)
 	            {
 	                nGenreN1 = nStrジャンルtoNum_AC15(n1.strジャンル);
-	                //strAuthorN1 = n1.arスコア[nL12345].譜面情報.ジャンル;
 	            }
 	            if (n2 != null)
 	            {
 	                nGenreN2 = nStrジャンルtoNum_AC15(n2.strジャンル);
-	                //strAuthorN2 = n2.arスコア[nL12345].譜面情報.ジャンル;
 	            }
 	            num = nGenreN1 - nGenreN2;
 	            if (num != 0)
@@ -1721,9 +1688,7 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	                return num;
 	            }
 
-	            return n1.pathSetDefの絶対パス.CompareTo(n2.strタイトル); //ジャンルが同じなら曲名で比較
-	            //return order * nGenreN1.CompareTo( nGenreN2 );
-	            //return order * n1.strジャンル.CompareTo( n2.strジャンル ); //単純なジャンル名によるソート
+	            return n1.strタイトル.CompareTo(n2.strタイトル); // JDG FALLBACK GOES HERE
 	        }
 	    }
 
@@ -1928,7 +1893,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 
 		#region [ private ]
 		//-----------------
-		private const string SONGSDB_VERSION = "SongsDB4";
+		private const string SONGSDB_VERSION = "SongsDB5";
 		private List<string> listStrBoxDefSkinSubfolderFullName;
 
 		private static int t比較0_共通( C曲リストノード n1, C曲リストノード n2 )

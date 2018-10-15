@@ -481,12 +481,7 @@ namespace DTXMania
 //					{
 //					}
 //				}
-//				string strSetDefDifficulty = CDTXMania.stage選曲.r確定された曲.ar難易度ラベル[ CDTXMania.stage選曲.n確定された曲の難易度 ];
-//				if ( strSetDefDifficulty != null )
-//				{
-//					strSetDefDifficulty = "(" + strSetDefDifficulty + ")";
-//				}
-//				string strFullPath = strSavePath + "\\" + CDTXMania.DTX.TITLE + strSetDefDifficulty +
+//				string strFullPath = strSavePath + "\\" + CDTXMania.DTX.TITLE +
 //					"." + datetime + "_" + strRank + ".png";
 //				// Surface.ToFile( pSurface, strFullPath, ImageFileFormat.Png );
 //				CDTXMania.app.SaveResultScreen( strFullPath );
