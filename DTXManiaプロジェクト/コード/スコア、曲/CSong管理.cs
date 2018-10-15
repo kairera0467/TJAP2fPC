@@ -1896,29 +1896,37 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 		private const string SONGSDB_VERSION = "SongsDB5";
 		private List<string> listStrBoxDefSkinSubfolderFullName;
 
+	    private sealed class C曲リストノードComparerノード種別 : IComparer<C曲リストノード>
+	    {
+	        private static int ToComparable(C曲リストノード c曲リストノード)
+	        {
+	            switch (c曲リストノード.eノード種別)
+	            {
+	                case C曲リストノード.Eノード種別.BOX:
+	                    return 0;
+	                case C曲リストノード.Eノード種別.SCORE:
+	                case C曲リストノード.Eノード種別.SCORE_MIDI:
+	                    return 1;
+	                case C曲リストノード.Eノード種別.UNKNOWN:
+	                    return 2;
+	                case C曲リストノード.Eノード種別.RANDOM:
+	                    return 3;
+	                case C曲リストノード.Eノード種別.BACKBOX:
+	                    return 4;
+	                default:
+	                    throw new ArgumentOutOfRangeException();
+	            }
+	        }
+
+	        public int Compare(C曲リストノード x, C曲リストノード y)
+	        {
+	            return ToComparable(x).CompareTo(ToComparable(y));
+	        }
+	    }
+
 		private static int t比較0_共通( C曲リストノード n1, C曲リストノード n2 )
 		{
-		    int ToComparable(C曲リストノード c曲リストノード)
-		    {
-		        switch (c曲リストノード.eノード種別)
-		        {
-		            case C曲リストノード.Eノード種別.BOX:
-		                return 0;
-		            case C曲リストノード.Eノード種別.SCORE:
-		            case C曲リストノード.Eノード種別.SCORE_MIDI:
-		                return 1;
-		            case C曲リストノード.Eノード種別.UNKNOWN:
-		                return 2;
-		            case C曲リストノード.Eノード種別.RANDOM:
-		                return 3;
-		            case C曲リストノード.Eノード種別.BACKBOX:
-		                return 4;
-		            default:
-		                throw new ArgumentOutOfRangeException();
-		        }
-		    }
-
-		    return ToComparable(n1).CompareTo(ToComparable(n2));
+		    return new C曲リストノードComparerノード種別().Compare(n1, n2);
 		}
 
 		/// <summary>
