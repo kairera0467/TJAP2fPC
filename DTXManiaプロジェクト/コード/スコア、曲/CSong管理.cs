@@ -1219,7 +1219,8 @@ namespace DTXMania
 	    {
             var comparer = new ComparerChain<C曲リストノード>(
                 new C曲リストノードComparerノード種別(),
-                new C曲リストノードComparer絶対パス(order));
+                new C曲リストノードComparer絶対パス(order),
+                new C曲リストノードComparerタイトル(order));
 
 	        ノードリスト.Sort( comparer );
 	    }
@@ -1294,7 +1295,9 @@ namespace DTXMania
 	    {
 	        var comparer = new ComparerChain<C曲リストノード>(
 	            new C曲リストノードComparerノード種別(),
-	            new C曲リストノードComparerタイトル(order));
+	            new C曲リストノードComparerタイトル(order),
+	            new C曲リストノードComparer絶対パス(order)
+	            );
 
 	        ノードリスト.Sort( comparer );
 	    }
@@ -1574,7 +1577,10 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	            {
 	                var comparer = new ComparerChain<C曲リストノード>(
 	                    new C曲リストノードComparerノード種別(),
-	                    new C曲リストノードComparerAC8_14());
+	                    new C曲リストノードComparerAC8_14(),
+	                    new C曲リストノードComparer絶対パス(1),
+	                    new C曲リストノードComparerタイトル(1)
+	                    );
 
 	                ノードリスト.Sort( comparer );
 	            }
@@ -1582,7 +1588,10 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	            {
 	                var comparer = new ComparerChain<C曲リストノード>(
 	                    new C曲リストノードComparerノード種別(),
-	                    new C曲リストノードComparerAC15());
+	                    new C曲リストノードComparerAC15(),
+	                    new C曲リストノードComparer絶対パス(1),
+	                    new C曲リストノードComparerタイトル(1)
+	                    );
 
 	                ノードリスト.Sort( comparer );
 	            }
@@ -1594,55 +1603,19 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	        }
 	    }
 
-        private class C曲リストノードComparerAC8_14 : IComparer<C曲リストノード>
+        private sealed class C曲リストノードComparerAC8_14 : IComparer<C曲リストノード>
 	    {
 	        public int Compare(C曲リストノード n1, C曲リストノード n2)
 	        {
-	            int nGenreN1 = 8;
-	            int nGenreN2 = 8;
-
-
-	            if (n1 != null)
-	            {
-	                nGenreN1 = nStrジャンルtoNum(n1.strジャンル);
-	            }
-	            if (n2 != null)
-	            {
-	                nGenreN2 = nStrジャンルtoNum(n2.strジャンル);
-	            }
-	            var num = nGenreN1 - nGenreN2; // JDG Replace this with standard comparison when you deal with the fallback
-	            if (num != 0)
-	            {
-	                return num;
-	            }
-
-	            return n1.strタイトル.CompareTo(n2.strタイトル); // JDG FALLBACK GOES HERE
+	            return nStrジャンルtoNum(n1.strジャンル).CompareTo(nStrジャンルtoNum(n2.strジャンル));
 	        }
 	    }
 
-        private class C曲リストノードComparerAC15 : IComparer<C曲リストノード>
+        private sealed class C曲リストノードComparerAC15 : IComparer<C曲リストノード>
 	    {
 	        public int Compare(C曲リストノード n1, C曲リストノード n2)
 	        {
-	            int nGenreN1 = 8;
-	            int nGenreN2 = 8;
-
-
-	            if (n1 != null)
-	            {
-	                nGenreN1 = nStrジャンルtoNum_AC15(n1.strジャンル);
-	            }
-	            if (n2 != null)
-	            {
-	                nGenreN2 = nStrジャンルtoNum_AC15(n2.strジャンル);
-	            }
-	            var num = nGenreN1 - nGenreN2; // JDG Replace this with standard comparison when you deal with the fallback
-	            if (num != 0)
-	            {
-	                return num;
-	            }
-
-	            return n1.strタイトル.CompareTo(n2.strタイトル); // JDG FALLBACK GOES HERE
+	            return nStrジャンルtoNum_AC15(n1.strジャンル).CompareTo(nStrジャンルtoNum_AC15(n2.strジャンル));
 	        }
 	    }
 
