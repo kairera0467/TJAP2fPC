@@ -677,52 +677,6 @@ namespace DTXMania
 										Trace.TraceInformation( "songs.db から転記しました。({0})", node.arスコア[ lv ].ファイル情報.ファイルの絶対パス );
 									}
 									this.nスコアキャッシュから反映できたスコア数++;
-									if( node.arスコア[ lv ].ScoreIni情報.最終更新日時 != this.listSongsDB[ nMatched ].ScoreIni情報.最終更新日時 )
-									{
-										string strFileNameScoreIni = node.arスコア[ lv ].ファイル情報.ファイルの絶対パス + ".score.ini";
-										try
-										{
-											CScoreIni scoreIni = new CScoreIni( strFileNameScoreIni );
-											scoreIni.t全演奏記録セクションの整合性をチェックし不整合があればリセットする();
-											for( int i = 0; i < 3; i++ )
-											{
-												int nSectionHiSkill = ( i * 2 ) + 1;
-												if(    scoreIni.stセクション[ nSectionHiSkill ].b演奏にMIDI入力を使用した
-													|| scoreIni.stセクション[ nSectionHiSkill ].b演奏にキーボードを使用した
-													|| scoreIni.stセクション[ nSectionHiSkill ].b演奏にジョイパッドを使用した
-													|| scoreIni.stセクション[ nSectionHiSkill ].b演奏にマウスを使用した )
-												{
-													node.arスコア[ lv ].譜面情報.最大ランク[ i ] = 
-														(scoreIni.stファイル.BestRank[i] != (int)CScoreIni.ERANK.UNKNOWN)?
-														(int)scoreIni.stファイル.BestRank[i] : CScoreIni.tランク値を計算して返す( scoreIni.stセクション[ nSectionHiSkill ] );
-												}
-												else
-												{
-													node.arスコア[ lv ].譜面情報.最大ランク[ i ] = (int)CScoreIni.ERANK.UNKNOWN;
-												}
-												node.arスコア[ lv ].譜面情報.最大スキル[ i ] = scoreIni.stセクション[ nSectionHiSkill ].db演奏型スキル値;
-												node.arスコア[ lv ].譜面情報.フルコンボ[ i ] = scoreIni.stセクション[ nSectionHiSkill ].bフルコンボである;
-                                                node.arスコア[ lv ].譜面情報.ハイスコア = (int)scoreIni.stセクション.HiScoreDrums.nスコア;
-											}
-											node.arスコア[ lv ].譜面情報.演奏回数.Drums = scoreIni.stファイル.PlayCountDrums;
-											node.arスコア[ lv ].譜面情報.演奏回数.Guitar = scoreIni.stファイル.PlayCountGuitar;
-											node.arスコア[ lv ].譜面情報.演奏回数.Bass = scoreIni.stファイル.PlayCountBass;
-											for( int j = 0; j < 5; j++ )
-											{
-												node.arスコア[ lv ].譜面情報.演奏履歴[ j ] = scoreIni.stファイル.History[ j ];
-											}
-											if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
-											{
-												Trace.TraceInformation( "演奏記録ファイルから HiSkill 情報と演奏履歴を取得しました。({0})", strFileNameScoreIni );
-											}
-										}
-										catch (Exception e)
-										{
-											Trace.TraceError( "演奏記録ファイルの読み込みに失敗しました。({0})", strFileNameScoreIni );
-											Trace.TraceError( e.ToString() );
-											Trace.TraceError( "例外が発生しましたが処理を継続します。 (8ed7e0c4-4438-4e30-a8f1-6b718b150401)" );
-										}
-									}
 								}
 							}
 						}
