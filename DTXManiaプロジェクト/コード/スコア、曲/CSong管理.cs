@@ -1217,22 +1217,20 @@ namespace DTXMania
 
 	    public void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 	    {
-            var comparer = new DelegatingComparerWithFallback<C曲リストノード>(
+            var comparer = new ComparerChain<C曲リストノード>(
                 new C曲リストノードComparerノード種別(),
                 new C曲リストノードComparer絶対パス(order));
 
 	        ノードリスト.Sort( comparer );
 	    }
 
-	    private sealed class DelegatingComparerWithFallback<T> : IComparer<T> where T : class
+	    private sealed class ComparerChain<T> : IComparer<T> where T : class
 	    {
-	        private readonly IComparer<T> _primaryComparer;
-	        private readonly IComparer<T> _secondaryComparer;
+	        private readonly IComparer<T>[] _comparers;
 
-	        public DelegatingComparerWithFallback(IComparer<T> primaryComparer, IComparer<T> secondaryComparer)
+	        public ComparerChain(params IComparer<T>[] comparers)
 	        {
-	            _primaryComparer = primaryComparer;
-	            _secondaryComparer = secondaryComparer;
+	            _comparers = comparers;
 	        }
 
 	        public int Compare(T x, T y)
@@ -1242,9 +1240,17 @@ namespace DTXMania
                     return 0;
 	            }
 
-	            var result = _primaryComparer.Compare(x, y);
+	            for (int i = 0; i < _comparers.Length; i++)
+	            {
+	                var result = _comparers[i].Compare(x, y);
 
-	            return result != 0 ? result : _secondaryComparer.Compare(x, y);
+	                if (result != 0)
+	                {
+	                    return result;
+	                }
+	            }
+
+	            return 0;
 	        }
 	    }
 
@@ -1286,7 +1292,7 @@ namespace DTXMania
 
 	    public void t曲リストのソート2_タイトル順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 	    {
-	        var comparer = new DelegatingComparerWithFallback<C曲リストノード>(
+	        var comparer = new ComparerChain<C曲リストノード>(
 	            new C曲リストノードComparerノード種別(),
 	            new C曲リストノードComparerタイトル(order));
 
@@ -1566,7 +1572,7 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	        {
 	            if (order == 1)
 	            {
-	                var comparer = new DelegatingComparerWithFallback<C曲リストノード>(
+	                var comparer = new ComparerChain<C曲リストノード>(
 	                    new C曲リストノードComparerノード種別(),
 	                    new C曲リストノードComparerAC8_14());
 
@@ -1574,7 +1580,7 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	            }
 	            else
 	            {
-	                var comparer = new DelegatingComparerWithFallback<C曲リストノード>(
+	                var comparer = new ComparerChain<C曲リストノード>(
 	                    new C曲リストノードComparerノード種別(),
 	                    new C曲リストノードComparerAC15());
 
