@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Diagnostics;
 using FDK;
-using SlimDX.Direct3D9;
 
 namespace DTXMania
 {
