@@ -1217,7 +1217,35 @@ namespace DTXMania
 
 	    public void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 	    {
-	        ノードリスト.Sort( new C曲リストノードComparer絶対パス(order) );
+            var comparer = new DelegatingComparerWithFallback<C曲リストノード>(
+                new C曲リストノードComparerノード種別(),
+                new C曲リストノードComparer絶対パス(order));
+
+	        ノードリスト.Sort( comparer );
+	    }
+
+	    private sealed class DelegatingComparerWithFallback<T> : IComparer<T> where T : class
+	    {
+	        private readonly IComparer<T> _primaryComparer;
+	        private readonly IComparer<T> _secondaryComparer;
+
+	        public DelegatingComparerWithFallback(IComparer<T> primaryComparer, IComparer<T> secondaryComparer)
+	        {
+	            _primaryComparer = primaryComparer;
+	            _secondaryComparer = secondaryComparer;
+	        }
+
+	        public int Compare(T x, T y)
+	        {
+	            if (ReferenceEquals(x, y))
+	            {
+                    return 0;
+	            }
+
+	            var result = _primaryComparer.Compare(x, y);
+
+	            return result != 0 ? result : _secondaryComparer.Compare(x, y);
+	        }
 	    }
 
 	    private sealed class C曲リストノードComparer絶対パス : IComparer<C曲リストノード>
@@ -1231,21 +1259,10 @@ namespace DTXMania
 
 	        public int Compare(C曲リストノード n1, C曲リストノード n2)
 	        {
-	            #region [ 共通処理 ]
-	            if ( n1 == n2 )
-	            {
-	                return 0;
-	            }
-	            int num = t比較0_共通( n1, n2 );
-	            if( num != 0 )
-	            {
-	                return num;
-	            }
 	            if( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
 	            {
 	                return _order * n1.arスコア[ 0 ].ファイル情報.フォルダの絶対パス.CompareTo( n2.arスコア[ 0 ].ファイル情報.フォルダの絶対パス );
 	            }
-	            #endregion
 
 	            string ファイルの絶対パス(C曲リストノード c曲リストノード)
 	            {
