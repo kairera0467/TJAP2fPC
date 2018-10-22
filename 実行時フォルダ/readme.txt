@@ -256,11 +256,14 @@ TJAPlayer2の名前を使わせていただいていますが、ただメソッ�
 ○スペシャルサンクス
 FROM氏(DTXMania原作、StrokeStyle<T>原作)
 yyagi氏(DTXMania保守開発)
+VIL.氏(tjfフォーマット考案、太鼓さん太郎 原作)
+toach氏(tjaフォーマット考案、太鼓さん次郎 原作)
 DD氏(一部処理の改良)
-TJAPスレ5thの650氏(TJAP2原作)
+TJAPスレ5thの650氏(TJAPlayer2原作)
 メロディー氏(タイトル画面の背景画像)
 Music Revolver 76573氏(クリア時のモーション画像提供)
 AioiLight氏(派生版TJAP3制作。メモリリークの原因究明)
+ろみゅ～？氏(派生版TJAP3制作メンバー)
 譜面Wikiにてゲージの上昇率を検証、計算式を算出された方
 バグ報告をしてくださる方々
 
