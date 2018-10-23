@@ -422,7 +422,6 @@ namespace DTXMania
 					return true;
 				}
 			}
-			public bool bIsAutoPlayed;							// 2011.6.10 yyagi
 			public bool b演奏終了後も再生が続くチップである;	// #32248 2013.10.14 yyagi
             public CCounter RollDelay; // 18.9.22 AioiLight Add 連打時に赤くなるやつのタイマー
             public CCounter RollInputTime; // 18.9.22 AioiLight Add  連打入力後、RollDelayが作動するまでのタイマー
@@ -452,7 +451,6 @@ namespace DTXMania
                 this.nノーツ終了時刻ms = 0;
                 this.n描画優先度 = 0;
                 this.nLag = -999;
-				this.bIsAutoPlayed = false;
 				this.b演奏終了後も再生が続くチップである = false;
                 this.nList上の位置 = 0;
                 this.dbチップサイズ倍率 = 1.0;
