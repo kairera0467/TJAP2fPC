@@ -5,12 +5,9 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
 using System.IO;
-using System.Security.Cryptography;
-using System.Reflection;
 using System.Globalization;
 using System.Threading;
 using System.Text.RegularExpressions;
-//using System.Windows.Forms;
 using FDK;
 using FDK.ExtensionMethods;
 
@@ -1290,7 +1287,6 @@ namespace DTXMania
 			this.LEVEL = stdgbvalue;
             this.bHIDDENBRANCH = false;
 			this.db再生速度 = 1.0;
-			this.strハッシュofDTXファイル = "";
 			this.bチップがある = new STチップがある();
 			this.bチップがある.Drums = false;
 			this.bチップがある.Guitar = false;
@@ -4418,30 +4414,37 @@ namespace DTXMania
             }
             else if( strCommandName.Equals( "WAVE" ) )
             {
-                this.strBGM_PATH = strCommandParam;
-                //tbWave.Text = strCommandParam;
-                if( this.listWAV != null )
+                if (strBGM_PATH != null)
                 {
-                    // 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
-                    //                           TJAP3 is either launching, enumerating songs, or is about to
-                    //                           begin playing a song. If metadata is available, we want it now.
-                    //                           If is not yet available then we wish to queue scanning.
-                    var absoluteBgmPath = Path.Combine(this.strフォルダ名, this.strBGM_PATH);
-                    this.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(absoluteBgmPath);
+                    Trace.TraceWarning($"{nameof(CDTX)} is ignoring an extra WAVE header in {this.strファイル名の絶対パス}");
+                }
+                else
+                {
+                    this.strBGM_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, strCommandParam);
+                    //tbWave.Text = strCommandParam;
+                    if( this.listWAV != null )
+                    {
+                        // 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
+                        //                           TJAP3 is either launching, enumerating songs, or is about to
+                        //                           begin playing a song. If metadata is available, we want it now.
+                        //                           If is not yet available then we wish to queue scanning.
+                        var absoluteBgmPath = Path.Combine(this.strフォルダ名, this.strBGM_PATH);
+                        this.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(absoluteBgmPath);
 
-                    var wav = new CWAV() {
-				        n内部番号 = this.n内部番号WAV1to,
-				        n表記上の番号 = 1,
-			    	    nチップサイズ = this.n無限管理SIZE[ this.n内部番号WAV1to ],
-		        		n位置 = this.n無限管理PAN[ this.n内部番号WAV1to ],
-	        			SongVol = this.SongVol,
-                        SongLoudnessMetadata = this.SongLoudnessMetadata,
-        				strファイル名 = this.strBGM_PATH,
-    				    strコメント文 = "TJA BGM",
-                    };
+                        var wav = new CWAV() {
+                            n内部番号 = this.n内部番号WAV1to,
+                            n表記上の番号 = 1,
+                            nチップサイズ = this.n無限管理SIZE[ this.n内部番号WAV1to ],
+                            n位置 = this.n無限管理PAN[ this.n内部番号WAV1to ],
+                            SongVol = this.SongVol,
+                            SongLoudnessMetadata = this.SongLoudnessMetadata,
+                            strファイル名 = this.strBGM_PATH,
+                            strコメント文 = "TJA BGM",
+                        };
 
-                    this.listWAV.Add( this.n内部番号WAV1to, wav );
-                    this.n内部番号WAV1to++;
+                        this.listWAV.Add( this.n内部番号WAV1to, wav );
+                        this.n内部番号WAV1to++;
+                    }
                 }
             }
             else if( strCommandName.Equals( "OFFSET" ) && !string.IsNullOrEmpty( strCommandParam ) )
@@ -4671,7 +4674,8 @@ namespace DTXMania
 
                 if( !string.IsNullOrEmpty( strCommandParam ) )
                 {
-                    this.strBGVIDEO_PATH = strCommandParam;
+                    this.strBGVIDEO_PATH =
+                        CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, strCommandParam);
                 }
 
                 var avi = new CAVI()
