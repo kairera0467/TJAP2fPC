@@ -2910,65 +2910,6 @@ namespace DTXMania
             return strCourseTJA;
         }
 
-        /// <summary>
-        /// セッション譜面があるかどうかを判別、あった場合は指定したプレイヤーサイドに従ったrefで切り抜いた譜面を渡す
-        /// </summary>
-        /// <param name="strTJA"></param>
-        /// <param name="strTJA2"></param>
-        /// <returns></returns>
-        private bool tセッション譜面がある( string strTJA, ref string strTJA2, int seqNo )
-        {
-            bool bIsSessionNotes = false;
-            //入力された譜面がnullでないかチェック。
-            if( string.IsNullOrEmpty( strTJA ) ) return false;
-
-            //とりあえず腑分けしてやる
-            //一旦STYLEで分ける
-            StringComparison sC = StringComparison.CurrentCultureIgnoreCase;
-            string[] str1 = strTJA.Split( new string[]{"STYLE"}, StringSplitOptions.RemoveEmptyEntries);
-            if( str1.Length < 2 ) return false;
-            //さらにDPと思われる譜面をSTARTで腑分け
-            string[] str2 = str1[ 1 ].Split( new string[]{"#START"}, StringSplitOptions.RemoveEmptyEntries );
-            //正常なDP譜面ならLength:2になる。
-            string strSingle = "";
-            string strDoubleP1 = "";
-            string strDoubleP2 = "";
-            
-
-            for( int i = 1; i < 3; i++ )
-            {
-                //腑分けした時に「#START」が消えてBGMが再生できなくなってしまうので、strDoublePnに代入する時に頭に「#START」をつけておく。
-                if( str2[ i ].IndexOf( "P1", sC ) != -1 )
-                {
-                    strDoubleP1 = ( "#START" + str2[ i ] );
-                    bIsSessionNotes = true;
-                }
-                else if( str2[ i ].IndexOf( "P2", sC ) != -1 )
-                {
-                    strDoubleP2 = ( "#START" + str2[ i ]);
-                    bIsSessionNotes = true;
-                }
-            }
-            strSingle = str1[0];
-            if ( !bIsSessionNotes ) seqNo = 99;
-
-            switch( seqNo )
-            {
-                case 0:
-                case 99:
-                    strTJA2 = strSingle;
-                    break;
-                case 1:
-                    strTJA2 = strDoubleP1;
-                    break;
-                case 2:
-                    strTJA2 = strDoubleP2;
-                    break;
-            }
-
-            return bIsSessionNotes;
-        }
-
         private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
         private static readonly Regex regexForStrippingHeadingLines = new Regex(
             @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
@@ -3073,7 +3014,10 @@ namespace DTXMania
                 #endregion
 
                 //指定したコースの譜面の命令を消去する。
-                this.tセッション譜面がある( strSplitした譜面[ n読み込むコース ], ref strSplitした譜面[ n読み込むコース ], CDTXMania.ConfigIni.nPlayerCount > 1 ? ( this.nPlayerSide + 1 ) : 0 );
+                strSplitした譜面[ n読み込むコース ] = CDTXStyleExtractor.tセッション譜面がある(
+                    strSplitした譜面[ n読み込むコース ],
+                    CDTXMania.ConfigIni.nPlayerCount > 1 ? ( this.nPlayerSide + 1 ) : 0,
+                    this.strファイル名の絶対パス);
 
                 //命令をすべて消去した譜面
                 var str命令消去譜面 = strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
