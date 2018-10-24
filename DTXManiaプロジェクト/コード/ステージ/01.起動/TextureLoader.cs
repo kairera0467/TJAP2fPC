@@ -394,7 +394,7 @@ namespace DTXMania
             Effects_Hit_Explosion = TxCAf(GAME + EFFECTS + @"Hit\Explosion.png");
             if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.b加算合成 = true;
             Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit\Explosion_Big.png");
-            if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion.b加算合成 = true;
+            if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.b加算合成 = true;
             Effects_Hit_FireWorks = new CTextureAf[2];
             Effects_Hit_FireWorks[0] = TxCAf(GAME + EFFECTS + @"Hit\FireWorks_1P.png");
             if (Effects_Hit_FireWorks[0] != null) Effects_Hit_FireWorks[0].b加算合成 = true;
