@@ -127,6 +127,7 @@
     <Compile Include="コード\スコア、曲\CBoxDef.cs" />
     <Compile Include="コード\スコア、曲\CCourse.cs" />
     <Compile Include="コード\スコア、曲\CDTX.cs" />
+    <Compile Include="コード\スコア、曲\CDTXCompanionFileFinder.cs" />
     <Compile Include="コード\スコア、曲\CDTXStyleExtractor.cs" />
     <Compile Include="コード\スコア、曲\CScoreIni.cs" />
     <Compile Include="コード\スコア、曲\CSetDef.cs" />
