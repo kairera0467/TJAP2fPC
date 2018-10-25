@@ -175,7 +175,7 @@ namespace DTXMania
 
 				if( !File.Exists( CSkin.Path( this.strファイル名 ) ) )
 				{
-                    Trace.TraceWarning($"[i18n] File does not exist: {this.strファイル名}");
+                    Trace.TraceWarning($"ファイルが存在しません。: {this.strファイル名}");
 				    return;
 				}
 ////				for( int i = 0; i < 2; i++ )		// #27790 2012.3.10 yyagi 2回読み出しを、1回読みだし＋1回メモリコピーに変更
@@ -877,7 +877,7 @@ namespace DTXMania
                                 }
                                 else
                                 {
-                                    Trace.TraceWarning($"[i18n] {strCommand} must be an integer value. The provided value is invalid: {strParam}");
+                                    Trace.TraceWarning($"SkinConfigの値 {strCommand} は整数値である必要があります。現在の値: {strParam}");
                                 }
                             }
 

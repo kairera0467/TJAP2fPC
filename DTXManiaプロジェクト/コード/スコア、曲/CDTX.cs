@@ -2945,7 +2945,7 @@ namespace DTXMania
                 var startIndex = strInput.IndexOf( "#START" );
                 if (startIndex < 0)
                 {
-                    Trace.TraceWarning($"[i18n] At least one #START command is required. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"#START命令が少なくとも1つは必要です。 ({strファイル名の絶対パス})");
                 }
                 string strInputHeader = strInput.Remove( startIndex );
                 strInput = strInput.Remove(0, startIndex );
@@ -3514,7 +3514,7 @@ namespace DTXMania
                 var branchStartArgumentMatch = BranchStartArgumentRegex.Match(argument);
                 if (!branchStartArgumentMatch.Success)
                 {
-                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered invalid BRANCHSTART. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #BRANCHSTART 命令が正しく記述されていません。 ({strファイル名の絶対パス})");
                     return;
                 }
 
@@ -3593,7 +3593,7 @@ namespace DTXMania
                 this.n現在のコース = 0;
                 if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
                 {
-                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #N without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #N 命令がありません。 ({strファイル名の絶対パス})");
                     return;
                 }
                 this.n現在の小節数 = branch.n現在の小節;
@@ -3608,7 +3608,7 @@ namespace DTXMania
                 this.n現在のコース = 1;
                 if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
                 {
-                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #E without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #E 命令がありません。 ({strファイル名の絶対パス})");
                     return;
                 }
                 this.n現在の小節数 = branch.n現在の小節;
@@ -3623,7 +3623,7 @@ namespace DTXMania
                 this.n現在のコース = 2;
                 if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
                 {
-                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #M without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #M 命令がありません。 ({strファイル名の絶対パス})");
                     return;
                 }
                 this.n現在の小節数 = branch.n現在の小節;
@@ -3767,7 +3767,7 @@ namespace DTXMania
 	        if (strArray.Length < minimumLength)
 	        {
 	            Trace.TraceWarning(
-	                $"[i18n] {name} split result should have length {minimumLength} but has length {strArray.Length}. ({strファイル名の絶対パス})");
+	                $"命令 {name} のパラメータが足りません。少なくとも {minimumLength} つのパラメータが必要です。 (現在のパラメータ数: {strArray.Length}). ({strファイル名の絶対パス})");
 	        }
 	    }
 
@@ -4180,8 +4180,8 @@ namespace DTXMania
 	        }
 	        else
 	        {
-	            Trace.TraceWarning($"[i18n] Invalid {name} value detected: {unparsedValue} ({strファイル名の絶対パス})");
-	        }
+                Trace.TraceWarning($"命令名: {name} のパラメータの値が正しくないことを検知しました。値: {unparsedValue} ({strファイル名の絶対パス})");
+            }
 	    }
 
 	    private void ParseBalloon(string strCommandParam, List<int> listBalloon)

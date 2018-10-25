@@ -39,7 +39,7 @@ namespace DTXMania
 
             string FormatTraceMessage(string subMessage)
             {
-                return $"[i18n] {nameof(CDTXStyleExtractor)} {subMessage} (seqNo={seqNo}, {strファイル名の絶対パス})";
+                return $"{nameof(CDTXStyleExtractor)} {subMessage} (seqNo={seqNo}, {strファイル名の絶対パス})";
             }
 
             //入力された譜面がnullでないかチェック。
