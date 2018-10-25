@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DTXMania
 {
-    class TextureLoader : CActivity
+    class TextureLoader
     {
         const string BASE = @"Graphics\";
 
@@ -36,6 +36,7 @@ namespace DTXMania
         const string GAMEMODE = @"14_GameMode\";
         const string FAILED = @"15_Failed\";
         const string RUNNER = @"16_Runner\";
+        const string DANCHALLENGE = @"17_DanChallenge\";
 
         // InGame_Effects
         const string FIRE = @"Fire\";
@@ -471,6 +472,21 @@ namespace DTXMania
             #region ランナー
             Runner = TxC(GAME + RUNNER + @"0.png");
             #endregion
+            #region DanC
+            DanC_Background = TxC(GAME + DANCHALLENGE + @"Background.png");
+            DanC_Gauge = new CTexture[4];
+            var type = new string[] { "Normal", "Reach", "Clear", "Flush" };
+            for (int i = 0; i < 4; i++)
+            {
+                DanC_Gauge[i] = TxC(GAME + DANCHALLENGE + @"Gauge_" + type[i] + ".png");
+            }
+            DanC_Base = TxC(GAME + DANCHALLENGE + @"Base.png");
+            DanC_Failed = TxC(GAME + DANCHALLENGE + @"Failed.png");
+            DanC_Number = TxC(GAME + DANCHALLENGE + @"Number.png");
+            DanC_ExamType = TxC(GAME + DANCHALLENGE + @"ExamType.png");
+            DanC_ExamRange = TxC(GAME + DANCHALLENGE + @"ExamRange.png");
+            DanC_ExamUnit = TxC(GAME + DANCHALLENGE + @"ExamUnit.png");
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -777,6 +793,19 @@ namespace DTXMania
             #region ランナー
             CDTXMania.tテクスチャの解放(ref Runner);
             #endregion
+            #region DanC
+            DanC_Background?.Dispose();
+            for (int i = 0; i < 4; i++)
+            {
+                DanC_Gauge[i]?.Dispose();
+            }
+            DanC_Base?.Dispose();
+            DanC_Failed?.Dispose();
+            DanC_Number?.Dispose();
+            DanC_ExamRange?.Dispose();
+            DanC_ExamUnit?.Dispose();
+            DanC_ExamType?.Dispose();
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -972,6 +1001,15 @@ namespace DTXMania
         #endregion
         #region ランナー
         public CTexture Runner;
+        #endregion
+        #region DanC
+        public CTexture DanC_Background;
+        public CTexture[] DanC_Gauge;
+        public CTexture DanC_Base, DanC_Failed;
+        public CTexture DanC_Number,
+            DanC_ExamType,
+            DanC_ExamRange,
+            DanC_ExamUnit;
         #endregion
         #endregion
 

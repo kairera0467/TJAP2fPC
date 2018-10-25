@@ -131,6 +131,7 @@
     <Compile Include="コード\スコア、曲\CDTXStyleExtractor.cs" />
     <Compile Include="コード\スコア、曲\CScoreIni.cs" />
     <Compile Include="コード\スコア、曲\CSetDef.cs" />
+    <Compile Include="コード\スコア、曲\Dan-C.cs" />
     <Compile Include="コード\ステージ\01.起動\TextureLoader.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CActScanningLoudness.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CEnumSongs.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="コード\ステージ\07.演奏\CLagLogger.cs" />
     <Compile Include="コード\ステージ\07.演奏\CStage演奏画面共通.cs" />
     <Compile Include="コード\ステージ\07.演奏\C演奏判定ライン座標共通.cs" />
+    <Compile Include="コード\ステージ\07.演奏\ドラム画面\Dan-Challenge.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsRunner.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsFooter.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsMob.cs" />
