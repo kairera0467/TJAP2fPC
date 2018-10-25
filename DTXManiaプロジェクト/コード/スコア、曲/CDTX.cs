@@ -1913,7 +1913,7 @@ namespace DTXMania
                     //MessageBox.Show( "おや?エラーが出たようです。お兄様。" );
                     Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
                     Trace.TraceError( ex.ToString() );
-                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。 (79ff8639-9b3c-477f-bc4a-f2eea9784860)" );
 				}
 			}
 		}
@@ -2946,8 +2946,13 @@ namespace DTXMania
                 strInput = regexForPrefixingCommaStartingLinesWithZero.Replace( strInput, "0," );
 
                 //2017.02.03 DD ヘッダ内にある命令以外の文字列を削除
-                string strInputHeader = strInput.Remove( strInput.IndexOf( "#START" ) );
-                strInput = strInput.Remove(0, strInput.IndexOf( "#START" ) );
+                var startIndex = strInput.IndexOf( "#START" );
+                if (startIndex < 0)
+                {
+                    Trace.TraceWarning($"[i18n] At least one #START command is required. ({strファイル名の絶対パス})");
+                }
+                string strInputHeader = strInput.Remove( startIndex );
+                strInput = strInput.Remove(0, startIndex );
                 strInputHeader = regexForStrippingHeadingLines.Replace( strInputHeader, "" );
                 strInput = strInputHeader + "\n" + strInput;
 
@@ -3095,7 +3100,7 @@ namespace DTXMania
                 catch( Exception ex )
                 {
                     Trace.TraceError( ex.ToString() );
-                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。 (9e401212-0b78-4073-88d0-f7e791f36a91)" );
                 }
 
                 //if( bLog && stream != null )
@@ -3152,7 +3157,7 @@ namespace DTXMania
                 catch( Exception ex )
                 {
                     Trace.TraceError( ex.ToString() );
-                    Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                    Trace.TraceError( "例外が発生しましたが処理を継続します。 (2da1e880-6b63-4e82-b018-bf18c3568335)" );
                 }
                 //if( stream != null )
                 //{
@@ -3196,16 +3201,32 @@ namespace DTXMania
             return n文字数;
         }
 
-        /// <summary>
+        private static readonly Regex CommandAndArgumentRegex =
+            new Regex(@"^(#[A-Z]+)(?:\s?)(.+?)?$", RegexOptions.Compiled);
+
+	    private static readonly Regex BranchStartArgumentRegex =
+	        new Regex(@"^([^,\s]+)\s*,\s*([^,\s]+)\s*,\s*([^,\s]+)$", RegexOptions.Compiled);
+
+	    /// <summary>
         /// 譜面読み込みメソッドV4で使用。
         /// </summary>
         /// <param name="InputText"></param>
         private void t命令を挿入する(string InputText)
-        {
+	    {
+	        var match = CommandAndArgumentRegex.Match(InputText);
+	        if (!match.Success)
+	        {
+	            return;
+	        }
+
+	        var command = match.Groups[1].Value;
+	        var argumentMatchGroup = match.Groups[2];
+	        var argument = argumentMatchGroup.Success ? argumentMatchGroup.Value : null;
+
             char[] chDelimiter = new char[] { ' ' };
             string[] strArray = null;
 
-            if (InputText.StartsWith("#START"))
+            if (command == "#START")
             {
                 //#STARTと同時に鳴らすのはどうかと思うけどしゃーなしだな。
 
@@ -3238,7 +3259,7 @@ namespace DTXMania
 
                 this.listChip.Add(chip1);
             }
-            else if (InputText.StartsWith("#END"))
+            else if (command == "#END")
             {
                 //ためしに割り込む。
                 var chip = new CChip();
@@ -3262,14 +3283,9 @@ namespace DTXMania
                 }
             }
 
-            else if (InputText.StartsWith("#BPMCHANGE"))
+            else if (command == "#BPMCHANGE")
             {
-                //strArray = InputText.Split(chDelimiter);
-                this.SplitOrder(InputText, out strArray, "#BPMCHANGE");
-                if (InputText.IndexOf(",") != -1)
-                    InputText = InputText.Replace(',', '.');
-
-                double dbBPM = Convert.ToDouble(strArray[1]);
+                double dbBPM = Convert.ToDouble(argument);
                 this.dbNowBPM = dbBPM;
 
                 this.listBPM.Add(this.n内部番号BPM1to - 1, new CBPM() { n内部番号 = this.n内部番号BPM1to - 1, n表記上の番号 = 0, dbBPM値 = dbBPM, bpm_change_time = this.dbNowTime, bpm_change_bmscroll_time = this.dbNowBMScollTime, bpm_change_course = this.n現在のコース });
@@ -3304,18 +3320,15 @@ namespace DTXMania
 
                 this.n内部番号BPM1to++;
             }
-            else if (InputText.StartsWith("#SCROLL"))
+            else if (command == "#SCROLL")
             {
                 //2016.08.13 kairera0467 複素数スクロールもどきのテスト
-                if (InputText.IndexOf('i') != -1)
+                if (argument.IndexOf('i') != -1)
                 {
                     //iが入っていた場合、複素数スクロールとみなす。
 
-                    //strArray = InputText.Split(chDelimiter);
-                    this.SplitOrder(InputText, out strArray, "#SCROLL");
-
                     double[] dbComplexNum = new double[2];
-                    this.tParsedComplexNumber(strArray[1], ref dbComplexNum);
+                    this.tParsedComplexNumber(argument, ref dbComplexNum);
 
                     this.dbNowScroll = dbComplexNum[0];
                     this.dbNowScrollY = dbComplexNum[1];
@@ -3355,10 +3368,7 @@ namespace DTXMania
                 }
                 else
                 {
-                    strArray = InputText.Split(chDelimiter);
-                    if (InputText.IndexOf(",") != -1)
-                        InputText = InputText.Replace(',', '.');
-                    double dbSCROLL = Convert.ToDouble(strArray[1]);
+                    double dbSCROLL = Convert.ToDouble(argument);
                     this.dbNowScroll = dbSCROLL;
                     this.dbNowScrollY = 0.0;
 
@@ -3398,11 +3408,10 @@ namespace DTXMania
 
                 this.n内部番号SCROLL1to++;
             }
-            else if (InputText.StartsWith("#MEASURE"))
+            else if (command == "#MEASURE")
             {
-                //strArray = InputText.Split(chDelimiter);
-                this.SplitOrder(InputText, out strArray, "#MEASURE");
-                strArray = strArray[1].Split(new char[] { '/' });
+                strArray = argument.Split(new char[] { '/' });
+                WarnSplitLength("#MEASURE subsplit", strArray, 2);
 
                 double[] dbLength = new double[2];
                 dbLength[0] = Convert.ToDouble(strArray[0]);
@@ -3427,11 +3436,9 @@ namespace DTXMania
 
                 //lbMaster.Items.Add( ";拍子変更 " + strArray[0] + "/" + strArray[1] );
             }
-            else if (InputText.StartsWith("#DELAY"))
+            else if (command == "#DELAY")
             {
-                //strArray = InputText.Split( chDelimiter );
-                this.SplitOrder(InputText, out strArray, "#DELAY");
-                double nDELAY = (Convert.ToDouble(strArray[1]) * 1000.0);
+                double nDELAY = (Convert.ToDouble(argument) * 1000.0);
 
 
                 this.listDELAY.Add(this.n内部番号DELAY1to, new CDELAY() { n内部番号 = this.n内部番号DELAY1to, n表記上の番号 = 0, nDELAY値 = (int)nDELAY, delay_bmscroll_time = this.dbLastBMScrollTime, delay_bpm = this.dbNowBPM, delay_course = this.n現在のコース, delay_time = this.dbLastTime });
@@ -3455,7 +3462,7 @@ namespace DTXMania
                 this.n内部番号DELAY1to++;
             }
 
-            else if (InputText.StartsWith("#GOGOSTART"))
+            else if (command == "#GOGOSTART")
             {
                 var chip = new CChip();
 
@@ -3469,7 +3476,7 @@ namespace DTXMania
                 // チップを配置。
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#GOGOEND"))
+            else if (command == "#GOGOEND")
             {
                 var chip = new CChip();
 
@@ -3483,7 +3490,7 @@ namespace DTXMania
                 // チップを配置。
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#SECTION"))
+            else if (command == "#SECTION")
             {
                 //分岐:条件リセット
                 var chip = new CChip();
@@ -3496,7 +3503,7 @@ namespace DTXMania
                 // チップを配置。
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#BRANCHSTART"))
+            else if (command == "#BRANCHSTART")
             {
                 IsEndedBranching = false;
                 this.bチップがある.Branch = true;
@@ -3504,73 +3511,37 @@ namespace DTXMania
 
                 //分岐:分岐スタート
                 int n条件 = 0;
-                //strArray = InputText.Split(chDelimiter);
-                this.SplitOrder(InputText, out strArray, "#BRANCHSTART");
-                strArray = strArray[1].Split(',');
 
-                //条件数値。めちゃくちゃ無理やりな実装でスマン。
+                //条件数値。
                 double[] nNum = new double[2];
-                string strNumA;
-                string strNumB;
 
-                if (strArray.Length == 3)
+                var branchStartArgumentMatch = BranchStartArgumentRegex.Match(argument);
+                if (!branchStartArgumentMatch.Success)
                 {
-                    strNumA = strArray[1];
-                    strNumB = strArray[2];
-
-                    nNum[0] = Convert.ToDouble(strNumA);
-                    nNum[1] = Convert.ToDouble(strNumB);
-                    switch (strArray[0])
-                    {
-                        case "p":
-                            n条件 = 0;
-                            break;
-                        case "r":
-                            n条件 = 1;
-                            break;
-                        case "s":
-                            n条件 = 2;
-                            break;
-                        case "d":
-                            n条件 = 3;
-                            break;
-                        default:
-                            n条件 = 0;
-                            break;
-                    }
+                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered invalid BRANCHSTART. ({strファイル名の絶対パス})");
+                    return;
                 }
 
-                if (strArray.Length == 2)
+                nNum[0] = Convert.ToDouble(branchStartArgumentMatch.Groups[2].Value);
+                nNum[1] = Convert.ToDouble(branchStartArgumentMatch.Groups[3].Value);
+                switch (branchStartArgumentMatch.Groups[1].Value)
                 {
-                    strArray = InputText.Split(chDelimiter);
-                    strNumA = strArray[2].Split(',')[0];
-                    strNumB = strArray[3].Split(',')[0];
-
-                    nNum[0] = Convert.ToDouble(strNumA);
-                    nNum[1] = Convert.ToDouble(strNumB);
-                    switch (strArray[1])
-                    {
-                        case "p,":
-                            n条件 = 0;
-                            break;
-                        case "r,":
-                            n条件 = 1;
-                            break;
-                        case "s,":
-                            n条件 = 2;
-                            break;
-                        case "d,":
-                            n条件 = 3;
-                            break;
-                        default:
-                            n条件 = 0;
-                            break;
-                    }
-
-
+                    case "p":
+                        n条件 = 0;
+                        break;
+                    case "r":
+                        n条件 = 1;
+                        break;
+                    case "s":
+                        n条件 = 2;
+                        break;
+                    case "d":
+                        n条件 = 3;
+                        break;
+                    default:
+                        n条件 = 0;
+                        break;
                 }
-
-
 
                 //まずはリストに現在の小節、発声位置、分岐条件を追加。
                 var branch = new CBRANCH();
@@ -3620,37 +3591,52 @@ namespace DTXMania
 
                 this.n内部番号BRANCH1to++;
             }
-            else if (InputText.StartsWith("#N"))
+            else if (command == "#N")
             {
                 //分岐:普通譜面
                 this.n現在のコース = 0;
-                this.n現在の小節数 = this.listBRANCH[this.n内部番号BRANCH1to - 1].n現在の小節;
-                this.dbNowTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].db分岐時間ms;
-                this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
-                this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
-                this.dbNowBMScollTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBMScrollTime;
+                if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
+                {
+                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #N without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    return;
+                }
+                this.n現在の小節数 = branch.n現在の小節;
+                this.dbNowTime = branch.db分岐時間ms;
+                this.dbNowBPM = branch.dbBPM;
+                this.dbNowScroll = branch.dbSCROLL;
+                this.dbNowBMScollTime = branch.dbBMScrollTime;
             }
-            else if (InputText.StartsWith("#E"))
+            else if (command == "#E")
             {
                 //分岐:玄人譜面
                 this.n現在のコース = 1;
-                this.n現在の小節数 = this.listBRANCH[this.n内部番号BRANCH1to - 1].n現在の小節;
-                this.dbNowTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].db分岐時間ms;
-                this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
-                this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
-                this.dbNowBMScollTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBMScrollTime;
+                if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
+                {
+                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #E without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    return;
+                }
+                this.n現在の小節数 = branch.n現在の小節;
+                this.dbNowTime = branch.db分岐時間ms;
+                this.dbNowBPM = branch.dbBPM;
+                this.dbNowScroll = branch.dbSCROLL;
+                this.dbNowBMScollTime = branch.dbBMScrollTime;
             }
-            else if (InputText.StartsWith("#M"))
+            else if (command == "#M")
             {
                 //分岐:達人譜面
                 this.n現在のコース = 2;
-                this.n現在の小節数 = this.listBRANCH[this.n内部番号BRANCH1to - 1].n現在の小節;
-                this.dbNowTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].db分岐時間ms;
-                this.dbNowBPM = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBPM;
-                this.dbNowScroll = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbSCROLL;
-                this.dbNowBMScollTime = this.listBRANCH[this.n内部番号BRANCH1to - 1].dbBMScrollTime;
+                if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
+                {
+                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #M without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    return;
+                }
+                this.n現在の小節数 = branch.n現在の小節;
+                this.dbNowTime = branch.db分岐時間ms;
+                this.dbNowBPM = branch.dbBPM;
+                this.dbNowScroll = branch.dbSCROLL;
+                this.dbNowBMScollTime = branch.dbBMScrollTime;
             }
-            else if (InputText.StartsWith("#LEVELHOLD"))
+            else if (command == "#LEVELHOLD")
             {
                 var chip = new CChip();
 
@@ -3662,11 +3648,11 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#BRANCHEND"))
+            else if (command == "#BRANCHEND")
             {
                 IsEndedBranching = true;
             }
-            else if (InputText.StartsWith("#BARLINEOFF"))
+            else if (command == "#BARLINEOFF")
             {
                 var chip = new CChip();
 
@@ -3679,7 +3665,7 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#BARLINEON"))
+            else if (command == "#BARLINEON")
             {
                 var chip = new CChip();
 
@@ -3692,11 +3678,9 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#LYRIC"))
+            else if (command == "#LYRIC")
             {
-                strArray = InputText.Split(chDelimiter);
-
-                this.listLiryc.Add(strArray[1]);
+                this.listLiryc.Add(argument);
 
                 var chip = new CChip();
 
@@ -3709,10 +3693,9 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#DIRECTION"))
+            else if (command == "#DIRECTION")
             {
-                strArray = InputText.Split(chDelimiter);
-                double dbSCROLL = Convert.ToDouble(strArray[1]);
+                double dbSCROLL = Convert.ToDouble(argument);
                 this.nスクロール方向 = (int)dbSCROLL;
 
                 //チップ追加して割り込んでみる。
@@ -3729,11 +3712,12 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#SUDDEN"))
+            else if (command == "#SUDDEN")
             {
-                strArray = InputText.Split(chDelimiter);
-                double db出現時刻 = Convert.ToDouble(strArray[1]);
-                double db移動待機時刻 = Convert.ToDouble(strArray[2]);
+                strArray = argument.Split(chDelimiter);
+                WarnSplitLength("#SUDDEN", strArray, 2);
+                double db出現時刻 = Convert.ToDouble(strArray[0]);
+                double db移動待機時刻 = Convert.ToDouble(strArray[1]);
                 this.db出現時刻 = db出現時刻;
                 this.db移動待機時刻 = db移動待機時刻;
 
@@ -3752,12 +3736,13 @@ namespace DTXMania
 
                 this.listChip.Add(chip);
             }
-            else if (InputText.StartsWith("#JPOSSCROLL"))
+            else if (command == "#JPOSSCROLL")
             {
-                strArray = InputText.Split(chDelimiter);
-                double db移動時刻 = Convert.ToDouble(strArray[1]);
-                int n移動px = Convert.ToInt32(strArray[2]);
-                int n移動方向 = Convert.ToInt32(strArray[3]);
+                strArray = argument.Split(chDelimiter);
+                WarnSplitLength("#JPOSSCROLL", strArray, 3);
+                double db移動時刻 = Convert.ToDouble(strArray[0]);
+                int n移動px = Convert.ToInt32(strArray[1]);
+                int n移動方向 = Convert.ToInt32(strArray[2]);
 
                 //チップ追加して割り込んでみる。
                 var chip = new CChip();
@@ -3774,15 +3759,23 @@ namespace DTXMania
                 this.listChip.Add(chip);
                 this.n内部番号JSCROLL1to++;
             }
-            else if(InputText.StartsWith("#SENOTECHANGE"))
+            else if(command == "#SENOTECHANGE")
             {
-                strArray = InputText.Split(chDelimiter);
-                FixSENote = int.Parse(strArray[1]);
+                FixSENote = int.Parse(argument);
                 IsEnabledFixSENote = true;
             }
         }
 
-        private void t入力_行解析譜面_V4(string InputText)
+	    private void WarnSplitLength(string name, string[] strArray, int minimumLength)
+	    {
+	        if (strArray.Length < minimumLength)
+	        {
+	            Trace.TraceWarning(
+	                $"[i18n] {name} split result should have length {minimumLength} but has length {strArray.Length}. ({strファイル名の絶対パス})");
+	        }
+	    }
+
+	    private void t入力_行解析譜面_V4(string InputText)
         {
             if( !String.IsNullOrEmpty( InputText ) )
             {
@@ -3798,7 +3791,7 @@ namespace DTXMania
 
                 }
 
-                if( InputText.Substring(0, 1) == "#" )
+                if( InputText.StartsWith("#") )
                 {
                     this.t命令を挿入する(InputText);
                     return;
@@ -4115,106 +4108,28 @@ namespace DTXMania
                 strCommandParam = strArray[1].Trim();
             }
 
-            if( strCommandName.Equals( "BALLOON" ) )
+            void ParseOptionalInt16(Action<short> setValue)
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
-                        break;
-                    }
-                    this.listBalloon_Normal.Add( n打数 );
-                }
+                this.ParseOptionalInt16(strCommandName, strCommandParam, setValue);
             }
-            else if( strCommandName.Equals( "BALLOONNOR" ) )
-            {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
 
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
-                        break;
-                    }
-                    this.listBalloon_Normal.Add( n打数 );
-                }
+            if( strCommandName.Equals( "BALLOON" ) || strCommandName.Equals( "BALLOONNOR" ) )
+            {
+                ParseBalloon(strCommandParam, this.listBalloon_Normal);
             }
             else if( strCommandName.Equals( "BALLOONEXP" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
-                        break;
-                    }
-                    this.listBalloon_Expert.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Expert);
                 //tbBALLOON.Text = strCommandParam;
             }
             else if( strCommandName.Equals( "BALLOONMAS" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
-                        break;
-                    }
-                    this.listBalloon_Master.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Master);
                 //tbBALLOON.Text = strCommandParam;
             }
             else if( strCommandName.Equals( "SCOREMODE" ) )
             {
-                if( !string.IsNullOrEmpty( strCommandParam ) )
-                {
-                    this.nScoreModeTmp = Convert.ToInt16( strCommandParam );
-                }
+                ParseOptionalInt16(value => this.nScoreModeTmp = value);
             }
             else if( strCommandName.Equals( "SCOREINIT" ) )
             {
@@ -4222,21 +4137,29 @@ namespace DTXMania
                 {
                     string[] scoreinit = strCommandParam.Split(',');
 
-                    this.nScoreInit[ 0, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 0 ] );
-                    this.b配点が指定されている[ 0, this.n参照中の難易度 ] = true;
-                    if( scoreinit.Length == 2 ){
-                        this.nScoreInit[ 1, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 1 ] );
-                        this.b配点が指定されている[ 2, this.n参照中の難易度 ] = true;
+                    this.ParseOptionalInt16("SCOREINIT first value", scoreinit[0], value =>
+                    {
+                        this.nScoreInit[0, this.n参照中の難易度] = value;
+                        this.b配点が指定されている[0, this.n参照中の難易度] = true;
+                    });
+
+                    if( scoreinit.Length == 2 )
+                    {
+                        this.ParseOptionalInt16("SCOREINIT second value", scoreinit[1], value =>
+                        {
+                            this.nScoreInit[1, this.n参照中の難易度] = value;
+                            this.b配点が指定されている[2, this.n参照中の難易度] = true;
+                        });
                     }
                 }
             }
             else if( strCommandName.Equals( "SCOREDIFF" ) )
             {
-                if( !string.IsNullOrEmpty( strCommandParam ) )
+                ParseOptionalInt16(value =>
                 {
-                    this.nScoreDiff[ this.n参照中の難易度 ] = Convert.ToInt16( strCommandParam );
-                    this.b配点が指定されている[ 1, this.n参照中の難易度 ] = true;
-                }
+                    this.nScoreDiff[this.n参照中の難易度] = value;
+                    this.b配点が指定されている[1, this.n参照中の難易度] = true;
+                });
             }
 
             if( this.nScoreModeTmp == 99 ) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
@@ -4248,7 +4171,49 @@ namespace DTXMania
             //}
         }
 
-        private void t入力_行解析ヘッダ( string InputText )
+	    private void ParseOptionalInt16(string name, string unparsedValue, Action<short> setValue)
+	    {
+	        if (string.IsNullOrEmpty(unparsedValue))
+	        {
+	            return;
+	        }
+
+	        if (short.TryParse(unparsedValue, out var value))
+	        {
+	            setValue(value);
+	        }
+	        else
+	        {
+	            Trace.TraceWarning($"[i18n] Invalid {name} value detected: {unparsedValue} ({strファイル名の絶対パス})");
+	        }
+	    }
+
+	    private void ParseBalloon(string strCommandParam, List<int> listBalloon)
+	    {
+	        string[] strParam = strCommandParam.Split(',');
+	        for (int n = 0; n < strParam.Length; n++)
+	        {
+	            int n打数;
+	            try
+	            {
+	                if (strParam[n] == null || strParam[n] == "")
+	                    break;
+
+	                n打数 = Convert.ToInt32(strParam[n]);
+	            }
+	            catch (Exception ex)
+	            {
+	                Trace.TraceError($"おや?エラーが出たようです。お兄様。 ({strファイル名の絶対パス})");
+	                Trace.TraceError(ex.ToString());
+	                Trace.TraceError("例外が発生しましたが処理を継続します。 (95327158-4e83-4fa9-b5e9-ad3c3d4c2a22)");
+	                break;
+	            }
+
+	            listBalloon.Add(n打数);
+	        }
+	    }
+
+	    private void t入力_行解析ヘッダ( string InputText )
 		{
             //やべー。先頭にコメント行あったらやばいやん。
             string[] strArray = InputText.Split( new char[] { ':' } );
@@ -4284,6 +4249,7 @@ namespace DTXMania
 
 
                 strArray = strArray[ 0 ].Split( new char[] { ':' } );
+                WarnSplitLength("Header Name & Value", strArray, 2);
 
                 strCommandName = strArray[0].Trim();
                 strCommandParam = strArray[1].Trim();
@@ -4291,6 +4257,11 @@ namespace DTXMania
                 #endregion
                 //lblMessage.Text = "おや?strArrayのLengthが2じゃないようですね。お兄様。";
             }
+
+		    void ParseOptionalInt16(Action<short> setValue)
+		    {
+		        this.ParseOptionalInt16(strCommandName, strCommandParam, setValue);
+		    }
 
             //パラメータを分別、そこから割り当てていきます。
             if (strCommandName.Equals("TITLE"))
@@ -4330,20 +4301,20 @@ namespace DTXMania
             }
             else if ( strCommandName.Equals( "LEVEL" ) )
             {
-                this.LEVEL.Drums = (int)Convert.ToDouble( strCommandParam );
-                this.LEVEL.Taiko = (int)Convert.ToDouble( strCommandParam );
-                this.LEVELtaiko[ this.n参照中の難易度 ] = (int)Convert.ToDouble( strCommandParam );
+                var level = (int)Convert.ToDouble( strCommandParam );
+                this.LEVEL.Drums = level;
+                this.LEVEL.Taiko = level;
+                this.LEVELtaiko[ this.n参照中の難易度 ] = level;
             }
             else if( strCommandName.Equals( "BPM" ) )
             {
                 if( strCommandParam.IndexOf( "," ) != -1 )
                     strCommandParam = strCommandParam.Replace( ',', '.' );
 
-                this.BPM = Convert.ToDouble( strCommandParam );
-                this.BASEBPM = Convert.ToDouble( strCommandParam );
-                this.dbNowBPM = Convert.ToDouble( strCommandParam );
-
                 double dbBPM = Convert.ToDouble( strCommandParam );
+                this.BPM = dbBPM;
+                this.BASEBPM = dbBPM;
+                this.dbNowBPM = dbBPM;
 
                 this.listBPM.Add( this.n内部番号BPM1to - 1, new CBPM() { n内部番号 = this.n内部番号BPM1to - 1, n表記上の番号 = this.n内部番号BPM1to - 1, dbBPM値 = dbBPM, } );
                 this.n内部番号BPM1to++;
@@ -4408,124 +4379,47 @@ namespace DTXMania
                 //tbOFFSET.Text = strCommandParam;
             }
             #region[移動→不具合が起こるのでここも一応復活させておく]
-            else if( strCommandName.Equals( "BALLOON" ) )
+            else if( strCommandName.Equals( "BALLOON" ) || strCommandName.Equals( "BALLOONNOR" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
-                        break;
-                    }
-                    this.listBalloon_Normal.Add( n打数 );
-                }
-            }
-            else if( strCommandName.Equals( "BALLOONNOR" ) )
-            {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
-                        break;
-                    }
-                    this.listBalloon_Normal.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Normal);
             }
             else if( strCommandName.Equals( "BALLOONEXP" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
-                        break;
-                    }
-                    this.listBalloon_Expert.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Expert);
                 //tbBALLOON.Text = strCommandParam;
             }
             else if( strCommandName.Equals( "BALLOONMAS" ) )
             {
-                string[] strParam = strCommandParam.Split( ',' );
-                for( int n = 0; n < strParam.Length; n++ )
-                {
-                    int n打数;
-                    try
-                    {
-                        if (strParam[n] == null || strParam[n] == "")
-                            break;
-
-                        n打数 = Convert.ToInt32( strParam[ n ] );
-                    }
-                    catch(Exception ex)
-                    {
-                        Trace.TraceError( "おや?エラーが出たようです。お兄様。" );
-                        Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
-                        break;
-                    }
-                    this.listBalloon_Master.Add( n打数 );
-                }
+                ParseBalloon(strCommandParam, this.listBalloon_Master);
                 //tbBALLOON.Text = strCommandParam;
             }
             else if( strCommandName.Equals( "SCOREMODE" ) )
-            {
-                if( !string.IsNullOrEmpty( strCommandParam ) )
-                {
-                    this.nScoreModeTmp = Convert.ToInt16( strCommandParam );
-                }
-            }
+		    {
+		        ParseOptionalInt16(value => this.nScoreModeTmp = value);
+		    }
             else if( strCommandName.Equals( "SCOREINIT" ) )
             {
                 if( !string.IsNullOrEmpty( strCommandParam ) )
                 {
                     string[] scoreinit = strCommandParam.Split(',');
 
-                    this.nScoreInit[ 0, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 0 ] );
+                    this.ParseOptionalInt16("SCOREINIT first value", scoreinit[0], value =>
+                    {
+                        this.nScoreInit[0, this.n参照中の難易度] = value;
+                    });
+
                     if( scoreinit.Length == 2 )
-                        this.nScoreInit[ 1, this.n参照中の難易度 ] = Convert.ToInt16( scoreinit[ 1 ] );
+                    {
+                        this.ParseOptionalInt16("SCOREINIT second value", scoreinit[1], value =>
+                        {
+                            this.nScoreInit[1, this.n参照中の難易度] = value;
+                        });
+                    }
                 }
             }
             else if( strCommandName.Equals( "SCOREDIFF" ) )
             {
-                if( !string.IsNullOrEmpty( strCommandParam ) )
-                {
-                    this.nScoreDiff[ this.n参照中の難易度 ] = Convert.ToInt16( strCommandParam );
-                }
+                ParseOptionalInt16(value => this.nScoreDiff[this.n参照中の難易度] = value);
             }
             #endregion
             else if( strCommandName.Equals( "SONGVOL" ) && !string.IsNullOrEmpty( strCommandParam ) )
@@ -4797,7 +4691,7 @@ namespace DTXMania
             catch(Exception ex)
             {
                 Trace.TraceError( ex.ToString() );
-                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。 (b67473e4-1930-44f1-b320-4ead5786e74c)" );
             }
 
 
@@ -5920,7 +5814,7 @@ namespace DTXMania
                     catch( Exception ex )
                     {
                         Trace.TraceError( ex.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (1503896a-0dfb-4643-87f1-bd821a125137)" );
                     }
                 }
                 else
@@ -6250,30 +6144,6 @@ namespace DTXMania
                         break;
                 }
             }
-        }
-
-        //2017.01.31 DD
-        //命令と値を分割して配列に格納 (命令と値の間にスペースが無くてもOK) {入力テキスト, 対象配列, 対象命令}
-        private void SplitOrder( string argText, out string[] argArray, string argOrder )
-        {
-            string regStr;
-            string replStr;
-            if( argOrder == "#BRANCHSTART")
-            {
-                regStr = argOrder + "[^0-9rpsd]+";
-                replStr = argOrder;
-                argText = Regex.Replace(argText, regStr, replStr);
-            }
-            else
-            {
-                regStr = argOrder + "[^0-9-]+";
-                replStr = argOrder;
-                argText = Regex.Replace(argText, regStr, replStr);
-            }
-            argArray = argText.Split(new string[] { argOrder }, StringSplitOptions.RemoveEmptyEntries);
-            List<string> stringList = new List<string>(argArray);
-            stringList.Insert(0, argOrder);
-            argArray = stringList.ToArray();
         }
 
 		/// <summary>

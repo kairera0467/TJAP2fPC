@@ -28,7 +28,7 @@ namespace DTXMania
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (e5c7cd0b-f7bb-4bf1-9ad9-db27b43ff63d)" );
 				}
 				base.OnManagedリソースの作成();
 			}

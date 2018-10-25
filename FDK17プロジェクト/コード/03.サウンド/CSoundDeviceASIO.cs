@@ -154,9 +154,15 @@ namespace FDK
 			// BASS の設定。
 
 			this.bIsBASSFree = true;
-			Debug.Assert( Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATEPERIOD, 0 ),		// 0:BASSストリームの自動更新を行わない。（BASSWASAPIから行うため）
-				string.Format( "BASS_SetConfig() に失敗しました。[{0}", Bass.BASS_ErrorGetCode() ) );
 
+		    if (!Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATEPERIOD, 0 )) // 0:BASSストリームの自動更新を行わない。
+		    {
+		        Trace.TraceWarning($"BASS_SetConfig({nameof(BASSConfig.BASS_CONFIG_UPDATEPERIOD)}) に失敗しました。[{Bass.BASS_ErrorGetCode()}]");
+		    }
+		    if (!Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATETHREADS, 0 )) // 0:BASSストリームの自動更新を行わない。
+		    {
+		        Trace.TraceWarning($"BASS_SetConfig({nameof(BASSConfig.BASS_CONFIG_UPDATETHREADS)}) に失敗しました。[{Bass.BASS_ErrorGetCode()}]");
+		    }
 		
 			// BASS の初期化。
 

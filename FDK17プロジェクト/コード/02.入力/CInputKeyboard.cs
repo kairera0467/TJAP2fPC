@@ -40,7 +40,7 @@ namespace FDK
 			catch( DirectInputException e)
 			{
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (21a6c966-e27d-48f6-ac89-125ea4bc1a06)" );
 			}
 
 			for( int i = 0; i < this.bKeyState.Length; i++ )

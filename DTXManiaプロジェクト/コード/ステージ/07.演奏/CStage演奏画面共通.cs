@@ -4432,7 +4432,7 @@ namespace DTXMania
             catch (Exception e)
             {
                 Trace.TraceError( e.ToString() );
-                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                Trace.TraceError( "例外が発生しましたが処理を継続します。 (a80767e1-4de7-4fec-b072-d078b3659e62)" );
                 this.tx背景 = null;
             }
 		}

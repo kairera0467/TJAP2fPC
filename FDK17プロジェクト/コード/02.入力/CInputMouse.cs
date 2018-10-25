@@ -45,7 +45,7 @@ namespace FDK
 			catch( DirectInputException e )
 			{
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (803ffb80-d2ca-425f-8f95-05d7c7cc8d90)" );
 			}
 
 			for( int i = 0; i < this.bMouseState.Length; i++ )

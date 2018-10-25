@@ -553,7 +553,7 @@ namespace DTXMania
 						{
 							Trace.TraceError( "codecがないと、D3DERR_INVALIDCALLが発生する場合がある" );
 							Trace.TraceError( e.ToString() );
-							Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+							Trace.TraceError( "例外が発生しましたが処理を継続します。 (ba21ae56-afaa-47b9-a5c7-1a6bb21085eb)" );
 						}
 						return;
 					}

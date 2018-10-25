@@ -33,12 +33,12 @@ namespace DTXMania
 				{
 					try
 					{
-                        Bitmap bmpSongTitle = new Bitmap(1, 1);
-                        bmpSongTitle = pfMusicName.DrawPrivateFont( this.strパネル文字列, Color.White, Color.Black );
-                        //Bitmap bmpVTest = new Bitmap( 1, 1 );
-                        //bmpVTest = pf縦書きテスト.DrawPrivateFont( this.strパネル文字列, Color.White, Color.Black, true );
-                        this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
-                        Bitmap bmpDiff = new Bitmap(1, 1);
+					    using (var bmpSongTitle = pfMusicName.DrawPrivateFont( this.strパネル文字列, Color.White, Color.Black ))
+					    {
+					        this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
+					    }
+
+                        Bitmap bmpDiff;
                         string strDiff = "";
                         if (CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示)
                         {
@@ -75,10 +75,11 @@ namespace DTXMania
                                 bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
                             }
                         }
-                        this.tx難易度とステージ数 = CDTXMania.tテクスチャの生成( bmpDiff, false );
 
-                        CDTXMania.t安全にDisposeする( ref bmpDiff );
-                        CDTXMania.t安全にDisposeする( ref bmpSongTitle );
+					    using (bmpDiff)
+					    {
+					        this.tx難易度とステージ数 = CDTXMania.tテクスチャの生成( bmpDiff, false );
+					    }
 					}
 					catch( CTextureCreateFailedException e )
 					{
@@ -124,8 +125,10 @@ namespace DTXMania
                     }
                     else
                     {
-                        Bitmap bmpDummy = new Bitmap( 1, 1 );
-                        this.txGENRE = CDTXMania.tテクスチャの生成( bmpDummy, true );
+                        using (var bmpDummy = new Bitmap( 1, 1 ))
+                        {
+                            this.txGENRE = CDTXMania.tテクスチャの生成( bmpDummy, true );
+                        }
                     }
                 }
 
@@ -139,10 +142,10 @@ namespace DTXMania
 
         public void t歌詞テクスチャを生成する( string str歌詞 )
         {
-            Bitmap bmpleric = new Bitmap(1, 1);
-            bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, Color.White, Color.Blue);
-            this.tx歌詞テクスチャ = CDTXMania.tテクスチャの生成( bmpleric, false );
-            CDTXMania.t安全にDisposeする( ref bmpleric );
+            using (var bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, Color.White, Color.Blue))
+            {
+                this.tx歌詞テクスチャ = CDTXMania.tテクスチャの生成( bmpleric, false );
+            }
         }
 
         /// <summary>

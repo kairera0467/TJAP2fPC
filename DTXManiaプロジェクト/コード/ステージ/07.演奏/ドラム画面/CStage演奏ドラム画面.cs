@@ -192,7 +192,7 @@ namespace DTXMania
 			if( CDTXMania.bコンパクトモード )
 			{
 				var score = new Cスコア();
-				CDTXMania.Songs管理.tScoreIniを読み込んで譜面情報を設定する( CDTXMania.strコンパクトモードファイル + ".score.ini", ref score );
+				CDTXMania.Songs管理.tScoreIniを読み込んで譜面情報を設定する( CDTXMania.strコンパクトモードファイル + ".score.ini", score );
 			}
 			else
 			{

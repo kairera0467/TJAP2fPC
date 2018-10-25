@@ -1800,11 +1800,12 @@ namespace DTXMania
 				}
 				else
 				{
-					Bitmap bmpItem = prvFont.DrawPrivateFont( this.list項目リスト[ nItem ].str項目名, Color.White, Color.Black );
-					listMenu[ nItem ].txMenuItemRight = CDTXMania.tテクスチャの生成( bmpItem );
-					//					ctItem.t2D描画( CDTXMania.app.Device, ( x + 0x12 ) * Scale.X, ( y + 12 ) * Scale.Y - 20 );
-					//					CDTXMania.tテクスチャの解放( ref ctItem );
-					CDTXMania.t安全にDisposeする( ref bmpItem );
+					using (var bmpItem = prvFont.DrawPrivateFont( this.list項目リスト[ nItem ].str項目名, Color.White, Color.Black ))
+					{
+					    listMenu[ nItem ].txMenuItemRight = CDTXMania.tテクスチャの生成( bmpItem );
+					    // ctItem.t2D描画( CDTXMania.app.Device, ( x + 0x12 ) * Scale.X, ( y + 12 ) * Scale.Y - 20 );
+					    // CDTXMania.tテクスチャの解放( ref ctItem );
+					}
 				}
 				//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 0x12, y + 12, this.list項目リスト[ nItem ].str項目名 );
 				//-----------------
@@ -1896,13 +1897,13 @@ namespace DTXMania
 				}
 				if ( b強調 )
 				{
-					Bitmap bmpStr = b強調 ?
-						prvFont.DrawPrivateFont( strParam, Color.Black, Color.White, Color.Yellow, Color.OrangeRed ) :
-						prvFont.DrawPrivateFont( strParam, Color.Black, Color.White );
-					CTexture txStr = CDTXMania.tテクスチャの生成( bmpStr, false );
-					txStr.t2D描画( CDTXMania.app.Device, x + 400, y + 12 );
-					CDTXMania.tテクスチャの解放( ref txStr );
-					CDTXMania.t安全にDisposeする( ref bmpStr );
+				    using (var bmpStr = prvFont.DrawPrivateFont(strParam, Color.Black, Color.White, Color.Yellow, Color.OrangeRed))
+				    {
+				        using (var txStr = CDTXMania.tテクスチャの生成( bmpStr, false ))
+				        {
+				            txStr.t2D描画( CDTXMania.app.Device, x + 400, y + 12 );
+				        }
+				    }
 				}
 				else
 				{
@@ -1914,10 +1915,10 @@ namespace DTXMania
 						object o = this.list項目リスト[ nItem ].obj現在値();
 						stm.strParam = ( o == null ) ? "" : o.ToString();
 
-						Bitmap bmpStr =
-							prvFont.DrawPrivateFont( strParam, Color.White, Color.Black );
-						stm.txParam = CDTXMania.tテクスチャの生成( bmpStr, false );
-						CDTXMania.t安全にDisposeする( ref bmpStr );
+						using (var bmpStr = prvFont.DrawPrivateFont( strParam, Color.White, Color.Black ))
+						{
+						    stm.txParam = CDTXMania.tテクスチャの生成( bmpStr, false );
+						}
 
 						listMenu[ nItem ] = stm;
 					}

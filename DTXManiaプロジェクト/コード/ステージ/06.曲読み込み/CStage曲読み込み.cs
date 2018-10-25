@@ -102,18 +102,16 @@ namespace DTXMania
                         //this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
                         //this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 
-                        Bitmap bmpSongTitle = new Bitmap(1, 1);
-                        bmpSongTitle = this.pfTITLE.DrawPrivateFont( this.str曲タイトル, Color.White, Color.Black );
-						this.txタイトル = new CTexture( CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false );
-                        txタイトル.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txタイトル, 710);
-                        Bitmap bmpSongSubTitle = new Bitmap(1, 1);
-                        bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( this.strサブタイトル, Color.White, Color.Black );
-						this.txサブタイトル = new CTexture( CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false );
+					    using (var bmpSongTitle = this.pfTITLE.DrawPrivateFont( this.str曲タイトル, Color.White, Color.Black ))
+					    {
+					        this.txタイトル = new CTexture( CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false );
+					        txタイトル.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txタイトル, 710);
+					    }
 
-                        //image.Dispose();
-                        CDTXMania.t安全にDisposeする( ref bmpSongTitle );
-                        CDTXMania.t安全にDisposeする( ref bmpSongSubTitle );
-                        
+					    using (var bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( this.strサブタイトル, Color.White, Color.Black ))
+					    {
+					        this.txサブタイトル = new CTexture( CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false );
+					    }
                     }
 					else
 					{

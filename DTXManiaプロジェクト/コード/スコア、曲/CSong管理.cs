@@ -720,7 +720,7 @@ namespace DTXMania
 										{
 											Trace.TraceError( "演奏記録ファイルの読み込みに失敗しました。({0})", strFileNameScoreIni );
 											Trace.TraceError( e.ToString() );
-											Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+											Trace.TraceError( "例外が発生しましたが処理を継続します。 (8ed7e0c4-4438-4e30-a8f1-6b718b150401)" );
 										}
 									}
 								}
@@ -917,22 +917,24 @@ namespace DTXMania
 
 							#region [ 対応する .score.ini が存在していれば読み込み、Cスコア.譜面情報 に追加設定する ]
 							//-----------------
-                            //dtxのscoreiniを探す
-                            string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア[ i ].ファイル情報.フォルダの絶対パス, "*.dtx.score.ini");
-
                             try
                             {
-							    if( File.Exists( c曲リストノード.arスコア[ i ].ファイル情報.ファイルの絶対パス + ".score.ini" ) )
-                                    this.tScoreIniを読み込んで譜面情報を設定する( c曲リストノード.arスコア[ i ].ファイル情報.ファイルの絶対パス+ ".score.ini", ref c曲リストノード.arスコア[ i ] );
-                                else if( File.Exists( dtxscoreini[ 0 ] ) )
+                                var scoreIniPath = c曲リストノード.arスコア[ i ].ファイル情報.ファイルの絶対パス + ".score.ini";
+                                if( File.Exists( scoreIniPath ) )
+                                    this.tScoreIniを読み込んで譜面情報を設定する( scoreIniPath, c曲リストノード.arスコア[ i ] );
+                                else
                                 {
-                                    this.tScoreIniを読み込んで譜面情報を設定する( dtxscoreini[ 0 ], ref c曲リストノード.arスコア[ i ] );
+                                    string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア[i].ファイル情報.フォルダの絶対パス, "*.dtx.score.ini");
+                                    if (dtxscoreini.Length != 0 && File.Exists(dtxscoreini[0]))
+                                    {
+                                        this.tScoreIniを読み込んで譜面情報を設定する(dtxscoreini[0], c曲リストノード.arスコア[i]);
+                                    }
                                 }
                             }
                             catch (Exception e)
                             {
                                 Trace.TraceError( e.ToString() );
-                                Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                                Trace.TraceError( "例外が発生しましたが処理を継続します。 (c8b6538c-46a1-403e-8cc3-fc7e7ff914fb)" );
                             }
 
 							//-----------------
@@ -1146,7 +1148,7 @@ namespace DTXMania
 			{
 				Trace.TraceError( "songs.dbの出力に失敗しました。" );
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (ca70d133-f092-4351-8ebd-0906d8f1cffa)" );
 			}
 		}
 		private void tSongsDBにノードを１つ出力する( BinaryWriter bw, C曲リストノード node )
@@ -1763,7 +1765,7 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
             catch (Exception ex)
             {
                 Trace.TraceError(ex.ToString());
-                Trace.TraceError("例外が発生しましたが処理を継続します。");
+                Trace.TraceError("例外が発生しましたが処理を継続します。 (bca6dda7-76ad-42fc-a415-250f52c0b17d)");
             }
 
         }
@@ -1824,7 +1826,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
         #endregion
         #region [ .score.ini を読み込んで Cスコア.譜面情報に設定する ]
         //-----------------
-        public void tScoreIniを読み込んで譜面情報を設定する( string strScoreIniファイルパス, ref Cスコア score )
+        public void tScoreIniを読み込んで譜面情報を設定する( string strScoreIniファイルパス, Cスコア score )
 		{
 			if( !File.Exists( strScoreIniファイルパス ) )
 				return;
@@ -1882,7 +1884,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 			{
 				Trace.TraceError( "演奏記録ファイルの読み込みに失敗しました。[{0}]", strScoreIniファイルパス );
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (801f823d-a952-4809-a1bb-cf6a56194f5c)" );
 			}
 		}
 		//-----------------

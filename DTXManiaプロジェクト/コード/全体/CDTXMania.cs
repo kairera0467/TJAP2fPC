@@ -426,7 +426,7 @@ namespace DTXMania
 				catch (Exception e)
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (0bfe6bff-2a56-4df4-9333-2df26d9b765b)" );
 					return false;
 				}
 			}
@@ -1594,10 +1594,9 @@ for (int i = 0; i < 3; i++) {
 				Trace.TraceError( "テクスチャの生成に失敗しました。({0})", fileName );
 				return null;
 			}
-			catch ( FileNotFoundException e )
+			catch ( FileNotFoundException )
 			{
-				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "テクスチャファイルが見つかりませんでした。({0})", fileName );
+				Trace.TraceWarning( "テクスチャファイルが見つかりませんでした。({0})", fileName );
 				return null;
 			}
 		}
@@ -1815,7 +1814,7 @@ for (int i = 0; i < 3; i++) {
 				{
 					//ConfigIni = new CConfigIni();	// 存在してなければ新規生成
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (b8d93255-bbe4-4ca3-8264-7ee5175b19f3)" );
 				}
 			}
 			this.Window.EnableSystemMenu = CDTXMania.ConfigIni.bIsEnabledSystemMenu;	// #28200 2011.5.1 yyagi

@@ -272,7 +272,7 @@ namespace FDK
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (2609806d-23e8-45c2-9389-b427e80915bc)" );
 					if ( ESoundDeviceTypes[ n初期デバイス ] == ESoundDeviceType.Unknown )
 					{
 						Trace.TraceError( string.Format( "サウンドデバイスの初期化に失敗しました。" ) );
@@ -365,6 +365,7 @@ namespace FDK
 		{
             if( !File.Exists( filename ) )
             {
+                Trace.TraceWarning($"[i18n] File does not exist: {filename}");
                 return null;
             }
 
@@ -1340,7 +1341,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				{
 					Trace.TraceError( "{0}: Seek error: {1}", Path.GetFileName( this.strファイル名 ), n位置ms);
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (95dee242-1f92-4fcf-aaf6-b162ad2bfc03)" );
 				}
 				//if ( this.n総演奏時間ms > 5000 )
 				//{
@@ -1480,7 +1481,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 						{
 							// 演奏終了後、長時間解放しないでいると、たまに AccessViolationException が発生することがある。
 							Trace.TraceError( e.ToString() );
-							Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+							Trace.TraceError( "例外が発生しましたが処理を継続します。 (19bcaa24-5259-4198-bf74-41eb1114ba28)" );
 						}
 						C共通.tDisposeする( ref this.Buffer );
 					}

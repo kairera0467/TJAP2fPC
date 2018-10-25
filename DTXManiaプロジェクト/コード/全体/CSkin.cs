@@ -175,7 +175,8 @@ namespace DTXMania
 
 				if( !File.Exists( CSkin.Path( this.strファイル名 ) ) )
 				{
-					throw new FileNotFoundException( this.strファイル名 );
+                    Trace.TraceWarning($"[i18n] File does not exist: {this.strファイル名}");
+				    return;
 				}
 ////				for( int i = 0; i < 2; i++ )		// #27790 2012.3.10 yyagi 2回読み出しを、1回読みだし＋1回メモリコピーに変更
 ////				{
@@ -225,7 +226,7 @@ namespace DTXMania
 					catch (Exception e)
 					{
 						Trace.TraceError( e.ToString() );
-						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。 (17668977-4686-4aa7-b3f0-e0b9a44975b8)" );
 						this.b読み込み未試行 = false;
 					}
 				}
@@ -867,6 +868,19 @@ namespace DTXMania
                             strParam = strArray[1].Trim();
 
                             #region スキン設定
+
+                            void ParseInt32(Action<int> setValue)
+                            {
+                                if (int.TryParse(strParam, out var unparsedValue))
+                                {
+                                    setValue(unparsedValue);
+                                }
+                                else
+                                {
+                                    Trace.TraceWarning($"[i18n] {strCommand} must be an integer value. The provided value is invalid: {strParam}");
+                                }
+                            }
+
                             if (strCommand == "Name")
                             {
                                 this.Skin_Name = strParam;
@@ -1152,15 +1166,15 @@ namespace DTXMania
                             }
                             else if (strCommand == "Game_Chara_Beat_Normal")
                             {
-                                Game_Chara_Beat_Normal = int.Parse(strParam);
+                                ParseInt32(value => Game_Chara_Beat_Normal = value);
                             }
                             else if (strCommand == "Game_Chara_Beat_Clear")
                             {
-                                Game_Chara_Beat_Clear = int.Parse(strParam);
+                                ParseInt32(value => Game_Chara_Beat_Clear = value);
                             }
                             else if (strCommand == "Game_Chara_Beat_GoGo")
                             {
-                                Game_Chara_Beat_GoGo = int.Parse(strParam);
+                                ParseInt32(value => Game_Chara_Beat_GoGo = value);
                             }
                             #endregion
                             #region Dancer
@@ -1187,7 +1201,7 @@ namespace DTXMania
                             // Game_Dancer_PtnはTextrueLoader.csで反映されます。
                             else if (strCommand == "Game_Dancer_Beat")
                             {
-                                Game_Dancer_Beat = int.Parse(strParam);
+                                ParseInt32(value => Game_Dancer_Beat = value);
                             }
                             else if (strCommand == "Game_Dancer_Gauge")
                             {
@@ -1201,11 +1215,11 @@ namespace DTXMania
                             #region Mob
                             else if (strCommand == "Game_Mob_Beat")
                             {
-                                Game_Mob_Beat = int.Parse(strParam);
+                                ParseInt32(value => Game_Mob_Beat = value);
                             }
                             else if (strCommand == "Game_Mob_Ptn_Beat")
                             {
-                                Game_Mob_Ptn_Beat = int.Parse(strParam);
+                                ParseInt32(value => Game_Mob_Ptn_Beat = value);
                             }
                             #endregion
                             #region Score
@@ -1260,8 +1274,7 @@ namespace DTXMania
 
                             else if (strCommand == "Game_Score_Padding")
                             {
-                                Game_Score_Padding = int.Parse(strParam);
-
+                                ParseInt32(value => Game_Score_Padding = value);
                             }
                             else if (strCommand == "Game_Score_Size")
                             {
@@ -1612,15 +1625,15 @@ namespace DTXMania
                             }
                             else if (strCommand == "Game_Balloon_Number_Padding")
                             {
-                                Game_Balloon_Number_Padding = int.Parse(strParam);
+                                ParseInt32(value => Game_Balloon_Number_Padding = value);
                             }
                             else if (strCommand == "Game_Balloon_Roll_Number_Scale")
                             {
-                                Game_Balloon_Roll_Number_Scale = float.Parse(strParam);
+                                ParseInt32(value => Game_Balloon_Roll_Number_Scale = value);
                             }
                             else if (strCommand == "Game_Balloon_Balloon_Number_Scale")
                             {
-                                Game_Balloon_Balloon_Number_Scale = float.Parse(strParam);
+                                ParseInt32(value => Game_Balloon_Balloon_Number_Scale = value);
                             }
 
                             #endregion
@@ -1685,11 +1698,11 @@ namespace DTXMania
                             }
                             else if (strCommand == "Game_Runner_Ptn")
                             {
-                                Game_Runner_Ptn = int.Parse(strParam);
+                                ParseInt32(value => Game_Runner_Ptn = value);
                             }
                             else if (strCommand == "Game_Runner_Type")
                             {
-                                Game_Runner_Type = int.Parse(strParam);
+                                ParseInt32(value => Game_Runner_Type = value);
                             }
                             else if (strCommand == "Game_Runner_StartPoint_X")
                             {
@@ -1741,7 +1754,7 @@ namespace DTXMania
                     catch( Exception exception )
                     {
                         Trace.TraceError( exception.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (6a32cc37-1527-412e-968a-512c1f0135cd)" );
                         continue;
                     }
                 }

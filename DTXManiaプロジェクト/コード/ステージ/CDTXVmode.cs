@@ -363,7 +363,7 @@ namespace DTXMania
 						catch (Exception e)	// 指定ファイルが存在しない
 						{
 							Trace.TraceError( e.ToString() );
-							Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+							Trace.TraceError( "例外が発生しましたが処理を継続します。 (d309a608-7311-411e-a565-19226c3116c2)" );
 						}
 						arg = "";
 						analyzing = false;
@@ -395,7 +395,7 @@ Trace.TraceInformation( "Command: " + s[ (int) this.Command ] );
 					{
 						//ConfigIni = new CConfigIni();	// 存在してなければ新規生成
 						Trace.TraceError( e.ToString() );
-						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。 (825f9ba6-9164-4f2e-8c41-edf4d73c06c9)" );
 					}
 				}
 				fi = null;

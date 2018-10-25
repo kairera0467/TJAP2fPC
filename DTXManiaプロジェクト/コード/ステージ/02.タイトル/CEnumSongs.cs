@@ -267,11 +267,9 @@ namespace DTXMania
 									//	cシステムサウンド.t再生する();
 									//}
 								}
-								catch ( FileNotFoundException e )
+								catch ( FileNotFoundException )
 								{
 									Trace.TraceWarning( "システムサウンドが存在しません。({0})", cシステムサウンド.strファイル名 );
-									Trace.TraceWarning( e.ToString() );
-									Trace.TraceWarning( "例外が発生しましたが処理を継続します。" );
 								}
 								catch ( Exception e )
 								{
@@ -359,7 +357,7 @@ namespace DTXMania
 						{
 							Trace.TraceError( "songs.db の読み込みに失敗しました。" );
 							Trace.TraceError( e.ToString() );
-							Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+							Trace.TraceError( "例外が発生しましたが処理を継続します。 (358800ac-6c52-4381-aa78-740b7383d197)" );
 						}
 
 						int scores = ( this.Songs管理 == null ) ? 0 : this.Songs管理.nSongsDBから取得できたスコア数;	// 読み込み途中でアプリ終了した場合など、CDTXMania.Songs管理 がnullの場合があるので注意
@@ -453,7 +451,7 @@ namespace DTXMania
 									catch ( Exception e )
 									{
 										Trace.TraceError( e.ToString() );
-										Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+										Trace.TraceError( "例外が発生しましたが処理を継続します。 (105fd674-e722-4a4e-bd9a-e6f82ac0b1d3)" );
 								}
 										finally
 									{
@@ -495,7 +493,7 @@ namespace DTXMania
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (76ae87e7-f737-4dfa-b8ab-5f37a06f74e8)" );
 				}
 				finally
 				{
@@ -525,7 +523,7 @@ namespace DTXMania
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (276bb40f-6406-40c1-9f03-e2a9869dbc88)" );
 				}
 				finally
 				{
@@ -552,7 +550,7 @@ namespace DTXMania
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (6480ffa0-1cc1-40d4-9cc9-aceeecd0264b)" );
 				}
 				finally
 				{
@@ -579,7 +577,7 @@ namespace DTXMania
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+					Trace.TraceError( "例外が発生しましたが処理を継続します。 (a9606e11-33e6-46bc-8c79-738b3524a713)" );
 				}
 				finally
 				{
@@ -637,7 +635,7 @@ namespace DTXMania
 			{
 				bSucceededSerialize = false;
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (9ad477a4-d922-412c-b87d-e3a49a608e92)" );
 			}
 			finally
 			{
@@ -651,7 +649,7 @@ namespace DTXMania
 					catch ( Exception e )
 					{
 						Trace.TraceError( e.ToString() );
-						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。 (62860c67-b44f-46f4-b4fc-999c6fe18cce)" );
 					}
 				}
 			}
@@ -664,10 +662,15 @@ namespace DTXMania
 		/// <param name="strPathSongList"></param>
 		private CSongs管理 Deserialize( string strPathSongList )
 		{
-			CSongs管理 songs管理 = null;
 			try
 			{
 				#region [ SongListDB(songlist.db)を読み込む ]
+
+			    if (!File.Exists(strPathSongList))
+			    {
+			        return null;
+			    }
+
 				//	byte[] buf = File.ReadAllBytes( SongListDBファイル名 );			// 一旦メモリにまとめ読みしてからdeserializeした方が高速かと思ったら全く変わらなかったので削除
 				//	using ( MemoryStream input = new MemoryStream(buf, false) )
 				using ( Stream input = File.OpenRead( strPathSongList ) )
@@ -675,14 +678,14 @@ namespace DTXMania
 					try
 					{
 						BinaryFormatter formatter = new BinaryFormatter();
-						songs管理 = (CSongs管理) formatter.Deserialize( input );
+						return (CSongs管理) formatter.Deserialize( input );
 					}
 					catch ( Exception e )
 					{
 						// songs管理 = null;
 
 						Trace.TraceError( e.ToString() );
-						Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+						Trace.TraceError( "例外が発生しましたが処理を継続します。 (a4289e34-7140-4b67-b821-3b5370a725e1)" );
 					}
 				}
 				#endregion
@@ -691,9 +694,9 @@ namespace DTXMania
 			{
 				Trace.TraceError( "songlist.db の読み込みに失敗しました。" );
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。" );
+				Trace.TraceError( "例外が発生しましたが処理を継続します。 (5a907ed2-f849-4bc4-acd0-d2a6aa3c9c87)" );
 			}
-			return songs管理;
+			return null;
 		}
 	}
 }
