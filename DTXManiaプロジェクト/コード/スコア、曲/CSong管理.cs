@@ -1241,7 +1241,7 @@ namespace DTXMania
 		/// <param name="ノードリスト"></param>
 		/// <param name="part"></param>
 		/// <param name="order">1=Ascend -1=Descend</param>
-		public void t曲リストのソート3_演奏回数の多い順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+		public static void t曲リストのソート3_演奏回数の多い順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 		{
 			order = -order;
 			int nL12345 = (int) p[ 0 ];
@@ -1288,7 +1288,7 @@ namespace DTXMania
 				}
 			}
 		}
-		public void t曲リストのソート4_LEVEL順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+		public static void t曲リストのソート4_LEVEL順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 		{
 			order = -order;
 			int nL12345 = (int)p[ 0 ];
@@ -1329,7 +1329,7 @@ namespace DTXMania
 				}
 			}
 		}
-		public void t曲リストのソート5_BestRank順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+		public static void t曲リストのソート5_BestRank順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 		{
 			order = -order;
 			int nL12345 = (int) p[ 0 ];
@@ -1377,7 +1377,7 @@ namespace DTXMania
 				}
 			}
 		}
-		public void t曲リストのソート6_SkillPoint順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+		public static void t曲リストのソート6_SkillPoint順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 		{
 			order = -order;
 			int nL12345 = (int) p[ 0 ];
@@ -1418,7 +1418,7 @@ namespace DTXMania
 				}
 			}
 		}
-		public void t曲リストのソート7_更新日時順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+		public static void t曲リストのソート7_更新日時順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 		{
 			int nL12345 = (int) p[ 0 ];
 			if ( part != E楽器パート.UNKNOWN )
@@ -1459,7 +1459,7 @@ namespace DTXMania
 				}
 			}
 		}
-		public void t曲リストのソート8_アーティスト名順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+		public static void t曲リストのソート8_アーティスト名順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 		{
 			int nL12345 = (int) p[ 0 ]; 
 			ノードリスト.Sort( delegate( C曲リストノード n1, C曲リストノード n2 )
@@ -1511,7 +1511,7 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 	    }
 
 #if TEST_SORTBGM
-		public void t曲リストのソート9_BPM順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+		public static void t曲リストのソート9_BPM順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 		{
 			order = -order;
 			int nL12345 = (int) p[ 0 ];

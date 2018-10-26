@@ -59,35 +59,35 @@ namespace DTXMania
 					break;
                 //case (int) EOrder.Level:
                 //    this.act曲リスト.t曲リストのソート(
-                //        CDTXMania.Songs管理.t曲リストのソート4_LEVEL順, eInst, nSortOrder,
+                //        CSongs管理.t曲リストのソート4_LEVEL順, eInst, nSortOrder,
                 //        this.act曲リスト.n現在のアンカ難易度レベル
                 //    );
                 //    this.act曲リスト.t選択曲が変更された( true );
                 //    break;
                 //case (int) EOrder.BestRank:
                 //    this.act曲リスト.t曲リストのソート(
-                //        CDTXMania.Songs管理.t曲リストのソート5_BestRank順, eInst, nSortOrder,
+                //        CSongs管理.t曲リストのソート5_BestRank順, eInst, nSortOrder,
                 //        this.act曲リスト.n現在のアンカ難易度レベル
                 //    );
                 //    break;
                 //case (int) EOrder.PlayCount:
                 //    // this.act曲リスト.t曲リストのソート3_演奏回数の多い順( eInst, nSortOrder );
                 //    this.act曲リスト.t曲リストのソート(
-                //        CDTXMania.Songs管理.t曲リストのソート3_演奏回数の多い順, eInst, nSortOrder,
+                //        CSongs管理.t曲リストのソート3_演奏回数の多い順, eInst, nSortOrder,
                 //        this.act曲リスト.n現在のアンカ難易度レベル
                 //    );
                 //    this.act曲リスト.t選択曲が変更された( true );
                 //    break;
                 //case (int) EOrder.Author:
                 //    this.act曲リスト.t曲リストのソート(
-                //        CDTXMania.Songs管理.t曲リストのソート8_アーティスト名順, eInst, nSortOrder,
+                //        CSongs管理.t曲リストのソート8_アーティスト名順, eInst, nSortOrder,
                 //        this.act曲リスト.n現在のアンカ難易度レベル
                 //    );
                 //    this.act曲リスト.t選択曲が変更された( true );
                 //    break;
                 //case (int) EOrder.SkillPoint:
                 //    this.act曲リスト.t曲リストのソート(
-                //        CDTXMania.Songs管理.t曲リストのソート6_SkillPoint順, eInst, nSortOrder,
+                //        CSongs管理.t曲リストのソート6_SkillPoint順, eInst, nSortOrder,
                 //        this.act曲リスト.n現在のアンカ難易度レベル
                 //    );
                 //    this.act曲リスト.t選択曲が変更された( true );
@@ -95,7 +95,7 @@ namespace DTXMania
 #if TEST_SORTBGM
 						case (int) ESortItem.BPM:
 						this.act曲リスト.t曲リストのソート(
-							CDTXMania.Songs管理.t曲リストのソート9_BPM順, eInst, nSortOrder,
+							CSongs管理.t曲リストのソート9_BPM順, eInst, nSortOrder,
 							this.act曲リスト.n現在のアンカ難易度レベル
 						);
 					this.act曲リスト.t選択曲が変更された(true);
