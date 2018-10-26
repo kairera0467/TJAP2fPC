@@ -5,6 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using DTXMania.C曲リストノードComparers;
 using FDK;
 
 namespace DTXMania
@@ -305,7 +306,7 @@ namespace DTXMania
                                 }
 
 
-                                switch (nStrジャンルtoNum_AC15(c曲リストノード.strジャンル))
+                                switch (CStrジャンルtoNum.ForAC15(c曲リストノード.strジャンル))
                                 {
                                     case 0:
                                         c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_JPOP;
@@ -509,7 +510,7 @@ namespace DTXMania
                         c曲リストノード.IsChangedBackColor = true;
                     }
 
-                    switch (nStrジャンルtoNum_AC15(c曲リストノード.strジャンル))
+                    switch (CStrジャンルtoNum.ForAC15(c曲リストノード.strジャンル))
                     {
                         case 0:
                             c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_JPOP;
@@ -1067,15 +1068,15 @@ namespace DTXMania
 			//-----------------------------
             if( CDTXMania.ConfigIni.nDefaultSongSort == 0 )
             {
-			    this.t曲リストのソート1_絶対パス順( ノードリスト );
+			    t曲リストのソート1_絶対パス順( ノードリスト );
             }
             else if( CDTXMania.ConfigIni.nDefaultSongSort == 1 )
             {
-                this.t曲リストのソート9_ジャンル順( ノードリスト, E楽器パート.TAIKO, 1, 0 );
+                t曲リストのソート9_ジャンル順( ノードリスト, E楽器パート.TAIKO, 1, 0 );
             }
             else if( CDTXMania.ConfigIni.nDefaultSongSort == 2 )
             {
-                this.t曲リストのソート9_ジャンル順( ノードリスト, E楽器パート.TAIKO, 2, 0 );
+                t曲リストのソート9_ジャンル順( ノードリスト, E楽器パート.TAIKO, 2, 0 );
             }
 			//-----------------------------
 			#endregion
@@ -1201,7 +1202,7 @@ namespace DTXMania
 		#region [ 曲リストソート ]
 		//-----------------
 
-	    public void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト )
+	    public static void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト )
 	    {
 	        t曲リストのソート1_絶対パス順(ノードリスト, E楽器パート.TAIKO, 1, 0);
 
@@ -1209,12 +1210,12 @@ namespace DTXMania
 	        {
 	            if( ( c曲リストノード.list子リスト != null ) && ( c曲リストノード.list子リスト.Count > 1 ) )
 	            {
-	                this.t曲リストのソート1_絶対パス順( c曲リストノード.list子リスト );
+	                t曲リストのソート1_絶対パス順( c曲リストノード.list子リスト );
 	            }
 	        }
 	    }
 
-	    public void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+	    public static void t曲リストのソート1_絶対パス順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 	    {
             var comparer = new ComparerChain<C曲リストノード>(
                 new C曲リストノードComparerノード種別(),
@@ -1224,96 +1225,14 @@ namespace DTXMania
 	        ノードリスト.Sort( comparer );
 	    }
 
-	    private sealed class ComparerChain<T> : IComparer<T> where T : class
-	    {
-	        private readonly IComparer<T>[] _comparers;
-
-	        public ComparerChain(params IComparer<T>[] comparers)
-	        {
-	            _comparers = comparers;
-	        }
-
-	        public int Compare(T x, T y)
-	        {
-	            if (ReferenceEquals(x, y))
-	            {
-                    return 0;
-	            }
-
-	            for (int i = 0; i < _comparers.Length; i++)
-	            {
-	                var result = _comparers[i].Compare(x, y);
-
-	                if (result != 0)
-	                {
-	                    return result;
-	                }
-	            }
-
-	            return 0;
-	        }
-	    }
-
-	    private sealed class C曲リストノードComparer絶対パス : IComparer<C曲リストノード>
-	    {
-	        private readonly int _order;
-
-	        public C曲リストノードComparer絶対パス(int order)
-	        {
-	            this._order = order;
-	        }
-
-	        public int Compare(C曲リストノード n1, C曲リストノード n2)
-	        {
-	            if( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
-	            {
-	                return _order * n1.arスコア[ 0 ].ファイル情報.フォルダの絶対パス.CompareTo( n2.arスコア[ 0 ].ファイル情報.フォルダの絶対パス );
-	            }
-
-	            string ファイルの絶対パス(C曲リストノード c曲リストノード)
-	            {
-	                for (int i = 0; i < 5; i++)
-	                {
-	                    if (c曲リストノード.arスコア[i] != null)
-	                    {
-	                        return c曲リストノード.arスコア[i].ファイル情報.ファイルの絶対パス ?? "";
-	                    }
-	                }
-
-	                return "";
-	            }
-
-	            var str = ファイルの絶対パス(n1);
-	            var strB = ファイルの絶対パス(n2);
-
-	            return _order * str.CompareTo( strB );
-	        }
-	    }
-
-	    public void t曲リストのソート2_タイトル順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
+	    public static void t曲リストのソート2_タイトル順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
 	    {
 	        var comparer = new ComparerChain<C曲リストノード>(
 	            new C曲リストノードComparerノード種別(),
 	            new C曲リストノードComparerタイトル(order),
-	            new C曲リストノードComparer絶対パス(order)
-	            );
+	            new C曲リストノードComparer絶対パス(order));
 
 	        ノードリスト.Sort( comparer );
-	    }
-
-	    private sealed class C曲リストノードComparerタイトル : IComparer<C曲リストノード>
-	    {
-	        private readonly int _order;
-
-	        public C曲リストノードComparerタイトル(int order)
-	        {
-	            this._order = order;
-	        }
-
-	        public int Compare(C曲リストノード n1, C曲リストノード n2)
-	        {
-	            return _order * n1.strタイトル.CompareTo( n2.strタイトル );
-	        }
 	    }
 
 		/// <summary>
@@ -1568,53 +1487,26 @@ Debug.WriteLine( s + ":" + c曲リストノード.strタイトル );
 			}
 		}
 
-	    public void t曲リストのソート9_ジャンル順(List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p)
+	    public static void t曲リストのソート9_ジャンル順(List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p)
 	    {
 	        try
 	        {
-	            if (order == 1)
-	            {
-	                var comparer = new ComparerChain<C曲リストノード>(
-	                    new C曲リストノードComparerノード種別(),
-	                    new C曲リストノードComparerAC8_14(),
-	                    new C曲リストノードComparer絶対パス(1),
-	                    new C曲リストノードComparerタイトル(1)
-	                    );
+	            var acGenreComparer = order == 1
+	                ? (IComparer<C曲リストノード>) new C曲リストノードComparerAC8_14()
+	                : new C曲リストノードComparerAC15();
 
-	                ノードリスト.Sort( comparer );
-	            }
-	            else
-	            {
-	                var comparer = new ComparerChain<C曲リストノード>(
-	                    new C曲リストノードComparerノード種別(),
-	                    new C曲リストノードComparerAC15(),
-	                    new C曲リストノードComparer絶対パス(1),
-	                    new C曲リストノードComparerタイトル(1)
-	                    );
+	            var comparer = new ComparerChain<C曲リストノード>(
+	                new C曲リストノードComparerノード種別(),
+	                acGenreComparer,
+	                new C曲リストノードComparer絶対パス(1),
+	                new C曲リストノードComparerタイトル(1));
 
-	                ノードリスト.Sort( comparer );
-	            }
+	            ノードリスト.Sort( comparer );
 	        }
 	        catch (Exception ex)
 	        {
 	            Trace.TraceError(ex.ToString());
 	            Trace.TraceError("例外が発生しましたが処理を継続します。 (bca6dda7-76ad-42fc-a415-250f52c0b17d)");
-	        }
-	    }
-
-        private sealed class C曲リストノードComparerAC8_14 : IComparer<C曲リストノード>
-	    {
-	        public int Compare(C曲リストノード n1, C曲リストノード n2)
-	        {
-	            return nStrジャンルtoNum(n1.strジャンル).CompareTo(nStrジャンルtoNum(n2.strジャンル));
-	        }
-	    }
-
-        private sealed class C曲リストノードComparerAC15 : IComparer<C曲リストノード>
-	    {
-	        public int Compare(C曲リストノード n1, C曲リストノード n2)
-	        {
-	            return nStrジャンルtoNum_AC15(n1.strジャンル).CompareTo(nStrジャンルtoNum_AC15(n2.strジャンル));
 	        }
 	    }
 
@@ -1738,117 +1630,12 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 		//-----------------
 		#endregion
 
-        private static int nStrジャンルtoNum( string strジャンル )
-        {
-            int nGenre = 8;
-            switch( strジャンル )
-            {
-                case "アニメ":
-                    nGenre = 0;
-                    break;
-                case "J-POP":
-                    nGenre = 1;
-                    break;
-                case "ゲームミュージック":
-                    nGenre = 2;
-                    break;
-                case "ナムコオリジナル":
-                    nGenre = 3;
-                    break;
-                case "クラシック":
-                    nGenre = 4;
-                    break;
-                case "どうよう":
-                    nGenre = 5;
-                    break;
-                case "バラエティ":
-                    nGenre = 6;
-                    break;
-                case "ボーカロイド":
-                case "VOCALOID":
-                    nGenre = 7;
-                    break;
-                default:
-                    nGenre = 8;
-                    break;
-
-            }
-
-            return nGenre;
-        }
-        private static int nStrジャンルtoNum_AC15( string strジャンル )
-        {
-            int nGenre = 8;
-            switch( strジャンル )
-            {
-                case "J-POP":
-                    nGenre = 0;
-                    break;
-                case "アニメ":
-                    nGenre = 1;
-                    break;
-                case "ボーカロイド":
-                case "VOCALOID":
-                    nGenre = 2;
-                    break;
-                case "どうよう":
-                    nGenre = 3;
-                    break;
-                case "バラエティ":
-                    nGenre = 4;
-                    break;
-                case "クラシック":
-                    nGenre = 5;
-                    break;
-                case "ゲームミュージック":
-                    nGenre = 6;
-                    break;
-                case "ナムコオリジナル":
-                    nGenre = 7;
-                    break;
-                default:
-                    nGenre = 8;
-                    break;
-
-            }
-
-            return nGenre;
-        }
-
 		// その他
 
 		#region [ private ]
 		//-----------------
 		private const string SONGSDB_VERSION = "SongsDB5";
 		private List<string> listStrBoxDefSkinSubfolderFullName;
-
-	    private sealed class C曲リストノードComparerノード種別 : IComparer<C曲リストノード>
-	    {
-	        private static int ToComparable(C曲リストノード c曲リストノード)
-	        {
-	            switch (c曲リストノード.eノード種別)
-	            {
-	                case C曲リストノード.Eノード種別.BOX:
-	                    return 0;
-	                case C曲リストノード.Eノード種別.SCORE:
-	                case C曲リストノード.Eノード種別.SCORE_MIDI:
-	                    return 1;
-	                case C曲リストノード.Eノード種別.UNKNOWN:
-	                    return 2;
-	                case C曲リストノード.Eノード種別.RANDOM:
-	                    return 3;
-	                case C曲リストノード.Eノード種別.BACKBOX:
-	                    return 4;
-	                default:
-	                    throw new ArgumentOutOfRangeException();
-	            }
-	        }
-
-	        public int Compare(C曲リストノード x, C曲リストノード y)
-	        {
-	            return ToComparable(x).CompareTo(ToComparable(y));
-	        }
-	    }
 
 		/// <summary>
 		/// 検索を中断_スローダウンする
