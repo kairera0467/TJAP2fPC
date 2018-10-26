@@ -580,6 +580,9 @@ namespace DTXMania
 		    _titleTextures.ItemRemoved -= OnTitleTexturesOnItemRemoved;
 		    _titleTextures.ItemUpdated -= OnTitleTexturesOnItemUpdated;
 
+		    CDTXMania.t安全にDisposeする(ref pfMusicName);
+		    CDTXMania.t安全にDisposeする(ref pfSubtitle);
+
 			CDTXMania.t安全にDisposeする( ref this.ft曲リスト用フォント );
 
 			for( int i = 0; i < 13; i++ )
@@ -744,9 +747,6 @@ namespace DTXMania
 
          //   CDTXMania.tテクスチャの解放( ref this.txカーソル左 );
          //   CDTXMania.tテクスチャの解放( ref this.txカーソル右 );
-
-            CDTXMania.t安全にDisposeする(ref pfMusicName);
-            CDTXMania.t安全にDisposeする(ref pfSubtitle);
 
 			base.OnManagedリソースの解放();
 		}
