@@ -2043,6 +2043,8 @@ namespace DTXMania
         public float[] Game_Effect_Roll_Speed_2P_X = new float[] { 0.6f };
         public float[] Game_Effect_Roll_Speed_2P_Y = new float[] { 0.6f };
         public int Game_Effect_Roll_Ptn;
+        public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
+        public int Game_Effect_NotesFlash_Timer = 20;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };
