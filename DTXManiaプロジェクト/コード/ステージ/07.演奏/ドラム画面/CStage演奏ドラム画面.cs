@@ -711,8 +711,7 @@ namespace DTXMania
 			int nLane = index;
 			int nPad = index;
 
-			int nInputAdjustTime = 0;
-			E判定 e判定 = this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip, nInputAdjustTime );
+			E判定 e判定 = this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip );
             //if( pChip.nコース == this.n現在のコース )
                 this.actGame.t叩ききりまショー_判定から各数値を増加させる( e判定, (int)( nHitTime - pChip.n発声時刻ms ) );
 			if( e判定 == E判定.Miss )
@@ -820,6 +819,8 @@ namespace DTXMania
 
 		protected override void t入力処理_ドラム()
 		{
+		    var nInputAdjustTimeMs = CDTXMania.ConfigIni.nInputAdjustTimeMs;
+
 			for( int nPad = 0; nPad < (int) Eパッド.MAX; nPad++ )		// #27029 2012.1.4 from: <10 to <=10; Eパッドの要素が１つ（HP）増えたため。
 																		//		  2012.1.5 yyagi: (int)Eパッド.MAX に変更。Eパッドの要素数への依存を無くすため。
 			{
@@ -835,10 +836,8 @@ namespace DTXMania
 					if( !inputEvent.b押された )
 						continue;
 
-					long nTime = inputEvent.nTimeStamp - CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻;
+					long nTime = inputEvent.nTimeStamp + nInputAdjustTimeMs - CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻;
 					//int nPad09 = ( nPad == (int) Eパッド.HP ) ? (int) Eパッド.BD : nPad;		// #27029 2012.1.5 yyagi
-					//int nInputAdjustTime = bIsAutoPlay[ this.nチャンネル0Atoレーン07[ nPad ] ] ? 0 : nInputAdjustTimeMs.Drums;
-                    int nInputAdjustTime = 0;
 
 					bool bHitted = false;
 
@@ -861,8 +860,8 @@ namespace DTXMania
                             break;
                     }
 
-                    CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( nTime, nInputAdjustTime, nUsePlayer );
-                    E判定 e判定 = ( chipNoHit != null ) ? this.e指定時刻からChipのJUDGEを返す( nTime, chipNoHit, nInputAdjustTime ) : E判定.Miss;
+                    CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( nTime, nUsePlayer );
+                    E判定 e判定 = ( chipNoHit != null ) ? this.e指定時刻からChipのJUDGEを返す( nTime, chipNoHit ) : E判定.Miss;
 
                     bool b太鼓音再生フラグ = true;
                     if( chipNoHit != null )
@@ -2150,7 +2149,7 @@ namespace DTXMania
             //CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChip((int)CSound管理.rc演奏用タイマ.n現在時刻ms, 0);
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( ( int ) CSound管理.rc演奏用タイマ.n現在時刻ms, 0, i );
+                CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( ( int ) CSound管理.rc演奏用タイマ.n現在時刻ms, i );
 
                 if( chipNoHit != null && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B ) )
                 {

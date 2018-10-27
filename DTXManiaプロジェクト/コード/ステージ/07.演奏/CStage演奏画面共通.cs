@@ -171,7 +171,7 @@ namespace DTXMania
                     chip.nList上の位置 = n整数値管理;
                     if( ( chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16 ) && ( n整数値管理 < this.listChip[ i ].Count - 1 ) )
                     {
-                        if( chip.db発声時刻ms < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, 0, i ).db発声時刻ms)
+                        if( chip.db発声時刻ms < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, i ).db発声時刻ms)
                         {
                             chip.n描画優先度 = 1;
                         }
@@ -201,8 +201,6 @@ namespace DTXMania
 			{
 				this.n最後に再生したBGMの実WAV番号[ i ] = -1;
 			}
-
-		    this.nInputAdjustTimeMs = CDTXMania.ConfigIni.nInputAdjustTimeMs;
 
 			cInvisibleChip = new CInvisibleChip( CDTXMania.ConfigIni.nDisplayTimesMs, CDTXMania.ConfigIni.nFadeoutTimeMs );
 			this.演奏判定ライン座標 = new C演奏判定ライン座標共通();
@@ -640,7 +638,6 @@ namespace DTXMania
 
 		protected CTexture tx背景;
 
-		protected int nInputAdjustTimeMs;
 		protected STAUTOPLAY bIsAutoPlay;		// #24239 2011.1.23 yyagi
 //		protected int nRisky_InitialVar, nRiskyTime;		// #23559 2011.7.28 yyagi → CAct演奏ゲージ共通クラスに隠蔽
 		protected int nPolyphonicSounds;
@@ -794,11 +791,11 @@ namespace DTXMania
 			}
 		}
 
-		protected E判定 e指定時刻からChipのJUDGEを返す( long nTime, CDTX.CChip pChip, int nInputAdjustTime )
+		protected E判定 e指定時刻からChipのJUDGEを返す( long nTime, CDTX.CChip pChip )
 		{
 			if ( pChip != null )
 			{
-				pChip.nLag = (int) ( nTime + nInputAdjustTime - pChip.n発声時刻ms );		// #23580 2011.1.3 yyagi: add "nInputAdjustTime" to add input timing adjust feature
+				pChip.nLag = (int) ( nTime - pChip.n発声時刻ms );		// #23580 2011.1.3 yyagi: add "nInputAdjustTime" to add input timing adjust feature
 				int nDeltaTime = Math.Abs( pChip.nLag );
 				//Debug.WriteLine("nAbsTime=" + (nTime - pChip.n発声時刻ms) + ", nDeltaTime=" + (nTime + nInputAdjustTime - pChip.n発声時刻ms));
 
@@ -1323,8 +1320,7 @@ namespace DTXMania
 				case E楽器パート.TAIKO:
 					{
                         //連打が短すぎると発声されない
-                        int nInputAdjustTime = bCheckAutoPlay( pChip ) ? 0 : this.nInputAdjustTimeMs;
-						eJudgeResult = (bCorrectLane)? this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip, nInputAdjustTime ) : E判定.Miss;
+						eJudgeResult = (bCorrectLane)? this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip ) : E判定.Miss;
 
 					    if (!bAutoPlay && eJudgeResult != E判定.Miss)
 					    {
@@ -2110,11 +2106,9 @@ namespace DTXMania
 			return nearestChip;
 		}
 
-		protected CDTX.CChip r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( long nTime, int nInputAdjustTime, int nPlayer )
+		protected CDTX.CChip r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( long nTime, int nPlayer )
 		{
 			//sw2.Start();
-			nTime += nInputAdjustTime;
-
 			int nIndex_InitialPositionSearchingToPast;
 			int nTimeDiff;
 			int count = listChip[ nPlayer ].Count;
@@ -2504,8 +2498,7 @@ namespace DTXMania
 				offset = plusminus * 10;
 			}
 
-		    var newInputAdjustTimeMs = (nInputAdjustTimeMs + offset).Clamp(-99, 99);
-			this.nInputAdjustTimeMs = newInputAdjustTimeMs;
+		    var newInputAdjustTimeMs = (CDTXMania.ConfigIni.nInputAdjustTimeMs + offset).Clamp(-99, 99);
 			CDTXMania.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
 		}
 
@@ -2875,8 +2868,7 @@ namespace DTXMania
                     {
                         if ( ( pChip.n発声時刻ms + 120 ) < n現在時刻ms )
                         {
-                            int nInputAdjustTime = ( (pChip.e楽器パート == E楽器パート.UNKNOWN) || bCheckAutoPlay( pChip ) )? 0 : this.nInputAdjustTimeMs;
-                            if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip, nInputAdjustTime ) == E判定.Miss )
+                            if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip ) == E判定.Miss )
                             //( ( pChip.nバーからの距離dot.Taiko < -40 ) && ( this.e指定時刻からChipのJUDGEを返す( CSound管理.rc演奏用タイマ.n現在時刻, pChip, nInputAdjustTime ) == E判定.Miss ) ) )
                             {
                                 this.tチップのヒット処理( n現在時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer );
@@ -3662,8 +3654,7 @@ namespace DTXMania
                         int instIndex = (int) pChip.e楽器パート;
                         if( pChip.nバーからの距離dot[instIndex] < -40 )
                         {
-                            int nInputAdjustTime = ( (pChip.e楽器パート == E楽器パート.UNKNOWN) || bCheckAutoPlay( pChip ) )? 0 : this.nInputAdjustTimeMs;
-                            if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip, nInputAdjustTime ) == E判定.Miss )
+                            if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip ) == E判定.Miss ) // JDG Trace n現在時刻ms up from here
                             {
                                 this.tチップのヒット処理( n現在時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer );
                             }
@@ -4235,14 +4226,6 @@ namespace DTXMania
 			CDTXMania.ConfigIni.bストイックモード = false;
 
 			CDTXMania.ConfigIni.nRisky = 0;
-		}
-
-		private static bool bCheckAutoPlay( CDTX.CChip pChip )
-		{
-            if( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x1F )
-                return false;
-
-			return true;
 		}
 
 		protected abstract void t進行描画_チップ_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip );
