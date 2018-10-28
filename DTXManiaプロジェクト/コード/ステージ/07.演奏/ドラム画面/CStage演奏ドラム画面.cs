@@ -463,8 +463,8 @@ namespace DTXMania
 				    this.t進行描画_スコア();
 
                 this.actChipEffects.On進行描画();
-                this.t進行描画_チップファイアD();
                 this.t進行描画_チップファイアTaiko();
+                this.t進行描画_チップファイアD();
 
                 this.actComboBalloon.On進行描画();
 
