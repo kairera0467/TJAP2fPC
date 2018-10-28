@@ -130,7 +130,13 @@
     <Compile Include="コード\スコア、曲\CDTXCompanionFileFinder.cs" />
     <Compile Include="コード\スコア、曲\CDTXStyleExtractor.cs" />
     <Compile Include="コード\スコア、曲\CScoreIni.cs" />
-    <Compile Include="コード\スコア、曲\CSetDef.cs" />
+    <Compile Include="コード\スコア、曲\CStrジャンルtoNum.cs" />
+    <Compile Include="コード\スコア、曲\C曲リストノードComparers\ComparerChain.cs" />
+    <Compile Include="コード\スコア、曲\C曲リストノードComparers\C曲リストノードComparerAC15.cs" />
+    <Compile Include="コード\スコア、曲\C曲リストノードComparers\C曲リストノードComparerAC8_14.cs" />
+    <Compile Include="コード\スコア、曲\C曲リストノードComparers\C曲リストノードComparerタイトル.cs" />
+    <Compile Include="コード\スコア、曲\C曲リストノードComparers\C曲リストノードComparerノード種別.cs" />
+    <Compile Include="コード\スコア、曲\C曲リストノードComparers\C曲リストノードComparer絶対パス.cs" />
     <Compile Include="コード\ステージ\01.起動\TextureLoader.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CActScanningLoudness.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CEnumSongs.cs" />
