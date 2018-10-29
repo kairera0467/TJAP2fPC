@@ -407,12 +407,8 @@ namespace DTXMania
 
             Effects_Rainbow = TxC(GAME + EFFECTS + @"Rainbow.png");
 
-            Effects_Splash = new CTexture[30];
-            for (int i = 0; i < 30; i++)
-            {
-                Effects_Splash[i] = TxC(GAME + EFFECTS + @"Splash\" + i.ToString() + ".png");
-                if (Effects_Splash[i] != null) Effects_Splash[i].b加算合成 = true;
-            }
+            Effects_GoGoSplash = TxC(GAME + EFFECTS + @"GoGoSplash.png");
+            if (Effects_GoGoSplash != null) Effects_GoGoSplash.b加算合成 = true;
             Effects_Hit_Great = new CTexture[15];
             Effects_Hit_Great_Big = new CTexture[15];
             Effects_Hit_Good = new CTexture[15];
@@ -727,10 +723,8 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref Effects_Fire);
             CDTXMania.tテクスチャの解放(ref Effects_Rainbow);
 
-            for (int i = 0; i < 30; i++)
-            {
-                CDTXMania.tテクスチャの解放(ref Effects_Splash[i]);
-            }
+            CDTXMania.tテクスチャの解放(ref Effects_GoGoSplash);
+
             for (int i = 0; i < 15; i++)
             {
                 CDTXMania.tテクスチャの解放(ref Effects_Hit_Great[i]);
@@ -937,8 +931,8 @@ namespace DTXMania
         public CTexture Effects_Hit_Explosion,
             Effects_Hit_Explosion_Big,
             Effects_Fire,
-            Effects_Rainbow;
-        public CTexture[] Effects_Splash;
+            Effects_Rainbow,
+            Effects_GoGoSplash;
         public CTextureAf[] Effects_Hit_FireWorks;
         public CTexture[] Effects_Hit_Great,
             Effects_Hit_Good,

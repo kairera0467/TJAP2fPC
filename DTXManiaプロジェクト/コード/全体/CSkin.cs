@@ -2045,6 +2045,10 @@ namespace DTXMania
         public int Game_Effect_Roll_Ptn;
         public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
         public int Game_Effect_NotesFlash_Timer = 20;
+        public int[] Game_Effect_GoGoSplash = new int[] { 300, 400, 30 };
+        public int[] Game_Effect_GoGoSplash_X = new int[] { 30, 280, 520, 760, 1000, 1240 };
+        public bool Game_Effect_GoGoSplash_Rotate = true;
+        public int Game_Effect_GoGoSplash_Timer = 15;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };

@@ -61,6 +61,8 @@ namespace DTXMania
             base.list子Activities.Add(this.actFooter = new CAct演奏DrumsFooter());
             base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
             base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
+            base.list子Activities.Add(this.GoGoSplash = new GoGoSplash());
+
 
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
@@ -453,8 +455,7 @@ namespace DTXMania
                 //{
                 //    this.txPlayerNumber.t2D描画(CDTXMania.app.Device, 5, 233);
                 //}
-
-                this.actLaneTaiko.ゴーゴースプラッシュ();
+                this.GoGoSplash.On進行描画();
                 this.t進行描画_リアルタイム判定数表示();
 
                 if ( !CDTXMania.ConfigIni.bNoInfo )
@@ -568,6 +569,7 @@ namespace DTXMania
         public CAct演奏Drums演奏終了演出 actEnd;
         private CAct演奏Drumsゲームモード actGame;
         public CAct演奏Drums背景 actBackground;
+        public GoGoSplash GoGoSplash;
         private bool bフィルイン中;
 		private readonly Eパッド[] eチャンネルtoパッド = new Eパッド[]
 		{

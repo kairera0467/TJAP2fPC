@@ -33,14 +33,12 @@ namespace DTXMania
                 this.stBranch[i].nY座標 = 0;
             }
             this.ctゴーゴー = new CCounter();
-            this.ctゴーゴースプラッシュ = new CCounter();
 
 
             this.n総移動時間 = -1;
             this.nDefaultJudgePos[0] = CDTXMania.Skin.nScrollFieldX[0];
             this.nDefaultJudgePos[1] = CDTXMania.Skin.nScrollFieldY[0];
             this.ctゴーゴー炎 = new CCounter(0, 6, 50, CDTXMania.Timer);
-            this.ctゴーゴースプラッシュ = new CCounter(0, 28, 30, CDTXMania.Timer);
             base.On活性化();
         }
 
@@ -54,7 +52,6 @@ namespace DTXMania
             CDTXMania.Skin.nScrollFieldX[0] = this.nDefaultJudgePos[0];
             CDTXMania.Skin.nScrollFieldY[0] = this.nDefaultJudgePos[1];
             this.ctゴーゴー = null;
-            this.ctゴーゴースプラッシュ = null;
 
             base.On非活性化();
         }
@@ -861,40 +858,11 @@ namespace DTXMania
             }
         }
 
-        public void ゴーゴースプラッシュ()
-        {
-            if (CDTXMania.ConfigIni.nPlayerCount == 1)
-            {
-                #region[ ゴーゴースプラッシュ ]
-                if (CDTXMania.Tx.Effects_Splash[0] != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[0])
-                {
-                    if (!this.ctゴーゴースプラッシュ.b停止中)
-                    {
-                        this.ctゴーゴースプラッシュ.t進行();
-                    }
-                    if (this.ctゴーゴースプラッシュ.n現在の値 < 28)
-                    {
-                        for (int v = 0; v < 6; v++)
-                        {
-                            CDTXMania.Tx.Effects_Splash[this.ctゴーゴースプラッシュ.n現在の値].t2D描画(CDTXMania.app.Device, 0 + (v * 213), 260);
-                        }
-
-                    }
-                    else
-                    {
-                        CDTXMania.Tx.Effects_Splash[this.ctゴーゴースプラッシュ.n現在の値].n透明度 = 0;
-                    }
-
-                }
-                #endregion
-            }
-            return;
-        }
 
         public void GOGOSTART()
         {
             this.ctゴーゴー = new CCounter(0, 17, 18, CDTXMania.Timer);
-            this.ctゴーゴースプラッシュ = new CCounter(0, 28, 15, CDTXMania.Timer);
+            if(CDTXMania.ConfigIni.nPlayerCount == 1) CDTXMania.stage演奏ドラム画面.GoGoSplash.StartSplash();
             //if( this.ctゴーゴー.b停止中 )
             //this.ctゴーゴー.t進行();
             //this.ctゴーゴースプラッシュ = new CCounter(0, 29, 30, CDTXMania.Timer);
@@ -970,7 +938,6 @@ namespace DTXMania
         private CCounter ctゴーゴー;
         private CCounter ctゴーゴー炎;
 
-        private CCounter ctゴーゴースプラッシュ;
 
 
         protected STBRANCH[] stBranch = new STBRANCH[4];

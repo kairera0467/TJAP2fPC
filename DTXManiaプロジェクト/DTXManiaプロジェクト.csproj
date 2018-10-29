@@ -205,6 +205,7 @@
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsDancer.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsレーン太鼓.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsMtaiko.cs" />
+    <Compile Include="コード\ステージ\07.演奏\ドラム画面\GoGoSplash.cs" />
     <Compile Include="コード\ステージ\08.結果\CActResultImage.cs" />
     <Compile Include="コード\ステージ\08.結果\CActResultParameterPanel.cs" />
     <Compile Include="コード\ステージ\08.結果\CActResultRank.cs" />
