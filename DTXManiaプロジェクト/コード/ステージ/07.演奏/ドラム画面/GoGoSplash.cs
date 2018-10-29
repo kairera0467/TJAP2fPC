@@ -37,7 +37,12 @@ namespace DTXMania
             // for Debug
             // if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.A)) StartSplash();
             Splash.t進行();
-            if(Splash.b進行中)
+            if (Splash.b終了値に達した)
+            {
+                Splash.n現在の値 = 0;
+                Splash.t停止();
+            }
+            if (Splash.b進行中)
             {
                 for (int i = 0; i < CDTXMania.Skin.Game_Effect_GoGoSplash_X.Length; i++)
                 {
@@ -68,10 +73,6 @@ namespace DTXMania
                         }
                     }
                     CDTXMania.Tx.Effects_GoGoSplash?.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Effect_GoGoSplash_X[i], CDTXMania.Skin.Game_Effect_GoGoSplash_Y[i], new Rectangle(CDTXMania.Skin.Game_Effect_GoGoSplash[0] * Splash.n現在の値, 0, CDTXMania.Skin.Game_Effect_GoGoSplash[0], CDTXMania.Skin.Game_Effect_GoGoSplash[1]));
-                }
-                if(Splash.b終了値に達した)
-                {
-                    Splash = new CCounter();
                 }
             }
             return base.On進行描画();
