@@ -863,12 +863,6 @@ namespace DTXMania
         {
             this.ctゴーゴー = new CCounter(0, 17, 18, CDTXMania.Timer);
             if(CDTXMania.ConfigIni.nPlayerCount == 1) CDTXMania.stage演奏ドラム画面.GoGoSplash.StartSplash();
-            //if( this.ctゴーゴー.b停止中 )
-            //this.ctゴーゴー.t進行();
-            //this.ctゴーゴースプラッシュ = new CCounter(0, 29, 30, CDTXMania.Timer);
-            //this.ctゴーゴースプラッシュ.t進行();
-            //this.txゴーゴースプラッシュ[(int)this.ctゴーゴースプラッシュ.db現在の値].t2D描画(CDTXMania.app.Device, 0, 0);
-
         }
 
 
