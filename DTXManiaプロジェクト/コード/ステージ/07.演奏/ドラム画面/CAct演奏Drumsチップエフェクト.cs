@@ -81,7 +81,7 @@ namespace DTXMania
                             break;
                         case 1:
                             if (CDTXMania.Tx.Gauge_Soul_Explosion[1] != null)
-                                CDTXMania.Tx.Gauge_Soul_Explosion[1].t2D中心基準描画(CDTXMania.app.Device, 1224, 557, new Rectangle(st[i].ct進行.n現在の値 * CDTXMania.Skin.Game_Effect_NotesFlash[0], 0, 140, 180));
+                                CDTXMania.Tx.Gauge_Soul_Explosion[1].t2D中心基準描画(CDTXMania.app.Device, 1224, 557, new Rectangle(st[i].ct進行.n現在の値 * CDTXMania.Skin.Game_Effect_NotesFlash[0], 0, CDTXMania.Skin.Game_Effect_NotesFlash[0], CDTXMania.Skin.Game_Effect_NotesFlash[1]));
                             CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 557, new Rectangle(st[i].Lane * 130, 0, 130, 130));
                             break;
                     }

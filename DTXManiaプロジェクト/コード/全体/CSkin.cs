@@ -1924,6 +1924,9 @@ namespace DTXMania
         public string Game_StageText = "1曲目";
         public bool Game_StageText_IsRed = false;
         public RollColorMode Game_RollColorMode = RollColorMode.All;
+        public int[] Game_NotesFly_Start = { }; // X, Y
+        public int[] Game_NotesFly_End = { }; // X, Y
+        public int Game_NotesFly_Sin = 0;
         #region Chara
         public int[] Game_Chara_X = new int[] { 0, 0 };
         public int[] Game_Chara_Y = new int[] { 0, 537 };
@@ -2049,7 +2052,7 @@ namespace DTXMania
         public int[] Game_Effect_GoGoSplash_X = new int[] { 80, 300, 520, 760, 980, 1160 };
         public int[] Game_Effect_GoGoSplash_Y = new int[] { 740, 730, 720, 720, 730, 740 };
         public bool Game_Effect_GoGoSplash_Rotate = true;
-        public int Game_Effect_GoGoSplash_Timer = 15;
+        public int Game_Effect_GoGoSplash_Timer = 15;        
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };

@@ -64,6 +64,7 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>TJAPlayer3.manifest</ApplicationManifest>
   </PropertyGroup>
