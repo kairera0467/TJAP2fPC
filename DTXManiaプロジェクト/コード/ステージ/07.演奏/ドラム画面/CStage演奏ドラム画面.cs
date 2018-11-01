@@ -62,6 +62,7 @@ namespace DTXMania
             base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
             base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
             base.list子Activities.Add(this.GoGoSplash = new GoGoSplash());
+            base.list子Activities.Add(this.FlyingNotes = new FlyingNotes());
 
 
             #region[ 文字初期化 ]
@@ -570,6 +571,7 @@ namespace DTXMania
         private CAct演奏Drumsゲームモード actGame;
         public CAct演奏Drums背景 actBackground;
         public GoGoSplash GoGoSplash;
+        public FlyingNotes FlyingNotes;
         private bool bフィルイン中;
 		private readonly Eパッド[] eチャンネルtoパッド = new Eパッド[]
 		{

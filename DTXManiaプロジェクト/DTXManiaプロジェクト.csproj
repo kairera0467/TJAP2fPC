@@ -197,6 +197,7 @@
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsコンボ吹き出し.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsチップエフェクト.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drums連打キャラ.cs" />
+    <Compile Include="コード\ステージ\07.演奏\ドラム画面\FlyingNotes.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drums飛んでいく音符.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsチップファイアD.cs" />
     <Compile Include="コード\ステージ\07.演奏\CAct演奏PauseMenu.cs" />
