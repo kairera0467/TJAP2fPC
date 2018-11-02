@@ -395,11 +395,8 @@ namespace DTXMania
             if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.b加算合成 = true;
             Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit\Explosion_Big.png");
             if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.b加算合成 = true;
-            Effects_Hit_FireWorks = new CTextureAf[2];
-            Effects_Hit_FireWorks[0] = TxCAf(GAME + EFFECTS + @"Hit\FireWorks_1P.png");
-            if (Effects_Hit_FireWorks[0] != null) Effects_Hit_FireWorks[0].b加算合成 = true;
-            Effects_Hit_FireWorks[1] = TxCAf(GAME + EFFECTS + @"Hit\FireWorks_2P.png");
-            if (Effects_Hit_FireWorks[1] != null) Effects_Hit_FireWorks[1].b加算合成 = true;
+            Effects_Hit_FireWorks = TxC(GAME + EFFECTS + @"Hit\FireWorks.png");
+            if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.b加算合成 = true;
 
 
             Effects_Fire = TxC(GAME + EFFECTS + @"Fire.png");
@@ -717,8 +714,7 @@ namespace DTXMania
             #region エフェクト
             CDTXMania.tテクスチャの解放(ref Effects_Hit_Explosion);
             CDTXMania.tテクスチャの解放(ref  Effects_Hit_Explosion_Big);
-            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks[0]);
-            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks[1]);
+            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks);
 
             CDTXMania.tテクスチャの解放(ref Effects_Fire);
             CDTXMania.tテクスチャの解放(ref Effects_Rainbow);
@@ -932,8 +928,8 @@ namespace DTXMania
             Effects_Hit_Explosion_Big,
             Effects_Fire,
             Effects_Rainbow,
-            Effects_GoGoSplash;
-        public CTextureAf[] Effects_Hit_FireWorks;
+            Effects_GoGoSplash,
+            Effects_Hit_FireWorks;
         public CTexture[] Effects_Hit_Great,
             Effects_Hit_Good,
             Effects_Hit_Great_Big,

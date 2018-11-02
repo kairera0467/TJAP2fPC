@@ -1143,13 +1143,13 @@ namespace DTXMania
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 1, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(1, nPlayer);
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(1, nPlayer, true);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer);
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer, true);
                     }
                 }
                 else
@@ -1159,13 +1159,13 @@ namespace DTXMania
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 2, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(2, nPlayer);
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(2, nPlayer, true);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 4, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(4, nPlayer);
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(4, nPlayer, true);
                     }
                 }
             }
@@ -1354,7 +1354,7 @@ namespace DTXMania
                                         
                                         CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
                                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
-                                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer);
+                                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
                                         CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
 

@@ -63,6 +63,7 @@ namespace DTXMania
             base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
             base.list子Activities.Add(this.GoGoSplash = new GoGoSplash());
             base.list子Activities.Add(this.FlyingNotes = new FlyingNotes());
+            base.list子Activities.Add(this.FireWorks = new FireWorks());
 
 
             #region[ 文字初期化 ]
@@ -464,9 +465,11 @@ namespace DTXMania
                 if( !CDTXMania.ConfigIni.bNoInfo )
 				    this.t進行描画_スコア();
 
-                this.actChipEffects.On進行描画();
+                
                 //this.t進行描画_チップファイアTaiko();
+                this.FireWorks.On進行描画();
                 this.FlyingNotes.On進行描画();
+                this.actChipEffects.On進行描画();
                 this.t進行描画_チップファイアD();
 
                 this.actComboBalloon.On進行描画();
@@ -573,6 +576,7 @@ namespace DTXMania
         public CAct演奏Drums背景 actBackground;
         public GoGoSplash GoGoSplash;
         public FlyingNotes FlyingNotes;
+        public FireWorks FireWorks;
         private bool bフィルイン中;
 		private readonly Eパッド[] eチャンネルtoパッド = new Eパッド[]
 		{

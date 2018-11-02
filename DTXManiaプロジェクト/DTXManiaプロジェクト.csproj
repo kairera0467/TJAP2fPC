@@ -193,6 +193,7 @@
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsコンボDGB.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsスコア.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsステータスパネル.cs" />
+    <Compile Include="コード\ステージ\07.演奏\ドラム画面\FireWorks.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drums背景.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsコンボ吹き出し.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsチップエフェクト.cs" />
