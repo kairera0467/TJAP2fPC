@@ -2056,11 +2056,13 @@ namespace DTXMania
         // super-flying-notes AioiLight
         public int[] Game_Effect_FlyingNotes_StartPoint_X = new int[] { 414, 414 }; // 1P, 2P
         public int[] Game_Effect_FlyingNotes_StartPoint_Y = new int[] { 260, 434 };
-        public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1226, 1226 }; // 1P, 2P
-        public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 160, 580 };
+        public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1222, 1222 }; // 1P, 2P
+        public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 164, 584 };
 
         public int Game_Effect_FlyingNotes_Sine = 276;
+        public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
         public int Game_Effect_FlyingNotes_Timer = 4;
+        public int Game_Effect_FlyingNotes_AngleFix = 0;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };

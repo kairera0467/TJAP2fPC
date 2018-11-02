@@ -39,9 +39,10 @@ namespace DTXMania
                         Flying[i].Width = Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer])) / 2;
                         //Console.WriteLine("{0}, {1}", width2P, height2P);
                         var theta = ((Math.Atan2(Flying[i].Height, Flying[i].Width) * 180.0) / Math.PI);
-                        Flying[i].Counter = new CCounter(0, (int)(180 - theta), CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
+                        Flying[i].Counter = new CCounter(0, (int)(180 + CDTXMania.Skin.Game_Effect_FlyingNotes_AngleFix - theta * 2), CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
 
-                        Flying[i].Increase = ((Flying[i].Width * 2) / (180 - theta));
+                        Flying[i].Increase = (1.00 * Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer]))) / (180 + CDTXMania.Skin.Game_Effect_FlyingNotes_AngleFix - theta * 2);
+                         
                         break;
                     }
                 }
@@ -88,11 +89,6 @@ namespace DTXMania
 			{
                 for (int i = 0; i < 128; i++)
                 {
-                    //if( CDTXMania.Skin.nScrollFieldX[0] > 414 + 4 )
-                    //    break;
-                    //if( CDTXMania.Skin.nScrollFieldX[0] < 414 - 4 )
-                    //    break;
-
                     if (Flying[i].IsUsing)
                     {
                         Flying[i].OldValue = Flying[i].Counter.n現在の値;
@@ -107,14 +103,22 @@ namespace DTXMania
                         }
                         for (int n = Flying[i].OldValue; n < Flying[i].Counter.n現在の値; n++)
                         {
-                            Flying[i].X += Flying[i].Increase;
-                            Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player] + (Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * -CDTXMania.Skin.Game_Effect_FlyingNotes_Sine));
+                            if(CDTXMania.Skin.Game_Effect_FlyingNotes_IsUsingEasing)
+                            {
+                                Flying[i].X = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[Flying[i].Player] * 2 + ((-Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * Flying[i].Width));
+                                //Flying[i].X += (Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180))) * Flying[i].Increase;
+                            }
+                            else
+                            {
+                                Flying[i].X += Flying[i].Increase;
+                            }
+                            Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player]) + -Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * CDTXMania.Skin.Game_Effect_FlyingNotes_Sine;
+
                         }
-                        Flying[i].OldValue = Flying[i].Counter.n現在の値;
+                        //Flying[i].OldValue = Flying[i].Counter.n現在の値;
 
                         if (Flying[i].Player == 0)
                         {
-                            //
                             CDTXMania.Tx.Notes?.t2D中心基準描画(CDTXMania.app.Device, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
                         }
                         else if (Flying[i].Player == 1)
