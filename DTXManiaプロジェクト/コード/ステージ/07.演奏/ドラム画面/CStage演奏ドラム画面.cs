@@ -465,7 +465,8 @@ namespace DTXMania
 				    this.t進行描画_スコア();
 
                 this.actChipEffects.On進行描画();
-                this.t進行描画_チップファイアTaiko();
+                //this.t進行描画_チップファイアTaiko();
+                this.FlyingNotes.On進行描画();
                 this.t進行描画_チップファイアD();
 
                 this.actComboBalloon.On進行描画();
@@ -754,7 +755,8 @@ namespace DTXMania
                 }
 
 
-                this.actChipFireTaiko.Start( nFly, nPlayer );
+                //this.actChipFireTaiko.Start( nFly, nPlayer );
+                this.FlyingNotes.Start(nFly, nPlayer);
 			}
 
 			return true;
@@ -1303,7 +1305,8 @@ namespace DTXMania
                         {
                             pChip.bHit = true;
                             if (pChip.nチャンネル番号 != 0x1F)
-                                this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
+                                this.FlyingNotes.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
+                            //this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
                             if (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) nLane = 1;
                             this.actLaneFlushD.Start(nLane, 127f, nPlayer);
                             this.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);

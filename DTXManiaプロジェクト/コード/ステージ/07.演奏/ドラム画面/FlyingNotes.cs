@@ -15,18 +15,6 @@ namespace DTXMania
 		public FlyingNotes()
 		{
             base.b活性化してない = true;
-            // 角度の決定
-            Console.WriteLine("##############################################");
-            var height1P = Math.Abs(CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[0]);
-            var width1P = Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[0] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[0])) / 2;
-            //Console.WriteLine("{0}, {1}", width1P, height1P );
-            var height2P = Math.Abs(CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[1]);
-            var width2P = Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[1] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[1])) / 2;
-            //Console.WriteLine("{0}, {1}", width2P, height2P);
-            Theta[0] = (int)((Math.Atan2(height1P , width1P) * 180.0) / Math.PI);
-            Theta[1] = (int)((Math.Atan2(height2P , width2P) * 180.0) / Math.PI);
-           
-            Console.WriteLine("{0}, {1}", Theta[0], Theta[1]);
         }
 		
 		
@@ -46,7 +34,15 @@ namespace DTXMania
                         Flying[i].X = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer];
                         Flying[i].Y = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer];
                         Flying[i].OldValue = 0;
-                        Flying[i].Counter = new CCounter(0, 180 - Theta[nPlayer], CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
+                        // 角度の決定
+                        Flying[i].Height = Math.Abs(CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]);
+                        Flying[i].Width = Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer])) / 2;
+                        //Console.WriteLine("{0}, {1}", width2P, height2P);
+                        var theta = ((Math.Atan2(Flying[i].Height, Flying[i].Width) * 180.0) / Math.PI);
+                        Flying[i].Counter = new CCounter(0, (int)(180 - theta), CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
+
+                        Flying[i].Increase = ((Flying[i].Width * 2) / (180 - theta));
+                        break;
                     }
                 }
             }
@@ -111,14 +107,20 @@ namespace DTXMania
                         }
                         for (int n = Flying[i].OldValue; n < Flying[i].Counter.n現在の値; n++)
                         {
-                            if( Flying[i].Player == 0 )
-                            {
-                                // 
-                            }
+                            Flying[i].X += Flying[i].Increase;
+                            Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player] + (Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * -CDTXMania.Skin.Game_Effect_FlyingNotes_Sine));
                         }
+                        Flying[i].OldValue = Flying[i].Counter.n現在の値;
 
-                        if (CDTXMania.Tx.Notes != null)
+                        if (Flying[i].Player == 0)
                         {
+                            //
+                            CDTXMania.Tx.Notes?.t2D中心基準描画(CDTXMania.app.Device, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
+                        }
+                        else if (Flying[i].Player == 1)
+                        {
+                            //
+
                         }
                     }
                 }
@@ -138,8 +140,11 @@ namespace DTXMania
             public bool IsUsing;
             public CCounter Counter;
             public int OldValue;
-            public float X;
-            public float Y;
+            public double X;
+            public double Y;
+            public int Height;
+            public int Width;
+            public double Increase;
         }
 
         private Status[] Flying = new Status[128];

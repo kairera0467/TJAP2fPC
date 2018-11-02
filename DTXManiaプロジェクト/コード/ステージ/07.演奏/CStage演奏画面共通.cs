@@ -1142,12 +1142,14 @@ namespace DTXMania
                     if( pChip.nチャンネル番号 == 0x15 )
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 1, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 1, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(1, nPlayer);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer);
                     }
                 }
                 else
@@ -1156,12 +1158,14 @@ namespace DTXMania
                     if( pChip.nチャンネル番号 == 0x15 )
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 2, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 2, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(2, nPlayer);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 4, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 4, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(4, nPlayer);
                     }
                 }
             }
@@ -1213,7 +1217,8 @@ namespace DTXMania
                 {
                     //ﾊﾟｧｰﾝ
                     CDTXMania.Skin.soundBalloon.t再生する();
-                    CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
+                    //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
+                    CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, player);
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
                     CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
                     if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
@@ -1348,7 +1353,8 @@ namespace DTXMania
                                             this.nHand[ nPlayer ] = 0;
                                         
                                         CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
-                                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
+                                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
+                                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer);
                                         CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
 

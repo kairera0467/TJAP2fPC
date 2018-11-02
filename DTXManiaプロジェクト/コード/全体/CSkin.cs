@@ -2054,13 +2054,13 @@ namespace DTXMania
         public bool Game_Effect_GoGoSplash_Rotate = true;
         public int Game_Effect_GoGoSplash_Timer = 15;
         // super-flying-notes AioiLight
-        public int[] Game_Effect_FlyingNotes_StartPoint_X = new int[] { 620, 620 }; // 1P, 2P
-        public int[] Game_Effect_FlyingNotes_StartPoint_Y = new int[] { 380, 640 };
-        public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1834, 1834 }; // 1P, 2P
-        public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 236, 784 };
+        public int[] Game_Effect_FlyingNotes_StartPoint_X = new int[] { 414, 414 }; // 1P, 2P
+        public int[] Game_Effect_FlyingNotes_StartPoint_Y = new int[] { 260, 434 };
+        public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1226, 1226 }; // 1P, 2P
+        public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 160, 580 };
 
-        public int Game_Effect_FlyingNotes_Sine = 380;
-        public int Game_Effect_FlyingNotes_Timer = 6;
+        public int Game_Effect_FlyingNotes_Sine = 276;
+        public int Game_Effect_FlyingNotes_Timer = 4;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };
