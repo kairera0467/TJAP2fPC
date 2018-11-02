@@ -112,7 +112,16 @@ namespace DTXMania
                             {
                                 Flying[i].X += Flying[i].Increase;
                             }
-                            Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player]) + -Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * CDTXMania.Skin.Game_Effect_FlyingNotes_Sine;
+
+
+                            if(Flying[i].Player == 0)
+                            {
+                                Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player]) + -Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * CDTXMania.Skin.Game_Effect_FlyingNotes_Sine;
+                            }
+                            else
+                            {
+                                Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player]) + Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * CDTXMania.Skin.Game_Effect_FlyingNotes_Sine;
+                            }
 
                         }
                         //Flying[i].OldValue = Flying[i].Counter.n現在の値;
@@ -124,7 +133,7 @@ namespace DTXMania
                         else if (Flying[i].Player == 1)
                         {
                             //
-
+                            CDTXMania.Tx.Notes?.t2D中心基準描画(CDTXMania.app.Device, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
                         }
                     }
                 }
