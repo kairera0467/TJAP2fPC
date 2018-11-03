@@ -78,14 +78,14 @@ namespace DTXMania
                     if (!this.st虹[i].b使用中 && player == 0)
                     {
                         this.st虹[i].b使用中 = true;
-                        this.st虹[i].ct進行 = new CCounter(0, 164, 8, CDTXMania.Timer); // カウンタ
+                        this.st虹[i].ct進行 = new CCounter(0, 164, CDTXMania.Skin.Game_Effect_Rainbow_Timer, CDTXMania.Timer); // カウンタ
                         this.st虹[i].nPlayer = player;
                         break;
                     }
                     if (!this.st虹2[i].b使用中 && player == 1)
                     {
                         this.st虹2[i].b使用中 = true;
-                        this.st虹2[i].ct進行 = new CCounter(0, 164, 8, CDTXMania.Timer); // カウンタ
+                        this.st虹2[i].ct進行 = new CCounter(0, 164, CDTXMania.Skin.Game_Effect_Rainbow_Timer, CDTXMania.Timer); // カウンタ
                         this.st虹2[i].nPlayer = player;
                         break;
                     }
