@@ -6,7 +6,7 @@ using System.Text;
 namespace DTXMania
 {
     /// <summary>
-    /// 段位チャレンジを管理するクラス。
+    /// 段位認定を管理するクラス。
     /// </summary>
     class Dan_C
     {
@@ -16,7 +16,7 @@ namespace DTXMania
         }
 
         /// <summary>
-        /// 段位チャレンジの条件を初期化し、生成します。
+        /// 段位認定の条件を初期化し、生成します。
         /// </summary>
         /// <param name="examType">条件の種別。</param>
         /// <param name="value">条件の合格量。</param>
@@ -27,6 +27,7 @@ namespace DTXMania
             Type = examType;
             Value = value;
             Range = examRange;
+            NotReached = false;
         }
 
         /// <summary>
@@ -132,6 +133,9 @@ namespace DTXMania
             return (int)percent;
         }
         
+        /// <summary>
+        /// 条件と現在の値をチェックして、合格もしくは金合格をしてるか否かを更新する。
+        /// </summary>
         private void SetCleared()
         {
             if (Range == ExamRange.More)
@@ -170,9 +174,18 @@ namespace DTXMania
                 }
             }        
         }
+        
+        /// <summary>
+        /// 条件に達成できる見込みがあるかどうか値を代入します。
+        /// </summary>
+        /// <param name="notReached">到達したかどうか。</param>
+        public void SetReached(bool notReached)
+        {
+            NotReached = notReached;
+        }
 
         /// <summary>
-        /// 段位チャレンジの条件の種別。
+        /// 段位認定の条件の種別。
         /// </summary>
         public enum ExamType
         {
@@ -187,7 +200,7 @@ namespace DTXMania
         }
 
         /// <summary>
-        /// 段位チャレンジの合格範囲。
+        /// 段位認定の合格範囲。
         /// </summary>
         public enum ExamRange
         {
@@ -228,5 +241,11 @@ namespace DTXMania
         /// </summary>
         public readonly bool[] IsCleared = new[] { false, false };
 
+        /// <summary>
+        /// 条件の達成見込みがなくなったら、真になる。
+        /// この変数が一度trueになれば、基本的にfalseに戻ることはない。
+        /// (スコア加算については、この限りではない。)
+        /// </summary>
+        public bool NotReached = false;
     }
 }

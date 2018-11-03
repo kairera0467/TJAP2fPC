@@ -66,7 +66,7 @@ namespace DTXMania
             base.list子Activities.Add(this.FireWorks = new FireWorks());
 
 
-            base.list子Activities.Add(this.actDan = new Dan_Challenge());
+            base.list子Activities.Add(this.actDan = new Dan_Cert());
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
 			ST文字位置 st文字位置 = new ST文字位置();

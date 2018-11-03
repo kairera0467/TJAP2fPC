@@ -100,6 +100,7 @@ namespace DTXMania
                                 {
                                     this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
                                 }
+                                CDTXMania.stage演奏ドラム画面.actDan.Update();
                             }
 
                             int xAdd = 0;

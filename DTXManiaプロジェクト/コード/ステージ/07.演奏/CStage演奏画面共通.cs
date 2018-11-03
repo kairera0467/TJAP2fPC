@@ -592,7 +592,7 @@ namespace DTXMania
         public CAct演奏DrumsFooter actFooter;
         public CAct演奏DrumsRunner actRunner;
         public CAct演奏DrumsMob actMob;
-        public Dan_Challenge actDan;
+        public Dan_Cert actDan;
 		public bool bPAUSE;
         public bool[] bIsAlreadyCleared;
         public bool[] bIsAlreadyMaxed;
