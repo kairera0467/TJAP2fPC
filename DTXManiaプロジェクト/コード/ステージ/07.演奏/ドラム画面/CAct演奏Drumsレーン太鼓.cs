@@ -648,13 +648,36 @@ namespace DTXMania
             if (this.n総移動時間 != -1)
             {
                 if (n移動方向 == 1)
+                {
                     CDTXMania.Skin.nScrollFieldX[0] = this.n移動開始X + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
+                }
                 else
+                {
                     CDTXMania.Skin.nScrollFieldX[0] = this.n移動開始X - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
+                }
 
                 if (((int)CSound管理.rc演奏用タイマ.n現在時刻ms) > this.n移動開始時刻 + this.n総移動時間)
                 {
                     this.n総移動時間 = -1;
+                }
+            }
+            if (this.n総移動時間2 != -1)
+            {
+                if (n移動方向2 == 1)
+                {
+                    CDTXMania.Skin.nScrollFieldX[1] = this.n移動開始X2 + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
+
+                }
+                else
+                {
+                    CDTXMania.Skin.nScrollFieldX[1] = this.n移動開始X2 - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
+
+                }
+
+
+                if (((int)CSound管理.rc演奏用タイマ.n現在時刻ms) > this.n移動開始時刻2 + this.n総移動時間2)
+                {
+                    this.n総移動時間2 = -1;
                 }
             }
 
@@ -892,7 +915,14 @@ namespace DTXMania
             this.n移動距離px = n移動px;
         }
 
-
+        public void t判定枠移動2(double db移動時間, int n移動px, int n移動方向)
+        {
+            this.n移動開始時刻2 = (int)CSound管理.rc演奏用タイマ.n現在時刻ms;
+            this.n移動開始X2 = CDTXMania.Skin.nScrollFieldX[1];
+            this.n総移動時間2 = (int)(db移動時間 * 1000);
+            this.n移動方向2 = n移動方向;
+            this.n移動距離px2 = n移動px;
+        }
         #region[ private ]
         //-----------------
         //private CTexture txLane;
@@ -952,10 +982,14 @@ namespace DTXMania
 
         private int n総移動時間;
         private int n移動開始X;
-        private int n移動開始Y;
         private int n移動開始時刻;
         private int n移動距離px;
         private int n移動方向;
+        private int n総移動時間2;
+        private int n移動開始X2;
+        private int n移動開始時刻2;
+        private int n移動距離px2;
+        private int n移動方向2;
 
         private int[] nDefaultJudgePos = new int[2];
 

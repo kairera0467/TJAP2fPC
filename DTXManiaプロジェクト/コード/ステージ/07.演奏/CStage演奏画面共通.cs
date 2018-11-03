@@ -560,7 +560,7 @@ namespace DTXMania
 		};
 
 		public CAct演奏AVI actAVI;
-        public CAct演奏Drums飛んでいく音符 actChipFireTaiko;
+        public Rainbow Rainbow;
 		protected CAct演奏チップファイアGB actChipFireGB;
 		public CAct演奏Combo共通 actCombo;
 		protected CAct演奏Danger共通 actDANGER;
@@ -1139,12 +1139,14 @@ namespace DTXMania
                     if( pChip.nチャンネル番号 == 0x15 )
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 1, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 1, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(1, nPlayer, true);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer, true);
                     }
                 }
                 else
@@ -1153,12 +1155,14 @@ namespace DTXMania
                     if( pChip.nチャンネル番号 == 0x15 )
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 2, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 2, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(2, nPlayer, true);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 4, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 4, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(4, nPlayer, true);
                     }
                 }
             }
@@ -1210,9 +1214,10 @@ namespace DTXMania
                 {
                     //ﾊﾟｧｰﾝ
                     CDTXMania.Skin.soundBalloon.t再生する();
-                    CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
-                    CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
-                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
+                    //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
+                    CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, player);
+                    CDTXMania.stage演奏ドラム画面.Rainbow.Start( player );
+                    //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
                     if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 6000L, player);
@@ -1344,7 +1349,8 @@ namespace DTXMania
                                             this.nHand[ nPlayer ] = 0;
                                         
                                         CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
-                                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
+                                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
+                                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
                                         CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
 
@@ -1445,10 +1451,10 @@ namespace DTXMania
 
                             if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
                             {
-                                if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
-                                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
-                                else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
-                                   CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
+                                //if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
+                                //    //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
+                                //else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
+                                //   //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
                             }
                         }
                         else if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
@@ -3568,7 +3574,14 @@ namespace DTXMania
                     case 0xE2:
                         if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
                         {
-                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動( dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].db移動時間, dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].n移動距離px, dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].n移動方向 );
+                            if(nPlayer == 0)
+                            {
+                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
+                            }
+                            else
+                            {
+                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動2(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
+                            }
                             this.nJPOSSCROLL[ nPlayer ]++;
                             pChip.bHit = true;
                         }

@@ -26,7 +26,7 @@ namespace DTXMania
 			base.list子Activities.Add( this.actCombo = new CAct演奏DrumsコンボDGB() );
 			base.list子Activities.Add( this.actDANGER = new CAct演奏DrumsDanger() );
 			base.list子Activities.Add( this.actChipFireD = new CAct演奏DrumsチップファイアD() );
-			base.list子Activities.Add( this.actChipFireTaiko = new CAct演奏Drums飛んでいく音符() );
+			base.list子Activities.Add( this.Rainbow = new Rainbow() );
             base.list子Activities.Add( this.actGauge = new CAct演奏Drumsゲージ() );
             base.list子Activities.Add( this.actGraph = new CAct演奏Drumsグラフ() ); // #24074 2011.01.23 add ikanick
 			base.list子Activities.Add( this.actJudgeString = new CAct演奏Drums判定文字列() );
@@ -62,6 +62,8 @@ namespace DTXMania
             base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
             base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
             base.list子Activities.Add(this.GoGoSplash = new GoGoSplash());
+            base.list子Activities.Add(this.FlyingNotes = new FlyingNotes());
+            base.list子Activities.Add(this.FireWorks = new FireWorks());
 
 
             #region[ 文字初期化 ]
@@ -463,8 +465,11 @@ namespace DTXMania
                 if( !CDTXMania.ConfigIni.bNoInfo )
 				    this.t進行描画_スコア();
 
+
+                this.Rainbow.On進行描画();
+                this.FireWorks.On進行描画();
+                this.FlyingNotes.On進行描画();
                 this.actChipEffects.On進行描画();
-                this.t進行描画_チップファイアTaiko();
                 this.t進行描画_チップファイアD();
 
                 this.actComboBalloon.On進行描画();
@@ -570,6 +575,8 @@ namespace DTXMania
         private CAct演奏Drumsゲームモード actGame;
         public CAct演奏Drums背景 actBackground;
         public GoGoSplash GoGoSplash;
+        public FlyingNotes FlyingNotes;
+        public FireWorks FireWorks;
         private bool bフィルイン中;
 		private readonly Eパッド[] eチャンネルtoパッド = new Eパッド[]
 		{
@@ -751,7 +758,8 @@ namespace DTXMania
                 }
 
 
-                this.actChipFireTaiko.Start( nFly, nPlayer );
+                //this.actChipFireTaiko.Start( nFly, nPlayer );
+                this.FlyingNotes.Start(nFly, nPlayer);
 			}
 
 			return true;
@@ -789,10 +797,6 @@ namespace DTXMania
 			this.actChipFireD.On進行描画();
 		}
 
-		private void t進行描画_チップファイアTaiko()
-		{
-			this.actChipFireTaiko.On進行描画();
-		}
 
 		private void t進行描画_ドラムパッド()
 		{
@@ -1300,7 +1304,8 @@ namespace DTXMania
                         {
                             pChip.bHit = true;
                             if (pChip.nチャンネル番号 != 0x1F)
-                                this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
+                                this.FlyingNotes.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
+                            //this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
                             if (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) nLane = 1;
                             this.actLaneFlushD.Start(nLane, 127f, nPlayer);
                             this.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);

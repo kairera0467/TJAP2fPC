@@ -193,11 +193,13 @@
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsコンボDGB.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsスコア.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsステータスパネル.cs" />
+    <Compile Include="コード\ステージ\07.演奏\ドラム画面\FireWorks.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drums背景.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsコンボ吹き出し.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsチップエフェクト.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drums連打キャラ.cs" />
-    <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drums飛んでいく音符.cs" />
+    <Compile Include="コード\ステージ\07.演奏\ドラム画面\FlyingNotes.cs" />
+    <Compile Include="コード\ステージ\07.演奏\ドラム画面\Rainbow.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsチップファイアD.cs" />
     <Compile Include="コード\ステージ\07.演奏\CAct演奏PauseMenu.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsパッド.cs" />
