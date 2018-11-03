@@ -138,7 +138,6 @@
     <Compile Include="コード\スコア、曲\C曲リストノードComparers\C曲リストノードComparerタイトル.cs" />
     <Compile Include="コード\スコア、曲\C曲リストノードComparers\C曲リストノードComparerノード種別.cs" />
     <Compile Include="コード\スコア、曲\C曲リストノードComparers\C曲リストノードComparer絶対パス.cs" />
-    <Compile Include="コード\スコア、曲\CSetDef.cs" />
     <Compile Include="コード\スコア、曲\Dan-C.cs" />
     <Compile Include="コード\ステージ\01.起動\TextureLoader.cs" />
     <Compile Include="コード\ステージ\02.タイトル\CActScanningLoudness.cs" />
