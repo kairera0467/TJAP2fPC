@@ -2064,8 +2064,7 @@ namespace DTXMania
         public int Game_Effect_FlyingNotes_AngleFix = 0;
         public int[] Game_Effect_FireWorks_Size = new int[] { 180, 180 };
         public int Game_Effect_FireWorks_Ptn = 30;
-        public int Game_Effect_FireWorks_Timer = 8;
-
+        public int Game_Effect_FireWorks_Timer = 6;
         public int Game_Effect_Rainbow_Timer = 8;
         #endregion
         #region Runner
