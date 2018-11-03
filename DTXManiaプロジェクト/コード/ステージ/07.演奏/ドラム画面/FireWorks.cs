@@ -87,11 +87,11 @@ namespace DTXMania
                         FireWork[i].OldValue = FireWork[i].Counter.n現在の値;
                         FireWork[i].Counter.t進行();
                         CDTXMania.Tx.Effects_Hit_FireWorks.t2D中心基準描画(CDTXMania.app.Device, (float)FireWork[i].X, (float)FireWork[i].Y, 1, new Rectangle(FireWork[i].Counter.n現在の値 * CDTXMania.Skin.Game_Effect_FireWorks_Size[0], 0, CDTXMania.Skin.Game_Effect_FireWorks_Size[0], CDTXMania.Skin.Game_Effect_FireWorks_Size[1]));
-                        if (FireWork[i].Counter.b終了値に達した)
-                        {
-                            FireWork[i].Counter.t停止();
-                            FireWork[i].IsUsing = false;
-                        }
+                    }
+                    if (FireWork[i].Counter.b終了値に達した)
+                    {
+                        FireWork[i].Counter.t停止();
+                        FireWork[i].IsUsing = false;
                     }
                 }
             }

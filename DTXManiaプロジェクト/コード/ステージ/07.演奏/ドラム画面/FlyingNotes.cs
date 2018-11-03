@@ -31,18 +31,20 @@ namespace DTXMania
                         Flying[i].IsUsing = true;
                         Flying[i].Lane = nLane;
                         Flying[i].Player = nPlayer;
-                        Flying[i].X = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer];
+                        Flying[i].X = CDTXMania.Skin.nScrollFieldX[nPlayer];
                         Flying[i].Y = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer];
+                        Flying[i].StartPointX = CDTXMania.Skin.nScrollFieldX[nPlayer];
+                        Flying[i].StartPointY = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer];
                         Flying[i].OldValue = 0;
                         Flying[i].IsRoll = isRoll;
                         // 角度の決定
                         Flying[i].Height = Math.Abs(CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]);
-                        Flying[i].Width = Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer])) / 2;
+                        Flying[i].Width = Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.nScrollFieldX[nPlayer])) / 2;
                         //Console.WriteLine("{0}, {1}", width2P, height2P);
-                        var theta = ((Math.Atan2(Flying[i].Height, Flying[i].Width) * 180.0) / Math.PI);
-                        Flying[i].Counter = new CCounter(0, (int)(180 + CDTXMania.Skin.Game_Effect_FlyingNotes_AngleFix - theta * 2), CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
+                        Flying[i].Theta = ((Math.Atan2(Flying[i].Height, Flying[i].Width) * 180.0) / Math.PI);
+                        Flying[i].Counter = new CCounter(0, (int)(180 + CDTXMania.Skin.Game_Effect_FlyingNotes_AngleFix - Flying[i].Theta), CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
 
-                        Flying[i].Increase = (1.00 * Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer]))) / (180 + CDTXMania.Skin.Game_Effect_FlyingNotes_AngleFix - theta * 2);
+                        Flying[i].Increase = (1.00 * Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.nScrollFieldX[nPlayer]))) / (180 + CDTXMania.Skin.Game_Effect_FlyingNotes_AngleFix - Flying[i].Theta);
                         break;
                     }
                 }
@@ -105,7 +107,7 @@ namespace DTXMania
                         {
                             if(CDTXMania.Skin.Game_Effect_FlyingNotes_IsUsingEasing)
                             {
-                                Flying[i].X = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[Flying[i].Player] * 2 + ((-Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * Flying[i].Width));
+                                Flying[i].X = Flying[i].StartPointX + Flying[i].Width + ((-Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / (180 - Flying[i].Theta))) * Flying[i].Width));
                                 //Flying[i].X += (Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180))) * Flying[i].Increase;
                             }
                             else
@@ -167,6 +169,9 @@ namespace DTXMania
             public int Width;
             public double Increase;
             public bool IsRoll;
+            public int StartPointX;
+            public int StartPointY;
+            public double Theta;
         }
 
         private Status[] Flying = new Status[128];

@@ -1220,7 +1220,7 @@ namespace DTXMania
                     //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
                     CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, player);
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
-                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
+                    //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
                     if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 6000L, player);
@@ -1455,10 +1455,10 @@ namespace DTXMania
 
                             if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
                             {
-                                if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
-                                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
-                                else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
-                                   CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
+                                //if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
+                                //    //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
+                                //else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
+                                //   //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
                             }
                         }
                         else if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
@@ -3582,7 +3582,14 @@ namespace DTXMania
                     case 0xE2:
                         if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
                         {
-                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動( dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].db移動時間, dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].n移動距離px, dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].n移動方向 );
+                            if(nPlayer == 0)
+                            {
+                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
+                            }
+                            else
+                            {
+                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動2(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
+                            }
                             this.nJPOSSCROLL[ nPlayer ]++;
                             pChip.bHit = true;
                         }

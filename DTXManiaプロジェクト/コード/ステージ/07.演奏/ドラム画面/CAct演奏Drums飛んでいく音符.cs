@@ -78,14 +78,14 @@ namespace DTXMania
                     if (!this.st虹[i].b使用中 && player == 0)
                     {
                         this.st虹[i].b使用中 = true;
-                        this.st虹[i].ct進行 = new CCounter(0, 164, 5, CDTXMania.Timer); // カウンタ
+                        this.st虹[i].ct進行 = new CCounter(0, 164, 8, CDTXMania.Timer); // カウンタ
                         this.st虹[i].nPlayer = player;
                         break;
                     }
                     if (!this.st虹2[i].b使用中 && player == 1)
                     {
                         this.st虹2[i].b使用中 = true;
-                        this.st虹2[i].ct進行 = new CCounter(0, 164, 5, CDTXMania.Timer); // カウンタ
+                        this.st虹2[i].ct進行 = new CCounter(0, 164, 8, CDTXMania.Timer); // カウンタ
                         this.st虹2[i].nPlayer = player;
                         break;
                     }
@@ -214,109 +214,6 @@ namespace DTXMania
 
                         }
 
-                    }
-                }
-
-                for (int i = 0; i < 64; i++)
-                {
-                    if( CDTXMania.Skin.nScrollFieldX[0] > 414 + 4 )
-                        break;
-                    if( CDTXMania.Skin.nScrollFieldX[0] < 414 - 4 )
-                        break;
-
-                    if (this.st飛び散るチップ[i].b使用中)
-                    {
-                        this.st飛び散るチップ[i].n前回のValue = this.st飛び散るチップ[i].ct進行.n現在の値;
-                        this.st飛び散るチップ[i].ct進行.t進行();
-                        if (this.st飛び散るチップ[i].ct進行.b終了値に達した)
-                        {
-                            this.st飛び散るチップ[i].ct進行.t停止();
-                            this.st飛び散るチップ[i].b使用中 = false;
-                        }
-                        for (int n = this.st飛び散るチップ[i].n前回のValue; n < this.st飛び散るチップ[i].ct進行.n現在の値; n++)
-                        {
-                            if( this.st飛び散るチップ[i].nPlayer == 0 )
-                            {
-                                this.st飛び散るチップ[i].fXL += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((120.0 * Math.PI / 180.0))) * 5);
-                                this.st飛び散るチップ[i].fXR += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((60.0 * Math.PI / 180.0))) * 5);
-
-                                this.st飛び散るチップ[i].fY += (float)((this.st飛び散るチップ[i].f加速度Y * Math.Sin((60.0 * Math.PI / 180.0))) * 9.40f - Math.Exp(this.st飛び散るチップ[i].f重力加速度 * 2.0f) / 2.0f);
-                                this.st飛び散るチップ[i].f加速度X *= this.st飛び散るチップ[i].f加速度の加速度X;
-                                //this.st飛び散るチップ[i].fY *= this.st飛び散るチップ[i].f加速度Y;
-                                this.st飛び散るチップ[i].f加速度Y += this.st飛び散るチップ[i].f重力加速度;
-                            }
-                            else if( this.st飛び散るチップ[i].nPlayer == 1 )
-                            {
-                                this.st飛び散るチップ[i].fXL += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((120.0 * Math.PI / 180.0))) * 5);
-                                this.st飛び散るチップ[i].fXR += (float)((this.st飛び散るチップ[i].f加速度X * Math.Cos((60.0 * Math.PI / 180.0))) * 5);
-
-                                this.st飛び散るチップ[i].fY -= (float)((this.st飛び散るチップ[i].f加速度Y * Math.Sin((60.0 * Math.PI / 180.0))) * 9.40f - Math.Exp(this.st飛び散るチップ[i].f重力加速度 * 2.0f) / 2.0f);
-                                this.st飛び散るチップ[i].f加速度X *= this.st飛び散るチップ[i].f加速度の加速度X;
-                                //this.st飛び散るチップ[i].fY *= this.st飛び散るチップ[i].f加速度Y;
-                                this.st飛び散るチップ[i].f加速度Y += this.st飛び散るチップ[i].f重力加速度;
-                            }
-                        }
-
-                        //Matrix mat = Matrix.Identity;
-                        Matrix mat2 = Matrix.Identity;
-
-                        //mat *= Matrix.RotationZ(0.09f * this.st飛び散るチップ[i].ct進行.n現在の値);
-
-
-                        //mat *= Matrix.Translation((this.st飛び散るチップ[i].fXL - 50f), -(this.st飛び散るチップ[i].fY + 257), 0f);
-                        mat2 *= Matrix.Translation((this.st飛び散るチップ[i].fXR - 50f), -(this.st飛び散るチップ[i].fY + 0), 0f);
-
-                        if (CDTXMania.Tx.Notes != null)
-                        {
-                            if( this.st飛び散るチップ[i].nLane == 0xA || this.st飛び散るチップ[i].nLane == 0xB )
-                            {
-                                CDTXMania.Tx.Notes.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( ( this.st飛び散るチップ[i].nLane + 3 ) * 130, 0, 130, 130));
-                            }
-                            else
-                            {
-                                CDTXMania.Tx.Notes.t3D描画(CDTXMania.app.Device, mat2, new Rectangle( this.st飛び散るチップ[i].nLane * 130, 0, 130, 130));
-                            }
-                        }
-
-                        if( this.st飛び散るチップ[ i ].ct進行.b終了値に達した )
-                        {
-                            CDTXMania.stage演奏ドラム画面.actGauge.Start( this.st飛び散るチップ[i].nLane, E判定.Perfect, this.st飛び散るチップ[i].nPlayer );
-                            CDTXMania.stage演奏ドラム画面.actChipEffects.Start(st飛び散るチップ[i].nPlayer, st飛び散るチップ[i].nLane);
-                        }
-                    }
-
-
-                    if (this.st飛んで行く音符[i].b使用中)
-                    {
-                        this.st飛んで行く音符[i].n前回のValue = this.st飛んで行く音符[i].ct進行.n現在の値;
-                        this.st飛んで行く音符[i].ct進行.t進行();
-                        if( this.st飛んで行く音符[i].ct進行.b終了値に達した )
-                        {
-                            this.st飛んで行く音符[i].ct進行.t停止();
-                            this.st飛んで行く音符[i].b使用中 = false;
-                        }
-                        for (int n = this.st飛んで行く音符[i].n前回のValue; n < this.st飛んで行く音符[i].ct進行.n現在の値; n++)
-                        {
-                            this.st飛んで行く音符[ i ].fXL += this.st飛んで行く音符[i].f加速度X;
-                            //if( this.st飛んで行く音符[ i ].ct進行.n現在の値 <= 17 )
-                                this.st飛んで行く音符[ i ].fY -= this.st飛んで行く音符[ i ].f加速度Y;
-                            //else
-                                //this.st飛んで行く音符[ i ].fY += this.st飛んで行く音符[ i ].f加速度Y;
-                        }
-
-                        Matrix mat = Matrix.Identity;
-                        mat *= Matrix.Translation( this.st飛んで行く音符[ i ].fXL - 640, -(this.st飛んで行く音符[i].fY - 320), 0f);
-                        //mat *= Matrix.Translation( this.st飛んで行く音符[ i ].fXL - 640, 0, 0f);
-
-                        if (CDTXMania.Tx.Notes != null)
-                        {
-                            //this.tx音符.t3D描画(CDTXMania.app.Device, mat, new Rectangle( this.st飛んで行く音符[i].nLane * 130, 0, 130, 130));
-                        }
-
-                        //if( this.st飛んで行く音符[ i ].ct進行.b終了値に達した )
-                        {
-                            //CDTXMania.stage演奏ドラム画面.actGauge.Start( this.st飛んで行く音符[i].nLane, E判定.Perfect );
-                        }
                     }
                 }
 			}

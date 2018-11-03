@@ -466,7 +466,7 @@ namespace DTXMania
 				    this.t進行描画_スコア();
 
                 
-                //this.t進行描画_チップファイアTaiko();
+                this.t進行描画_チップファイアTaiko();
                 this.FireWorks.On進行描画();
                 this.FlyingNotes.On進行描画();
                 this.actChipEffects.On進行描画();
