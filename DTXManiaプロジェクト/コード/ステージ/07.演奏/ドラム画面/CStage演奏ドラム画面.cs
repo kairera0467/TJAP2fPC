@@ -26,7 +26,7 @@ namespace DTXMania
 			base.list子Activities.Add( this.actCombo = new CAct演奏DrumsコンボDGB() );
 			base.list子Activities.Add( this.actDANGER = new CAct演奏DrumsDanger() );
 			base.list子Activities.Add( this.actChipFireD = new CAct演奏DrumsチップファイアD() );
-			base.list子Activities.Add( this.actChipFireTaiko = new CAct演奏Drums飛んでいく音符() );
+			base.list子Activities.Add( this.Rainbow = new Rainbow() );
             base.list子Activities.Add( this.actGauge = new CAct演奏Drumsゲージ() );
             base.list子Activities.Add( this.actGraph = new CAct演奏Drumsグラフ() ); // #24074 2011.01.23 add ikanick
 			base.list子Activities.Add( this.actJudgeString = new CAct演奏Drums判定文字列() );
@@ -465,8 +465,8 @@ namespace DTXMania
                 if( !CDTXMania.ConfigIni.bNoInfo )
 				    this.t進行描画_スコア();
 
-                
-                this.t進行描画_チップファイアTaiko();
+
+                this.Rainbow.On進行描画();
                 this.FireWorks.On進行描画();
                 this.FlyingNotes.On進行描画();
                 this.actChipEffects.On進行描画();
@@ -798,10 +798,6 @@ namespace DTXMania
 			this.actChipFireD.On進行描画();
 		}
 
-		private void t進行描画_チップファイアTaiko()
-		{
-			this.actChipFireTaiko.On進行描画();
-		}
 
 		private void t進行描画_ドラムパッド()
 		{

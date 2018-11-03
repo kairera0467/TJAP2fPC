@@ -8,33 +8,33 @@ using FDK;
 
 namespace DTXMania
 {
-	internal class CAct演奏Drums飛んでいく音符 : CActivity
+	internal class Rainbow : CActivity
 	{
 		// コンストラクタ
 
-		public CAct演奏Drums飛んでいく音符()
+		public Rainbow()
 		{
 			base.b活性化してない = true;
 		}
 		
-        public virtual void t虹( int player )
+        public virtual void Start( int player )
 		{
             if (CDTXMania.Tx.Effects_Rainbow != null)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    if (!this.st虹[i].b使用中 && player == 0)
+                    if (!this.Rainbow1P[i].IsUsing && player == 0)
                     {
-                        this.st虹[i].b使用中 = true;
-                        this.st虹[i].ct進行 = new CCounter(0, 164, CDTXMania.Skin.Game_Effect_Rainbow_Timer, CDTXMania.Timer); // カウンタ
-                        this.st虹[i].nPlayer = player;
+                        this.Rainbow1P[i].IsUsing = true;
+                        this.Rainbow1P[i].Counter = new CCounter(0, 164, CDTXMania.Skin.Game_Effect_Rainbow_Timer, CDTXMania.Timer); // カウンタ
+                        this.Rainbow1P[i].Player = player;
                         break;
                     }
-                    if (!this.st虹2[i].b使用中 && player == 1)
+                    if (!this.Rainbow2P[i].IsUsing && player == 1)
                     {
-                        this.st虹2[i].b使用中 = true;
-                        this.st虹2[i].ct進行 = new CCounter(0, 164, CDTXMania.Skin.Game_Effect_Rainbow_Timer, CDTXMania.Timer); // カウンタ
-                        this.st虹2[i].nPlayer = player;
+                        this.Rainbow2P[i].IsUsing = true;
+                        this.Rainbow2P[i].Counter = new CCounter(0, 164, CDTXMania.Skin.Game_Effect_Rainbow_Timer, CDTXMania.Timer); // カウンタ
+                        this.Rainbow2P[i].Player = player;
                         break;
                     }
                 }
@@ -48,8 +48,8 @@ namespace DTXMania
 		{
             for( int i = 0; i < 2; i++ )
 			{
-				this.st虹[ i ].ct進行 = new CCounter();
-				this.st虹2[ i ].ct進行 = new CCounter();
+				this.Rainbow1P[ i ].Counter = new CCounter();
+				this.Rainbow2P[ i ].Counter = new CCounter();
 			}
             base.On活性化();
 		}
@@ -57,8 +57,8 @@ namespace DTXMania
 		{
             for( int i = 0; i < 2; i++ )
 			{
-				this.st虹[ i ].ct進行 = null;
-				this.st虹2[ i ].ct進行 = null;
+				this.Rainbow1P[ i ].Counter = null;
+				this.Rainbow2P[ i ].Counter = null;
 			}
 			base.On非活性化();
 		}
@@ -82,27 +82,27 @@ namespace DTXMania
 			{
                 for (int f = 0; f < 2; f++)
                 {
-                    if (this.st虹[f].b使用中)
+                    if (this.Rainbow1P[f].IsUsing)
                     {
-                        this.st虹[f].ct進行.t進行();
-                        if (this.st虹[f].ct進行.b終了値に達した)
+                        this.Rainbow1P[f].Counter.t進行();
+                        if (this.Rainbow1P[f].Counter.b終了値に達した)
                         {
-                            this.st虹[f].ct進行.t停止();
-                            this.st虹[f].b使用中 = false;
+                            this.Rainbow1P[f].Counter.t停止();
+                            this.Rainbow1P[f].IsUsing = false;
                         }
 
-                        if(CDTXMania.Tx.Effects_Rainbow != null && this.st虹[f].nPlayer == 0 ) //画像が出来るまで
+                        if(CDTXMania.Tx.Effects_Rainbow != null && this.Rainbow1P[f].Player == 0 ) //画像が出来るまで
                         {
                             //this.st虹[f].ct進行.n現在の値 = 164;
 
-                            if (this.st虹[f].ct進行.n現在の値 < 82)
+                            if (this.Rainbow1P[f].Counter.n現在の値 < 82)
                             {
-                                int nRectX = ((this.st虹[f].ct進行.n現在の値 * 920) / 85);
+                                int nRectX = ((this.Rainbow1P[f].Counter.n現在の値 * 920) / 85);
                                 CDTXMania.Tx.Effects_Rainbow.t2D描画(CDTXMania.app.Device, 360, -100, new Rectangle(0, 0, nRectX, 410));
                             }
-                            else if (this.st虹[f].ct進行.n現在の値 >= 82)
+                            else if (this.Rainbow1P[f].Counter.n現在の値 >= 82)
                             {
-                                int nRectX = (((this.st虹[f].ct進行.n現在の値 - 82) * 920) / 85);
+                                int nRectX = (((this.Rainbow1P[f].Counter.n現在の値 - 82) * 920) / 85);
                                 CDTXMania.Tx.Effects_Rainbow.t2D描画(CDTXMania.app.Device, 360 + nRectX, -100, new Rectangle(nRectX, 0, 920 - nRectX, 410));
                             }
 
@@ -112,27 +112,27 @@ namespace DTXMania
                 }
                 for (int f = 0; f < 2; f++)
                 {
-                    if (this.st虹2[f].b使用中)
+                    if (this.Rainbow2P[f].IsUsing)
                     {
-                        this.st虹2[f].ct進行.t進行();
-                        if (this.st虹2[f].ct進行.b終了値に達した)
+                        this.Rainbow2P[f].Counter.t進行();
+                        if (this.Rainbow2P[f].Counter.b終了値に達した)
                         {
-                            this.st虹2[f].ct進行.t停止();
-                            this.st虹2[f].b使用中 = false;
+                            this.Rainbow2P[f].Counter.t停止();
+                            this.Rainbow2P[f].IsUsing = false;
                         }
 
-                        if(CDTXMania.Tx.Effects_Rainbow != null && this.st虹2[f].nPlayer == 1 ) //画像が出来るまで
+                        if(CDTXMania.Tx.Effects_Rainbow != null && this.Rainbow2P[f].Player == 1 ) //画像が出来るまで
                         {
                             //this.st虹[f].ct進行.n現在の値 = 164;
 
-                            if (this.st虹2[f].ct進行.n現在の値 < 82)
+                            if (this.Rainbow2P[f].Counter.n現在の値 < 82)
                             {
-                                int nRectX = ((this.st虹2[f].ct進行.n現在の値 * 920) / 85);
+                                int nRectX = ((this.Rainbow2P[f].Counter.n現在の値 * 920) / 85);
                                 CDTXMania.Tx.Effects_Rainbow.t2D上下反転描画(CDTXMania.app.Device, 360, 410, new Rectangle(0, 0, nRectX, 410));
                             }
-                            else if (this.st虹2[f].ct進行.n現在の値 >= 82)
+                            else if (this.Rainbow2P[f].Counter.n現在の値 >= 82)
                             {
-                                int nRectX = (((this.st虹2[f].ct進行.n現在の値 - 82) * 920) / 85);
+                                int nRectX = (((this.Rainbow2P[f].Counter.n現在の値 - 82) * 920) / 85);
                                 CDTXMania.Tx.Effects_Rainbow.t2D上下反転描画(CDTXMania.app.Device, 360 + nRectX, 410, new Rectangle(nRectX, 0, 920 - nRectX, 410));
                             }
 
@@ -151,16 +151,16 @@ namespace DTXMania
 		//-----------------
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct ST虹
+        private struct StructRainbow
         {
-            public bool b使用中;
-            public int nPlayer;
-            public CCounter ct進行;
-            public float fX;
+            public bool IsUsing;
+            public int Player;
+            public CCounter Counter;
+            public float X;
         }
 
-        private ST虹[] st虹 = new ST虹[2];
-        private ST虹[] st虹2 = new ST虹[2];
+        private StructRainbow[] Rainbow1P = new StructRainbow[2];
+        private StructRainbow[] Rainbow2P = new StructRainbow[2];
 
 		//-----------------
 		#endregion

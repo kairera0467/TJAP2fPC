@@ -562,7 +562,7 @@ namespace DTXMania
 		};
 
 		public CAct演奏AVI actAVI;
-        public CAct演奏Drums飛んでいく音符 actChipFireTaiko;
+        public Rainbow Rainbow;
 		protected CAct演奏チップファイアGB actChipFireGB;
 		public CAct演奏Combo共通 actCombo;
 		protected CAct演奏Danger共通 actDANGER;
@@ -1219,7 +1219,7 @@ namespace DTXMania
                     CDTXMania.Skin.soundBalloon.t再生する();
                     //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
                     CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, player);
-                    CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
+                    CDTXMania.stage演奏ドラム画面.Rainbow.Start( player );
                     //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
                     if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
                     {
