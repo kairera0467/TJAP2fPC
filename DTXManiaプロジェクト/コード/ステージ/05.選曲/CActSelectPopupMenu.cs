@@ -53,14 +53,14 @@ namespace DTXMania
 		}
 
 
-		public void Initialize( List<CItemBase> menulist, bool showAllItems, string title )
+		protected void Initialize( List<CItemBase> menulist, bool showAllItems, string title )
 		{
 			Initialize( menulist, showAllItems, title, 0 );
 		}
 
-		public void Initialize( List<CItemBase> menulist, bool showAllItems, string title, int defaultPos )
+		protected void Initialize( List<CItemBase> menulist, bool showAllItems, string title, int defaultPos )
 		{
-			prvFont = new CPrivateFastFont( CSkin.Path( @"Graphics\ipag.ttf" ), 18 );
+            ConditionallyInitializePrvFont();
 
 			stqMenuTitle = new stQuickMenuItem();
 			stqMenuTitle.cItem = new CItemBase();
@@ -87,8 +87,15 @@ namespace DTXMania
 			n現在の選択行 = defaultPos;
 		}
 
+	    private void ConditionallyInitializePrvFont()
+	    {
+	        if (prvFont == null)
+	        {
+	            prvFont = new CPrivateFastFont(CSkin.Path(@"Graphics\ipag.ttf"), 18);
+	        }
+	    }
 
-		public void tEnter押下()
+	    public void tEnter押下()
 		{
 			if ( this.bキー入力待ち )
 			{
@@ -215,23 +222,14 @@ namespace DTXMania
 				base.On非活性化();
 			}
 		}
+
 		public override void OnManagedリソースの作成()
 		{
-			if ( !base.b活性化してない )
-			{
-				//string pathCursor = CSkin.Path( @"Graphics\5_menu cursor.png" );;
-				//string pathPopupMenuBackground = CSkin.Path( @"Graphics\5_sort menu background.png" );
-				//if ( File.Exists ( pathCursor ) )
-				//{
-				//	this.txCursor = CDTXMania.tテクスチャの生成( pathCursor, false );
-				//}
-				//if ( File.Exists( pathPopupMenuBackground ) )
-				//{
-				//	this.txPopupMenuBackground = CDTXMania.tテクスチャの生成( pathPopupMenuBackground, false );
-				//}
-				base.OnManagedリソースの作成();
-			}
+		    base.OnManagedリソースの作成();
+
+		    ConditionallyInitializePrvFont();
 		}
+
 		public override void OnManagedリソースの解放()
 		{
 			if ( !base.b活性化してない )

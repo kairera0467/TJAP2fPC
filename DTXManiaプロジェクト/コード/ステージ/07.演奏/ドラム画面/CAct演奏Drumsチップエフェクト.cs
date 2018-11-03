@@ -28,7 +28,7 @@ namespace DTXMania
                     if(!st[i].b使用中)
                     {
                         st[i].b使用中 = true;
-                        st[i].ct進行 = new CCounter(0, 10, 20, CDTXMania.Timer);
+                        st[i].ct進行 = new CCounter(0, CDTXMania.Skin.Game_Effect_NotesFlash[2], CDTXMania.Skin.Game_Effect_NotesFlash_Timer, CDTXMania.Timer);
                         st[i].nプレイヤー = nPlayer;
                         st[i].Lane = Lane;
                         break;
@@ -76,13 +76,13 @@ namespace DTXMania
                     {
                         case 0:
                             if(CDTXMania.Tx.Gauge_Soul_Explosion[0] != null)
-                                CDTXMania.Tx.Gauge_Soul_Explosion[0].t2D描画(CDTXMania.app.Device, 1140, 73, new Rectangle(st[i].ct進行.n現在の値 * 140, 0, 140, 180));
-                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(st[i].Lane * 130, 0, 130, 130));
+                                CDTXMania.Tx.Gauge_Soul_Explosion[0].t2D中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[0], CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0], new Rectangle(st[i].ct進行.n現在の値 * CDTXMania.Skin.Game_Effect_NotesFlash[0], 0, CDTXMania.Skin.Game_Effect_NotesFlash[0], CDTXMania.Skin.Game_Effect_NotesFlash[1]));
+                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[0], CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0], new Rectangle(st[i].Lane * 130, 0, 130, 130));
                             break;
                         case 1:
                             if (CDTXMania.Tx.Gauge_Soul_Explosion[1] != null)
-                                CDTXMania.Tx.Gauge_Soul_Explosion[1].t2D描画(CDTXMania.app.Device, 1140, 468, new Rectangle(st[i].ct進行.n現在の値 * 140, 0, 140, 180));
-                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 557, new Rectangle(st[i].Lane * 130, 0, 130, 130));
+                                CDTXMania.Tx.Gauge_Soul_Explosion[1].t2D中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[1], CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1], new Rectangle(st[i].ct進行.n現在の値 * CDTXMania.Skin.Game_Effect_NotesFlash[0], 0, CDTXMania.Skin.Game_Effect_NotesFlash[0], CDTXMania.Skin.Game_Effect_NotesFlash[1]));
+                            CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[1], CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1], new Rectangle(st[i].Lane * 130, 0, 130, 130));
                             break;
                     }
 

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DTXMania
 {
-    class TextureLoader
+    class TextureLoader : CActivity
     {
         const string BASE = @"Graphics\";
 
@@ -36,7 +36,6 @@ namespace DTXMania
         const string GAMEMODE = @"14_GameMode\";
         const string FAILED = @"15_Failed\";
         const string RUNNER = @"16_Runner\";
-        const string DANCHALLENGE = @"17_DanChallenge\";
 
         // InGame_Effects
         const string FIRE = @"Fire\";
@@ -396,11 +395,8 @@ namespace DTXMania
             if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.b加算合成 = true;
             Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit\Explosion_Big.png");
             if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.b加算合成 = true;
-            Effects_Hit_FireWorks = new CTextureAf[2];
-            Effects_Hit_FireWorks[0] = TxCAf(GAME + EFFECTS + @"Hit\FireWorks_1P.png");
-            if (Effects_Hit_FireWorks[0] != null) Effects_Hit_FireWorks[0].b加算合成 = true;
-            Effects_Hit_FireWorks[1] = TxCAf(GAME + EFFECTS + @"Hit\FireWorks_2P.png");
-            if (Effects_Hit_FireWorks[1] != null) Effects_Hit_FireWorks[1].b加算合成 = true;
+            Effects_Hit_FireWorks = TxC(GAME + EFFECTS + @"Hit\FireWorks.png");
+            if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.b加算合成 = true;
 
 
             Effects_Fire = TxC(GAME + EFFECTS + @"Fire.png");
@@ -408,12 +404,8 @@ namespace DTXMania
 
             Effects_Rainbow = TxC(GAME + EFFECTS + @"Rainbow.png");
 
-            Effects_Splash = new CTexture[30];
-            for (int i = 0; i < 30; i++)
-            {
-                Effects_Splash[i] = TxC(GAME + EFFECTS + @"Splash\" + i.ToString() + ".png");
-                if (Effects_Splash[i] != null) Effects_Splash[i].b加算合成 = true;
-            }
+            Effects_GoGoSplash = TxC(GAME + EFFECTS + @"GoGoSplash.png");
+            if (Effects_GoGoSplash != null) Effects_GoGoSplash.b加算合成 = true;
             Effects_Hit_Great = new CTexture[15];
             Effects_Hit_Great_Big = new CTexture[15];
             Effects_Hit_Good = new CTexture[15];
@@ -471,21 +463,6 @@ namespace DTXMania
             #endregion
             #region ランナー
             Runner = TxC(GAME + RUNNER + @"0.png");
-            #endregion
-            #region DanC
-            DanC_Background = TxC(GAME + DANCHALLENGE + @"Background.png");
-            DanC_Gauge = new CTexture[4];
-            var type = new string[] { "Normal", "Reach", "Clear", "Flush" };
-            for (int i = 0; i < 4; i++)
-            {
-                DanC_Gauge[i] = TxC(GAME + DANCHALLENGE + @"Gauge_" + type[i] + ".png");
-            }
-            DanC_Base = TxC(GAME + DANCHALLENGE + @"Base.png");
-            DanC_Failed = TxC(GAME + DANCHALLENGE + @"Failed.png");
-            DanC_Number = TxC(GAME + DANCHALLENGE + @"Number.png");
-            DanC_ExamType = TxC(GAME + DANCHALLENGE + @"ExamType.png");
-            DanC_ExamRange = TxC(GAME + DANCHALLENGE + @"ExamRange.png");
-            DanC_ExamUnit = TxC(GAME + DANCHALLENGE + @"ExamUnit.png");
             #endregion
             #endregion
 
@@ -737,16 +714,13 @@ namespace DTXMania
             #region エフェクト
             CDTXMania.tテクスチャの解放(ref Effects_Hit_Explosion);
             CDTXMania.tテクスチャの解放(ref  Effects_Hit_Explosion_Big);
-            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks[0]);
-            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks[1]);
+            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks);
 
             CDTXMania.tテクスチャの解放(ref Effects_Fire);
             CDTXMania.tテクスチャの解放(ref Effects_Rainbow);
 
-            for (int i = 0; i < 30; i++)
-            {
-                CDTXMania.tテクスチャの解放(ref Effects_Splash[i]);
-            }
+            CDTXMania.tテクスチャの解放(ref Effects_GoGoSplash);
+
             for (int i = 0; i < 15; i++)
             {
                 CDTXMania.tテクスチャの解放(ref Effects_Hit_Great[i]);
@@ -792,19 +766,6 @@ namespace DTXMania
             #endregion
             #region ランナー
             CDTXMania.tテクスチャの解放(ref Runner);
-            #endregion
-            #region DanC
-            DanC_Background?.Dispose();
-            for (int i = 0; i < 4; i++)
-            {
-                DanC_Gauge[i]?.Dispose();
-            }
-            DanC_Base?.Dispose();
-            DanC_Failed?.Dispose();
-            DanC_Number?.Dispose();
-            DanC_ExamRange?.Dispose();
-            DanC_ExamUnit?.Dispose();
-            DanC_ExamType?.Dispose();
             #endregion
             #endregion
 
@@ -966,9 +927,9 @@ namespace DTXMania
         public CTexture Effects_Hit_Explosion,
             Effects_Hit_Explosion_Big,
             Effects_Fire,
-            Effects_Rainbow;
-        public CTexture[] Effects_Splash;
-        public CTextureAf[] Effects_Hit_FireWorks;
+            Effects_Rainbow,
+            Effects_GoGoSplash,
+            Effects_Hit_FireWorks;
         public CTexture[] Effects_Hit_Great,
             Effects_Hit_Good,
             Effects_Hit_Great_Big,
@@ -1001,15 +962,6 @@ namespace DTXMania
         #endregion
         #region ランナー
         public CTexture Runner;
-        #endregion
-        #region DanC
-        public CTexture DanC_Background;
-        public CTexture[] DanC_Gauge;
-        public CTexture DanC_Base, DanC_Failed;
-        public CTexture DanC_Number,
-            DanC_ExamType,
-            DanC_ExamRange,
-            DanC_ExamUnit;
         #endregion
         #endregion
 

@@ -171,7 +171,7 @@ namespace DTXMania
                     chip.nList上の位置 = n整数値管理;
                     if( ( chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16 ) && ( n整数値管理 < this.listChip[ i ].Count - 1 ) )
                     {
-                        if( chip.db発声時刻ms < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, 0, i ).db発声時刻ms)
+                        if( chip.db発声時刻ms < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, i ).db発声時刻ms)
                         {
                             chip.n描画優先度 = 1;
                         }
@@ -201,8 +201,6 @@ namespace DTXMania
 			{
 				this.n最後に再生したBGMの実WAV番号[ i ] = -1;
 			}
-
-		    this.nInputAdjustTimeMs = CDTXMania.ConfigIni.nInputAdjustTimeMs;
 
 			cInvisibleChip = new CInvisibleChip( CDTXMania.ConfigIni.nDisplayTimesMs, CDTXMania.ConfigIni.nFadeoutTimeMs );
 			this.演奏判定ライン座標 = new C演奏判定ライン座標共通();
@@ -562,7 +560,7 @@ namespace DTXMania
 		};
 
 		public CAct演奏AVI actAVI;
-        public CAct演奏Drums飛んでいく音符 actChipFireTaiko;
+        public Rainbow Rainbow;
 		protected CAct演奏チップファイアGB actChipFireGB;
 		public CAct演奏Combo共通 actCombo;
 		protected CAct演奏Danger共通 actDANGER;
@@ -594,7 +592,6 @@ namespace DTXMania
         public CAct演奏DrumsFooter actFooter;
         public CAct演奏DrumsRunner actRunner;
         public CAct演奏DrumsMob actMob;
-        public Dan_Challenge actDan;
 		public bool bPAUSE;
         public bool[] bIsAlreadyCleared;
         public bool[] bIsAlreadyMaxed;
@@ -615,7 +612,7 @@ namespace DTXMania
                                                               //   HH SD BD HT LT FT CY HHO RD LC LP LBD
         protected readonly int[] nパッド0Atoレーン07 = new int[] { 1, 2, 3, 4, 5, 6, 7, 1, 9, 0, 8, 8 };
 		public STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含まない;
-		public STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含む;
+		protected STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含む;
 		protected int n現在のトップChip = -1;
 		protected int[] n最後に再生したBGMの実WAV番号 = new int[ 50 ];
 		protected int n最後に再生したHHのチャンネル番号;
@@ -641,7 +638,6 @@ namespace DTXMania
 
 		protected CTexture tx背景;
 
-		protected int nInputAdjustTimeMs;
 		protected STAUTOPLAY bIsAutoPlay;		// #24239 2011.1.23 yyagi
 //		protected int nRisky_InitialVar, nRiskyTime;		// #23559 2011.7.28 yyagi → CAct演奏ゲージ共通クラスに隠蔽
 		protected int nPolyphonicSounds;
@@ -795,11 +791,11 @@ namespace DTXMania
 			}
 		}
 
-		protected E判定 e指定時刻からChipのJUDGEを返す( long nTime, CDTX.CChip pChip, int nInputAdjustTime )
+		protected E判定 e指定時刻からChipのJUDGEを返す( long nTime, CDTX.CChip pChip )
 		{
 			if ( pChip != null )
 			{
-				pChip.nLag = (int) ( nTime + nInputAdjustTime - pChip.n発声時刻ms );		// #23580 2011.1.3 yyagi: add "nInputAdjustTime" to add input timing adjust feature
+				pChip.nLag = (int) ( nTime - pChip.n発声時刻ms );		// #23580 2011.1.3 yyagi: add "nInputAdjustTime" to add input timing adjust feature
 				int nDeltaTime = Math.Abs( pChip.nLag );
 				//Debug.WriteLine("nAbsTime=" + (nTime - pChip.n発声時刻ms) + ", nDeltaTime=" + (nTime + nInputAdjustTime - pChip.n発声時刻ms));
 
@@ -1143,12 +1139,14 @@ namespace DTXMania
                     if( pChip.nチャンネル番号 == 0x15 )
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 1, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 1, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(1, nPlayer, true);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer, true);
                     }
                 }
                 else
@@ -1157,12 +1155,14 @@ namespace DTXMania
                     if( pChip.nチャンネル番号 == 0x15 )
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 2, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 2, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(2, nPlayer, true);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
-                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 4, nPlayer );
+                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 4, nPlayer );
+                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(4, nPlayer, true);
                     }
                 }
             }
@@ -1214,9 +1214,10 @@ namespace DTXMania
                 {
                     //ﾊﾟｧｰﾝ
                     CDTXMania.Skin.soundBalloon.t再生する();
-                    CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
-                    CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
-                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
+                    //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
+                    CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, player);
+                    CDTXMania.stage演奏ドラム画面.Rainbow.Start( player );
+                    //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
                     if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 6000L, player);
@@ -1324,8 +1325,7 @@ namespace DTXMania
 				case E楽器パート.TAIKO:
 					{
                         //連打が短すぎると発声されない
-                        int nInputAdjustTime = bCheckAutoPlay( pChip ) ? 0 : this.nInputAdjustTimeMs;
-						eJudgeResult = (bCorrectLane)? this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip, nInputAdjustTime ) : E判定.Miss;
+						eJudgeResult = (bCorrectLane)? this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip ) : E判定.Miss;
 
 					    if (!bAutoPlay && eJudgeResult != E判定.Miss)
 					    {
@@ -1349,7 +1349,8 @@ namespace DTXMania
                                             this.nHand[ nPlayer ] = 0;
                                         
                                         CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
-                                        CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
+                                        //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
+                                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
                                         CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
 
@@ -1450,10 +1451,10 @@ namespace DTXMania
 
                             if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
                             {
-                                if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
-                                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
-                                else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
-                                   CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
+                                //if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
+                                //    //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
+                                //else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
+                                //   //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
                             }
                         }
                         else if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
@@ -1639,8 +1640,6 @@ namespace DTXMania
 								break;
 						}
 					}
-                    actDan.Update();
-                
                     #region[ コンボ音声 ]
                     if( pChip.nチャンネル番号 < 0x15 || ( pChip.nチャンネル番号 >= 0x1A ) )
                     {
@@ -2113,11 +2112,9 @@ namespace DTXMania
 			return nearestChip;
 		}
 
-		protected CDTX.CChip r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( long nTime, int nInputAdjustTime, int nPlayer )
+		protected CDTX.CChip r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( long nTime, int nPlayer )
 		{
 			//sw2.Start();
-			nTime += nInputAdjustTime;
-
 			int nIndex_InitialPositionSearchingToPast;
 			int nTimeDiff;
 			int count = listChip[ nPlayer ].Count;
@@ -2507,8 +2504,7 @@ namespace DTXMania
 				offset = plusminus * 10;
 			}
 
-		    var newInputAdjustTimeMs = (nInputAdjustTimeMs + offset).Clamp(-99, 99);
-			this.nInputAdjustTimeMs = newInputAdjustTimeMs;
+		    var newInputAdjustTimeMs = (CDTXMania.ConfigIni.nInputAdjustTimeMs + offset).Clamp(-99, 99);
 			CDTXMania.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
 		}
 
@@ -2878,8 +2874,7 @@ namespace DTXMania
                     {
                         if ( ( pChip.n発声時刻ms + 120 ) < n現在時刻ms )
                         {
-                            int nInputAdjustTime = ( (pChip.e楽器パート == E楽器パート.UNKNOWN) || bCheckAutoPlay( pChip ) )? 0 : this.nInputAdjustTimeMs;
-                            if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip, nInputAdjustTime ) == E判定.Miss )
+                            if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip ) == E判定.Miss )
                             //( ( pChip.nバーからの距離dot.Taiko < -40 ) && ( this.e指定時刻からChipのJUDGEを返す( CSound管理.rc演奏用タイマ.n現在時刻, pChip, nInputAdjustTime ) == E判定.Miss ) ) )
                             {
                                 this.tチップのヒット処理( n現在時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer );
@@ -3579,7 +3574,14 @@ namespace DTXMania
                     case 0xE2:
                         if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
                         {
-                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動( dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].db移動時間, dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].n移動距離px, dTX.listJPOSSCROLL[ nJPOSSCROLL[ nPlayer ] ].n移動方向 );
+                            if(nPlayer == 0)
+                            {
+                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
+                            }
+                            else
+                            {
+                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動2(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
+                            }
                             this.nJPOSSCROLL[ nPlayer ]++;
                             pChip.bHit = true;
                         }
@@ -3665,8 +3667,7 @@ namespace DTXMania
                         int instIndex = (int) pChip.e楽器パート;
                         if( pChip.nバーからの距離dot[instIndex] < -40 )
                         {
-                            int nInputAdjustTime = ( (pChip.e楽器パート == E楽器パート.UNKNOWN) || bCheckAutoPlay( pChip ) )? 0 : this.nInputAdjustTimeMs;
-                            if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip, nInputAdjustTime ) == E判定.Miss )
+                            if ( this.e指定時刻からChipのJUDGEを返す( n現在時刻ms, pChip ) == E判定.Miss )
                             {
                                 this.tチップのヒット処理( n現在時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer );
                             }
@@ -3880,11 +3881,6 @@ namespace DTXMania
                     dTX.listChip[ A ].eNoteState = ENoteState.none;
                 }
             }
-        }
-
-        public int GetRoll(int player)
-        {
-            return n合計連打数[player];
         }
 
         protected float GetNowPBMTime( CDTX tja, float play_time )
@@ -4243,14 +4239,6 @@ namespace DTXMania
 			CDTXMania.ConfigIni.bストイックモード = false;
 
 			CDTXMania.ConfigIni.nRisky = 0;
-		}
-
-		private static bool bCheckAutoPlay( CDTX.CChip pChip )
-		{
-            if( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x1F )
-                return false;
-
-			return true;
 		}
 
 		protected abstract void t進行描画_チップ_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip );

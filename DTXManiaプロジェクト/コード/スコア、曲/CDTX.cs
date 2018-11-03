@@ -1093,7 +1093,6 @@ namespace DTXMania
         public int nPlayerSide; //2017.08.14 kairera0467 引数で指定する
         public bool bDP譜面が存在する;
         public bool bSession譜面を読み込む;
-        public bool IsDanChallenge; // 2018/8/24 段位チャレンジが存在するか否か (AioiLight)
 
 		public string ARTIST;
 		public string BACKGROUND;
@@ -1251,7 +1250,6 @@ namespace DTXMania
         public bool bGOGOTIME; //2018.03.11 kairera0467
 
         public bool IsEndedBranching; // BRANCHENDが呼び出されたかどうか
-        public Dan_C[] Dan_C;
 
         public bool IsEnabledFixSENote;
         public int FixSENote;
@@ -1370,7 +1368,6 @@ namespace DTXMania
 #endif
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
-            Dan_C = new Dan_C[3];
         }
 		public CDTX( string str全入力文字列 )
 			: this()
@@ -2711,7 +2708,7 @@ namespace DTXMania
                 {
                     if( !string.IsNullOrEmpty( input[ n ] ) && ( input[ n ].Substring( 0, 1 ) == "#" || this.CharConvertNote( input[ n ].Substring( 0, 1 ) ) != -1 ) )
                     {
-                        if( input[ n ].StartsWith( "BALLOON" ) || input[ n ].StartsWith( "BPM" ))
+                        if( input[ n ].StartsWith( "BALLOON" ) || input[ n ].StartsWith( "BPM" ) )
                         {
                             //A～Fで始まる命令が削除されない不具合の対策
                         }
@@ -2915,7 +2912,7 @@ namespace DTXMania
 
         private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
         private static readonly Regex regexForStrippingHeadingLines = new Regex(
-            @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
+            @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
             RegexOptions.Multiline | RegexOptions.Compiled);
 
         /// <summary>
@@ -2948,7 +2945,7 @@ namespace DTXMania
                 var startIndex = strInput.IndexOf( "#START" );
                 if (startIndex < 0)
                 {
-                    Trace.TraceWarning($"[i18n] At least one #START command is required. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"#START命令が少なくとも1つは必要です。 ({strファイル名の絶対パス})");
                 }
                 string strInputHeader = strInput.Remove( startIndex );
                 strInput = strInput.Remove(0, startIndex );
@@ -3517,7 +3514,7 @@ namespace DTXMania
                 var branchStartArgumentMatch = BranchStartArgumentRegex.Match(argument);
                 if (!branchStartArgumentMatch.Success)
                 {
-                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered invalid BRANCHSTART. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #BRANCHSTART 命令が正しく記述されていません。 ({strファイル名の絶対パス})");
                     return;
                 }
 
@@ -3596,7 +3593,7 @@ namespace DTXMania
                 this.n現在のコース = 0;
                 if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
                 {
-                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #N without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #N 命令がありません。 ({strファイル名の絶対パス})");
                     return;
                 }
                 this.n現在の小節数 = branch.n現在の小節;
@@ -3611,7 +3608,7 @@ namespace DTXMania
                 this.n現在のコース = 1;
                 if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
                 {
-                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #E without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #E 命令がありません。 ({strファイル名の絶対パス})");
                     return;
                 }
                 this.n現在の小節数 = branch.n現在の小節;
@@ -3626,7 +3623,7 @@ namespace DTXMania
                 this.n現在のコース = 2;
                 if (!listBRANCH.TryGetValue(this.n内部番号BRANCH1to - 1, out var branch))
                 {
-                    Trace.TraceWarning($"[i18n] Malformed .tja suspected. Encountered #M without a BRANCHSTART. ({strファイル名の絶対パス})");
+                    Trace.TraceWarning($"正常ではない.tjaファイルを読み込みました。 #M 命令がありません。 ({strファイル名の絶対パス})");
                     return;
                 }
                 this.n現在の小節数 = branch.n現在の小節;
@@ -3770,7 +3767,7 @@ namespace DTXMania
 	        if (strArray.Length < minimumLength)
 	        {
 	            Trace.TraceWarning(
-	                $"[i18n] {name} split result should have length {minimumLength} but has length {strArray.Length}. ({strファイル名の絶対パス})");
+	                $"命令 {name} のパラメータが足りません。少なくとも {minimumLength} つのパラメータが必要です。 (現在のパラメータ数: {strArray.Length}). ({strファイル名の絶対パス})");
 	        }
 	    }
 
@@ -4160,69 +4157,8 @@ namespace DTXMania
                     this.b配点が指定されている[1, this.n参照中の難易度] = true;
                 });
             }
-            else if (strCommandName.Equals("EXAM1") || strCommandName.Equals("EXAM2") || strCommandName.Equals("EXAM3"))
-            {
-                if (!string.IsNullOrEmpty(strCommandParam))
-                {
-                    var dan = new Dan_C();
-                    var splitExam = strCommandParam.Split(',');
-                    dan.IsEnable = true;
-                    switch (splitExam[0])
-                    {
-                        case "g":
-                            dan.Type = DTXMania.Dan_C.ExamType.Gauge;
-                            break;
-                        case "jp":
-                            dan.Type = DTXMania.Dan_C.ExamType.JudgePerfect;
-                            break;
-                        case "jg":
-                            dan.Type = DTXMania.Dan_C.ExamType.JudgeGood;
-                            break;
-                        case "jb":
-                            dan.Type = DTXMania.Dan_C.ExamType.JudgeBad;
-                            break;
-                        case "s":
-                            dan.Type = DTXMania.Dan_C.ExamType.Score;
-                            break;
-                        case "r":
-                            dan.Type = DTXMania.Dan_C.ExamType.Roll;
-                            break;
-                        case "h":
-                            dan.Type = DTXMania.Dan_C.ExamType.Hit;
-                            break;
-                        case "c":
-                            dan.Type = DTXMania.Dan_C.ExamType.Combo;
-                            break;
-                        default:
-                            dan.Type = DTXMania.Dan_C.ExamType.Gauge;
-                            break;
-                    }
-                    try
-                    {
-                        dan.Value = new int[] { int.Parse(splitExam[1]), int.Parse(splitExam[2]) };
-                    }
-                    catch (Exception)
-                    {
-                        dan.Value = new int[] { 100, 100 };
-                    }
-                    switch (splitExam[3])
-                    {
-                        case "m":
-                            dan.Range = DTXMania.Dan_C.ExamRange.More;
-                            break;
-                        case "l":
-                            dan.Range = DTXMania.Dan_C.ExamRange.Less;
-                            break;
-                        default:
-                            dan.Range = DTXMania.Dan_C.ExamRange.More;
-                            break;
-                    }
-                    Dan_C[int.Parse(strCommandName.Substring(4)) - 1] = dan;
-                }
-            }
 
-
-            if ( this.nScoreModeTmp == 99 ) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
+            if( this.nScoreModeTmp == 99 ) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
             {
                 this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
             }
@@ -4244,8 +4180,8 @@ namespace DTXMania
 	        }
 	        else
 	        {
-	            Trace.TraceWarning($"[i18n] Invalid {name} value detected: {unparsedValue} ({strファイル名の絶対パス})");
-	        }
+                Trace.TraceWarning($"命令名: {name} のパラメータの値が正しくないことを検知しました。値: {unparsedValue} ({strファイル名の絶対パス})");
+            }
 	    }
 
 	    private void ParseBalloon(string strCommandParam, List<int> listBalloon)
@@ -4672,7 +4608,7 @@ namespace DTXMania
 
             // 小文字大文字区別しない正規表現で仮対応。 (AioiLight)
             // 相変わらず原始的なやり方だが、正常に動作した。
-            string[] Matchptn = new string[7] { "easy", "normal", "hard", "oni", "edit", "tower", "dan" };
+            string[] Matchptn = new string[6] { "easy", "normal", "hard", "oni", "edit", "tower" };
             for (int i = 0; i < Matchptn.Length; i++)
             {
                 if (Regex.IsMatch(str, Matchptn[i], RegexOptions.IgnoreCase))
@@ -4695,8 +4631,6 @@ namespace DTXMania
         			return 4;
         		case "5":
         			return 5;
-                case "6":
-                    return 6;
         		default:
         			return 3;
         	}

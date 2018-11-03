@@ -52,9 +52,10 @@ namespace DTXMania
             var groups = orderedLagValues.GroupBy(v => v).ToList();
             var maxCount = groups.Max(g => g.Count());
             var modes = string.Join(",", groups.Where(g => g.Count() == maxCount).Select(o => o.Key.ToString()).ToArray());
+            var stdev = Math.Sqrt(orderedLagValues.Select(o => Math.Pow(o - mean, 2)).Average());
 
             Trace.TraceInformation(
-                $"{nameof(CLagLogger)}.{nameof(Log)}: Mean lag: {mean}. Median lag: {median}. Mode(s) of lag: {modes}.");
+                $"{nameof(CLagLogger)}.{nameof(Log)}: Mean lag: {mean}. Median lag: {median}. Mode(s) of lag: {modes}. Standard deviation of lag: {stdev}.");
 
             var hitChipCountsIndexedByOffsetLag = new int[1 + MaximumLag + 1 + MaximumLag + 1];
             foreach (var pChipNLag in LagValues)

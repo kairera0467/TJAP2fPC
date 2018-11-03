@@ -49,7 +49,7 @@ namespace DTXMania
 
             private readonly ESoundGroup _soundGroup;
 
-			// フィールド、プロパティ
+            // フィールド、プロパティ
 
             public bool bCompact対象;
             public bool bループ;
@@ -92,77 +92,77 @@ namespace DTXMania
                     if (sound == null)
                         return 0;
 
-					return sound.n位置;
-				}
-				set
-				{
-					CSound sound = this.rSound[ this.n次に鳴るサウンド番号 ];
-					if( sound != null )
-						sound.n位置 = value;
-				}
-			}
-			public int nAutomationLevel_現在のサウンド
-			{
-				get
-				{
-					CSound sound = this.rSound[ 1 - this.n次に鳴るサウンド番号 ];
-					if( sound == null )
-						return 0;
+                    return sound.n位置;
+                }
+                set
+                {
+                    CSound sound = this.rSound[this.n次に鳴るサウンド番号];
+                    if (sound != null)
+                        sound.n位置 = value;
+                }
+            }
+            public int nAutomationLevel_現在のサウンド
+            {
+                get
+                {
+                    CSound sound = this.rSound[1 - this.n次に鳴るサウンド番号];
+                    if (sound == null)
+                        return 0;
 
-					return sound.AutomationLevel;
-				}
-				set
-				{
-					CSound sound = this.rSound[ 1 - this.n次に鳴るサウンド番号 ];
-					if( sound != null )
-					{
-					    sound.AutomationLevel = value;
-				    }
-				}
-			}
-			public int n長さ_現在のサウンド
-			{
-				get
-				{
-					CSound sound = this.rSound[ 1 - this.n次に鳴るサウンド番号 ];
-					if( sound == null )
-					{
-						return 0;
-					}
-					return sound.n総演奏時間ms;
-				}
-			}
-			public int n長さ_次に鳴るサウンド
-			{
-				get
-				{
-					CSound sound = this.rSound[ this.n次に鳴るサウンド番号 ];
-					if( sound == null )
-					{
-						return 0;
-					}
-					return sound.n総演奏時間ms;
-				}
-			}
+                    return sound.AutomationLevel;
+                }
+                set
+                {
+                    CSound sound = this.rSound[1 - this.n次に鳴るサウンド番号];
+                    if (sound != null)
+                    {
+                        sound.AutomationLevel = value;
+                    }
+                }
+            }
+            public int n長さ_現在のサウンド
+            {
+                get
+                {
+                    CSound sound = this.rSound[1 - this.n次に鳴るサウンド番号];
+                    if (sound == null)
+                    {
+                        return 0;
+                    }
+                    return sound.n総演奏時間ms;
+                }
+            }
+            public int n長さ_次に鳴るサウンド
+            {
+                get
+                {
+                    CSound sound = this.rSound[this.n次に鳴るサウンド番号];
+                    if (sound == null)
+                    {
+                        return 0;
+                    }
+                    return sound.n総演奏時間ms;
+                }
+            }
 
 
-			/// <summary>
-			/// コンストラクタ
-			/// </summary>
-			/// <param name="strファイル名"></param>
-			/// <param name="bループ"></param>
-			/// <param name="b排他"></param>
-			/// <param name="bCompact対象"></param>
-			public Cシステムサウンド(string strファイル名, bool bループ, bool b排他, bool bCompact対象, ESoundGroup soundGroup)
-			{
-				this.strファイル名 = strファイル名;
-				this.bループ = bループ;
-				this.b排他 = b排他;
-				this.bCompact対象 = bCompact対象;
-			    _soundGroup = soundGroup;
-				this.b読み込み未試行 = true;
-			}
-			
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            /// <param name="strファイル名"></param>
+            /// <param name="bループ"></param>
+            /// <param name="b排他"></param>
+            /// <param name="bCompact対象"></param>
+            public Cシステムサウンド(string strファイル名, bool bループ, bool b排他, bool bCompact対象, ESoundGroup soundGroup)
+            {
+                this.strファイル名 = strファイル名;
+                this.bループ = bループ;
+                this.b排他 = b排他;
+                this.bCompact対象 = bCompact対象;
+                _soundGroup = soundGroup;
+                this.b読み込み未試行 = true;
+            }
+
 
             // メソッド
 
@@ -201,39 +201,39 @@ namespace DTXMania
 
                 ////				}
 
-				for ( int i = 0; i < 2; i++ )		// 一旦Cloneを止めてASIO対応に専念
-				{
-					try
-					{
-						this.rSound[ i ] = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( this.strファイル名 ), _soundGroup );
-					}
-					catch
-					{
-						this.rSound[ i ] = null;
-						throw;
-					}
-				}
-				this.b読み込み成功 = true;
-			}
-			public void t再生する()
-			{
-				if ( this.b読み込み未試行 )
-				{
-					try
-					{
-						t読み込み();
-					}
-					catch (Exception e)
-					{
-						Trace.TraceError( e.ToString() );
-						Trace.TraceError( "例外が発生しましたが処理を継続します。 (17668977-4686-4aa7-b3f0-e0b9a44975b8)" );
-						this.b読み込み未試行 = false;
-					}
-				}
-				if( this.b排他 )
-				{
-					if( r最後に再生した排他システムサウンド != null )
-						r最後に再生した排他システムサウンド.t停止する();
+                for (int i = 0; i < 2; i++)     // 一旦Cloneを止めてASIO対応に専念
+                {
+                    try
+                    {
+                        this.rSound[i] = CDTXMania.Sound管理.tサウンドを生成する(CSkin.Path(this.strファイル名), _soundGroup);
+                    }
+                    catch
+                    {
+                        this.rSound[i] = null;
+                        throw;
+                    }
+                }
+                this.b読み込み成功 = true;
+            }
+            public void t再生する()
+            {
+                if (this.b読み込み未試行)
+                {
+                    try
+                    {
+                        t読み込み();
+                    }
+                    catch (Exception e)
+                    {
+                        Trace.TraceError(e.ToString());
+                        Trace.TraceError("例外が発生しましたが処理を継続します。 (17668977-4686-4aa7-b3f0-e0b9a44975b8)");
+                        this.b読み込み未試行 = false;
+                    }
+                }
+                if (this.b排他)
+                {
+                    if (r最後に再生した排他システムサウンド != null)
+                        r最後に再生した排他システムサウンド.t停止する();
 
                     r最後に再生した排他システムサウンド = this;
                 }
@@ -594,68 +594,68 @@ namespace DTXMania
                 strBoxDefSkinSubfolderFullName
             );
 
-			for ( int i = 0; i < nシステムサウンド数; i++ )
-			{
-				if ( this[ i ] != null && this[i].b読み込み成功 )
-				{
-					this[ i ].t停止する();
-					this[ i ].Dispose();
-				}
-			}
-			this.soundカーソル移動音	= new Cシステムサウンド( @"Sounds\Move.ogg",			false, false, false, ESoundGroup.SoundEffect );
-			this.sound決定音			= new Cシステムサウンド( @"Sounds\Decide.ogg",			false, false, false, ESoundGroup.SoundEffect );
-			this.sound変更音			= new Cシステムサウンド( @"Sounds\Change.ogg",			false, false, false, ESoundGroup.SoundEffect );
-			this.sound取消音			= new Cシステムサウンド( @"Sounds\Cancel.ogg",			false, false, true, ESoundGroup.SoundEffect  );
-			this.sound歓声音			= new Cシステムサウンド( @"Sounds\Audience.ogg",		false, false, true, ESoundGroup.SoundEffect );
-			this.soundSTAGEFAILED音		= new Cシステムサウンド( @"Sounds\Stage failed.ogg",	false, true,  true, ESoundGroup.Voice );
-			this.soundゲーム開始音		= new Cシステムサウンド( @"Sounds\Game start.ogg",		false, false, false, ESoundGroup.Voice );
-			this.soundゲーム終了音		= new Cシステムサウンド( @"Sounds\Game end.ogg",		false, true,  false, ESoundGroup.Voice );
-			this.soundステージクリア音	= new Cシステムサウンド( @"Sounds\Stage clear.ogg",		false, true,  true, ESoundGroup.Voice );
-			this.soundフルコンボ音		= new Cシステムサウンド( @"Sounds\Full combo.ogg",		false, false, true, ESoundGroup.Voice );
-			this.sound曲読込開始音		= new Cシステムサウンド( @"Sounds\Now loading.ogg",		false, true,  true, ESoundGroup.Unknown );
-			this.soundタイトル音		= new Cシステムサウンド( @"Sounds\Title.ogg",			false, true,  false, ESoundGroup.SongPlayback );
-			this.bgm起動画面			= new Cシステムサウンド( @"Sounds\Setup BGM.ogg",		true,  true,  false, ESoundGroup.SongPlayback );
-			this.bgmオプション画面		= new Cシステムサウンド( @"Sounds\Option BGM.ogg",		true,  true,  false, ESoundGroup.SongPlayback );
-			this.bgmコンフィグ画面		= new Cシステムサウンド( @"Sounds\Config BGM.ogg",		true,  true,  false, ESoundGroup.SongPlayback );
-			this.bgm選曲画面			= new Cシステムサウンド( @"Sounds\Select BGM.ogg",		true,  true,  false, ESoundGroup.SongPreview );
+            for (int i = 0; i < nシステムサウンド数; i++)
+            {
+                if (this[i] != null && this[i].b読み込み成功)
+                {
+                    this[i].t停止する();
+                    this[i].Dispose();
+                }
+            }
+            this.soundカーソル移動音 = new Cシステムサウンド(@"Sounds\Move.ogg", false, false, false, ESoundGroup.SoundEffect);
+            this.sound決定音 = new Cシステムサウンド(@"Sounds\Decide.ogg", false, false, false, ESoundGroup.SoundEffect);
+            this.sound変更音 = new Cシステムサウンド(@"Sounds\Change.ogg", false, false, false, ESoundGroup.SoundEffect);
+            this.sound取消音 = new Cシステムサウンド(@"Sounds\Cancel.ogg", false, false, true, ESoundGroup.SoundEffect);
+            this.sound歓声音 = new Cシステムサウンド(@"Sounds\Audience.ogg", false, false, true, ESoundGroup.SoundEffect);
+            this.soundSTAGEFAILED音 = new Cシステムサウンド(@"Sounds\Stage failed.ogg", false, true, true, ESoundGroup.Voice);
+            this.soundゲーム開始音 = new Cシステムサウンド(@"Sounds\Game start.ogg", false, false, false, ESoundGroup.Voice);
+            this.soundゲーム終了音 = new Cシステムサウンド(@"Sounds\Game end.ogg", false, true, false, ESoundGroup.Voice);
+            this.soundステージクリア音 = new Cシステムサウンド(@"Sounds\Stage clear.ogg", false, true, true, ESoundGroup.Voice);
+            this.soundフルコンボ音 = new Cシステムサウンド(@"Sounds\Full combo.ogg", false, false, true, ESoundGroup.Voice);
+            this.sound曲読込開始音 = new Cシステムサウンド(@"Sounds\Now loading.ogg", false, true, true, ESoundGroup.Unknown);
+            this.soundタイトル音 = new Cシステムサウンド(@"Sounds\Title.ogg", false, true, false, ESoundGroup.SongPlayback);
+            this.bgm起動画面 = new Cシステムサウンド(@"Sounds\Setup BGM.ogg", true, true, false, ESoundGroup.SongPlayback);
+            this.bgmオプション画面 = new Cシステムサウンド(@"Sounds\Option BGM.ogg", true, true, false, ESoundGroup.SongPlayback);
+            this.bgmコンフィグ画面 = new Cシステムサウンド(@"Sounds\Config BGM.ogg", true, true, false, ESoundGroup.SongPlayback);
+            this.bgm選曲画面 = new Cシステムサウンド(@"Sounds\Select BGM.ogg", true, true, false, ESoundGroup.SongPreview);
 
             //this.soundRed               = new Cシステムサウンド( @"Sounds\dong.ogg",            false, false, true, ESoundType.SoundEffect );
             //this.soundBlue              = new Cシステムサウンド( @"Sounds\ka.ogg",              false, false, true, ESoundType.SoundEffect );
-            this.soundBalloon           = new Cシステムサウンド( @"Sounds\balloon.ogg",         false, false, true, ESoundGroup.SoundEffect );
-            this.sound曲決定音          = new Cシステムサウンド( @"Sounds\SongDecide.ogg",      false, false, true, ESoundGroup.Voice );
-            this.sound成績発表          = new Cシステムサウンド( @"Sounds\ResultIn.ogg",          false, false, false, ESoundGroup.Voice );
+            this.soundBalloon = new Cシステムサウンド(@"Sounds\balloon.ogg", false, false, true, ESoundGroup.SoundEffect);
+            this.sound曲決定音 = new Cシステムサウンド(@"Sounds\SongDecide.ogg", false, false, true, ESoundGroup.Voice);
+            this.sound成績発表 = new Cシステムサウンド(@"Sounds\ResultIn.ogg", false, false, false, ESoundGroup.Voice);
 
             tReadSkinConfig();
         }
 
-		public void ReloadSkin()
-		{
-			for ( int i = 0; i < nシステムサウンド数; i++ )
-			{
-				if ( !this[ i ].b排他 )	// BGM系以外のみ読み込む。(BGM系は必要になったときに読み込む)
-				{
-					Cシステムサウンド cシステムサウンド = this[ i ];
-					if ( !CDTXMania.bコンパクトモード || cシステムサウンド.bCompact対象 )
-					{
-						try
-						{
-							cシステムサウンド.t読み込み();
-							Trace.TraceInformation( "システムサウンドを読み込みました。({0})", cシステムサウンド.strファイル名 );
-						}
-						catch ( FileNotFoundException e )
-						{
-							Trace.TraceWarning( e.ToString() );
-							Trace.TraceWarning( "システムサウンドが存在しません。({0})", cシステムサウンド.strファイル名 );
-						}
-						catch ( Exception e )
-						{
-							Trace.TraceWarning( e.ToString() );
-							Trace.TraceWarning( "システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strファイル名 );
-						}
-					}
-				}
-			}
-		}
+        public void ReloadSkin()
+        {
+            for (int i = 0; i < nシステムサウンド数; i++)
+            {
+                if (!this[i].b排他)   // BGM系以外のみ読み込む。(BGM系は必要になったときに読み込む)
+                {
+                    Cシステムサウンド cシステムサウンド = this[i];
+                    if (!CDTXMania.bコンパクトモード || cシステムサウンド.bCompact対象)
+                    {
+                        try
+                        {
+                            cシステムサウンド.t読み込み();
+                            Trace.TraceInformation("システムサウンドを読み込みました。({0})", cシステムサウンド.strファイル名);
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            Trace.TraceWarning(e.ToString());
+                            Trace.TraceWarning("システムサウンドが存在しません。({0})", cシステムサウンド.strファイル名);
+                        }
+                        catch (Exception e)
+                        {
+                            Trace.TraceWarning(e.ToString());
+                            Trace.TraceWarning("システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strファイル名);
+                        }
+                    }
+                }
+            }
+        }
 
 
         /// <summary>
@@ -877,7 +877,7 @@ namespace DTXMania
                                 }
                                 else
                                 {
-                                    Trace.TraceWarning($"[i18n] {strCommand} must be an integer value. The provided value is invalid: {strParam}");
+                                    Trace.TraceWarning($"SkinConfigの値 {strCommand} は整数値である必要があります。現在の値: {strParam}");
                                 }
                             }
 
@@ -1143,7 +1143,7 @@ namespace DTXMania
                             }
                             else if (strCommand == nameof(Game_Chara_Balloon_Timer))
                             {
-                                if(int.Parse(strParam) > 0)
+                                if (int.Parse(strParam) > 0)
                                     Game_Chara_Balloon_Timer = int.Parse(strParam);
                             }
                             else if (strCommand == nameof(Game_Chara_Balloon_Delay))
@@ -1442,7 +1442,7 @@ namespace DTXMania
                                 }
                             }
                             #endregion
-			                #region Gauge
+                            #region Gauge
                             else if (strCommand == "Game_Gauge_Rainbow_Timer")
                             {
                                 if (int.Parse(strParam) != 0)
@@ -1638,7 +1638,7 @@ namespace DTXMania
 
                             #endregion
                             #region Effects
-                            else if(strCommand == nameof(Game_Effect_Roll_StartPoint_X))
+                            else if (strCommand == nameof(Game_Effect_Roll_StartPoint_X))
                             {
                                 Game_Effect_Roll_StartPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
                             }
@@ -1753,8 +1753,8 @@ namespace DTXMania
                     }
                     catch (Exception exception)
                     {
-                        Trace.TraceError( exception.ToString() );
-                        Trace.TraceError( "例外が発生しましたが処理を継続します。 (6a32cc37-1527-412e-968a-512c1f0135cd)" );
+                        Trace.TraceError(exception.ToString());
+                        Trace.TraceError("例外が発生しましたが処理を継続します。 (6a32cc37-1527-412e-968a-512c1f0135cd)");
                         continue;
                     }
                 }
@@ -1924,6 +1924,9 @@ namespace DTXMania
         public string Game_StageText = "1曲目";
         public bool Game_StageText_IsRed = false;
         public RollColorMode Game_RollColorMode = RollColorMode.All;
+        public int[] Game_NotesFly_Start = { }; // X, Y
+        public int[] Game_NotesFly_End = { }; // X, Y
+        public int Game_NotesFly_Sin = 0;
         #region Chara
         public int[] Game_Chara_X = new int[] { 0, 0 };
         public int[] Game_Chara_Y = new int[] { 0, 537 };
@@ -1949,7 +1952,7 @@ namespace DTXMania
         public int Game_Chara_Beat_GoGo = 2;
         public int Game_Chara_Balloon_Timer = 28;
         public int Game_Chara_Balloon_Delay = 500;
-            #endregion
+        #endregion
         #region Dancer
         public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
         public int[] Game_Dancer_Y = new int[] { 500, 500, 500, 500, 500 };
@@ -1998,7 +2001,7 @@ namespace DTXMania
         public int[] Game_Taiko_Combo_Text_Y = new int[] { 295, 472 };
         public int[] Game_Taiko_Combo_Text_Size = new int[] { 100, 50 };
         #endregion
-	    #region Gauge
+        #region Gauge
         public int Game_Gauge_Rainbow_Ptn;
         public int Game_Gauge_Rainbow_Timer = 50;
         #endregion
@@ -2043,6 +2046,26 @@ namespace DTXMania
         public float[] Game_Effect_Roll_Speed_2P_X = new float[] { 0.6f };
         public float[] Game_Effect_Roll_Speed_2P_Y = new float[] { 0.6f };
         public int Game_Effect_Roll_Ptn;
+        public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
+        public int Game_Effect_NotesFlash_Timer = 20;
+        public int[] Game_Effect_GoGoSplash = new int[] { 300, 400, 30 };
+        public int[] Game_Effect_GoGoSplash_X = new int[] { 80, 300, 520, 760, 980, 1160 };
+        public int[] Game_Effect_GoGoSplash_Y = new int[] { 740, 730, 720, 720, 730, 740 };
+        public bool Game_Effect_GoGoSplash_Rotate = true;
+        public int Game_Effect_GoGoSplash_Timer = 15;
+        // super-flying-notes AioiLight
+        public int[] Game_Effect_FlyingNotes_StartPoint_Y = new int[] { 260, 434 };
+        public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1222, 1222 }; // 1P, 2P
+        public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 164, 554 };
+
+        public int Game_Effect_FlyingNotes_Sine = 276;
+        public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
+        public int Game_Effect_FlyingNotes_Timer = 4;
+        public int Game_Effect_FlyingNotes_AngleFix = 0;
+        public int[] Game_Effect_FireWorks_Size = new int[] { 180, 180 };
+        public int Game_Effect_FireWorks_Ptn = 30;
+        public int Game_Effect_FireWorks_Timer = 6;
+        public int Game_Effect_Rainbow_Timer = 8;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };
@@ -2051,27 +2074,6 @@ namespace DTXMania
         public int[] Game_Runner_StartPoint_X = new int[] { 175, 175 };
         public int[] Game_Runner_StartPoint_Y = new int[] { 40, 560 };
         public int Game_Runner_Timer = 16;
-        #endregion
-        #region Dan-C
-        public int[] Game_DanC_X = new int[] { 302, 302, 302 };
-        public int[] Game_DanC_Y = new int[] { 473, 302, 365 };
-        public int[] Game_DanC_Size = new int[] { 956, 92 };
-        public int Game_DanC_Padding = 5;
-        public int Game_DanC_Growing = 9;
-        public int[] Game_DanC_Offset = new int[] { 15, 17 };
-        public int[] Game_DanC_Number_Size = new int[] { 50, 62 };
-        public int Game_DanC_Number_Padding = 50;
-        public float Game_DanC_Number_Small_Scale = 0.5f;
-        public int Game_DanC_Number_Small_Padding = 26;
-        public int[] Game_DanC_Number_XY = new int[] { 218, 610 };
-        public int[] Game_DanC_Number_Small_Number_Offset = new int[] { 178, 43 };
-        public int[] Game_DanC_ExamType_Size = new int[] { 100, 36 };
-        public int[] Game_DanC_ExamRange_Size = new int[] { 60, 36 };
-        public int Game_DanC_ExamRange_Padding = 46;
-        public int[] Game_DanC_Percent_Hit_Score_Padding = new int[] { 20, 20, 20 };
-        public int[] Game_DanC_ExamUnit_Size = new int[] { 100, 36 };
-        public int[] Game_DanC_Exam_Offset = new int[] { 932, 17 };
-        public int[] Game_DanC_Dan_Plate = new int[] { 149, 416 };
         #endregion
         #endregion
         #region Result
