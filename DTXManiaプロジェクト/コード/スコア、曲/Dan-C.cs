@@ -10,9 +10,37 @@ namespace DTXMania
     /// </summary>
     class Dan_C
     {
+
+        // フィールド
+        /// <summary>
+        /// その条件が有効であるかどうか。
+        /// </summary>
+        public bool IsEnable;
+        /// <summary>
+        /// 条件の種別。
+        /// </summary>
+        public ExamType Type;
+        /// <summary>
+        /// 条件の値。
+        /// </summary>
+        public int[] Value;
+        /// <summary>
+        /// 量。
+        /// </summary>
+        public int Amount;
+        /// <summary>
+        /// 条件の範囲。
+        /// </summary>
+        public ExamRange Range;
+
+        /// <summary>
+        /// 条件をクリアしているか否か。
+        /// </summary>
+        public bool[] IsCleared;
+
         public Dan_C()
         {
-
+            Init();
         }
 
         /// <summary>
@@ -23,10 +51,24 @@ namespace DTXMania
         /// <param name="examRange">条件の合格の範囲。</param>
         public Dan_C(ExamType examType, int[] value, ExamRange examRange)
         {
+            Init();
             IsEnable = true;
             Type = examType;
             Value = value;
             Range = examRange;
+        }
+
+        /// <summary>
+        /// 初期化する。
+        /// </summary>
+        public void Init()
+        {
+            IsEnable = false;
+            Type = ExamType.Gauge;
+            Value = new int[] { 0, 0 };
+            Amount = 0;
+            Range = ExamRange.More;
+            IsCleared = new[] { false, false };
         }
 
         /// <summary>
@@ -115,8 +157,7 @@ namespace DTXMania
                 }
                 else
                 {
-                    IsCleared[0] = false;
-                    IsCleared[1] = false;
+                    IsCleared = new bool[] { false, false };
                 }
             }
             else
@@ -169,33 +210,5 @@ namespace DTXMania
             /// </summary>
             Less
         }
-
-        // フィールド
-        /// <summary>
-        /// その条件が有効であるかどうか。
-        /// </summary>
-        public bool IsEnable;
-        /// <summary>
-        /// 条件の種別。
-        /// </summary>
-        public ExamType Type;
-        /// <summary>
-        /// 条件の値。
-        /// </summary>
-        public int[] Value = new int[] { 0, 0 };
-        /// <summary>
-        /// 量。
-        /// </summary>
-        public int Amount;
-        /// <summary>
-        /// 条件の範囲。
-        /// </summary>
-        public ExamRange Range;
-
-        /// <summary>
-        /// 条件をクリアしているか否か。
-        /// </summary>
-        public readonly bool[] IsCleared = new[] { false, false };
-
     }
 }
