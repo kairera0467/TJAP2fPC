@@ -445,6 +445,10 @@ namespace DTXMania
                 "");
             this.list項目リスト.Add(ShowFooter);
 
+            FastRender = new CItemToggle(nameof(FastRender), CDTXMania.ConfigIni.FastRender,
+                "事前画像描画機能を使うかどうか。\n",
+                "Use pre-textures render.\n");
+            this.list項目リスト.Add(FastRender);
             //ShowPuchiChara = new CItemToggle("ShowPuchiChara", CDTXMania.ConfigIni.ShowPuchiChara,
             //    "ぷちキャラ画像を表示するかどうか\n",
             //    "Show PuchiChara Images.\n" +
@@ -2202,6 +2206,7 @@ namespace DTXMania
         CItemToggle ShowFooter;
         CItemToggle ShowPuchiChara;
         CItemToggle ShinuchiMode;
+        CItemToggle FastRender;
 		//private CItemToggle iGuitarAutoPlay;
 		private CItemThreeState iGuitarAutoPlayAll;			// #23886 2012.5.8 yyagi
 		private CItemToggle iGuitarR;						//
@@ -2362,6 +2367,7 @@ namespace DTXMania
             CDTXMania.ConfigIni.ShowFooter = this.ShowFooter.bON;
             //CDTXMania.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
             CDTXMania.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
+            CDTXMania.ConfigIni.FastRender = this.FastRender.bON;
 		}
 		private void tConfigIniへ記録する_Bass()
 		{

@@ -866,6 +866,7 @@ namespace DTXMania
 		//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
 		public int nMasterVolume;
         public bool ShinuchiMode; // 真打モード
+        public bool FastRender; // 事前画像描画モード
 #if false
 		[StructLayout( LayoutKind.Sequential )]
 		public struct STAUTOPLAY								// C定数のEレーンとindexを一致させること
@@ -1415,6 +1416,7 @@ namespace DTXMania
             this.bEndingAnime = false;
             this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
             ShinuchiMode = false;
+            FastRender = true;
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;
@@ -1507,9 +1509,13 @@ namespace DTXMania
 			sw.WriteLine( "; e.g. System\\Default\\Graphics\\... -> Set SkinPath=.\\Default\\" );
 			sw.WriteLine( "SkinPath={0}", relPath );
 			sw.WriteLine();
-			#endregion
-			#region [ Window関連 ]
-			sw.WriteLine( "; 画面モード(0:ウィンドウ, 1:全画面)" );
+            sw.WriteLine("; 事前画像描画機能を使うかどうか。(0: OFF, 1: ON)");
+            sw.WriteLine("; Use pre-textures render.");
+            sw.WriteLine("{0}={1}", nameof(FastRender), FastRender ? 1 : 0);
+            sw.WriteLine();
+            #endregion
+            #region [ Window関連 ]
+            sw.WriteLine( "; 画面モード(0:ウィンドウ, 1:全画面)" );
 			sw.WriteLine( "; Screen mode. (0:Window, 1:Fullscreen)" );
 			sw.WriteLine( "FullScreen={0}", this.b全画面モード ? 1 : 0 );
             sw.WriteLine();
@@ -2142,6 +2148,10 @@ namespace DTXMania
 												}
 												this.strSystemSkinSubfolderFullName = absSkinPath;
 											}
+                                            else if (str3.Equals(nameof(FastRender)))
+                                            {
+                                                FastRender = C変換.bONorOFF(str4[0]);
+                                            }
                                             #endregion
                                             #region [ Window関係 ]
                                             else if (str3.Equals("FullScreen"))
