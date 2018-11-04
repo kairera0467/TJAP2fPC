@@ -36,6 +36,7 @@ namespace DTXMania
 
 
             this.n総移動時間 = -1;
+            this.n総移動時間2 = -1;
             this.nDefaultJudgePos[0] = CDTXMania.Skin.nScrollFieldX[0];
             this.nDefaultJudgePos[1] = CDTXMania.Skin.nScrollFieldY[0];
             this.ctゴーゴー炎 = new CCounter(0, 6, 50, CDTXMania.Timer);

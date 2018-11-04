@@ -148,8 +148,8 @@ namespace DTXMania
                     }
                 }
 			}
-			return 0;
-		}
+            return base.On進行描画();
+        }
 		
 
 		#region [ private ]
