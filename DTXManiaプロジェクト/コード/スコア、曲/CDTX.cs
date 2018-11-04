@@ -3288,7 +3288,7 @@ namespace DTXMania
                 }
                 catch( Exception ex )
                 {
-
+                    Trace.TraceError( ex.StackTrace );
                 }
                 //if( stream != null )
                 //{
@@ -4894,9 +4894,9 @@ namespace DTXMania
                 //this.tSenotes_Core( list音符のみのリスト );
                 this.tSenotes_Core_V2( list音符のみのリスト );
             }
-            catch(Exception ex)
+            catch( Exception ex )
             {
-
+                Trace.TraceError( ex.StackTrace );
             }
 
 
@@ -6018,7 +6018,7 @@ namespace DTXMania
                     }
                     catch( Exception ex )
                     {
-
+                        Trace.TraceError( ex.StackTrace );
                     }
                 }
                 else

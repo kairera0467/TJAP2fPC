@@ -585,20 +585,18 @@ namespace DTXMania
                         #endregion
                         #region [ TEST ]
                         //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F11 ) )
-                        if( false )
-                        {
-                            CDTXMania.Skin.sound決定音.t再生する();
-                            CDTXMania.Skin.sound曲読込開始音.t再生する();
-                            if( !this.act難易度選択画面.bIsDifficltSelect )
-                                this.ctDiffSelect移動待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
-                            this.act難易度選択画面.t選択画面初期化();
-                            C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
-                        }
+                        //{
+                        //    CDTXMania.Skin.sound決定音.t再生する();
+                        //    CDTXMania.Skin.sound曲読込開始音.t再生する();
+                        //    if( !this.act難易度選択画面.bIsDifficltSelect )
+                        //        this.ctDiffSelect移動待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
+                        //    this.act難易度選択画面.t選択画面初期化();
+                        //    C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
+                        //}
                         //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.NumberPad7 ) )
-                        if( false )
-                        {
-                            this.t難易度選択画面を閉じる();
-                        }
+                        //{
+                        //    this.t難易度選択画面を閉じる();
+                        //}
 						#endregion
 
 

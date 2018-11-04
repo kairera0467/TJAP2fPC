@@ -96,7 +96,7 @@ namespace DTXMania
                         if( this.txゴーゴースプラッシュ != null )
                         {
                             for( int j = 0; j < 5; j++ )
-                                this.txゴーゴースプラッシュ.t2D描画( CDTXMania.app.Device, 90 + ( 205 * j ), 320, new Rectangle( 200 * this.stゴーゴースプラッシュ[ i ].ct進行.n現在の値, 0, 200, 400 ) );
+                                this.txゴーゴースプラッシュ.t2D描画( CDTXMania.app.Device, 0 + ( 260 * j ), 320, new Rectangle( 256 * this.stゴーゴースプラッシュ[ i ].ct進行.n現在の値, 0, 256, 420 ) );
                         }
 
                     }

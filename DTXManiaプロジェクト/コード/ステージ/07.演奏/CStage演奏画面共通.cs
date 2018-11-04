@@ -1373,7 +1373,7 @@ namespace DTXMania
 
                     if ( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
                     {
-				        this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
+				        //this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
                     }
 
                     if( pChip.nコース == this.n現在のコース[ nPlayer ] )
@@ -3664,7 +3664,7 @@ namespace DTXMania
                     return (float)CDTXMania.DTX.listDELAY[ i ].delay_bmscroll_time;
                 }
             }
-            return -1;
+            //return -1;
         }
 
 		public void t再読込()

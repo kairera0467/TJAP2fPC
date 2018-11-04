@@ -633,7 +633,7 @@ namespace DTXMania
                 }
                 else if( strName[ i ] == "ッ" )
                 {
-                    nY補正 = 0;
+                    n補正 = 4;
                 }
                 else if( strName[ i ] == "・" )
                 {

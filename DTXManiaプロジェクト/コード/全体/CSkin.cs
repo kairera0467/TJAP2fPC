@@ -1224,6 +1224,7 @@ namespace DTXMania
             }
             catch( Exception ex )
             {
+                Trace.TraceError( ex.StackTrace );
                 return Color.Black;
             }
         }
