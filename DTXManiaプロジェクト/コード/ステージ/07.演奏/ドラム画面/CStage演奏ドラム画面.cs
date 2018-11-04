@@ -468,8 +468,8 @@ namespace DTXMania
 
                 this.Rainbow.On進行描画();
                 this.FireWorks.On進行描画();
-                this.FlyingNotes.On進行描画();
                 this.actChipEffects.On進行描画();
+                this.FlyingNotes.On進行描画();
                 this.t進行描画_チップファイアD();
 
                 this.actComboBalloon.On進行描画();
