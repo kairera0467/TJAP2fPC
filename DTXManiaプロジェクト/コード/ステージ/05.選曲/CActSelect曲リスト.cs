@@ -527,6 +527,10 @@ namespace DTXMania
 			if( this.b活性化してる )
 				return;
 
+            // Reset to not performing calibration each time we
+            // enter or return to the song select screen.
+		    CDTXMania.IsPerformingCalibration = false;
+
             if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.FontName))
             {
                 this.pfMusicName = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 28);

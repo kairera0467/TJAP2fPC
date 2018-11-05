@@ -253,7 +253,10 @@ namespace DTXMania
 						        this.st状態[ i ].ct進行.t停止();
                                 this.st状態[ i ].b使用中 = false;
 					        }
-					        if( CDTXMania.Tx.Effects_Hit_Explosion != null )
+
+                            // (When performing calibration, reduce visual distraction
+                            // and current judgment feedback near the judgment position.)
+					        if( CDTXMania.Tx.Effects_Hit_Explosion != null && !CDTXMania.IsPerformingCalibration )
 					        {
                                 int n = this.st状態[ i ].nIsBig == 1 ? 520 : 0;
                                 int nX = ( CDTXMania.Skin.nScrollFieldX[ this.st状態[ i ].nPlayer ] ) - ( (CDTXMania.Tx.Effects_Hit_Explosion.sz画像サイズ.Width / 7 ) / 2 );

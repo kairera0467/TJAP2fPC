@@ -37,11 +37,11 @@ namespace DTXMania
             LagValues.Add(pChipNLag);
         }
 
-        public static void Log()
+        public static double? LogAndReturnMeanLag()
         {
-            if (LagValues.Count == 0)
+            if (LagValues.Count < 30)
             {
-                return;
+                return null;
             }
 
             var orderedLagValues = LagValues.OrderBy(x => x).ToList();
@@ -55,7 +55,7 @@ namespace DTXMania
             var stdev = Math.Sqrt(orderedLagValues.Select(o => Math.Pow(o - mean, 2)).Average());
 
             Trace.TraceInformation(
-                $"{nameof(CLagLogger)}.{nameof(Log)}: Mean lag: {mean}. Median lag: {median}. Mode(s) of lag: {modes}. Standard deviation of lag: {stdev}.");
+                $"{nameof(CLagLogger)}.{nameof(LogAndReturnMeanLag)}: Mean lag: {mean}. Median lag: {median}. Mode(s) of lag: {modes}. Standard deviation of lag: {stdev}.");
 
             var hitChipCountsIndexedByOffsetLag = new int[1 + MaximumLag + 1 + MaximumLag + 1];
             foreach (var pChipNLag in LagValues)
@@ -102,9 +102,11 @@ namespace DTXMania
             }
 
             Trace.TraceInformation(
-                $"{nameof(CLagLogger)}.{nameof(Log)}: Hit chip counts, indexed by lag in milliseconds:{Environment.NewLine}{sbHeader}{Environment.NewLine}{sbData}");
+                $"{nameof(CLagLogger)}.{nameof(LogAndReturnMeanLag)}: Hit chip counts, indexed by lag in milliseconds:{Environment.NewLine}{sbHeader}{Environment.NewLine}{sbData}");
 
             LagValues.Clear();
+
+            return mean;
         }
     }
 }
