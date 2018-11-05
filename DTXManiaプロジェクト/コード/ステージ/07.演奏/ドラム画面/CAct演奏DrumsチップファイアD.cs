@@ -254,8 +254,8 @@ namespace DTXMania
                                 this.st状態[ i ].b使用中 = false;
 					        }
 
-                            // (When performing calibration, reduce visual distraction
-                            // and current judgment feedback near the judgment position.)
+					        // (When performing calibration, reduce visual distraction
+					        // and current judgment feedback near the judgment position.)
 					        if( CDTXMania.Tx.Effects_Hit_Explosion != null && !CDTXMania.IsPerformingCalibration )
 					        {
                                 int n = this.st状態[ i ].nIsBig == 1 ? 520 : 0;

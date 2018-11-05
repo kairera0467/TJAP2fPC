@@ -297,14 +297,14 @@ namespace DTXMania
 
 			    // When performing calibration, reduce audio distraction from user input.
 			    // For users who play primarily by listening to the music,
-                // you might think that we want them to hear drum sound effects during
-                // calibration, but we do not. Humans are remarkably good at adjusting
-                // the timing of their own physical movement, even without realizing it.
+			    // you might think that we want them to hear drum sound effects during
+			    // calibration, but we do not. Humans are remarkably good at adjusting
+			    // the timing of their own physical movement, even without realizing it.
 			    // We are calibrating their input timing for the purposes of judgment.
-                // We do not want them subconsciously playing early so as to line up
-                // their drum sound effects with the sounds of the input calibration file.
-                // Instead, we want them focused on the sounds of their keyboard, tatacon,
-                // other controller, etc. and the sounds of the input calibration audio file.
+			    // We do not want them subconsciously playing early so as to line up
+			    // their drum sound effects with the sounds of the input calibration file.
+			    // Instead, we want them focused on the sounds of their keyboard, tatacon,
+			    // other controller, etc. and the sounds of the input calibration audio file.
 			    if (!CDTXMania.IsPerformingCalibration)
 			    {
 			        this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\dong.ogg" ), ESoundGroup.SoundEffect );

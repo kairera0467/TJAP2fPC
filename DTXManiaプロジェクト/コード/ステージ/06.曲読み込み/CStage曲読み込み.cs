@@ -88,9 +88,9 @@ namespace DTXMania
 			        }
 			    }
 
-                // For the moment, detect that we are performing
-                // calibration via the special song title and subtitle
-                // of the .tja used to perform input calibration
+			    // For the moment, detect that we are performing
+			    // calibration via the special song title and subtitle
+			    // of the .tja used to perform input calibration
 			    CDTXMania.IsPerformingCalibration =
 			        str曲タイトル == "Input Calibration" &&
 			        strサブタイトル == "TJAPlayer3 Developers";
@@ -131,9 +131,9 @@ namespace DTXMania
                 this.ct曲名表示 = new CCounter( 1, 30, 30, CDTXMania.Timer );
 				try
 				{
-                    // When performing calibration, inform the player that
-                    // calibration is about to begin, rather than
-                    // displaying the song title and subtitle as usual.
+				    // When performing calibration, inform the player that
+				    // calibration is about to begin, rather than
+				    // displaying the song title and subtitle as usual.
 
 				    var タイトル = CDTXMania.IsPerformingCalibration
 				        ? "Input calibration is about to begin."

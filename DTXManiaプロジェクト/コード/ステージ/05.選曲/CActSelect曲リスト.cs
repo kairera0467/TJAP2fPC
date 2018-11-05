@@ -529,7 +529,7 @@ namespace DTXMania
 
             // Reset to not performing calibration each time we
             // enter or return to the song select screen.
-		    CDTXMania.IsPerformingCalibration = false;
+            CDTXMania.IsPerformingCalibration = false;
 
             if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.FontName))
             {

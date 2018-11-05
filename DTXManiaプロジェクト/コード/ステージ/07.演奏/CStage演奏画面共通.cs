@@ -354,15 +354,15 @@ namespace DTXMania
 
 			var meanLag = CLagLogger.LogAndReturnMeanLag();
 
-		    if (CDTXMania.IsPerformingCalibration && meanLag != null)
-		    {
-		        var oldInputAdjustTimeMs = CDTXMania.ConfigIni.nInputAdjustTimeMs;
-		        var newInputAdjustTimeMs = oldInputAdjustTimeMs - (int) Math.Round(meanLag.Value);
-		        Trace.TraceInformation($"Calibration complete. Updating InputAdjustTime from {oldInputAdjustTimeMs}ms to {newInputAdjustTimeMs}ms.");
-		        CDTXMania.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
-		    }
+			if (CDTXMania.IsPerformingCalibration && meanLag != null)
+			{
+			    var oldInputAdjustTimeMs = CDTXMania.ConfigIni.nInputAdjustTimeMs;
+			    var newInputAdjustTimeMs = oldInputAdjustTimeMs - (int) Math.Round(meanLag.Value);
+			    Trace.TraceInformation($"Calibration complete. Updating InputAdjustTime from {oldInputAdjustTimeMs}ms to {newInputAdjustTimeMs}ms.");
+			    CDTXMania.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
+			}
 
-            base.On非活性化();
+			base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
 		{
@@ -804,7 +804,7 @@ namespace DTXMania
 	        var e判定 = e指定時刻からChipのJUDGEを返すImpl(nTime, pChip);
 
 	        // When performing calibration, reduce audio distraction from user input.
-            // For users who play primarily by watching notes cross the judgment position,
+	        // For users who play primarily by watching notes cross the judgment position,
 	        // you might think that we want them to see visual judgment feedback during
 	        // calibration, but we do not. Humans are remarkably good at adjusting
 	        // the timing of their own physical movement, even without realizing it.
@@ -818,13 +818,13 @@ namespace DTXMania
 	        {
 	            return e判定 < E判定.Good ? E判定.Good : e判定;
 	        }
-            else
+	        else
 	        {
 	            return e判定;
 	        }
 	    }
 
-	    private E判定 e指定時刻からChipのJUDGEを返すImpl( long nTime, CDTX.CChip pChip )
+		private E判定 e指定時刻からChipのJUDGEを返すImpl( long nTime, CDTX.CChip pChip )
 		{
 			if ( pChip != null )
 			{
@@ -2792,8 +2792,8 @@ namespace DTXMania
 		    // displaying the panel title or song title as usual.
 
 		    var panelString = CDTXMania.IsPerformingCalibration
-                ? "Calibrating input..."
-                : string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE: CDTXMania.DTX.PANEL;
+		        ? "Calibrating input..."
+		        : string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE: CDTXMania.DTX.PANEL;
 
 		    this.actPanel.SetPanelString( panelString );
 		}
