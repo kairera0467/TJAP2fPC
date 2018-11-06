@@ -25,7 +25,7 @@ namespace FDK
 			{
 				this.devMouse = new Mouse( directInput );
 				this.devMouse.SetCooperativeLevel( hWnd, CooperativeLevel.Foreground | CooperativeLevel.Nonexclusive );
-				this.devMouse.Properties.BufferSize = 0x20;
+				this.devMouse.Properties.BufferSize = _rawBufferedDataArray.Length;
 				Trace.TraceInformation( this.devMouse.Information.ProductName + " を生成しました。" );
 			}
 			catch( DirectInputException )
@@ -82,46 +82,38 @@ namespace FDK
 				{
 					#region [ a.バッファ入力 ]
 					//-----------------------------
-					var bufferedData = this.devMouse.GetBufferedData();
-					if( Result.Last.IsSuccess && bufferedData != null )
-					{
-						foreach( MouseState data in bufferedData )
-						{
-							for( int k = 0; k < 8; k++ )
-							{
-								if( data.IsPressed( k ) )
-								{
-									STInputEvent item = new STInputEvent()
-									{
-										nKey = k,
-										b押された = true,
-										b離された = false,
-										nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.TimeStamp ),
-										nVelocity = CInput管理.n通常音量
-									};
-									this.list入力イベント.Add( item );
 
-									this.bMouseState[ k ] = true;
-									this.bMousePushDown[ k ] = true;
-								}
-								else if( data.IsReleased( k ) )
-								{
-									STInputEvent item = new STInputEvent()
-									{
-										nKey = k,
-										b押された = false,
-										b離された = true,
-										nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.TimeStamp ),
-										nVelocity = CInput管理.n通常音量
-									};
-									this.list入力イベント.Add( item );
+                    var length = this.devMouse.GetDeviceData(_rawBufferedDataArray, false);
+                    if (!Result.Last.IsSuccess)
+                    {
+	                    return;
+                    }
+                    for (int i = 0; i < length; i++)
+                    {
+                        var rawBufferedData = _rawBufferedDataArray[i];
+                        var key = rawBufferedData.Offset - 12;
+                        var wasPressed = (rawBufferedData.Data & 128) == 128;
 
-									this.bMouseState[ k ] = false;
-									this.bMousePullUp[ k ] = true;
-								}
-							}
-						}
-					}
+                        if (!(-1 < key && key < 8))
+                        {
+                            continue;
+                        }
+
+                        STInputEvent item = new STInputEvent()
+                        {
+                            nKey = key,
+                            b押された = wasPressed,
+                            b離された = !wasPressed,
+                            nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp ),
+                            nVelocity = CInput管理.n通常音量
+                        };
+                        this.list入力イベント.Add( item );
+
+                        this.bMouseState[ item.nKey ] = item.b押された;
+                        this.bMousePushDown[ item.nKey ] = item.b押された;
+                        this.bMousePullUp[ item.nKey ] = item.b離された;
+                    }
+
 					//-----------------------------
 					#endregion
 				}
@@ -220,11 +212,14 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-		private bool bDispose完了済み;
-		private bool[] bMousePullUp = new bool[ 8 ];
-		private bool[] bMousePushDown = new bool[ 8 ];
-		private bool[] bMouseState = new bool[ 8 ];
+	    private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
+        private readonly bool[] bMousePullUp = new bool[ 8 ];
+		private readonly bool[] bMousePushDown = new bool[ 8 ];
+		private readonly bool[] bMouseState = new bool[ 8 ];
+
+	    private bool bDispose完了済み;
 		private Mouse devMouse;
+
 		//private CTimer timer;
 		//-----------------
 		#endregion
