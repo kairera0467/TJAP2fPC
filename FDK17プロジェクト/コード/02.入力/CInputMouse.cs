@@ -103,15 +103,13 @@ namespace FDK
                         {
                             nKey = key,
                             b押された = wasPressed,
-                            b離された = !wasPressed,
                             nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp ),
-                            nVelocity = CInput管理.n通常音量
                         };
                         this.list入力イベント.Add( item );
 
-                        this.bMouseState[ item.nKey ] = item.b押された;
-                        this.bMousePushDown[ item.nKey ] = item.b押された;
-                        this.bMousePullUp[ item.nKey ] = item.b離された;
+                        this.bMouseState[ item.nKey ] = wasPressed;
+                        this.bMousePushDown[ item.nKey ] = wasPressed;
+                        this.bMousePullUp[ item.nKey ] = !wasPressed;
                     }
 
 					//-----------------------------
@@ -132,9 +130,7 @@ namespace FDK
 								var ev = new STInputEvent() {
 									nKey = j,
 									b押された = true,
-									b離された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量,
 								};
 								this.list入力イベント.Add( ev );
 
@@ -146,9 +142,7 @@ namespace FDK
 								var ev = new STInputEvent() {
 									nKey = j,
 									b押された = false,
-									b離された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量,
 								};
 								this.list入力イベント.Add( ev );
 

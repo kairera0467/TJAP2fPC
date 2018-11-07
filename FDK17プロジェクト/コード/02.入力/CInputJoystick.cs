@@ -171,14 +171,12 @@ namespace FDK
                                     e.nKey = 6 + 128 + this.nPovState[ p ];
                                     this.nPovState[ p ] = -1;
                                     e.b押された = false;
-                                    e.nVelocity = 0;
                                     this.bButtonState[ e.nKey ] = false;
                                     this.bButtonPullUp[ e.nKey ] = true;
                                 } else {
                                     this.nPovState[ p ] = nWay;
                                     e.nKey = 6 + 128 + nWay;
                                     e.b押された = true;
-                                    e.nVelocity = CInput管理.n通常音量;
                                     this.bButtonState[ e.nKey ] = true;
                                     this.bButtonPushDown[ e.nKey ] = true;
                                 }
@@ -196,15 +194,13 @@ namespace FDK
                                     {
                                         nKey = key,
                                         b押された = wasPressed,
-                                        b離された = !wasPressed,
                                         nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換(rawBufferedData.Timestamp),
-                                        nVelocity = CInput管理.n通常音量
                                     };
                                     this.list入力イベント.Add(item);
 
-                                    this.bButtonState[item.nKey] = item.b押された;
-                                    this.bButtonPushDown[item.nKey] = item.b押された;
-                                    this.bButtonPullUp[item.nKey] = item.b離された;
+                                    this.bButtonState[item.nKey] = wasPressed;
+                                    this.bButtonPushDown[item.nKey] = wasPressed;
+                                    this.bButtonPullUp[item.nKey] = !wasPressed;
                                 }
 
                                 break;
@@ -232,7 +228,6 @@ namespace FDK
 									nKey = 0,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -249,7 +244,6 @@ namespace FDK
 									nKey = 0,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -270,7 +264,6 @@ namespace FDK
 									nKey = 1,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -287,7 +280,6 @@ namespace FDK
 									nKey = 1,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( event7 );
 
@@ -308,7 +300,6 @@ namespace FDK
 									nKey = 2,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -325,7 +316,6 @@ namespace FDK
 									nKey = 2,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -346,7 +336,6 @@ namespace FDK
 									nKey = 3,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -363,7 +352,6 @@ namespace FDK
 									nKey = 3,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -384,7 +372,6 @@ namespace FDK
 									nKey = 4,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -401,7 +388,6 @@ namespace FDK
 									nKey = 4,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -422,7 +408,6 @@ namespace FDK
 									nKey = 5,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -439,7 +424,6 @@ namespace FDK
 									nKey = 5,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( event15 );
 
@@ -462,7 +446,6 @@ namespace FDK
 									nKey = 6 + j,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( item );
 
@@ -477,7 +460,6 @@ namespace FDK
 									nKey = 6 + j,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( item );
 
@@ -507,7 +489,6 @@ namespace FDK
 										//Debug.WriteLine( "POVS:" + povs[ 0 ].ToString( CultureInfo.CurrentCulture ) + ", " +stevent.nKey );
 										b押された = true,
 										nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-										nVelocity = CInput管理.n通常音量
 									};
 									this.list入力イベント.Add( stevent );
 
@@ -533,7 +514,6 @@ namespace FDK
 										nKey = nWay,
 										b押された = false,
 										nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-										nVelocity = 0
 									};
 									this.list入力イベント.Add( stevent );
 
@@ -656,7 +636,6 @@ namespace FDK
 					nKey = target,
 					b押された = !lastMode,
 					nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.Timestamp ),
-					nVelocity = ( lastMode ) ? 0 : CInput管理.n通常音量
 				};
 				this.list入力イベント.Add( e );
 
