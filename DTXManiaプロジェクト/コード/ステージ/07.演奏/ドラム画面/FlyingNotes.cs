@@ -115,7 +115,7 @@ namespace DTXMania
                                 Flying[i].X += Flying[i].Increase;
                             }
 
-                            if (Flying[i].Counter.n現在の値 % 4 == 0 && !Flying[i].IsRoll)
+                            if (n % 4 == 0 && !Flying[i].IsRoll)
                             {
                                 if (Flying[i].Lane == 3 || Flying[i].Lane == 4)
                                 {

@@ -1686,6 +1686,70 @@ namespace DTXMania
                             {
                                 Game_Effect_Roll_Speed_2P_Y = strParam.Split(',').Select(float.Parse).ToArray();
                             }
+                            else if (strCommand == nameof(Game_Effect_NotesFlash))
+                            {
+                                Game_Effect_NotesFlash = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_Effect_NotesFlash_Timer))
+                            {
+                                Game_Effect_NotesFlash_Timer = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Effect_GoGoSplash))
+                            {
+                                Game_Effect_GoGoSplash = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_Effect_GoGoSplash_X))
+                            {
+                                Game_Effect_GoGoSplash_X = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_Effect_GoGoSplash_Y))
+                            {
+                                Game_Effect_GoGoSplash_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_Effect_GoGoSplash_Rotate))
+                            {
+                                Game_Effect_GoGoSplash_Rotate = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_GoGoSplash_Timer))
+                            {
+                                Game_Effect_GoGoSplash_Timer = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Effect_FlyingNotes_StartPoint_Y))
+                            {
+                                Game_Effect_FlyingNotes_StartPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_Effect_FlyingNotes_EndPoint_X))
+                            {
+                                Game_Effect_FlyingNotes_EndPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_Effect_FlyingNotes_EndPoint_Y))
+                            {
+                                Game_Effect_FlyingNotes_EndPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_Effect_FlyingNotes_Sine))
+                            {
+                                Game_Effect_FlyingNotes_Sine = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Effect_FlyingNotes_IsUsingEasing))
+                            {
+                                Game_Effect_FlyingNotes_IsUsingEasing = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_FlyingNotes_Timer))
+                            {
+                                Game_Effect_FlyingNotes_Timer = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Effect_FireWorks))
+                            {
+                                Game_Effect_FireWorks = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_Effect_FireWorks_Timer))
+                            {
+                                Game_Effect_FireWorks_Timer = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Effect_Rainbow_Timer))
+                            {
+                                Game_Effect_Rainbow_Timer = int.Parse(strParam);
+                            }
                             #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
@@ -2061,8 +2125,7 @@ namespace DTXMania
         public int Game_Effect_FlyingNotes_Sine = 276;
         public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
         public int Game_Effect_FlyingNotes_Timer = 4;
-        public int[] Game_Effect_FireWorks_Size = new int[] { 180, 180 };
-        public int Game_Effect_FireWorks_Ptn = 30;
+        public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
         public int Game_Effect_FireWorks_Timer = 5;
         public int Game_Effect_Rainbow_Timer = 8;
         #endregion
