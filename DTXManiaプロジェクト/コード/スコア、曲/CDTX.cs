@@ -2742,7 +2742,7 @@ namespace DTXMania
                 }
             }
 
-            string[] strOutput = sb.ToString().Split( this.dlmtEnter, StringSplitOptions.None );
+            string[] strOutput = sb.ToString().Split(this.dlmtEnter, StringSplitOptions.None);
 
             return strOutput;
         }
@@ -2826,7 +2826,7 @@ namespace DTXMania
 
             var line = new CLine();
             line.nコース = this.nLineCountCourseTemp;
-            line.n文字数 = InputText.Length - 1;
+            line.n文字数 = InputText.Trim(' ').Length - 1;
             line.n小節番号 = this.n現在の小節数;
 
             this.listLine.Add( line );
