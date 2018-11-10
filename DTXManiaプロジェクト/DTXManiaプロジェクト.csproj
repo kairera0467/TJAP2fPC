@@ -165,6 +165,7 @@
     <Compile Include="コード\ステージ\05.選曲\CActSortSongs.cs" />
     <Compile Include="コード\ステージ\05.選曲\CStage選曲.cs" />
     <Compile Include="コード\ステージ\06.曲読み込み\CStage曲読み込み.cs" />
+    <Compile Include="コード\ステージ\06.曲読み込み\FastRender.cs" />
     <Compile Include="コード\ステージ\07.演奏\CAct演奏AVI.cs" />
     <Compile Include="コード\ステージ\07.演奏\CAct演奏Combo共通.cs" />
     <Compile Include="コード\ステージ\07.演奏\CAct演奏Danger共通.cs" />

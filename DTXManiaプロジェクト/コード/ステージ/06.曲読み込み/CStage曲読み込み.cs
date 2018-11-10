@@ -361,6 +361,14 @@ namespace DTXMania
 						span = ( TimeSpan ) ( DateTime.Now - timeBeginLoad );
 						Trace.TraceInformation( "総読込時間:                {0}", span.ToString() );
 
+                        if(CDTXMania.ConfigIni.FastRender)
+                        {
+                            var fastRender = new FastRender();
+                            fastRender.Render();
+                            fastRender = null;
+                        }
+
+
 						if ( bitmapFilename != null )
 						{
 							bitmapFilename.Dispose();

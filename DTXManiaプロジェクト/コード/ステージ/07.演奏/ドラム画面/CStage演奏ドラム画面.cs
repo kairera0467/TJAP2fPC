@@ -469,8 +469,8 @@ namespace DTXMania
 
                 this.Rainbow.On進行描画();
                 this.FireWorks.On進行描画();
-                this.FlyingNotes.On進行描画();
                 this.actChipEffects.On進行描画();
+                this.FlyingNotes.On進行描画();
                 this.t進行描画_チップファイアD();
 
                 this.actComboBalloon.On進行描画();
@@ -2068,11 +2068,13 @@ namespace DTXMania
                             this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
                             if (actChara.CharaAction_Balloon_Miss != null)
                             {
-                                actChara.アクションタイマーリセット();
-                                actChara.bマイどんアクション中 = true;
-                                actChara.CharaAction_Balloon_Miss = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
-                                if (actChara.CharaAction_Balloon_Delay != null) actChara.CharaAction_Balloon_Delay = new CCounter(0, CDTXMania.Skin.Game_Chara_Balloon_Delay - 1, 1, CDTXMania.Timer);
-
+                                if(CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss > 0)
+                                {
+                                    actChara.アクションタイマーリセット();
+                                    actChara.bマイどんアクション中 = true;
+                                    actChara.CharaAction_Balloon_Miss = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                                    if (actChara.CharaAction_Balloon_Delay != null) actChara.CharaAction_Balloon_Delay = new CCounter(0, CDTXMania.Skin.Game_Chara_Balloon_Delay - 1, 1, CDTXMania.Timer);
+                                }
                             }
                         }
                     }
