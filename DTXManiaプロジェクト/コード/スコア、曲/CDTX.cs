@@ -3147,7 +3147,7 @@ namespace DTXMania
                     //string strWrite = "";
                     for( int i = 0; strSplitした後の譜面.Length > i; i++ )
                     {
-                        str = strSplitした後の譜面[ i ].Trim();
+                        str = strSplitした後の譜面[i];
                         //strWrite += str;
                         //if( !str.StartsWith( "#" ) && !string.IsNullOrEmpty( this.strTemp ) )
                         //{
