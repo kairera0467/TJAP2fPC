@@ -10,6 +10,7 @@ namespace DTXMania.Tests
         [Test, Combinatorial]
         public void Test_tセッション譜面がある(
             [Values(
+                "205 example",
                 "expected case couple only",
                 "expected case double only",
                 "expected case single and couple",

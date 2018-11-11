@@ -259,6 +259,18 @@
     <Content Include="コード\スコア、曲\approved\trailing_characters_single_only.2.tja">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="コード\スコア、曲\input\205_example.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\205_example.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\205_example.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\205_example.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTXManiaプロジェクト\DTXManiaプロジェクト.csproj">
