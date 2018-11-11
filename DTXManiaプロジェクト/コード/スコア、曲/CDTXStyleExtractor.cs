@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace DTXMania
 {
-    internal static class CDTXStyleExtractor
+    public static class CDTXStyleExtractor
     {
         private const RegexOptions CoursePlayRemovalRegexOptions =
             RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
