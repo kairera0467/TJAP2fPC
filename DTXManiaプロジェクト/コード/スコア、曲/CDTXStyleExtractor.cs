@@ -10,10 +10,10 @@ namespace DTXMania
             RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
 
         private static readonly Regex CourseDoublesPlayRemovalRegex =
-            new Regex(@"^STYLE:Double$.*?^#START\sP1$.*?^#END$.*?^#START\sP2$.*?^#END$", CoursePlayRemovalRegexOptions);
+            new Regex(@"^STYLE:(Double|Couple).*?$.*?^#START\sP1$.*?^#END$.*?^#START\sP2$.*?^#END$", CoursePlayRemovalRegexOptions);
 
         private static readonly Regex CourseSinglePlayRemovalRegex =
-            new Regex(@"^STYLE:Single$.*?^#END$", CoursePlayRemovalRegexOptions);
+            new Regex(@"^STYLE:Single.*?$.*?^#END$", CoursePlayRemovalRegexOptions);
 
         private static readonly Regex CourseStartP1RemovalRegex =
             new Regex(@"^#START\sP1$.*?^#END$", CoursePlayRemovalRegexOptions);
