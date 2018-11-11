@@ -89,9 +89,12 @@ namespace DTXMania
 			    }
 
 			    // For the moment, detect that we are performing
-			    // calibration via the special song title and subtitle
+			    // calibration via there being an actual single
+			    // player and the special song title and subtitle
 			    // of the .tja used to perform input calibration
 			    CDTXMania.IsPerformingCalibration =
+			        !CDTXMania.ConfigIni.b太鼓パートAutoPlay &&
+			        CDTXMania.ConfigIni.nPlayerCount == 1 &&
 			        str曲タイトル == "Input Calibration" &&
 			        strサブタイトル == "TJAPlayer3 Developers";
 
