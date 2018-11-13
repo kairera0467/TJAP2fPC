@@ -304,9 +304,10 @@ namespace DTXMania
 			bool bEdge =      ( ( drawmode & DrawMode.Edge      ) == DrawMode.Edge );
 			bool bGradation = ( ( drawmode & DrawMode.Gradation ) == DrawMode.Gradation );
 
-			// 縁取りの縁のサイズは、とりあえずフォントの大きさの1/4とする
-			//int nEdgePt = (bEdge)? _pt / 4 : 0;
-            int nEdgePt = (bEdge) ? (_pt / 3) : 0; // 縁取りが少なすぎるという意見が多かったため変更。 (AioiLight)
+            // 縁取りの縁のサイズは、とりあえずフォントの大きさの1/4とする
+            //int nEdgePt = (bEdge)? _pt / 4 : 0;
+            //int nEdgePt = (bEdge) ? (_pt / 3) : 0; // 縁取りが少なすぎるという意見が多かったため変更。 (AioiLight)
+            int nEdgePt = (bEdge) ? (_pt / CDTXMania.Skin.Font_Edge_Ratio_1) : 0; //SkinConfigにて設定可能に(rhimm)
 
             // 描画サイズを測定する
             Size stringSize = System.Windows.Forms.TextRenderer.MeasureText( drawstr, this._font, new Size( int.MaxValue, int.MaxValue ),
@@ -510,7 +511,8 @@ namespace DTXMania
 				gpV.AddString( strName[ i ], this._fontfamily, (int) this._font.Style, sizeInPixels, rect, sFormat );
 
                 // 縁取りを描画する
-                int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
+                //int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
+                int nEdgePt = (_pt / CDTXMania.Skin.Font_Edge_Ratio_2); // SkinConfigにて設定可能に(rhimm)
                 Pen pV = new Pen( edgeColor, nEdgePt);
 				pV.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
 				gV.DrawPath( pV, gpV );
