@@ -2155,8 +2155,8 @@ namespace DTXMania
         public int[] Result_NamePlate_Y = new int[] { 96, 390 };
         #endregion
         #region Fonts
-        public int Font_Edge_Ratio_1 = 3;
-        public int Font_Edge_Ratio_2 = 3;
+        public int Font_Edge_Ratio_1 = 30;
+        public int Font_Edge_Ratio_2 = 30;
         #endregion
         #endregion
     }
