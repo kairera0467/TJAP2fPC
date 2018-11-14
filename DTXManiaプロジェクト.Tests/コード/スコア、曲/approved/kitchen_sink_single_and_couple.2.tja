@@ -3,7 +3,7 @@ LEVEL:8
 
 STYLE:cOuPlEz // With a comment
 
-BALLOON:
+BALLOON://1
 SCOREINIT:
 SCOREDIFF:
 
