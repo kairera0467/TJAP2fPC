@@ -80,6 +80,13 @@ namespace DTXMania
 
 		public virtual void Start( int nLane, E判定 judge, int lag, CDTX.CChip pChip, int player )
 		{
+            // When performing calibration, reduce visual distraction
+            // and current judgment feedback near the judgment position.
+            if (CDTXMania.IsPerformingCalibration)
+            {
+                return;
+            }
+
             if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 )
             {
                 return;

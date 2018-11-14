@@ -41,8 +41,15 @@ namespace DTXMania
                 this.pfStageText = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 30);
             }
 
+		    // After performing calibration, inform the player that
+		    // calibration has been completed, rather than
+		    // displaying the song title as usual.
 
-		    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(CDTXMania.DTX.TITLE, Color.White, Color.Black))
+		    var title = CDTXMania.IsPerformingCalibration
+		        ? $"Calibration complete. InputAdjustTime is now {CDTXMania.ConfigIni.nInputAdjustTimeMs}ms"
+		        : CDTXMania.DTX.TITLE;
+
+		    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(title, Color.White, Color.Black))
 		    {
 		        this.txMusicName = CDTXMania.tテクスチャの生成(bmpSongTitle, false);
 		        txMusicName.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txMusicName);

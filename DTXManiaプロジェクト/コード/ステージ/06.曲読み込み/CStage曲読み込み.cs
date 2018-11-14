@@ -52,17 +52,54 @@ namespace DTXMania
 					this.sd読み込み音 = null;
 				}
 
-				string strDTXファイルパス = ( CDTXMania.bコンパクトモード ) ?
-					CDTXMania.strコンパクトモードファイル : CDTXMania.stage選曲.r確定されたスコア.ファイル情報.ファイルの絶対パス;
+			    if (CDTXMania.bコンパクトモード)
+			    {
+			        string strDTXファイルパス = CDTXMania.strコンパクトモードファイル;
 				
-				CDTX cdtx = new CDTX( strDTXファイルパス, true, 1.0, 0, 0 );
-                if( File.Exists( cdtx.strフォルダ名 + @"set.def" ) )
-				    cdtx = new CDTX( strDTXファイルパス, true, 1.0, 0, 1 );
+			        CDTX cdtx = new CDTX( strDTXファイルパス, true, 1.0, 0, 0 );
+			        if( File.Exists( cdtx.strフォルダ名 + @"set.def" ) )
+			            cdtx = new CDTX( strDTXファイルパス, true, 1.0, 0, 1 );
 
-				this.str曲タイトル = cdtx.TITLE;
-                this.strサブタイトル = cdtx.SUBTITLE;
+			        this.str曲タイトル = cdtx.TITLE;
+			        this.strサブタイトル = cdtx.SUBTITLE;
+
+			        cdtx.On非活性化();
+			    }
+			    else
+			    {
+			        string strDTXファイルパス = CDTXMania.stage選曲.r確定されたスコア.ファイル情報.ファイルの絶対パス;
+
+			        var strフォルダ名 = Path.GetDirectoryName(strDTXファイルパス) + @"\";
+
+			        if (File.Exists(strフォルダ名 + @"set.def"))
+			        {
+			            var cdtx = new CDTX(strDTXファイルパス, true, 1.0, 0, 1);
+
+			            this.str曲タイトル = cdtx.TITLE;
+			            this.strサブタイトル = cdtx.SUBTITLE;
+
+			            cdtx.On非活性化();
+			        }
+			        else
+			        {
+			            var 譜面情報 = CDTXMania.stage選曲.r確定されたスコア.譜面情報;
+			            this.str曲タイトル = 譜面情報.タイトル;
+			            this.strサブタイトル = 譜面情報.strサブタイトル;
+			        }
+			    }
+
+			    // For the moment, detect that we are performing
+			    // calibration via there being an actual single
+			    // player and the special song title and subtitle
+			    // of the .tja used to perform input calibration
+			    CDTXMania.IsPerformingCalibration =
+			        !CDTXMania.ConfigIni.b太鼓パートAutoPlay &&
+			        CDTXMania.ConfigIni.nPlayerCount == 1 &&
+			        str曲タイトル == "Input Calibration" &&
+			        strサブタイトル == "TJAPlayer3 Developers";
+
 				this.strSTAGEFILE = CSkin.Path(@"Graphics\4_SongLoading\Background.png");
-				cdtx.On非活性化();
+
 				base.On活性化();
 			}
 			finally
@@ -97,18 +134,30 @@ namespace DTXMania
                 this.ct曲名表示 = new CCounter( 1, 30, 30, CDTXMania.Timer );
 				try
 				{
-					if( ( this.str曲タイトル != null ) && ( this.str曲タイトル.Length > 0 ) )
+				    // When performing calibration, inform the player that
+				    // calibration is about to begin, rather than
+				    // displaying the song title and subtitle as usual.
+
+				    var タイトル = CDTXMania.IsPerformingCalibration
+				        ? "Input calibration is about to begin."
+				        : this.str曲タイトル;
+
+				    var サブタイトル = CDTXMania.IsPerformingCalibration
+				        ? "Please play as accurately as possible."
+				        : this.strサブタイトル;
+
+				    if( !string.IsNullOrEmpty(タイトル) )
 					{
                         //this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
                         //this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 
-					    using (var bmpSongTitle = this.pfTITLE.DrawPrivateFont( this.str曲タイトル, Color.White, Color.Black ))
+					    using (var bmpSongTitle = this.pfTITLE.DrawPrivateFont( タイトル, Color.White, Color.Black ))
 					    {
 					        this.txタイトル = new CTexture( CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false );
 					        txタイトル.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txタイトル, 710);
 					    }
 
-					    using (var bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( this.strサブタイトル, Color.White, Color.Black ))
+					    using (var bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( サブタイトル, Color.White, Color.Black ))
 					    {
 					        this.txサブタイトル = new CTexture( CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false );
 					    }
@@ -265,7 +314,6 @@ namespace DTXMania
                                 if( CDTXMania.ConfigIni.nPlayerCount == 2 )
 						            CDTXMania.DTX_2P = new CDTX( str, false, ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0, ini.stファイル.BGMAdjust, 0, 1, true );
                             }
-
 
 					    	Trace.TraceInformation( "----曲情報-----------------" );
 				    		Trace.TraceInformation( "TITLE: {0}", CDTXMania.DTX.TITLE );
