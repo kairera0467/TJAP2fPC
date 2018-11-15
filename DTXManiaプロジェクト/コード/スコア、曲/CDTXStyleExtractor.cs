@@ -54,14 +54,14 @@ namespace DTXMania
         private static readonly string StyleUnrecognizedSectionRegexMatchPattern =
             $"{StylePrefixRegexPattern}";
 
+        private static readonly string SheetStartBareRegexMatchPattern =
+            $"{SheetStartPrefixRegexPattern}$";
+        
         private static readonly string SheetStartP1RegexMatchPattern =
             $"{SheetStartPrefixRegexPattern}\\s*P1";
 
         private static readonly string SheetStartP2RegexMatchPattern =
             $"{SheetStartPrefixRegexPattern}\\s*P2";
-        
-        private static readonly string SheetStartBareRegexMatchPattern =
-            $"{SheetStartPrefixRegexPattern}$";
         
         private static readonly string SheetStartUnrecognizedRegexMatchPattern =
             $"{SheetStartPrefixRegexPattern}.*$";
@@ -69,14 +69,19 @@ namespace DTXMania
         private static readonly Regex SectionSplitRegex = new Regex($"(?={StylePrefixRegexPattern})", StyleExtractorRegexOptions);
         private static readonly Regex SubSectionSplitRegex = new Regex($"(?={SheetStartPrefixRegexPattern})|(?<=#END\\n)", StyleExtractorRegexOptions);
 
+        private static readonly Regex StylePrefixMatchRegex = new Regex(StylePrefixRegexPattern, StyleExtractorRegexOptions);
         private static readonly Regex StyleSingleSectionMatchRegex = new Regex(StyleSingleSectionRegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex StyleDoubleSectionMatchRegex = new Regex(StyleDoubleSectionRegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex StyleUnrecognizedSectionMatchRegex = new Regex(StyleUnrecognizedSectionRegexMatchPattern, StyleExtractorRegexOptions);
 
+        private static readonly Regex SheetStartPrefixMatchRegex = new Regex(SheetStartPrefixRegexPattern, StyleExtractorRegexOptions);
+        private static readonly Regex SheetStartBareMatchRegex = new Regex(SheetStartBareRegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex SheetStartP1MatchRegex = new Regex(SheetStartP1RegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex SheetStartP2MatchRegex = new Regex(SheetStartP2RegexMatchPattern, StyleExtractorRegexOptions);
-        private static readonly Regex SheetStartBareMatchRegex = new Regex(SheetStartBareRegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex SheetStartUnrecognizedMatchRegex = new Regex(SheetStartUnrecognizedRegexMatchPattern, StyleExtractorRegexOptions);
+
+        private static readonly SectionKindAndSubSectionKind StyleSingleAndSheetStartBare =
+            new SectionKindAndSubSectionKind(SectionKind.StyleSingle, SubSectionKind.SheetStartBare);
 
         private static readonly SectionKindAndSubSectionKind StyleSingleAndSheetStartP1 =
             new SectionKindAndSubSectionKind(SectionKind.StyleSingle, SubSectionKind.SheetStartP1);
@@ -84,11 +89,11 @@ namespace DTXMania
         private static readonly SectionKindAndSubSectionKind StyleSingleAndSheetStartP2 =
             new SectionKindAndSubSectionKind(SectionKind.StyleSingle, SubSectionKind.SheetStartP2);
 
-        private static readonly SectionKindAndSubSectionKind StyleSingleAndSheetStartBare =
-            new SectionKindAndSubSectionKind(SectionKind.StyleSingle, SubSectionKind.SheetStartBare);
-
         private static readonly SectionKindAndSubSectionKind StyleSingleAndSheetStartUnrecognized =
             new SectionKindAndSubSectionKind(SectionKind.StyleSingle, SubSectionKind.SheetStartUnrecognized);
+
+        private static readonly SectionKindAndSubSectionKind StyleDoubleAndSheetStartBare =
+            new SectionKindAndSubSectionKind(SectionKind.StyleDouble, SubSectionKind.SheetStartBare);
 
         private static readonly SectionKindAndSubSectionKind StyleDoubleAndSheetStartP1 =
             new SectionKindAndSubSectionKind(SectionKind.StyleDouble, SubSectionKind.SheetStartP1);
@@ -96,11 +101,11 @@ namespace DTXMania
         private static readonly SectionKindAndSubSectionKind StyleDoubleAndSheetStartP2 =
             new SectionKindAndSubSectionKind(SectionKind.StyleDouble, SubSectionKind.SheetStartP2);
 
-        private static readonly SectionKindAndSubSectionKind StyleDoubleAndSheetStartBare =
-            new SectionKindAndSubSectionKind(SectionKind.StyleDouble, SubSectionKind.SheetStartBare);
-
         private static readonly SectionKindAndSubSectionKind StyleDoubleAndSheetStartUnrecognized =
             new SectionKindAndSubSectionKind(SectionKind.StyleDouble, SubSectionKind.SheetStartUnrecognized);
+
+        private static readonly SectionKindAndSubSectionKind StyleUnrecognizedAndSheetStartBare =
+            new SectionKindAndSubSectionKind(SectionKind.StyleUnrecognized, SubSectionKind.SheetStartBare);
 
         private static readonly SectionKindAndSubSectionKind StyleUnrecognizedAndSheetStartP1 =
             new SectionKindAndSubSectionKind(SectionKind.StyleUnrecognized, SubSectionKind.SheetStartP1);
@@ -108,20 +113,17 @@ namespace DTXMania
         private static readonly SectionKindAndSubSectionKind StyleUnrecognizedAndSheetStartP2 =
             new SectionKindAndSubSectionKind(SectionKind.StyleUnrecognized, SubSectionKind.SheetStartP2);
 
-        private static readonly SectionKindAndSubSectionKind StyleUnrecognizedAndSheetStartBare =
-            new SectionKindAndSubSectionKind(SectionKind.StyleUnrecognized, SubSectionKind.SheetStartBare);
-
         private static readonly SectionKindAndSubSectionKind StyleUnrecognizedAndSheetStartUnrecognized =
             new SectionKindAndSubSectionKind(SectionKind.StyleUnrecognized, SubSectionKind.SheetStartUnrecognized);
+
+        private static readonly SectionKindAndSubSectionKind NonStyleAndSheetStartBare =
+            new SectionKindAndSubSectionKind(SectionKind.NonStyle, SubSectionKind.SheetStartBare);
 
         private static readonly SectionKindAndSubSectionKind NonStyleAndSheetStartP1 =
             new SectionKindAndSubSectionKind(SectionKind.NonStyle, SubSectionKind.SheetStartP1);
 
         private static readonly SectionKindAndSubSectionKind NonStyleAndSheetStartP2 =
             new SectionKindAndSubSectionKind(SectionKind.NonStyle, SubSectionKind.SheetStartP2);
-
-        private static readonly SectionKindAndSubSectionKind NonStyleAndSheetStartBare =
-            new SectionKindAndSubSectionKind(SectionKind.NonStyle, SubSectionKind.SheetStartBare);
 
         private static readonly SectionKindAndSubSectionKind NonStyleAndSheetStartUnrecognized =
             new SectionKindAndSubSectionKind(SectionKind.NonStyle, SubSectionKind.SheetStartUnrecognized);
@@ -268,19 +270,22 @@ namespace DTXMania
 
         private static SectionKind GetSectionKind(string section)
         {
-            if (StyleSingleSectionMatchRegex.IsMatch(section))
+            if (StylePrefixMatchRegex.IsMatch(section))
             {
-                return SectionKind.StyleSingle;
-            }
+                if (StyleSingleSectionMatchRegex.IsMatch(section))
+                {
+                    return SectionKind.StyleSingle;
+                }
 
-            if (StyleDoubleSectionMatchRegex.IsMatch(section))
-            {
-                return SectionKind.StyleDouble;
-            }
+                if (StyleDoubleSectionMatchRegex.IsMatch(section))
+                {
+                    return SectionKind.StyleDouble;
+                }
 
-            if (StyleUnrecognizedSectionMatchRegex.IsMatch(section))
-            {
-                return SectionKind.StyleUnrecognized;
+                if (StyleUnrecognizedSectionMatchRegex.IsMatch(section))
+                {
+                    return SectionKind.StyleUnrecognized;
+                }
             }
 
             return SectionKind.NonStyle;
@@ -327,24 +332,27 @@ namespace DTXMania
 
         private static SubSectionKind GetSubsectionKind(string subsection)
         {
-            if (SheetStartP1MatchRegex.IsMatch(subsection))
+            if (SheetStartPrefixMatchRegex.IsMatch(subsection))
             {
-                return SubSectionKind.SheetStartP1;
-            }
+                if (SheetStartBareMatchRegex.IsMatch(subsection))
+                {
+                    return SubSectionKind.SheetStartBare;
+                }
 
-            if (SheetStartP2MatchRegex.IsMatch(subsection))
-            {
-                return SubSectionKind.SheetStartP2;
-            }
+                if (SheetStartP1MatchRegex.IsMatch(subsection))
+                {
+                    return SubSectionKind.SheetStartP1;
+                }
+
+                if (SheetStartP2MatchRegex.IsMatch(subsection))
+                {
+                    return SubSectionKind.SheetStartP2;
+                }
             
-            if (SheetStartBareMatchRegex.IsMatch(subsection))
-            {
-                return SubSectionKind.SheetStartBare;
-            }
-
-            if (SheetStartUnrecognizedMatchRegex.IsMatch(subsection))
-            {
-                return SubSectionKind.SheetStartUnrecognized;
+                if (SheetStartUnrecognizedMatchRegex.IsMatch(subsection))
+                {
+                    return SubSectionKind.SheetStartUnrecognized;
+                }
             }
 
             return SubSectionKind.NonSheet;
@@ -480,8 +488,6 @@ namespace DTXMania
                 (o.SectionKind == SectionKind.StyleSingle || o.SectionKind == SectionKind.StyleDouble) &&
                 o.SubSections.Count(subSection => subSection.SubSectionKind == SubSectionKind.NonSheet) == o.SubSections.Count);
         }
-
-        // JDG NEED TO ADD SUPPORT FOR BEING LEFT WITH TWO SHEETS OF THE SAME RANK!
 
         // 7. Remove STYLE-type subsections beyond the selected sheet,
         //    to reduce risk of incorrect command processing.

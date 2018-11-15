@@ -50,7 +50,6 @@ namespace DTXMania.Tests
             // but cannot until we upgrade past .net 3.5.
             // Until then, this test will approximate it.
 
-            // JDG inputReference is temporary
             var inputReferenceDirectory = Path.Combine(testDataDirectory, "inputReference");
             Directory.CreateDirectory(inputReferenceDirectory);
             var inputReferenceFileName = $"{scenarioFileNamePart}.{seqNo}.tja";
