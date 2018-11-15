@@ -296,11 +296,24 @@ namespace DTXMania
 
     //            this.tx判定数表示パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Paramater Panel.png" ) );
 
-                this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\dong.ogg" ), ESoundGroup.SoundEffect );
-                this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\ka.ogg" ), ESoundGroup.SoundEffect );
-                this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path(@"Sounds\Taiko\Adlib.ogg"), ESoundGroup.SoundEffect );
+			    // When performing calibration, reduce audio distraction from user input.
+			    // For users who play primarily by listening to the music,
+			    // you might think that we want them to hear drum sound effects during
+			    // calibration, but we do not. Humans are remarkably good at adjusting
+			    // the timing of their own physical movement, even without realizing it.
+			    // We are calibrating their input timing for the purposes of judgment.
+			    // We do not want them subconsciously playing early so as to line up
+			    // their drum sound effects with the sounds of the input calibration file.
+			    // Instead, we want them focused on the sounds of their keyboard, tatacon,
+			    // other controller, etc. and the sounds of the input calibration audio file.
+			    if (!CDTXMania.IsPerformingCalibration)
+			    {
+			        this.soundRed = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\dong.ogg" ), ESoundGroup.SoundEffect );
+			        this.soundBlue = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\Taiko\ka.ogg" ), ESoundGroup.SoundEffect );
+			        this.soundAdlib = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path(@"Sounds\Taiko\Adlib.ogg"), ESoundGroup.SoundEffect );
+			    }
 
-				base.OnManagedリソースの作成();
+			    base.OnManagedリソースの作成();
 			}
 		}
 		public override void OnManagedリソースの解放()
@@ -877,7 +890,7 @@ namespace DTXMania
                             b太鼓音再生フラグ = false;
 
                         if( chipNoHit.nチャンネル番号 == 0x1F && ( e判定 != E判定.Miss && e判定 != E判定.Poor ) )
-                            this.soundAdlib.t再生を開始する();
+                            this.soundAdlib?.t再生を開始する();
                     }
 
                     switch (nPad)
@@ -888,7 +901,7 @@ namespace DTXMania
                             nChannel = 0x11;
                             if( b太鼓音再生フラグ )
                             {
-                                this.soundRed.t再生を開始する();
+                                this.soundRed?.t再生を開始する();
                             }
                             break;
                         case 13:
@@ -897,7 +910,7 @@ namespace DTXMania
                             nChannel = 0x11;
                             if( b太鼓音再生フラグ )
                             {
-                                this.soundRed.t再生を開始する();
+                                this.soundRed?.t再生を開始する();
                             }
                             break;
                         case 14:
@@ -905,14 +918,14 @@ namespace DTXMania
                             nHand = 0;
                             nChannel = 0x12;
                             if( b太鼓音再生フラグ )
-                                this.soundBlue.t再生を開始する();
+                                this.soundBlue?.t再生を開始する();
                             break;
                         case 15:
                             nLane = 1;
                             nHand = 1;
                             nChannel = 0x12;
                             if( b太鼓音再生フラグ )
-                                this.soundBlue.t再生を開始する();
+                                this.soundBlue?.t再生を開始する();
                             break;
                         //以下2P
                         case 16:
@@ -921,7 +934,7 @@ namespace DTXMania
                             nChannel = 0x11;
                             if( b太鼓音再生フラグ )
                             {
-                                this.soundRed.t再生を開始する();
+                                this.soundRed?.t再生を開始する();
                             }
                             break;
                         case 17:
@@ -930,7 +943,7 @@ namespace DTXMania
                             nChannel = 0x11;
                             if( b太鼓音再生フラグ )
                             {
-                                this.soundRed.t再生を開始する();
+                                this.soundRed?.t再生を開始する();
                             }
                             break;
                         case 18:
@@ -938,14 +951,14 @@ namespace DTXMania
                             nHand = 0;
                             nChannel = 0x12;
                             if( b太鼓音再生フラグ )
-                                this.soundBlue.t再生を開始する();
+                                this.soundBlue?.t再生を開始する();
                             break;
                         case 19:
                             nLane = 1;
                             nHand = 1;
                             nChannel = 0x12;
                             if( b太鼓音再生フラグ )
-                                this.soundBlue.t再生を開始する();
+                                this.soundBlue?.t再生を開始する();
                             break;
                     }
 

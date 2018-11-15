@@ -2701,6 +2701,13 @@ namespace DTXMania
         private string[] tコマンド行を削除したTJAを返す(string[] input, int nMode)
         {
             var sb = new StringBuilder();
+            
+            // 18/11/11 AioiLight 譜面にSpace、スペース、Tab等が入っているとおかしくなるので修正。
+            // 多分コマンドもスペースが抜かれちゃっているが、コマンド行を除く譜面を返すので大丈夫(たぶん)。
+            for (int i = 0; i < input.Length; i++)
+            {
+                input[i] = input[i].Trim();
+            }
 
             for (int n = 0; n < input.Length; n++)
             {
