@@ -42,31 +42,31 @@ namespace DTXMania
 
         private const string StylePrefixRegexPattern = @"^STYLE\s*:\s*";
         private const string SheetStartPrefixRegexPattern = @"^#START";
-        private const string SheetEndRegexPattern = @"^#END[^$]*$?";
+        private const string SheetEndRegexPattern = @"^#END.*$";
 
         private static readonly string SheetStartP1RegexMatchPattern =
-            $"{SheetStartPrefixRegexPattern}\\s*P1[^$]*$.*?{SheetEndRegexPattern}";
+            $"{SheetStartPrefixRegexPattern}\\s*P1.*$.*?{SheetEndRegexPattern}";
 
         private static readonly string SheetStartP2RegexMatchPattern =
-            $"{SheetStartPrefixRegexPattern}\\s*P2[^$]*$.*?{SheetEndRegexPattern}";
+            $"{SheetStartPrefixRegexPattern}\\s*P2.*$.*?{SheetEndRegexPattern}";
         
         private static readonly string SheetStartBareRegexMatchPattern =
             $"{SheetStartPrefixRegexPattern}$.*?{SheetEndRegexPattern}";
         
         private static readonly string SheetStartUnrecognizedRegexMatchPattern =
-            $"{SheetStartPrefixRegexPattern}[^$]*$.*?{SheetEndRegexPattern}";
+            $"{SheetStartPrefixRegexPattern}.*$.*?{SheetEndRegexPattern}";
 
         private static readonly string StyleSingleSectionRegexMatchPattern =
-            $"{StylePrefixRegexPattern}Single[^$]*$";
+            $"{StylePrefixRegexPattern}Single.*$";
 
         private static readonly string StyleDoubleSectionRegexMatchPattern =
-            $"{StylePrefixRegexPattern}(?:Double|Couple)[^$]*$";
+            $"{StylePrefixRegexPattern}(?:Double|Couple).*$";
 
         private static readonly string StyleUnrecognizedSectionRegexMatchPattern =
-            $"{StylePrefixRegexPattern}[^$]*$";
+            $"{StylePrefixRegexPattern}.*$";
 
         private static readonly Regex SectionSplitRegex = new Regex($"(?={StylePrefixRegexPattern})", StyleExtractorRegexOptions);
-        private static readonly Regex SubSectionSplitRegex = new Regex($"(?={SheetStartPrefixRegexPattern})", StyleExtractorRegexOptions);
+        private static readonly Regex SubSectionSplitRegex = new Regex($"(?={SheetStartPrefixRegexPattern})|(?<=#END)", StyleExtractorRegexOptions);
 
         private static readonly Regex StyleSingleSectionMatchRegex = new Regex(StyleSingleSectionRegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex StyleDoubleSectionMatchRegex = new Regex(StyleDoubleSectionRegexMatchPattern, StyleExtractorRegexOptions);
