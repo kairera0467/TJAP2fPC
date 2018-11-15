@@ -1,12 +1,15 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using NUnit.Framework;
 
 namespace DTXMania.Tests
 {
     [TestFixture]
-    public class CDTXStyleExtractorTests
+    public sealed class CDTXStyleExtractorTests
     {
+        private static readonly Encoding ShiftJisEncoding = Encoding.GetEncoding("Shift_JIS");
+
         [Test, Combinatorial]
         public void Test_tセッション譜面がある(
             [Values(
@@ -16,6 +19,7 @@ namespace DTXMania.Tests
                 "expected case single and couple",
                 "expected case single and double",
                 "expected case single only",
+                "expected case single only whole file due to no course",
                 "kitchen sink couple only",
                 "kitchen sink double only",
                 "kitchen sink single and couple",
@@ -40,7 +44,7 @@ namespace DTXMania.Tests
             var inputDirectory = Path.Combine(testDataDirectory, "input");
             var inputFileName = $"{scenarioFileNamePart}.tja";
             var inputPath = Path.Combine(inputDirectory, inputFileName);
-            var input = File.ReadAllText(inputPath)
+            var input = File.ReadAllText(inputPath, ShiftJisEncoding)
                 .Replace("\r\n", "\n")
                 .Replace('\t', ' ');
 
@@ -62,15 +66,15 @@ namespace DTXMania.Tests
             var receivedFileName = $"{scenarioFileNamePart}.{seqNo}.tja";
             var receivedPath = Path.Combine(receivedDirectory, receivedFileName);
             File.Delete(receivedPath);
-            File.WriteAllText(receivedPath, result);
+            File.WriteAllText(receivedPath, result, ShiftJisEncoding);
 
             var approvedDirectory = Path.Combine(testDataDirectory, "approved");
             Directory.CreateDirectory(approvedDirectory);
             var approvedFileName = $"{scenarioFileNamePart}.{seqNo}.tja";
             var approvedPath = Path.Combine(approvedDirectory, approvedFileName);
 
-            var approved = File.ReadAllText(approvedPath).Replace("\r\n", "\n");
-            var received = File.ReadAllText(receivedPath);
+            var approved = File.ReadAllText(approvedPath, ShiftJisEncoding).Replace("\r\n", "\n");
+            var received = File.ReadAllText(receivedPath, ShiftJisEncoding);
 
             Assert.AreEqual(approved, received);
         }

@@ -271,6 +271,18 @@
     <Content Include="コード\スコア、曲\approved\205_example.2.tja">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="コード\スコア、曲\input\expected_case_single_only_whole_file_due_to_no_course.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTXManiaプロジェクト\DTXManiaプロジェクト.csproj">
