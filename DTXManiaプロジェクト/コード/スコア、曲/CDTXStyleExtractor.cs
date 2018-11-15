@@ -29,7 +29,9 @@ namespace DTXMania
     /// 4. Determine the best-ranked sheet
     /// 5. Remove sheets other than the best-ranked
     /// 6. Remove top-level STYLE-type sections which no longer contain a sheet
-    /// 7. Reassemble the string
+    /// 7. Remove STYLE-type subsections beyond the selected sheet,
+    ///    to reduce risk of incorrect command processing.
+    /// 8. Reassemble the string
     /// </summary>
     public static class CDTXStyleExtractor
     {
@@ -244,7 +246,11 @@ namespace DTXMania
             // 6. Remove top-level STYLE-type sections which no longer contain a sheet
             RemoveRecognizedStyleSectionsWithoutSheets(sections);
 
-            // 7. Reassemble the string
+            // 7. Remove STYLE-type subsections beyond the selected sheet,
+            //    to reduce risk of incorrect command processing.
+            RemoveStyleSectionSubSectionsBeyondTheSelectedSheet(sections);
+
+            // 8. Reassemble the string
             return Reassemble(sections);
         }
 
@@ -476,7 +482,30 @@ namespace DTXMania
                 o.SubSections.Count(subSection => subSection.SubSectionKind == SubSectionKind.NonSheet) == o.SubSections.Count);
         }
 
-        // 7. Reassemble the string
+        // JDG NEED TO ADD SUPPORT FOR BEING LEFT WITH TWO SHEETS OF THE SAME RANK!
+
+        // 7. Remove STYLE-type subsections beyond the selected sheet,
+        //    to reduce risk of incorrect command processing.
+        private static void RemoveStyleSectionSubSectionsBeyondTheSelectedSheet(List<Section> sections)
+        {
+            foreach (var section in sections)
+            {
+                if (section.SectionKind == SectionKind.StyleSingle || section.SectionKind == SectionKind.StyleDouble)
+                {
+                    var subSections = section.SubSections;
+
+                    var lastIndex = subSections.FindIndex(o => o.SubSectionKind != SubSectionKind.NonSheet);
+                    var removalIndex = lastIndex + 1;
+
+                    if (lastIndex != -1 && removalIndex < subSections.Count)
+                    {
+                        subSections.RemoveRange(removalIndex, subSections.Count - removalIndex);
+                    }
+                }
+            }
+        }
+
+        // 8. Reassemble the string
         private static string Reassemble(List<Section> sections)
         {
             var sb = new StringBuilder();
@@ -487,6 +516,11 @@ namespace DTXMania
                 {
                     sb.Append(subSection.OriginalRawValue);
                 }
+            }
+
+            if (sb[sb.Length - 1] != '\n')
+            {
+                sb.Append('\n');
             }
 
             return sb.ToString();
