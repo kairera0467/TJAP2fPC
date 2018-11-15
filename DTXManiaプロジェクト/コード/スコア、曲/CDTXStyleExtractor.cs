@@ -68,7 +68,7 @@ namespace DTXMania
             $"{StylePrefixRegexPattern}.*$";
 
         private static readonly Regex SectionSplitRegex = new Regex($"(?={StylePrefixRegexPattern})", StyleExtractorRegexOptions);
-        private static readonly Regex SubSectionSplitRegex = new Regex($"(?={SheetStartPrefixRegexPattern})|(?<=#END)", StyleExtractorRegexOptions);
+        private static readonly Regex SubSectionSplitRegex = new Regex($"(?={SheetStartPrefixRegexPattern})|(?<=#END\\n)", StyleExtractorRegexOptions);
 
         private static readonly Regex StyleSingleSectionMatchRegex = new Regex(StyleSingleSectionRegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex StyleDoubleSectionMatchRegex = new Regex(StyleDoubleSectionRegexMatchPattern, StyleExtractorRegexOptions);
@@ -516,11 +516,6 @@ namespace DTXMania
                 {
                     sb.Append(subSection.OriginalRawValue);
                 }
-            }
-
-            if (sb[sb.Length - 1] != '\n')
-            {
-                sb.Append('\n');
             }
 
             return sb.ToString();
