@@ -69,7 +69,6 @@ namespace DTXMania
         private static readonly Regex SectionSplitRegex = new Regex($"(?={StylePrefixRegexPattern})", StyleExtractorRegexOptions);
         private static readonly Regex SubSectionSplitRegex = new Regex($"(?={SheetStartPrefixRegexPattern})|(?<=#END\\n)", StyleExtractorRegexOptions);
 
-        private static readonly Regex StylePrefixMatchRegex = new Regex(StylePrefixRegexPattern, StyleExtractorRegexOptions);
         private static readonly Regex StyleSingleSectionMatchRegex = new Regex(StyleSingleSectionRegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex StyleDoubleSectionMatchRegex = new Regex(StyleDoubleSectionRegexMatchPattern, StyleExtractorRegexOptions);
         private static readonly Regex StyleUnrecognizedSectionMatchRegex = new Regex(StyleUnrecognizedSectionRegexMatchPattern, StyleExtractorRegexOptions);
@@ -270,22 +269,19 @@ namespace DTXMania
 
         private static SectionKind GetSectionKind(string section)
         {
-            if (StylePrefixMatchRegex.IsMatch(section))
+            if (StyleSingleSectionMatchRegex.IsMatch(section))
             {
-                if (StyleSingleSectionMatchRegex.IsMatch(section))
-                {
-                    return SectionKind.StyleSingle;
-                }
+                return SectionKind.StyleSingle;
+            }
 
-                if (StyleDoubleSectionMatchRegex.IsMatch(section))
-                {
-                    return SectionKind.StyleDouble;
-                }
+            if (StyleDoubleSectionMatchRegex.IsMatch(section))
+            {
+                return SectionKind.StyleDouble;
+            }
 
-                if (StyleUnrecognizedSectionMatchRegex.IsMatch(section))
-                {
-                    return SectionKind.StyleUnrecognized;
-                }
+            if (StyleUnrecognizedSectionMatchRegex.IsMatch(section))
+            {
+                return SectionKind.StyleUnrecognized;
             }
 
             return SectionKind.NonStyle;
