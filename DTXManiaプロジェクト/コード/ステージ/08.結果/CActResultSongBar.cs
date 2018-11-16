@@ -42,13 +42,13 @@ namespace DTXMania
             }
 
 
-		    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(CDTXMania.DTX.TITLE, CDTXMania.Skin.Result_MusicName_ForeColor, CDTXMania.Skin.Result_MusicName_BackColor))
+		    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(CDTXMania.DTX.TITLE, Color.White, Color.Black))
 		    {
 		        this.txMusicName = CDTXMania.tテクスチャの生成(bmpSongTitle, false);
 		        txMusicName.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txMusicName);
 		    }
 
-		    using (var bmpStageText = pfStageText.DrawPrivateFont(CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Result_StageText_ForeColor, CDTXMania.Skin.Result_StageText_BackColor))
+		    using (var bmpStageText = pfStageText.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black))
 		    {
 		        this.txStageText = CDTXMania.tテクスチャの生成(bmpStageText, false);
 		    }
