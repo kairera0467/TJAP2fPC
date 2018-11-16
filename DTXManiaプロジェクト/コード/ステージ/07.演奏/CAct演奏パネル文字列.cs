@@ -33,7 +33,7 @@ namespace DTXMania
 				{
 					try
 					{
-					    using (var bmpSongTitle = pfMusicName.DrawPrivateFont( this.strパネル文字列, Color.White, Color.Black ))
+					    using (var bmpSongTitle = pfMusicName.DrawPrivateFont( this.strパネル文字列, CDTXMania.Skin.Game_MusicName_ForeColor, CDTXMania.Skin.Game_MusicName_BackColor ))
 					    {
 					        this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
 					    }
@@ -63,16 +63,16 @@ namespace DTXMania
                                     strDiff = "おに ";
                                     break;
                             }
-                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
+                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Game_MusicName_ForeColor, CDTXMania.Skin.Game_MusicName_BackColor );
                         }
                         else
                         {
                             if(CDTXMania.Skin.Game_StageText_IsRed)
                             {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Red);
+                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Game_StageText_ForeColor_Red, CDTXMania.Skin.Game_StageText_BackColor_Red);
                             } else
                             {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
+                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Game_StageText_ForeColor, CDTXMania.Skin.Game_StageText_BackColor);
                             }
                         }
 
@@ -142,7 +142,7 @@ namespace DTXMania
 
         public void t歌詞テクスチャを生成する( string str歌詞 )
         {
-            using (var bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, Color.White, Color.Blue))
+            using (var bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, CDTXMania.Skin.Game_Lyric_ForeColor, CDTXMania.Skin.Game_Lyric_BackColor))
             {
                 this.tx歌詞テクスチャ = CDTXMania.tテクスチャの生成( bmpleric, false );
             }
