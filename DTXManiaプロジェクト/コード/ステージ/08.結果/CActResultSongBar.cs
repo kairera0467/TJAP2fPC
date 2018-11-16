@@ -32,7 +32,7 @@ namespace DTXMania
 		{
             if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.FontName) )
             {
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.FontName ), 30 );
+                this.pfMusicName = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 30);
                 this.pfStageText = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 30);
             }
             else

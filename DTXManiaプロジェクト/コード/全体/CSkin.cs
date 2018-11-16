@@ -1826,6 +1826,32 @@ namespace DTXMania
                             #endregion
                             #endregion
                             #region Result
+                            else if (strCommand == nameof(Result_MusicName_X))
+                            {
+                                Result_MusicName_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Result_MusicName_Y))
+                            {
+                                Result_MusicName_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Result_MusicName_FontSize))
+                            {
+                                if (int.Parse(strParam) > 0)
+                                    Result_MusicName_FontSize = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Result_StageText_X))
+                            {
+                                Result_StageText_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Result_StageText_Y))
+                            {
+                                Result_StageText_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Result_StageText_FontSize))
+                            {
+                                if (int.Parse(strParam) > 0)
+                                    Result_StageText_FontSize = int.Parse(strParam);
+                            }
                             else if (strCommand == "Result_NamePlate_X")
                             {
                                 string[] strSplit = strParam.Split(',');
@@ -2193,6 +2219,12 @@ namespace DTXMania
         #endregion
         #endregion
         #region Result
+        public int Result_MusicName_X = 1254;
+        public int Result_MusicName_Y = 6;
+        public int Result_MusicName_FontSize = 30;
+        public int Result_StageText_X = 230;
+        public int Result_StageText_Y = 6;
+        public int Result_StageText_FontSize = 30;
         public int[] Result_NamePlate_X = new int[] { 260, 260 };
         public int[] Result_NamePlate_Y = new int[] { 96, 390 };
         #endregion
