@@ -29,8 +29,8 @@ namespace DTXMania
     /// 4. Determine the best-ranked sheet
     /// 5. Remove sheets other than the best-ranked
     /// 6. Remove top-level STYLE-type sections which no longer contain a sheet
-    /// 7. Remove STYLE-type subsections beyond the selected sheet,
-    ///    to reduce risk of incorrect command processing.
+    /// 7. From supported STYLE-type sections, remove non-sheet subsections beyond
+    ///    the selected sheet, to reduce risk of incorrect command processing.
     /// 8. Reassemble the string
     /// </summary>
     public static class CDTXStyleExtractor
@@ -246,8 +246,8 @@ namespace DTXMania
             // 6. Remove top-level STYLE-type sections which no longer contain a sheet
             RemoveRecognizedStyleSectionsWithoutSheets(sections);
 
-            // 7. Remove STYLE-type subsections beyond the selected sheet,
-            //    to reduce risk of incorrect command processing.
+            // 7. From supported STYLE-type sections, remove non-sheet subsections beyond
+            //    the selected sheet, to reduce risk of incorrect command processing.
             RemoveStyleSectionSubSectionsBeyondTheSelectedSheet(sections);
 
             // 8. Reassemble the string
@@ -485,8 +485,8 @@ namespace DTXMania
                 o.SubSections.Count(subSection => subSection.SubSectionKind == SubSectionKind.NonSheet) == o.SubSections.Count);
         }
 
-        // 7. Remove STYLE-type subsections beyond the selected sheet,
-        //    to reduce risk of incorrect command processing.
+        // 7. From supported STYLE-type sections, remove non-sheet subsections beyond
+        //    the selected sheet, to reduce risk of incorrect command processing.
         private static void RemoveStyleSectionSubSectionsBeyondTheSelectedSheet(List<Section> sections)
         {
             foreach (var section in sections)
