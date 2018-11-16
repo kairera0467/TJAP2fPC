@@ -1108,6 +1108,38 @@ namespace DTXMania
                                 }
                             }
                             #endregion
+                            #region PanelFont
+                            else if (strCommand == nameof(Game_MusicName_X))
+                            {
+                                Game_MusicName_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_MusicName_Y))
+                            {
+                                Game_MusicName_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_MusicName_FontSize))
+                            {
+                                if (int.Parse(strParam) > 0)
+                                    Game_MusicName_FontSize = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Genre_X))
+                            {
+                                Game_Genre_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Genre_Y))
+                            {
+                                Game_Genre_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Lyric_Y))
+                            {
+                                Game_Lyric_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Lyric_FontSize))
+                            {
+                                if (int.Parse(strParam) > 0)
+                                    Game_Lyric_FontSize = int.Parse(strParam);
+                            }
+                            #endregion
                             #region Chara
                             else if (strCommand == "Game_Chara_X")
                             {
@@ -1822,6 +1854,7 @@ namespace DTXMania
                                 if (int.Parse(strParam) > 0)
                                     Font_Edge_Ratio_Vertical = int.Parse(strParam);
                             }
+
                             #endregion
                             #endregion
                         }
@@ -2045,6 +2078,15 @@ namespace DTXMania
         #region CourseSymbol
         public int[] Game_CourseSymbol_X = new int[] { 64, 64 };
         public int[] Game_CourseSymbol_Y = new int[] { 232, 432 };
+        #endregion
+        #region PanelFont
+        public int Game_MusicName_X = 1254;
+        public int Game_MusicName_Y = 14;
+        public int Game_MusicName_FontSize = 30;
+        public int Game_Genre_X = 1114;
+        public int Game_Genre_Y = 74;
+        public int Game_Lyric_Y = 630;
+        public int Game_Lyric_FontSize = 38;
         #endregion
         #region Score
         public int[] Game_Score_X = new int[] { 20, 20, 0, 0 };
