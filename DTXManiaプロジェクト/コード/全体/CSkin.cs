@@ -1811,16 +1811,16 @@ namespace DTXMania
                                 }
                             }
                             #endregion
-                            #region Fonts
-                            else if (strCommand == nameof(Font_Edge_Ratio_1)) //仮の名前。Config画面や簡易メニューのフォントについて(rhimm)
+                            #region Font
+                            else if (strCommand == nameof(Font_Edge_Ratio)) //Config画面や簡易メニューのフォントについて(rhimm)
                             {
                                 if (int.Parse(strParam) > 0)
-                                    Font_Edge_Ratio_1 = int.Parse(strParam);
+                                    Font_Edge_Ratio = int.Parse(strParam);
                             }
-                            else if (strCommand == nameof(Font_Edge_Ratio_2)) //仮の名前。TITLEやSUBTITLEのフォントについて(rhimm)
+                            else if (strCommand == nameof(Font_Edge_Ratio_Vertical)) //TITLEやSUBTITLEなど、縦に書かれることのあるフォントについて(rhimm)
                             {
                                 if (int.Parse(strParam) > 0)
-                                    Font_Edge_Ratio_2 = int.Parse(strParam);
+                                    Font_Edge_Ratio_Vertical = int.Parse(strParam);
                             }
                             #endregion
                             #endregion
@@ -2154,9 +2154,9 @@ namespace DTXMania
         public int[] Result_NamePlate_X = new int[] { 260, 260 };
         public int[] Result_NamePlate_Y = new int[] { 96, 390 };
         #endregion
-        #region Fonts
-        public int Font_Edge_Ratio_1 = 30;
-        public int Font_Edge_Ratio_2 = 30;
+        #region Font
+        public int Font_Edge_Ratio = 30;
+        public int Font_Edge_Ratio_Vertical = 30;
         #endregion
         #endregion
     }
