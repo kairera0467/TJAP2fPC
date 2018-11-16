@@ -1139,6 +1139,39 @@ namespace DTXMania
                                 if (int.Parse(strParam) > 0)
                                     Game_Lyric_FontSize = int.Parse(strParam);
                             }
+
+                            else if (strCommand == nameof(Game_MusicName_ForeColor))
+                            {
+                                Game_MusicName_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_StageText_ForeColor))
+                            {
+                                Game_StageText_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_StageText_ForeColor_Red))
+                            {
+                                Game_StageText_ForeColor_Red = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Lyric_ForeColor))
+                            {
+                                Game_Lyric_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_MusicName_BackColor))
+                            {
+                                Game_MusicName_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_StageText_ForeColor))
+                            {
+                                Game_StageText_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_StageText_ForeColor_Red))
+                            {
+                                Game_StageText_BackColor_Red = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Lyric_ForeColor))
+                            {
+                                Game_Lyric_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
                             #endregion
                             #region Chara
                             else if (strCommand == "Game_Chara_X")
@@ -1852,6 +1885,32 @@ namespace DTXMania
                                 if (int.Parse(strParam) > 0)
                                     Result_StageText_FontSize = int.Parse(strParam);
                             }
+
+                            else if (strCommand == nameof(Result_MusicName_ForeColor))
+                            {
+                                Result_MusicName_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Result_StageText_ForeColor))
+                            {
+                                Result_StageText_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            //else if (strCommand == nameof(Result_StageText_ForeColor_Red))
+                            //{
+                            //    Result_StageText_ForeColor_Red = ColorTranslator.FromHtml(strParam);
+                            //}
+                            else if (strCommand == nameof(Result_MusicName_BackColor))
+                            {
+                                Result_MusicName_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Result_StageText_BackColor))
+                            {
+                                Result_StageText_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            //else if (strCommand == nameof(Result_StageText_BackColor_Red))
+                            //{
+                            //    Result_StageText_BackColor_Red = ColorTranslator.FromHtml(strParam);
+                            //}
+
                             else if (strCommand == "Result_NamePlate_X")
                             {
                                 string[] strSplit = strParam.Split(',');
@@ -2113,6 +2172,16 @@ namespace DTXMania
         public int Game_Genre_Y = 74;
         public int Game_Lyric_Y = 630;
         public int Game_Lyric_FontSize = 38;
+
+        public Color Game_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        public Color Game_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        public Color Game_StageText_ForeColor_Red = ColorTranslator.FromHtml("#FFFFFF");
+        public Color Game_Lyric_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        public Color Game_MusicName_BackColor = ColorTranslator.FromHtml("#000000");
+        public Color Game_StageText_BackColor = ColorTranslator.FromHtml("#000000");
+        public Color Game_StageText_BackColor_Red = ColorTranslator.FromHtml("#FF0000");
+        public Color Game_Lyric_BackColor = ColorTranslator.FromHtml("#0000FF");
+
         #endregion
         #region Score
         public int[] Game_Score_X = new int[] { 20, 20, 0, 0 };
@@ -2225,6 +2294,14 @@ namespace DTXMania
         public int Result_StageText_X = 230;
         public int Result_StageText_Y = 6;
         public int Result_StageText_FontSize = 30;
+
+        public Color Result_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        public Color Result_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        //public Color Result_StageText_ForeColor_Red = ColorTranslator.FromHtml("#FFFFFF");
+        public Color Result_MusicName_BackColor = ColorTranslator.FromHtml("#000000");
+        public Color Result_StageText_BackColor = ColorTranslator.FromHtml("#000000");
+        //public Color Result_StageText_BackColor_Red = ColorTranslator.FromHtml("#FF0000");
+
         public int[] Result_NamePlate_X = new int[] { 260, 260 };
         public int[] Result_NamePlate_Y = new int[] { 96, 390 };
         #endregion
