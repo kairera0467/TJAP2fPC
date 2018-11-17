@@ -14,12 +14,16 @@ namespace DTXMania.Tests
         public void Test_tセッション譜面がある(
             [Values(
                 "205 example",
+                "205 example but with duplicate sheets",
                 "expected case couple only",
                 "expected case double only",
+                "expected case double only but with duplicate sheets",
                 "expected case single and couple",
                 "expected case single and double",
+                "expected case single and double but with duplicate sheets",
                 "expected case single only",
                 "expected case single only whole file due to no course",
+                "expected case single only whole file due to no course but with duplicate sheets",
                 "kitchen sink couple only",
                 "kitchen sink double only",
                 "kitchen sink single and couple",
@@ -29,6 +33,7 @@ namespace DTXMania.Tests
                 "mixed case single and double",
                 "mixed case single only",
                 "no style",
+                "no style but with duplicate sheets",
                 "trailing characters double only",
                 "trailing characters single and double",
                 "trailing characters single only")]
