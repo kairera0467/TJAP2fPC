@@ -469,6 +469,18 @@ namespace DTXMania
             {
                 section.SubSections.RemoveAll(o => o.Rank > bestRank);
             }
+
+            // If there was a tie for the best sheet,
+            // take the first and remove the rest.
+            var extraBestRankedSheets = new HashSet<SubSection>(sections
+                .SelectMany(o => o.SubSections)
+                .Where(o => o.Rank == bestRank)
+                .Skip(1));
+
+            foreach (var section in sections)
+            {
+                section.SubSections.RemoveAll(extraBestRankedSheets.Contains);
+            }
         }
 
         // 6. Remove top-level STYLE-type sections which no longer contain a sheet
