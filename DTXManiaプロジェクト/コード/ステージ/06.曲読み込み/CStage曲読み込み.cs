@@ -102,13 +102,13 @@ namespace DTXMania
                         //this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
                         //this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 
-					    using (var bmpSongTitle = this.pfTITLE.DrawPrivateFont( this.str曲タイトル, Color.White, Color.Black ))
+					    using (var bmpSongTitle = this.pfTITLE.DrawPrivateFont( this.str曲タイトル, CDTXMania.Skin.SongLoading_Title_ForeColor, CDTXMania.Skin.SongLoading_Title_BackColor ))
 					    {
 					        this.txタイトル = new CTexture( CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false );
 					        txタイトル.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txタイトル, 710);
 					    }
 
-					    using (var bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( this.strサブタイトル, Color.White, Color.Black ))
+					    using (var bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( this.strサブタイトル, CDTXMania.Skin.SongLoading_SubTitle_ForeColor, CDTXMania.Skin.SongLoading_SubTitle_BackColor ))
 					    {
 					        this.txサブタイトル = new CTexture( CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false );
 					    }

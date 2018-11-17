@@ -1073,6 +1073,24 @@ namespace DTXMania
                                 SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml(strParam);
                             }
                             #endregion
+                            #region SongLoading
+                            else if (strCommand == nameof(SongLoading_Title_ForeColor))
+                            {
+                                SongLoading_Title_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_Title_BackColor))
+                            {
+                                SongLoading_Title_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_SubTitle_ForeColor))
+                            {
+                                SongLoading_SubTitle_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_SubTitle_BackColor))
+                            {
+                                SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            #endregion
                             #region Game
                             else if (strCommand == "Game_Notes_Anime")
                             {
@@ -2112,6 +2130,12 @@ namespace DTXMania
         public Color SongSelect_BackColor_Classic = ColorTranslator.FromHtml("#875600");
         public Color SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml("#412080");
         public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#980E00");
+        #endregion
+        #region SongLoading
+        public Color SongLoading_Title_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongLoading_Title_BackColor = ColorTranslator.FromHtml("#000000");
+        public Color SongLoading_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        public Color SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
         #endregion
         #region Game
         public bool Game_Notes_Anime = false;
