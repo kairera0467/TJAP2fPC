@@ -24,6 +24,7 @@ namespace DTXMania.Tests
                 "expected case single only",
                 "expected case single only whole file due to no course",
                 "expected case single only whole file due to no course but with duplicate sheets",
+                "expected case single only whole file due to no course but with no start",
                 "kitchen sink couple only",
                 "kitchen sink double only",
                 "kitchen sink single and couple",
