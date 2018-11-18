@@ -283,6 +283,78 @@
     <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course.2.tja">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="コード\スコア、曲\input\205_example_but_with_duplicate_sheets.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\input\expected_case_double_only_but_with_duplicate_sheets.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\input\expected_case_single_and_double_but_with_duplicate_sheets.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\input\expected_case_single_only_whole_file_due_to_no_course_but_with_duplicate_sheets.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\input\no_style_but_with_duplicate_sheets.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\205_example_but_with_duplicate_sheets.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\205_example_but_with_duplicate_sheets.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\205_example_but_with_duplicate_sheets.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_double_only_but_with_duplicate_sheets.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_double_only_but_with_duplicate_sheets.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_double_only_but_with_duplicate_sheets.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_and_double_but_with_duplicate_sheets.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_and_double_but_with_duplicate_sheets.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_and_double_but_with_duplicate_sheets.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course_but_with_duplicate_sheets.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course_but_with_duplicate_sheets.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course_but_with_duplicate_sheets.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\no_style_but_with_duplicate_sheets.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\no_style_but_with_duplicate_sheets.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\no_style_but_with_duplicate_sheets.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\input\expected_case_single_only_whole_file_due_to_no_course_but_with_no_start.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course_but_with_no_start.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course_but_with_no_start.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course_but_with_no_start.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTXManiaプロジェクト\DTXManiaプロジェクト.csproj">
