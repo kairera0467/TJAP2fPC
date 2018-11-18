@@ -44,6 +44,7 @@ namespace FDK
 					item.nKey = nPara1;
 					item.b押された = true;
 					item.nTimeStamp = n受信システム時刻;
+					item.nVelocity = nPara2;
 					this.listEventBuffer.Add( item );
 				}
 			}

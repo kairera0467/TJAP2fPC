@@ -10,6 +10,11 @@ namespace FDK
 {
 	public class CInput管理 : IDisposable
 	{
+		// 定数
+
+		public static int n通常音量 = 110;
+
+
 		// プロパティ
 
 		public List<IInputDevice> list入力デバイス 

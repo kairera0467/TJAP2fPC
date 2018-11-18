@@ -665,7 +665,15 @@ namespace DTXMania
 			this.tチップのヒット処理_BadならびにTight時のMiss( part, nLane, E楽器パート.DRUMS );
 		}
 
-		private bool tドラムヒット処理( long nHitTime, Eパッド type, CDTX.CChip pChip, bool b両手入力, int nPlayer )
+        private bool tドラムヒット処理( long nHitTime, Eパッド type, CDTX.CChip pChip, int n強弱度合い0to127)
+		{
+            return this.tドラムヒット処理( nHitTime, type, pChip, n強弱度合い0to127, false );
+        }
+        private bool tドラムヒット処理( long nHitTime, Eパッド type, CDTX.CChip pChip, int n強弱度合い0to127, bool b両手入力)
+		{
+            return this.tドラムヒット処理( nHitTime, type, pChip, n強弱度合い0to127, b両手入力, 0 );
+        }
+		private bool tドラムヒット処理( long nHitTime, Eパッド type, CDTX.CChip pChip, int n強弱度合い0to127, bool b両手入力, int nPlayer )
 		{
             int nInput = 0;
 
@@ -983,12 +991,12 @@ namespace DTXMania
                             {
 								if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x11 )
 								{
-									this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, false, nUsePlayer );
+									this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 									bHitted = true;
 								}
                                 if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A ) && !CDTXMania.ConfigIni.b大音符判定 )
 								{
-                                    this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, true, nUsePlayer );
+                                    this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                     bHitted = true;
                                     this.nWaitButton = 0;
                                     break;
@@ -1011,13 +1019,13 @@ namespace DTXMania
                                         int nWaitTime = CDTXMania.ConfigIni.n両手判定の待ち時間;
                                         if( this.nWaitButton == 1 && time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
                                         {
-                                            this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, true, nUsePlayer );
+                                            this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                             bHitted = true;
                                             this.nWaitButton = 0;
                                         }
                                         else if (this.nWaitButton == 2 && time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
                                         {
-                                            this.tドラムヒット処理(nTime, Eパッド.LRed, chipNoHit, false, nUsePlayer );
+                                            this.tドラムヒット処理(nTime, Eパッド.LRed, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
                                             bHitted = true;
                                             this.nWaitButton = 0;
                                         }
@@ -1025,7 +1033,7 @@ namespace DTXMania
 								}
                                 if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x15 || chipNoHit.nチャンネル番号 == 0x16 || chipNoHit.nチャンネル番号 == 0x17 ) )
                                 {
-						            this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, false, nUsePlayer );
+						            this.tドラムヒット処理( nTime, Eパッド.LRed, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
                                 }
 
                                 if( !bHitted )
@@ -1042,12 +1050,12 @@ namespace DTXMania
                             {
                                 if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x11 )
 								{
-									this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, false, nUsePlayer );
+									this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 									bHitted = true;
 								}
                                 if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A ) && !CDTXMania.ConfigIni.b大音符判定 )
 								{
-                                    this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, true, nUsePlayer );
+                                    this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                     bHitted = true;
                                     this.nWaitButton = 0;
                                     break;
@@ -1071,14 +1079,14 @@ namespace DTXMania
                                         int nWaitTime = CDTXMania.ConfigIni.n両手判定の待ち時間;
                                         if( this.nWaitButton == 2 && time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
                                         {
-                                            this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, true, nUsePlayer );
+                                            this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                             bHitted = true;
                                             this.nWaitButton = 0;
                                             break;
                                         }
                                         else if( this.nWaitButton == 2 && time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
                                         {
-                                            this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, false, nUsePlayer );
+                                            this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
                                             bHitted = true;
                                             this.nWaitButton = 0;
                                         }
@@ -1086,7 +1094,7 @@ namespace DTXMania
 								}
                                 if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x15 || chipNoHit.nチャンネル番号 == 0x16 || chipNoHit.nチャンネル番号 == 0x17 ) )
                                 {
-						            this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, false, nUsePlayer );
+						            this.tドラムヒット処理( nTime, Eパッド.RRed, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
                                 }
 
                                 if( !bHitted )
@@ -1104,12 +1112,12 @@ namespace DTXMania
                             {
 								if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x12 )
 								{
-									this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, false, nUsePlayer );
+									this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 									bHitted = true;
 								}
                                 if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B ) && !CDTXMania.ConfigIni.b大音符判定 )
 								{
-                                    this.tドラムヒット処理(nTime, Eパッド.LBlue, chipNoHit, true, nUsePlayer );
+                                    this.tドラムヒット処理(nTime, Eパッド.LBlue, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                     bHitted = true;
                                     this.nWaitButton = 0;
                                     break;
@@ -1132,13 +1140,13 @@ namespace DTXMania
                                         int nWaitTime = CDTXMania.ConfigIni.n両手判定の待ち時間;
                                         if( this.nWaitButton == 1 && time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
                                         {
-                                            this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, true, nUsePlayer );
+                                            this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                             bHitted = true;
                                             this.nWaitButton = 0;
                                         }
                                         else if( this.nWaitButton == 2 && time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
                                         {
-                                            this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, false, nUsePlayer );
+                                            this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
                                             bHitted = true;
                                             this.nWaitButton = 0;
                                         }
@@ -1146,7 +1154,7 @@ namespace DTXMania
 								}
                                 if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x15 || chipNoHit.nチャンネル番号 == 0x16 ) )
                                 {
-						            this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, false, nUsePlayer );
+						            this.tドラムヒット処理( nTime, Eパッド.LBlue, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
                                 }
 
                                 if( !bHitted )
@@ -1163,12 +1171,12 @@ namespace DTXMania
                             {
 								if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x12 )
 								{
-									this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, false, nUsePlayer );
+									this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 									bHitted = true;
 								}
                                 if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B ) && !CDTXMania.ConfigIni.b大音符判定 )
 								{
-                                    this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, true, nUsePlayer );
+                                    this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                     bHitted = true;
                                     this.nWaitButton = 0;
                                     break;
@@ -1192,14 +1200,14 @@ namespace DTXMania
                                         int nWaitTime = CDTXMania.ConfigIni.n両手判定の待ち時間;
                                         if( this.nWaitButton == 2 && time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
                                         {
-                                            this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, true, nUsePlayer );
+                                            this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, inputEvent.nVelocity, true, nUsePlayer );
                                             bHitted = true;
                                             this.nWaitButton = 0;
                                             break;
                                         }
                                         else if( this.nWaitButton == 2 && time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)CSound管理.rc演奏用タイマ.n現在時刻ms )
                                         {
-                                            this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, false, nUsePlayer );
+                                            this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
                                             bHitted = true;
                                             this.nWaitButton = 0;
                                         }
@@ -1207,7 +1215,7 @@ namespace DTXMania
                                 }
                                 if( e判定 != E判定.Miss && ( chipNoHit.nチャンネル番号 == 0x15 || chipNoHit.nチャンネル番号 == 0x16 ) )
                                 {
-						            this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, false, nUsePlayer );
+						            this.tドラムヒット処理( nTime, Eパッド.RBlue, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
                                 }
 
                                 if( !bHitted )
@@ -1220,7 +1228,7 @@ namespace DTXMania
                     //2016.07.14 kairera0467 Adlibの場合、一括して処理を行う。
 					if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x1F )
 					{
-						this.tドラムヒット処理( nTime, (Eパッド)nPad, chipNoHit, false, nUsePlayer );
+						this.tドラムヒット処理( nTime, (Eパッド)nPad, chipNoHit, inputEvent.nVelocity, false, nUsePlayer );
 					    bHitted = true;
                     }
 
@@ -2171,7 +2179,7 @@ namespace DTXMania
                     int nWaitTime = CDTXMania.ConfigIni.n両手判定の待ち時間;
                     if (chipNoHit.eNoteState == ENoteState.wait && timeC <= 110 && chipNoHit.nProcessTime + nWaitTime <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
                     {
-                        this.tドラムヒット処理(chipNoHit.nProcessTime, Eパッド.RRed, chipNoHit, false, i);
+                        this.tドラムヒット処理(chipNoHit.nProcessTime, Eパッド.RRed, chipNoHit, 127, false, i);
                         this.nWaitButton = 0;
                         chipNoHit.eNoteState = ENoteState.none;
                         chipNoHit.bHit = true;
