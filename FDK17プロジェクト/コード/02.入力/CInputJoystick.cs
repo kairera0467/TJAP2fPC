@@ -20,7 +20,7 @@ namespace FDK
 			{
 				this.devJoystick = new Joystick( directInput, di.InstanceGuid );
 				this.devJoystick.SetCooperativeLevel( hWnd, CooperativeLevel.Foreground | CooperativeLevel.Exclusive );
-				this.devJoystick.Properties.BufferSize = _rawBufferedDataArray.Length;
+				this.devJoystick.Properties.BufferSize = 32;
 				Trace.TraceInformation( this.devJoystick.Information.InstanceName + "を生成しました。" );
 			}
 			catch( DirectInputException )
@@ -113,100 +113,161 @@ namespace FDK
 				{
 					#region [ a.バッファ入力 ]
 					//-----------------------------
+					var bufferedData = this.devJoystick.GetBufferedData();
+					if( Result.Last.IsSuccess && bufferedData != null )
+					{
+						foreach ( JoystickState data in bufferedData )
+						{
+#if false
+//if ( 0 < data.X && data.X < 128 && 0 < data.Y && data.Y < 128 && 0 < data.Z && data.Z < 128 )
+{
+Trace.TraceInformation( "TS={0}: offset={4}, X={1},Y={2},Z={3}", data.TimeStamp, data.X, data.Y, data.Z, data.JoystickDeviceType);
+if ( data.JoystickDeviceType == (int) JoystickDeviceType.POV0 ||
+	 data.JoystickDeviceType == (int) JoystickDeviceType.POV1 ||
+	 data.JoystickDeviceType == (int) JoystickDeviceType.POV2 ||
+	 data.JoystickDeviceType == (int) JoystickDeviceType.POV3) {
 
-                    var length = this.devJoystick.GetDeviceData(_rawBufferedDataArray, false);
-                    if (!Result.Last.IsSuccess)
-                    {
-                        return;
-                    }
-                    for (int i = 0; i < length; i++)
-                    {
-                        var rawBufferedData = _rawBufferedDataArray[i];
+//if ( data.JoystickDeviceType== (int)JoystickDeviceType.POV0 )
+//{
+	 Debug.WriteLine( "POV0です!!" );
+}
+//Trace.TraceInformation( "TS={0}: X={1},Y={2},Z={3}", data.TimeStamp, data.X, data.Y, data.Z );
+string pp = "";
+int[] pp0 = data.GetPointOfViewControllers();
+for ( int ii = 0; ii < pp0.Length; ii++ )
+{
+pp += pp0[ ii ];
+}
+Trace.TraceInformation( "TS={0}: povs={1}", data.TimeStamp, pp );
+string pp2 = "", pp3 = "";
+for ( int ii = 0; ii < 32; ii++ )
+{
+pp2 += ( data.IsPressed( ii ) ) ? "1" : "0";
+pp3 += ( data.IsReleased( ii ) ) ? "1" : "0";
+}
+Trace.TraceInformation( "TS={0}: IsPressed={1}, IsReleased={2}", data.TimeStamp, pp2, pp3 );
+}
+#endif
+							switch ( data.JoystickDeviceType )
+							{
+								case (int)JoystickDeviceType.X:
+									#region [ X軸－ ]
+									//-----------------------------
+									bButtonUpDown( data, data.X, 0, 1 );
+									//-----------------------------
+									#endregion
+									#region [ X軸＋ ]
+									//-----------------------------
+									bButtonUpDown( data, data.X, 1, 0 );
+									//-----------------------------
+									#endregion
+									break;
+								case (int)JoystickDeviceType.Y:
+									#region [ Y軸－ ]
+									//-----------------------------
+									bButtonUpDown( data, data.Y, 2, 3 );
+									//-----------------------------
+									#endregion
+									#region [ Y軸＋ ]
+									//-----------------------------
+									bButtonUpDown( data, data.Y, 3, 2 );
+									#endregion
+									break;
+								case (int)JoystickDeviceType.Z:
+									#region [ Z軸－ ]
+									//-----------------------------
+									bButtonUpDown( data, data.Z, 4, 5 );
+									//-----------------------------
+									#endregion
+									#region [ Z軸＋ ]
+									//-----------------------------
+									bButtonUpDown( data, data.Z, 5, 4 );
+									#endregion
+									break;
+								case (int)JoystickDeviceType.POV0:
+								case (int)JoystickDeviceType.POV1:
+								case (int)JoystickDeviceType.POV2:
+								case (int)JoystickDeviceType.POV3:
+									// #24341 2011.3.12 yyagi: POV support
+									// #26880 2011.12.6 yyagi: improve to support "pullup" of POV buttons
+									#region [ POV HAT 4/8way ]
+									int[] povs = data.GetPointOfViewControllers();
+									if ( povs != null )
+									{
+										STInputEvent e = new STInputEvent();
+										int p = ( (int) data.JoystickDeviceType - (int) JoystickDeviceType.POV0 ) / ( (int) JoystickDeviceType.POV1 - (int) JoystickDeviceType.POV0 );	// p = 0,1,2,3
+																					// #31030 2013.3.25 yyagi; p is not 0123 but 048.. Sop must be divided into 4 ( POV1 - POV0 == 4).
+										int nPovDegree = povs[ p ];
+										int nWay = ( nPovDegree + 2250 ) / 4500;
+										if ( nWay == 8 ) nWay = 0;
+									//Debug.WriteLine( "POVS:" + povs[ 0 ].ToString( CultureInfo.CurrentCulture ) + ", " +stevent.nKey );
+//Debug.WriteLine( "nPovDegree=" + nPovDegree );
+										if ( nPovDegree == -1 )
+										{
+											e.nKey = 6 + 128 + this.nPovState[ p ];
+											this.nPovState[ p ] = -1;
+//Debug.WriteLine( "POVS離された" + data.TimeStamp + " " + e.nKey );
+											e.b押された = false;
+											e.nVelocity = 0;
+											this.bButtonState[ e.nKey ] = false;
+											this.bButtonPullUp[ e.nKey ] = true;
+										} else {
+											this.nPovState[ p ] = nWay;
+											e.nKey = 6 + 128 + nWay;
+											e.b押された = true;
+											e.nVelocity = CInput管理.n通常音量;
+											this.bButtonState[ e.nKey ] = true;
+											this.bButtonPushDown[ e.nKey ] = true;
+//Debug.WriteLine( "POVS押された" + data.TimeStamp + " " + e.nKey );
+										}
+										//e.nTimeStamp = data.TimeStamp;
+										e.nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.TimeStamp );
+										this.list入力イベント.Add( e );
+									}
+									#endregion
+									break;
+								default:
+									#region [ ボタン ]
+									//-----------------------------
+									for ( int i = 0; i < 32; i++ )
+									{
+										if ( data.IsPressed( i ) )
+										{
+											STInputEvent e = new STInputEvent()
+											{
+												nKey = 6 + i,
+												b押された = true,
+												b離された = false,
+												nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.TimeStamp ),
+												nVelocity = CInput管理.n通常音量
+											};
+											this.list入力イベント.Add( e );
 
-                        switch (rawBufferedData.Offset)
-                        {
-                            case 0:
-                                #region [ X軸－ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 0, 1 );
-                                //-----------------------------
-                                #endregion
-                                #region [ X軸＋ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 1, 0 );
-                                //-----------------------------
-                                #endregion
-                                break;
-                            case 4:
-                                #region [ Y軸－ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 2, 3 );
-                                //-----------------------------
-                                #endregion
-                                #region [ Y軸＋ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 3, 2 );
-                                #endregion
-                                break;
-                            case 8:
-                                #region [ Z軸－ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 4, 5 );
-                                //-----------------------------
-                                #endregion
-                                #region [ Z軸＋ ]
-                                //-----------------------------
-                                bButtonUpDown( rawBufferedData, rawBufferedData.Data, 5, 4 );
-                                #endregion
-                                break;
-                            case 32:
-                                const int p = 0; // const until we support more than one POV hat
-                                int nPovDegree = rawBufferedData.Data;
-                                int nWay = ( nPovDegree + 2250 ) / 4500;
-                                if ( nWay == 8 ) nWay = 0;
+											this.bButtonState[ 6 + i ] = true;
+											this.bButtonPushDown[ 6 + i ] = true;
+										}
+										else if ( data.IsReleased( i ) )
+										{
+											var ev = new STInputEvent()
+											{
+												nKey = 6 + i,
+												b押された = false,
+												b離された = true,
+												nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.TimeStamp ),
+												nVelocity = CInput管理.n通常音量,
+											};
+											this.list入力イベント.Add( ev );
 
-                                STInputEvent e = new STInputEvent();
-                                if ( nPovDegree == -1 || nPovDegree == 0xFFFF)
-                                {
-                                    e.nKey = 6 + 128 + this.nPovState[ p ];
-                                    this.nPovState[ p ] = -1;
-                                    e.b押された = false;
-                                    this.bButtonState[ e.nKey ] = false;
-                                    this.bButtonPullUp[ e.nKey ] = true;
-                                } else {
-                                    this.nPovState[ p ] = nWay;
-                                    e.nKey = 6 + 128 + nWay;
-                                    e.b押された = true;
-                                    this.bButtonState[ e.nKey ] = true;
-                                    this.bButtonPushDown[ e.nKey ] = true;
-                                }
-                                e.nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp );
-                                this.list入力イベント.Add( e );
-                                break;
-                            default:
-                                var buttonIndex = rawBufferedData.Offset - 48;
-                                if (-1 < buttonIndex && buttonIndex < 32)
-                                {
-                                    var key = 6 + buttonIndex;
-                                    var wasPressed = (rawBufferedData.Data & 128) == 128;
-
-                                    STInputEvent item = new STInputEvent()
-                                    {
-                                        nKey = key,
-                                        b押された = wasPressed,
-                                        nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換(rawBufferedData.Timestamp),
-                                    };
-                                    this.list入力イベント.Add(item);
-
-                                    this.bButtonState[item.nKey] = wasPressed;
-                                    this.bButtonPushDown[item.nKey] = wasPressed;
-                                    this.bButtonPullUp[item.nKey] = !wasPressed;
-                                }
-
-                                break;
-                        }
-                    }
-
+											this.bButtonState[ 6 + i ] = false;
+											this.bButtonPullUp[ 6 + i ] = true;
+										}
+									}
+									//-----------------------------
+									#endregion
+									break;
+							}
+						}
+					}
 					//-----------------------------
 					#endregion
 				}
@@ -228,6 +289,7 @@ namespace FDK
 									nKey = 0,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -244,6 +306,7 @@ namespace FDK
 									nKey = 0,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -264,6 +327,7 @@ namespace FDK
 									nKey = 1,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -280,6 +344,7 @@ namespace FDK
 									nKey = 1,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( event7 );
 
@@ -300,6 +365,7 @@ namespace FDK
 									nKey = 2,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -316,6 +382,7 @@ namespace FDK
 									nKey = 2,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -336,6 +403,7 @@ namespace FDK
 									nKey = 3,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -352,6 +420,7 @@ namespace FDK
 									nKey = 3,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -372,6 +441,7 @@ namespace FDK
 									nKey = 4,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -388,6 +458,7 @@ namespace FDK
 									nKey = 4,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -408,6 +479,7 @@ namespace FDK
 									nKey = 5,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( ev );
 
@@ -424,6 +496,7 @@ namespace FDK
 									nKey = 5,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( event15 );
 
@@ -446,6 +519,7 @@ namespace FDK
 									nKey = 6 + j,
 									b押された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( item );
 
@@ -460,6 +534,7 @@ namespace FDK
 									nKey = 6 + j,
 									b押された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量
 								};
 								this.list入力イベント.Add( item );
 
@@ -489,6 +564,7 @@ namespace FDK
 										//Debug.WriteLine( "POVS:" + povs[ 0 ].ToString( CultureInfo.CurrentCulture ) + ", " +stevent.nKey );
 										b押された = true,
 										nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+										nVelocity = CInput管理.n通常音量
 									};
 									this.list入力イベント.Add( stevent );
 
@@ -514,6 +590,7 @@ namespace FDK
 										nKey = nWay,
 										b押された = false,
 										nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+										nVelocity = 0
 									};
 									this.list入力イベント.Add( stevent );
 
@@ -580,18 +657,15 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-	    private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
-		private readonly bool[] bButtonPullUp = new bool[ 0x100 ];
-		private readonly bool[] bButtonPushDown = new bool[ 0x100 ];
-		private readonly bool[] bButtonState = new bool[ 0x100 ];		// 0-5: XYZ, 6 - 0x128+5: buttons, 0x128+6 - 0x128+6+8: POV/HAT
-		private readonly int[] nPovState = new int[ 4 ];					// POVの現在値を保持
-
+		private bool[] bButtonPullUp = new bool[ 0x100 ];
+		private bool[] bButtonPushDown = new bool[ 0x100 ];
+		private bool[] bButtonState = new bool[ 0x100 ];		// 0-5: XYZ, 6 - 0x128+5: buttons, 0x128+6 - 0x128+6+8: POV/HAT
+		private int[] nPovState = new int[ 4 ];					// POVの現在値を保持
 		private bool bDispose完了済み;
 		private Joystick devJoystick;
+		//private CTimer timer;
 
-	    //private CTimer timer;
-
-		private void bButtonUpDown( RawBufferedData data, int axisdata, int target, int contrary )	// #26871 2011.12.3 軸の反転に対応するためにリファクタ
+		private void bButtonUpDown( JoystickState data, int axisdata, int target, int contrary )	// #26871 2011.12.3 軸の反転に対応するためにリファクタ
 		{
 			int targetsign = ( target < contrary ) ? -1 : 1;
 			if ( Math.Abs( axisdata ) > 500 && ( targetsign == Math.Sign( axisdata ) ) )			// 軸の最大値の半分を超えていて、かつ
@@ -627,7 +701,7 @@ namespace FDK
 		/// <param name="data"></param>
 		/// <param name="currentMode">直前のボタン状態 true=押されていた</param>
 		/// <returns>上げ下げイベント発生時true</returns>
-		private bool bDoUpDownCore( int target, RawBufferedData data, bool lastMode )
+		private bool bDoUpDownCore( int target, JoystickState data, bool lastMode )
 		{
 			if ( this.bButtonState[ target ] == lastMode )
 			{
@@ -635,7 +709,8 @@ namespace FDK
 				{
 					nKey = target,
 					b押された = !lastMode,
-					nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.Timestamp ),
+					nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.TimeStamp ),
+					nVelocity = ( lastMode ) ? 0 : CInput管理.n通常音量
 				};
 				this.list入力イベント.Add( e );
 

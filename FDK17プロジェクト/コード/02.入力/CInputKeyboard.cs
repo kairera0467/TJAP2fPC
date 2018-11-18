@@ -20,7 +20,7 @@ namespace FDK
 			{
 				this.devKeyboard = new Keyboard( directInput );
 				this.devKeyboard.SetCooperativeLevel( hWnd, CooperativeLevel.NoWinKey | CooperativeLevel.Foreground | CooperativeLevel.Nonexclusive );
-				this.devKeyboard.Properties.BufferSize = _rawBufferedDataArray.Length;
+				this.devKeyboard.Properties.BufferSize = 0x20;
 				Trace.TraceInformation( this.devKeyboard.Information.ProductName + " を生成しました。" );
 			}
 			catch( DirectInputException )
@@ -80,31 +80,48 @@ namespace FDK
 				{
 					#region [ a.バッファ入力 ]
 					//-----------------------------
+					var bufferedData = this.devKeyboard.GetBufferedData();
+					if ( Result.Last.IsSuccess && bufferedData != null )
+					{
+						foreach ( KeyboardState data in bufferedData )
+						{
+							foreach ( Key key in data.PressedKeys )
+							{
+								STInputEvent item = new STInputEvent()
+								{
+									nKey = (int) key,
+									b押された = true,
+									b離された = false,
+									nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.TimeStamp ),
+									nVelocity = CInput管理.n通常音量
+								};
+								this.list入力イベント.Add( item );
 
-                    var length = this.devKeyboard.GetDeviceData(_rawBufferedDataArray, false);
-                    if (!Result.Last.IsSuccess)
-                    {
-                        return;
-                    }
-                    for (int i = 0; i < length; i++)
-                    {
-                        var rawBufferedData = _rawBufferedDataArray[i];
-                        var key = DeviceConstantConverter.DIKtoKey(rawBufferedData.Offset);
-                        var wasPressed = (rawBufferedData.Data & 128) == 128;
+								this.bKeyState[ (int) key ] = true;
+								this.bKeyPushDown[ (int) key ] = true;
 
-                        STInputEvent item = new STInputEvent()
-                        {
-                            nKey = (int) key,
-                            b押された = wasPressed,
-                            nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( rawBufferedData.Timestamp ),
-                        };
-                        this.list入力イベント.Add( item );
+								//if ( item.nKey == (int) SlimDX.DirectInput.Key.Space )
+								//{
+								//    Trace.TraceInformation( "FDK(buffered): SPACE key registered. " + ct.nシステム時刻 );
+								//}
+							}
+							foreach ( Key key in data.ReleasedKeys )
+							{
+								STInputEvent item = new STInputEvent()
+								{
+									nKey = (int) key,
+									b押された = false,
+									b離された = true,
+									nTimeStamp = CSound管理.rc演奏用タイマ.nサウンドタイマーのシステム時刻msへの変換( data.TimeStamp ),
+									nVelocity = CInput管理.n通常音量
+								};
+								this.list入力イベント.Add( item );
 
-                        this.bKeyState[ item.nKey ] = wasPressed;
-                        this.bKeyPushDown[ item.nKey ] = wasPressed;
-                        this.bKeyPullUp[ item.nKey ] = !wasPressed;
-                    }
-
+								this.bKeyState[ (int) key ] = false;
+								this.bKeyPullUp[ (int) key ] = true;
+							}
+						}
+					}
 					//-----------------------------
 					#endregion
 				}
@@ -123,7 +140,9 @@ namespace FDK
 								{
 									nKey = (int) key,
 									b押された = true,
+									b離された = false,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量,
 								};
 								this.list入力イベント.Add( ev );
 
@@ -144,7 +163,9 @@ namespace FDK
 								{
 									nKey = (int) key,
 									b押された = false,
+									b離された = true,
 									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻,	// 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nVelocity = CInput管理.n通常音量,
 								};
 								this.list入力イベント.Add( ev );
 
@@ -218,15 +239,12 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-	    private readonly RawBufferedData[] _rawBufferedDataArray = new RawBufferedData[256];
-		private readonly bool[] bKeyPullUp = new bool[ 0x100 ];
-		private readonly bool[] bKeyPushDown = new bool[ 0x100 ];
-		private readonly bool[] bKeyState = new bool[ 0x100 ];
-
-	    private bool bDispose完了済み;
+		private bool bDispose完了済み;
+		private bool[] bKeyPullUp = new bool[ 0x100 ];
+		private bool[] bKeyPushDown = new bool[ 0x100 ];
+		private bool[] bKeyState = new bool[ 0x100 ];
 		private Keyboard devKeyboard;
-
-	    //private CTimer timer;
+		//private CTimer timer;
 		//private CTimer ct;
 		//-----------------
 		#endregion
