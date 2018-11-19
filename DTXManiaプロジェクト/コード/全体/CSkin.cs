@@ -1074,6 +1074,53 @@ namespace DTXMania
                             }
                             #endregion
                             #region SongLoading
+                            else if (strCommand == nameof(SongLoading_Plate_X))
+                            {
+                                SongLoading_Plate_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_Plate_Y))
+                            {
+                                SongLoading_Plate_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_Title_X))
+                            {
+                                SongLoading_Title_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_Title_Y))
+                            {
+                                SongLoading_Title_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_SubTitle_X))
+                            {
+                                SongLoading_SubTitle_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_SubTitle_Y))
+                            {
+                                SongLoading_SubTitle_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_Title_FontSize))
+                            {
+                                if (int.Parse(strParam) > 0)
+                                    SongLoading_Title_FontSize = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_SubTitle_FontSize))
+                            {
+                                if (int.Parse(strParam) > 0)
+                                    SongLoading_SubTitle_FontSize = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_Plate_ReferencePoint))
+                            {
+                                SongLoading_Plate_ReferencePoint = (ReferencePoint)int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_Title_ReferencePoint))
+                            {
+                                SongLoading_Title_ReferencePoint = (ReferencePoint)int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongLoading_SubTitle_ReferencePoint))
+                            {
+                                SongLoading_SubTitle_ReferencePoint = (ReferencePoint)int.Parse(strParam);
+                            }
+
                             else if (strCommand == nameof(SongLoading_Title_ForeColor))
                             {
                                 SongLoading_Title_ForeColor = ColorTranslator.FromHtml(strParam);
@@ -1108,6 +1155,7 @@ namespace DTXMania
                             {
                                 Game_RollColorMode = (RollColorMode)int.Parse(strParam);
                             }
+
                             #region CourseSymbol
                             else if (strCommand == "Game_CourseSymbol_X")
                             {
@@ -1140,6 +1188,10 @@ namespace DTXMania
                                 if (int.Parse(strParam) > 0)
                                     Game_MusicName_FontSize = int.Parse(strParam);
                             }
+                            else if (strCommand == nameof(Game_MusicName_ReferencePoint))
+                            {
+                                Game_MusicName_ReferencePoint = (ReferencePoint)int.Parse(strParam);
+                            }
                             else if (strCommand == nameof(Game_Genre_X))
                             {
                                 Game_Genre_X = int.Parse(strParam);
@@ -1148,14 +1200,26 @@ namespace DTXMania
                             {
                                 Game_Genre_Y = int.Parse(strParam);
                             }
+                            else if (strCommand == nameof(Game_Lyric_X))
+                            {
+                                Game_Lyric_X = int.Parse(strParam);
+                            }
                             else if (strCommand == nameof(Game_Lyric_Y))
                             {
                                 Game_Lyric_Y = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Lyric_FontName))
+                            {
+                                Game_Lyric_FontName = strParam;
                             }
                             else if (strCommand == nameof(Game_Lyric_FontSize))
                             {
                                 if (int.Parse(strParam) > 0)
                                     Game_Lyric_FontSize = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_Lyric_ReferencePoint))
+                            {
+                                Game_Lyric_ReferencePoint = (ReferencePoint)int.Parse(strParam);
                             }
 
                             else if (strCommand == nameof(Game_MusicName_ForeColor))
@@ -1890,6 +1954,10 @@ namespace DTXMania
                                 if (int.Parse(strParam) > 0)
                                     Result_MusicName_FontSize = int.Parse(strParam);
                             }
+                            else if (strCommand == nameof(Result_MusicName_ReferencePoint))
+                            {
+                                Result_MusicName_ReferencePoint = (ReferencePoint)int.Parse(strParam);
+                            }
                             else if (strCommand == nameof(Result_StageText_X))
                             {
                                 Result_StageText_X = int.Parse(strParam);
@@ -1902,6 +1970,10 @@ namespace DTXMania
                             {
                                 if (int.Parse(strParam) > 0)
                                     Result_StageText_FontSize = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Result_StageText_ReferencePoint))
+                            {
+                                Result_StageText_ReferencePoint = (ReferencePoint)int.Parse(strParam);
                             }
 
                             else if (strCommand == nameof(Result_MusicName_ForeColor))
@@ -2101,6 +2173,12 @@ namespace DTXMania
             All, // 旧筐体(旧作含む)
             WithoutStart // 新筐体
         }
+        public enum ReferencePoint //テクスチャ描画の基準点を変更可能にするための値(rhimm)
+        {
+            Center,
+            Left,
+            Right
+        }
 
         #region 新・SkinConfig
         #region General
@@ -2132,10 +2210,22 @@ namespace DTXMania
         public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#980E00");
         #endregion
         #region SongLoading
+        public int SongLoading_Plate_X = 640;
+        public int SongLoading_Plate_Y = 360;
+        public int SongLoading_Title_X = 640;
+        public int SongLoading_Title_Y = 340;
+        public int SongLoading_SubTitle_X = 640;
+        public int SongLoading_SubTitle_Y = 390;
+        public int SongLoading_Title_FontSize = 30;
+        public int SongLoading_SubTitle_FontSize = 22;
+        public ReferencePoint SongLoading_Plate_ReferencePoint = ReferencePoint.Center;
+        public ReferencePoint SongLoading_Title_ReferencePoint = ReferencePoint.Center;
+        public ReferencePoint SongLoading_SubTitle_ReferencePoint = ReferencePoint.Center;
         public Color SongLoading_Title_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
         public Color SongLoading_Title_BackColor = ColorTranslator.FromHtml("#000000");
         public Color SongLoading_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
         public Color SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
+
         #endregion
         #region Game
         public bool Game_Notes_Anime = false;
@@ -2192,10 +2282,14 @@ namespace DTXMania
         public int Game_MusicName_X = 1254;
         public int Game_MusicName_Y = 14;
         public int Game_MusicName_FontSize = 30;
+        public ReferencePoint Game_MusicName_ReferencePoint = ReferencePoint.Right;
         public int Game_Genre_X = 1114;
         public int Game_Genre_Y = 74;
+        public int Game_Lyric_X = 640;
         public int Game_Lyric_Y = 630;
+        public string Game_Lyric_FontName = "MS UI Gothic";
         public int Game_Lyric_FontSize = 38;
+        public ReferencePoint Game_Lyric_ReferencePoint = ReferencePoint.Center;
 
         public Color Game_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
         public Color Game_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
@@ -2315,9 +2409,11 @@ namespace DTXMania
         public int Result_MusicName_X = 1254;
         public int Result_MusicName_Y = 6;
         public int Result_MusicName_FontSize = 30;
+        public ReferencePoint Result_MusicName_ReferencePoint = ReferencePoint.Right;
         public int Result_StageText_X = 230;
         public int Result_StageText_Y = 6;
         public int Result_StageText_FontSize = 30;
+        public ReferencePoint Result_StageText_ReferencePoint = ReferencePoint.Left;
 
         public Color Result_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
         public Color Result_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");

@@ -36,13 +36,13 @@ namespace DTXMania
 				this.strSTAGEFILE = "";
                 if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.FontName ) )
                 {
-                    this.pfTITLE = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.FontName ), 30 );
-                    this.pfSUBTITLE = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.FontName ), 22 );
+                    this.pfTITLE = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.FontName ), CDTXMania.Skin.SongLoading_Title_FontSize );
+                    this.pfSUBTITLE = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.FontName ), CDTXMania.Skin.SongLoading_SubTitle_FontSize);
                 }
                 else
                 {
-                    this.pfTITLE = new CPrivateFastFont( new FontFamily("MS UI Gothic"), 30 );
-                    this.pfSUBTITLE = new CPrivateFastFont( new FontFamily("MS UI Gothic" ), 22 );
+                    this.pfTITLE = new CPrivateFastFont( new FontFamily("MS UI Gothic"), CDTXMania.Skin.SongLoading_Title_FontSize);
+                    this.pfSUBTITLE = new CPrivateFastFont( new FontFamily("MS UI Gothic" ), CDTXMania.Skin.SongLoading_SubTitle_FontSize);
                 }
 				this.nBGM再生開始時刻 = -1;
 				this.nBGMの総再生時間ms = 0;
@@ -204,11 +204,22 @@ namespace DTXMania
 				this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
             //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.灰, this.ct曲名表示.n現在の値.ToString() );
 
-            if( CDTXMania.Tx.SongLoading_Plate != null )
+            if (CDTXMania.Tx.SongLoading_Plate != null)
             {
                 CDTXMania.Tx.SongLoading_Plate.bスクリーン合成 = true; //あまりにも出番が無い
-                CDTXMania.Tx.SongLoading_Plate.n透明度 = C変換.nParsentTo255( ( this.ct曲名表示.n現在の値 / 30.0 ) );
-                CDTXMania.Tx.SongLoading_Plate.t2D描画( CDTXMania.app.Device, 640 - (CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Width / 2 ), 360 - (CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Height / 2 ) );
+                CDTXMania.Tx.SongLoading_Plate.n透明度 = C変換.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
+                if(CDTXMania.Skin.SongLoading_Plate_ReferencePoint == CSkin.ReferencePoint.Left)
+                {
+                CDTXMania.Tx.SongLoading_Plate.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongLoading_Plate_X, CDTXMania.Skin.SongLoading_Plate_Y - (CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Height / 2));
+                }
+                else if(CDTXMania.Skin.SongLoading_Plate_ReferencePoint == CSkin.ReferencePoint.Right)
+                {
+                CDTXMania.Tx.SongLoading_Plate.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongLoading_Plate_X - CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Width, CDTXMania.Skin.SongLoading_Plate_Y - (CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Height / 2));
+                }
+                else
+                {
+                CDTXMania.Tx.SongLoading_Plate.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongLoading_Plate_X - (CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Width / 2), CDTXMania.Skin.SongLoading_Plate_Y - (CDTXMania.Tx.SongLoading_Plate.sz画像サイズ.Height / 2));
+                }
             }
             //CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.灰, C変換.nParsentTo255( ( this.ct曲名表示.n現在の値 / 30.0 ) ).ToString() );
 
@@ -219,13 +230,35 @@ namespace DTXMania
                 int nサブタイトル補正 = string.IsNullOrEmpty(CDTXMania.stage選曲.r確定されたスコア.譜面情報.strサブタイトル) ? 15 : 0;
 
                 this.txタイトル.n透明度 = C変換.nParsentTo255( ( this.ct曲名表示.n現在の値 / 30.0 ) );
-				this.txタイトル.t2D描画( CDTXMania.app.Device, ( 640 - ( (this.txタイトル.sz画像サイズ.Width * txタイトル.vc拡大縮小倍率.X) / 2 ) ), 340 - ( this.txタイトル.sz画像サイズ.Height / 2 ) + nサブタイトル補正 );
-			}
+                if(CDTXMania.Skin.SongLoading_Title_ReferencePoint == CSkin.ReferencePoint.Left)
+                {
+                    this.txタイトル.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongLoading_Title_X, CDTXMania.Skin.SongLoading_Title_Y - (this.txタイトル.sz画像サイズ.Height / 2) + nサブタイトル補正);
+                }
+                else if(CDTXMania.Skin.SongLoading_Title_ReferencePoint == CSkin.ReferencePoint.Right)
+                {
+                    this.txタイトル.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongLoading_Title_X - (this.txタイトル.sz画像サイズ.Width * txタイトル.vc拡大縮小倍率.X), CDTXMania.Skin.SongLoading_Title_Y - (this.txタイトル.sz画像サイズ.Height / 2) + nサブタイトル補正);
+                }
+                else
+                {
+                    this.txタイトル.t2D描画(CDTXMania.app.Device, (CDTXMania.Skin.SongLoading_Title_X - ((this.txタイトル.sz画像サイズ.Width * txタイトル.vc拡大縮小倍率.X) / 2)), CDTXMania.Skin.SongLoading_Title_Y - (this.txタイトル.sz画像サイズ.Height / 2) + nサブタイトル補正);
+                }
+            }
 			if( this.txサブタイトル != null )
 			{
                 this.txサブタイトル.n透明度 = C変換.nParsentTo255( ( this.ct曲名表示.n現在の値 / 30.0 ) );
-				this.txサブタイトル.t2D描画( CDTXMania.app.Device, ( 640 - ( this.txサブタイトル.sz画像サイズ.Width / 2 ) ), 390 - ( this.txサブタイトル.sz画像サイズ.Height / 2 ) );
-			}
+                if(CDTXMania.Skin.SongLoading_SubTitle_ReferencePoint == CSkin.ReferencePoint.Left)
+                {
+                    this.txサブタイトル.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongLoading_SubTitle_X, CDTXMania.Skin.SongLoading_SubTitle_Y - (this.txサブタイトル.sz画像サイズ.Height / 2));
+                }
+                else if(CDTXMania.Skin.SongLoading_Title_ReferencePoint == CSkin.ReferencePoint.Right)
+                {
+                    this.txサブタイトル.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.SongLoading_SubTitle_X - (this.txサブタイトル.sz画像サイズ.Width * txタイトル.vc拡大縮小倍率.X), CDTXMania.Skin.SongLoading_SubTitle_Y - (this.txサブタイトル.sz画像サイズ.Height / 2));
+                }
+                else
+                {
+                    this.txサブタイトル.t2D描画(CDTXMania.app.Device, (CDTXMania.Skin.SongLoading_SubTitle_X - ((this.txサブタイトル.sz画像サイズ.Width * txサブタイトル.vc拡大縮小倍率.X) / 2)), CDTXMania.Skin.SongLoading_SubTitle_Y - (this.txサブタイトル.sz画像サイズ.Height / 2));
+                }
+            }
 			//-----------------------------
 			#endregion
 

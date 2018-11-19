@@ -32,13 +32,13 @@ namespace DTXMania
 		{
             if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.FontName) )
             {
-                this.pfMusicName = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 30);
-                this.pfStageText = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 30);
+                this.pfMusicName = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), CDTXMania.Skin.Result_MusicName_FontSize);
+                this.pfStageText = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), CDTXMania.Skin.Result_StageText_FontSize);
             }
             else
             {
-                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 30);
-                this.pfStageText = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 30);
+                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS UI Gothic"), CDTXMania.Skin.Result_MusicName_FontSize);
+                this.pfStageText = new CPrivateFastFont(new FontFamily("MS UI Gothic"), CDTXMania.Skin.Result_StageText_FontSize);
             }
 
 
@@ -95,9 +95,31 @@ namespace DTXMania
 			}
 			this.ct登場用.t進行();
 
-			this.txMusicName.t2D描画( CDTXMania.app.Device, 1254 - this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X, 6 );
+            if (CDTXMania.Skin.Result_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
+            {
+                this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_MusicName_X - ((this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X) / 2), CDTXMania.Skin.Result_MusicName_Y);
+            }
+            else if (CDTXMania.Skin.Result_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
+            {
+                this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_MusicName_X, CDTXMania.Skin.Result_MusicName_Y);
+            }
+            else
+            {
+                this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_MusicName_X - this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X, CDTXMania.Skin.Result_MusicName_Y);
+            }
 
-            this.txStageText.t2D描画(CDTXMania.app.Device, 230, 6);
+            if (CDTXMania.Skin.Result_StageText_ReferencePoint == CSkin.ReferencePoint.Center)
+            {
+                this.txStageText.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_StageText_X - ((this.txStageText.szテクスチャサイズ.Width * txStageText.vc拡大縮小倍率.X) / 2), CDTXMania.Skin.Result_StageText_Y);
+            }
+            else if (CDTXMania.Skin.Result_StageText_ReferencePoint == CSkin.ReferencePoint.Right)
+            {
+                this.txStageText.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_StageText_X - this.txStageText.szテクスチャサイズ.Width , CDTXMania.Skin.Result_StageText_Y);
+            }
+            else
+            {
+                this.txStageText.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_StageText_X, CDTXMania.Skin.Result_StageText_Y);
+            }
 
 			if( !this.ct登場用.b終了値に達した )
 			{
