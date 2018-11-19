@@ -1178,15 +1178,15 @@ namespace DTXMania
                             {
                                 Game_MusicName_BackColor = ColorTranslator.FromHtml(strParam);
                             }
-                            else if (strCommand == nameof(Game_StageText_ForeColor))
+                            else if (strCommand == nameof(Game_StageText_BackColor))
                             {
                                 Game_StageText_BackColor = ColorTranslator.FromHtml(strParam);
                             }
-                            else if (strCommand == nameof(Game_StageText_ForeColor_Red))
+                            else if (strCommand == nameof(Game_StageText_BackColor_Red))
                             {
                                 Game_StageText_BackColor_Red = ColorTranslator.FromHtml(strParam);
                             }
-                            else if (strCommand == nameof(Game_Lyric_ForeColor))
+                            else if (strCommand == nameof(Game_Lyric_BackColor))
                             {
                                 Game_Lyric_BackColor = ColorTranslator.FromHtml(strParam);
                             }
