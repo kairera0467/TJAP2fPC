@@ -352,9 +352,17 @@ namespace DTXMania
 			cInvisibleChip = null;
 //			GCSettings.LatencyMode = this.gclatencymode;
 
-			CLagLogger.Log();
+			var meanLag = CLagLogger.LogAndReturnMeanLag();
 
-            base.On非活性化();
+			if (CDTXMania.IsPerformingCalibration && meanLag != null)
+			{
+			    var oldInputAdjustTimeMs = CDTXMania.ConfigIni.nInputAdjustTimeMs;
+			    var newInputAdjustTimeMs = oldInputAdjustTimeMs - (int) Math.Round(meanLag.Value);
+			    Trace.TraceInformation($"Calibration complete. Updating InputAdjustTime from {oldInputAdjustTimeMs}ms to {newInputAdjustTimeMs}ms.");
+			    CDTXMania.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
+			}
+
+			base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
 		{
@@ -791,7 +799,32 @@ namespace DTXMania
 			}
 		}
 
-		protected E判定 e指定時刻からChipのJUDGEを返す( long nTime, CDTX.CChip pChip )
+	    internal E判定 e指定時刻からChipのJUDGEを返す(long nTime, CDTX.CChip pChip)
+	    {
+	        var e判定 = e指定時刻からChipのJUDGEを返すImpl(nTime, pChip);
+
+	        // When performing calibration, reduce audio distraction from user input.
+	        // For users who play primarily by watching notes cross the judgment position,
+	        // you might think that we want them to see visual judgment feedback during
+	        // calibration, but we do not. Humans are remarkably good at adjusting
+	        // the timing of their own physical movement, even without realizing it.
+	        // We are calibrating their input timing for the purposes of judgment.
+	        // We do not want them subconsciously playing early so as to line up
+	        // their hits with the perfect, good, etc. judgment results based on their
+	        // current (and soon to be replaced) input adjust time values.
+	        // Instead, we want them focused on the sounds of their keyboard, tatacon,
+	        // other controller, etc. and the visuals of notes crossing the judgment position.
+	        if (CDTXMania.IsPerformingCalibration)
+	        {
+	            return e判定 < E判定.Good ? E判定.Good : e判定;
+	        }
+	        else
+	        {
+	            return e判定;
+	        }
+	    }
+
+		private E判定 e指定時刻からChipのJUDGEを返すImpl( long nTime, CDTX.CChip pChip )
 		{
 			if ( pChip != null )
 			{
@@ -1020,11 +1053,11 @@ namespace DTXMania
 		{
 			int index = pChip.nチャンネル番号;
             if( index == 0x11 || index == 0x13 || index == 0x1A )
-                this.soundRed.t再生を開始する();
+                this.soundRed?.t再生を開始する();
             else if( index == 0x12 || index == 0x14 || index == 0x1B )
-                this.soundBlue.t再生を開始する();
+                this.soundBlue?.t再生を開始する();
             else if( index == 0x1F )
-                this.soundAdlib.t再生を開始する();
+                this.soundAdlib?.t再生を開始する();
 
             if( this.nHand[ nPlayer ] == 0 )
                 this.nHand[ nPlayer ]++;
@@ -1135,7 +1168,7 @@ namespace DTXMania
                 //赤か青かの分岐
                 if( sort == 0 )
                 {
-                    this.soundRed.t再生を開始する();
+                    this.soundRed?.t再生を開始する();
                     if( pChip.nチャンネル番号 == 0x15 )
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
@@ -1151,7 +1184,7 @@ namespace DTXMania
                 }
                 else
                 {
-                    this.soundBlue.t再生を開始する();
+                    this.soundBlue?.t再生を開始する();
                     if( pChip.nチャンネル番号 == 0x15 )
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
@@ -1250,7 +1283,7 @@ namespace DTXMania
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 300L, player);
                     }
                     //CDTXMania.Skin.soundRed.t再生する();
-                    this.soundRed.t再生を開始する();
+                    this.soundRed?.t再生を開始する();
                 }
             }
             else
@@ -2754,7 +2787,15 @@ namespace DTXMania
 		}
 		protected void tパネル文字列の設定()
 		{
-			this.actPanel.SetPanelString( string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE : CDTXMania.DTX.PANEL );
+		    // When performing calibration, inform the player that
+		    // calibration is taking place, rather than
+		    // displaying the panel title or song title as usual.
+
+		    var panelString = CDTXMania.IsPerformingCalibration
+		        ? "Calibrating input..."
+		        : string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE: CDTXMania.DTX.PANEL;
+
+		    this.actPanel.SetPanelString( panelString );
 		}
 
 

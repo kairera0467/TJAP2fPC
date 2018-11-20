@@ -7,6 +7,8 @@
 *.log
 *.pdb
 *.db
+*.swp
+*.DotSettings.user
 /packages
 /Test/Capture_img
 /Test/Config.ini
