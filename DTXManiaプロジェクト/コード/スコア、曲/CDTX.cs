@@ -747,6 +747,20 @@ namespace DTXMania
             #endregion
         }
 
+        public class DanSongs
+        {
+            public CTexture Title;
+            public CTexture SubTitle;
+            public string FileName;
+            public string Genre;
+            public static int Number;
+
+            public DanSongs()
+            {
+                Number++;
+            }
+        }
+
 
         // 構造体
 
@@ -1125,6 +1139,8 @@ namespace DTXMania
         public Dictionary<int, CSCROLL> listSCROLL_Expert;
         public Dictionary<int, CSCROLL> listSCROLL_Master;
         public Dictionary<int, CJPOSSCROLL> listJPOSSCROLL;
+        public List<DanSongs> List_DanSongs;
+
 
         private int listSCROLL_Normal_数値管理;
         private int listSCROLL_Expert_数値管理;
@@ -3774,6 +3790,51 @@ namespace DTXMania
             {
                 FixSENote = int.Parse(argument);
                 IsEnabledFixSENote = true;
+            }
+            else if (command == "#NEXTSONG")
+            {
+                var delayTime = 6000.0; // 6秒ディレイ
+                CPrivateFastFont pfTitle, pfSubTitle;
+                //チップ追加して割り込んでみる。
+                var chip = new CChip();
+
+                chip.nチャンネル番号 = 0x9B;
+                chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
+                chip.n発声時刻ms = (int)this.dbNowTime;
+                this.dbNowTime += delayTime;
+                this.dbNowBMScollTime += delayTime * this.dbNowBPM / 15000;
+                chip.n整数値_内部番号 = 0;
+                chip.nコース = this.n現在のコース;
+
+                // チップを配置。
+                this.listChip.Add(chip);
+
+                strArray = argument.Split(',');
+                WarnSplitLength("#NEXTSONG", strArray, 4);
+                var dansongs = new DanSongs();
+                if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.FontName))
+                {
+                    pfTitle = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 30);
+                    pfSubTitle = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 22);
+                }
+                else
+                {
+                    pfTitle = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 30);
+                    pfSubTitle = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 22);
+                }
+
+                using (var bmpSongTitle = pfTitle.DrawPrivateFont(strArray[0], Color.White, Color.Black))
+                {
+                    dansongs.Title = new CTexture(CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false);
+                    dansongs.Title.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref dansongs.Title, 710);
+                }
+                using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(strArray[1], Color.White, Color.Black))
+                {
+                    dansongs.SubTitle = new CTexture(CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false);
+                }
+                dansongs.Genre = strArray[2];
+                dansongs.FileName = strArray[3];
+                List_DanSongs.Add(dansongs);
             }
         }
 
@@ -6549,6 +6610,7 @@ namespace DTXMania
             this.listBalloon_Master = new List<int>();
             this.listLine = new List<CLine>();
             this.listLiryc = new List<string>();
+            this.List_DanSongs = new List<DanSongs>();
             base.On活性化();
         }
         public override void On非活性化()
@@ -6622,6 +6684,11 @@ namespace DTXMania
             {
                 this.listJPOSSCROLL.Clear();
                 this.listJPOSSCROLL = null;
+            }
+            if (this.List_DanSongs != null)
+            {
+                this.List_DanSongs.Clear();
+                this.List_DanSongs = null;
             }
 
             if (this.listChip != null)

@@ -289,7 +289,7 @@ namespace TJAPlayer3
         /// <returns>段位認定モードの各条件の現在状況。</returns>
         public override string ToString()
         {
-            return String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6} / Percent: {7} / NotReached: {8}", GetType(), GetValue(false), GetValue(true), GetExamRange(), GetAmount(), GetCleared()[0], GetCleared()[1], GetAmountToPercent(), GetReached());
+            return String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6} / Percent: {7} / NotReached: {8}", GetExamType(), GetValue(false), GetValue(true), GetExamRange(), GetAmount(), GetCleared()[0], GetCleared()[1], GetAmountToPercent(), GetReached());
         }
 
 

@@ -326,6 +326,8 @@ namespace DTXMania
             //			GCSettings.LatencyMode = GCLatencyMode.Batch;	// 演奏画面中はGCを抑止する
             this.bIsAlreadyCleared = new bool[2];
             this.bIsAlreadyMaxed = new bool[2];
+
+            this.ListDan_Number = 0;
 		}
 		public override void On非活性化()
 		{
@@ -750,6 +752,8 @@ namespace DTXMania
         //
         private System.Timers.Timer combot;
         //
+
+        private int ListDan_Number;
 
 		public void AddMixer( CSound cs, bool _b演奏終了後も再生が続くチップである )
 		{
@@ -3297,7 +3301,7 @@ namespace DTXMania
                         break;
 					#endregion
 
-                    #region[ 90-9B: EmptySlot ]
+                    #region[ 90-9A: EmptySlot ]
                     case 0x90:
 					case 0x91:
 					case 0x92:
@@ -3309,11 +3313,22 @@ namespace DTXMania
                     case 0x98:
                     case 0x99:
                     case 0x9A:
-                    case 0x9B:
 						break;
-					#endregion
+                    #endregion
 
-                    #region[ 9C-9F: 太鼓 ]
+                    #region[ 9B-9F: 太鼓 ]
+                    case 0x9B:
+                        // 段位認定モードの幕アニメーション
+                        if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0))
+                        {
+                            pChip.bHit = true;
+                            if (pChip.nコース == this.n現在のコース[nPlayer])
+                            {
+                                this.actDan.Start(this.ListDan_Number);
+                                ListDan_Number++;
+                            }
+                        }
+                        break;
                     //0x9C BPM変化(アニメーション用)
                     case 0x9C:
                         //CDTXMania.act文字コンソール.tPrint( 414 + pChip.nバーからの距離dot.Taiko + 8, 192, C文字コンソール.Eフォント種別.白, "BPMCHANGE" );

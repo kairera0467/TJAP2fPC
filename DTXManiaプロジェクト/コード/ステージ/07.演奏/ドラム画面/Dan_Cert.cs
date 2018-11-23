@@ -23,6 +23,12 @@ namespace DTXMania
         Dan_C[] Challenge = new Dan_C[3];
         //
 
+        public void Start(int number)
+        {
+            NowShowingNumber = number;
+            Counter_In = new CCounter(0, 1000, 1, CDTXMania.Timer);
+        }
+
         public override void On活性化()
         {
             Challenge[0] = CDTXMania.DTX.Dan_C[0];
@@ -191,6 +197,10 @@ namespace DTXMania
 
         public override int On進行描画()
         {
+            Counter_In?.t進行();
+            Counter_Wait?.t進行();
+            Counter_Out?.t進行();
+            Counter_Text?.t進行();
             for (int i = 0; i < 3; i++)
             {
                 Status[i].Timer_Amount?.t進行();
@@ -339,9 +349,16 @@ namespace DTXMania
                 }
                 #endregion
             }
+
+            // 幕のアニメーション
+            if (Counter_In != null && Counter_In.b終了値に達してない)
+            {
+                CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title?.t2D描画(CDTXMania.app.Device, 0, 0);
+            }
+
             return base.On進行描画();
         }
-        
+
         /// <summary>
         /// 段位チャレンジの数字フォントで数字を描画します。
         /// </summary>
@@ -400,6 +417,10 @@ namespace DTXMania
         private ChallengeStatus[] Status = new ChallengeStatus[3];
         private CTexture Dan_Plate;
         private bool IsEnded;
+
+        // アニメ関連
+        private int NowShowingNumber;
+        private CCounter Counter_In, Counter_Wait, Counter_Out, Counter_Text;
         //-----------------
         #endregion
     }
