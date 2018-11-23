@@ -749,8 +749,10 @@ namespace DTXMania
 
         public class DanSongs
         {
-            public CTexture Title;
-            public CTexture SubTitle;
+            public CTexture TitleTex;
+            public CTexture SubTitleTex;
+            public string Title;
+            public string SubTitle;
             public string FileName;
             public string Genre;
             public static int Number;
@@ -3825,15 +3827,17 @@ namespace DTXMania
 
                 using (var bmpSongTitle = pfTitle.DrawPrivateFont(strArray[0], Color.White, Color.Black))
                 {
-                    dansongs.Title = new CTexture(CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false);
-                    dansongs.Title.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref dansongs.Title, 710);
-                    if (string.IsNullOrEmpty(strArray[0])) dansongs.Title = null;
+                    dansongs.TitleTex = new CTexture(CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false);
+                    dansongs.TitleTex.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref dansongs.TitleTex, 710);
+                    if (string.IsNullOrEmpty(strArray[0])) dansongs.TitleTex = null;
                 }
                 using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(strArray[1], Color.White, Color.Black))
                 {
-                    dansongs.SubTitle = new CTexture(CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false);
-                    if(string.IsNullOrEmpty(strArray[1])) dansongs.SubTitle = null;
+                    dansongs.SubTitleTex = new CTexture(CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false);
+                    if(string.IsNullOrEmpty(strArray[1])) dansongs.SubTitleTex = null;
                 }
+                dansongs.Title = strArray[0];
+                dansongs.SubTitle = strArray[1];
                 dansongs.Genre = strArray[2];
                 dansongs.FileName = strArray[3];
                 List_DanSongs.Add(dansongs);

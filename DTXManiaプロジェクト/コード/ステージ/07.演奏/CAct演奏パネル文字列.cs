@@ -16,24 +16,22 @@ namespace DTXMania
 		public CAct演奏パネル文字列()
 		{
 			base.b活性化してない = true;
-			this.strパネル文字列 = "";
 			this.Start();
 		}
-		
-		
-		// メソッド
 
-		public void SetPanelString( string str )
+
+        // メソッド
+
+        public void SetPanelString(string songName, string genreName, string stageText = null)
 		{
-			this.strパネル文字列 = str;
 			if( base.b活性化してる )
 			{
 				CDTXMania.tテクスチャの解放( ref this.txPanel );
-				if( ( this.strパネル文字列 != null ) && ( this.strパネル文字列.Length > 0 ) )
+				if( (songName != null ) && (songName.Length > 0 ) )
 				{
 					try
 					{
-					    using (var bmpSongTitle = pfMusicName.DrawPrivateFont( this.strパネル文字列, Color.White, Color.Black ))
+					    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(songName, Color.White, Color.Black ))
 					    {
 					        this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
 					    }
@@ -63,16 +61,25 @@ namespace DTXMania
                                     strDiff = "おに ";
                                     break;
                             }
-                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
+                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + stageText != null ? CDTXMania.Skin.Game_StageText : stageText, Color.White, Color.Black);
                         }
                         else
                         {
-                            if(CDTXMania.Skin.Game_StageText_IsRed)
+                            if(stageText != null)
                             {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Red);
-                            } else
+                                bmpDiff = pfMusicName.DrawPrivateFont(stageText, Color.White, Color.Black);
+                            }
+                            else
                             {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
+                                if (CDTXMania.Skin.Game_StageText_IsRed)
+                                {
+                                    bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Red);
+                                }
+                                else
+                                {
+                                    bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
+                                }
+
                             }
                         }
 
@@ -88,38 +95,37 @@ namespace DTXMania
 						this.txPanel = null;
 					}
 				}
-                if( !string.IsNullOrEmpty( CDTXMania.stage選曲.str確定された曲のジャンル) )
+                if( !string.IsNullOrEmpty(genreName) )
                 {
-                    string strGenre = CDTXMania.stage選曲.str確定された曲のジャンル;
-                    if( strGenre.Equals( "アニメ" ) )
+                    if(genreName.Equals( "アニメ" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("Anime");
                     }
-                    else if( strGenre.Equals( "J-POP" ) )
+                    else if(genreName.Equals( "J-POP" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("J-POP");
                     }
-                    else if( strGenre.Equals( "ゲームミュージック" ) )
+                    else if(genreName.Equals( "ゲームミュージック" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("Game");
                     }
-                    else if( strGenre.Equals( "ナムコオリジナル" ) )
+                    else if(genreName.Equals( "ナムコオリジナル" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("Namco");
                     }
-                    else if( strGenre.Equals( "クラシック" ) )
+                    else if(genreName.Equals( "クラシック" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("Classic");
                     }
-                    else if( strGenre.Equals( "どうよう" ) )
+                    else if(genreName.Equals( "どうよう" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("Child");
                     }
-                    else if( strGenre.Equals( "バラエティ" ) )
+                    else if(genreName.Equals( "バラエティ" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("Variety");
                     }
-                    else if( strGenre.Equals( "ボーカロイド" ) || strGenre.Equals( "VOCALOID" ) )
+                    else if(genreName.Equals( "ボーカロイド" ) || genreName.Equals( "VOCALOID" ) )
                     {
                         this.txGENRE = CDTXMania.Tx.TxCGen("Vocaloid");
                     }
@@ -198,7 +204,6 @@ namespace DTXMania
 		{
 			if( !base.b活性化してない )
 			{
-				this.SetPanelString( this.strパネル文字列 );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -222,6 +227,7 @@ namespace DTXMania
 		}
 		public int t進行描画( int x, int y )
 		{
+            if (CDTXMania.stage演奏ドラム画面.actDan.IsAnimating) return 0;
 			if( !base.b活性化してない && !this.bMute )
 			{
 				this.ct進行用.t進行Loop();
@@ -304,7 +310,6 @@ namespace DTXMania
 		//-----------------
 		private CCounter ct進行用;
 
-		private string strパネル文字列;
 		private CTexture txPanel;
 		private bool bMute;
         private bool bFirst;

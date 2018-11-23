@@ -26,9 +26,10 @@ namespace DTXMania
         public void Start(int number)
         {
             NowShowingNumber = number;
-            Counter_In = new CCounter(0, 1000, 1, CDTXMania.Timer);
+            Counter_In = new CCounter(0, 999, 1, CDTXMania.Timer);
             ScreenPoint = new double[] { CDTXMania.Skin.nScrollFieldBGX[0] - CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 1280 };
             IsAnimating = true;
+            CDTXMania.stage演奏ドラム画面.actPanel.SetPanelString(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title, CDTXMania.DTX.List_DanSongs[NowShowingNumber].Genre, 1 + NowShowingNumber + "曲目");
         }
 
         public override void On活性化()
@@ -203,6 +204,40 @@ namespace DTXMania
             Counter_Wait?.t進行();
             Counter_Out?.t進行();
             Counter_Text?.t進行();
+
+            if(Counter_Text != null)
+            {
+                if (Counter_Text.n現在の値 >= 2000)
+                {
+                    for (int i = Counter_Text_Old; i < Counter_Text.n現在の値; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            if (CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex != null)
+                            {
+                                CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex.n透明度--;
+                            }
+                            if (CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex != null)
+                            {
+                                CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.n透明度--;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex != null)
+                    {
+                        CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex.n透明度 = 255;
+                    }
+                    if (CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex != null)
+                    {
+                        CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.n透明度 = 255;
+                    }
+                }
+                Counter_Text_Old = Counter_Text.n現在の値;
+            }
+
             for (int i = 0; i < 3; i++)
             {
                 Status[i].Timer_Amount?.t進行();
@@ -365,12 +400,12 @@ namespace DTXMania
                     Counter_In_Old = Counter_In.n現在の値;
                     CDTXMania.Tx.DanC_Screen?.t2D描画(CDTXMania.app.Device, (int)ScreenPoint[0], CDTXMania.Skin.nScrollFieldY[0], new Rectangle(0, 0, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Height));
                     CDTXMania.Tx.DanC_Screen?.t2D描画(CDTXMania.app.Device, (int)ScreenPoint[1], CDTXMania.Skin.nScrollFieldY[0], new Rectangle(CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Height));
-                    CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.Eフォント種別.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
+                    //CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.Eフォント種別.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
                 }
                 if(Counter_In.b終了値に達した)
                 {
                     Counter_In = null;
-                    Counter_Wait = new CCounter(0, 3000, 1, CDTXMania.Timer);
+                    Counter_Wait = new CCounter(0, 2999, 1, CDTXMania.Timer);
                 }
             }
             if (Counter_Wait != null)
@@ -382,45 +417,26 @@ namespace DTXMania
                 if(Counter_Wait.b終了値に達した)
                 {
                     Counter_Wait = null;
-                    Counter_Out = new CCounter(0, 500, 1, CDTXMania.Timer);
-                    Counter_Text = new CCounter(0, 3000, 1, CDTXMania.Timer);
+                    Counter_Out = new CCounter(0, 499, 1, CDTXMania.Timer);
+                    Counter_Text = new CCounter(0, 2999, 1, CDTXMania.Timer);
                 }
             }
             if (Counter_Text != null)
             {
-                // すげぇ深いネストだ!!!
                 if (Counter_Text.b終了値に達してない)
                 {
-                    if (Counter_Text.n現在の値 > 2000)
-                    {
-                        for (int i = Counter_Text_Old; i < Counter_Text.n現在の値; i++)
-                        {
-                            if(Counter_Text.n現在の値 % 2 == 0)
-                            {
-                                if (CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title != null)
-                                {
-                                    CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title.n透明度--;
-                                }
-                                if (CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitle != null)
-                                {
-                                    CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitle.n透明度--;
-                                }
-                            }
-                        }
-                        Counter_Text_Old = Counter_Text.n現在の値;
-                    }
-                    
-                    if (CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitle == null)
-                        CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title?.t2D中心基準描画(CDTXMania.app.Device, 1280 / 2 + CDTXMania.Skin.nScrollFieldBGX[0] / 2, CDTXMania.Skin.nScrollFieldY[0] + 65);
+                    if (CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex == null)
+                        CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex?.t2D中心基準描画(CDTXMania.app.Device, 1280 / 2 + CDTXMania.Skin.nScrollFieldBGX[0] / 2, CDTXMania.Skin.nScrollFieldY[0] + 65);
                     else
                     {
-                        CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title?.t2D中心基準描画(CDTXMania.app.Device, 1280 / 2 + CDTXMania.Skin.nScrollFieldBGX[0] / 2, CDTXMania.Skin.nScrollFieldY[0] + 45);
-                        CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitle?.t2D中心基準描画(CDTXMania.app.Device, 1280 / 2 + CDTXMania.Skin.nScrollFieldBGX[0] / 2, CDTXMania.Skin.nScrollFieldY[0] + 85);
+                        CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex?.t2D中心基準描画(CDTXMania.app.Device, 1280 / 2 + CDTXMania.Skin.nScrollFieldBGX[0] / 2, CDTXMania.Skin.nScrollFieldY[0] + 45);
+                        CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex?.t2D中心基準描画(CDTXMania.app.Device, 1280 / 2 + CDTXMania.Skin.nScrollFieldBGX[0] / 2, CDTXMania.Skin.nScrollFieldY[0] + 85);
                     }
                 }
                 if (Counter_Text.b終了値に達した)
                 {
                     Counter_Text = null;
+                    IsAnimating = false;
                 }
             }
             if (Counter_Out != null)
@@ -435,12 +451,11 @@ namespace DTXMania
                     Counter_Out_Old = Counter_Out.n現在の値;
                     CDTXMania.Tx.DanC_Screen?.t2D描画(CDTXMania.app.Device, (int)ScreenPoint[0], CDTXMania.Skin.nScrollFieldY[0], new Rectangle(0, 0, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Height));
                     CDTXMania.Tx.DanC_Screen?.t2D描画(CDTXMania.app.Device, (int)ScreenPoint[1], CDTXMania.Skin.nScrollFieldY[0], new Rectangle(CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Height));
-                    CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.Eフォント種別.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
+                    //CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.Eフォント種別.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
                 }
                 if (Counter_Out.b終了値に達した)
                 {
                     Counter_Out = null;
-                    IsAnimating = false;
                 }
             }
 
