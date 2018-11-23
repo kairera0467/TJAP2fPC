@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using FDK;
 using System.IO;
+using TJAPlayer3;
 
 namespace DTXMania
 {
@@ -32,7 +33,7 @@ namespace DTXMania
             ExamCount = 0;
             for (int i = 0; i < 3; i++)
             {
-                if (Challenge[i] != null && Challenge[i].IsEnable == true)
+                if (Challenge[i] != null && Challenge[i].GetEnable() == true)
                     this.ExamCount++;
             }
 
@@ -52,32 +53,32 @@ namespace DTXMania
         {
             for (int i = 0; i < 3; i++)
             {
-                if (Challenge[i] == null || !Challenge[i].IsEnable) return;
+                if (Challenge[i] == null || !Challenge[i].GetEnable()) return;
                 var isChangedAmount = false;
-                switch (Challenge[i].Type)
+                switch (Challenge[i].GetExamType())
                 {
-                    case Dan_C.ExamType.Gauge:
+                    case Exam.Type.Gauge:
                         isChangedAmount = Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0]);
                         break;
-                    case Dan_C.ExamType.JudgePerfect:
+                    case Exam.Type.JudgePerfect:
                         isChangedAmount = Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect);
                         break;
-                    case Dan_C.ExamType.JudgeGood:
+                    case Exam.Type.JudgeGood:
                         isChangedAmount = Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great);
                         break;
-                    case Dan_C.ExamType.JudgeBad:
+                    case Exam.Type.JudgeBad:
                         isChangedAmount = Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss);
                         break;
-                    case Dan_C.ExamType.Score:
+                    case Exam.Type.Score:
                         isChangedAmount = Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.actScore.GetScore(0));
                         break;
-                    case Dan_C.ExamType.Roll:
+                    case Exam.Type.Roll:
                         isChangedAmount = Challenge[i].Update((int)(CDTXMania.stage演奏ドラム画面.GetRoll(0)));
                         break;
-                    case Dan_C.ExamType.Hit:
+                    case Exam.Type.Hit:
                         isChangedAmount = Challenge[i].Update((int)(CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great + CDTXMania.stage演奏ドラム画面.GetRoll(0)));
                         break;
-                    case Dan_C.ExamType.Combo:
+                    case Exam.Type.Combo:
                         isChangedAmount = Challenge[i].Update((int)CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.P1最高値);
                         break;
                     default:
@@ -99,9 +100,9 @@ namespace DTXMania
                 }
 
                 // 条件の達成見込みがあるかどうか判断する。
-                if (Challenge[i].Range == Dan_C.ExamRange.Less)
+                if (Challenge[i].GetExamRange() == Exam.Range.Less)
                 {
-                    Challenge[i].NotReached = !Challenge[i].IsCleared[0];
+                    Challenge[i].SetReached(!Challenge[i].IsCleared[0]);
                 }
                 else
                 {
@@ -109,12 +110,12 @@ namespace DTXMania
                     if (CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss) <= 0)
                     {
                         // 残り音符数ゼロ
-                        switch (Challenge[i].Type)
+                        switch (Challenge[i].GetExamType())
                         {
-                            case Dan_C.ExamType.Gauge:
+                            case Exam.Type.Gauge:
                                 if (Challenge[i].Amount < Challenge[i].Value[0]) Challenge[i].SetReached(true);
                                 break;
-                            case Dan_C.ExamType.Score:
+                            case Exam.Type.Score:
                                 if (Challenge[i].Amount < Challenge[i].Value[0]) Challenge[i].SetReached(true);
                                 break;
                             default:
@@ -123,12 +124,12 @@ namespace DTXMania
                         }
                     }
                     // 常に監視されるやつ。
-                    switch (Challenge[i].Type)
+                    switch (Challenge[i].GetExamType())
                     {
-                        case Dan_C.ExamType.JudgePerfect:
-                        case Dan_C.ExamType.JudgeGood:
-                        case Dan_C.ExamType.JudgeBad:
-                        case Dan_C.ExamType.Combo:
+                        case Exam.Type.JudgePerfect:
+                        case Exam.Type.JudgeGood:
+                        case Exam.Type.JudgeBad:
+                        case Exam.Type.Combo:
                             if ((CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss) < (Challenge[i].Value[0] - Challenge[i].Amount))) Challenge[i].SetReached(true);
                             break;
                         default:
@@ -142,11 +143,11 @@ namespace DTXMania
                         if (CDTXMania.DTX.listChip.Count <= 0) continue;
                         if (CDTXMania.DTX.listChip[CDTXMania.DTX.listChip.Count - 1].n発声時刻ms < CDTXMania.Timer.n現在時刻)
                         {
-                            switch (Challenge[i].Type)
+                            switch (Challenge[i].GetExamType())
                             {
-                                case Dan_C.ExamType.Score:
-                                case Dan_C.ExamType.Roll:
-                                case Dan_C.ExamType.Hit:
+                                case Exam.Type.Score:
+                                case Exam.Type.Roll:
+                                case Exam.Type.Hit:
                                     if (Challenge[i].Amount < Challenge[i].Value[0]) Challenge[i].SetReached(true);
                                     break;
                                 default:
@@ -155,7 +156,6 @@ namespace DTXMania
                             IsEnded = true;
                         }
                     }
-
                 }
             }
         }
@@ -198,8 +198,8 @@ namespace DTXMania
 
             for (int i = 0; i < 3; i++)
             {
-                if (Challenge[i] != null && Challenge[i].IsEnable)
-                    CDTXMania.act文字コンソール.tPrint(0, 20 * i, C文字コンソール.Eフォント種別.白, String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6} / Percent: {7} / NotReached: {8}", Challenge[i].Type.ToString(), Challenge[i].Value[0].ToString(), Challenge[i].Value[1].ToString(), Challenge[i].Range.ToString(), Challenge[i].Amount.ToString(), Challenge[i].IsCleared[0].ToString(), Challenge[i].IsCleared[1].ToString(), Challenge[i].GetAmountToPercent(), Challenge[i].NotReached));
+                if (Challenge[i] != null && Challenge[i].GetEnable())
+                    CDTXMania.act文字コンソール.tPrint(0, 20 * i, C文字コンソール.Eフォント種別.白, Challenge[i].ToString());
                 else
                     CDTXMania.act文字コンソール.tPrint(0, 20 * i, C文字コンソール.Eフォント種別.白, "None");
             }
@@ -227,7 +227,7 @@ namespace DTXMania
 
                 #region ゲージを描画する。
                 var drawGaugeType = 0;
-                if (Challenge[i].Range == Dan_C.ExamRange.More)
+                if (Challenge[i].GetExamRange() == Exam.Range.More)
                 {
                     if (Challenge[i].GetAmountToPercent() >= 100)
                         drawGaugeType = 2;
@@ -251,7 +251,7 @@ namespace DTXMania
 
                 #region 現在の値を描画する。
                 var nowAmount = 0;
-                if (Challenge[i].Range == Dan_C.ExamRange.Less)
+                if (Challenge[i].GetExamRange() == Exam.Range.Less)
                 {
                     nowAmount = Challenge[i].Value[0] - Challenge[i].Amount;
                 }
@@ -264,19 +264,19 @@ namespace DTXMania
                 DrawNumber(nowAmount, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Number_Small_Number_Offset[0], CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Number_Small_Number_Offset[1], CDTXMania.Skin.Game_DanC_Number_Small_Padding, CDTXMania.Skin.Game_DanC_Number_Small_Scale, CDTXMania.Skin.Game_DanC_Number_Small_Scale,ScoreScale[Status[i].Timer_Amount.n現在の値]);
 
                 // 単位(あれば)
-                switch (Challenge[i].Type)
+                switch (Challenge[i].GetExamType())
                 {
-                    case Dan_C.ExamType.Gauge:
+                    case Exam.Type.Gauge:
                         // パーセント
                         CDTXMania.Tx.DanC_ExamUnit?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Number_Small_Number_Offset[0] + CDTXMania.Skin.Game_DanC_Number_Padding / 4 - CDTXMania.Skin.Game_DanC_Percent_Hit_Score_Padding[0], CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Number_Small_Number_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamUnit_Size[1] * 0, CDTXMania.Skin.Game_DanC_ExamUnit_Size[0], CDTXMania.Skin.Game_DanC_ExamUnit_Size[1]));
                         break;
-                    case Dan_C.ExamType.Score:
+                    case Exam.Type.Score:
                         CDTXMania.Tx.DanC_ExamUnit?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Number_Small_Number_Offset[0] + CDTXMania.Skin.Game_DanC_Number_Padding / 4 - CDTXMania.Skin.Game_DanC_Percent_Hit_Score_Padding[2], CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Number_Small_Number_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamUnit_Size[1] * 2, CDTXMania.Skin.Game_DanC_ExamUnit_Size[0], CDTXMania.Skin.Game_DanC_ExamUnit_Size[1]));
 
                         // 点
                         break;
-                    case Dan_C.ExamType.Roll:
-                    case Dan_C.ExamType.Hit:
+                    case Exam.Type.Roll:
+                    case Exam.Type.Hit:
                         CDTXMania.Tx.DanC_ExamUnit?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Number_Small_Number_Offset[0] + CDTXMania.Skin.Game_DanC_Number_Padding / 4 - CDTXMania.Skin.Game_DanC_Percent_Hit_Score_Padding[1], CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Number_Small_Number_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamUnit_Size[1] * 1, CDTXMania.Skin.Game_DanC_ExamUnit_Size[0], CDTXMania.Skin.Game_DanC_ExamUnit_Size[1]));
 
                         // 打
@@ -293,26 +293,26 @@ namespace DTXMania
                 var offset = CDTXMania.Skin.Game_DanC_Exam_Offset[0];
                 //offset -= CDTXMania.Skin.Game_DanC_ExamRange_Padding;
                 // 条件の範囲
-                CDTXMania.Tx.DanC_ExamRange?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + offset - CDTXMania.Tx.DanC_ExamRange.szテクスチャサイズ.Width, CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Exam_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamRange_Size[1] * (int)Challenge[i].Range, CDTXMania.Skin.Game_DanC_ExamRange_Size[0], CDTXMania.Skin.Game_DanC_ExamRange_Size[1]));
+                CDTXMania.Tx.DanC_ExamRange?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + offset - CDTXMania.Tx.DanC_ExamRange.szテクスチャサイズ.Width, CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Exam_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamRange_Size[1] * (int)Challenge[i].GetExamRange(), CDTXMania.Skin.Game_DanC_ExamRange_Size[0], CDTXMania.Skin.Game_DanC_ExamRange_Size[1]));
                 //offset -= CDTXMania.Skin.Game_DanC_ExamRange_Padding;
                 offset -= CDTXMania.Skin.Game_DanC_ExamRange_Padding;
 
                 // 単位(あれば)
-                switch (Challenge[i].Type)
+                switch (Challenge[i].GetExamType())
                 {
-                    case Dan_C.ExamType.Gauge:
+                    case Exam.Type.Gauge:
                         // パーセント
                         CDTXMania.Tx.DanC_ExamUnit?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + offset - CDTXMania.Tx.DanC_ExamUnit.szテクスチャサイズ.Width, CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Exam_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamUnit_Size[1] * 0, CDTXMania.Skin.Game_DanC_ExamUnit_Size[0], CDTXMania.Skin.Game_DanC_ExamUnit_Size[1]));
                         offset -= CDTXMania.Skin.Game_DanC_Percent_Hit_Score_Padding[0];
                         break;
-                    case Dan_C.ExamType.Score:
+                    case Exam.Type.Score:
                         CDTXMania.Tx.DanC_ExamUnit?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + offset - CDTXMania.Tx.DanC_ExamUnit.szテクスチャサイズ.Width, CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Exam_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamUnit_Size[1] * 2, CDTXMania.Skin.Game_DanC_ExamUnit_Size[0], CDTXMania.Skin.Game_DanC_ExamUnit_Size[1]));
                         offset -= CDTXMania.Skin.Game_DanC_Percent_Hit_Score_Padding[2];
 
                         // 点
                         break;
-                    case Dan_C.ExamType.Roll:
-                    case Dan_C.ExamType.Hit:
+                    case Exam.Type.Roll:
+                    case Exam.Type.Hit:
                         CDTXMania.Tx.DanC_ExamUnit?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + offset - CDTXMania.Tx.DanC_ExamUnit.szテクスチャサイズ.Width, CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Exam_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamUnit_Size[1] * 1, CDTXMania.Skin.Game_DanC_ExamUnit_Size[0], CDTXMania.Skin.Game_DanC_ExamUnit_Size[1]));
                         offset -= CDTXMania.Skin.Game_DanC_Percent_Hit_Score_Padding[1];
 
@@ -329,11 +329,11 @@ namespace DTXMania
                 offset -= CDTXMania.Skin.Game_DanC_Number_Small_Padding * (Challenge[i].Value[0].ToString().Length);
 
                 // 条件の種類
-                CDTXMania.Tx.DanC_ExamType?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + offset - CDTXMania.Tx.DanC_ExamType.szテクスチャサイズ.Width, CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Exam_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamType_Size[1] * (int)Challenge[i].Type, CDTXMania.Skin.Game_DanC_ExamType_Size[0], CDTXMania.Skin.Game_DanC_ExamType_Size[1]));
+                CDTXMania.Tx.DanC_ExamType?.t2D拡大率考慮下基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1] + offset - CDTXMania.Tx.DanC_ExamType.szテクスチャサイズ.Width, CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Exam_Offset[1], new Rectangle(0, CDTXMania.Skin.Game_DanC_ExamType_Size[1] * (int)Challenge[i].GetExamType(), CDTXMania.Skin.Game_DanC_ExamType_Size[0], CDTXMania.Skin.Game_DanC_ExamType_Size[1]));
                 #endregion
 
                 #region 条件達成失敗の画像を描画する。
-                if(Challenge[i].NotReached)
+                if(Challenge[i].GetReached())
                 {
                     CDTXMania.Tx.DanC_Failed.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_DanC_X[ExamCount - 1], CDTXMania.Skin.Game_DanC_Y[ExamCount - 1] + CDTXMania.Skin.Game_DanC_Size[1] * i + (i * CDTXMania.Skin.Game_DanC_Padding));
                 }

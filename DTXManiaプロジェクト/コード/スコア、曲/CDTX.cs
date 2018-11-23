@@ -10,6 +10,7 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using FDK;
 using FDK.ExtensionMethods;
+using TJAPlayer3;
 
 namespace DTXMania
 {
@@ -4216,60 +4217,61 @@ namespace DTXMania
             {
                 if (!string.IsNullOrEmpty(strCommandParam))
                 {
-                    var dan = new Dan_C();
+                    Exam.Type examType;
+                    int[] examValue;
+                    Exam.Range examRange;
                     var splitExam = strCommandParam.Split(',');
-                    dan.IsEnable = true;
                     switch (splitExam[0])
                     {
                         case "g":
-                            dan.Type = DTXMania.Dan_C.ExamType.Gauge;
+                            examType = Exam.Type.Gauge;
                             break;
                         case "jp":
-                            dan.Type = DTXMania.Dan_C.ExamType.JudgePerfect;
+                            examType = Exam.Type.JudgePerfect;
                             break;
                         case "jg":
-                            dan.Type = DTXMania.Dan_C.ExamType.JudgeGood;
+                            examType = Exam.Type.JudgeGood;
                             break;
                         case "jb":
-                            dan.Type = DTXMania.Dan_C.ExamType.JudgeBad;
+                            examType = Exam.Type.JudgeBad;
                             break;
                         case "s":
-                            dan.Type = DTXMania.Dan_C.ExamType.Score;
+                            examType = Exam.Type.Score;
                             break;
                         case "r":
-                            dan.Type = DTXMania.Dan_C.ExamType.Roll;
+                            examType = Exam.Type.Roll;
                             break;
                         case "h":
-                            dan.Type = DTXMania.Dan_C.ExamType.Hit;
+                            examType = Exam.Type.Hit;
                             break;
                         case "c":
-                            dan.Type = DTXMania.Dan_C.ExamType.Combo;
+                            examType = Exam.Type.Combo;
                             break;
                         default:
-                            dan.Type = DTXMania.Dan_C.ExamType.Gauge;
+                            examType = Exam.Type.Gauge;
                             break;
                     }
                     try
                     {
-                        dan.Value = new int[] { int.Parse(splitExam[1]), int.Parse(splitExam[2]) };
+                        examValue = new int[] { int.Parse(splitExam[1]), int.Parse(splitExam[2]) };
                     }
                     catch (Exception)
                     {
-                        dan.Value = new int[] { 100, 100 };
+                        examValue = new int[] { 100, 100 };
                     }
                     switch (splitExam[3])
                     {
                         case "m":
-                            dan.Range = DTXMania.Dan_C.ExamRange.More;
+                            examRange = Exam.Range.More;
                             break;
                         case "l":
-                            dan.Range = DTXMania.Dan_C.ExamRange.Less;
+                            examRange = Exam.Range.Less;
                             break;
                         default:
-                            dan.Range = DTXMania.Dan_C.ExamRange.More;
+                            examRange = Exam.Range.More;
                             break;
                     }
-                    Dan_C[int.Parse(strCommandName.Substring(4)) - 1] = dan;
+                    Dan_C[int.Parse(strCommandName.Substring(4)) - 1] = new Dan_C(examType, examValue, examRange);
                 }
             }
 
