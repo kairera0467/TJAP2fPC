@@ -3827,10 +3827,12 @@ namespace DTXMania
                 {
                     dansongs.Title = new CTexture(CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false);
                     dansongs.Title.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref dansongs.Title, 710);
+                    if (string.IsNullOrEmpty(strArray[0])) dansongs.Title = null;
                 }
                 using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(strArray[1], Color.White, Color.Black))
                 {
                     dansongs.SubTitle = new CTexture(CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false);
+                    if(string.IsNullOrEmpty(strArray[1])) dansongs.SubTitle = null;
                 }
                 dansongs.Genre = strArray[2];
                 dansongs.FileName = strArray[3];

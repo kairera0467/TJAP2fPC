@@ -479,6 +479,7 @@ namespace DTXMania
             DanC_ExamType = TxC(GAME + DANCHALLENGE + @"ExamType.png");
             DanC_ExamRange = TxC(GAME + DANCHALLENGE + @"ExamRange.png");
             DanC_ExamUnit = TxC(GAME + DANCHALLENGE + @"ExamUnit.png");
+            DanC_Screen = TxC(GAME + DANCHALLENGE + @"Screen.png");
             #endregion
             #endregion
 
@@ -795,6 +796,7 @@ namespace DTXMania
             DanC_ExamRange?.Dispose();
             DanC_ExamUnit?.Dispose();
             DanC_ExamType?.Dispose();
+            DanC_Screen?.Dispose();
             #endregion
             #endregion
 
@@ -1001,6 +1003,7 @@ namespace DTXMania
             DanC_ExamType,
             DanC_ExamRange,
             DanC_ExamUnit;
+        public CTexture DanC_Screen;
         #endregion
         #endregion
 
