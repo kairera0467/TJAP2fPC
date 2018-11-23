@@ -36,11 +36,11 @@ namespace TJAPlayer3
         public bool Update(int nowValue)
         {
             var isChangedAmount = false;
-            if (!IsEnable) return isChangedAmount;
-            if (Amount < nowValue) isChangedAmount = true;
-            if (Range == Exam.Range.Less && nowValue > Value[0]) isChangedAmount = false; // n未満でその数を超えたらfalseを返す。
-            Amount = nowValue;
-            switch (Type)
+            if (!GetEnable()) return isChangedAmount;
+            if (GetAmount() < nowValue) isChangedAmount = true;
+            if (GetExamRange() == Exam.Range.Less && nowValue > GetValue(false)) isChangedAmount = false; // n未満でその数を超えたらfalseを返す。
+            SetAmount(nowValue);
+            switch (GetExamType())
             {
                 case Exam.Type.Gauge:
                     SetCleared();
@@ -88,8 +88,8 @@ namespace TJAPlayer3
         /// <param name="goldValue">金合格条件</param>
         public void SetValue(int redValue, int goldValue)
         {
-            this.Value[0] = redValue;
-            this.Value[1] = goldValue;
+            if (redValue != -1) this.Value[0] = redValue;
+            if (goldValue != -1) this.Value[1] = goldValue;
         }
 
         /// <summary>
@@ -165,17 +165,18 @@ namespace TJAPlayer3
             return IsCleared;
         }
 
+
         /// <summary>
         /// 条件と現在の値をチェックして、合格もしくは金合格をしてるか否かを更新する。
         /// </summary>
         private void SetCleared()
         {
-            if (Range == Exam.Range.More)
+            if (GetExamRange() == Exam.Range.More)
             {
-                if (Amount >= Value[0])
+                if (GetAmount() >= GetValue(false))
                 {
                     IsCleared[0] = true;
-                    if (Amount >= Value[1])
+                    if (GetAmount() >= GetValue(true))
                     {
                         IsCleared[1] = true;
                     }
@@ -188,7 +189,7 @@ namespace TJAPlayer3
             }
             else
             {
-                if (Amount < Value[1])
+                if (GetAmount() < GetValue(true))
                 {
                     IsCleared[1] = true;
                 }
@@ -196,7 +197,7 @@ namespace TJAPlayer3
                 {
                     IsCleared[1] = false;
                 }
-                if (Amount < Value[0])
+                if (GetAmount() < GetValue(false))
                 {
                     IsCleared[0] = true;
                 }
@@ -214,13 +215,13 @@ namespace TJAPlayer3
         public int GetAmountToPercent()
         {
             var percent = 0.0D;
-            if(Value[0] == 0)
+            if(GetValue(false) == 0)
             {
                 return 0;
             }
-            if(Range == Exam.Range.More)
+            if(GetExamRange() == Exam.Range.More)
             {
-                switch (Type)
+                switch (GetExamType())
                 {
                     case Exam.Type.Gauge:
                     case Exam.Type.JudgePerfect:
@@ -230,7 +231,7 @@ namespace TJAPlayer3
                     case Exam.Type.Roll:
                     case Exam.Type.Hit:
                     case Exam.Type.Combo:
-                        percent = 1.0 * Amount / Value[0];
+                        percent = 1.0 * GetAmount() / GetValue(false);
                         break;
                     default:
                         break;
@@ -238,7 +239,7 @@ namespace TJAPlayer3
             }
             else
             {
-                switch (Type)
+                switch (GetExamType())
                 {
                     case Exam.Type.Gauge:
                     case Exam.Type.JudgePerfect:
@@ -248,7 +249,7 @@ namespace TJAPlayer3
                     case Exam.Type.Roll:
                     case Exam.Type.Hit:
                     case Exam.Type.Combo:
-                        percent = (1.0 * (Value[0] - Amount)) / Value[0];
+                        percent = (1.0 * (GetValue(false) - GetAmount())) / GetValue(false);
                         break;
                     default:
                         break;
