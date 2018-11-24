@@ -56,6 +56,7 @@ namespace DTXMania
             }
             pfTitle?.Dispose();
             pfSubTitle?.Dispose();
+            Sound_Section?.tサウンドを先頭から再生する();
         }
 
         public override void On活性化()
@@ -88,6 +89,7 @@ namespace DTXMania
         {
             for (int i = 0; i < 3; i++)
             {
+                var oldReached = Challenge[i].GetReached();
                 if (Challenge[i] == null || !Challenge[i].GetEnable()) return;
                 var isChangedAmount = false;
                 switch (Challenge[i].GetExamType())
@@ -192,6 +194,10 @@ namespace DTXMania
                         }
                     }
                 }
+                if(oldReached == false && Challenge[i].GetReached() == true)
+                {
+                    Sound_Failed?.tサウンドを先頭から再生する();
+                }
             }
         }
 
@@ -215,12 +221,16 @@ namespace DTXMania
         public override void OnManagedリソースの作成()
         {
             Dan_Plate = CDTXMania.tテクスチャの生成(Path.GetDirectoryName(CDTXMania.DTX.strファイル名の絶対パス) + @"\Dan_Plate.png");
+            Sound_Section = CDTXMania.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Dan\Section.ogg"), ESoundGroup.SoundEffect);
+            Sound_Failed = CDTXMania.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Dan\Failed.ogg"), ESoundGroup.SoundEffect);
             base.OnManagedリソースの作成();
         }
 
         public override void OnManagedリソースの解放()
         {
             Dan_Plate?.Dispose();
+            Sound_Section?.t解放する();
+            Sound_Failed?.t解放する();
             base.OnManagedリソースの解放();
         }
 
@@ -553,6 +563,10 @@ namespace DTXMania
         private double[] ScreenPoint;
         private int Counter_In_Old, Counter_Out_Old, Counter_Text_Old;
         public bool IsAnimating;
+
+        //音声関連
+        private CSound Sound_Section;
+        private CSound Sound_Failed;
         //-----------------
         #endregion
     }
