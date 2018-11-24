@@ -3796,7 +3796,7 @@ namespace DTXMania
             else if (command == "#NEXTSONG")
             {
                 var delayTime = 6000.0; // 6秒ディレイ
-                CPrivateFastFont pfTitle, pfSubTitle;
+
                 //チップ追加して割り込んでみる。
                 var chip = new CChip();
 
@@ -3814,28 +3814,6 @@ namespace DTXMania
                 strArray = argument.Split(',');
                 WarnSplitLength("#NEXTSONG", strArray, 4);
                 var dansongs = new DanSongs();
-                if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.FontName))
-                {
-                    pfTitle = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 30);
-                    pfSubTitle = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), 22);
-                }
-                else
-                {
-                    pfTitle = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 30);
-                    pfSubTitle = new CPrivateFastFont(new FontFamily("MS UI Gothic"), 22);
-                }
-
-                using (var bmpSongTitle = pfTitle.DrawPrivateFont(strArray[0], Color.White, Color.Black))
-                {
-                    dansongs.TitleTex = new CTexture(CDTXMania.app.Device, bmpSongTitle, CDTXMania.TextureFormat, false);
-                    dansongs.TitleTex.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref dansongs.TitleTex, 710);
-                    if (string.IsNullOrEmpty(strArray[0])) dansongs.TitleTex = null;
-                }
-                using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(strArray[1], Color.White, Color.Black))
-                {
-                    dansongs.SubTitleTex = new CTexture(CDTXMania.app.Device, bmpSongSubTitle, CDTXMania.TextureFormat, false);
-                    if(string.IsNullOrEmpty(strArray[1])) dansongs.SubTitleTex = null;
-                }
                 dansongs.Title = strArray[0];
                 dansongs.SubTitle = strArray[1];
                 dansongs.Genre = strArray[2];

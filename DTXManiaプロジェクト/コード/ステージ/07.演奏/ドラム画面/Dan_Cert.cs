@@ -30,6 +30,32 @@ namespace DTXMania
             ScreenPoint = new double[] { CDTXMania.Skin.nScrollFieldBGX[0] - CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 1280 };
             IsAnimating = true;
             CDTXMania.stage演奏ドラム画面.actPanel.SetPanelString(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title, CDTXMania.DTX.List_DanSongs[NowShowingNumber].Genre, 1 + NowShowingNumber + "曲目");
+            var pfTitle = new CPrivateFont();
+            var pfSubTitle = new CPrivateFont();
+            if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.FontName))
+            {
+                pfTitle = new CPrivateFont(new FontFamily(CDTXMania.ConfigIni.FontName), 30);
+                pfSubTitle = new CPrivateFont(new FontFamily(CDTXMania.ConfigIni.FontName), 22);
+            }
+            else
+            {
+                pfTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 30);
+                pfSubTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 22);
+            }
+
+            using (var bmpSongTitle = pfTitle.DrawPrivateFont(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title, Color.White, Color.Black))
+            {
+                CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex = CDTXMania.tテクスチャの生成(bmpSongTitle, false);
+                CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex, 710);
+                if (string.IsNullOrEmpty(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title)) CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex = null;
+            }
+            using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title, Color.White, Color.Black))
+            {
+                CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = CDTXMania.tテクスチャの生成(bmpSongSubTitle, false);
+                if (string.IsNullOrEmpty(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title)) CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = null;
+            }
+            pfTitle?.Dispose();
+            pfSubTitle?.Dispose();
         }
 
         public override void On活性化()
