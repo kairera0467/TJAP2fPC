@@ -431,7 +431,7 @@ namespace DTXMania
                 if(Counter_In.b終了値に達した)
                 {
                     Counter_In = null;
-                    Counter_Wait = new CCounter(0, 2999, 1, CDTXMania.Timer);
+                    Counter_Wait = new CCounter(0, 2299, 1, CDTXMania.Timer);
                 }
             }
             if (Counter_Wait != null)
@@ -444,7 +444,7 @@ namespace DTXMania
                 {
                     Counter_Wait = null;
                     Counter_Out = new CCounter(0, 499, 1, CDTXMania.Timer);
-                    Counter_Text = new CCounter(0, 2999, 1, CDTXMania.Timer);
+                    Counter_Text = new CCounter(0, 2899, 1, CDTXMania.Timer);
                 }
             }
             if (Counter_Text != null)
@@ -471,8 +471,8 @@ namespace DTXMania
                 {
                     for (int i = Counter_Out_Old; i < Counter_Out.n現在の値; i++)
                     {
-                        ScreenPoint[0] += -2;
-                        ScreenPoint[1] += 2;
+                        ScreenPoint[0] += -3;
+                        ScreenPoint[1] += 3;
                     }
                     Counter_Out_Old = Counter_Out.n現在の値;
                     CDTXMania.Tx.DanC_Screen?.t2D描画(CDTXMania.app.Device, (int)ScreenPoint[0], CDTXMania.Skin.nScrollFieldY[0], new Rectangle(0, 0, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Height));

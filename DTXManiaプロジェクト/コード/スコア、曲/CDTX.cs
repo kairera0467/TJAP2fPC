@@ -3795,7 +3795,7 @@ namespace DTXMania
             }
             else if (command == "#NEXTSONG")
             {
-                var delayTime = 6000.0; // 6秒ディレイ
+                var delayTime = 6200.0; // 6.2秒ディレイ
 
                 //チップ追加して割り込んでみる。
                 var chip = new CChip();
