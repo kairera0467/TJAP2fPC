@@ -3819,10 +3819,35 @@ namespace DTXMania
                 dansongs.SubTitle = strArray[1];
                 dansongs.Genre = strArray[2];
                 dansongs.FileName = strArray[3];
-                dansongs.Wave.strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName);
-                dansongs.Wave.SongVol = this.SongVol;
+                dansongs.Wave = new CWAV
+                {
+                    n内部番号 = this.n内部番号WAV1to,
+                    n表記上の番号 = this.n内部番号WAV1to,
+                    nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
+                    n位置 = this.n無限管理PAN[this.n内部番号WAV1to],
+                    SongVol = this.SongVol,
+                    SongLoudnessMetadata = this.SongLoudnessMetadata,
+                    strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName),
+                    strコメント文 = "TJA BGM"
+                };
                 dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strファイル名);
                 List_DanSongs.Add(dansongs);
+                this.listWAV.Add(this.n内部番号WAV1to, dansongs.Wave);
+                this.n内部番号WAV1to++;
+
+                var nextSongnextSongChip = new CChip();
+
+                nextSongnextSongChip.nチャンネル番号 = 0x01;
+                nextSongnextSongChip.n発声位置 = 384;
+                nextSongnextSongChip.n発声時刻ms = (int)this.dbNowTime;
+                nextSongnextSongChip.n整数値 = 0x01;
+                nextSongnextSongChip.n整数値_内部番号 = 1 + List_DanSongs.Count;
+
+                this.listWAV[1].strファイル名 = "";
+
+                // チップを配置。
+                this.listChip.Add(nextSongnextSongChip);
+
             }
         }
 

@@ -494,7 +494,6 @@ namespace DTXMania
                     Counter_Out = null;
                 }
             }
-
             return base.On進行描画();
         }
 
