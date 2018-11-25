@@ -756,6 +756,7 @@ namespace DTXMania
             public string FileName;
             public string Genre;
             public static int Number;
+            public CWAV Wave;
 
             public DanSongs()
             {
@@ -3818,6 +3819,9 @@ namespace DTXMania
                 dansongs.SubTitle = strArray[1];
                 dansongs.Genre = strArray[2];
                 dansongs.FileName = strArray[3];
+                dansongs.Wave.strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName);
+                dansongs.Wave.SongVol = this.SongVol;
+                dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strファイル名);
                 List_DanSongs.Add(dansongs);
             }
         }

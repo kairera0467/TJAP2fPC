@@ -89,8 +89,8 @@ namespace DTXMania
         {
             for (int i = 0; i < 3; i++)
             {
-                var oldReached = Challenge[i].GetReached();
                 if (Challenge[i] == null || !Challenge[i].GetEnable()) return;
+                var oldReached = Challenge[i].GetReached();
                 var isChangedAmount = false;
                 switch (Challenge[i].GetExamType())
                 {
