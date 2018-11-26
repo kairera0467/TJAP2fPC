@@ -461,6 +461,7 @@ namespace DTXMania
                     this.t進行描画_チップ_連打( E楽器パート.DRUMS, i );
                 }
 
+                this.actDan.On進行描画();
 
                 this.actMtaiko.On進行描画();
                 //if (this.txNamePlate != null)
@@ -502,7 +503,6 @@ namespace DTXMania
                 actChara.OnDraw_Balloon();
                 this.t全体制御メソッド();
 
-                this.actDan.On進行描画();
                 
                 this.actPauseMenu.t進行描画();
                 //this.actEnd.On進行描画();
