@@ -49,10 +49,10 @@ namespace DTXMania
                 CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex, 710);
                 if (string.IsNullOrEmpty(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title)) CDTXMania.DTX.List_DanSongs[NowShowingNumber].TitleTex = null;
             }
-            using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title, Color.White, Color.Black))
+            using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitle, Color.White, Color.Black))
             {
                 CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = CDTXMania.tテクスチャの生成(bmpSongSubTitle, false);
-                if (string.IsNullOrEmpty(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title)) CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = null;
+                if (string.IsNullOrEmpty(CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitle)) CDTXMania.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = null;
             }
             pfTitle?.Dispose();
             pfSubTitle?.Dispose();
