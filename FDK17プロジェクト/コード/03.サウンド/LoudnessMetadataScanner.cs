@@ -77,9 +77,12 @@ namespace FDK
 
             Trace.TraceInformation($"{tracePrefix}: Stopping background scanning thread...");
 
-            ScanningThread = null;
-            Semaphore.Release();
-            Semaphore = null;
+            lock (LockObject)
+            {
+                ScanningThread = null;
+                Semaphore.Release();
+                Semaphore = null;
+            }
 
             if (joinImmediately)
             {
@@ -174,10 +177,11 @@ namespace FDK
                 // because we want to re-submit jobs as the user interacts with their data, usually by
                 // scrolling through songs and previewing them. Their current interests should drive
                 // scanning priorities, and it is for this reason that a stack is used instead of a queue.
-                if (Jobs.Count == 0 || Jobs.Peek() != absoluteBgmPath)
+                var semaphore = Semaphore;
+                if (semaphore != null && (Jobs.Count == 0 || Jobs.Peek() != absoluteBgmPath))
                 {
                     Jobs.Push(absoluteBgmPath);
-                    Semaphore.Release();
+                    semaphore.Release();
                 }
             }
         }
