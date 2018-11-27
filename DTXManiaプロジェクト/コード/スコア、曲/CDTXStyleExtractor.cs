@@ -46,10 +46,10 @@ namespace DTXMania
         private const string SheetStartPrefixRegexPattern = @"^#START";
 
         private static readonly string StyleSingleSectionRegexMatchPattern =
-            $"{StylePrefixRegexPattern}Single";
+            $"{StylePrefixRegexPattern}(?:Single|1)";
 
         private static readonly string StyleDoubleSectionRegexMatchPattern =
-            $"{StylePrefixRegexPattern}(?:Double|Couple)";
+            $"{StylePrefixRegexPattern}(?:Double|Couple|2)";
 
         private static readonly string StyleUnrecognizedSectionRegexMatchPattern =
             $"{StylePrefixRegexPattern}";

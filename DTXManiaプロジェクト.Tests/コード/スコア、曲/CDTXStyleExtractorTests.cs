@@ -15,6 +15,9 @@ namespace DTXMania.Tests
             [Values(
                 "205 example",
                 "205 example but with duplicate sheets",
+                "expected case 1 and 2",
+                "expected case 1 only",
+                "expected case 2 only",
                 "expected case couple only",
                 "expected case double only",
                 "expected case double only but with duplicate sheets",
