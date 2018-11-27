@@ -190,7 +190,7 @@ namespace DTXMania
 			this.bフィルイン中 = false;
             this.n待機中の大音符の座標 = 0;
             this.actGame.t叩ききりまショー_初期化();
-            base.tスコアの初期化();
+            base.ReSetScore(CDTXMania.DTX.nScoreInit[0, CDTXMania.stage選曲.n確定された曲の難易度], CDTXMania.DTX.nScoreDiff[CDTXMania.stage選曲.n確定された曲の難易度]);
 			base.On活性化();
 
 			// MODIFY_BEGIN #25398 2011.06.07 FROM

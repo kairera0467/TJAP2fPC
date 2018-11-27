@@ -4104,7 +4104,7 @@ namespace DTXMania
                 this.actComboVoice.tリセット();
             }
 
-            this.tスコアの初期化();
+            this.ReSetScore(CDTXMania.DTX.nScoreInit[0, CDTXMania.stage選曲.n確定された曲の難易度], CDTXMania.DTX.nScoreDiff[CDTXMania.stage選曲.n確定された曲の難易度]);
             this.nHand = new int[]{ 0, 0, 0, 0 };
         }
 
@@ -4497,11 +4497,11 @@ namespace DTXMania
             }
 		}
 
-        protected void tスコアの初期化()
+        public void ReSetScore(int scoreInit, int scoreDiff)
         {
             //一打目の処理落ちがひどいので、あらかじめここで点数の計算をしておく。
-            int nInit = CDTXMania.DTX.nScoreInit[ 0, CDTXMania.stage選曲.n確定された曲の難易度 ];
-            int nDiff = CDTXMania.DTX.nScoreDiff[ CDTXMania.stage選曲.n確定された曲の難易度 ];
+            int nInit = scoreInit;
+            int nDiff = scoreDiff;
             int nAddScore = 0;
             int[] n倍率 = { 0, 1, 2, 4, 8 };
 
