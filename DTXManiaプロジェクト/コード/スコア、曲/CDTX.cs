@@ -755,6 +755,8 @@ namespace DTXMania
             public string SubTitle;
             public string FileName;
             public string Genre;
+            public int ScoreInit;
+            public int ScoreDiff;
             public static int Number;
             public CWAV Wave;
 
@@ -3819,6 +3821,8 @@ namespace DTXMania
                 dansongs.SubTitle = strArray[1];
                 dansongs.Genre = strArray[2];
                 dansongs.FileName = strArray[3];
+                dansongs.ScoreInit = int.Parse(strArray[4]);
+                dansongs.ScoreDiff = int.Parse(strArray[5]);
                 dansongs.Wave = new CWAV
                 {
                     n内部番号 = this.n内部番号WAV1to,

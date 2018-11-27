@@ -4500,8 +4500,9 @@ namespace DTXMania
         public void ReSetScore(int scoreInit, int scoreDiff)
         {
             //一打目の処理落ちがひどいので、あらかじめここで点数の計算をしておく。
-            int nInit = scoreInit;
-            int nDiff = scoreDiff;
+            // -1だった場合、その前を引き継ぐ。
+            int nInit = scoreInit != -1 ? scoreInit : this.nScore[0];
+            int nDiff = scoreDiff != -1 ? scoreDiff : this.nScore[1] - this.nScore[0];
             int nAddScore = 0;
             int[] n倍率 = { 0, 1, 2, 4, 8 };
 

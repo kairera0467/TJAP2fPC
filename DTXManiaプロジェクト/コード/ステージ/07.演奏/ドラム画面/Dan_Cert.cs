@@ -28,6 +28,7 @@ namespace DTXMania
             NowShowingNumber = number;
             Counter_In = new CCounter(0, 999, 1, CDTXMania.Timer);
             ScreenPoint = new double[] { CDTXMania.Skin.nScrollFieldBGX[0] - CDTXMania.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 1280 };
+            CDTXMania.stage演奏ドラム画面.ReSetScore(CDTXMania.DTX.List_DanSongs[NowShowingNumber].ScoreInit, CDTXMania.DTX.List_DanSongs[NowShowingNumber].ScoreDiff);
             IsAnimating = true;
             CDTXMania.stage演奏ドラム画面.actPanel.SetPanelString(CDTXMania.DTX.List_DanSongs[NowShowingNumber].Title, CDTXMania.DTX.List_DanSongs[NowShowingNumber].Genre, 1 + NowShowingNumber + "曲目");
             var pfTitle = new CPrivateFont();
