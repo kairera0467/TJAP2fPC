@@ -33,6 +33,7 @@ namespace DTXMania.Tests
                 "mixed case double only",
                 "mixed case single and double",
                 "mixed case single only",
+                "no course",
                 "no style",
                 "no style but with duplicate sheets",
                 "trailing characters double only",

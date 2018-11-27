@@ -213,7 +213,7 @@ namespace DTXMania
             //入力された譜面がnullでないかチェック。
             if (string.IsNullOrEmpty(strTJA))
             {
-                TraceError("is returning false early due to null or empty strTJA.");
+                TraceError("is returning its input value early due to null or empty strTJA.");
                 return strTJA;
             }
 
@@ -238,7 +238,16 @@ namespace DTXMania
             RankSheets(seqNo, sections);
 
             // 4. Determine the best-ranked sheet
-            var bestRank = GetBestRank(sections);
+            int bestRank;
+            try
+            {
+                bestRank = GetBestRank(sections);
+            }
+            catch (Exception)
+            {
+                TraceError("is returning its input value early due to an inability to determine the best rank. This can occur if a course contains no #START.");
+                return strTJA;
+            }
 
             // 5. Remove sheets other than the best-ranked
             RemoveSheetsOtherThanTheBestRanked(sections, bestRank);
