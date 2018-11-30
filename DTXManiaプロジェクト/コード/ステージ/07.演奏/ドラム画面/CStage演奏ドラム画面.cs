@@ -433,7 +433,7 @@ namespace DTXMania
 
 
                 if( !CDTXMania.ConfigIni.bNoInfo )
-                    this.t進行描画_判定文字列1_通常位置指定の場合();
+                    this.t進行描画_判定文字列();
 
                 this.t進行描画_演奏情報();
                 this.actPanel.t歌詞テクスチャを描画する();
@@ -563,15 +563,6 @@ namespace DTXMania
             if( pChip.nコース == this.n現在のコース[ 0 ] && ( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 )  && eJudgeResult != E判定.Auto )
                 this.actGame.t叩ききりまショー_判定から各数値を増加させる( eJudgeResult, (int)( nHitTime - pChip.n発声時刻ms ) );
 			return eJudgeResult;
-		}
-
-		protected override void tチップのヒット処理_BadならびにTight時のMiss( E楽器パート part )
-		{
-			this.tチップのヒット処理_BadならびにTight時のMiss( part, 0, E楽器パート.DRUMS );
-		}
-		protected override void tチップのヒット処理_BadならびにTight時のMiss( E楽器パート part, int nLane )
-		{
-			this.tチップのヒット処理_BadならびにTight時のMiss( part, nLane, E楽器パート.DRUMS );
 		}
 
         private bool tドラムヒット処理( long nHitTime, Eパッド type, CDTX.CChip pChip, int n強弱度合い0to127)
@@ -1145,10 +1136,10 @@ namespace DTXMania
 					#endregion
 					#region [ (B) ヒットしてなかった場合は、レーンフラッシュ、パッドアニメ、空打ち音再生を実行 ]
 					//-----------------------------
-					int pad = nPad;	// 以下、nPad の代わりに pad を用いる。（成りすまし用）
-					// BAD or TIGHT 時の処理。
-					if( CDTXMania.ConfigIni.bTight )
-						this.tチップのヒット処理_BadならびにTight時のMiss( E楽器パート.DRUMS, 0, E楽器パート.TAIKO );
+					int pad = nPad; // 以下、nPad の代わりに pad を用いる。（成りすまし用）
+                                    // BAD or TIGHT 時の処理。
+                    if( CDTXMania.ConfigIni.bTight )
+                        this.tチップのヒット処理_BadならびにTight時のMiss( E判定.Bad, nUsePlayer );
 					//-----------------------------
 					#endregion
 				}
@@ -2213,15 +2204,16 @@ namespace DTXMania
                 if( this.tx判定数表示パネル != null )
                     this.tx判定数表示パネル.t2D描画( CDTXMania.app.Device, 0, 360 );
 
-                this.t小文字表示( 102, 494, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない.Drums.Perfect.ToString() ), false );
-                this.t小文字表示( 102, 532, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない.Drums.Great.ToString() ), false );
-                this.t小文字表示( 102, 570, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない.Drums.Miss.ToString() ), false );
+                // Tight時の空打ち不可の判定を加算すると割合の計算がおかしくなるためここには加算しない。
+                this.t小文字表示( 102, 494, string.Format( "{0,4:###0}", this.nヒット数[ 0 ].良.ToString() ), false );
+                this.t小文字表示( 102, 532, string.Format( "{0,4:###0}", this.nヒット数[ 0 ].可.ToString() ), false );
+                this.t小文字表示( 102, 570, string.Format( "{0,4:###0}", (this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].見逃し不可).ToString() ), false );
 
-                int nNowTotal = this.nヒット数_Auto含まない.Drums.Perfect + this.nヒット数_Auto含まない.Drums.Great + this.nヒット数_Auto含まない.Drums.Miss;
-                double dbたたけた率 = Math.Round((100.0 * ( CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great)) / (double)nNowTotal);
-                double dbPERFECT率 = Math.Round((100.0 * CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) / (double)nNowTotal);
-                double dbGREAT率 = Math.Round((100.0 * CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great / (double)nNowTotal));
-                double dbMISS率 = Math.Round((100.0 * CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss / (double)nNowTotal));
+                int nNowTotal = this.nヒット数[ 0 ].良 + this.nヒット数[ 0 ].可 + this.nヒット数[ 0 ].不可;
+                double dbたたけた率 = Math.Round((100.0 * ( this.nヒット数[ 0 ].良 + this.nヒット数[ 0 ].可)) / (double)nNowTotal);
+                double dbPERFECT率 = Math.Round((100.0 * this.nヒット数[ 0 ].良) / (double)nNowTotal);
+                double dbGREAT率 = Math.Round((100.0 * this.nヒット数[ 0 ].可 / (double)nNowTotal));
+                double dbMISS率 = Math.Round((100.0 * this.nヒット数[ 0 ].不可 / (double)nNowTotal));
 
                 if (double.IsNaN(dbたたけた率))
                     dbたたけた率 = 0;

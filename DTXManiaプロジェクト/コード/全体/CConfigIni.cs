@@ -719,9 +719,6 @@ namespace DTXMania
         
         public Eゲージモード eGaugeMode; //2018.03.26 kairera0467
 
-		public STDGBVALUE<E判定文字表示位置> 判定文字表示位置;
-//		public int nハイハット切り捨て下限Velocity;
-//		public int n切り捨て下限Velocity;			// #23857 2010.12.12 yyagi VelocityMin
 		public STDGBVALUE<int> nInputAdjustTimeMs;	// #23580 2011.1.3 yyagi タイミングアジャスト機能
 		public STDGBVALUE<int> nJudgeLinePosOffset;	// #31602 2013.6.23 yyagi 判定ライン表示位置のオフセット
 		public int	nShowLagType;					// #25370 2011.6.5 yyagi ズレ時間表示機能
@@ -1242,7 +1239,6 @@ namespace DTXMania
 			this.bLight = new STDGBVALUE<bool>();
 			this.bLeft = new STDGBVALUE<bool>();
 			this.e判定位置 = new STDGBVALUE<E判定位置>();		// #33891 2014.6.26 yyagi
-			this.判定文字表示位置 = new STDGBVALUE<E判定文字表示位置>();
 			this.n譜面スクロール速度 = new STDGBVALUE<int>();
 			this.nInputAdjustTimeMs = new STDGBVALUE<int>();	// #23580 2011.1.3 yyagi
 			this.nJudgeLinePosOffset = new STDGBVALUE<int>();	// #31602 2013.6.23 yyagi
@@ -1256,7 +1252,6 @@ namespace DTXMania
 				this.eRandom[ i ] = Eランダムモード.OFF;
 				this.bLight[ i ] = false;
 				this.bLeft[ i ] = false;
-				this.判定文字表示位置[ i ] = E判定文字表示位置.レーン上;
 				this.n譜面スクロール速度[ i ] = 1;
 				this.nInputAdjustTimeMs[ i ] = 0;
 				this.nJudgeLinePosOffset[ i ] = 0;
@@ -2768,18 +2763,6 @@ namespace DTXMania
 											else if( str3.Equals( "BassLeft" ) )
 											{
 												this.bLeft.Bass = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if( str3.Equals( "DrumsPosition" ) )
-											{
-												this.判定文字表示位置.Drums = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.判定文字表示位置.Drums );
-											}
-											else if( str3.Equals( "GuitarPosition" ) )
-											{
-												this.判定文字表示位置.Guitar = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.判定文字表示位置.Guitar );
-											}
-											else if( str3.Equals( "BassPosition" ) )
-											{
-												this.判定文字表示位置.Bass = (E判定文字表示位置) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.判定文字表示位置.Bass );
 											}
 											else if( str3.Equals( "DrumsScrollSpeed" ) )
 											{

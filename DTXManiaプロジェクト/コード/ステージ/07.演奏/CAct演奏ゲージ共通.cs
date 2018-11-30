@@ -471,6 +471,11 @@ namespace DTXMania
         {
         }
 
+        public virtual void Stop( int player )
+        {
+
+        }
+
 		//-----------------
 		#endregion
 

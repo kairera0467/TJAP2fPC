@@ -314,6 +314,7 @@ Twitter:@kairera0467
 ・IPAフォント
 ・libogg
 ・libvorbis
+・SQLite
 
 各ライブラリの著作権表記は「License」フォルダに収録しています。
 

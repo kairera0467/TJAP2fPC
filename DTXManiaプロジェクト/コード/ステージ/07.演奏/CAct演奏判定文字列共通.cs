@@ -85,31 +85,27 @@ namespace DTXMania
                 return;
             }
 
-			if( ( (E判定文字表示位置) CDTXMania.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.表示OFF )
-			{
-                for( int i = 0; i < 1; i++ )
-                {
-                    for( int j = 0; j < 12; j++ )
-                    {
-                        if( this.st状態[ j ].b使用中 == false )
-                        {
-				            this.st状態[ j ].ct進行 = new CCounter( 0, 300, 1, CDTXMania.Timer );
-                            this.st状態[ j ].b使用中 = true;
-        				    this.st状態[ j ].judge = judge;
-    		        		this.st状態[ j ].fX方向拡大率 = 1f;
-	    			        this.st状態[ j ].fY方向拡大率 = 1f;
-            				this.st状態[ j ].n相対X座標 = 0;
-		            		this.st状態[ j ].n相対Y座標 = 0;
-				            this.st状態[ j ].n透明度 = 0xff;
-				            this.st状態[ j ].nLag = lag;
-                            this.st状態[ j ].nPlayer = player;
-                            break;
-                        }
 
+            for( int i = 0; i < 1; i++ )
+            {
+                for( int j = 0; j < 12; j++ )
+                {
+                    if( this.st状態[ j ].b使用中 == false )
+                    {
+				        this.st状態[ j ].ct進行 = new CCounter( 0, 300, 1, CDTXMania.Timer );
+                        this.st状態[ j ].b使用中 = true;
+        				this.st状態[ j ].judge = judge;
+    		        	this.st状態[ j ].fX方向拡大率 = 1f;
+	    			    this.st状態[ j ].fY方向拡大率 = 1f;
+            			this.st状態[ j ].n相対X座標 = 0;
+		            	this.st状態[ j ].n相対Y座標 = 0;
+				        this.st状態[ j ].n透明度 = 0xff;
+				        this.st状態[ j ].nLag = lag;
+                        this.st状態[ j ].nPlayer = player;
+                        break;
                     }
                 }
-
-			}
+            }
 		}
 
 

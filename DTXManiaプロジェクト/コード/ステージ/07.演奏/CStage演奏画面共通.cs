@@ -264,6 +264,7 @@ namespace DTXMania
             this.n風船打数合計 = new int[]{ 0, 0, 0, 0 };
             this.n風船結果合計 = new int[]{ 0, 0, 0, 0 };
             this.n分岐した回数 = new int[ 4 ];
+            this.nヒット数 = new ST判定カウント[ 4 ];
             this.n表示した歌詞 = 0;
             this.nJPOSSCROLL = new int[ 4 ];
             this.bLEVELHOLD = new bool[]{ false, false, false, false };
@@ -555,6 +556,79 @@ namespace DTXMania
 			}
 		}
 
+        /// <summary>
+        /// 2018.11.11 kairera0467
+        /// 太鼓用の判定構造体
+        /// </summary>
+        protected struct ST判定カウント
+        {
+			public int 良;
+			public int 可;
+			public int 不可;
+			//public int 優;
+            public int 見逃し不可;
+			public int 空打ち不可; // Tightモード用
+
+			// Properties
+			public int this[ int index ]
+			{
+				get
+				{
+					switch ( index )
+					{
+						case 0:
+							return this.良;
+
+						case 1:
+							return this.可;
+
+						case 2:
+							return this.不可;
+
+//						case 3:
+//							return this.優;
+
+						case 4:
+							return this.見逃し不可;
+
+                        case 5:
+                            return this.空打ち不可;
+					}
+					throw new IndexOutOfRangeException();
+				}
+				set
+				{
+					switch ( index )
+					{
+						case 0:
+							this.良 = value;
+							return;
+
+						case 1:
+							this.可 = value;
+							return;
+
+						case 2:
+							this.不可 = value;
+							return;
+
+//						case 3:
+//							this.優 = value;
+//							return;
+
+						case 4:
+							this.見逃し不可 = value;
+							return;
+
+                        case 5:
+                            this.空打ち不可 = value;
+                            return;
+					}
+					throw new IndexOutOfRangeException();
+				}
+			}
+        }
+
 		protected struct stmixer
 		{
 			internal bool bIsAdd;
@@ -609,6 +683,7 @@ namespace DTXMania
         protected readonly int[] nパッド0Atoレーン07 = new int[] { 1, 2, 3, 4, 5, 6, 7, 1, 9, 0, 8, 8 };
 		public STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含まない;
 		protected STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含む;
+        protected ST判定カウント[] nヒット数; // 2018.11.11 kairera0467 太鼓用判定カウント
 		protected int n現在のトップChip = -1;
 		protected int[] n最後に再生したBGMの実WAV番号 = new int[ 50 ];
 		protected int n最後に再生したHHのチャンネル番号;
@@ -923,10 +998,6 @@ namespace DTXMania
 			return nearestChip_Future;
 		}
 
-        protected CDTX.CChip r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( long nTime, int nChannel, int nInputAdjustTime )
-        {
-            return this.r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( nTime, nChannel, nInputAdjustTime, 0 );
-        }
 		protected CDTX.CChip r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
 		{
 //			sw2.Start();
@@ -1178,9 +1249,6 @@ namespace DTXMania
                 this.n風船残り[ player ]--;
                 this.n風船結果合計[ player ]++;
 
-                //分岐のための処理。実装してない。
-
-                //赤か青かの分岐
                 if( pChip.nBalloon == pChip.nRollCount )
                 {
                     //ﾊﾟｧｰﾝ
@@ -1265,136 +1333,136 @@ namespace DTXMania
                 //連打が短すぎると発声されない
                 int nInputAdjustTime = bPChipIsAutoPlay ? 0 : this.nInputAdjustTimeMs.Taiko;
 			    eJudgeResult = (bCorrectLane)? this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip, nInputAdjustTime ) : E判定.Miss;
-                if( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
+                switch( pChip.nチャンネル番号 )
                 {
-                    #region[ 連打 ]
-                    //---------------------------
-                    this.b連打中[ nPlayer ] = true;
-                    if( bAutoPlay )
-                    {
-                        if( CDTXMania.ConfigIni.bAuto先生の連打 )
+                    case 0x15:
+                    case 0x16:
+                        #region[ 連打 ]
+                        //---------------------------
+                        this.b連打中[ nPlayer ] = true;
+                        if( bAutoPlay )
                         {
-                            if( CSound管理.rc演奏用タイマ.n現在時刻ms > ( pChip.n発声時刻ms + ( 1000.0 / 15.0 ) * pChip.nRollCount ) )
+                            if( CDTXMania.ConfigIni.bAuto先生の連打 )
                             {
-                                if( this.nHand[ nPlayer ] == 0 )
-                                    this.nHand[ nPlayer ]++;
-                                else
-                                    this.nHand[ nPlayer ] = 0;
+                                if( CSound管理.rc演奏用タイマ.n現在時刻ms > ( pChip.n発声時刻ms + ( 1000.0 / 15.0 ) * pChip.nRollCount ) )
+                                {
+                                    if( this.nHand[ nPlayer ] == 0 )
+                                        this.nHand[ nPlayer ]++;
+                                    else
+                                        this.nHand[ nPlayer ] = 0;
                                         
-                                CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
+                                    CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
+                                    CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
+                                    CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
 
-                                this.tRollProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, 1, 0, 0, nPlayer );
+                                    this.tRollProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, 1, 0, 0, nPlayer );
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        this.eRollState = E連打State.roll;
-                        this.tRollProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, 1, nNowInput, 0, nPlayer );
-                    }
-                    //---------------------------
-                    #endregion
-                }
-                else if( pChip.nチャンネル番号 == 0x17 )
-                {
-                    #region[ 風船 ]
-                    this.b連打中[ nPlayer ] = true;
-                    this.actChara.b風船連打中 = true;
+                        else
+                        {
+                            this.eRollState = E連打State.roll;
+                            this.tRollProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, 1, nNowInput, 0, nPlayer );
+                        }
+                        //---------------------------
+                        #endregion
+                        break;
+
+                    case 0x17:
+                        #region[ 風船 ]
+                        this.b連打中[ nPlayer ] = true;
+                        this.actChara.b風船連打中 = true;
                             
-                    if( bAutoPlay )
-                    {
-                        if( pChip.nBalloon != 0 )
+                        if( bAutoPlay )
                         {
-                            if( CSound管理.rc演奏用タイマ.n現在時刻ms > ( pChip.n発声時刻ms + ( ( pChip.nノーツ終了時刻ms - pChip.n発声時刻ms ) / pChip.nBalloon ) * pChip.nRollCount ) )
+                            if( pChip.nBalloon != 0 )
                             {
-                                if( this.nHand[ nPlayer ] == 0 )
-                                    this.nHand[ nPlayer ]++;
-                                else
-                                    this.nHand[ nPlayer ] = 0;
+                                if( CSound管理.rc演奏用タイマ.n現在時刻ms > ( pChip.n発声時刻ms + ( ( pChip.nノーツ終了時刻ms - pChip.n発声時刻ms ) / pChip.nBalloon ) * pChip.nRollCount ) )
+                                {
+                                    if( this.nHand[ nPlayer ] == 0 )
+                                        this.nHand[ nPlayer ]++;
+                                    else
+                                        this.nHand[ nPlayer ] = 0;
 
-                                CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
+                                    CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
+                                    CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
-                                this.tBalloonProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, nPlayer );
+                                    this.tBalloonProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, nPlayer );
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        this.tBalloonProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, nPlayer );
-                    }
-                    #endregion
-                }
-                else if( pChip.nチャンネル番号 == 0x18 )
-                {
-                    #region[ 連打終わり ]
-                    if( pChip.nノーツ終了時刻ms <= CSound管理.rc演奏用タイマ.n現在時刻ms )
-                    {
-                        this.b連打中[ nPlayer ] = false;
-                        //this.actChara.b風船連打中 = false;
-                        pChip.bHit = true;
-                    }
-                    #endregion
-                }
-                else if( pChip.nチャンネル番号 == 0x1F )
-                {
-                    #region[ AD-LIB ]
-                    if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
-                    {
-	    			    this.actJudgeString.Start( 0, E判定.Bad, pChip.nLag, pChip, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( 0x11, eJudgeResult, true, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0x11, eJudgeResult, nPlayer );
-                    }
-                    #endregion
-                }
-                else
-                {
-                    #region[ 通常音符 ]
-                    if( eJudgeResult != E判定.Miss )
-                    {
-                        pChip.bShow = false;
-                        if( eJudgeResult != E判定.Auto )
+                        else
                         {
-				            this.actJudgeString.Start( 0, bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
-                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true, nPlayer );
-                            CDTXMania.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult, nPlayer );
-                            if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
+                            this.tBalloonProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, nPlayer );
+                        }
+                        #endregion
+                        break;
+
+                    case 0x18:
+                        #region[ 連打終わり ]
+                        if( pChip.nノーツ終了時刻ms <= CSound管理.rc演奏用タイマ.n現在時刻ms )
+                        {
+                            this.b連打中[ nPlayer ] = false;
+                            pChip.bHit = true;
+                        }
+                        #endregion
+                        break;
+
+                    case 0x1F:
+                        #region[ AD-LIB ]
+                        if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
+                        {
+	    			        this.actJudgeString.Start( 0, E判定.Bad, pChip.nLag, pChip, nPlayer );
+                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( 0x11, eJudgeResult, true, nPlayer );
+                            CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0x11, eJudgeResult, nPlayer );
+                        }
+                        #endregion
+                        break;
+
+                    default:
+                        #region[ 通常音符 ]
+                        if( eJudgeResult != E判定.Miss )
+                        {
+                            pChip.bShow = false;
+                            if( eJudgeResult != E判定.Auto )
                             {
-                                if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
-                                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
-                                else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
-                                    CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
+				                this.actJudgeString.Start( 0, bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
+                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true, nPlayer );
+                                CDTXMania.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult, nPlayer );
+                                if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
+                                {
+                                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
+                                        CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
+                                    else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
+                                        CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
+                                }
                             }
                         }
-                    }
 
-                    if ( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
-                    {
-				        //this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
-                    }
-
-                    if( pChip.nコース == this.n現在のコース[ nPlayer ] )
-                    {
-				        actGauge.Damage( screenmode, pChip.e楽器パート, eJudgeResult, nPlayer );
-                    }
-
-                    if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
-                    {
-                        if( actGauge.db現在のゲージ値[ 0 ] < 80.0 )
+                        if ( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
                         {
-                            CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
-                            CDTXMania.stage演奏ドラム画面.actBackground.t下背景FadeIn();
+				            //this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
                         }
-                    }
-                    #endregion
+
+                        if( pChip.nコース == this.n現在のコース[ nPlayer ] )
+                        {
+				            actGauge.Damage( screenmode, pChip.e楽器パート, eJudgeResult, nPlayer );
+                        }
+
+                        if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
+                        {
+                            if( actGauge.db現在のゲージ値[ 0 ] < 80.0 )
+                            {
+                                CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
+                                CDTXMania.stage演奏ドラム画面.actBackground.t下背景FadeIn();
+                            }
+                        }
+                        #endregion
+                        break;
                 }
 			}
 
-
-            
 			if ( eJudgeResult == E判定.Poor || eJudgeResult == E判定.Miss || eJudgeResult == E判定.Bad )
 			{
 				cInvisibleChip.ShowChipTemporally( pChip.e楽器パート );
@@ -1402,95 +1470,57 @@ namespace DTXMania
 			switch ( pChip.e楽器パート )
 			{
                 case E楽器パート.TAIKO:
-                    if( !bAutoPlay )
-                    {
-                        #region[ 非オートプレイ時 ]
-                        if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x18 )
-                            break;
+                    #region[ 非オートプレイ時 ]
+                    if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x18 )
+                        break;
 
-					    switch ( eJudgeResult )
-					    {
-                            case E判定.Perfect:
-                                {
-                                    this.nBranch_Perfect[ nPlayer ]++;
-                                    if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Perfect++;
-                                    this.actCombo.n現在のコンボ数[ nPlayer ]++;
-                                    this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
-                                    this.bMiss中[ nPlayer ] = false;
-                                }
-                                break;
-                            case E判定.Great:
-                            case E判定.Good:
-                                {
-                                    this.nBranch_Good[ nPlayer ]++;
-                                    if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Great++;
-                                    this.actCombo.n現在のコンボ数[ nPlayer ]++;
-                                    this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
-                                    this.bMiss中[ nPlayer ] = false;
-                                }
-                                break;
-                            case E判定.Poor:
-		    				case E判定.Miss:
-			    			case E判定.Bad:
-                                {
-                                    if( pChip.nチャンネル番号 == 0x1F )
-                                        break;
-                                    this.nBranch_Miss[ nPlayer ]++;
-                                    if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Miss++;
-                                    this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
-                                    this.actComboVoice.tリセット();
-                                    if( this.bMiss中[ nPlayer ] == false )
-                                    {
-                                        this.bMiss中[ nPlayer ] = true;
-                                        CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
-                                    }
-                                }
-			    				break;
-				    		default:
-					    		this.nヒット数_Auto含む.Drums[ (int) eJudgeResult ]++;
-		    					break;
-			    		}
-                        #endregion
-                    }
-					else
+					switch ( eJudgeResult )
 					{
-                        #region[ オートプレイ時 ]
-                        switch ( eJudgeResult )
-						{
-                            case E判定.Perfect:
-                            case E判定.Great:
-                            case E判定.Good:
+                        case E判定.Perfect:
+                            {
+                                this.nBranch_Perfect[ nPlayer ]++;
+                                if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Perfect++;
+                                this.nヒット数[ nPlayer ].良++;
+                                this.actCombo.n現在のコンボ数[ nPlayer ]++;
+                                this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
+                                this.bMiss中[ nPlayer ] = false;
+                            }
+                            break;
+                        case E判定.Great:
+                        case E判定.Good:
+                            {
+                                this.nBranch_Good[ nPlayer ]++;
+                                if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Great++;
+                                this.nヒット数[ nPlayer ].可++;
+                                this.actCombo.n現在のコンボ数[ nPlayer ]++;
+                                this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
+                                this.bMiss中[ nPlayer ] = false;
+                            }
+                            break;
+                        case E判定.Poor:
+		    			case E判定.Miss:
+			    		case E判定.Bad:
+                            {
+                                if( pChip.nチャンネル番号 == 0x1F )
+                                    break;
+                                this.nBranch_Miss[ nPlayer ]++;
+                                if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Miss++;
+                                this.tチップのヒット処理_BadならびにTight時のMiss( eJudgeResult, nPlayer );
+                                this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
+                                this.actComboVoice.tリセット();
+                                if( this.bMiss中[ nPlayer ] == false )
                                 {
-                                    if( pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 )
-                                    {
-                                        this.nBranch_Perfect[ nPlayer ]++;
-                                        if( nPlayer == 0 ) this.nヒット数_Auto含む.Drums.Perfect++;
-                                        this.actCombo.n現在のコンボ数[ nPlayer ]++;
-                                        //this.actCombo.ctコンボ加算.t進行();
-                                        this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
-                                        this.bMiss中[ nPlayer ] = false;
-                                    }
+                                    this.bMiss中[ nPlayer ] = true;
+                                    CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
                                 }
-                                break;
+                            }
+			    			break;
+				    	default:
+					    	this.nヒット数_Auto含む.Drums[ (int) eJudgeResult ]++;
+		    				break;
+			    	}
+                    #endregion
 
-							default:
-                                {
-                                    if( pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 && pChip.nチャンネル番号 != 0x1F )
-                                    {
-                                        this.nBranch_Miss[ nPlayer ]++;
-								        this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
-                                        this.actComboVoice.tリセット();
-                                        if( this.bMiss中[ nPlayer ] == false )
-                                        {
-                                            this.bMiss中[ nPlayer ] = true;
-                                            CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
-                                        }
-                                    }
-                                }
-								break;
-						}
-                        #endregion
-                    }
                     #region[ コンボ音声 ]
                     if( !( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 < 0x1A ) )
                     {
@@ -1504,208 +1534,193 @@ namespace DTXMania
                     }
                     #endregion
 
+			        if ( ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) ) && !bIsMiss( eJudgeResult ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
+			        {
+				        int nCombos = this.actCombo.n現在のコンボ数[ nPlayer ];
+                        long nInit = CDTXMania.DTX.nScoreInit[ 0, CDTXMania.stage選曲.n確定された曲の難易度 ];
+                        long nDiff = CDTXMania.DTX.nScoreDiff[ CDTXMania.stage選曲.n確定された曲の難易度 ];
+                        long nAddScore = 0;
+
+                        if( CDTXMania.DTX.nScoreModeTmp == 3 )  //2016.07.04 kairera0467 真打モード。
+                        {
+                            nAddScore = CDTXMania.DTX.nScoreInit[ 1, CDTXMania.stage選曲.n確定された曲の難易度 ];
+                            if( nAddScore == 0 )
+                            {
+                                //可の時に0除算をするとエラーが発生するため、それらしい数値を自動算出する。
+                                //メモ
+                                //風船1回
+                                nAddScore = 100;
+                                //( 100万 - ( ( 風船の打数 - 風船音符の数 * 300 ) + ( 風船音符の数 * 5000 ) ) ) / ノーツ数
+                                //(最大コンボ数＋大音符数)×初項＋(風船の総打数－風船数)×300＋風船数×5000
+                                //int nBallonCount = 0;
+                                //int nBallonNoteCount = CDTXMania.DTX.n風船数[ 2 ] + CDTXMania.DTX.n風船数[ 3 ];
+                                //int test = ( 1000000 - ( ( nBallonCount - nBallonNoteCount * 300 ) + ( nBallonNoteCount * 5000 ) ) ) / ( CDTXMania.DTX.nノーツ数[ 2 ] + CDTXMania.DTX.nノーツ数[ 3 ] );
+                            }
+
+                            if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
+                            {
+                                nAddScore = nAddScore / 2;
+                            }
+
+                            if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
+                            {
+                                nAddScore = nAddScore * 2;
+                            }
+                        }
+                        else if( CDTXMania.DTX.nScoreModeTmp == 2 )
+                        {
+                            if( nCombos < 10 )
+                            {
+                                nAddScore = this.nScore[ 0 ];
+                            }
+                            else if( nCombos >= 10 && nCombos <= 29 )
+                            {
+                                nAddScore = this.nScore[ 1 ];
+                            }
+                            else if( nCombos >= 30 && nCombos <= 49 )
+                            {
+                                nAddScore = this.nScore[ 2 ];
+                            }
+                            else if( nCombos >= 50 && nCombos <= 99 )
+                            {
+                                nAddScore = this.nScore[ 3 ];
+                            }
+                            else if (nCombos >= 100)
+                            {
+                                nAddScore = this.nScore[ 4 ];
+                            }
+
+                            if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
+                            {
+                                nAddScore = nAddScore / 2;
+                            }
+
+                            //if( this.bIsGOGOTIME[ nPlayer ] )
+                            if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+                            {
+                                nAddScore = (int)(nAddScore * 1.2f);
+                            }
+
+                            //100コンボ毎のボーナス
+                            if( nCombos % 100 == 0 && nCombos > 99 )
+                            {
+                                this.actScore.BonusAdd( nPlayer );
+                            }
+
+                            nAddScore = (int)( nAddScore / 10 );
+                            nAddScore = (int)( nAddScore * 10 );
+
+                            //大音符のボーナス
+                            if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
+                            {
+                                nAddScore = nAddScore * 2;
+                            }
+                        }
+                        else if( CDTXMania.DTX.nScoreModeTmp == 1 )
+                        {
+                            if (nCombos < 10)
+                            {
+                                nAddScore = this.nScore[ 0 ];
+                            }
+                            else if( nCombos >= 10 && nCombos <= 19 )
+                            {
+                                nAddScore = this.nScore[ 1 ];
+                            }
+                            else if( nCombos >= 20 && nCombos <= 29 )
+                            {
+                                nAddScore = this.nScore[ 2 ];
+                            }
+                            else if( nCombos >= 30 && nCombos <= 39 )
+                            {
+                                nAddScore = this.nScore[ 3 ];
+                            }
+                            else if( nCombos >= 40 && nCombos <= 49 )
+                            {
+                                nAddScore = this.nScore[ 4 ];
+                            }
+                            else if( nCombos >= 50 && nCombos <= 59 )
+                            {
+                                nAddScore = this.nScore[ 5 ];
+                            }
+                            else if( nCombos >= 60 && nCombos <= 69 )
+                            {
+                                nAddScore = this.nScore[ 6 ];
+                            }
+                            else if( nCombos >= 70 && nCombos <= 79 )
+                            {
+                                nAddScore = this.nScore[ 7 ];
+                            }
+                            else if( nCombos >= 80 && nCombos <= 89 )
+                            {
+                                nAddScore = this.nScore[ 8 ];
+                            }
+                            else if( nCombos >= 90 && nCombos <= 99 )
+                            {
+                                nAddScore = this.nScore[ 9 ];
+                            }
+                            else if( nCombos >= 100 )
+                            {
+                                nAddScore = this.nScore[ 10 ];
+                            }
+
+                            if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
+                            {
+                                nAddScore = nAddScore / 2;
+                            }
+
+                            if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+                                nAddScore = (int)( nAddScore * 1.2f );
+
+                            nAddScore = (int)( nAddScore / 10.0 );
+                            nAddScore = (int)( nAddScore * 10 );
+
+                            //大音符のボーナス
+                            if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
+                            {
+                                nAddScore = nAddScore * 2;
+                            }
+                        }
+                        else
+                        {
+                            if( eJudgeResult == E判定.Perfect )
+                            {
+                                if( nCombos < 200 )
+                                {
+                                    nAddScore = 1000;
+                                }
+                                else
+                                {
+                                    nAddScore = 2000;
+                                }
+                            }
+                            else if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
+                            {
+                                if( nCombos < 200 )
+                                {
+                                    nAddScore = 500;
+                                }
+                                else
+                                {
+                                    nAddScore = 1000;
+                                }
+                            }
+
+                            if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+                                nAddScore = (int)(nAddScore * 1.2f);
+
+                            //大音符のボーナス
+                            if (pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x25 )
+                            {
+                                nAddScore = nAddScore * 2;
+                            }
+
+                        }
+                        this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
+                        //CDTXMania.act文字コンソール.tPrint( 50, 220, C文字コンソール.Eフォント種別.赤, nAddScore.ToString() );
+			        }
 					break;
-
-
 				default:
 					break;
-			}
-			if ( ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) ) && !bIsMiss( eJudgeResult ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
-			{
-				int nCombos = this.actCombo.n現在のコンボ数[ nPlayer ];
-                long nInit = CDTXMania.DTX.nScoreInit[ 0, CDTXMania.stage選曲.n確定された曲の難易度 ];
-                long nDiff = CDTXMania.DTX.nScoreDiff[ CDTXMania.stage選曲.n確定された曲の難易度 ];
-                long nAddScore = 0;
-
-                if( CDTXMania.DTX.nScoreModeTmp == 3 )  //2016.07.04 kairera0467 真打モード。
-                {
-                    nAddScore = CDTXMania.DTX.nScoreInit[ 1, CDTXMania.stage選曲.n確定された曲の難易度 ];
-                    if( nAddScore == 0 )
-                    {
-                        //可の時に0除算をするとエラーが発生するため、それらしい数値を自動算出する。
-                        //メモ
-                        //風船1回
-                        nAddScore = 100;
-                        //( 100万 - ( ( 風船の打数 - 風船音符の数 * 300 ) + ( 風船音符の数 * 5000 ) ) ) / ノーツ数
-                        //(最大コンボ数＋大音符数)×初項＋(風船の総打数－風船数)×300＋風船数×5000
-                        //int nBallonCount = 0;
-                        //int nBallonNoteCount = CDTXMania.DTX.n風船数[ 2 ] + CDTXMania.DTX.n風船数[ 3 ];
-                        //int test = ( 1000000 - ( ( nBallonCount - nBallonNoteCount * 300 ) + ( nBallonNoteCount * 5000 ) ) ) / ( CDTXMania.DTX.nノーツ数[ 2 ] + CDTXMania.DTX.nノーツ数[ 3 ] );
-                    }
-
-                    if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
-                    {
-                        nAddScore = nAddScore / 2;
-                    }
-
-                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
-                    {
-                        nAddScore = nAddScore * 2;
-                    }
-
-                    this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
-                }
-                else if( CDTXMania.DTX.nScoreModeTmp == 2 )
-                {
-                    if( nCombos < 10 )
-                    {
-                        nAddScore = this.nScore[ 0 ];
-                    }
-                    else if( nCombos >= 10 && nCombos <= 29 )
-                    {
-                        nAddScore = this.nScore[ 1 ];
-                    }
-                    else if( nCombos >= 30 && nCombos <= 49 )
-                    {
-                        nAddScore = this.nScore[ 2 ];
-                    }
-                    else if( nCombos >= 50 && nCombos <= 99 )
-                    {
-                        nAddScore = this.nScore[ 3 ];
-                    }
-                    else if (nCombos >= 100)
-                    {
-                        nAddScore = this.nScore[ 4 ];
-                    }
-
-                    if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
-                    {
-                        nAddScore = nAddScore / 2;
-                    }
-
-                    //if( this.bIsGOGOTIME[ nPlayer ] )
-                    if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
-                    {
-                        nAddScore = (int)(nAddScore * 1.2f);
-                    }
-
-                    //100コンボ毎のボーナス
-                    if( nCombos % 100 == 0 && nCombos > 99 )
-                    {
-                        this.actScore.BonusAdd( nPlayer );
-                    }
-
-                    nAddScore = (int)( nAddScore / 10 );
-                    nAddScore = (int)( nAddScore * 10 );
-
-                    //大音符のボーナス
-                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
-                    {
-                        nAddScore = nAddScore * 2;
-                    }
-
-                    this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
-                    //this.actScore.Add( E楽器パート.DRUMS, bIsAutoPlay, nAddScore );
-                }
-                else if( CDTXMania.DTX.nScoreModeTmp == 1 )
-                {
-                    if (nCombos < 10)
-                    {
-                        nAddScore = this.nScore[ 0 ];
-                    }
-                    else if( nCombos >= 10 && nCombos <= 19 )
-                    {
-                        nAddScore = this.nScore[ 1 ];
-                    }
-                    else if( nCombos >= 20 && nCombos <= 29 )
-                    {
-                        nAddScore = this.nScore[ 2 ];
-                    }
-                    else if( nCombos >= 30 && nCombos <= 39 )
-                    {
-                        nAddScore = this.nScore[ 3 ];
-                    }
-                    else if( nCombos >= 40 && nCombos <= 49 )
-                    {
-                        nAddScore = this.nScore[ 4 ];
-                    }
-                    else if( nCombos >= 50 && nCombos <= 59 )
-                    {
-                        nAddScore = this.nScore[ 5 ];
-                    }
-                    else if( nCombos >= 60 && nCombos <= 69 )
-                    {
-                        nAddScore = this.nScore[ 6 ];
-                    }
-                    else if( nCombos >= 70 && nCombos <= 79 )
-                    {
-                        nAddScore = this.nScore[ 7 ];
-                    }
-                    else if( nCombos >= 80 && nCombos <= 89 )
-                    {
-                        nAddScore = this.nScore[ 8 ];
-                    }
-                    else if( nCombos >= 90 && nCombos <= 99 )
-                    {
-                        nAddScore = this.nScore[ 9 ];
-                    }
-                    else if( nCombos >= 100 )
-                    {
-                        nAddScore = this.nScore[ 10 ];
-                    }
-
-                    if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
-                    {
-                        nAddScore = nAddScore / 2;
-                    }
-
-
-                    //if( this.bIsGOGOTIME[ nPlayer ] )
-                    if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
-                        nAddScore = (int)( nAddScore * 1.2f );
-
-                    nAddScore = (int)( nAddScore / 10.0 );
-                    nAddScore = (int)( nAddScore * 10 );
-
-                    //大音符のボーナス
-                    if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
-                    {
-                        nAddScore = nAddScore * 2;
-                    }
-
-                    this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
-                }
-                else
-                {
-                    if( eJudgeResult == E判定.Perfect )
-                    {
-                        if( nCombos < 200 )
-                        {
-                            nAddScore = 1000;
-                        }
-                        else
-                        {
-                            nAddScore = 2000;
-                        }
-                    }
-                    else if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
-                    {
-                        if( nCombos < 200 )
-                        {
-                            nAddScore = 500;
-                        }
-                        else
-                        {
-                            nAddScore = 1000;
-                        }
-                    }
-
-                    //if( this.bIsGOGOTIME[ nPlayer ] )
-                    if( pChip.bGOGOTIME ) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
-                        nAddScore = (int)(nAddScore * 1.2f);
-
-                    //大音符のボーナス
-                    if (pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x25 )
-                    {
-                        nAddScore = nAddScore * 2;
-                    }
-
-
-                    this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
-                    //this.actScore.Add( E楽器パート.DRUMS, bIsAutoPlay, nAddScore );              
-                }
-
-                //CDTXMania.act文字コンソール.tPrint( 50, 220, C文字コンソール.Eフォント種別.赤, nAddScore.ToString() );
 			}
 			return eJudgeResult;
 		}
@@ -1739,38 +1754,45 @@ namespace DTXMania
             }
         }
 
+		protected void tチップのヒット処理_BadならびにTight時のMiss( E判定 eJudgeResult, int nPlayer )
+		{
+            switch( eJudgeResult )
+            {
+                case E判定.Miss:
+                    this.nヒット数[ nPlayer ].不可++;
+                    break;
+                case E判定.Poor:
+                    this.nヒット数[ nPlayer ].見逃し不可++;
+                    break;
+                case E判定.Bad:
+                    this.nヒット数[ nPlayer ].空打ち不可++;
+                    break;
+            }
 
-		protected abstract void tチップのヒット処理_BadならびにTight時のMiss( E楽器パート part );
-		protected abstract void tチップのヒット処理_BadならびにTight時のMiss( E楽器パート part, int nLane );
-		protected void tチップのヒット処理_BadならびにTight時のMiss( E楽器パート part, E楽器パート screenmode )
-		{
-			this.tチップのヒット処理_BadならびにTight時のMiss( part, 0, screenmode );
-		}
-		protected void tチップのヒット処理_BadならびにTight時のMiss( E楽器パート part, int nLane, E楽器パート screenmode )
-		{
+            #region[ 旧 ]
             //まだpChipでのチャンネル判別に対応していない。
 
-			this.bAUTOでないチップが１つでもバーを通過した = true;
-			cInvisibleChip.StartSemiInvisible( part );
-			cInvisibleChip.ShowChipTemporally( part );
-			//this.t判定にあわせてゲージを増減する( screenmode, part, E判定.Miss );
-			actGauge.Damage( screenmode, part, E判定.Miss, 0 );
-			switch ( part )
-			{
-				case E楽器パート.DRUMS:
-				case E楽器パート.GUITAR:
-				case E楽器パート.BASS:
-					break;
+            //this.bAUTOでないチップが１つでもバーを通過した = true;
+			//cInvisibleChip.StartSemiInvisible( part );
+			//cInvisibleChip.ShowChipTemporally( part );
+//          //this.t判定にあわせてゲージを増減する( screenmode, part, E判定.Miss );
+			//actGauge.Damage( screenmode, part, E判定.Miss, 0 );
+			//switch ( part )
+			//{
+			//	case E楽器パート.DRUMS:
+			//	case E楽器パート.GUITAR:
+			//	case E楽器パート.BASS:
+			//		break;
 
-				case E楽器パート.TAIKO:
-					this.actCombo.n現在のコンボ数.P1 = 0;
-					break;
+			//	case E楽器パート.TAIKO:
+			//		this.actCombo.n現在のコンボ数.P1 = 0;
+			//		break;
 
-				default:
-					return;
-			}
-		}
-
+			//	default:
+			//		return;
+			//}
+            #endregion
+        }
 		protected CDTX.CChip r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( long nTime, int nInputAdjustTime, int nPlayer )
 		{
 			//sw2.Start();
@@ -3686,6 +3708,7 @@ namespace DTXMania
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 this.chip現在処理中の連打チップ[ i ] = null;
+                CDTXMania.stage演奏ドラム画面.actGauge.Stop( 0 );
             }
             this.bPAUSE = false;
         }
@@ -3781,7 +3804,14 @@ namespace DTXMania
                     p.eNoteState = ENoteState.none;
                     p.nProcessTime = 0;
                     p.nRollCount = 0;
-                    dTX.listChip[ i ].nRollCount = 0;
+
+                    //2018.11.30 kairera0467 風船連打が正しくリセットされない不具合の修正
+                    if( pChip.nチャンネル番号 == 0x17 )
+                    {
+                        p.bShow = true;
+                        p.b可視 = true;
+                        p.n連打音符State = 7;
+                    }
 
 					dTX.listChip[ i ] = p;
 				}
@@ -3929,7 +3959,6 @@ namespace DTXMania
 				CDTXMania.ConfigIni.eInvisible[ i ] = EInvisible.OFF;
 				CDTXMania.ConfigIni.eRandom[ i ] = Eランダムモード.OFF;
 				CDTXMania.ConfigIni.n表示可能な最小コンボ数[ i ] = 65535;
-				CDTXMania.ConfigIni.判定文字表示位置[ i ] = E判定文字表示位置.表示OFF;
 				// CDTXMania.ConfigIni.n譜面スクロール速度[ i ] = CDTXMania.ConfigIni.nViewerScrollSpeed[ i ];	// これだけはOn活性化()で行うこと。
 																												// そうしないと、演奏開始直後にスクロール速度が変化して見苦しい。
 			}
@@ -4088,21 +4117,6 @@ namespace DTXMania
 		{
 			this.actJudgeString.t進行描画( 演奏判定ライン座標 );
 		}
-		protected void t進行描画_判定文字列1_通常位置指定の場合()
-		{
-			if ( ( (E判定文字表示位置) CDTXMania.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.コンボ下 )	// 判定ライン上または横
-			{
-				this.actJudgeString.t進行描画( 演奏判定ライン座標 );
-			}
-		}
-		protected void t進行描画_判定文字列2_判定ライン上指定の場合()
-		{
-			if ( ( (E判定文字表示位置) CDTXMania.ConfigIni.判定文字表示位置.Drums ) == E判定文字表示位置.コンボ下 )	// 判定ライン上または横
-			{
-				this.actJudgeString.t進行描画( 演奏判定ライン座標 );
-			}
-		}
-
 		protected void t進行描画_譜面スクロール速度()
 		{
 			this.act譜面スクロール速度.On進行描画();

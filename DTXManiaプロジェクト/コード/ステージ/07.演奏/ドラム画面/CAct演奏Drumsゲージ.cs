@@ -44,6 +44,23 @@ namespace DTXMania
 			base.b活性化してない = true;
 		}
 
+        /// <summary>
+        /// 発動中のアニメーションを停止(リセット)する
+        /// </summary>
+        /// <param name="player"></param>
+        public override void Stop( int player )
+        {
+            for( int j = 0; j < 32; j++ )
+            {
+                this.st花火状態[ j ].b使用中 = false;
+                this.st花火状態[ j ].ct進行.t停止();
+                this.st花火状態[ j ].isBig = false;
+                this.st花火状態2P[ j ].b使用中 = false;
+                this.st花火状態2P[ j ].ct進行.t停止();
+                this.st花火状態2P[ j ].isBig = false;
+            }
+        }
+
         public override void Start(int nLane, E判定 judge, int player)
         {
             for (int j = 0; j < 32; j++)
