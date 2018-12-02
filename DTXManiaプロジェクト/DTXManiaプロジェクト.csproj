@@ -82,10 +82,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="SlimDXc_net20x86_Jun2010, Version=1002.0.10.43, Culture=neutral, PublicKeyToken=53d0e4ef1f1579f5, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Test\dll\SlimDXc_net20x86_Jun2010.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="SlimDX, Version=2.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET20\SlimDX.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -306,7 +304,7 @@ move /y "$(TargetDir)FDK.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)FDK.pdb" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)Bass.Net.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)DirectShowLib-2005.dll" "$(SolutionDir)Test\dll\"
-move /y "$(TargetDir)SlimDXc_net20x86_Jun2010.dll" "$(SolutionDir)Test\dll\"
+move /y "$(TargetDir)SlimDX.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)CSharpTest.Net.Collections.*" "$(SolutionDir)Test\dll\"
 copy /y "$(SolutionDir)Readme.txt" "$(SolutionDir)Test\"</PostBuildEvent>
   </PropertyGroup>

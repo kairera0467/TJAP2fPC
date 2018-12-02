@@ -61,17 +61,11 @@ namespace DTXMania
                                     strDiff = "おに ";
                                     break;
                             }
-                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
+                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Game_StageText_ForeColor, CDTXMania.Skin.Game_StageText_BackColor );
                         }
                         else
                         {
-                            if(CDTXMania.Skin.Game_StageText_IsRed)
-                            {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Red);
-                            } else
-                            {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, Color.White, Color.Black);
-                            }
+                            bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Game_StageText_ForeColor, CDTXMania.Skin.Game_StageText_BackColor );
                         }
 
 					    using (bmpDiff)
