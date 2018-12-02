@@ -1147,10 +1147,6 @@ namespace DTXMania
                             {
                                 Game_StageText = strParam;
                             }
-                            else if (strCommand == "Game_StageText_IsRed")
-                            {
-                                Game_StageText_IsRed = C変換.bONorOFF(strParam[0]);
-                            }
                             else if (strCommand == nameof(Game_RollColorMode))
                             {
                                 Game_RollColorMode = (RollColorMode)int.Parse(strParam);
@@ -1230,10 +1226,6 @@ namespace DTXMania
                             {
                                 Game_StageText_ForeColor = ColorTranslator.FromHtml(strParam);
                             }
-                            else if (strCommand == nameof(Game_StageText_ForeColor_Red))
-                            {
-                                Game_StageText_ForeColor_Red = ColorTranslator.FromHtml(strParam);
-                            }
                             else if (strCommand == nameof(Game_Lyric_ForeColor))
                             {
                                 Game_Lyric_ForeColor = ColorTranslator.FromHtml(strParam);
@@ -1245,10 +1237,6 @@ namespace DTXMania
                             else if (strCommand == nameof(Game_StageText_BackColor))
                             {
                                 Game_StageText_BackColor = ColorTranslator.FromHtml(strParam);
-                            }
-                            else if (strCommand == nameof(Game_StageText_BackColor_Red))
-                            {
-                                Game_StageText_BackColor_Red = ColorTranslator.FromHtml(strParam);
                             }
                             else if (strCommand == nameof(Game_Lyric_BackColor))
                             {
@@ -2230,11 +2218,7 @@ namespace DTXMania
         #region Game
         public bool Game_Notes_Anime = false;
         public string Game_StageText = "1曲目";
-        public bool Game_StageText_IsRed = false;
         public RollColorMode Game_RollColorMode = RollColorMode.All;
-        public int[] Game_NotesFly_Start = { }; // X, Y
-        public int[] Game_NotesFly_End = { }; // X, Y
-        public int Game_NotesFly_Sin = 0;
         #region Chara
         public int[] Game_Chara_X = new int[] { 0, 0 };
         public int[] Game_Chara_Y = new int[] { 0, 537 };
@@ -2293,11 +2277,9 @@ namespace DTXMania
 
         public Color Game_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
         public Color Game_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-        public Color Game_StageText_ForeColor_Red = ColorTranslator.FromHtml("#FFFFFF");
         public Color Game_Lyric_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
         public Color Game_MusicName_BackColor = ColorTranslator.FromHtml("#000000");
         public Color Game_StageText_BackColor = ColorTranslator.FromHtml("#000000");
-        public Color Game_StageText_BackColor_Red = ColorTranslator.FromHtml("#FF0000");
         public Color Game_Lyric_BackColor = ColorTranslator.FromHtml("#0000FF");
 
         #endregion

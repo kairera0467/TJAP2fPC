@@ -67,13 +67,7 @@ namespace DTXMania
                         }
                         else
                         {
-                            if(CDTXMania.Skin.Game_StageText_IsRed)
-                            {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Game_StageText_ForeColor_Red, CDTXMania.Skin.Game_StageText_BackColor_Red );
-                            } else
-                            {
-                                bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Game_StageText_ForeColor, CDTXMania.Skin.Game_StageText_BackColor );
-                            }
+                            bmpDiff = pfMusicName.DrawPrivateFont(CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Game_StageText_ForeColor, CDTXMania.Skin.Game_StageText_BackColor );
                         }
 
 					    using (bmpDiff)
