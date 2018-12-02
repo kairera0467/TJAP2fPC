@@ -36,6 +36,7 @@ namespace DTXMania
         const string GAMEMODE = @"14_GameMode\";
         const string FAILED = @"15_Failed\";
         const string RUNNER = @"16_Runner\";
+        const string PUCHICHARA = @"18_PuchiChara\";
 
         // InGame_Effects
         const string FIRE = @"Fire\";
@@ -464,6 +465,9 @@ namespace DTXMania
             #region ランナー
             Runner = TxC(GAME + RUNNER + @"0.png");
             #endregion
+            #region PuichiChara
+            PuchiChara = TxC(GAME + PUCHICHARA + @"0.png");
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -767,6 +771,9 @@ namespace DTXMania
             #region ランナー
             CDTXMania.tテクスチャの解放(ref Runner);
             #endregion
+            #region PuchiChara
+            CDTXMania.tテクスチャの解放(ref PuchiChara);
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -962,6 +969,9 @@ namespace DTXMania
         #endregion
         #region ランナー
         public CTexture Runner;
+        #endregion
+        #region PuchiChara
+        public CTexture PuchiChara;
         #endregion
         #endregion
 
