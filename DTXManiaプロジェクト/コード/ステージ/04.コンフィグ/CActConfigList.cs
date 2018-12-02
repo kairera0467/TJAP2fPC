@@ -449,11 +449,11 @@ namespace DTXMania
                 "事前画像描画機能を使うかどうか。\n",
                 "Use pre-textures render.\n");
             this.list項目リスト.Add(FastRender);
-            //ShowPuchiChara = new CItemToggle("ShowPuchiChara", CDTXMania.ConfigIni.ShowPuchiChara,
-            //    "ぷちキャラ画像を表示するかどうか\n",
-            //    "Show PuchiChara Images.\n" +
-            //    "");
-            //this.list項目リスト.Add(ShowPuchiChara);
+            ShowPuchiChara = new CItemToggle("ShowPuchiChara", CDTXMania.ConfigIni.ShowPuchiChara,
+                "ぷちキャラ画像を表示するかどうか\n",
+                "Show PuchiChara Images.\n" +
+                "");
+            this.list項目リスト.Add(ShowPuchiChara);
 
 
 
@@ -2365,7 +2365,7 @@ namespace DTXMania
             CDTXMania.ConfigIni.ShowRunner = this.ShowRunner.bON;
             CDTXMania.ConfigIni.ShowMob = this.ShowMob.bON;
             CDTXMania.ConfigIni.ShowFooter = this.ShowFooter.bON;
-            //CDTXMania.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
+            CDTXMania.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
             CDTXMania.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
             CDTXMania.ConfigIni.FastRender = this.FastRender.bON;
 		}
