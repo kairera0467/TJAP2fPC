@@ -2611,9 +2611,9 @@ for (int i = 0; i < 3; i++) {
 			    {
 			        SoundGroupLevelController = null;
 			        SongGainController = null;
+			        LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: true);
                     actScanningLoudness.On非活性化();
 			        actScanningLoudness = null;
-			        LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: true);
 			    }
 			    finally
 			    {

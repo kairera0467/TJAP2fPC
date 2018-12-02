@@ -355,6 +355,54 @@
     <Content Include="コード\スコア、曲\approved\expected_case_single_only_whole_file_due_to_no_course_but_with_no_start.2.tja">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="コード\スコア、曲\input\no_course.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\no_course.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\no_course.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\no_course.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\input\expected_case_1_and_2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\input\expected_case_1_only.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\input\expected_case_2_only.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_1_and_2.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_1_and_2.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_1_and_2.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_1_only.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_1_only.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_1_only.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_2_only.0.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_2_only.1.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="コード\スコア、曲\approved\expected_case_2_only.2.tja">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTXManiaプロジェクト\DTXManiaプロジェクト.csproj">
