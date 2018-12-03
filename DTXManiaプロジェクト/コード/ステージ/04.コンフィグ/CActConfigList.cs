@@ -1800,7 +1800,7 @@ namespace DTXMania
 				//-----------------
 				if ( listMenu[ nItem ].txMenuItemRight != null )	// 自前のキャッシュに含まれているようなら、再レンダリングせずキャッシュを使用
 				{
-					listMenu[ nItem ].txMenuItemRight.t2D描画( CDTXMania.app.Device, x + 20, y + 12 );
+                    listMenu[nItem].txMenuItemRight.t2D描画(CDTXMania.app.Device, x + 20 + CDTXMania.Skin.Config_ItemText_Correction_X, y + 12 + CDTXMania.Skin.Config_ItemText_Correction_Y);
 				}
 				else
 				{
@@ -1905,7 +1905,7 @@ namespace DTXMania
 				    {
 				        using (var txStr = CDTXMania.tテクスチャの生成( bmpStr, false ))
 				        {
-				            txStr.t2D描画( CDTXMania.app.Device, x + 400, y + 12 );
+				            txStr.t2D描画( CDTXMania.app.Device, x + 400 + CDTXMania.Skin.Config_ItemText_Correction_X, y + 12 + CDTXMania.Skin.Config_ItemText_Correction_Y );
 				        }
 				    }
 				}
@@ -1926,7 +1926,7 @@ namespace DTXMania
 
 						listMenu[ nItem ] = stm;
 					}
-					listMenu[ nItem ].txParam.t2D描画( CDTXMania.app.Device, ( x + 400 ), y + 12 );
+					listMenu[ nItem ].txParam.t2D描画( CDTXMania.app.Device,  x + 400 + CDTXMania.Skin.Config_ItemText_Correction_X, y + 12 + CDTXMania.Skin.Config_ItemText_Correction_Y );
 				}
 				//-----------------
 				#endregion

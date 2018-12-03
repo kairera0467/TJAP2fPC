@@ -976,6 +976,16 @@ namespace DTXMania
                             #endregion
 
                             #region 新・SkinConfig
+                            #region Config
+                            else if (strCommand == nameof(Config_ItemText_Correction_X))
+                            {
+                                Config_ItemText_Correction_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Config_ItemText_Correction_Y))
+                            {
+                                Config_ItemText_Correction_Y = int.Parse(strParam);
+                            }
+                            #endregion
                             #region SongSelect
                             else if (strCommand == "SongSelect_Overall_Y")
                             {
@@ -2197,6 +2207,10 @@ namespace DTXMania
         public string Skin_Name = "Unknown";
         public string Skin_Version = "Unknown";
         public string Skin_Creator = "Unknown";
+        #endregion
+        #region Config
+        public int Config_ItemText_Correction_X = 0;
+        public int Config_ItemText_Correction_Y = 0;
         #endregion
         #region SongSelect
         public int SongSelect_Overall_Y = 123;
