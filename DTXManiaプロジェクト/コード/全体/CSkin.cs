@@ -1378,7 +1378,7 @@ namespace DTXMania
                                     this.Game_Score_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_ScoreAdd_X")
+                            else if (strCommand == "Game_Score_Add_X")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
@@ -1386,7 +1386,7 @@ namespace DTXMania
                                     this.Game_Score_Add_X[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_ScoreAdd_Y")
+                            else if (strCommand == "Game_Score_Add_Y")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
@@ -1394,7 +1394,7 @@ namespace DTXMania
                                     this.Game_Score_Add_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_ScoreAddBonus_X")
+                            else if (strCommand == "Game_Score_AddBonus_X")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
@@ -1402,7 +1402,7 @@ namespace DTXMania
                                     this.Game_Score_AddBonus_X[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_ScoreAddBonus_Y")
+                            else if (strCommand == "Game_Score_AddBonus_Y")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
