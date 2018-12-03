@@ -18,7 +18,7 @@ namespace TJAPlayer3
         public override void On活性化()
         {
             Counter = new CCounter(0, CDTXMania.Skin.Game_PuchiChara[2] - 1, CDTXMania.Skin.Game_PuchiChara_Timer, CDTXMania.Timer);
-            SineCounter = new CCounter(1, 360, CDTXMania.Skin.Game_PuchiChara_SineTimer, CSound管理.rc演奏用タイマ);
+            SineCounter = new CCounter(0, 360, CDTXMania.Skin.Game_PuchiChara_SineTimer, CSound管理.rc演奏用タイマ);
             base.On活性化();
         }
         public override void On非活性化()
