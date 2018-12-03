@@ -1137,6 +1137,10 @@ namespace DTXMania
                             {
                                 SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml(strParam);
                             }
+                            else if (strCommand == nameof(SongLoading_Plate_ScreenBlend))
+                            {
+                                SongLoading_Plate_ScreenBlend = C変換.bONorOFF(strParam[0]);
+                            }
                             #endregion
                             #region Game
                             else if (strCommand == "Game_Notes_Anime")
@@ -1885,6 +1889,26 @@ namespace DTXMania
                             {
                                 Game_Effect_Rainbow_Timer = int.Parse(strParam);
                             }
+                            else if (strCommand == nameof(Game_Effect_HitExplosion_AddBlend))
+                            {
+                                Game_Effect_HitExplosion_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_HitExplosionBig_AddBlend))
+                            {
+                                Game_Effect_HitExplosionBig_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_FireWorks_AddBlend))
+                            {
+                                Game_Effect_FireWorks_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_Fire_AddBlend))
+                            {
+                                Game_Effect_Fire_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_GoGoSplash_AddBlend))
+                            {
+                                Game_Effect_GoGoSplash_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
                             #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
@@ -2213,6 +2237,7 @@ namespace DTXMania
         public Color SongLoading_Title_BackColor = ColorTranslator.FromHtml("#000000");
         public Color SongLoading_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
         public Color SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
+        public bool SongLoading_Plate_ScreenBlend = true;
 
         #endregion
         #region Game
@@ -2377,6 +2402,12 @@ namespace DTXMania
         public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
         public int Game_Effect_FireWorks_Timer = 5;
         public int Game_Effect_Rainbow_Timer = 8;
+
+        public bool Game_Effect_HitExplosion_AddBlend = true;
+        public bool Game_Effect_HitExplosionBig_AddBlend = true;
+        public bool Game_Effect_FireWorks_AddBlend = true;
+        public bool Game_Effect_Fire_AddBlend = true;
+        public bool Game_Effect_GoGoSplash_AddBlend = true;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };
