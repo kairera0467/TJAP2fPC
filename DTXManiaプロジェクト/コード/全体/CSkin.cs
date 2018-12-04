@@ -1082,6 +1082,14 @@ namespace DTXMania
                             {
                                 SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml(strParam);
                             }
+                            else if (strCommand == nameof(SongSelect_Text_Correction_X))
+                            {
+                                SongSelect_Text_Correction_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongSelect_Text_Correction_Y))
+                            {
+                                SongSelect_Text_Correction_Y = int.Parse(strParam);
+                            }
                             #endregion
                             #region SongLoading
                             else if (strCommand == nameof(SongLoading_Plate_X))
@@ -2238,6 +2246,8 @@ namespace DTXMania
         public Color SongSelect_BackColor_Classic = ColorTranslator.FromHtml("#875600");
         public Color SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml("#412080");
         public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#980E00");
+        public int SongSelect_Text_Correction_X = 0;
+        public int SongSelect_Text_Correction_Y = 0;
         #endregion
         #region SongLoading
         public int SongLoading_Plate_X = 640;

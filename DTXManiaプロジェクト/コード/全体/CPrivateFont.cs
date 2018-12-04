@@ -500,7 +500,7 @@ namespace DTXMania
 			    gV.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
 
-                Rectangle rect = new Rectangle( -3 - nAdded, -rect正確なサイズ.Y - 2, ( strSize.Width + 12 ), ( strSize.Height + 12 ));
+                Rectangle rect = new Rectangle(-3 - nAdded + ( CDTXMania.Skin.SongSelect_Text_Correction_X * _pt / 100 ), -rect正確なサイズ.Y - 2 + ( CDTXMania.Skin.SongSelect_Text_Correction_Y * _pt / 100 ), ( strSize.Width + 12 ), ( strSize.Height + 12 ));
                 //Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
                 
                 // DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
@@ -540,7 +540,7 @@ namespace DTXMania
                         n補正 = 0;
                         //nNowPos = nNowPos - 2;
                 }
-                else if( strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "[" || strName[ i ] == "]" || strName[ i ] == "」" )
+                else if( strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "[" || strName[ i ] == "]" || strName[ i ] == "」" || strName[i] == "）" || strName[i] == "』")
                 {
                     bmpV.RotateFlip( RotateFlipType.Rotate90FlipNone );
                     n補正 = 2;
@@ -550,7 +550,7 @@ namespace DTXMania
                         //nNowPos = nNowPos - 4;
                     }
                 }
-                else if( strName[ i ] == "「" )
+                else if( strName[ i ] == "「" || strName[i] == "（" || strName[i] == "『")
                 {
                     bmpV.RotateFlip( RotateFlipType.Rotate90FlipNone );
                     n補正 = 2;
