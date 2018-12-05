@@ -10,41 +10,46 @@ using SlimDX;
 using FDK;
 using System.Linq;
 
-public static class StringExtensions {
-  public static bool In(this string str, params string[] param) {
-    return param.Contains(str);
-  }
-}
-
 namespace DTXMania
 {
-	/// <summary>
-	/// プライベートフォントでの描画を扱うクラス。
-	/// </summary>
-	/// <exception cref="FileNotFoundException">フォントファイルが見つからない時に例外発生</exception>
-	/// <exception cref="ArgumentException">スタイル指定不正時に例外発生</exception>
-	/// <remarks>
-	/// 簡単な使い方
-	/// CPrivateFont prvFont = new CPrivateFont( CSkin.Path( @"Graphics\fonts\mplus-1p-bold.ttf" ), 36 );	// プライベートフォント
-	/// とか
-	/// CPrivateFont prvFont = new CPrivateFont( new FontFamily("MS UI Gothic"), 36, FontStyle.Bold );		// システムフォント
-	/// とかした上で、
-	/// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black );							// フォント色＝白、縁の色＝黒の例。縁の色は省略可能
-	/// とか
-	/// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black, Color.Yellow, Color.OrangeRed ); // 上下グラデーション(Yellow→OrangeRed)
-	/// とかして、
-	/// CTexture ctBmp = CDTXMania.tテクスチャの生成( bmp, false );
-	/// ctBMP.t2D描画( ～～～ );
-	/// で表示してください。
-	/// 
-	/// 注意点
-	/// 任意のフォントでのレンダリングは結構負荷が大きいので、なるべｋなら描画フレーム毎にフォントを再レンダリングするようなことはせず、
-	/// 一旦レンダリングしたものを描画に使い回すようにしてください。
-	/// また、長い文字列を与えると、返されるBitmapも横長になります。この横長画像をそのままテクスチャとして使うと、
-	/// 古いPCで問題を発生させやすいです。これを回避するには、一旦Bitmapとして取得したのち、256pixや512pixで分割して
-	/// テクスチャに定義するようにしてください。
-	/// </remarks>
-	public class CPrivateFont : IDisposable
+    /// <summary>
+    /// プライベートフォントでの描画を扱うクラス。
+    /// </summary>
+    /// <exception cref="FileNotFoundException">フォントファイルが見つからない時に例外発生</exception>
+    /// <exception cref="ArgumentException">スタイル指定不正時に例外発生</exception>
+    /// <remarks>
+    /// 簡単な使い方
+    /// CPrivateFont prvFont = new CPrivateFont( CSkin.Path( @"Graphics\fonts\mplus-1p-bold.ttf" ), 36 );	// プライベートフォント
+    /// とか
+    /// CPrivateFont prvFont = new CPrivateFont( new FontFamily("MS UI Gothic"), 36, FontStyle.Bold );		// システムフォント
+    /// とかした上で、
+    /// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black );							// フォント色＝白、縁の色＝黒の例。縁の色は省略可能
+    /// とか
+    /// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black, Color.Yellow, Color.OrangeRed ); // 上下グラデーション(Yellow→OrangeRed)
+    /// とかして、
+    /// CTexture ctBmp = CDTXMania.tテクスチャの生成( bmp, false );
+    /// ctBMP.t2D描画( ～～～ );
+    /// で表示してください。
+    /// 
+    /// 注意点
+    /// 任意のフォントでのレンダリングは結構負荷が大きいので、なるべｋなら描画フレーム毎にフォントを再レンダリングするようなことはせず、
+    /// 一旦レンダリングしたものを描画に使い回すようにしてください。
+    /// また、長い文字列を与えると、返されるBitmapも横長になります。この横長画像をそのままテクスチャとして使うと、
+    /// 古いPCで問題を発生させやすいです。これを回避するには、一旦Bitmapとして取得したのち、256pixや512pixで分割して
+    /// テクスチャに定義するようにしてください。
+    /// </remarks>
+
+    #region In拡張子
+    public static class StringExtensions
+    {
+        public static bool In(this string str, params string[] param)
+        {
+            return param.Contains(str);
+        }
+    }
+    #endregion
+
+    public class CPrivateFont : IDisposable
 	{
 		#region [ コンストラクタ ]
 		public CPrivateFont( FontFamily fontfamily, int pt, FontStyle style )
@@ -608,6 +613,13 @@ namespace DTXMania
                         //nNowPos = nNowPos;
                     }
                 }
+                else if (strName[i].In(CDTXMania.Skin.SongSelect_Rotate_Chara))
+                {
+                    bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                }
+                //個別の文字に関して、カンマで区切ってSkinConfigに記入したものを回転させる(20181205 rhimm)
+
+
                 //else if( strName[ i ] == "_" )
                 //    nNowPos = nNowPos + 20;
                 else if( strName[ i ] == " " )

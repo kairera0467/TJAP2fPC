@@ -1098,6 +1098,10 @@ namespace DTXMania
                             {
                                 SongSelect_CorrectionY_Chara_Value = int.Parse(strParam);
                             }
+                            else if (strCommand == nameof(SongSelect_Rotate_Chara))
+                            {
+                                SongSelect_Rotate_Chara = strParam.Split(',').ToArray();
+                            }
                             #endregion
                             #region SongLoading
                             else if (strCommand == nameof(SongLoading_Plate_X))
@@ -2258,6 +2262,7 @@ namespace DTXMania
         public string[] SongSelect_CorrectionY_Chara = { "ここにY座標を補正したい文字をカンマで区切って記入" };
         public int SongSelect_CorrectionX_Chara_Value = 0;
         public int SongSelect_CorrectionY_Chara_Value = 0;
+        public string[] SongSelect_Rotate_Chara = { "ここに90℃回転させたい文字をカンマで区切って記入" };
         #endregion
         #region SongLoading
         public int SongLoading_Plate_X = 640;
