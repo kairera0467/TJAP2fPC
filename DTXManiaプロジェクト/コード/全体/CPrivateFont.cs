@@ -8,6 +8,13 @@ using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using SlimDX;
 using FDK;
+using System.Linq;
+
+public static class StringExtensions {
+  public static bool In(this string str, params string[] param) {
+    return param.Contains(str);
+  }
+}
 
 namespace DTXMania
 {
@@ -471,90 +478,113 @@ namespace DTXMania
             //キャンバス作成→1文字ずつ作成してキャンバスに描画という形がよさそうかな?
             int nNowPos = 0;
             int nAdded = 0;
+            int nEdge補正X = 0;
+            int nEdge補正Y = 0;
             if (this._pt < 18)
                 nAdded = nAdded - 2;
 
-            for( int i = 0; i < strName.Length; i++ )
+            for (int i = 0; i < strName.Length; i++)
             {
-                Size strSize = System.Windows.Forms.TextRenderer.MeasureText( strName[ i ], this._font, new Size( int.MaxValue, int.MaxValue ),
-				System.Windows.Forms.TextFormatFlags.NoPrefix |
-				System.Windows.Forms.TextFormatFlags.NoPadding );
+                Size strSize = System.Windows.Forms.TextRenderer.MeasureText(strName[i], this._font, new Size(int.MaxValue, int.MaxValue),
+                System.Windows.Forms.TextFormatFlags.NoPrefix |
+                System.Windows.Forms.TextFormatFlags.NoPadding);
 
                 //stringformatは最初にやっていてもいいだろう。
-			    StringFormat sFormat = new StringFormat();
-			    sFormat.LineAlignment = StringAlignment.Center;	// 画面下部（垂直方向位置）
-			    sFormat.Alignment = StringAlignment.Near;	// 画面中央（水平方向位置）
+                StringFormat sFormat = new StringFormat();
+                sFormat.LineAlignment = StringAlignment.Center; // 画面下部（垂直方向位置）
+                sFormat.Alignment = StringAlignment.Near;	// 画面中央（水平方向位置）
 
                 //できるだけ正確な値を計算しておきたい...!
-                Bitmap bmpDummy = new Bitmap( 150, 150 ); //とりあえず150
-                Graphics gCal = Graphics.FromImage( bmpDummy );
-                Rectangle rect正確なサイズ = this.MeasureStringPrecisely( gCal, strName[ i ], this._font, strSize, sFormat );
+                Bitmap bmpDummy = new Bitmap(150, 150); //とりあえず150
+                Graphics gCal = Graphics.FromImage(bmpDummy);
+                Rectangle rect正確なサイズ = this.MeasureStringPrecisely(gCal, strName[i], this._font, strSize, sFormat);
                 int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
-                
+
                 //Bitmap bmpV = new Bitmap( 36, ( strSize.Height + 12 ) - 6 );
 
-                Bitmap bmpV = new Bitmap( (rect正確なサイズ.Width + 12) + nAdded, ( rect正確なサイズ.Height ) + 12 );
+                Bitmap bmpV = new Bitmap((rect正確なサイズ.Width + 12) + nAdded, (rect正確なサイズ.Height) + 12);
 
-			    bmpV.MakeTransparent();
-			    Graphics gV = Graphics.FromImage( bmpV );
-			    gV.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                bmpV.MakeTransparent();
+                Graphics gV = Graphics.FromImage(bmpV);
+                gV.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
 
-                Rectangle rect = new Rectangle(-3 - nAdded + ( CDTXMania.Skin.SongSelect_Text_Correction_X * _pt / 100 ), -rect正確なサイズ.Y - 2 + ( CDTXMania.Skin.SongSelect_Text_Correction_Y * _pt / 100 ), ( strSize.Width + 12 ), ( strSize.Height + 12 ));
+                if (strName[i].In(CDTXMania.Skin.SongSelect_CorrectionX_Chara))
+                {
+                    nEdge補正X = CDTXMania.Skin.SongSelect_CorrectionX_Chara_Value;
+                }
+                else
+                {
+                    nEdge補正X = 0;
+                }
+                if (strName[i].In(CDTXMania.Skin.SongSelect_CorrectionY_Chara))
+                {
+                    nEdge補正Y = CDTXMania.Skin.SongSelect_CorrectionY_Chara_Value;
+                }
+                else
+                {
+                    nEdge補正Y = 0;
+                }
+                //X座標、Y座標それぞれについて、SkinConfig内でズレを直したい文字を , で区切って列挙して、
+                //補正値を記入することで、特定のそれらの文字について一括で座標をずらす。
+                //現時点では補正値をX,Y各座標について1個ずつしか取れない（複数対1）ので、
+                //文字を列挙して、同じ数だけそれぞれの文字の補正値を記入できるような枠組をつくりたい。（20181205 rhimm）
+
+                Rectangle rect = new Rectangle(-3 - nAdded + nEdge補正X, -rect正確なサイズ.Y - 2 + nEdge補正Y, (strSize.Width + 12), (strSize.Height + 12));
                 //Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
-                
-                // DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
-				// (これをしないと、単位が違うために、小さめに描画されてしまう)
-				float sizeInPixels = _font.SizeInPoints * gV.DpiY / 72;  // 1 inch = 72 points
 
-				System.Drawing.Drawing2D.GraphicsPath gpV = new System.Drawing.Drawing2D.GraphicsPath();
-				gpV.AddString( strName[ i ], this._fontfamily, (int) this._font.Style, sizeInPixels, rect, sFormat );
+                // DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
+                // (これをしないと、単位が違うために、小さめに描画されてしまう)
+                float sizeInPixels = _font.SizeInPoints * gV.DpiY / 72;  // 1 inch = 72 points
+
+                System.Drawing.Drawing2D.GraphicsPath gpV = new System.Drawing.Drawing2D.GraphicsPath();
+                gpV.AddString(strName[i], this._fontfamily, (int)this._font.Style, sizeInPixels, rect, sFormat);
 
                 // 縁取りを描画する
                 //int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
                 int nEdgePt = (10 * _pt / CDTXMania.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
-                Pen pV = new Pen( edgeColor, nEdgePt);
-				pV.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
-				gV.DrawPath( pV, gpV );
+                Pen pV = new Pen(edgeColor, nEdgePt);
+                pV.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
+                gV.DrawPath(pV, gpV);
 
-				// 塗りつぶす
-				Brush brV;
-				{
-					brV = new SolidBrush( fontColor );
-				}
-				gV.FillPath( brV, gpV );
+                // 塗りつぶす
+                Brush brV;
+                {
+                    brV = new SolidBrush(fontColor);
+                }
+                gV.FillPath(brV, gpV);
 
-				if ( brV != null ) brV.Dispose(); brV = null;
-				if ( pV != null ) pV.Dispose(); pV = null;
-				if ( gpV != null ) gpV.Dispose(); gpV = null;
-                if ( gV != null ) gV.Dispose(); gV = null;
+                if (brV != null) brV.Dispose(); brV = null;
+                if (pV != null) pV.Dispose(); pV = null;
+                if (gpV != null) gpV.Dispose(); gpV = null;
+                if (gV != null) gV.Dispose(); gV = null;
 
                 int n補正 = 0;
                 int nY補正 = 0;
 
-                if( strName[ i ] == "ー" || strName[ i ] == "-" || strName[ i ] == "～")
+                if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～")
                 {
-                    bmpV.RotateFlip( RotateFlipType.Rotate90FlipNone );
+                    bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     n補正 = 2;
-                    if( this._pt < 20 )
+                    if (this._pt < 20)
                         n補正 = 0;
-                        //nNowPos = nNowPos - 2;
+                    //nNowPos = nNowPos - 2;
                 }
-                else if( strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "[" || strName[ i ] == "]" || strName[ i ] == "」" || strName[i] == "）" || strName[i] == "』")
+                else if (strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "[" || strName[i] == "]" || strName[i] == "」" || strName[i] == "）" || strName[i] == "』")
                 {
-                    bmpV.RotateFlip( RotateFlipType.Rotate90FlipNone );
+                    bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     n補正 = 2;
-                    if( this._pt < 20 )
+                    if (this._pt < 20)
                     {
                         n補正 = 0;
                         //nNowPos = nNowPos - 4;
                     }
                 }
-                else if( strName[ i ] == "「" || strName[i] == "（" || strName[i] == "『")
+                else if (strName[i] == "「" || strName[i] == "（" || strName[i] == "『")
                 {
-                    bmpV.RotateFlip( RotateFlipType.Rotate90FlipNone );
+                    bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     n補正 = 2;
-                    if( this._pt < 20 )
+                    if (this._pt < 20)
                     {
                         n補正 = 2;
                         //nNowPos = nNowPos;
@@ -591,7 +621,7 @@ namespace DTXMania
                 {
                     nNowPos = 4;
                 }
-                Gcambus.DrawImage( bmpV, (bmpCambus.Width / 2) - (bmpV.Width / 2) + n補正, nNowPos );
+                Gcambus.DrawImage( bmpV, (bmpCambus.Width / 2) - (bmpV.Width / 2) + n補正, nNowPos + nY補正 );
                 nNowPos += bmpV.Size.Height - 6;
 
                 if( bmpV != null ) bmpV.Dispose(); bmpV = null;
