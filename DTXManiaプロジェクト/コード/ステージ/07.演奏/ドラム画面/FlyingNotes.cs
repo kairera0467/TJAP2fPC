@@ -42,9 +42,11 @@ namespace DTXMania
                         Flying[i].Width = Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.nScrollFieldX[nPlayer])) / 2;
                         //Console.WriteLine("{0}, {1}", width2P, height2P);
                         Flying[i].Theta = ((Math.Atan2(Flying[i].Height, Flying[i].Width) * 180.0) / Math.PI);
-                        Flying[i].Counter = new CCounter(0, (180 - (int)Math.Floor(Flying[i].Theta)), CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
+                        Flying[i].Counter = new CCounter(0, (180), CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
+                        //Flying[i].Counter = new CCounter(0, 200000, CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
 
-                        Flying[i].Increase = (1.00 * Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.nScrollFieldX[nPlayer]))) / (180 - Flying[i].Theta);
+                        Flying[i].IncreaseX = (1.00 * Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.nScrollFieldX[nPlayer]))) / (180);
+                        Flying[i].IncreaseY = (1.00 * Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]))) / (180);
                         break;
                     }
                 }
@@ -107,12 +109,12 @@ namespace DTXMania
                         {
                             if(CDTXMania.Skin.Game_Effect_FlyingNotes_IsUsingEasing)
                             {
-                                Flying[i].X = Flying[i].StartPointX + Flying[i].Width + ((-Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / (180 - Flying[i].Theta))) * Flying[i].Width));
+                                Flying[i].X = Flying[i].StartPointX + Flying[i].Width + ((-Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * Flying[i].Width));
                                 //Flying[i].X += (Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180))) * Flying[i].Increase;
                             }
                             else
                             {
-                                Flying[i].X += Flying[i].Increase;
+                                Flying[i].X += Flying[i].IncreaseX;
                             }
 
                             if (n % 4 == 0 && !Flying[i].IsRoll)
@@ -126,11 +128,13 @@ namespace DTXMania
 
                             if (Flying[i].Player == 0)
                             {
-                                Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player]) + -Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / (180 + Flying[i].Theta))) * CDTXMania.Skin.Game_Effect_FlyingNotes_Sine;
+                                Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player]) + -Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * CDTXMania.Skin.Game_Effect_FlyingNotes_Sine;
+                                Flying[i].Y -= Flying[i].IncreaseY * Flying[i].Counter.n現在の値;
                             }
                             else
                             {
-                                Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player]) + Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / (180 + Flying[i].Theta))) * CDTXMania.Skin.Game_Effect_FlyingNotes_Sine;
+                                Flying[i].Y = (CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[Flying[i].Player]) + Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * CDTXMania.Skin.Game_Effect_FlyingNotes_Sine;
+                                Flying[i].Y += Flying[i].IncreaseY * Flying[i].Counter.n現在の値;
                             }
 
                         }
@@ -167,7 +171,8 @@ namespace DTXMania
             public double Y;
             public int Height;
             public int Width;
-            public double Increase;
+            public double IncreaseX;
+            public double IncreaseY;
             public bool IsRoll;
             public int StartPointX;
             public int StartPointY;
