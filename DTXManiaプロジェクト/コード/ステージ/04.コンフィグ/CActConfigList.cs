@@ -457,15 +457,15 @@ namespace DTXMania
 
 
 
-            //this.iSystemSkinSubfolder = new CItemList( "Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
-            //	"スキン切替：\n" +
-            //	"スキンを切り替えます。\n",
-            //	//"CONFIGURATIONを抜けると、設定した\n" +
-            //	//"スキンに変更されます。",
-            //	"Skin:\n" +
-            //	"Change skin.",
-            //	skinNames );
-            //this.list項目リスト.Add( this.iSystemSkinSubfolder );
+            this.iSystemSkinSubfolder = new CItemList("Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
+                "スキン切替：\n" +
+                "スキンを切り替えます。\n",
+                //"CONFIGURATIONを抜けると、設定した\n" +
+                //"スキンに変更されます。",
+                "Skin:\n" +
+                "Change skin.",
+                skinNames);
+            this.list項目リスト.Add(this.iSystemSkinSubfolder);
             //this.iSystemUseBoxDefSkin = new CItemToggle( "Skin (Box)", CDTXMania.ConfigIni.bUseBoxDefSkin,
             //	"Music boxスキンの利用：\n" +
             //	"特別なスキンが設定されたMusic box\n" +

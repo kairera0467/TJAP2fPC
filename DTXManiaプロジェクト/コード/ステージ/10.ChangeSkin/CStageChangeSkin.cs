@@ -93,6 +93,9 @@ namespace DTXMania
 			CDTXMania.Skin.PrepareReloadSkin();
 			CDTXMania.Skin.ReloadSkin();
 
+            CDTXMania.Tx.DisposeTexture();
+            CDTXMania.Tx.LoadTexture();
+
 			CDTXMania.act文字コンソール.On活性化();
 		}
 	}
