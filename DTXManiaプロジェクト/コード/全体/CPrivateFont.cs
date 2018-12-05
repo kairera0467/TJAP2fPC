@@ -530,7 +530,7 @@ namespace DTXMania
                 //現時点では補正値をX,Y各座標について1個ずつしか取れない（複数対1）ので、
                 //文字を列挙して、同じ数だけそれぞれの文字の補正値を記入できるような枠組をつくりたい。（20181205 rhimm）
 
-                Rectangle rect = new Rectangle(-3 - nAdded + nEdge補正X, -rect正確なサイズ.Y - 2 + nEdge補正Y, (strSize.Width + 12), (strSize.Height + 12));
+                Rectangle rect = new Rectangle(-3 - nAdded + (nEdge補正X * _pt / 100), -rect正確なサイズ.Y - 2 + (nEdge補正Y * _pt / 100), (strSize.Width + 12), (strSize.Height + 12));
                 //Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
 
                 // DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
