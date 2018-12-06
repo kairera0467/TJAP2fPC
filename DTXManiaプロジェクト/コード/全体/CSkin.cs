@@ -1044,6 +1044,10 @@ namespace DTXMania
                             {
                                 SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
                             }
+                            else if (strCommand == nameof(SongSelect_ForeColor_Namco))
+                            {
+                                SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
+                            }
                             else if (strCommand == "SongSelect_BackColor_JPOP")
                             {
                                 SongSelect_BackColor_JPOP = ColorTranslator.FromHtml(strParam);
@@ -1071,6 +1075,10 @@ namespace DTXMania
                             else if (strCommand == "SongSelect_BackColor_GameMusic")
                             {
                                 SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(SongSelect_BackColor_Namco))
+                            {
+                                SongSelect_BackColor_Namco = ColorTranslator.FromHtml(strParam);
                             }
                             #endregion
                             #region SongLoading
