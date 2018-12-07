@@ -976,6 +976,16 @@ namespace DTXMania
                             #endregion
 
                             #region 新・SkinConfig
+                            #region Config
+                            else if (strCommand == nameof(Config_ItemText_Correction_X))
+                            {
+                                Config_ItemText_Correction_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Config_ItemText_Correction_Y))
+                            {
+                                Config_ItemText_Correction_Y = int.Parse(strParam);
+                            }
+                            #endregion
                             #region SongSelect
                             else if (strCommand == "SongSelect_Overall_Y")
                             {
@@ -1145,6 +1155,10 @@ namespace DTXMania
                             {
                                 SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml(strParam);
                             }
+                            else if (strCommand == nameof(SongLoading_Plate_ScreenBlend))
+                            {
+                                SongLoading_Plate_ScreenBlend = C変換.bONorOFF(strParam[0]);
+                            }
                             #endregion
                             #region Game
                             else if (strCommand == "Game_Notes_Anime")
@@ -1158,6 +1172,10 @@ namespace DTXMania
                             else if (strCommand == nameof(Game_RollColorMode))
                             {
                                 Game_RollColorMode = (RollColorMode)int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Game_JudgeFrame_AddBlend))
+                            {
+                                Game_JudgeFrame_AddBlend = C変換.bONorOFF(strParam[0]);
                             }
 
                             #region CourseSymbol
@@ -1382,7 +1400,7 @@ namespace DTXMania
                                     this.Game_Score_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_ScoreAdd_X")
+                            else if (strCommand == "Game_Score_Add_X")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
@@ -1390,7 +1408,7 @@ namespace DTXMania
                                     this.Game_Score_Add_X[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_ScoreAdd_Y")
+                            else if (strCommand == "Game_Score_Add_Y")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
@@ -1398,7 +1416,7 @@ namespace DTXMania
                                     this.Game_Score_Add_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_ScoreAddBonus_X")
+                            else if (strCommand == "Game_Score_AddBonus_X")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
@@ -1406,7 +1424,7 @@ namespace DTXMania
                                     this.Game_Score_AddBonus_X[i] = int.Parse(strSplit[i]);
                                 }
                             }
-                            else if (strCommand == "Game_ScoreAddBonus_Y")
+                            else if (strCommand == "Game_Score_AddBonus_Y")
                             {
                                 string[] strSplit = strParam.Split(',');
                                 for (int i = 0; i < 2; i++)
@@ -1893,6 +1911,26 @@ namespace DTXMania
                             {
                                 Game_Effect_Rainbow_Timer = int.Parse(strParam);
                             }
+                            else if (strCommand == nameof(Game_Effect_HitExplosion_AddBlend))
+                            {
+                                Game_Effect_HitExplosion_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_HitExplosionBig_AddBlend))
+                            {
+                                Game_Effect_HitExplosionBig_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_FireWorks_AddBlend))
+                            {
+                                Game_Effect_FireWorks_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_Fire_AddBlend))
+                            {
+                                Game_Effect_Fire_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
+                            else if (strCommand == nameof(Game_Effect_GoGoSplash_AddBlend))
+                            {
+                                Game_Effect_GoGoSplash_AddBlend = C変換.bONorOFF(strParam[0]);
+                            }
                             #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
@@ -2182,6 +2220,10 @@ namespace DTXMania
         public string Skin_Version = "Unknown";
         public string Skin_Creator = "Unknown";
         #endregion
+        #region Config
+        public int Config_ItemText_Correction_X = 0;
+        public int Config_ItemText_Correction_Y = 0;
+        #endregion
         #region SongSelect
         public int SongSelect_Overall_Y = 123;
         public int[] SongSelect_NamePlate_X = new int[] { 60, 950 };
@@ -2221,12 +2263,14 @@ namespace DTXMania
         public Color SongLoading_Title_BackColor = ColorTranslator.FromHtml("#000000");
         public Color SongLoading_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
         public Color SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
+        public bool SongLoading_Plate_ScreenBlend = true;
 
         #endregion
         #region Game
         public bool Game_Notes_Anime = false;
         public string Game_StageText = "1曲目";
         public RollColorMode Game_RollColorMode = RollColorMode.All;
+        public bool Game_JudgeFrame_AddBlend = true;
         #region Chara
         public int[] Game_Chara_X = new int[] { 0, 0 };
         public int[] Game_Chara_Y = new int[] { 0, 537 };
@@ -2385,6 +2429,12 @@ namespace DTXMania
         public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
         public int Game_Effect_FireWorks_Timer = 5;
         public int Game_Effect_Rainbow_Timer = 8;
+
+        public bool Game_Effect_HitExplosion_AddBlend = true;
+        public bool Game_Effect_HitExplosionBig_AddBlend = true;
+        public bool Game_Effect_FireWorks_AddBlend = true;
+        public bool Game_Effect_Fire_AddBlend = true;
+        public bool Game_Effect_GoGoSplash_AddBlend = true;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };
