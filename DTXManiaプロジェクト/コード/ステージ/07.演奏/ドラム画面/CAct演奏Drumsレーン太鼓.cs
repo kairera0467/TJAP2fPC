@@ -764,7 +764,7 @@ namespace DTXMania
             {
                 int nJudgeX = CDTXMania.Skin.nScrollFieldX[0] - (130 / 2); //元の値は349なんだけど...
                 int nJudgeY = CDTXMania.Skin.nScrollFieldY[0]; //元の値は349なんだけど...
-                CDTXMania.Tx.Judge_Frame.b加算合成 = true;
+                CDTXMania.Tx.Judge_Frame.b加算合成 = CDTXMania.Skin.Game_JudgeFrame_AddBlend;
                 CDTXMania.Tx.Judge_Frame.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY, new Rectangle(0, 0, 130, 130));
 
                 if (CDTXMania.stage演奏ドラム画面.bDoublePlay)

@@ -58,8 +58,15 @@ namespace DTXMania
 			Trace.Indent();
 			try
 			{
-				this.n現在のメニュー番号 = 0;													//
-				this.ftフォント = new Font("MS UI Gothic", 18.0f, FontStyle.Bold, GraphicsUnit.Pixel );			//
+				this.n現在のメニュー番号 = 0;                                                    //
+                if (!string.IsNullOrEmpty(CDTXMania.ConfigIni.FontName))
+                {
+                    this.ftフォント = new Font(CDTXMania.ConfigIni.FontName, 18.0f, FontStyle.Bold, GraphicsUnit.Pixel);
+                }
+                else
+                {
+                    this.ftフォント = new Font("MS UI Gothic", 18.0f, FontStyle.Bold, GraphicsUnit.Pixel);
+                }
 				for( int i = 0; i < 4; i++ )													//
 				{																				//
 					this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, CDTXMania.Timer );			//
@@ -222,7 +229,7 @@ namespace DTXMania
 				//txMenuItemLeft = CDTXMania.tテクスチャの生成( bmpStr, false );
 				int flag = ( this.n現在のメニュー番号 == i ) ? 1 : 0;
 				int num4 = txMenuItemLeft[ i, flag ].sz画像サイズ.Width;
-				txMenuItemLeft[ i, flag ].t2D描画( CDTXMania.app.Device, 282 - ( num4 / 2 ), menuY ); //55
+                txMenuItemLeft[i, flag].t2D描画(CDTXMania.app.Device, 282 - (num4 / 2) + CDTXMania.Skin.Config_ItemText_Correction_X, menuY + CDTXMania.Skin.Config_ItemText_Correction_Y ); //55
 				//txMenuItem.Dispose();
 				menuY += stepY;
 			}

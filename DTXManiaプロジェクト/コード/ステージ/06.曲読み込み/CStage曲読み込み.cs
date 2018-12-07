@@ -259,7 +259,7 @@ namespace DTXMania
 
             if (CDTXMania.Tx.SongLoading_Plate != null)
             {
-                CDTXMania.Tx.SongLoading_Plate.bスクリーン合成 = true; //あまりにも出番が無い
+                CDTXMania.Tx.SongLoading_Plate.bスクリーン合成 = CDTXMania.Skin.SongLoading_Plate_ScreenBlend; //あまりにも出番が無い
                 CDTXMania.Tx.SongLoading_Plate.n透明度 = C変換.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
                 if(CDTXMania.Skin.SongLoading_Plate_ReferencePoint == CSkin.ReferencePoint.Left)
                 {

@@ -393,20 +393,20 @@ namespace DTXMania
             #endregion
             #region エフェクト
             Effects_Hit_Explosion = TxCAf(GAME + EFFECTS + @"Hit\Explosion.png");
-            if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.b加算合成 = true;
+            if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.b加算合成 = CDTXMania.Skin.Game_Effect_HitExplosion_AddBlend;
             Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit\Explosion_Big.png");
-            if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.b加算合成 = true;
+            if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.b加算合成 = CDTXMania.Skin.Game_Effect_HitExplosionBig_AddBlend;
             Effects_Hit_FireWorks = TxC(GAME + EFFECTS + @"Hit\FireWorks.png");
-            if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.b加算合成 = true;
+            if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.b加算合成 = CDTXMania.Skin.Game_Effect_FireWorks_AddBlend;
 
 
             Effects_Fire = TxC(GAME + EFFECTS + @"Fire.png");
-            if (Effects_Fire != null) Effects_Fire.b加算合成 = true;
+            if (Effects_Fire != null) Effects_Fire.b加算合成 = CDTXMania.Skin.Game_Effect_Fire_AddBlend;
 
             Effects_Rainbow = TxC(GAME + EFFECTS + @"Rainbow.png");
 
             Effects_GoGoSplash = TxC(GAME + EFFECTS + @"GoGoSplash.png");
-            if (Effects_GoGoSplash != null) Effects_GoGoSplash.b加算合成 = true;
+            if (Effects_GoGoSplash != null) Effects_GoGoSplash.b加算合成 = CDTXMania.Skin.Game_Effect_GoGoSplash_AddBlend;
             Effects_Hit_Great = new CTexture[15];
             Effects_Hit_Great_Big = new CTexture[15];
             Effects_Hit_Good = new CTexture[15];
