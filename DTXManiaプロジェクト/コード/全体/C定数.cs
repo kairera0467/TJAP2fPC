@@ -5,6 +5,22 @@ using System.Runtime.InteropServices;
 
 namespace DTXMania
 {
+
+    /// <summary>
+    /// 難易度。
+    /// </summary>
+    public enum Difficulty
+    {
+        Easy,
+        Normal,
+        Hard,
+        Oni,
+        Edit,
+        Tower,
+        Dan,
+        Total
+    }
+
     public enum EScrollMode
     {
         Normal,
