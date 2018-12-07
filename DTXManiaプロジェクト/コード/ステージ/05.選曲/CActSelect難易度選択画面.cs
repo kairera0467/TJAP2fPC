@@ -94,7 +94,7 @@ namespace DTXMania
 		public void t選択画面初期化()
 		{
 			//かんたんから一番近いところにカーソルを移動させる。
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < (int)Difficulty.Total; i++ )
             {
                 if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] != null )
                 {
@@ -104,11 +104,11 @@ namespace DTXMania
             }
 
             int n譜面数 = 0;
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
                 if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) n譜面数++;
             }
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
                 //描画順と座標を決める。
                 switch( n譜面数 )
@@ -182,7 +182,7 @@ namespace DTXMania
 
             this.soundSelectAnnounce = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\DiffSelect.ogg" ), ESoundGroup.SoundEffect );
 
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < (int)Difficulty.Total; i++ )
             {
                 this.tx踏み台[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffSelect_table" + i.ToString() + @".png" ) );
             }
@@ -203,7 +203,7 @@ namespace DTXMania
 
             CDTXMania.t安全にDisposeする( ref this.soundSelectAnnounce );
 
-            for( int i = 0; i < 5; i++ )
+            for( int i = 0; i < (int)Difficulty.Total; i++ )
             {
                 CDTXMania.tテクスチャの解放( ref this.tx踏み台[ i ] );
             }
@@ -337,7 +337,7 @@ namespace DTXMania
                 int nバー基準X = 64;
                 CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.白, this.n現在の選択行.ToString() );
 
-				for( int i = 0; i < 5; i++ )
+				for( int i = 0; i < (int)Difficulty.Total; i++ )
 				{
                     if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] == null )
                         continue;
@@ -353,7 +353,7 @@ namespace DTXMania
 
                 //1→3→5→2→4の順で描画する。
 
-				for( int j = 0; j < 5; j++ )
+				for( int j = 0; j < (int)Difficulty.Total; j++ )
 				{
                     if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ n描画順[ j ] ] == null )
                         continue;
@@ -402,7 +402,7 @@ namespace DTXMania
 		private int n現在の選択行;
 		private int n目標のスクロールカウンタ;
 
-        private CTexture[] tx踏み台 = new CTexture[ 5 ];
+        private CTexture[] tx踏み台 = new CTexture[(int)Difficulty.Total];
 
         private CTexture tx背景;
         private CTexture txヘッダー;

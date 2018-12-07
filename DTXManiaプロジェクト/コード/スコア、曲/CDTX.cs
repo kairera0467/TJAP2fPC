@@ -1132,7 +1132,7 @@ namespace DTXMania
         public Eジャンル eジャンル;
         public bool HIDDENLEVEL;
         public STDGBVALUE<int> LEVEL;
-        public int[] LEVELtaiko = new int[5] { -1, -1, -1, -1, -1 };
+        public int[] LEVELtaiko = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
         public Dictionary<int, CAVI> listAVI;
         public Dictionary<int, CAVIPAN> listAVIPAN;
         public Dictionary<int, CDirectShow> listDS;
@@ -1215,9 +1215,9 @@ namespace DTXMania
 
         public int n参照中の難易度 = 3;
         public int nScoreModeTmp = 99; //2017.01.28 DD
-        public int[,] nScoreInit = new int[2, 5]; //[ x, y ] x=通常or真打 y=コース
-        public int[] nScoreDiff = new int[5]; //[y]
-        public bool[,] b配点が指定されている = new bool[3, 5]; //2017.06.04 kairera0467 [ x, y ] x=通常(Init)or真打orDiff y=コース
+        public int[,] nScoreInit = new int[2, (int)Difficulty.Total]; //[ x, y ] x=通常or真打 y=コース
+        public int[] nScoreDiff = new int[(int)Difficulty.Total]; //[y]
+        public bool[,] b配点が指定されている = new bool[3, (int)Difficulty.Total]; //2017.06.04 kairera0467 [ x, y ] x=通常(Init)or真打orDiff y=コース
 
         private double dbBarLength;
         public float fNow_Measure_s = 4.0f;
@@ -1244,7 +1244,7 @@ namespace DTXMania
         private int listBalloon_Expert_数値管理;
         private int listBalloon_Master_数値管理;
 
-        public bool[] b譜面が存在する = new bool[5];
+        public bool[] b譜面が存在する = new bool[(int)Difficulty.Total];
 
         private string[] dlmtSpace = { " " };
         private string[] dlmtEnter = { "\n" };
@@ -1369,7 +1369,7 @@ namespace DTXMania
             this.dbDTXVPlaySpeed = 1.0f;
 
             //this.nScoreModeTmp = 1;
-            for (int y = 0; y < 5; y++)
+            for (int y = 0; y < (int)Difficulty.Total; y++)
             {
                 this.nScoreInit[0, y] = 300;
                 this.nScoreInit[1, y] = 1000;
@@ -2908,7 +2908,7 @@ namespace DTXMania
         /// <returns>各コースの譜面(string[5])</returns>
         private string[] tコースで譜面を分割する(string strTJA)
         {
-            string[] strCourseTJA = new string[5];
+            string[] strCourseTJA = new string[(int)Difficulty.Total];
 
             if (strTJA.IndexOf("COURSE", 0) != -1)
             {
@@ -3038,12 +3038,12 @@ namespace DTXMania
                 {
                     n読み込むコース = CDTXMania.stage選曲.n確定された曲の難易度;
                     n読み込むコース++;
-                    for (int n = 1; n < 5; n++)
+                    for (int n = 1; n < (int)Difficulty.Total; n++)
                     {
                         if (this.b譜面が存在する[n読み込むコース] == false)
                         {
                             n読み込むコース++;
-                            if (n読み込むコース > 4)
+                            if (n読み込むコース > (int)Difficulty.Total - 1)
                                 n読み込むコース = 0;
                         }
                         else

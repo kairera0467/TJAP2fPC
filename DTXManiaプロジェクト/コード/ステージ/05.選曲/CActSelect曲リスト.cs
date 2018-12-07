@@ -152,12 +152,12 @@ namespace DTXMania
 
 			int n最も近いレベル = this.n現在のアンカ難易度レベル;
 
-			for( int i = 0; i < 5; i++ )
+			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
 				if( song.arスコア[ n最も近いレベル ] != null )
 					break;	// 曲があった。
 
-				n最も近いレベル = ( n最も近いレベル + 1 ) % 5;	// 曲がなかったので次の難易度レベルへGo。（5以上になったら0に戻る。）
+				n最も近いレベル = ( n最も近いレベル + 1 ) % (int)Difficulty.Total;	// 曲がなかったので次の難易度レベルへGo。（5以上になったら0に戻る。）
 			}
 
 
@@ -170,12 +170,12 @@ namespace DTXMania
 
 				n最も近いレベル = this.n現在のアンカ難易度レベル;
 
-				for( int i = 0; i < 5; i++ )
+				for( int i = 0; i < (int)Difficulty.Total; i++ )
 				{
 					if( song.arスコア[ n最も近いレベル ] != null )
 						break;	// 曲があった。
 
-					n最も近いレベル = ( ( n最も近いレベル - 1 ) + 5 ) % 5;	// 曲がなかったので次の難易度レベルへGo。（0未満になったら4に戻る。）
+					n最も近いレベル = ( ( n最も近いレベル - 1 ) + (int)Difficulty.Total) % (int)Difficulty.Total;	// 曲がなかったので次の難易度レベルへGo。（0未満になったら4に戻る。）
 				}
 			}
 
@@ -337,9 +337,9 @@ namespace DTXMania
 
 			this.n現在のアンカ難易度レベル = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r現在選択中の曲 );
 
-			for( int i = 0; i < 5; i++ )
+			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
-				this.n現在のアンカ難易度レベル = ( this.n現在のアンカ難易度レベル + 1 ) % 5;	// ５以上になったら０に戻る。
+				this.n現在のアンカ難易度レベル = ( this.n現在のアンカ難易度レベル + 1 ) % (int)Difficulty.Total;	// ５以上になったら０に戻る。
 				if( this.r現在選択中の曲.arスコア[ this.n現在のアンカ難易度レベル ] != null )	// 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
 					break;
 			}
@@ -904,7 +904,7 @@ namespace DTXMania
                         this.stバー情報[ index ].strサブタイトル = song.strサブタイトル;
                         this.stバー情報[ index ].ar難易度 = song.nLevel;
                         this.t曲名バーの生成(index, this.stバー情報[index].strタイトル文字列, this.stバー情報[index].ForeColor, this.stバー情報[index].BackColor);
-                        for ( int f = 0; f < 5; f++ )
+                        for ( int f = 0; f < (int)Difficulty.Total; f++ )
                         {
                             if( song.arスコア[ f ] != null )
                                 this.stバー情報[ index ].b分岐 = song.arスコア[ f ].譜面情報.b譜面分岐;
@@ -973,7 +973,7 @@ namespace DTXMania
                         this.stバー情報[ index ].strジャンル = song.strジャンル;
                         this.stバー情報[ index ].ar難易度 = song.nLevel;
                         this.t曲名バーの生成(index, this.stバー情報[index].strタイトル文字列, this.stバー情報[index].ForeColor, this.stバー情報[index].BackColor);
-                        for ( int f = 0; f < 5; f++ )
+                        for ( int f = 0; f < (int)Difficulty.Total; f++ )
                         {
                             if( song.arスコア[ f ] != null )
                                 this.stバー情報[ index ].b分岐 = song.arスコア[ f ].譜面情報.b譜面分岐;
@@ -1075,7 +1075,7 @@ namespace DTXMania
                             {
                                 if (CDTXMania.Tx.SongSelect_Frame_Score != null)
                                 {
-                                    for (int i = 0; i < 5; i++)
+                                    for (int i = 0; i < (int)Difficulty.Total; i++)
                                     {
                                         if (CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] >= 0)
                                         {
@@ -1114,7 +1114,8 @@ namespace DTXMania
                                 if (CDTXMania.Tx.SongSelect_Level != null)
                                 {
                                     // 全難易度表示
-                                    for (int i = 0; i < 5; i++)
+                                    // 要修正
+                                    for (int i = 0; i < (int)Difficulty.Total; i++)
                                     {
                                         for (int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i]; n++)
                                         {
@@ -1295,7 +1296,8 @@ namespace DTXMania
                             {
                                 if (CDTXMania.Tx.SongSelect_Frame_Score != null)
                                 {
-                                    for (int i = 0; i < 5; i++)
+                                    // 要修正
+                                    for (int i = 0; i < (int)Difficulty.Total; i++)
                                     {
                                         if (CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i] >= 0)
                                         {
@@ -1334,7 +1336,8 @@ namespace DTXMania
                                 if (CDTXMania.Tx.SongSelect_Level != null)
                                 {
                                     // 全難易度表示
-                                    for (int i = 0; i < 5; i++)
+                                    // 要修正
+                                    for (int i = 0; i < (int)Difficulty.Total; i++)
                                     {
                                         for (int n = 0; n < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[i]; n++)
                                         {
@@ -1816,7 +1819,7 @@ namespace DTXMania
                 this.stバー情報[ i ].strサブタイトル = song.strサブタイトル;
                 this.stバー情報[ i ].ar難易度 = song.nLevel;
 
-			    for( int f = 0; f < 5; f++ )
+			    for( int f = 0; f < (int)Difficulty.Total; f++ )
                 {
                     if( song.arスコア[ f ] != null )
                         this.stバー情報[ i ].b分岐 = song.arスコア[ f ].譜面情報.b譜面分岐;

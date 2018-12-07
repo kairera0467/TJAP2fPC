@@ -184,7 +184,7 @@ namespace DTXMania
                             c曲リストノード.eノード種別 = C曲リストノード.Eノード種別.SCORE;
 
                             bool b = false;
-                            for( int n = 0; n < 5; n++ )
+                            for( int n = 0; n < (int)Difficulty.Total; n++ )
                             {
                                 if( dtx.b譜面が存在する[ n ] )
                                 {
@@ -267,7 +267,7 @@ namespace DTXMania
                         c曲リストノード.eノード種別 = C曲リストノード.Eノード種別.SCORE;
 
                         bool b = false;
-                        for( int n = 0; n < 5; n++ )
+                        for( int n = 0; n < (int)Difficulty.Total; n++ )
                         {
                             if( dtx.b譜面が存在する[ n ] )
                             {
@@ -642,7 +642,7 @@ namespace DTXMania
 					else if( ( node.eノード種別 == C曲リストノード.Eノード種別.SCORE ) || ( node.eノード種別 == C曲リストノード.Eノード種別.SCORE_MIDI ) )
 					{
 						Predicate<Cスコア> match = null;
-						for( int lv = 0; lv < 5; lv++ )
+						for( int lv = 0; lv < (int)Difficulty.Total; lv++ )
 						{
 							if( node.arスコア[ lv ] != null )
 							{
@@ -721,6 +721,8 @@ namespace DTXMania
 			cスコア.譜面情報.演奏履歴.行3 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行4 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行5 = br.ReadString();
+			cスコア.譜面情報.演奏履歴.行6 = br.ReadString();
+			cスコア.譜面情報.演奏履歴.行7 = br.ReadString();
 			cスコア.譜面情報.レベルを非表示にする = br.ReadBoolean();
 			cスコア.譜面情報.曲種別 = (CDTX.E種別) br.ReadInt32();
 			cスコア.譜面情報.Bpm = br.ReadDouble();
@@ -782,7 +784,7 @@ namespace DTXMania
 				else if( ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE )
 					  || ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE_MIDI ) )
 				{
-					for( int i = 0; i < 5; i++ )
+					for( int i = 0; i < (int)Difficulty.Total; i++ )
 					{
 						if( ( c曲リストノード.arスコア[ i ] != null ) && !c曲リストノード.arスコア[ i ].bSongDBにキャッシュがあった )
 						{
@@ -941,13 +943,13 @@ namespace DTXMania
 				C曲リストノード itemRandom = new C曲リストノード();
 				itemRandom.eノード種別 = C曲リストノード.Eノード種別.RANDOM;
 				itemRandom.strタイトル = "ランダムで曲を選ぶ";
-				itemRandom.nスコア数 = 5;
+				itemRandom.nスコア数 = (int)Difficulty.Total;
 				itemRandom.r親ノード = ノードリスト[ 0 ].r親ノード;
                 
                 itemRandom.strBreadcrumbs = ( itemRandom.r親ノード == null ) ?
 					itemRandom.strタイトル :  itemRandom.r親ノード.strBreadcrumbs + " > " + itemRandom.strタイトル;
 
-				for( int i = 0; i < 5; i++ )
+				for( int i = 0; i < (int)Difficulty.Total; i++ )
 				{
 					itemRandom.arスコア[ i ] = new Cスコア();
 					itemRandom.arスコア[ i ].譜面情報.タイトル = string.Format( "< RANDOM SELECT Lv.{0} >", i + 1 );
@@ -1047,7 +1049,7 @@ namespace DTXMania
 				//-----------------------------
 				if( string.IsNullOrEmpty( c曲リストノード.strタイトル ) )
 				{
-					for( int j = 0; j < 5; j++ )
+					for( int j = 0; j < (int)Difficulty.Total; j++ )
 					{
 						if( ( c曲リストノード.arスコア[ j ] != null ) && !string.IsNullOrEmpty( c曲リストノード.arスコア[ j ].譜面情報.タイトル ) )
 						{
@@ -1104,7 +1106,7 @@ namespace DTXMania
 		}
 		private void tSongsDBにノードを１つ出力する( BinaryWriter bw, C曲リストノード node )
 		{
-			for( int i = 0; i < 5; i++ )
+			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
 				// ここではsuspendに応じないようにしておく(深い意味はない。ファイルの書き込みオープン状態を長時間維持したくないだけ)
 				//if ( this.bIsSuspending )		// #27060 中断要求があったら、解除要求が来るまで待機
@@ -1609,7 +1611,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 					score.譜面情報.最大スキル[ n楽器番号 ] = ini.stセクション[ n ].db演奏型スキル値;
 					score.譜面情報.フルコンボ[ n楽器番号 ] = ini.stセクション[ n ].bフルコンボである;
                     score.譜面情報.ハイスコア = (int)ini.stセクション.HiScoreDrums.nスコア;
-                    for( int i = 0; i < 5; i++ )
+                    for( int i = 0; i < (int)Difficulty.Total; i++ )
                     {
                         score.譜面情報.nハイスコア[ i ] = (int)ini.stセクション.HiScoreDrums.nハイスコア[ i ];
                     }
@@ -1617,7 +1619,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 				score.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
 				score.譜面情報.演奏回数.Guitar = ini.stファイル.PlayCountGuitar;
 				score.譜面情報.演奏回数.Bass = ini.stファイル.PlayCountBass;
-				for( int i = 0; i < 5; i++ )
+				for( int i = 0; i < (int)Difficulty.Total; i++ )
 					score.譜面情報.演奏履歴[ i ] = ini.stファイル.History[ i ];
 			}
 			catch (Exception e)

@@ -118,7 +118,7 @@ namespace DTXMania
             {
                 SongSelect_Bar_Genre[i] = TxC(SONGSELECT + @"Bar_Genre_" + i.ToString() + ".png");
             }
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < (int)Difficulty.Total; i++)
             {
                 SongSelect_ScoreWindow[i] = TxC(SONGSELECT + @"ScoreWindow_" + i.ToString() + ".png");
             }
@@ -562,7 +562,7 @@ namespace DTXMania
             {
                 CDTXMania.tテクスチャの解放(ref SongSelect_Bar_Genre[i]);
             }
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < (int)Difficulty.Total; i++)
             {
                 CDTXMania.tテクスチャの解放(ref SongSelect_ScoreWindow[i]);
             }
@@ -872,7 +872,7 @@ namespace DTXMania
             SongSelect_Cursor_Right,
             SongSelect_ScoreWindow_Text;
         public CTexture[] SongSelect_GenreBack = new CTexture[9],
-            SongSelect_ScoreWindow = new CTexture[5],
+            SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
             SongSelect_Bar_Genre = new CTexture[9],
             SongSelect_NamePlate = new CTexture[1];
         #endregion
