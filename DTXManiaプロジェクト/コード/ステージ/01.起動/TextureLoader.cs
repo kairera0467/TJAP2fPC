@@ -36,6 +36,7 @@ namespace DTXMania
         const string GAMEMODE = @"14_GameMode\";
         const string FAILED = @"15_Failed\";
         const string RUNNER = @"16_Runner\";
+        const string PUCHICHARA = @"18_PuchiChara\";
         const string DANCHALLENGE = @"17_DanChallenge\";
 
         // InGame_Effects
@@ -481,6 +482,9 @@ namespace DTXMania
             DanC_ExamUnit = TxC(GAME + DANCHALLENGE + @"ExamUnit.png");
             DanC_Screen = TxC(GAME + DANCHALLENGE + @"Screen.png");
             #endregion
+            #region PuichiChara
+            PuchiChara = TxC(GAME + PUCHICHARA + @"0.png");
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -798,6 +802,9 @@ namespace DTXMania
             DanC_ExamType?.Dispose();
             DanC_Screen?.Dispose();
             #endregion
+            #region PuchiChara
+            CDTXMania.tテクスチャの解放(ref PuchiChara);
+            #endregion
             #endregion
 
             #region 6_結果発表
@@ -1004,6 +1011,9 @@ namespace DTXMania
             DanC_ExamRange,
             DanC_ExamUnit;
         public CTexture DanC_Screen;
+        #endregion
+        #region PuchiChara
+        public CTexture PuchiChara;
         #endregion
         #endregion
 

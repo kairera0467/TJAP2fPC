@@ -1402,7 +1402,7 @@ namespace DTXMania
             ShowRunner = true;
             ShowFooter = true;
             ShowMob = true;
-            // ShowPuchiChara = true;
+            ShowPuchiChara = true;
 
             this.eSTEALTH = Eステルスモード.OFF;
             this.bNoInfo = false;
@@ -1803,8 +1803,8 @@ namespace DTXMania
             sw.WriteLine("ShowMob={0}", ShowMob ? 1 : 0);
             sw.WriteLine("; フッター画像 (0:OFF, 1:ON)");
             sw.WriteLine("ShowFooter={0}", ShowFooter ? 1 : 0);
-            //sw.WriteLine("; ぷちキャラ画像 (0:OFF, 1:ON)");
-            //sw.WriteLine("ShowPuchiChara={0}", ShowPuchiChara ? 1 : 0);
+            sw.WriteLine("; ぷちキャラ画像 (0:OFF, 1:ON)");
+            sw.WriteLine("ShowPuchiChara={0}", ShowPuchiChara ? 1 : 0);
             sw.WriteLine();
 			sw.WriteLine( "; DARKモード(0:OFF, 1:HALF, 2:FULL)" );
 			sw.WriteLine( "Dark={0}", (int) this.eDark );
@@ -2542,10 +2542,10 @@ namespace DTXMania
                                             {
                                                 ShowFooter = C変換.bONorOFF(str4[0]);
                                             }
-                                            //else if (str3.Equals("ShowPuchiChara"))
-                                            //{
-                                            //    ShowPuchiChara = C変換.bONorOFF(str4[0]);
-                                            //}
+                                            else if (str3.Equals("ShowPuchiChara"))
+                                            {
+                                                ShowPuchiChara = C変換.bONorOFF(str4[0]);
+                                            }
                                             else if( str3.Equals( "Dark" ) )
 											{
 												this.eDark = (Eダークモード) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eDark );

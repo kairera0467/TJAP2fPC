@@ -78,22 +78,27 @@ namespace DTXMania
 					return 0;
 				}
 
-				//スキン変更処理
-				tChangeSkinMain();
-				return 1;
+                //スキン変更処理
+                CDTXMania.app.RefleshSkin();
+
+                return 1;
 			}
 			return 0;
 		}
-		public void tChangeSkinMain()
-		{
-			Trace.TraceInformation( "スキン変更:" + CDTXMania.Skin.GetCurrentSkinSubfolderFullName( false ) );
+		//public void tChangeSkinMain()
+		//{
+		//	Trace.TraceInformation( "スキン変更:" + CDTXMania.Skin.GetCurrentSkinSubfolderFullName( false ) );
 
-			CDTXMania.act文字コンソール.On非活性化();
+		//	CDTXMania.act文字コンソール.On非活性化();
 
-			CDTXMania.Skin.PrepareReloadSkin();
-			CDTXMania.Skin.ReloadSkin();
+		//	CDTXMania.Skin.PrepareReloadSkin();
+		//	CDTXMania.Skin.ReloadSkin();
 
-			CDTXMania.act文字コンソール.On活性化();
-		}
+
+  //          CDTXMania.Tx.DisposeTexture();
+  //          CDTXMania.Tx.LoadTexture();
+
+		//	CDTXMania.act文字コンソール.On活性化();
+		//}
 	}
 }

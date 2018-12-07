@@ -1044,6 +1044,10 @@ namespace DTXMania
                             {
                                 SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
                             }
+                            else if (strCommand == nameof(SongSelect_ForeColor_Namco))
+                            {
+                                SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
+                            }
                             else if (strCommand == "SongSelect_BackColor_JPOP")
                             {
                                 SongSelect_BackColor_JPOP = ColorTranslator.FromHtml(strParam);
@@ -1071,6 +1075,10 @@ namespace DTXMania
                             else if (strCommand == "SongSelect_BackColor_GameMusic")
                             {
                                 SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(SongSelect_BackColor_Namco))
+                            {
+                                SongSelect_BackColor_Namco = ColorTranslator.FromHtml(strParam);
                             }
                             #endregion
                             #region SongLoading
@@ -2371,7 +2379,7 @@ namespace DTXMania
         public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1222, 1222 }; // 1P, 2P
         public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 164, 554 };
 
-        public int Game_Effect_FlyingNotes_Sine = 276;
+        public int Game_Effect_FlyingNotes_Sine = 230;
         public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
         public int Game_Effect_FlyingNotes_Timer = 4;
         public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
@@ -2385,6 +2393,17 @@ namespace DTXMania
         public int[] Game_Runner_StartPoint_X = new int[] { 175, 175 };
         public int[] Game_Runner_StartPoint_Y = new int[] { 40, 560 };
         public int Game_Runner_Timer = 16;
+        #endregion
+        #region PuchiChara
+        public int[] Game_PuchiChara_X = new int[] { 100, 100 };
+        public int[] Game_PuchiChara_Y = new int[] { 140, 600 };
+        public int[] Game_PuchiChara_BalloonX = new int[] { 300, 300 };
+        public int[] Game_PuchiChara_BalloonY = new int[] { 240, 500 };
+        public float[] Game_PuchiChara_Scale = new float[] { 0.7f, 1.0f }; // 通常時、 ふうせん連打時
+        public int[] Game_PuchiChara = new int[] { 180, 180, 2}; // Width, Height, Ptn
+        public int Game_PuchiChara_Sine = 20;
+        public int Game_PuchiChara_Timer = 4800;
+        public double Game_PuchiChara_SineTimer = 2;
         #endregion
         #region Dan-C
         public int[] Game_DanC_X = new int[] { 302, 302, 302 };

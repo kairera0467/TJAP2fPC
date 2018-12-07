@@ -10,6 +10,7 @@ using System.Threading;
 using SlimDX;
 using SlimDX.Direct3D9;
 using FDK;
+using TJAPlayer3;
 
 namespace DTXMania
 {
@@ -64,7 +65,7 @@ namespace DTXMania
             base.list子Activities.Add(this.GoGoSplash = new GoGoSplash());
             base.list子Activities.Add(this.FlyingNotes = new FlyingNotes());
             base.list子Activities.Add(this.FireWorks = new FireWorks());
-
+            base.list子Activities.Add(this.PuchiChara = new PuchiChara());
 
             base.list子Activities.Add(this.actDan = new Dan_Cert());
             #region[ 文字初期化 ]
@@ -214,6 +215,8 @@ namespace DTXMania
             double dbPtn_Normal = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Normal / this.actChara.arモーション番号.Length;
             double dbPtn_Clear = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Clear / this.actChara.arクリアモーション番号.Length;
             double dbPtn_GoGo = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_GoGo / this.actChara.arゴーゴーモーション番号.Length;
+
+            PuchiChara.ChangeBPM(60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM);
 
             //dbUnit = Math.Ceiling( dbUnit * 1000.0 );
             //dbUnit = dbUnit / 1000.0;
@@ -591,6 +594,7 @@ namespace DTXMania
         public GoGoSplash GoGoSplash;
         public FlyingNotes FlyingNotes;
         public FireWorks FireWorks;
+        public PuchiChara PuchiChara;
         private bool bフィルイン中;
 		private readonly Eパッド[] eチャンネルtoパッド = new Eパッド[]
 		{

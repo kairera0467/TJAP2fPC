@@ -449,23 +449,23 @@ namespace DTXMania
                 "事前画像描画機能を使うかどうか。\n",
                 "Use pre-textures render.\n");
             this.list項目リスト.Add(FastRender);
-            //ShowPuchiChara = new CItemToggle("ShowPuchiChara", CDTXMania.ConfigIni.ShowPuchiChara,
-            //    "ぷちキャラ画像を表示するかどうか\n",
-            //    "Show PuchiChara Images.\n" +
-            //    "");
-            //this.list項目リスト.Add(ShowPuchiChara);
+            ShowPuchiChara = new CItemToggle("ShowPuchiChara", CDTXMania.ConfigIni.ShowPuchiChara,
+                "ぷちキャラ画像を表示するかどうか\n",
+                "Show PuchiChara Images.\n" +
+                "");
+            this.list項目リスト.Add(ShowPuchiChara);
 
 
 
-            //this.iSystemSkinSubfolder = new CItemList( "Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
-            //	"スキン切替：\n" +
-            //	"スキンを切り替えます。\n",
-            //	//"CONFIGURATIONを抜けると、設定した\n" +
-            //	//"スキンに変更されます。",
-            //	"Skin:\n" +
-            //	"Change skin.",
-            //	skinNames );
-            //this.list項目リスト.Add( this.iSystemSkinSubfolder );
+            this.iSystemSkinSubfolder = new CItemList("Skin (全体)", CItemBase.Eパネル種別.通常, nSkinIndex,
+                "スキン切替：\n" +
+                "スキンを切り替えます。\n",
+                //"CONFIGURATIONを抜けると、設定した\n" +
+                //"スキンに変更されます。",
+                "Skin:\n" +
+                "Change skin.",
+                skinNames);
+            this.list項目リスト.Add(this.iSystemSkinSubfolder);
             //this.iSystemUseBoxDefSkin = new CItemToggle( "Skin (Box)", CDTXMania.ConfigIni.bUseBoxDefSkin,
             //	"Music boxスキンの利用：\n" +
             //	"特別なスキンが設定されたMusic box\n" +
@@ -1547,8 +1547,8 @@ namespace DTXMania
 			#region [ Skin変更 ]
 			if ( CDTXMania.Skin.GetCurrentSkinSubfolderFullName( true ) != this.skinSubFolder_org )
 			{
-				CDTXMania.stageChangeSkin.tChangeSkinMain();	// #28195 2012.6.11 yyagi CONFIG脱出時にSkin更新
-			}
+                CDTXMania.app.RefleshSkin();
+            }
 			#endregion
 
 			// #24820 2013.1.22 yyagi CONFIGでWASAPI/ASIO/DirectSound関連の設定を変更した場合、サウンドデバイスを再構築する。
@@ -2365,7 +2365,7 @@ namespace DTXMania
             CDTXMania.ConfigIni.ShowRunner = this.ShowRunner.bON;
             CDTXMania.ConfigIni.ShowMob = this.ShowMob.bON;
             CDTXMania.ConfigIni.ShowFooter = this.ShowFooter.bON;
-            //CDTXMania.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
+            CDTXMania.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
             CDTXMania.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
             CDTXMania.ConfigIni.FastRender = this.FastRender.bON;
 		}

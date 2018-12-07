@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Diagnostics;
 using FDK;
 using FDK.ExtensionMethods;
+using TJAPlayer3;
 
 namespace DTXMania
 {
@@ -3172,6 +3173,7 @@ namespace DTXMania
                                         this.actMob.ctMob = new CCounter();
                                         this.actMob.ctMobPtn = new CCounter();
                                     }
+                                    CDTXMania.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM);
 
                                     //this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
                                     //this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
@@ -3392,6 +3394,8 @@ namespace DTXMania
                                     this.actMob.ctMob = new CCounter();
                                     this.actMob.ctMobPtn = new CCounter();
                                 }
+
+                                CDTXMania.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM);
                                 //this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
                                 //this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
                                 //#if C_82D982F182AF82CD82A282AF82A2

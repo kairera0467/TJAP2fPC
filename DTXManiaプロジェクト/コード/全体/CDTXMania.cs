@@ -2727,6 +2727,23 @@ for (int i = 0; i < 3; i++) {
 			if( this.listプラグイン.Count > 0 )
 				Trace.TraceInformation( this.listプラグイン.Count + " 個のプラグインを読み込みました。" );
 		}
+
+        public void RefleshSkin()
+        {
+            Trace.TraceInformation("スキン変更:" + CDTXMania.Skin.GetCurrentSkinSubfolderFullName(false));
+
+            CDTXMania.act文字コンソール.On非活性化();
+
+            CDTXMania.Skin.Dispose();
+            CDTXMania.Skin = null;
+            CDTXMania.Skin = new CSkin(CDTXMania.ConfigIni.strSystemSkinSubfolderFullName, false);
+
+
+            CDTXMania.Tx.DisposeTexture();
+            CDTXMania.Tx.LoadTexture();
+
+            CDTXMania.act文字コンソール.On活性化();
+        }
 		#region [ Windowイベント処理 ]
 		private void t指定フォルダ内でのプラグイン検索と生成( string strプラグインフォルダパス, string strプラグイン型名 )
 		{
