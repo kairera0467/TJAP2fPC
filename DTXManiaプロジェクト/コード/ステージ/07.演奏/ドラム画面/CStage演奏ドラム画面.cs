@@ -2153,6 +2153,32 @@ namespace DTXMania
 
             #endregion
 
+            #region[ 判定カウント(Debug用) ]
+#if DEBUG
+            int count_y = 0;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PG:{this.nヒット数[0].良:0000}") );
+            count_y += 16;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"GR:{this.nヒット数[0].可:0000}") );
+            count_y += 16;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"BP:{this.nヒット数[0].不可:0000}") );
+            count_y += 16;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"BA:{this.nヒット数[0].空打ち不可:0000}") );
+            count_y += 16;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PO:{this.nヒット数[0].見逃し不可:0000}") );
+
+            count_y = 536;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PG:{this.nヒット数[1].良:0000}") );
+            count_y += 16;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"GR:{this.nヒット数[1].可:0000}") );
+            count_y += 16;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"BP:{this.nヒット数[1].不可:0000}") );
+            count_y += 16;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"BA:{this.nヒット数[1].空打ち不可:0000}") );
+            count_y += 16;
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PO:{this.nヒット数[1].見逃し不可:0000}") );
+#endif
+            #endregion
+
             string strNull = "Found";
             if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F1 ) )
             {

@@ -65,7 +65,7 @@ namespace DTXMania
 			if( !base.b活性化してない )
 			{
                 this.txゴーゴースプラッシュ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_gogosplash.png" ) );
-                this.txゴーゴースプラッシュ.b加算合成 = true;
+                if( this.txゴーゴースプラッシュ != null ) this.txゴーゴースプラッシュ.b加算合成 = true;
 				base.OnManagedリソースの作成();
 			}
 		}

@@ -545,6 +545,7 @@ namespace DTXMania
         private void t叩ききりまショー_評価をして残り時間を延長する()
         {
             double n延長する時間 = 0;
+            int player = 0; // 2018.11.8 kairera0467 複数人プレイに対応するための準備
 
             //最後に延長した時刻から11秒経過していなければ延長を行わない。
             if( this.n最後に時間延長した時刻 + 11000 <= CSound管理.rc演奏用タイマ.n現在時刻ms )
@@ -613,9 +614,9 @@ namespace DTXMania
                     }
                 }
                 #region[ 全体 ]
-                if( CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect != 0 || CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great != 0 )
+                if( CDTXMania.stage演奏ドラム画面.nヒット数[ 0 ].良 != 0 || CDTXMania.stage演奏ドラム画面.nヒット数[ 0 ].可 != 0 )
                 {
-                    double db全体精度 = ( (double) ( CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
+                    double db全体精度 = ( (double) ( CDTXMania.stage演奏ドラム画面.nヒット数[ 0 ].良 + CDTXMania.stage演奏ドラム画面.nヒット数[ 0 ].可 ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
                     for( int i = 0; i < this.n全体精度ボーナス.Length; i++ )
                     {
                         if( db全体精度 >= this.n全体精度ボーナス[ i ].ret )
@@ -653,7 +654,7 @@ namespace DTXMania
                     }
                 }
 
-                double db全体ミス率 = ( ( (double)CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Poor + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss ) / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
+                double db全体ミス率 = ( ( (double)CDTXMania.stage演奏ドラム画面.nヒット数[ 0 ].不可 + CDTXMania.stage演奏ドラム画面.nヒット数[ 0 ].空打ち不可 + CDTXMania.stage演奏ドラム画面.nヒット数[ 0 ].見逃し不可 ) / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
                 for( int i = 0; i < this.n全体ミス率ボーナス.Length; i++ )
                 {
                     if( db全体ミス率 >= this.n全体ミス率ボーナス[ i ].ret )

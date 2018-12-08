@@ -54,18 +54,14 @@ namespace DTXMania
 			//if (  )
 			{
 				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, 0 );
-				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( CDTXMania.DTX.LEVEL.Drums, CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.nPerfect数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Perfect : this.nヒット数_Auto含まない.Drums.Perfect;
-				Drums.nGreat数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Great : this.nヒット数_Auto含まない.Drums.Great;
-				Drums.nGood数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Good : this.nヒット数_Auto含まない.Drums.Good;
-				Drums.nPoor数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Poor : this.nヒット数_Auto含まない.Drums.Poor;
-				Drums.nMiss数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Miss : this.nヒット数_Auto含まない.Drums.Miss;
-				Drums.nPerfect数_Auto含まない = this.nヒット数_Auto含まない.Drums.Perfect;
-				Drums.nGreat数_Auto含まない = this.nヒット数_Auto含まない.Drums.Great;
-				Drums.nGood数_Auto含まない = this.nヒット数_Auto含まない.Drums.Good;
-				Drums.nPoor数_Auto含まない = this.nヒット数_Auto含まない.Drums.Poor;
-				Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない.Drums.Miss;
+				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( CDTXMania.DTX.LEVEL.Drums, CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数[ 0 ].良, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS, bIsAutoPlay );
+				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数[ 0 ].良, this.nヒット数[ 0 ].可, 0, this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可, 0, E楽器パート.DRUMS, bIsAutoPlay );
+				Drums.nPerfect数 = this.nヒット数[ 0 ].良;
+				Drums.nGreat数 = this.nヒット数[ 0 ].可;
+				Drums.nMiss数 = this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可;
+				Drums.nPerfect数_Auto含まない = this.nヒット数[ 0 ].良;
+				Drums.nGreat数_Auto含まない = this.nヒット数[ 0 ].可;
+				Drums.nMiss数_Auto含まない = this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可;
                 Drums.n連打数 = this.n合計連打数[ 0 ];
 				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
 				Drums.n全チップ数 = CDTXMania.DTX.n可視チップ数.Drums;
@@ -119,18 +115,14 @@ namespace DTXMania
 			//if ( CDTXMania.DTX.bチップがある.Drums )
 			{
 				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, 0 );
-				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( CDTXMania.DTX.LEVEL.Drums, CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P2, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.nPerfect数 = this.nヒット数_Auto含まない.Taiko.Perfect;
-				Drums.nGreat数 = this.nヒット数_Auto含まない.Taiko.Great;
-				Drums.nGood数 = this.nヒット数_Auto含まない.Taiko.Good;
-				Drums.nPoor数 = this.nヒット数_Auto含まない.Taiko.Poor;
-				Drums.nMiss数 = this.nヒット数_Auto含まない.Taiko.Miss;
-				Drums.nPerfect数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Perfect;
-				Drums.nGreat数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Great;
-				Drums.nGood数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Good;
-				Drums.nPoor数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Poor;
-				Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Miss;
+                Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( CDTXMania.DTX.LEVEL.Drums, CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数[ 0 ].良, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS, bIsAutoPlay );
+				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数[ 0 ].良, this.nヒット数[ 0 ].可, 0, this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可, 0, E楽器パート.DRUMS, bIsAutoPlay );
+				Drums.nPerfect数 = this.nヒット数[ 0 ].良;
+				Drums.nGreat数 = this.nヒット数[ 0 ].可;
+				Drums.nMiss数 = this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可;
+				Drums.nPerfect数_Auto含まない = this.nヒット数[ 0 ].良;
+				Drums.nGreat数_Auto含まない = this.nヒット数[ 0 ].可;
+				Drums.nMiss数_Auto含まない = this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可;
                 Drums.n連打数 = this.n合計連打数[ 0 ];
 				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P2;
 				Drums.n全チップ数 = CDTXMania.DTX.nノーツ数[ 3 ];
@@ -208,21 +200,10 @@ namespace DTXMania
 
 			this.eフェードアウト完了時の戻り値 = E演奏画面の戻り値.継続;
 			this.n現在のトップChip = ( listChip[0].Count > 0 ) ? 0 : -1;
-			this.n最後に再生した実WAV番号.Guitar = -1;
-			this.n最後に再生した実WAV番号.Bass = -1;
-			for ( int i = 0; i < 50; i++ )
-			{
-				this.n最後に再生したBGMの実WAV番号[ i ] = -1;
-			}
 			cInvisibleChip = new CInvisibleChip( CDTXMania.ConfigIni.nDisplayTimesMs, CDTXMania.ConfigIni.nFadeoutTimeMs );
 			this.演奏判定ライン座標 = new C演奏判定ライン座標共通();
 			for ( int k = 0; k < 4; k++ )
 			{
-				//for ( int n = 0; n < 5; n++ )
-				//{
-					this.nヒット数_Auto含まない[ k ] = new CHITCOUNTOFRANK();
-					this.nヒット数_Auto含む[ k ] = new CHITCOUNTOFRANK();
-				//}
 				this.queWailing[ k ] = new Queue<CDTX.CChip>();
 				this.r現在の歓声Chip[ k ] = null;
 				cInvisibleChip.eInvisibleMode[ k ] = CDTXMania.ConfigIni.eInvisible[ k ];
@@ -444,128 +425,16 @@ namespace DTXMania
 			}
 		}
 
-		[StructLayout( LayoutKind.Sequential )]
-		protected struct STKARAUCHI
-		{
-			public CDTX.CChip HH;
-			public CDTX.CChip SD;
-			public CDTX.CChip BD;
-			public CDTX.CChip HT;
-			public CDTX.CChip LT;
-			public CDTX.CChip FT;
-			public CDTX.CChip CY;
-			public CDTX.CChip HHO;
-			public CDTX.CChip RD;
-			public CDTX.CChip LC;
-            public CDTX.CChip LP;
-            public CDTX.CChip LBD;
-			public CDTX.CChip this[ int index ]
-			{
-				get
-				{
-					switch ( index )
-					{
-						case 0:
-							return this.HH;
-
-						case 1:
-							return this.SD;
-
-						case 2:
-							return this.BD;
-
-						case 3:
-							return this.HT;
-
-						case 4:
-							return this.LT;
-
-						case 5:
-							return this.FT;
-
-						case 6:
-							return this.CY;
-
-						case 7:
-							return this.HHO;
-
-						case 8:
-							return this.RD;
-
-						case 9:
-							return this.LC;
-
-                        case 10:
-                            return this.LP;
-
-                        case 11:
-                            return this.LBD;
-					}
-					throw new IndexOutOfRangeException();
-				}
-				set
-				{
-					switch ( index )
-					{
-						case 0:
-							this.HH = value;
-							return;
-
-						case 1:
-							this.SD = value;
-							return;
-
-						case 2:
-							this.BD = value;
-							return;
-
-						case 3:
-							this.HT = value;
-							return;
-
-						case 4:
-							this.LT = value;
-							return;
-
-						case 5:
-							this.FT = value;
-							return;
-
-						case 6:
-							this.CY = value;
-							return;
-
-						case 7:
-							this.HHO = value;
-							return;
-
-						case 8:
-							this.RD = value;
-							return;
-
-						case 9:
-							this.LC = value;
-							return;
-
-                        case 10:
-                            this.LP = value;
-                            return;
-					}
-					throw new IndexOutOfRangeException();
-				}
-			}
-		}
-
         /// <summary>
         /// 2018.11.11 kairera0467
         /// 太鼓用の判定構造体
         /// </summary>
-        protected struct ST判定カウント
+        public struct ST判定カウント
         {
 			public int 良;
 			public int 可;
 			public int 不可;
-			//public int 優;
+			public int 優;
             public int 見逃し不可;
 			public int 空打ち不可; // Tightモード用
 
@@ -585,8 +454,8 @@ namespace DTXMania
 						case 2:
 							return this.不可;
 
-//						case 3:
-//							return this.優;
+						case 3:
+							return this.優;
 
 						case 4:
 							return this.見逃し不可;
@@ -612,9 +481,9 @@ namespace DTXMania
 							this.不可 = value;
 							return;
 
-//						case 3:
-//							this.優 = value;
-//							return;
+						case 3:
+							this.優 = value;
+							return;
 
 						case 4:
 							this.見逃し不可 = value;
@@ -638,7 +507,6 @@ namespace DTXMania
 
 		public CAct演奏AVI actAVI;
         public CAct演奏Drums飛んでいく音符 actChipFireTaiko;
-		protected CAct演奏チップファイアGB actChipFireGB;
 		public CAct演奏Combo共通 actCombo;
 		protected CAct演奏Danger共通 actDANGER;
 		//protected CActFIFOBlack actFI;
@@ -674,24 +542,8 @@ namespace DTXMania
 		protected STDGBVALUE<CCounter> ctチップ模様アニメ;
 
 		protected E演奏画面の戻り値 eフェードアウト完了時の戻り値;
-        protected readonly int[] nチャンネル0Atoパッド08 = new int[] { 1, 2, 3, 4, 5, 7, 6, 1, 8, 0, 9, 9 };
-        protected readonly int[] nチャンネル0Atoレーン07 = new int[] { 1, 2, 3, 4, 5, 7, 6, 1, 9, 0, 8, 8 };
-                                                                    //                         RD LC  LP  RD
-		protected readonly int[] nパッド0Atoチャンネル0A = new int[] { 0x11, 0x12, 0x13, 0x14, 0x15, 0x17, 0x16, 0x18, 0x19, 0x1a, 0x1b, 0x1c };
-        protected readonly int[] nパッド0Atoパッド08 = new int[] { 1, 2, 3, 4, 5, 6, 7, 1, 8, 0, 9, 9 };// パッド画像のヒット処理用
-                                                              //   HH SD BD HT LT FT CY HHO RD LC LP LBD
-        protected readonly int[] nパッド0Atoレーン07 = new int[] { 1, 2, 3, 4, 5, 6, 7, 1, 9, 0, 8, 8 };
-		public STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含まない;
-		protected STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含む;
-        protected ST判定カウント[] nヒット数; // 2018.11.11 kairera0467 太鼓用判定カウント
+        public ST判定カウント[] nヒット数; // 2018.11.11 kairera0467 太鼓用判定カウント
 		protected int n現在のトップChip = -1;
-		protected int[] n最後に再生したBGMの実WAV番号 = new int[ 50 ];
-		protected int n最後に再生したHHのチャンネル番号;
-		protected List<int> L最後に再生したHHの実WAV番号;		// #23921 2011.1.4 yyagi: change "int" to "List<int>", for recording multiple wav No.
-		protected STLANEVALUE<int> n最後に再生した実WAV番号;	// #26388 2011.11.8 yyagi: change "n最後に再生した実WAV番号.GUITAR" and "n最後に再生した実WAV番号.BASS"
-																//							into "n最後に再生した実WAV番号";
-//		protected int n最後に再生した実WAV番号.GUITAR;
-//		protected int n最後に再生した実WAV番号.BASS;
 
 		protected volatile Queue<stmixer> queueMixerSound;		// #24820 2013.1.21 yyagi まずは単純にAdd/Removeを1個のキューでまとめて管理するやり方で設計する
 		protected DateTime dtLastQueueOperation;				//
@@ -1479,7 +1331,6 @@ namespace DTXMania
                         case E判定.Perfect:
                             {
                                 this.nBranch_Perfect[ nPlayer ]++;
-                                if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Perfect++;
                                 this.nヒット数[ nPlayer ].良++;
                                 this.actCombo.n現在のコンボ数[ nPlayer ]++;
                                 this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
@@ -1490,7 +1341,6 @@ namespace DTXMania
                         case E判定.Good:
                             {
                                 this.nBranch_Good[ nPlayer ]++;
-                                if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Great++;
                                 this.nヒット数[ nPlayer ].可++;
                                 this.actCombo.n現在のコンボ数[ nPlayer ]++;
                                 this.actCombo.ctコンボ加算[ nPlayer ].n現在の値 = 0;
@@ -1504,7 +1354,6 @@ namespace DTXMania
                                 if( pChip.nチャンネル番号 == 0x1F )
                                     break;
                                 this.nBranch_Miss[ nPlayer ]++;
-                                if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Miss++;
                                 this.tチップのヒット処理_BadならびにTight時のMiss( eJudgeResult, nPlayer );
                                 this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
                                 this.actComboVoice.tリセット();
@@ -1516,7 +1365,6 @@ namespace DTXMania
                             }
 			    			break;
 				    	default:
-					    	this.nヒット数_Auto含む.Drums[ (int) eJudgeResult ]++;
 		    				break;
 			    	}
                     #endregion
@@ -2530,11 +2378,6 @@ namespace DTXMania
 				base.eフェーズID = CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト;
 				this.actFO.tフェードアウト開始();
 			}
-		}
-
-		protected void t進行描画_チップファイアGB()
-		{
-			this.actChipFireGB.On進行描画();
 		}
 		protected abstract void t進行描画_パネル文字列();
 		protected void t進行描画_パネル文字列( int x, int y )
@@ -3729,17 +3572,13 @@ namespace DTXMania
         {
             if( b演奏記録 )
             {
-                this.nヒット数_Auto含む.Taiko.Perfect = 0;
-                this.nヒット数_Auto含む.Taiko.Great = 0;
-                this.nヒット数_Auto含む.Taiko.Good = 0;
-                this.nヒット数_Auto含む.Taiko.Poor = 0;
-                this.nヒット数_Auto含む.Taiko.Miss = 0;
-
-                this.nヒット数_Auto含まない.Taiko.Perfect = 0;
-                this.nヒット数_Auto含まない.Taiko.Great = 0;
-                this.nヒット数_Auto含まない.Taiko.Good = 0;
-                this.nヒット数_Auto含まない.Taiko.Poor = 0;
-                this.nヒット数_Auto含まない.Taiko.Miss = 0;
+                for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                {
+                    for( int j = 0; j < 6; j++ )
+                    {
+                        this.nヒット数[ i ][ j ] = 0;
+                    }
+                }
 
                 this.actCombo.On活性化();
                 this.actScore.On活性化();
