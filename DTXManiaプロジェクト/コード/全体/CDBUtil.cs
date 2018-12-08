@@ -18,23 +18,41 @@ namespace DTXMania
         SQLiteConnection connection;
         public void initalize()
         {
-            this.sqlConnectionSb = new SQLiteConnectionStringBuilder { DataSource = "tjap2fpc.sqlite" };
+            this.sqlConnectionSb = new SQLiteConnectionStringBuilder { DataSource = CDTXMania.strEXEのあるフォルダ + "\\tjap2fpc.sqlite" };
+            this.connection = new SQLiteConnection(sqlConnectionSb.ToString());
         }
 
+        /// <summary>
+        /// UPDATE INSERT DELETE等のSQLを実行する
+        /// </summary>
+        /// <param name="sql">SQLクエリ</param>
+        /// <returns></returns>
         public int tノンクエリSQL実行( string sql )
         {
-            SQLiteCommand cmd;
+            int ret = 0;
+            SQLiteCommand cmd = null;
             try
             {
-                this.connection = new SQLiteConnection( sqlConnectionSb.ToString() );
+                this.connection.Open();
 
+                cmd = this.connection.CreateCommand();
+                cmd.CommandText = sql;
+
+                ret = cmd.ExecuteNonQuery();
+
+                this.connection.Close();
             }
             catch( Exception ex )
             {
                 Trace.TraceError( ex.StackTrace );
             }
 
-            return 0;
+            return ret;
+        }
+
+        public void tクエリSQL実行( string sql )
+        {
+            SQLiteCommand cmd = null;
         }
     }
 }

@@ -315,6 +315,11 @@ namespace DTXMania
 			get;
 			set;
 		}
+        public static CDBUtil DBUtil
+        {
+            get;
+            set;
+        }
 
 		#endregion
 
@@ -2214,10 +2219,16 @@ for (int i = 0; i < 3; i++) {
 				}
 			}
 
-			//---------------------
-			#endregion
+            //---------------------
+            #endregion
+            #region[ DBUtilの初期化 ]
+            //----------
+            DBUtil = new CDBUtil();
+            DBUtil.initalize();
+            //----------
+            #endregion
 
-			Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
+            Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
 			
 			#region [ 最初のステージの起動 ]
 			//---------------------
