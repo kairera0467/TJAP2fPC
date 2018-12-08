@@ -9,33 +9,32 @@ using System.Threading.Tasks;
 namespace DTXMania
 {
     /// <summary>
-    /// SQLiteデータベースに接続するためのクラス
+    /// SQLiteデータベースを利用するためのクラス
     /// </summary>
     public class CDBUtil
     {
+        SQLiteConnectionStringBuilder sqlConnectionSb;
+
         SQLiteConnection connection;
-        public void open()
+        public void initalize()
         {
-            try
-            {
-                this.connection = new SQLiteConnection( "" );
-            }
-            catch( Exception ex )
-            {
-                Trace.TraceError( ex.StackTrace );
-            }
+            this.sqlConnectionSb = new SQLiteConnectionStringBuilder { DataSource = "tjap2fpc.sqlite" };
         }
 
-        public void close()
+        public int tノンクエリSQL実行( string sql )
         {
+            SQLiteCommand cmd;
             try
             {
-                this.connection.Close();
+                this.connection = new SQLiteConnection( sqlConnectionSb.ToString() );
+
             }
             catch( Exception ex )
             {
                 Trace.TraceError( ex.StackTrace );
             }
+
+            return 0;
         }
     }
 }
