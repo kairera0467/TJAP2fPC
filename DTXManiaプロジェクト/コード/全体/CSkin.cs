@@ -1973,6 +1973,91 @@ namespace DTXMania
                                 }
                             }
                             #endregion
+                            #region Dan_C
+                            else if(strCommand == nameof(Game_DanC_X))
+                            {
+                                Game_DanC_X = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_Y))
+                            {
+                                Game_DanC_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Size))
+                            {
+                                Game_DanC_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Padding))
+                            {
+                                ParseInt32(value => Game_DanC_Padding = value);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Offset))
+                            {
+                                Game_DanC_Offset = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_Size))
+                            {
+                                Game_DanC_Number_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_Padding))
+                            {
+                                ParseInt32(value => Game_DanC_Number_Padding = value);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_Small_Scale))
+                            {
+                                Game_DanC_Number_Small_Scale = float.Parse(strParam);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_Small_Padding))
+                            {
+                                ParseInt32(value => Game_DanC_Number_Small_Padding = value);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_XY))
+                            {
+                                Game_DanC_Number_XY = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_Number_Small_Number_Offset))
+                            {
+                                Game_DanC_Number_Small_Number_Offset = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_ExamType_Size))
+                            {
+                                Game_DanC_ExamType_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_ExamRange_Size))
+                            {
+                                Game_DanC_ExamRange_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_ExamRange_Padding))
+                            {
+                                ParseInt32(value => Game_DanC_ExamRange_Padding = value);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Percent_Hit_Score_Padding))
+                            {
+                                Game_DanC_Percent_Hit_Score_Padding = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_ExamUnit_Size))
+                            {
+                                Game_DanC_ExamUnit_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_Exam_Offset))
+                            {
+                                Game_DanC_Exam_Offset = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_Dan_Plate))
+                            {
+                                Game_DanC_Dan_Plate = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            #endregion
                             #endregion
                             #region Result
                             else if (strCommand == nameof(Result_MusicName_X))
@@ -2460,7 +2545,6 @@ namespace DTXMania
         public int[] Game_DanC_Y = new int[] { 473, 302, 365 };
         public int[] Game_DanC_Size = new int[] { 956, 92 };
         public int Game_DanC_Padding = 5;
-        public int Game_DanC_Growing = 9;
         public int[] Game_DanC_Offset = new int[] { 15, 17 };
         public int[] Game_DanC_Number_Size = new int[] { 50, 62 };
         public int Game_DanC_Number_Padding = 50;
