@@ -71,7 +71,7 @@ namespace DTXMania
 					Bitmap image = new Bitmap( 800, 240 );
 					Graphics graphics = Graphics.FromImage( image );
 					graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-					for ( int i = 0; i < 5; i++ )
+					for ( int i = 0; i < (int)Difficulty.Total; i++ )
 					{
 						if( ( cスコア.譜面情報.演奏履歴[ i ] != null ) && ( cスコア.譜面情報.演奏履歴[ i ].Length > 0 ) )
 						{

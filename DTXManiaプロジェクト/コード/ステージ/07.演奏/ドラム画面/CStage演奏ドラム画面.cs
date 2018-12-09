@@ -67,6 +67,7 @@ namespace DTXMania
             base.list子Activities.Add(this.FireWorks = new FireWorks());
             base.list子Activities.Add(this.PuchiChara = new PuchiChara());
 
+            base.list子Activities.Add(this.actDan = new Dan_Cert());
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
 			ST文字位置 st文字位置 = new ST文字位置();
@@ -190,7 +191,7 @@ namespace DTXMania
 			this.bフィルイン中 = false;
             this.n待機中の大音符の座標 = 0;
             this.actGame.t叩ききりまショー_初期化();
-            base.tスコアの初期化();
+            base.ReSetScore(CDTXMania.DTX.nScoreInit[0, CDTXMania.stage選曲.n確定された曲の難易度], CDTXMania.DTX.nScoreDiff[CDTXMania.stage選曲.n確定された曲の難易度]);
 			base.On活性化();
 
 			// MODIFY_BEGIN #25398 2011.06.07 FROM
@@ -463,6 +464,7 @@ namespace DTXMania
                     this.t進行描画_チップ_連打( E楽器パート.DRUMS, i );
                 }
 
+                this.actDan.On進行描画();
 
                 this.actMtaiko.On進行描画();
                 //if (this.txNamePlate != null)
@@ -503,7 +505,6 @@ namespace DTXMania
                 this.actPanel.t歌詞テクスチャを描画する();
                 actChara.OnDraw_Balloon();
                 this.t全体制御メソッド();
-
 
                 
                 this.actPauseMenu.t進行描画();

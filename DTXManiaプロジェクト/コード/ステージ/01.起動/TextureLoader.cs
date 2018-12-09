@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DTXMania
 {
-    class TextureLoader : CActivity
+    class TextureLoader
     {
         const string BASE = @"Graphics\";
 
@@ -37,6 +37,7 @@ namespace DTXMania
         const string FAILED = @"15_Failed\";
         const string RUNNER = @"16_Runner\";
         const string PUCHICHARA = @"18_PuchiChara\";
+        const string DANC = @"17_DanC\";
 
         // InGame_Effects
         const string FIRE = @"Fire\";
@@ -117,7 +118,7 @@ namespace DTXMania
             {
                 SongSelect_Bar_Genre[i] = TxC(SONGSELECT + @"Bar_Genre_" + i.ToString() + ".png");
             }
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < (int)Difficulty.Total; i++)
             {
                 SongSelect_ScoreWindow[i] = TxC(SONGSELECT + @"ScoreWindow_" + i.ToString() + ".png");
             }
@@ -335,9 +336,9 @@ namespace DTXMania
             Taiko_Ka_Right = TxC(GAME + TAIKO + @"Ka.png");
             Taiko_LevelUp = TxC(GAME + TAIKO + @"LevelUp.png");
             Taiko_LevelDown = TxC(GAME + TAIKO + @"LevelDown.png");
-            Couse_Symbol = new CTexture[6];
-            string[] Couse_Symbols = new string[6] { "Easy", "Normal", "Hard", "Oni", "Edit", "Shin" };
-            for (int i = 0; i < 6; i++)
+            Couse_Symbol = new CTexture[(int)Difficulty.Total + 1]; // +1は真打ちモードの分
+            string[] Couse_Symbols = new string[(int)Difficulty.Total + 1] { "Easy", "Normal", "Hard", "Oni", "Edit", "Tower", "Dan", "Shin" };
+            for (int i = 0; i < (int)Difficulty.Total + 1; i++)
             {
                 Couse_Symbol[i] = TxC(GAME + COURSESYMBOL + Couse_Symbols[i] + ".png");
             }
@@ -465,6 +466,22 @@ namespace DTXMania
             #region ランナー
             Runner = TxC(GAME + RUNNER + @"0.png");
             #endregion
+            #region DanC
+            DanC_Background = TxC(GAME + DANC + @"Background.png");
+            DanC_Gauge = new CTexture[4];
+            var type = new string[] { "Normal", "Reach", "Clear", "Flush" };
+            for (int i = 0; i < 4; i++)
+            {
+                DanC_Gauge[i] = TxC(GAME + DANC + @"Gauge_" + type[i] + ".png");
+            }
+            DanC_Base = TxC(GAME + DANC + @"Base.png");
+            DanC_Failed = TxC(GAME + DANC + @"Failed.png");
+            DanC_Number = TxC(GAME + DANC + @"Number.png");
+            DanC_ExamType = TxC(GAME + DANC + @"ExamType.png");
+            DanC_ExamRange = TxC(GAME + DANC + @"ExamRange.png");
+            DanC_ExamUnit = TxC(GAME + DANC + @"ExamUnit.png");
+            DanC_Screen = TxC(GAME + DANC + @"Screen.png");
+            #endregion
             #region PuichiChara
             PuchiChara = TxC(GAME + PUCHICHARA + @"0.png");
             #endregion
@@ -545,7 +562,7 @@ namespace DTXMania
             {
                 CDTXMania.tテクスチャの解放(ref SongSelect_Bar_Genre[i]);
             }
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < (int)Difficulty.Total; i++)
             {
                 CDTXMania.tテクスチャの解放(ref SongSelect_ScoreWindow[i]);
             }
@@ -771,6 +788,20 @@ namespace DTXMania
             #region ランナー
             CDTXMania.tテクスチャの解放(ref Runner);
             #endregion
+            #region DanC
+            DanC_Background?.Dispose();
+            for (int i = 0; i < 4; i++)
+            {
+                DanC_Gauge[i]?.Dispose();
+            }
+            DanC_Base?.Dispose();
+            DanC_Failed?.Dispose();
+            DanC_Number?.Dispose();
+            DanC_ExamRange?.Dispose();
+            DanC_ExamUnit?.Dispose();
+            DanC_ExamType?.Dispose();
+            DanC_Screen?.Dispose();
+            #endregion
             #region PuchiChara
             CDTXMania.tテクスチャの解放(ref PuchiChara);
             #endregion
@@ -841,7 +872,7 @@ namespace DTXMania
             SongSelect_Cursor_Right,
             SongSelect_ScoreWindow_Text;
         public CTexture[] SongSelect_GenreBack = new CTexture[9],
-            SongSelect_ScoreWindow = new CTexture[5],
+            SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
             SongSelect_Bar_Genre = new CTexture[9],
             SongSelect_NamePlate = new CTexture[1];
         #endregion
@@ -969,6 +1000,17 @@ namespace DTXMania
         #endregion
         #region ランナー
         public CTexture Runner;
+        #endregion
+        #region DanC
+        public CTexture DanC_Background;
+        public CTexture[] DanC_Gauge;
+        public CTexture DanC_Base;
+        public CTexture DanC_Failed;
+        public CTexture DanC_Number,
+            DanC_ExamType,
+            DanC_ExamRange,
+            DanC_ExamUnit;
+        public CTexture DanC_Screen;
         #endregion
         #region PuchiChara
         public CTexture PuchiChara;

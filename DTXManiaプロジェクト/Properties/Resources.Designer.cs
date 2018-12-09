@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DTXMania.Properties {
+namespace TJAPlayer3.Properties {
     using System;
     
     

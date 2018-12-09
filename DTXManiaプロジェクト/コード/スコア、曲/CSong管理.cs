@@ -184,7 +184,7 @@ namespace DTXMania
                             c曲リストノード.eノード種別 = C曲リストノード.Eノード種別.SCORE;
 
                             bool b = false;
-                            for( int n = 0; n < 5; n++ )
+                            for( int n = 0; n < (int)Difficulty.Total; n++ )
                             {
                                 if( dtx.b譜面が存在する[ n ] )
                                 {
@@ -267,7 +267,7 @@ namespace DTXMania
                         c曲リストノード.eノード種別 = C曲リストノード.Eノード種別.SCORE;
 
                         bool b = false;
-                        for( int n = 0; n < 5; n++ )
+                        for( int n = 0; n < (int)Difficulty.Total; n++ )
                         {
                             if( dtx.b譜面が存在する[ n ] )
                             {
@@ -642,7 +642,7 @@ namespace DTXMania
 					else if( ( node.eノード種別 == C曲リストノード.Eノード種別.SCORE ) || ( node.eノード種別 == C曲リストノード.Eノード種別.SCORE_MIDI ) )
 					{
 						Predicate<Cスコア> match = null;
-						for( int lv = 0; lv < 5; lv++ )
+						for( int lv = 0; lv < (int)Difficulty.Total; lv++ )
 						{
 							if( node.arスコア[ lv ] != null )
 							{
@@ -721,6 +721,8 @@ namespace DTXMania
 			cスコア.譜面情報.演奏履歴.行3 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行4 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行5 = br.ReadString();
+			cスコア.譜面情報.演奏履歴.行6 = br.ReadString();
+			cスコア.譜面情報.演奏履歴.行7 = br.ReadString();
 			cスコア.譜面情報.レベルを非表示にする = br.ReadBoolean();
 			cスコア.譜面情報.曲種別 = (CDTX.E種別) br.ReadInt32();
 			cスコア.譜面情報.Bpm = br.ReadDouble();
@@ -743,22 +745,28 @@ namespace DTXMania
             cスコア.譜面情報.b譜面分岐[2] = br.ReadBoolean();
             cスコア.譜面情報.b譜面分岐[3] = br.ReadBoolean();
             cスコア.譜面情報.b譜面分岐[4] = br.ReadBoolean();
+            cスコア.譜面情報.b譜面分岐[5] = br.ReadBoolean();
+            cスコア.譜面情報.b譜面分岐[6] = br.ReadBoolean();
             cスコア.譜面情報.ハイスコア = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[0] = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[1] = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[2] = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[3] = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[4] = br.ReadInt32();
+            cスコア.譜面情報.nハイスコア[5] = br.ReadInt32();
+            cスコア.譜面情報.nハイスコア[6] = br.ReadInt32();
             cスコア.譜面情報.strサブタイトル = br.ReadString();
             cスコア.譜面情報.nレベル[0] = br.ReadInt32();
             cスコア.譜面情報.nレベル[1] = br.ReadInt32();
             cスコア.譜面情報.nレベル[2] = br.ReadInt32();
             cスコア.譜面情報.nレベル[3] = br.ReadInt32();
             cスコア.譜面情報.nレベル[4] = br.ReadInt32();
+            cスコア.譜面情報.nレベル[5] = br.ReadInt32();
+            cスコア.譜面情報.nレベル[6] = br.ReadInt32();
 
 
-//Debug.WriteLine( "songs.db: " + cスコア.ファイル情報.ファイルの絶対パス );
-			return cスコア;
+            //Debug.WriteLine( "songs.db: " + cスコア.ファイル情報.ファイルの絶対パス );
+            return cスコア;
 		}
 		//-----------------
 		#endregion
@@ -782,7 +790,7 @@ namespace DTXMania
 				else if( ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE )
 					  || ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE_MIDI ) )
 				{
-					for( int i = 0; i < 5; i++ )
+					for( int i = 0; i < (int)Difficulty.Total; i++ )
 					{
 						if( ( c曲リストノード.arスコア[ i ] != null ) && !c曲リストノード.arスコア[ i ].bSongDBにキャッシュがあった )
 						{
@@ -821,14 +829,18 @@ namespace DTXMania
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[1] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 1 ];
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[2] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 2 ];
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[3] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 3 ];
-                                    c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[4] = cdtx.bHIDDENBRANCH ? false : cdtx.bチップがある.Branch;
+                                    c曲リストノード.arスコア[i].譜面情報.b譜面分岐[4] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[4];
+                                    c曲リストノード.arスコア[i].譜面情報.b譜面分岐[5] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[5];
+                                    c曲リストノード.arスコア[i].譜面情報.b譜面分岐[6] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[6];
                                     c曲リストノード.arスコア[ i ].譜面情報.strサブタイトル = cdtx.SUBTITLE;
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[0] = cdtx.LEVELtaiko[0];
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[1] = cdtx.LEVELtaiko[1];
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[2] = cdtx.LEVELtaiko[2];
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[3] = cdtx.LEVELtaiko[3];
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[4] = cdtx.LEVELtaiko[4];
-									this.nファイルから反映できたスコア数++;
+                                    c曲リストノード.arスコア[i].譜面情報.nレベル[5] = cdtx.LEVELtaiko[5];
+                                    c曲リストノード.arスコア[i].譜面情報.nレベル[6] = cdtx.LEVELtaiko[6];
+                                    this.nファイルから反映できたスコア数++;
 									cdtx.On非活性化();
 //Debug.WriteLine( "★" + this.nファイルから反映できたスコア数 + " " + c曲リストノード.arスコア[ i ].譜面情報.タイトル );
 									#region [ 曲検索ログ出力 ]
@@ -941,13 +953,13 @@ namespace DTXMania
 				C曲リストノード itemRandom = new C曲リストノード();
 				itemRandom.eノード種別 = C曲リストノード.Eノード種別.RANDOM;
 				itemRandom.strタイトル = "ランダムで曲を選ぶ";
-				itemRandom.nスコア数 = 5;
+				itemRandom.nスコア数 = (int)Difficulty.Total;
 				itemRandom.r親ノード = ノードリスト[ 0 ].r親ノード;
                 
                 itemRandom.strBreadcrumbs = ( itemRandom.r親ノード == null ) ?
 					itemRandom.strタイトル :  itemRandom.r親ノード.strBreadcrumbs + " > " + itemRandom.strタイトル;
 
-				for( int i = 0; i < 5; i++ )
+				for( int i = 0; i < (int)Difficulty.Total; i++ )
 				{
 					itemRandom.arスコア[ i ] = new Cスコア();
 					itemRandom.arスコア[ i ].譜面情報.タイトル = string.Format( "< RANDOM SELECT Lv.{0} >", i + 1 );
@@ -1047,7 +1059,7 @@ namespace DTXMania
 				//-----------------------------
 				if( string.IsNullOrEmpty( c曲リストノード.strタイトル ) )
 				{
-					for( int j = 0; j < 5; j++ )
+					for( int j = 0; j < (int)Difficulty.Total; j++ )
 					{
 						if( ( c曲リストノード.arスコア[ j ] != null ) && !string.IsNullOrEmpty( c曲リストノード.arスコア[ j ].譜面情報.タイトル ) )
 						{
@@ -1104,7 +1116,7 @@ namespace DTXMania
 		}
 		private void tSongsDBにノードを１つ出力する( BinaryWriter bw, C曲リストノード node )
 		{
-			for( int i = 0; i < 5; i++ )
+			for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
 				// ここではsuspendに応じないようにしておく(深い意味はない。ファイルの書き込みオープン状態を長時間維持したくないだけ)
 				//if ( this.bIsSuspending )		// #27060 中断要求があったら、解除要求が来るまで待機
@@ -1165,19 +1177,25 @@ namespace DTXMania
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[2] );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[3] );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[4] );
+                    bw.Write(node.arスコア[i].譜面情報.b譜面分岐[5]);
+                    bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[6] );
                     bw.Write( node.arスコア[ i ].譜面情報.ハイスコア );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[0] );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[1] );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[2] );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[3] );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[4] );
+                    bw.Write(node.arスコア[i].譜面情報.nハイスコア[5]);
+                    bw.Write(node.arスコア[i].譜面情報.nハイスコア[6]);
                     bw.Write( node.arスコア[ i ].譜面情報.strサブタイトル );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[0] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[1] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[2] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[3] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[4] );
-					this.nSongsDBへ出力できたスコア数++;
+                    bw.Write(node.arスコア[i].譜面情報.nレベル[5]);
+                    bw.Write(node.arスコア[i].譜面情報.nレベル[6]);
+                    this.nSongsDBへ出力できたスコア数++;
 				}
 			}
 		}
@@ -1609,7 +1627,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 					score.譜面情報.最大スキル[ n楽器番号 ] = ini.stセクション[ n ].db演奏型スキル値;
 					score.譜面情報.フルコンボ[ n楽器番号 ] = ini.stセクション[ n ].bフルコンボである;
                     score.譜面情報.ハイスコア = (int)ini.stセクション.HiScoreDrums.nスコア;
-                    for( int i = 0; i < 5; i++ )
+                    for( int i = 0; i < (int)Difficulty.Total; i++ )
                     {
                         score.譜面情報.nハイスコア[ i ] = (int)ini.stセクション.HiScoreDrums.nハイスコア[ i ];
                     }

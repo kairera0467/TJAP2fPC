@@ -45,6 +45,11 @@ namespace DTXMania
         private ST文字位置[] stFont;
 
 
+        public long GetScore(int player)
+        {
+            return n現在表示中のスコア[player].Taiko;
+        }
+
 		// コンストラクタ
 
 		public CAct演奏スコア共通()

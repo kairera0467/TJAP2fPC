@@ -208,11 +208,11 @@ namespace DTXMania
 			public int nRisky;		// #23559 2011.6.20 yyagi 0=OFF, 1-10=Risky
 			public string 最終更新日時;
             public float fゲージ;
-            public int[] n良 = new int[5];
-            public int[] n可 = new int[5];
-            public int[] n不可 = new int[5];
-            public int[] n連打 = new int[5];
-            public int[] nハイスコア = new int[5];
+            public int[] n良 = new int[(int)Difficulty.Total];
+            public int[] n可 = new int[(int)Difficulty.Total];
+            public int[] n不可 = new int[(int)Difficulty.Total];
+            public int[] n連打 = new int[(int)Difficulty.Total];
+            public int[] nハイスコア = new int[(int)Difficulty.Total];
 
 			public C演奏記録()
 			{
