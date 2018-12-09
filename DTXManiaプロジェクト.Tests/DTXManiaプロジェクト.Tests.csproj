@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>rhimm_c.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.11.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.11.0\lib\net35\nunit.framework.dll</HintPath>
@@ -403,6 +409,7 @@
     <Content Include="コード\スコア、曲\approved\expected_case_2_only.2.tja">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="rhimm_c.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DTXManiaプロジェクト\DTXManiaプロジェクト.csproj">
