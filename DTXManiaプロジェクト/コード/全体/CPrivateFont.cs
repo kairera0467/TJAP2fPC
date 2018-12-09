@@ -340,7 +340,7 @@ namespace DTXMania
             sf.FormatFlags = StringFormatFlags.NoWrap; // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
             sf.Trimming = StringTrimming.None; // どんなに長くてもトリミングしない (AioiLight)
 			// レイアウト枠
-			Rectangle r = new Rectangle( 0, 0, stringSize.Width + nEdgePt * 2, stringSize.Height + nEdgePt * 2 );
+			Rectangle r = new Rectangle( 0, 0, stringSize.Width + nEdgePt * 2 + (CDTXMania.Skin.Text_Correction_X * stringSize.Width / 100), stringSize.Height + nEdgePt * 2 + (CDTXMania.Skin.Text_Correction_Y * stringSize.Height / 100));
 
 			if ( bEdge )	// 縁取り有りの描画
 			{

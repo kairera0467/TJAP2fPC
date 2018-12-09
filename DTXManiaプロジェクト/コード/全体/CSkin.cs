@@ -2075,7 +2075,14 @@ namespace DTXMania
                                 if (int.Parse(strParam) > 0)
                                     Font_Edge_Ratio_Vertical = int.Parse(strParam);
                             }
-
+                            else if (strCommand == nameof(Text_Correction_X))
+                            {
+                                Text_Correction_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Text_Correction_Y))
+                            {
+                                Text_Correction_Y = int.Parse(strParam);
+                            }
                             #endregion
                             #endregion
                         }
@@ -2485,6 +2492,8 @@ namespace DTXMania
         #region Font
         public int Font_Edge_Ratio = 30;
         public int Font_Edge_Ratio_Vertical = 30;
+        public int Text_Correction_X = 0;
+        public int Text_Correction_Y = 0;
         #endregion
         #endregion
     }
