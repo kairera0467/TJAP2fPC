@@ -745,22 +745,28 @@ namespace DTXMania
             cスコア.譜面情報.b譜面分岐[2] = br.ReadBoolean();
             cスコア.譜面情報.b譜面分岐[3] = br.ReadBoolean();
             cスコア.譜面情報.b譜面分岐[4] = br.ReadBoolean();
+            cスコア.譜面情報.b譜面分岐[5] = br.ReadBoolean();
+            cスコア.譜面情報.b譜面分岐[6] = br.ReadBoolean();
             cスコア.譜面情報.ハイスコア = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[0] = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[1] = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[2] = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[3] = br.ReadInt32();
             cスコア.譜面情報.nハイスコア[4] = br.ReadInt32();
+            cスコア.譜面情報.nハイスコア[5] = br.ReadInt32();
+            cスコア.譜面情報.nハイスコア[6] = br.ReadInt32();
             cスコア.譜面情報.strサブタイトル = br.ReadString();
             cスコア.譜面情報.nレベル[0] = br.ReadInt32();
             cスコア.譜面情報.nレベル[1] = br.ReadInt32();
             cスコア.譜面情報.nレベル[2] = br.ReadInt32();
             cスコア.譜面情報.nレベル[3] = br.ReadInt32();
             cスコア.譜面情報.nレベル[4] = br.ReadInt32();
+            cスコア.譜面情報.nレベル[5] = br.ReadInt32();
+            cスコア.譜面情報.nレベル[6] = br.ReadInt32();
 
 
-//Debug.WriteLine( "songs.db: " + cスコア.ファイル情報.ファイルの絶対パス );
-			return cスコア;
+            //Debug.WriteLine( "songs.db: " + cスコア.ファイル情報.ファイルの絶対パス );
+            return cスコア;
 		}
 		//-----------------
 		#endregion
@@ -823,14 +829,18 @@ namespace DTXMania
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[1] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 1 ];
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[2] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 2 ];
                                     c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[3] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[ 3 ];
-                                    c曲リストノード.arスコア[ i ].譜面情報.b譜面分岐[4] = cdtx.bHIDDENBRANCH ? false : cdtx.bチップがある.Branch;
+                                    c曲リストノード.arスコア[i].譜面情報.b譜面分岐[4] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[4];
+                                    c曲リストノード.arスコア[i].譜面情報.b譜面分岐[5] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[5];
+                                    c曲リストノード.arスコア[i].譜面情報.b譜面分岐[6] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[6];
                                     c曲リストノード.arスコア[ i ].譜面情報.strサブタイトル = cdtx.SUBTITLE;
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[0] = cdtx.LEVELtaiko[0];
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[1] = cdtx.LEVELtaiko[1];
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[2] = cdtx.LEVELtaiko[2];
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[3] = cdtx.LEVELtaiko[3];
                                     c曲リストノード.arスコア[ i ].譜面情報.nレベル[4] = cdtx.LEVELtaiko[4];
-									this.nファイルから反映できたスコア数++;
+                                    c曲リストノード.arスコア[i].譜面情報.nレベル[5] = cdtx.LEVELtaiko[5];
+                                    c曲リストノード.arスコア[i].譜面情報.nレベル[6] = cdtx.LEVELtaiko[6];
+                                    this.nファイルから反映できたスコア数++;
 									cdtx.On非活性化();
 //Debug.WriteLine( "★" + this.nファイルから反映できたスコア数 + " " + c曲リストノード.arスコア[ i ].譜面情報.タイトル );
 									#region [ 曲検索ログ出力 ]
@@ -1167,19 +1177,25 @@ namespace DTXMania
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[2] );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[3] );
                     bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[4] );
+                    bw.Write(node.arスコア[i].譜面情報.b譜面分岐[5]);
+                    bw.Write( node.arスコア[ i ].譜面情報.b譜面分岐[6] );
                     bw.Write( node.arスコア[ i ].譜面情報.ハイスコア );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[0] );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[1] );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[2] );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[3] );
                     bw.Write( node.arスコア[ i ].譜面情報.nハイスコア[4] );
+                    bw.Write(node.arスコア[i].譜面情報.nハイスコア[5]);
+                    bw.Write(node.arスコア[i].譜面情報.nハイスコア[6]);
                     bw.Write( node.arスコア[ i ].譜面情報.strサブタイトル );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[0] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[1] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[2] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[3] );
                     bw.Write( node.arスコア[ i ].譜面情報.nレベル[4] );
-					this.nSongsDBへ出力できたスコア数++;
+                    bw.Write(node.arスコア[i].譜面情報.nレベル[5]);
+                    bw.Write(node.arスコア[i].譜面情報.nレベル[6]);
+                    this.nSongsDBへ出力できたスコア数++;
 				}
 			}
 		}
@@ -1619,7 +1635,7 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 				score.譜面情報.演奏回数.Drums = ini.stファイル.PlayCountDrums;
 				score.譜面情報.演奏回数.Guitar = ini.stファイル.PlayCountGuitar;
 				score.譜面情報.演奏回数.Bass = ini.stファイル.PlayCountBass;
-				for( int i = 0; i < (int)Difficulty.Total; i++ )
+				for( int i = 0; i < 5; i++ )
 					score.譜面情報.演奏履歴[ i ] = ini.stファイル.History[ i ];
 			}
 			catch (Exception e)

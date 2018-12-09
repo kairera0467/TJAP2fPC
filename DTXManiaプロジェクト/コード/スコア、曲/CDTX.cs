@@ -1193,7 +1193,7 @@ namespace DTXMania
         private bool bMOVIEOFFSETの値がマイナスである = false;
         private double dbNowBPM = 120.0;
         private int nDELAY = 0;
-        public bool[] bHasBranch = new bool[] { false, false, false, false, false };
+        public bool[] bHasBranch = new bool[(int)Difficulty.Total] { false, false, false, false, false, false, false };
 
         //分岐関連
         private int n現在の発声時刻;
