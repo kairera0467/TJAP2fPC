@@ -37,7 +37,7 @@ namespace DTXMania
         const string FAILED = @"15_Failed\";
         const string RUNNER = @"16_Runner\";
         const string PUCHICHARA = @"18_PuchiChara\";
-        const string DANCHALLENGE = @"17_DanChallenge\";
+        const string DANC = @"17_DanC\";
 
         // InGame_Effects
         const string FIRE = @"Fire\";
@@ -467,20 +467,20 @@ namespace DTXMania
             Runner = TxC(GAME + RUNNER + @"0.png");
             #endregion
             #region DanC
-            DanC_Background = TxC(GAME + DANCHALLENGE + @"Background.png");
+            DanC_Background = TxC(GAME + DANC + @"Background.png");
             DanC_Gauge = new CTexture[4];
             var type = new string[] { "Normal", "Reach", "Clear", "Flush" };
             for (int i = 0; i < 4; i++)
             {
-                DanC_Gauge[i] = TxC(GAME + DANCHALLENGE + @"Gauge_" + type[i] + ".png");
+                DanC_Gauge[i] = TxC(GAME + DANC + @"Gauge_" + type[i] + ".png");
             }
-            DanC_Base = TxC(GAME + DANCHALLENGE + @"Base.png");
-            DanC_Failed = TxC(GAME + DANCHALLENGE + @"Failed.png");
-            DanC_Number = TxC(GAME + DANCHALLENGE + @"Number.png");
-            DanC_ExamType = TxC(GAME + DANCHALLENGE + @"ExamType.png");
-            DanC_ExamRange = TxC(GAME + DANCHALLENGE + @"ExamRange.png");
-            DanC_ExamUnit = TxC(GAME + DANCHALLENGE + @"ExamUnit.png");
-            DanC_Screen = TxC(GAME + DANCHALLENGE + @"Screen.png");
+            DanC_Base = TxC(GAME + DANC + @"Base.png");
+            DanC_Failed = TxC(GAME + DANC + @"Failed.png");
+            DanC_Number = TxC(GAME + DANC + @"Number.png");
+            DanC_ExamType = TxC(GAME + DANC + @"ExamType.png");
+            DanC_ExamRange = TxC(GAME + DANC + @"ExamRange.png");
+            DanC_ExamUnit = TxC(GAME + DANC + @"ExamUnit.png");
+            DanC_Screen = TxC(GAME + DANC + @"Screen.png");
             #endregion
             #region PuichiChara
             PuchiChara = TxC(GAME + PUCHICHARA + @"0.png");
