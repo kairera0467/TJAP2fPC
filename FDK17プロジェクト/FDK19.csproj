@@ -13,7 +13,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>rhimm_c.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>slimdx_aioilight.snk</AssemblyOriginatorKeyFile>
     <ApplicationIcon>
     </ApplicationIcon>
     <FileUpgradeFlags>
@@ -167,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="rhimm_c.pfx" />
     <None Include="slimdx_aioilight.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
