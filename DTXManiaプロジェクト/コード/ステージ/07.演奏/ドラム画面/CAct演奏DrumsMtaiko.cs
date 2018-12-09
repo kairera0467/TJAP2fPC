@@ -303,9 +303,9 @@ namespace DTXMania
 
                 if (CDTXMania.ConfigIni.ShinuchiMode)
                 {
-                    if (CDTXMania.Tx.Couse_Symbol[5] != null)
+                    if (CDTXMania.Tx.Couse_Symbol[(int)Difficulty.Total] != null)
                     {
-                        CDTXMania.Tx.Couse_Symbol[5].t2D描画(CDTXMania.app.Device,
+                        CDTXMania.Tx.Couse_Symbol[(int)Difficulty.Total].t2D描画(CDTXMania.app.Device,
                             CDTXMania.Skin.Game_CourseSymbol_X[i],
                             CDTXMania.Skin.Game_CourseSymbol_Y[i]
                             );

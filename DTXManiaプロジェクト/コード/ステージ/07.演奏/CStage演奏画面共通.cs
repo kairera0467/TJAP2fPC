@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Diagnostics;
 using FDK;
 using FDK.ExtensionMethods;
+using TJAPlayer3;
 
 namespace DTXMania
 {
@@ -326,6 +327,8 @@ namespace DTXMania
             //			GCSettings.LatencyMode = GCLatencyMode.Batch;	// 演奏画面中はGCを抑止する
             this.bIsAlreadyCleared = new bool[2];
             this.bIsAlreadyMaxed = new bool[2];
+
+            this.ListDan_Number = 0;
 		}
 		public override void On非活性化()
 		{
@@ -582,7 +585,7 @@ namespace DTXMania
 		protected CAct演奏判定文字列共通 actJudgeString;
 		public CAct演奏DrumsレーンフラッシュD actLaneFlushD;
 		protected CAct演奏レーンフラッシュGB共通 actLaneFlushGB;
-		protected CAct演奏パネル文字列 actPanel;
+		public CAct演奏パネル文字列 actPanel;
 		public CAct演奏演奏情報 actPlayInfo;
 		public CAct演奏スコア共通 actScore;
 		public CAct演奏ステージ失敗 actStageFailed;
@@ -600,6 +603,7 @@ namespace DTXMania
         public CAct演奏DrumsFooter actFooter;
         public CAct演奏DrumsRunner actRunner;
         public CAct演奏DrumsMob actMob;
+        public Dan_Cert actDan;
 		public bool bPAUSE;
         public bool[] bIsAlreadyCleared;
         public bool[] bIsAlreadyMaxed;
@@ -620,7 +624,7 @@ namespace DTXMania
                                                               //   HH SD BD HT LT FT CY HHO RD LC LP LBD
         protected readonly int[] nパッド0Atoレーン07 = new int[] { 1, 2, 3, 4, 5, 6, 7, 1, 9, 0, 8, 8 };
 		public STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含まない;
-		protected STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含む;
+		public STDGBVALUE<CHITCOUNTOFRANK> nヒット数_Auto含む;
 		protected int n現在のトップChip = -1;
 		protected int[] n最後に再生したBGMの実WAV番号 = new int[ 50 ];
 		protected int n最後に再生したHHのチャンネル番号;
@@ -749,6 +753,8 @@ namespace DTXMania
         //
         private System.Timers.Timer combot;
         //
+
+        private int ListDan_Number;
 
 		public void AddMixer( CSound cs, bool _b演奏終了後も再生が続くチップである )
 		{
@@ -1673,6 +1679,8 @@ namespace DTXMania
 								break;
 						}
 					}
+                    actDan.Update();
+                
                     #region[ コンボ音声 ]
                     if( pChip.nチャンネル番号 < 0x15 || ( pChip.nチャンネル番号 >= 0x1A ) )
                     {
@@ -2795,7 +2803,7 @@ namespace DTXMania
 		        ? "Calibrating input..."
 		        : string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE: CDTXMania.DTX.PANEL;
 
-		    this.actPanel.SetPanelString( panelString );
+		    this.actPanel.SetPanelString( panelString, CDTXMania.stage選曲.str確定された曲のジャンル );
 		}
 
 
@@ -3165,6 +3173,7 @@ namespace DTXMania
                                         this.actMob.ctMob = new CCounter();
                                         this.actMob.ctMobPtn = new CCounter();
                                     }
+                                    CDTXMania.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM);
 
                                     //this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
                                     //this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
@@ -3294,7 +3303,7 @@ namespace DTXMania
                         break;
 					#endregion
 
-                    #region[ 90-9B: EmptySlot ]
+                    #region[ 90-9A: EmptySlot ]
                     case 0x90:
 					case 0x91:
 					case 0x92:
@@ -3306,11 +3315,22 @@ namespace DTXMania
                     case 0x98:
                     case 0x99:
                     case 0x9A:
-                    case 0x9B:
 						break;
-					#endregion
+                    #endregion
 
-                    #region[ 9C-9F: 太鼓 ]
+                    #region[ 9B-9F: 太鼓 ]
+                    case 0x9B:
+                        // 段位認定モードの幕アニメーション
+                        if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0))
+                        {
+                            pChip.bHit = true;
+                            if (pChip.nコース == this.n現在のコース[nPlayer])
+                            {
+                                this.actDan.Start(this.ListDan_Number);
+                                ListDan_Number++;
+                            }
+                        }
+                        break;
                     //0x9C BPM変化(アニメーション用)
                     case 0x9C:
                         //CDTXMania.act文字コンソール.tPrint( 414 + pChip.nバーからの距離dot.Taiko + 8, 192, C文字コンソール.Eフォント種別.白, "BPMCHANGE" );
@@ -3374,6 +3394,8 @@ namespace DTXMania
                                     this.actMob.ctMob = new CCounter();
                                     this.actMob.ctMobPtn = new CCounter();
                                 }
+
+                                CDTXMania.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM);
                                 //this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
                                 //this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
                                 //#if C_82D982F182AF82CD82A282AF82A2
@@ -3924,6 +3946,11 @@ namespace DTXMania
             }
         }
 
+        public int GetRoll(int player)
+        {
+            return n合計連打数[player];
+        }
+
         protected float GetNowPBMTime( CDTX tja, float play_time )
         {
             float bpm_time = 0;
@@ -4081,7 +4108,7 @@ namespace DTXMania
                 this.actComboVoice.tリセット();
             }
 
-            this.tスコアの初期化();
+            this.ReSetScore(CDTXMania.DTX.nScoreInit[0, CDTXMania.stage選曲.n確定された曲の難易度], CDTXMania.DTX.nScoreDiff[CDTXMania.stage選曲.n確定された曲の難易度]);
             this.nHand = new int[]{ 0, 0, 0, 0 };
         }
 
@@ -4474,11 +4501,12 @@ namespace DTXMania
             }
 		}
 
-        protected void tスコアの初期化()
+        public void ReSetScore(int scoreInit, int scoreDiff)
         {
             //一打目の処理落ちがひどいので、あらかじめここで点数の計算をしておく。
-            int nInit = CDTXMania.DTX.nScoreInit[ 0, CDTXMania.stage選曲.n確定された曲の難易度 ];
-            int nDiff = CDTXMania.DTX.nScoreDiff[ CDTXMania.stage選曲.n確定された曲の難易度 ];
+            // -1だった場合、その前を引き継ぐ。
+            int nInit = scoreInit != -1 ? scoreInit : this.nScore[0];
+            int nDiff = scoreDiff != -1 ? scoreDiff : this.nScore[1] - this.nScore[0];
             int nAddScore = 0;
             int[] n倍率 = { 0, 1, 2, 4, 8 };
 

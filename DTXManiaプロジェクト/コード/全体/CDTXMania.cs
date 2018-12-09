@@ -1898,7 +1898,7 @@ for (int i = 0; i < 3; i++) {
 			base.Window.FormBorderStyle = FormBorderStyle.Sizable;	// #23510 2010.10.27 yyagi: changed from FixedDialog to Sizable, to support window resize
 																		// #30666 2013.02.02 yyagi: moved the code to t全画面_ウインドウモード切り替え()
 			base.Window.ShowIcon = true;
-			base.Window.Icon = Properties.Resources.tjap3;
+			base.Window.Icon = TJAPlayer3.Properties.Resources.tjap3;
 			base.Window.KeyDown += new KeyEventHandler( this.Window_KeyDown );
 			base.Window.MouseUp +=new MouseEventHandler( this.Window_MouseUp);
 			base.Window.MouseDoubleClick += new MouseEventHandler(this.Window_MouseDoubleClick);	// #23510 2010.11.13 yyagi: to go fullscreen mode
@@ -2727,6 +2727,23 @@ for (int i = 0; i < 3; i++) {
 			if( this.listプラグイン.Count > 0 )
 				Trace.TraceInformation( this.listプラグイン.Count + " 個のプラグインを読み込みました。" );
 		}
+
+        public void RefleshSkin()
+        {
+            Trace.TraceInformation("スキン変更:" + CDTXMania.Skin.GetCurrentSkinSubfolderFullName(false));
+
+            CDTXMania.act文字コンソール.On非活性化();
+
+            CDTXMania.Skin.Dispose();
+            CDTXMania.Skin = null;
+            CDTXMania.Skin = new CSkin(CDTXMania.ConfigIni.strSystemSkinSubfolderFullName, false);
+
+
+            CDTXMania.Tx.DisposeTexture();
+            CDTXMania.Tx.LoadTexture();
+
+            CDTXMania.act文字コンソール.On活性化();
+        }
 		#region [ Windowイベント処理 ]
 		private void t指定フォルダ内でのプラグイン検索と生成( string strプラグインフォルダパス, string strプラグイン型名 )
 		{

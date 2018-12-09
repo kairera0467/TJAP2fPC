@@ -17,17 +17,6 @@ namespace DTXMania
             base.b活性化してない = true;
         }
 
-        // ランナー画像のサイズ。 X, Y
-        private int[] Size = CDTXMania.Skin.Game_Runner_Size;
-        // ランナーのコマ数
-        private int Ptn = CDTXMania.Skin.Game_Runner_Ptn;
-        // ランナーのキャラクターのバリエーション(ミス時を含まない)。
-        private int Type = CDTXMania.Skin.Game_Runner_Type;
-        // スタート地点のX座標 1P, 2P
-        private int[] StartPoint_X = CDTXMania.Skin.Game_Runner_StartPoint_X;
-        // スタート地点のY座標 1P, 2P
-        private int[] StartPoint_Y = CDTXMania.Skin.Game_Runner_StartPoint_Y;
-
         public void Start(int Player, bool IsMiss, CDTX.CChip pChip)
         {
             if (CDTXMania.Tx.Runner != null)
@@ -73,6 +62,13 @@ namespace DTXMania
                 stRunners[i].b使用中 = false;
                 stRunners[i].ct進行 = new CCounter();
             }
+
+            // フィールド上で代入してたためこちらへ移動。
+            Size = CDTXMania.Skin.Game_Runner_Size;
+            Ptn = CDTXMania.Skin.Game_Runner_Ptn;
+            Type = CDTXMania.Skin.Game_Runner_Type;
+            StartPoint_X = CDTXMania.Skin.Game_Runner_StartPoint_X;
+            StartPoint_Y = CDTXMania.Skin.Game_Runner_StartPoint_Y;
             base.On活性化();
         }
 
@@ -146,6 +142,17 @@ namespace DTXMania
         private STRunner[] stRunners = new STRunner[128];
         Random random = new Random();
         int Index = 0;
+
+        // ランナー画像のサイズ。 X, Y
+        private int[] Size;
+        // ランナーのコマ数
+        private int Ptn;
+        // ランナーのキャラクターのバリエーション(ミス時を含まない)。
+        private int Type;
+        // スタート地点のX座標 1P, 2P
+        private int[] StartPoint_X;
+        // スタート地点のY座標 1P, 2P
+        private int[] StartPoint_Y;
         //-----------------
         #endregion
     }

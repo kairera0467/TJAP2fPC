@@ -20,8 +20,8 @@ namespace DTXMania
 			UNKNOWN
 		}
 		public int nID { get; private set; }
-		public Cスコア[] arスコア = new Cスコア[ 5 ];
-		public string[] ar難易度ラベル = new string[ 5 ];
+		public Cスコア[] arスコア = new Cスコア[(int)Difficulty.Total];
+		public string[] ar難易度ラベル = new string[(int)Difficulty.Total];
 		public bool bDTXFilesで始まるフォルダ名のBOXである;
 		public bool bBoxDefで作成されたBOXである
 		{
@@ -54,7 +54,7 @@ namespace DTXMania
 		public string strBreadcrumbs = "";		// #27060 2011.2.27 yyagi; MUSIC BOXのパンくずリスト (曲リスト構造内の絶対位置捕捉のために使う)
 		public string strSkinPath = "";			// #28195 2012.5.4 yyagi; box.defでのスキン切り替え対応
         public bool bBranch = false;
-        public int[] nLevel = new int[]{ 0, 0, 0, 0, 0 };
+        public int[] nLevel = new int[(int)Difficulty.Total]{ 0, 0, 0, 0, 0, 0, 0 };
         public Eジャンル eジャンル = Eジャンル.None;
 		
 		// コンストラクタ

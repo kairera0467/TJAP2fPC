@@ -173,31 +173,31 @@ namespace DTXMania
                 if (string.IsNullOrEmpty(this.strファイル名))
                     throw new InvalidOperationException("ファイル名が無効です。");
 
-                if (!File.Exists(CSkin.Path(this.strファイル名)))
-                {
+				if( !File.Exists( CSkin.Path( this.strファイル名 ) ) )
+				{
                     Trace.TraceWarning($"ファイルが存在しません。: {this.strファイル名}");
-                    return;
-                }
-                ////				for( int i = 0; i < 2; i++ )		// #27790 2012.3.10 yyagi 2回読み出しを、1回読みだし＋1回メモリコピーに変更
-                ////				{
-                //                    try
-                //                    {
-                //                        this.rSound[ 0 ] = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( this.strファイル名 ) );
-                //                    }
-                //                    catch
-                //                    {
-                //                        this.rSound[ 0 ] = null;
-                //                        throw;
-                //                    }
-                //                    if ( this.rSound[ 0 ] == null )	// #28243 2012.5.3 yyagi "this.rSound[ 0 ].bストリーム再生する"時もCloneするようにし、rSound[1]がnullにならないよう修正→rSound[1]の再生正常化
-                //                    {
-                //                        this.rSound[ 1 ] = null;
-                //                    }
-                //                    else
-                //                    {
-                //                        this.rSound[ 1 ] = ( CSound ) this.rSound[ 0 ].Clone();	// #27790 2012.3.10 yyagi add: to accelerate loading chip sounds
-                //                        CDTXMania.Sound管理.tサウンドを登録する( this.rSound[ 1 ] );	// #28243 2012.5.3 yyagi add (登録漏れによりストリーム再生処理が発生していなかった)
-                //                    }
+				    return;
+				}
+////				for( int i = 0; i < 2; i++ )		// #27790 2012.3.10 yyagi 2回読み出しを、1回読みだし＋1回メモリコピーに変更
+////				{
+//                    try
+//                    {
+//                        this.rSound[ 0 ] = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( this.strファイル名 ) );
+//                    }
+//                    catch
+//                    {
+//                        this.rSound[ 0 ] = null;
+//                        throw;
+//                    }
+//                    if ( this.rSound[ 0 ] == null )	// #28243 2012.5.3 yyagi "this.rSound[ 0 ].bストリーム再生する"時もCloneするようにし、rSound[1]がnullにならないよう修正→rSound[1]の再生正常化
+//                    {
+//                        this.rSound[ 1 ] = null;
+//                    }
+//                    else
+//                    {
+//                        this.rSound[ 1 ] = ( CSound ) this.rSound[ 0 ].Clone();	// #27790 2012.3.10 yyagi add: to accelerate loading chip sounds
+//                        CDTXMania.Sound管理.tサウンドを登録する( this.rSound[ 1 ] );	// #28243 2012.5.3 yyagi add (登録漏れによりストリーム再生処理が発生していなかった)
+//                    }
 
                 ////				}
 
@@ -1054,6 +1054,10 @@ namespace DTXMania
                             {
                                 SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
                             }
+                            else if (strCommand == nameof(SongSelect_ForeColor_Namco))
+                            {
+                                SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
+                            }
                             else if (strCommand == "SongSelect_BackColor_JPOP")
                             {
                                 SongSelect_BackColor_JPOP = ColorTranslator.FromHtml(strParam);
@@ -1081,6 +1085,10 @@ namespace DTXMania
                             else if (strCommand == "SongSelect_BackColor_GameMusic")
                             {
                                 SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(SongSelect_BackColor_Namco))
+                            {
+                                SongSelect_BackColor_Namco = ColorTranslator.FromHtml(strParam);
                             }
                             else if (strCommand == nameof(SongSelect_CorrectionX_Chara))
                             {
@@ -1985,6 +1993,91 @@ namespace DTXMania
                                 }
                             }
                             #endregion
+                            #region Dan_C
+                            else if(strCommand == nameof(Game_DanC_X))
+                            {
+                                Game_DanC_X = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_Y))
+                            {
+                                Game_DanC_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Size))
+                            {
+                                Game_DanC_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Padding))
+                            {
+                                ParseInt32(value => Game_DanC_Padding = value);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Offset))
+                            {
+                                Game_DanC_Offset = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_Size))
+                            {
+                                Game_DanC_Number_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_Padding))
+                            {
+                                ParseInt32(value => Game_DanC_Number_Padding = value);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_Small_Scale))
+                            {
+                                Game_DanC_Number_Small_Scale = float.Parse(strParam);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_Small_Padding))
+                            {
+                                ParseInt32(value => Game_DanC_Number_Small_Padding = value);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Number_XY))
+                            {
+                                Game_DanC_Number_XY = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_Number_Small_Number_Offset))
+                            {
+                                Game_DanC_Number_Small_Number_Offset = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_ExamType_Size))
+                            {
+                                Game_DanC_ExamType_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_ExamRange_Size))
+                            {
+                                Game_DanC_ExamRange_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_ExamRange_Padding))
+                            {
+                                ParseInt32(value => Game_DanC_ExamRange_Padding = value);
+                            }
+
+                            else if (strCommand == nameof(Game_DanC_Percent_Hit_Score_Padding))
+                            {
+                                Game_DanC_Percent_Hit_Score_Padding = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_ExamUnit_Size))
+                            {
+                                Game_DanC_ExamUnit_Size = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_Exam_Offset))
+                            {
+                                Game_DanC_Exam_Offset = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_DanC_Dan_Plate))
+                            {
+                                Game_DanC_Dan_Plate = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
+                            #endregion
                             #endregion
                             #region Result
                             else if (strCommand == nameof(Result_MusicName_X))
@@ -2447,7 +2540,7 @@ namespace DTXMania
         public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1222, 1222 }; // 1P, 2P
         public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 164, 554 };
 
-        public int Game_Effect_FlyingNotes_Sine = 276;
+        public int Game_Effect_FlyingNotes_Sine = 230;
         public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
         public int Game_Effect_FlyingNotes_Timer = 4;
         public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
@@ -2467,6 +2560,37 @@ namespace DTXMania
         public int[] Game_Runner_StartPoint_X = new int[] { 175, 175 };
         public int[] Game_Runner_StartPoint_Y = new int[] { 40, 560 };
         public int Game_Runner_Timer = 16;
+        #endregion
+        #region PuchiChara
+        public int[] Game_PuchiChara_X = new int[] { 100, 100 };
+        public int[] Game_PuchiChara_Y = new int[] { 140, 600 };
+        public int[] Game_PuchiChara_BalloonX = new int[] { 300, 300 };
+        public int[] Game_PuchiChara_BalloonY = new int[] { 240, 500 };
+        public float[] Game_PuchiChara_Scale = new float[] { 0.7f, 1.0f }; // 通常時、 ふうせん連打時
+        public int[] Game_PuchiChara = new int[] { 180, 180, 2}; // Width, Height, Ptn
+        public int Game_PuchiChara_Sine = 20;
+        public int Game_PuchiChara_Timer = 4800;
+        public double Game_PuchiChara_SineTimer = 2;
+        #endregion
+        #region Dan-C
+        public int[] Game_DanC_X = new int[] { 302, 302, 302 };
+        public int[] Game_DanC_Y = new int[] { 473, 302, 365 };
+        public int[] Game_DanC_Size = new int[] { 956, 92 };
+        public int Game_DanC_Padding = 5;
+        public int[] Game_DanC_Offset = new int[] { 15, 17 };
+        public int[] Game_DanC_Number_Size = new int[] { 50, 62 };
+        public int Game_DanC_Number_Padding = 50;
+        public float Game_DanC_Number_Small_Scale = 0.5f;
+        public int Game_DanC_Number_Small_Padding = 26;
+        public int[] Game_DanC_Number_XY = new int[] { 218, 610 };
+        public int[] Game_DanC_Number_Small_Number_Offset = new int[] { 178, 43 };
+        public int[] Game_DanC_ExamType_Size = new int[] { 100, 36 };
+        public int[] Game_DanC_ExamRange_Size = new int[] { 60, 36 };
+        public int Game_DanC_ExamRange_Padding = 46;
+        public int[] Game_DanC_Percent_Hit_Score_Padding = new int[] { 20, 20, 20 };
+        public int[] Game_DanC_ExamUnit_Size = new int[] { 30, 36 };
+        public int[] Game_DanC_Exam_Offset = new int[] { 932, 17 };
+        public int[] Game_DanC_Dan_Plate = new int[] { 149, 416 };
         #endregion
         #endregion
         #region Result

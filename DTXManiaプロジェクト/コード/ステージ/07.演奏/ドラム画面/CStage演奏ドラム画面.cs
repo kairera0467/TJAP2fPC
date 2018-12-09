@@ -10,6 +10,7 @@ using System.Threading;
 using SlimDX;
 using SlimDX.Direct3D9;
 using FDK;
+using TJAPlayer3;
 
 namespace DTXMania
 {
@@ -64,8 +65,9 @@ namespace DTXMania
             base.list子Activities.Add(this.GoGoSplash = new GoGoSplash());
             base.list子Activities.Add(this.FlyingNotes = new FlyingNotes());
             base.list子Activities.Add(this.FireWorks = new FireWorks());
+            base.list子Activities.Add(this.PuchiChara = new PuchiChara());
 
-
+            base.list子Activities.Add(this.actDan = new Dan_Cert());
             #region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
 			ST文字位置 st文字位置 = new ST文字位置();
@@ -189,7 +191,7 @@ namespace DTXMania
 			this.bフィルイン中 = false;
             this.n待機中の大音符の座標 = 0;
             this.actGame.t叩ききりまショー_初期化();
-            base.tスコアの初期化();
+            base.ReSetScore(CDTXMania.DTX.nScoreInit[0, CDTXMania.stage選曲.n確定された曲の難易度], CDTXMania.DTX.nScoreDiff[CDTXMania.stage選曲.n確定された曲の難易度]);
 			base.On活性化();
 
 			// MODIFY_BEGIN #25398 2011.06.07 FROM
@@ -213,6 +215,8 @@ namespace DTXMania
             double dbPtn_Normal = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Normal / this.actChara.arモーション番号.Length;
             double dbPtn_Clear = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Clear / this.actChara.arクリアモーション番号.Length;
             double dbPtn_GoGo = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_GoGo / this.actChara.arゴーゴーモーション番号.Length;
+
+            PuchiChara.ChangeBPM(60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM);
 
             //dbUnit = Math.Ceiling( dbUnit * 1000.0 );
             //dbUnit = dbUnit / 1000.0;
@@ -460,6 +464,7 @@ namespace DTXMania
                     this.t進行描画_チップ_連打( E楽器パート.DRUMS, i );
                 }
 
+                this.actDan.On進行描画();
 
                 this.actMtaiko.On進行描画();
                 //if (this.txNamePlate != null)
@@ -500,7 +505,6 @@ namespace DTXMania
                 this.actPanel.t歌詞テクスチャを描画する();
                 actChara.OnDraw_Balloon();
                 this.t全体制御メソッド();
-
 
                 
                 this.actPauseMenu.t進行描画();
@@ -590,6 +594,7 @@ namespace DTXMania
         public GoGoSplash GoGoSplash;
         public FlyingNotes FlyingNotes;
         public FireWorks FireWorks;
+        public PuchiChara PuchiChara;
         private bool bフィルイン中;
 		private readonly Eパッド[] eチャンネルtoパッド = new Eパッド[]
 		{

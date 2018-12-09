@@ -104,6 +104,7 @@ namespace DTXMania
             if (this.ctキャラクターアクション_魂MAX != null || CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0) this.ctキャラクターアクション_魂MAX.t進行db();
 
 
+
             if ( this.b風船連打中 != true && this.bマイどんアクション中 != true && CharaAction_Balloon_Delay.b終了値に達した)
             {
                 if ( !CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[ 0 ] )
@@ -234,7 +235,10 @@ namespace DTXMania
                     }
                 }
             }
-
+            if (this.b風船連打中 != true && CharaAction_Balloon_Delay.b終了値に達した)
+            {
+                CDTXMania.stage演奏ドラム画面.PuchiChara.On進行描画(CDTXMania.Skin.Game_PuchiChara_X[0], CDTXMania.Skin.Game_PuchiChara_Y[0], CDTXMania.stage演奏ドラム画面.bIsAlreadyMaxed[0]);
+            }
             return base.On進行描画();
         }
 
@@ -253,7 +257,8 @@ namespace DTXMania
                 if (CharaAction_Balloon_Broke?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
                 {
                     CDTXMania.Tx.Chara_Balloon_Broke[CharaAction_Balloon_Broke.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
-                    if(CharaAction_Balloon_Broke.b終了値に達した)
+                    CDTXMania.stage演奏ドラム画面.PuchiChara.On進行描画(CDTXMania.Skin.Game_PuchiChara_BalloonX[0], CDTXMania.Skin.Game_PuchiChara_BalloonY[0], false, 255, true);
+                    if (CharaAction_Balloon_Broke.b終了値に達した)
                     {
                         CharaAction_Balloon_Broke.t停止();
                         CharaAction_Balloon_Broke.n現在の値 = 0;
@@ -263,6 +268,7 @@ namespace DTXMania
                 else if (CharaAction_Balloon_Miss?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
                 {
                     CDTXMania.Tx.Chara_Balloon_Miss[CharaAction_Balloon_Miss.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
+                    CDTXMania.stage演奏ドラム画面.PuchiChara.On進行描画(CDTXMania.Skin.Game_PuchiChara_BalloonX[0], CDTXMania.Skin.Game_PuchiChara_BalloonY[0], false, 255, true);
                     if (CharaAction_Balloon_Miss.b終了値に達した)
                     {
                         CharaAction_Balloon_Miss.t停止();
@@ -273,6 +279,7 @@ namespace DTXMania
                 else if (CharaAction_Balloon_Breaking?.b進行中 == true && CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking != 0)
                 {
                     CDTXMania.Tx.Chara_Balloon_Breaking[CharaAction_Balloon_Breaking.n現在の値]?.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Chara_Balloon_X[0], CDTXMania.Skin.Game_Chara_Balloon_Y[0]);
+                    CDTXMania.stage演奏ドラム画面.PuchiChara.On進行描画(CDTXMania.Skin.Game_PuchiChara_BalloonX[0], CDTXMania.Skin.Game_PuchiChara_BalloonY[0], false, 255, true);
                 }
 
                 //if (CDTXMania.stage演奏ドラム画面.actChara.CharaAction_Balloon_Breaking?.b終了値に達した == true)
@@ -281,6 +288,7 @@ namespace DTXMania
                 //    CDTXMania.stage演奏ドラム画面.actChara.CharaAction_Balloon_Breaking.t停止();
                 //    CDTXMania.stage演奏ドラム画面.actChara.CharaAction_Balloon_Breaking.n現在の値 = 0;
                 //}
+
             }
         }
 

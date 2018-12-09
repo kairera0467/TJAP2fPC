@@ -88,7 +88,9 @@ namespace DTXMania
 				public string 行3;
 				public string 行4;
 				public string 行5;
-				public string this[ int index ]
+                public string 行6;
+                public string 行7;
+                public string this[ int index ]
 				{
 					get
 					{
@@ -108,6 +110,10 @@ namespace DTXMania
 
 							case 4:
 								return this.行5;
+                            case 5:
+                                return this.行6;
+                            case 6:
+                                return this.行7;
 						}
 						throw new IndexOutOfRangeException();
 					}
@@ -134,6 +140,12 @@ namespace DTXMania
 							case 4:
 								this.行5 = value;
 								return;
+                            case 5:
+                                this.行6 = value;
+                                return;
+                            case 6:
+                                this.行7 = value;
+                                return;
 						}
 						throw new IndexOutOfRangeException();
 					}
@@ -278,7 +290,9 @@ namespace DTXMania
 			this.譜面情報.演奏履歴.行3 = "";
 			this.譜面情報.演奏履歴.行4 = "";
 			this.譜面情報.演奏履歴.行5 = "";
-			this.譜面情報.レベルを非表示にする = false;
+            this.譜面情報.演奏履歴.行6 = "";
+            this.譜面情報.演奏履歴.行7 = "";
+            this.譜面情報.レベルを非表示にする = false;
 			this.譜面情報.最大スキル = new ST譜面情報.STSKILL();
 			this.譜面情報.曲種別 = CDTX.E種別.DTX;
 			this.譜面情報.Bpm = 120.0;
@@ -287,11 +301,11 @@ namespace DTXMania
             this.譜面情報.SongVol = CSound.DefaultSongVol;
             this.譜面情報.SongLoudnessMetadata = null;
             this.譜面情報.nデモBGMオフセット = 0;
-            this.譜面情報.b譜面分岐 = new bool[5];
+            this.譜面情報.b譜面分岐 = new bool[(int)Difficulty.Total];
             this.譜面情報.ハイスコア = 0;
-            this.譜面情報.nハイスコア = new int[5];
+            this.譜面情報.nハイスコア = new int[(int)Difficulty.Total];
             this.譜面情報.strサブタイトル = "";
-            this.譜面情報.nレベル = new int[]{ -1, -1, -1, -1, -1 };
+            this.譜面情報.nレベル = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1};
 		}
 	}
 }
