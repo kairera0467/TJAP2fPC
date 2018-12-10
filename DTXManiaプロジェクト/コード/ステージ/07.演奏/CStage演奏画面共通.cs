@@ -329,6 +329,7 @@ namespace DTXMania
             this.bIsAlreadyMaxed = new bool[2];
 
             this.ListDan_Number = 0;
+            this.IsDanFailed = false;
 		}
 		public override void On非活性化()
 		{
@@ -755,6 +756,7 @@ namespace DTXMania
         //
 
         private int ListDan_Number;
+        private bool IsDanFailed;
 
 		public void AddMixer( CSound cs, bool _b演奏終了後も再生が続くチップである )
 		{
@@ -2840,6 +2842,10 @@ namespace DTXMania
 			{
 				return true;
 			}
+            if (IsDanFailed)
+            {
+                return true;
+            }
 
 			var n現在時刻ms = CSound管理.rc演奏用タイマ.n現在時刻ms;
 
@@ -3326,6 +3332,12 @@ namespace DTXMania
                             pChip.bHit = true;
                             if (pChip.nコース == this.n現在のコース[nPlayer])
                             {
+                                if (this.actDan.GetFailedAllChallenges())
+                                {
+                                    this.n現在のトップChip = CDTXMania.DTX.listChip.Count - 1;	// 終端にシーク
+                                    IsDanFailed = true;
+                                    return true;
+                                }
                                 this.actDan.Start(this.ListDan_Number);
                                 ListDan_Number++;
                             }

@@ -526,6 +526,21 @@ namespace DTXMania
             }
         }
 
+        /// <summary>
+        /// n個の条件がひとつ以上達成失敗しているかどうかを返します。
+        /// </summary>
+        /// <returns>n個の条件がひとつ以上達成失敗しているか。</returns>
+        public bool GetFailedAllChallenges()
+        {
+            var isFailed = false;
+            for (int i = 0; i < this.ExamCount; i++)
+            {
+                if (Challenge[i].GetReached() == true) isFailed = true;
+            }
+            return isFailed;
+        }
+
+
         private readonly float[] ScoreScale = new float[]
         {
             0.000f,
