@@ -393,7 +393,30 @@ namespace DTXMania
             //this.txプレイヤーナンバー.t2D描画(CDTXMania.app.Device, 254, 93);
             //this.txネームプレート.t2D描画( CDTXMania.app.Device, 254, 93 );
 
-			if( !this.ct表示用.b終了値に達した )
+            #region 段位認定モード用
+            if(CDTXMania.stage選曲.n確定された曲の難易度 == (int)Difficulty.Dan)
+            {
+                CDTXMania.stage演奏ドラム画面.actDan.DrawExam(CDTXMania.stage結果.st演奏記録.Drums.Dan_C);
+                switch (CDTXMania.stage演奏ドラム画面.actDan.GetExamStatus(CDTXMania.stage結果.st演奏記録.Drums.Dan_C))
+                {
+                    case TJAPlayer3.Exam.Status.Failure:
+                        CDTXMania.Tx.Result_Dan.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_Dan_XY[0], CDTXMania.Skin.Result_Dan_XY[1], new Rectangle(0, 0, CDTXMania.Skin.Result_Dan[0], CDTXMania.Skin.Result_Dan[1]));
+                        break;
+                    case TJAPlayer3.Exam.Status.Success:
+                        CDTXMania.Tx.Result_Dan.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_Dan_XY[0], CDTXMania.Skin.Result_Dan_XY[1], new Rectangle(CDTXMania.Skin.Result_Dan[0], 0, CDTXMania.Skin.Result_Dan[0], CDTXMania.Skin.Result_Dan[1]));
+                        break;
+                    case TJAPlayer3.Exam.Status.Better_Success:
+                        CDTXMania.Tx.Result_Dan.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_Dan_XY[0], CDTXMania.Skin.Result_Dan_XY[1], new Rectangle(CDTXMania.Skin.Result_Dan[0] * 2, 0, CDTXMania.Skin.Result_Dan[0], CDTXMania.Skin.Result_Dan[1]));
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            #endregion
+
+
+            if ( !this.ct表示用.b終了値に達した )
 			{
 				return 0;
 			}

@@ -498,6 +498,7 @@ namespace DTXMania
             Result_Panel = TxC(RESULT + @"Panel.png");
             Result_Score_Text = TxC(RESULT + @"Score_Text.png");
             Result_Score_Number = TxC(RESULT + @"Score_Number.png");
+            Result_Dan = TxC(RESULT + @"Dan.png");
             #endregion
 
             #region 7_終了画面
@@ -818,6 +819,7 @@ namespace DTXMania
             CDTXMania.tテクスチャの解放(ref Result_Panel);
             CDTXMania.tテクスチャの解放(ref Result_Score_Text);
             CDTXMania.tテクスチャの解放(ref Result_Score_Number);
+            CDTXMania.tテクスチャの解放(ref Result_Dan);
             #endregion
 
             #region 7_終了画面
@@ -1027,7 +1029,8 @@ namespace DTXMania
             Result_Number,
             Result_Panel,
             Result_Score_Text,
-            Result_Score_Number;
+            Result_Score_Number,
+            Result_Dan;
         #endregion
 
         #region 7_終了画面

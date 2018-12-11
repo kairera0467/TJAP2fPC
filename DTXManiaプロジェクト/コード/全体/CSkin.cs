@@ -2580,6 +2580,9 @@ namespace DTXMania
 
         public int[] Result_NamePlate_X = new int[] { 260, 260 };
         public int[] Result_NamePlate_Y = new int[] { 96, 390 };
+
+        public int[] Result_Dan = new int[] { 500, 500 };
+        public int[] Result_Dan_XY = new int[] { 100, 0 };
         #endregion
         #region Font
         public int Font_Edge_Ratio = 30;
