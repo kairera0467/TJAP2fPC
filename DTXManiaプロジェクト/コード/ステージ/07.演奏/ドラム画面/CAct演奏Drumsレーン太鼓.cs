@@ -886,7 +886,7 @@ namespace DTXMania
         public void GOGOSTART()
         {
             this.ctゴーゴー = new CCounter(0, 17, 18, CDTXMania.Timer);
-            if(CDTXMania.ConfigIni.nPlayerCount == 1) CDTXMania.stage演奏ドラム画面.GoGoSplash.StartSplash();
+            if(CDTXMania.ConfigIni.nPlayerCount == 1 && CDTXMania.stage選曲.n確定された曲の難易度 != (int)Difficulty.Dan) CDTXMania.stage演奏ドラム画面.GoGoSplash.StartSplash();
         }
 
 
