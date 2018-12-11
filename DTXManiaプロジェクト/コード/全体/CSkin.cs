@@ -1974,7 +1974,7 @@ namespace DTXMania
                             }
                             #endregion
                             #region Dan_C
-                            else if(strCommand == nameof(Game_DanC_X))
+                            else if (strCommand == nameof(Game_DanC_X))
                             {
                                 Game_DanC_X = strParam.Split(',').Select(int.Parse).ToArray();
                             }
@@ -2057,6 +2057,44 @@ namespace DTXMania
                                 Game_DanC_Dan_Plate = strParam.Split(',').Select(int.Parse).ToArray();
                             }
 
+                            #endregion
+                            #region PuchiChara
+                            else if (strCommand == nameof(Game_PuchiChara_X))
+                            {
+                                Game_PuchiChara_X = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_Y))
+                            {
+                                Game_PuchiChara_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_BalloonX))
+                            {
+                                Game_PuchiChara_BalloonX = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_BalloonY))
+                            {
+                                Game_PuchiChara_BalloonY = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_Scale))
+                            {
+                                Game_PuchiChara_Scale = strParam.Split(',').Select(float.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara))
+                            {
+                                Game_PuchiChara = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_Sine))
+                            {
+                                ParseInt32(value => Game_PuchiChara_Sine = value);
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_Timer))
+                            {
+                                ParseInt32(value => Game_PuchiChara_Timer = value);
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_SineTimer))
+                            {
+                                Game_PuchiChara_SineTimer = double.Parse(strParam);
+                            }
                             #endregion
                             #endregion
                             #region Result
