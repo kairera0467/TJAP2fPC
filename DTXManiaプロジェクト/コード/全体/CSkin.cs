@@ -2136,6 +2136,16 @@ namespace DTXMania
                                     Result_NamePlate_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
+
+                            else if (strCommand == nameof(Result_Dan))
+                            {
+                                Result_Dan = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Result_Dan_XY))
+                            {
+                                Result_Dan_XY = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
                             #endregion
                             #region Font
                             else if (strCommand == nameof(Font_Edge_Ratio)) //Config画面や簡易メニューのフォントについて(rhimm)
