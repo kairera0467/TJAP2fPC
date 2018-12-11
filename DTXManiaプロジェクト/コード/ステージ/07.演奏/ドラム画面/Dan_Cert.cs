@@ -62,10 +62,10 @@ namespace DTXMania
 
         public override void On活性化()
         {
-            Challenge[0] = new Dan_C(CDTXMania.DTX.Dan_C[0]);
-            Challenge[1] = new Dan_C(CDTXMania.DTX.Dan_C[1]);
-            Challenge[2] = new Dan_C(CDTXMania.DTX.Dan_C[2]);
-
+            for (int i = 0; i < 3; i++)
+            {
+                if(CDTXMania.DTX.Dan_C[i] != null) Challenge[i] = new Dan_C(CDTXMania.DTX.Dan_C[i]);
+            }
             // 始点を決定する。
             ExamCount = 0;
             for (int i = 0; i < 3; i++)
