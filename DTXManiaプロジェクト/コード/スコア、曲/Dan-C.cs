@@ -10,8 +10,9 @@ namespace TJAPlayer3
     /// </summary>
     class Dan_C
     {
-        public Dan_C()
+        public Dan_C(Dan_C dan_C) : this(dan_C.GetExamType(), new int[] { dan_C.GetValue(false), dan_C.GetValue(true) }, dan_C.GetExamRange())
         {
+            
         }
 
         /// <summary>

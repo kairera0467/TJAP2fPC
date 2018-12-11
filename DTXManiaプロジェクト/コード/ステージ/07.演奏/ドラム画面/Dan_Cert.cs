@@ -62,9 +62,9 @@ namespace DTXMania
 
         public override void On活性化()
         {
-            Challenge[0] = CDTXMania.DTX.Dan_C[0];
-            Challenge[1] = CDTXMania.DTX.Dan_C[1];
-            Challenge[2] = CDTXMania.DTX.Dan_C[2];
+            Challenge[0] = new Dan_C(CDTXMania.DTX.Dan_C[0]);
+            Challenge[1] = new Dan_C(CDTXMania.DTX.Dan_C[1]);
+            Challenge[2] = new Dan_C(CDTXMania.DTX.Dan_C[2]);
 
             // 始点を決定する。
             ExamCount = 0;
@@ -81,7 +81,6 @@ namespace DTXMania
                 Status[i].Timer_Gauge = new CCounter();
                 Status[i].Timer_Failed = new CCounter();
             }
-            Update();
             IsEnded = false;
             base.On活性化();
         }
