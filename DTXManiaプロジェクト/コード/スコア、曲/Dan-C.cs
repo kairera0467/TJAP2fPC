@@ -358,5 +358,24 @@ namespace TJAPlayer3
             /// </summary>
             Less
         }
+
+        /// <summary>
+        /// ステータス。
+        /// </summary>
+        public enum Status
+        {
+            /// <summary>
+            /// 不合格
+            /// </summary>
+            Failure,
+            /// <summary>
+            /// 合格
+            /// </summary>
+            Success,
+            /// <summary>
+            /// より良い合格
+            /// </summary>
+            Better_Success
+        }
     }
 }

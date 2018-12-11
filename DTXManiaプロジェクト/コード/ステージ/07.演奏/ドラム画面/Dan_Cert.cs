@@ -526,6 +526,39 @@ namespace DTXMania
             }
         }
 
+        /// <summary>
+        /// n個の条件がひとつ以上達成失敗しているかどうかを返します。
+        /// </summary>
+        /// <returns>n個の条件がひとつ以上達成失敗しているか。</returns>
+        public bool GetFailedAllChallenges()
+        {
+            var isFailed = false;
+            for (int i = 0; i < this.ExamCount; i++)
+            {
+                if (Challenge[i].GetReached()) isFailed = true;
+            }
+            return isFailed;
+        }
+
+        /// <summary>
+        /// n個の条件で段位認定モードのステータスを返します。
+        /// </summary>
+        /// <returns>ExamStatus。</returns>
+        public Exam.Status GetExamStatus()
+        {
+            var status = Exam.Status.Better_Success;
+            for (int i = 0; i < this.ExamCount; i++)
+            {
+                if (!Challenge[i].GetCleared()[1]) status = Exam.Status.Success;
+            }
+            for (int i = 0; i < this.ExamCount; i++)
+            {
+                if (!Challenge[i].GetCleared()[0]) status = Exam.Status.Failure;
+            }
+            return status;
+        }
+
+
         private readonly float[] ScoreScale = new float[]
         {
             0.000f,
@@ -568,6 +601,8 @@ namespace DTXMania
         //音声関連
         private CSound Sound_Section;
         private CSound Sound_Failed;
+
+        
         //-----------------
         #endregion
     }
