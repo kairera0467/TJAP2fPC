@@ -1994,7 +1994,7 @@ namespace DTXMania
                             }
                             #endregion
                             #region Dan_C
-                            else if(strCommand == nameof(Game_DanC_X))
+                            else if (strCommand == nameof(Game_DanC_X))
                             {
                                 Game_DanC_X = strParam.Split(',').Select(int.Parse).ToArray();
                             }
@@ -2078,6 +2078,44 @@ namespace DTXMania
                             }
 
                             #endregion
+                            #region PuchiChara
+                            else if (strCommand == nameof(Game_PuchiChara_X))
+                            {
+                                Game_PuchiChara_X = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_Y))
+                            {
+                                Game_PuchiChara_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_BalloonX))
+                            {
+                                Game_PuchiChara_BalloonX = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_BalloonY))
+                            {
+                                Game_PuchiChara_BalloonY = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_Scale))
+                            {
+                                Game_PuchiChara_Scale = strParam.Split(',').Select(float.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara))
+                            {
+                                Game_PuchiChara = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_Sine))
+                            {
+                                ParseInt32(value => Game_PuchiChara_Sine = value);
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_Timer))
+                            {
+                                ParseInt32(value => Game_PuchiChara_Timer = value);
+                            }
+                            else if (strCommand == nameof(Game_PuchiChara_SineTimer))
+                            {
+                                Game_PuchiChara_SineTimer = double.Parse(strParam);
+                            }
+                            #endregion
                             #endregion
                             #region Result
                             else if (strCommand == nameof(Result_MusicName_X))
@@ -2156,6 +2194,16 @@ namespace DTXMania
                                     Result_NamePlate_Y[i] = int.Parse(strSplit[i]);
                                 }
                             }
+
+                            else if (strCommand == nameof(Result_Dan))
+                            {
+                                Result_Dan = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+                            else if (strCommand == nameof(Result_Dan_XY))
+                            {
+                                Result_Dan_XY = strParam.Split(',').Select(int.Parse).ToArray();
+                            }
+
                             #endregion
                             #region Font
                             else if (strCommand == nameof(Font_Edge_Ratio)) //Config画面や簡易メニューのフォントについて(rhimm)
@@ -2612,6 +2660,9 @@ namespace DTXMania
 
         public int[] Result_NamePlate_X = new int[] { 260, 260 };
         public int[] Result_NamePlate_Y = new int[] { 96, 390 };
+
+        public int[] Result_Dan = new int[] { 500, 500 };
+        public int[] Result_Dan_XY = new int[] { 100, 0 };
         #endregion
         #region Font
         public int Font_Edge_Ratio = 30;

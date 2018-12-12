@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using FDK;
+using TJAPlayer3;
 
 namespace DTXMania
 {
@@ -213,6 +214,7 @@ namespace DTXMania
             public int[] n不可 = new int[(int)Difficulty.Total];
             public int[] n連打 = new int[(int)Difficulty.Total];
             public int[] nハイスコア = new int[(int)Difficulty.Total];
+            public Dan_C[] Dan_C;
 
 			public C演奏記録()
 			{
@@ -286,7 +288,7 @@ namespace DTXMania
 				this.レーン9モード = true;
 				this.nRisky = 0;									// #23559 2011.6.20 yyagi
                 this.fゲージ = 0.0f;
-
+                Dan_C = new Dan_C[3];
 			}
 
 			public bool bフルコンボじゃない

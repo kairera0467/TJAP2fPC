@@ -255,7 +255,12 @@ namespace DTXMania
 		        "The amount of sound level change for each press\nof a sound level control key.\nYou can specify from 1 to 20." );
 		    this.list項目リスト.Add( this.iSystemKeyboardSoundLevelIncrement );
 
-		    //this.iSystemStoicMode = new CItemToggle( "StoicMode", CDTXMania.ConfigIni.bストイックモード,
+            this.MusicPreTimeMs = new CItemInteger("MusicPreTimeMs", 0, 10000, CDTXMania.ConfigIni.MusicPreTimeMs,
+                "音源再生前の空白時間 (ms)。\n",
+                "Blank time before music source to play. (ms)\n");
+            this.list項目リスト.Add(this.MusicPreTimeMs);
+
+            //this.iSystemStoicMode = new CItemToggle( "StoicMode", CDTXMania.ConfigIni.bストイックモード,
             //    "ストイック（禁欲）モード：\n以下をまとめて表示ON/OFFします。\n_プレビュー画像/動画\n_リザルト画像/動画\n_NowLoading画像\n_演奏画面の背景画像\n_BGA 画像 / AVI 動画\n_グラフ画像\n",
             //    "Turn ON to disable drawing\n * preview image / movie\n * result image / movie\n * nowloading image\n * wallpaper (in playing screen)\n * BGA / AVI (in playing screen)" );
             //this.list項目リスト.Add( this.iSystemStoicMode );
@@ -264,7 +269,7 @@ namespace DTXMania
             //    "About displaying the lag from\n the \"just timing\".\n  OFF: Don't show it.\n  ON: Show it.\n  GREAT-: Show it except you've\n  gotten PERFECT.",
             //    new string[] { "OFF", "ON", "GREAT-" } );
             //this.list項目リスト.Add( this.iSystemShowLag );
-			this.iSystemAutoResultCapture = new CItemToggle( "Autosaveresult", CDTXMania.ConfigIni.bIsAutoResultCapture,
+            this.iSystemAutoResultCapture = new CItemToggle( "Autosaveresult", CDTXMania.ConfigIni.bIsAutoResultCapture,
 				"リザルト画像自動保存機能：\nONにすると、ハイスコア/ハイスキル時に\n自動でリザルト画像を曲データと同じ\nフォルダに保存します。",
 				"AutoSaveResult:\nTurn ON to save your result screen\n image automatically when you get\n hiscore/hiskill." );
 			this.list項目リスト.Add( this.iSystemAutoResultCapture );
@@ -2207,6 +2212,7 @@ namespace DTXMania
         CItemToggle ShowPuchiChara;
         CItemToggle ShinuchiMode;
         CItemToggle FastRender;
+        CItemInteger MusicPreTimeMs;
 		//private CItemToggle iGuitarAutoPlay;
 		private CItemThreeState iGuitarAutoPlayAll;			// #23886 2012.5.8 yyagi
 		private CItemToggle iGuitarR;						//
@@ -2335,6 +2341,7 @@ namespace DTXMania
 		    CDTXMania.ConfigIni.SongPreviewLevel = this.iSystemSongPreviewLevel.n現在の値;
 		    CDTXMania.ConfigIni.SongPlaybackLevel = this.iSystemSongPlaybackLevel.n現在の値;
 		    CDTXMania.ConfigIni.KeyboardSoundLevelIncrement = this.iSystemKeyboardSoundLevelIncrement.n現在の値;
+            CDTXMania.ConfigIni.MusicPreTimeMs = this.MusicPreTimeMs.n現在の値;
 
 			CDTXMania.ConfigIni.bログ出力 = this.iLogOutputLog.bON;
 			//CDTXMania.ConfigIni.bストイックモード = this.iSystemStoicMode.bON;

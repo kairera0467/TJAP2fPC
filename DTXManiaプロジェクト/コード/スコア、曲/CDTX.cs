@@ -3261,7 +3261,7 @@ namespace DTXMania
             if (command == "#START")
             {
                 //#STARTと同時に鳴らすのはどうかと思うけどしゃーなしだな。
-
+                AddMusicPreTimeMs(); // 音源を鳴らす前に遅延。
                 var chip = new CChip();
 
                 chip.nチャンネル番号 = 0x01;
@@ -3799,7 +3799,6 @@ namespace DTXMania
             else if (command == "#NEXTSONG")
             {
                 var delayTime = 6200.0; // 6.2秒ディレイ
-
                 //チップ追加して割り込んでみる。
                 var chip = new CChip();
 
@@ -3813,6 +3812,9 @@ namespace DTXMania
 
                 // チップを配置。
                 this.listChip.Add(chip);
+
+                AddMusicPreTimeMs(); // 段位の幕が開いてからの遅延。
+
 
                 strArray = argument.Split(',');
                 WarnSplitLength("#NEXTSONG", strArray, 4);
@@ -7985,6 +7987,14 @@ namespace DTXMania
             return double.TryParse(decimalStr.ToString(), out result);  // 最後に、自分のlocale向けの文字列に対してTryParse実行
         }
         #endregion
+        /// <summary>
+        /// 音源再生前の空白を追加するメソッド。
+        /// </summary>
+        private void AddMusicPreTimeMs()
+        {
+            this.dbNowTime += CDTXMania.ConfigIni.MusicPreTimeMs;
+            this.dbNowBMScollTime += CDTXMania.ConfigIni.MusicPreTimeMs * this.dbNowBPM / 15000;
+        }
         //-----------------
         #endregion
     }

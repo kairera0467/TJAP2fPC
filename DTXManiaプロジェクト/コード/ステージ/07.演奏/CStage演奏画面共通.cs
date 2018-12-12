@@ -86,6 +86,11 @@ namespace DTXMania
                     if( CDTXMania.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ CDTXMania.stage選曲.n確定された曲の難易度 ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
                         Drums.nハイスコア[ CDTXMania.stage選曲.n確定された曲の難易度 ] = (int)this.actScore.Get( E楽器パート.DRUMS, 0 );
                 }
+                var danC = CDTXMania.stage演奏ドラム画面.actDan.GetExam();
+                for (int i = 0; i < danC.Length; i++)
+                {
+                    Drums.Dan_C[i] = danC[i];
+                }
 			}
 		}
 		#endregion
@@ -1130,7 +1135,7 @@ namespace DTXMania
                 this.n現在の連打数[ nPlayer ]++;
                 this.nBranch_roll[ nPlayer ]++;
                 this.n合計連打数[ nPlayer ]++;
-                this.actRollChara.Start(nPlayer);
+                if(CDTXMania.stage選曲.n確定された曲の難易度 != (int)Difficulty.Dan) this.actRollChara.Start(nPlayer);
 
                 //2017.01.28 DD CDTXから直接呼び出す
                 if (pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る

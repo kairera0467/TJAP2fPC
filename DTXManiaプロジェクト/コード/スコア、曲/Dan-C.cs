@@ -8,10 +8,11 @@ namespace TJAPlayer3
     /// <summary>
     /// 段位認定を管理するクラス。
     /// </summary>
-    class Dan_C
+    public class Dan_C
     {
-        public Dan_C()
+        public Dan_C(Dan_C dan_C) : this(dan_C.GetExamType(), new int[] { dan_C.GetValue(false), dan_C.GetValue(true) }, dan_C.GetExamRange())
         {
+            
         }
 
         /// <summary>
@@ -327,7 +328,7 @@ namespace TJAPlayer3
         private bool NotReached = false;
     }
 
-    static class Exam
+    public static class Exam
     {
         /// <summary>
         /// 段位認定の条件の種別。

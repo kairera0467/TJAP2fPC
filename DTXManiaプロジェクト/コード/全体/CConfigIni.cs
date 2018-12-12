@@ -867,6 +867,7 @@ namespace DTXMania
 		public int nMasterVolume;
         public bool ShinuchiMode; // 真打モード
         public bool FastRender; // 事前画像描画モード
+        public int MusicPreTimeMs; // 音源再生前の待機時間ms
 #if false
 		[StructLayout( LayoutKind.Sequential )]
 		public struct STAUTOPLAY								// C定数のEレーンとindexを一致させること
@@ -1417,6 +1418,7 @@ namespace DTXMania
             this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
             ShinuchiMode = false;
             FastRender = true;
+            MusicPreTimeMs = 1000; // 一秒
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;
@@ -1699,7 +1701,11 @@ namespace DTXMania
 		    sw.WriteLine( $"; Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
 		    sw.WriteLine( "{0}={1}", nameof(KeyboardSoundLevelIncrement), KeyboardSoundLevelIncrement );
 			sw.WriteLine();
-			sw.WriteLine( "; ストイックモード(0:OFF, 1:ON)" );
+            sw.WriteLine($"; 音源再生前の空白時間 (ms)");
+            sw.WriteLine($"; Blank time before music source to play. (ms)");
+            sw.WriteLine("{0}={1}", nameof(MusicPreTimeMs), MusicPreTimeMs);
+            sw.WriteLine();
+            sw.WriteLine( "; ストイックモード(0:OFF, 1:ON)" );
 			sw.WriteLine( "; Stoic mode. (0:OFF, 1:ON)" );
 			sw.WriteLine( "StoicMode={0}", this.bストイックモード ? 1 : 0 );
 			sw.WriteLine();
@@ -2341,6 +2347,10 @@ namespace DTXMania
 											{
 												this.KeyboardSoundLevelIncrement = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement, this.KeyboardSoundLevelIncrement );
 											}
+                                            else if( str3.Equals(nameof(MusicPreTimeMs)))
+                                            {
+                                                MusicPreTimeMs = int.Parse(str4);
+                                            }
 											else if( str3.Equals( "StoicMode" ) )
 											{
 												this.bストイックモード = C変換.bONorOFF( str4[ 0 ] );

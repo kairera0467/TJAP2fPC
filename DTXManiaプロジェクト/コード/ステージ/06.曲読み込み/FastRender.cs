@@ -74,6 +74,8 @@ namespace DTXMania
             {
                 NullCheckAndRender(ref CDTXMania.Tx.Mob[i]);
             }
+
+            NullCheckAndRender(ref CDTXMania.Tx.PuchiChara);
             
         }
 
