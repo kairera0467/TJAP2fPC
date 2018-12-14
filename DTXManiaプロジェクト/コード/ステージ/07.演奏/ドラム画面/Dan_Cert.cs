@@ -166,8 +166,11 @@ namespace DTXMania
                         case Exam.Type.JudgePerfect:
                         case Exam.Type.JudgeGood:
                         case Exam.Type.JudgeBad:
-                        case Exam.Type.Combo:
                             if ((CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss) < (Challenge[i].Value[0] - Challenge[i].Amount))) Challenge[i].SetReached(true);
+                            break;
+                        case Exam.Type.Combo:
+                            if ((CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss) + CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.P1 < (Challenge[i].Value[0]))) Challenge[i].SetReached(true);
+
                             break;
                         default:
                             break;
