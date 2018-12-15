@@ -1602,6 +1602,11 @@ namespace DTXMania
             }
         }
 
+        /// <summary>
+        /// 判定カウントを加算する
+        /// </summary>
+        /// <param name="eJudgeResult">加算したい判定</param>
+        /// <param name="nPlayer">加算先のプレイヤー</param>
 		protected void tチップのヒット処理_BadならびにTight時のMiss( E判定 eJudgeResult, int nPlayer )
 		{
             switch( eJudgeResult )
@@ -1614,6 +1619,18 @@ namespace DTXMania
                     break;
                 case E判定.Bad:
                     this.nヒット数[ nPlayer ].空打ち不可++;
+                    this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
+                    this.actJudgeString.Start( 0, E判定.Miss, 0, null, nPlayer );
+                    this.actComboVoice.tリセット();
+                    if( this.bMiss中[ nPlayer ] == false )
+                    {
+                        this.bMiss中[ nPlayer ] = true;
+                        CDTXMania.stage演奏ドラム画面.actBackground.tFadeIn();
+                    }
+                    actGauge.Damage(E楽器パート.TAIKO, E楽器パート.TAIKO, E判定.Miss, nPlayer);
+                    break;
+                default:
+                    Trace.TraceWarning( "このメソッドから加算できない判定種類です。コードの設計を再確認してください。(tチップのヒット処理_BadならびにTight時のMiss)" );
                     break;
             }
 
@@ -3551,6 +3568,8 @@ namespace DTXMania
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 this.chip現在処理中の連打チップ[ i ] = null;
+                this.b連打中[ i ] = false;
+                this.actRoll.b表示[ i ] = false;
                 CDTXMania.stage演奏ドラム画面.actGauge.Stop( 0 );
             }
             this.bPAUSE = false;

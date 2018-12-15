@@ -80,10 +80,13 @@ namespace DTXMania
 
 		public virtual void Start( int nLane, E判定 judge, int lag, CDTX.CChip pChip, int player )
 		{
-            if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 )
+            if( pChip != null )
             {
-                return;
+                // 引数にpChipが与えられている場合は連打チップかどうかのチェックを行う。
+                if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 )
+                    return;
             }
+
 
 
             for( int i = 0; i < 1; i++ )

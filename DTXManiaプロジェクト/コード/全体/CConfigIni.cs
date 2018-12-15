@@ -624,6 +624,7 @@ namespace DTXMania
 		public bool bSTAGEFAILED有効;
 		public STDGBVALUE<bool> bSudden;
 		public bool bTight;
+		public bool bTight2P; // 2018.12.15 kairera0467
 		public STDGBVALUE<bool> bGraph;     // #24074 2011.01.23 add ikanick
 		public bool bWave再生位置自動調整機能有効;
 		public bool bストイックモード;
@@ -1812,7 +1813,8 @@ namespace DTXMania
 			sw.WriteLine();
 			sw.WriteLine( "; TIGHTモード(0:OFF, 1:ON)" );									// #29500 2012.9.11 kairera0467
 			sw.WriteLine( "; TIGHT mode. 0=OFF, 1=ON " );
-			sw.WriteLine( "DrumsTight={0}", this.bTight ? 1 : 0 );
+			sw.WriteLine( "TaikoTight={0}", this.bTight ? 1 : 0 );
+			sw.WriteLine( "TaikoTight2P={0}", this.bTight2P ? 1 : 0 );
 			sw.WriteLine();
 			sw.WriteLine( "; ドラム譜面スクロール速度(0:x0.5, 1:x1.0, 2:x1.5,…,1999:x1000.0)" );
 			sw.WriteLine( "DrumsScrollSpeed={0}", this.n譜面スクロール速度.Drums );
@@ -2800,9 +2802,13 @@ namespace DTXMania
 											{
 												this.nRisky = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 10, this.nRisky );
 											}
-											else if ( str3.Equals( "DrumsTight" ) )
+											else if ( str3.Equals( "TaikoTight" ) )
 											{
 												this.bTight = C変換.bONorOFF( str4[ 0 ] );
+											}
+                                            else if ( str3.Equals( "TaikoTight2P" ) )
+											{
+												this.bTight2P = C変換.bONorOFF( str4[ 0 ] );
 											}
 											else if ( str3.Equals( "BranchGuide" ) )
 											{

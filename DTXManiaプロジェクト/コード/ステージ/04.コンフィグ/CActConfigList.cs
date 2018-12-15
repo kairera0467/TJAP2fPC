@@ -586,12 +586,19 @@ namespace DTXMania
 				"有効にすると「良」以外の判定が全て不可になります。" );
 			this.list項目リスト.Add( this.iTaikoJust );
 
-			this.iDrumsTight = new CItemToggle( "Tight", CDTXMania.ConfigIni.bTight,
-				"ドラムチップのないところでパッドを\n" +
-				"叩くとミスになります。",
+			this.iTaikoTight1P = new CItemToggle( "Tight 1P", CDTXMania.ConfigIni.bTight,
+				"プレイヤー1が音符のないところで太鼓を\n" +
+				"叩くと不可になります。",
 				"It becomes MISS to hit pad without\n" +
-				" chip." );
-			this.list項目リスト.Add( this.iDrumsTight );
+				" notes." );
+			this.list項目リスト.Add( this.iTaikoTight1P );
+
+			this.iTaikoTight2P = new CItemToggle( "Tight 2P", CDTXMania.ConfigIni.bTight2P,
+				"プレイヤー2が音符のないところで太鼓を\n" +
+				"叩くと不可になります。",
+				"It becomes MISS to hit pad without\n" +
+				" notes." );
+			this.list項目リスト.Add( this.iTaikoTight2P );
             
 			this.iSystemMinComboDrums = new CItemInteger( "D-MinCombo", 1, 0x1869f, CDTXMania.ConfigIni.n表示可能な最小コンボ数.Drums,
 				"表示可能な最小コンボ数（ドラム）：\n" +
@@ -1789,7 +1796,6 @@ namespace DTXMania
 		private CItemBase iDrumsReturnToMenu;
 		private CItemInteger iDrumsScrollSpeed;
 		//private CItemToggle iDrumsSudden;
-		private CItemToggle iDrumsTight;
         private CItemToggle iDrumsComboDisp;
 
         private CItemToggle iTaikoAutoPlay;
@@ -1809,8 +1815,10 @@ namespace DTXMania
         private CItemToggle iTaikoJudgeCountDisp;
         private CItemToggle iTaikoBigNotesJudge;
         private CItemInteger iTaikoPlayerCount;
-        
-		private CItemBase iGuitarReturnToMenu;
+        private CItemToggle iTaikoTight1P; // 2018.12.15 kairera0467
+        private CItemToggle iTaikoTight2P;
+
+        private CItemBase iGuitarReturnToMenu;
 		//private CItemToggle iGuitarSudden;
 		private CItemInteger iDrumsInputAdjustTimeMs;		// #23580 2011.1.3 yyagi
 		private CItemList iSystemSkinSubfolder;				// #28195 2012.5.2 yyagi
@@ -1959,48 +1967,17 @@ namespace DTXMania
 		}
 		private void tConfigIniへ記録する_Drums()
 		{
-            //CDTXMania.ConfigIni.bAutoPlay.LC = this.iDrumsLeftCymbal.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.HH = this.iDrumsHiHat.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.SD = this.iDrumsSnare.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.BD = this.iDrumsBass.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.HT = this.iDrumsHighTom.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.LT = this.iDrumsLowTom.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.FT = this.iDrumsFloorTom.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.CY = this.iDrumsCymbalRide.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.LP = this.iDrumsLeftPedal.bON;
-            //CDTXMania.ConfigIni.bAutoPlay.LBD = this.iDrumsLeftBassDrum.bON;
             CDTXMania.ConfigIni.b太鼓パートAutoPlay = this.iTaikoAutoPlay.bON;
             CDTXMania.ConfigIni.b太鼓パートAutoPlay2P = this.iTaikoAutoPlay2P.bON;
             CDTXMania.ConfigIni.bAuto先生の連打 = this.iTaikoAutoRoll.bON;
 
 			CDTXMania.ConfigIni.n譜面スクロール速度.Drums = this.iDrumsScrollSpeed.n現在の値;
-            //CDTXMania.ConfigIni.bドラムコンボ表示 = this.iDrumsComboDisp.bON;
-												// "Sudden" || "Sud+Hid"
-            //CDTXMania.ConfigIni.bSudden.Drums = ( this.iDrumsSudHid.n現在選択されている項目番号 == 1 || this.iDrumsSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
-												// "Hidden" || "Sud+Hid"
-            //CDTXMania.ConfigIni.bHidden.Drums = ( this.iDrumsSudHid.n現在選択されている項目番号 == 2 || this.iDrumsSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
-            //if      ( this.iDrumsSudHid.n現在選択されている項目番号 == 4 ) CDTXMania.ConfigIni.eInvisible.Drums = EInvisible.SEMI;	// "S-Invisible"
-            //else if ( this.iDrumsSudHid.n現在選択されている項目番号 == 5 ) CDTXMania.ConfigIni.eInvisible.Drums = EInvisible.FULL;	// "F-Invisible"
-            //else                                                           CDTXMania.ConfigIni.eInvisible.Drums = EInvisible.OFF;
-            //CDTXMania.ConfigIni.bReverse.Drums = this.iDrumsReverse.bON;
-            //CDTXMania.ConfigIni.判定文字表示位置.Drums = (E判定文字表示位置) this.iDrumsPosition.n現在選択されている項目番号;
-			CDTXMania.ConfigIni.bTight = this.iDrumsTight.bON;
+			CDTXMania.ConfigIni.bTight = this.iTaikoTight1P.bON;
+            CDTXMania.ConfigIni.bTight2P = this.iTaikoTight2P.bON;
 			CDTXMania.ConfigIni.nInputAdjustTimeMs.Drums = this.iDrumsInputAdjustTimeMs.n現在の値;		// #23580 2011.1.3 yyagi
             //CDTXMania.ConfigIni.bGraph.Drums = this.iDrumsGraph.bON;// #24074 2011.01.23 add ikanick
 
-            //CDTXMania.ConfigIni.eHHGroup = (EHHGroup) this.iSystemHHGroup.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eFTGroup = (EFTGroup) this.iSystemFTGroup.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eCYGroup = (ECYGroup) this.iSystemCYGroup.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eBDGroup = (EBDGroup) this.iSystemBDGroup.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eHitSoundPriorityHH = (E打ち分け時の再生の優先順位) this.iSystemHitSoundPriorityHH.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eHitSoundPriorityFT = (E打ち分け時の再生の優先順位) this.iSystemHitSoundPriorityFT.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.eHitSoundPriorityCY = (E打ち分け時の再生の優先順位) this.iSystemHitSoundPriorityCY.n現在選択されている項目番号;
-            //CDTXMania.ConfigIni.bフィルイン有効 = this.iSystemFillIn.bON;
-            //CDTXMania.ConfigIni.b演奏音を強調する.Drums = this.iSystemSoundMonitorDrums.bON;
-            //CDTXMania.ConfigIni.bドラム打音を発声する = this.iSystemHitSound.bON;
 			CDTXMania.ConfigIni.n表示可能な最小コンボ数.Drums = this.iSystemMinComboDrums.n現在の値;
-            //CDTXMania.ConfigIni.bシンバルフリー = this.iSystemCymbalFree.bON;
-
             //CDTXMania.ConfigIni.eDark = (Eダークモード)this.iCommonDark.n現在選択されている項目番号;
 			CDTXMania.ConfigIni.nRisky = this.iSystemRisky.n現在の値;						// #23559 2911.7.27 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度.Drums = (E判定表示優先度) this.iDrumsJudgeDispPriority.n現在選択されている項目番号;
