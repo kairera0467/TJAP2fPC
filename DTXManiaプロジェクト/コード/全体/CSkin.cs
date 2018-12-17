@@ -1090,6 +1090,26 @@ namespace DTXMania
                             {
                                 SongSelect_BackColor_Namco = ColorTranslator.FromHtml(strParam);
                             }
+                            else if (strCommand == nameof(SongSelect_CorrectionX_Chara))
+                            {
+                                SongSelect_CorrectionX_Chara = strParam.Split(',').ToArray();
+                            }
+                            else if (strCommand == nameof(SongSelect_CorrectionY_Chara))
+                            {
+                                SongSelect_CorrectionY_Chara = strParam.Split(',').ToArray();
+                            }
+                            else if (strCommand == nameof(SongSelect_CorrectionX_Chara_Value))
+                            {
+                                SongSelect_CorrectionX_Chara_Value = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongSelect_CorrectionY_Chara_Value))
+                            {
+                                SongSelect_CorrectionY_Chara_Value = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(SongSelect_Rotate_Chara))
+                            {
+                                SongSelect_Rotate_Chara = strParam.Split(',').ToArray();
+                            }
                             #endregion
                             #region SongLoading
                             else if (strCommand == nameof(SongLoading_Plate_X))
@@ -2196,7 +2216,14 @@ namespace DTXMania
                                 if (int.Parse(strParam) > 0)
                                     Font_Edge_Ratio_Vertical = int.Parse(strParam);
                             }
-
+                            else if (strCommand == nameof(Text_Correction_X))
+                            {
+                                Text_Correction_X = int.Parse(strParam);
+                            }
+                            else if (strCommand == nameof(Text_Correction_Y))
+                            {
+                                Text_Correction_Y = int.Parse(strParam);
+                            }
                             #endregion
                             #endregion
                         }
@@ -2379,6 +2406,11 @@ namespace DTXMania
         public Color SongSelect_BackColor_Classic = ColorTranslator.FromHtml("#875600");
         public Color SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml("#412080");
         public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#980E00");
+        public string[] SongSelect_CorrectionX_Chara = { "ここにX座標を補正したい文字をカンマで区切って記入" };
+        public string[] SongSelect_CorrectionY_Chara = { "ここにY座標を補正したい文字をカンマで区切って記入" };
+        public int SongSelect_CorrectionX_Chara_Value = 0;
+        public int SongSelect_CorrectionY_Chara_Value = 0;
+        public string[] SongSelect_Rotate_Chara = { "ここに90℃回転させたい文字をカンマで区切って記入" };
         #endregion
         #region SongLoading
         public int SongLoading_Plate_X = 640;
@@ -2635,6 +2667,8 @@ namespace DTXMania
         #region Font
         public int Font_Edge_Ratio = 30;
         public int Font_Edge_Ratio_Vertical = 30;
+        public int Text_Correction_X = 0;
+        public int Text_Correction_Y = 0;
         #endregion
         #endregion
     }
