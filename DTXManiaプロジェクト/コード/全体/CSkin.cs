@@ -2622,7 +2622,7 @@ namespace DTXMania
         #endregion
         #region Dan-C
         public int[] Game_DanC_X = new int[] { 302, 302, 302 };
-        public int[] Game_DanC_Y = new int[] { 473, 302, 365 };
+        public int[] Game_DanC_Y = new int[] { 473, 419, 365 };
         public int[] Game_DanC_Size = new int[] { 956, 92 };
         public int Game_DanC_Padding = 5;
         public int[] Game_DanC_Offset = new int[] { 15, 17 };
