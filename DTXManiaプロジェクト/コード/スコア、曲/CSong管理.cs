@@ -1160,7 +1160,9 @@ namespace DTXMania
 					bw.Write( node.arスコア[ i ].譜面情報.演奏履歴.行3 );
 					bw.Write( node.arスコア[ i ].譜面情報.演奏履歴.行4 );
 					bw.Write( node.arスコア[ i ].譜面情報.演奏履歴.行5 );
-					bw.Write( node.arスコア[ i ].譜面情報.レベルを非表示にする );
+                    bw.Write(node.arスコア[i].譜面情報.演奏履歴.行6);
+                    bw.Write(node.arスコア[i].譜面情報.演奏履歴.行7);
+                    bw.Write( node.arスコア[ i ].譜面情報.レベルを非表示にする );
 					bw.Write( (int) node.arスコア[ i ].譜面情報.曲種別 );
 					bw.Write( node.arスコア[ i ].譜面情報.Bpm );
 					bw.Write( node.arスコア[ i ].譜面情報.Duration );
