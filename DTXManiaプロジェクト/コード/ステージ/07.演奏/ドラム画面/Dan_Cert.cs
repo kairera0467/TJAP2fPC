@@ -417,7 +417,7 @@ namespace DTXMania
                         drawGaugeType = 0;
                 }
                 CDTXMania.Tx.DanC_Gauge[drawGaugeType]?.t2D拡大率考慮下基準描画(CDTXMania.app.Device,
-                    CDTXMania.Skin.Game_DanC_X[count - 1] + CDTXMania.Skin.Game_DanC_Offset[0], CDTXMania.Skin.Game_DanC_Y[count - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Offset[1], new Rectangle(0, 0, (int)(dan_C[i].GetAmountToPercent() * 9.26), CDTXMania.Tx.DanC_Gauge[drawGaugeType].szテクスチャサイズ.Height));
+                    CDTXMania.Skin.Game_DanC_X[count - 1] + CDTXMania.Skin.Game_DanC_Offset[0], CDTXMania.Skin.Game_DanC_Y[count - 1] + CDTXMania.Skin.Game_DanC_Size[1] * (i + 1) + ((i + 1) * CDTXMania.Skin.Game_DanC_Padding) - CDTXMania.Skin.Game_DanC_Offset[1], new Rectangle(0, 0, (int)(dan_C[i].GetAmountToPercent() * (CDTXMania.Tx.DanC_Gauge[drawGaugeType].szテクスチャサイズ.Width / 100.0)), CDTXMania.Tx.DanC_Gauge[drawGaugeType].szテクスチャサイズ.Height));
                 #endregion
 
                 #region 現在の値を描画する。
