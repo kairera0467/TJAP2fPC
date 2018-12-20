@@ -82,6 +82,8 @@ namespace DTXMania
                 Status[i].Timer_Failed = new CCounter();
             }
             IsEnded = false;
+
+            if (CDTXMania.stage選曲.n確定された曲の難易度 == (int)Difficulty.Dan) IsAnimating = true;
             base.On活性化();
         }
 
