@@ -4181,7 +4181,7 @@ namespace DTXMania
         {
             if (InputText.Equals("#HBSCROLL") && CDTXMania.ConfigIni.bスクロールモードを上書き == false)
             {
-                CDTXMania.ConfigIni.eScrollMode = EScrollMode.HSSCROLL;
+                CDTXMania.ConfigIni.eScrollMode = EScrollMode.HBSCROLL;
             }
             if (InputText.Equals("#BMSCROLL") && CDTXMania.ConfigIni.bスクロールモードを上書き == false)
             {

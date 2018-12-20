@@ -354,8 +354,8 @@ namespace DTXMania
                     CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON");
                 if (CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL)
                     CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON");
-                else if (CDTXMania.ConfigIni.eScrollMode == EScrollMode.HSSCROLL)
-                    CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "HSSCROLL : ON");
+                else if (CDTXMania.ConfigIni.eScrollMode == EScrollMode.HBSCROLL)
+                    CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "HBSCROLL : ON");
                 #endregion
 
                 //this.actステータスパネル.On進行描画();
@@ -473,7 +473,7 @@ namespace DTXMania
                                     CDTXMania.ConfigIni.eScrollMode = EScrollMode.BMSCROLL;
                                     break;
                                 case 1:
-                                    CDTXMania.ConfigIni.eScrollMode = EScrollMode.HSSCROLL;
+                                    CDTXMania.ConfigIni.eScrollMode = EScrollMode.HBSCROLL;
                                     break;
                                 case 2:
                                     CDTXMania.ConfigIni.eScrollMode = EScrollMode.Normal;
