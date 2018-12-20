@@ -207,7 +207,7 @@
     <Compile Include="コード\ステージ\07.演奏\CAct演奏PauseMenu.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsパッド.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsレーン.cs" />
-    <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsレーンフラッシュD.cs" />
+    <Compile Include="コード\ステージ\07.演奏\ドラム画面\TaikoLaneFlash.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏DrumsレーンフラッシュGB.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drums判定文字列.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drums風船.cs" />

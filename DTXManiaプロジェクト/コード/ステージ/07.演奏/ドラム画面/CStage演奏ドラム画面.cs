@@ -31,7 +31,7 @@ namespace DTXMania
             base.list子Activities.Add( this.actGauge = new CAct演奏Drumsゲージ() );
             base.list子Activities.Add( this.actGraph = new CAct演奏Drumsグラフ() ); // #24074 2011.01.23 add ikanick
 			base.list子Activities.Add( this.actJudgeString = new CAct演奏Drums判定文字列() );
-			base.list子Activities.Add( this.actLaneFlushD = new CAct演奏DrumsレーンフラッシュD() );
+			base.list子Activities.Add( this.actLaneFlushD = new TaikoLaneFlash() );
 			base.list子Activities.Add( this.actLaneFlushGB = new CAct演奏DrumsレーンフラッシュGB() );
 			base.list子Activities.Add( this.actScore = new CAct演奏Drumsスコア() );
 			base.list子Activities.Add( this.actStatusPanels = new CAct演奏Drumsステータスパネル() );

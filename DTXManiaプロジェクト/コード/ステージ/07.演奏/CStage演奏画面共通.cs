@@ -589,7 +589,7 @@ namespace DTXMania
 
         public CAct演奏DrumsDancer actDancer;
 		protected CAct演奏判定文字列共通 actJudgeString;
-		public CAct演奏DrumsレーンフラッシュD actLaneFlushD;
+		public TaikoLaneFlash actLaneFlushD;
 		protected CAct演奏レーンフラッシュGB共通 actLaneFlushGB;
 		public CAct演奏パネル文字列 actPanel;
 		public CAct演奏演奏情報 actPlayInfo;

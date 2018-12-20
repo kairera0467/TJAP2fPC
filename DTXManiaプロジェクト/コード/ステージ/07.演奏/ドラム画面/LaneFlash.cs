@@ -10,7 +10,7 @@ namespace TJAPlayer3
     /// <summary>
     /// レーンフラッシュのクラス。
     /// </summary>
-    class LaneFlash : CActivity
+    public class LaneFlash : CActivity
     {
 
         public LaneFlash(ref CTexture texture, int player)
