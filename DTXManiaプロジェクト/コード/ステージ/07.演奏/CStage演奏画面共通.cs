@@ -2810,7 +2810,7 @@ namespace DTXMania
 		        ? "Calibrating input..."
 		        : string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE: CDTXMania.DTX.PANEL;
 
-		    this.actPanel.SetPanelString( panelString, CDTXMania.stage選曲.str確定された曲のジャンル );
+		    this.actPanel.SetPanelString( panelString, CDTXMania.stage選曲.str確定された曲のジャンル, CDTXMania.Skin.Game_StageText );
 		}
 
 
