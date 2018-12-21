@@ -628,7 +628,7 @@ namespace DTXMania
             }
 
 
-            CDTXMania.stage演奏ドラム画面.actLaneFlushD.On進行描画();
+            CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.On進行描画();
 
 
 

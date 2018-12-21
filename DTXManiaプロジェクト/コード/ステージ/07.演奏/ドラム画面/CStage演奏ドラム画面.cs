@@ -31,7 +31,7 @@ namespace DTXMania
             base.list子Activities.Add( this.actGauge = new CAct演奏Drumsゲージ() );
             base.list子Activities.Add( this.actGraph = new CAct演奏Drumsグラフ() ); // #24074 2011.01.23 add ikanick
 			base.list子Activities.Add( this.actJudgeString = new CAct演奏Drums判定文字列() );
-			base.list子Activities.Add( this.actLaneFlushD = new TaikoLaneFlash() );
+			base.list子Activities.Add( this.actTaikoLaneFlash = new TaikoLaneFlash() );
 			base.list子Activities.Add( this.actLaneFlushGB = new CAct演奏DrumsレーンフラッシュGB() );
 			base.list子Activities.Add( this.actScore = new CAct演奏Drumsスコア() );
 			base.list子Activities.Add( this.actStatusPanels = new CAct演奏Drumsステータスパネル() );
@@ -769,7 +769,7 @@ namespace DTXMania
 
 
                 //this.actChipFireTaiko.Start( nFly, nPlayer );
-                this.actLaneFlushD.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
+                this.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
                 this.FlyingNotes.Start(nFly, nPlayer);
 			}
 
@@ -959,7 +959,7 @@ namespace DTXMania
                             break;
                     }
 
-                    CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[nUsePlayer].Start((PlayerLane.FlashType)nLane);
+                    CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nUsePlayer].Start((PlayerLane.FlashType)nLane);
                     CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent(nChannel, nHand, nUsePlayer );
 
                     if( this.b連打中[ nUsePlayer ] )
@@ -1318,8 +1318,8 @@ namespace DTXMania
                                 this.FlyingNotes.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
                             //this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
                             if (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) nLane = 1;
-                            CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[nPlayer].Start((nLane == 0 ? PlayerLane.FlashType.Red : PlayerLane.FlashType.Blue));
-                            CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
+                            CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start((nLane == 0 ? PlayerLane.FlashType.Red : PlayerLane.FlashType.Blue));
+                            CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
                             this.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
 
                             int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
