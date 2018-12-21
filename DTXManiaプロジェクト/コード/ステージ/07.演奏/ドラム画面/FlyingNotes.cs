@@ -31,9 +31,9 @@ namespace DTXMania
                         Flying[i].IsUsing = true;
                         Flying[i].Lane = nLane;
                         Flying[i].Player = nPlayer;
-                        Flying[i].X = CDTXMania.Skin.nScrollFieldX[nPlayer];
+                        Flying[i].X = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer];
                         Flying[i].Y = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer];
-                        Flying[i].StartPointX = CDTXMania.Skin.nScrollFieldX[nPlayer];
+                        Flying[i].StartPointX = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer];
                         Flying[i].StartPointY = CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer];
                         Flying[i].OldValue = 0;
                         Flying[i].IsRoll = isRoll;
