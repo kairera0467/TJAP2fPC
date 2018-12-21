@@ -769,6 +769,7 @@ namespace DTXMania
 
 
                 //this.actChipFireTaiko.Start( nFly, nPlayer );
+                this.actLaneFlushD.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
                 this.FlyingNotes.Start(nFly, nPlayer);
 			}
 
@@ -958,7 +959,7 @@ namespace DTXMania
                             break;
                     }
 
-                    CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( nLane, 127, nUsePlayer );
+                    CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[nUsePlayer].Start((PlayerLane.FlashType)nLane);
                     CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent(nChannel, nHand, nUsePlayer );
 
                     if( this.b連打中[ nUsePlayer ] )
@@ -1317,7 +1318,7 @@ namespace DTXMania
                                 this.FlyingNotes.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
                             //this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
                             if (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) nLane = 1;
-                            this.actLaneFlushD.Start(nLane, 127f, nPlayer);
+                            CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[nPlayer].Start((PlayerLane.FlashType)nLane);
                             this.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
 
                             int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);

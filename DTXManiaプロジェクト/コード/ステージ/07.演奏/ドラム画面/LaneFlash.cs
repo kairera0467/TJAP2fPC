@@ -44,10 +44,10 @@ namespace TJAPlayer3
             {
                 Counter.t進行();
                 if (Counter.b終了値に達した) Counter.t停止();
+                int opacity = (((150 - Counter.n現在の値) * 255) / 100);
+                Texture.n透明度 = opacity;
+                Texture.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[Player], CDTXMania.Skin.nScrollFieldY[Player]);
             }
-            int opacity = (((150 - Counter.n現在の値) * 255) / 100);
-            Texture.n透明度 = opacity;
-            Texture.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[Player], CDTXMania.Skin.nScrollFieldY[Player]);
             return base.On進行描画();
         }
 
