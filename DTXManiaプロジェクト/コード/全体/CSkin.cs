@@ -1955,6 +1955,10 @@ namespace DTXMania
                             {
                                 Game_Effect_GoGoSplash_AddBlend = C変換.bONorOFF(strParam[0]);
                             }
+                            else if (strCommand == nameof(Game_Effect_FireWorks_Timing))
+                            {
+                                Game_Effect_FireWorks_Timing = int.Parse(strParam);
+                            }
                             #endregion
                             #region Runner
                             else if (strCommand == "Game_Runner_Size")
@@ -2605,6 +2609,7 @@ namespace DTXMania
         public bool Game_Effect_FireWorks_AddBlend = true;
         public bool Game_Effect_Fire_AddBlend = true;
         public bool Game_Effect_GoGoSplash_AddBlend = true;
+        public int Game_Effect_FireWorks_Timing = 8;
         #endregion
         #region Runner
         public int[] Game_Runner_Size = new int[] { 60, 125 };

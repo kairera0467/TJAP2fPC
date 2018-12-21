@@ -117,7 +117,7 @@ namespace DTXMania
                                 Flying[i].X += Flying[i].IncreaseX;
                             }
 
-                            if (n % 4 == 0 && !Flying[i].IsRoll)
+                            if (n % CDTXMania.Skin.Game_Effect_FireWorks_Timing == 0 && !Flying[i].IsRoll)
                             {
                                 if (Flying[i].Lane == 3 || Flying[i].Lane == 4)
                                 {
