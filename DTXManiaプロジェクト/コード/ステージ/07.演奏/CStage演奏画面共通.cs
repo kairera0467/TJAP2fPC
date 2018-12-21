@@ -589,7 +589,7 @@ namespace DTXMania
 
         public CAct演奏DrumsDancer actDancer;
 		protected CAct演奏判定文字列共通 actJudgeString;
-		public CAct演奏DrumsレーンフラッシュD actLaneFlushD;
+		public TaikoLaneFlash actLaneFlushD;
 		protected CAct演奏レーンフラッシュGB共通 actLaneFlushGB;
 		public CAct演奏パネル文字列 actPanel;
 		public CAct演奏演奏情報 actPlayInfo;
@@ -1211,6 +1211,8 @@ namespace DTXMania
                         CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(4, nPlayer, true);
                     }
                 }
+
+                CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
             }
             else
             {
@@ -1298,6 +1300,7 @@ namespace DTXMania
                     //CDTXMania.Skin.soundRed.t再生する();
                     this.soundRed?.t再生を開始する();
                 }
+                CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[player].Start(PlayerLane.FlashType.Hit);
             }
             else
             {
@@ -1393,8 +1396,8 @@ namespace DTXMania
                                             this.nHand[ nPlayer ]++;
                                         else
                                             this.nHand[ nPlayer ] = 0;
-                                        
-                                        CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
+
+                                        CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
                                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
                                         CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
                                         CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
@@ -1447,7 +1450,7 @@ namespace DTXMania
                                         else
                                             this.nHand[ nPlayer ] = 0;
 
-                                        CDTXMania.stage演奏ドラム画面.actLaneFlushD.Start( 2, 0, nPlayer );
+                                        CDTXMania.stage演奏ドラム画面.actLaneFlushD.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
                                         CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
                                         this.tBalloonProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, nPlayer );
