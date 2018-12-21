@@ -267,7 +267,7 @@ namespace TJAPlayer3
         /// <summary>
         /// 条件に達成できる見込みがあるかどうか値を代入します。
         /// </summary>
-        /// <param name="notReached">到達したかどうか。</param>
+        /// <param name="notReached">未達成かどうか。</param>
         public void SetReached(bool notReached)
         {
             NotReached = notReached;
@@ -320,7 +320,7 @@ namespace TJAPlayer3
         /// </summary>
         public readonly bool[] IsCleared = new[] { false, false };
 
-/// <summary>
+        /// <summary>
         /// 条件の達成見込みがなくなったら、真になる。
         /// この変数が一度trueになれば、基本的にfalseに戻ることはない。
         /// (スコア加算については、この限りではない。)

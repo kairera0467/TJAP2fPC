@@ -145,8 +145,9 @@ namespace DTXMania
                 }
                 else
                 {
+                    var notesRemain = CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss);
                     // 残り音符数が0になったときに判断されるやつ
-                    if (CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss) <= 0)
+                    if (notesRemain <= 0)
                     {
                         // 残り音符数ゼロ
                         switch (Challenge[i].GetExamType())
@@ -168,11 +169,10 @@ namespace DTXMania
                         case Exam.Type.JudgePerfect:
                         case Exam.Type.JudgeGood:
                         case Exam.Type.JudgeBad:
-                            if ((CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss) < (Challenge[i].Value[0] - Challenge[i].Amount))) Challenge[i].SetReached(true);
+                            if (notesRemain < (Challenge[i].Value[0] - Challenge[i].Amount)) Challenge[i].SetReached(true);
                             break;
                         case Exam.Type.Combo:
-                            if ((CDTXMania.DTX.nノーツ数[3] - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Perfect + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Perfect) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Great + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Great) - (CDTXMania.stage演奏ドラム画面.nヒット数_Auto含む.Drums.Miss + CDTXMania.stage演奏ドラム画面.nヒット数_Auto含まない.Drums.Miss) + CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.P1 < (Challenge[i].Value[0]))) Challenge[i].SetReached(true);
-
+                            if (notesRemain + CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.P1 < ((Challenge[i].Value[0])) && CDTXMania.stage演奏ドラム画面.actCombo.n現在のコンボ数.P1最高値 < (Challenge[i].Value[0])) Challenge[i].SetReached(true);
                             break;
                         default:
                             break;
