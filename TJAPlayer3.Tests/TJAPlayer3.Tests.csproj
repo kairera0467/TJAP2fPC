@@ -9,7 +9,7 @@
     <ProjectGuid>{AED28A93-4A8E-4E71-AABD-1A86ED00B248}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DTXMania.Tests</RootNamespace>
+    <RootNamespace>TJAPlayer3.Tests</RootNamespace>
     <AssemblyName>TJAPlayer3.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -405,9 +405,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DTXManiaプロジェクト\DTXManiaプロジェクト.csproj">
+    <ProjectReference Include="..\TJAPlayer3\TJAPlayer3.csproj">
       <Project>{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}</Project>
-      <Name>DTXManiaプロジェクト</Name>
+      <Name>TJAPlayer3</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

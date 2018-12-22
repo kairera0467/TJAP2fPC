@@ -8,7 +8,7 @@
     <ProjectGuid>{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DTXMania</RootNamespace>
+    <RootNamespace>TJAPlayer3</RootNamespace>
     <AssemblyName>TJAPlayer3</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -285,7 +285,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FDK17プロジェクト\FDK19.csproj">
+    <ProjectReference Include="..\FDK19\FDK19.csproj">
       <Project>{BCD40908-F3E2-4707-BFAA-1DD99DF6357D}</Project>
       <Name>FDK19</Name>
       <Private>True</Private>
