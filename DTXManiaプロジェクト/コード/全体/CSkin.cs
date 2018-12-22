@@ -1895,9 +1895,9 @@ namespace DTXMania
                             {
                                 Game_Effect_GoGoSplash_Timer = int.Parse(strParam);
                             }
-                            else if (strCommand == nameof(Game_Effect_FlyingNotes_StartPoint_Y))
+                            else if (strCommand == nameof(Game_Effect_FlyingNotes_StartPoint_X))
                             {
-                                Game_Effect_FlyingNotes_StartPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
+                                Game_Effect_FlyingNotes_StartPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
                             }
                             else if (strCommand == nameof(Game_Effect_FlyingNotes_StartPoint_Y))
                             {
