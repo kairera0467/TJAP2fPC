@@ -143,56 +143,56 @@ namespace TJAPlayer3
 		    }
 
 
-            this.nHS = CDTXMania.ConfigIni.n譜面スクロール速度.Drums < 8 ? CDTXMania.ConfigIni.n譜面スクロール速度.Drums : 7;
+            this.nHS = TJAPlayer3.ConfigIni.n譜面スクロール速度.Drums < 8 ? TJAPlayer3.ConfigIni.n譜面スクロール速度.Drums : 7;
 
             //if(CDTXMania.Tx.Taiko_Frame[ 0 ] != null )
                // CDTXMania.Tx.Taiko_Frame[ 0 ].t2D描画( CDTXMania.app.Device, 0, 184 );
-            if(CDTXMania.Tx.Taiko_Background[0] != null )
-                CDTXMania.Tx.Taiko_Background[0].t2D描画( CDTXMania.app.Device, 0, 184 );
+            if(TJAPlayer3.Tx.Taiko_Background[0] != null )
+                TJAPlayer3.Tx.Taiko_Background[0].t2D描画( TJAPlayer3.app.Device, 0, 184 );
 
-            if ( CDTXMania.stage演奏ドラム画面.bDoublePlay )
+            if ( TJAPlayer3.stage演奏ドラム画面.bDoublePlay )
             {
                 //if(CDTXMania.Tx.Taiko_Frame[ 1 ] != null )
                     //CDTXMania.Tx.Taiko_Frame[ 1 ].t2D描画( CDTXMania.app.Device, 0, 360 );
-                if(CDTXMania.Tx.Taiko_Background[1] != null )
-                    CDTXMania.Tx.Taiko_Background[1].t2D描画( CDTXMania.app.Device, 0, 360 );
+                if(TJAPlayer3.Tx.Taiko_Background[1] != null )
+                    TJAPlayer3.Tx.Taiko_Background[1].t2D描画( TJAPlayer3.app.Device, 0, 360 );
             }
             
-            if(CDTXMania.Tx.Taiko_Base != null )
+            if(TJAPlayer3.Tx.Taiko_Base != null )
             {
-                CDTXMania.Tx.Taiko_Base.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0], CDTXMania.Skin.Game_Taiko_Y[0]);
-                if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
-                    CDTXMania.Tx.Taiko_Base.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1], CDTXMania.Skin.Game_Taiko_Y[1]);
+                TJAPlayer3.Tx.Taiko_Base.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[0], TJAPlayer3.Skin.Game_Taiko_Y[0]);
+                if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay )
+                    TJAPlayer3.Tx.Taiko_Base.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[1], TJAPlayer3.Skin.Game_Taiko_Y[1]);
             }
-            if( CDTXMania.Tx.Taiko_Don_Left != null && CDTXMania.Tx.Taiko_Don_Right != null && CDTXMania.Tx.Taiko_Ka_Left != null && CDTXMania.Tx.Taiko_Ka_Right != null )
+            if( TJAPlayer3.Tx.Taiko_Don_Left != null && TJAPlayer3.Tx.Taiko_Don_Right != null && TJAPlayer3.Tx.Taiko_Ka_Left != null && TJAPlayer3.Tx.Taiko_Ka_Right != null )
             {
-                CDTXMania.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[0].n明るさ * 73;
-                CDTXMania.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[1].n明るさ * 73;
-                CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[2].n明るさ * 73;
-                CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[3].n明るさ * 73;
+                TJAPlayer3.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[0].n明るさ * 73;
+                TJAPlayer3.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[1].n明るさ * 73;
+                TJAPlayer3.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[2].n明るさ * 73;
+                TJAPlayer3.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[3].n明るさ * 73;
             
-                CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0], CDTXMania.Skin.Game_Taiko_Y[0], new Rectangle( 0, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
-                CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0] + CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Skin.Game_Taiko_Y[0], new Rectangle(CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
-                CDTXMania.Tx.Taiko_Don_Left.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0], CDTXMania.Skin.Game_Taiko_Y[0], new Rectangle( 0, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
-                CDTXMania.Tx.Taiko_Don_Right.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[0] + CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Skin.Game_Taiko_Y[0], new Rectangle(CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height));
+                TJAPlayer3.Tx.Taiko_Ka_Left.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[0], TJAPlayer3.Skin.Game_Taiko_Y[0], new Rectangle( 0, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                TJAPlayer3.Tx.Taiko_Ka_Right.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[0] + TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.Game_Taiko_Y[0], new Rectangle(TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                TJAPlayer3.Tx.Taiko_Don_Left.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[0], TJAPlayer3.Skin.Game_Taiko_Y[0], new Rectangle( 0, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                TJAPlayer3.Tx.Taiko_Don_Right.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[0] + TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.Game_Taiko_Y[0], new Rectangle(TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height));
             }
 
-            if( CDTXMania.Tx.Taiko_Don_Left != null && CDTXMania.Tx.Taiko_Don_Right != null && CDTXMania.Tx.Taiko_Ka_Left != null && CDTXMania.Tx.Taiko_Ka_Right != null )
+            if( TJAPlayer3.Tx.Taiko_Don_Left != null && TJAPlayer3.Tx.Taiko_Don_Right != null && TJAPlayer3.Tx.Taiko_Ka_Left != null && TJAPlayer3.Tx.Taiko_Ka_Right != null )
             {
-                CDTXMania.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[4].n明るさ * 73;
-                CDTXMania.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[5].n明るさ * 73;
-                CDTXMania.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[6].n明るさ * 73;
-                CDTXMania.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[7].n明るさ * 73;
+                TJAPlayer3.Tx.Taiko_Ka_Left.n透明度 = this.stパッド状態[4].n明るさ * 73;
+                TJAPlayer3.Tx.Taiko_Ka_Right.n透明度 = this.stパッド状態[5].n明るさ * 73;
+                TJAPlayer3.Tx.Taiko_Don_Left.n透明度 = this.stパッド状態[6].n明るさ * 73;
+                TJAPlayer3.Tx.Taiko_Don_Right.n透明度 = this.stパッド状態[7].n明るさ * 73;
             
-                CDTXMania.Tx.Taiko_Ka_Left.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1], CDTXMania.Skin.Game_Taiko_Y[1], new Rectangle( 0, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
-                CDTXMania.Tx.Taiko_Ka_Right.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1] + CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Skin.Game_Taiko_Y[1], new Rectangle(CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
-                CDTXMania.Tx.Taiko_Don_Left.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1], CDTXMania.Skin.Game_Taiko_Y[1], new Rectangle( 0, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
-                CDTXMania.Tx.Taiko_Don_Right.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_X[1] + CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Skin.Game_Taiko_Y[1], new Rectangle(CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, CDTXMania.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                TJAPlayer3.Tx.Taiko_Ka_Left.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[1], TJAPlayer3.Skin.Game_Taiko_Y[1], new Rectangle( 0, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                TJAPlayer3.Tx.Taiko_Ka_Right.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[1] + TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.Game_Taiko_Y[1], new Rectangle(TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                TJAPlayer3.Tx.Taiko_Don_Left.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[1], TJAPlayer3.Skin.Game_Taiko_Y[1], new Rectangle( 0, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
+                TJAPlayer3.Tx.Taiko_Don_Right.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_X[1] + TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.Game_Taiko_Y[1], new Rectangle(TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szテクスチャサイズ.Height) );
             }
 
             int[] nLVUPY = new int[] { 127, 127, 0, 0 };
 
-            for ( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            for ( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
                 if( !this.ctレベルアップダウン[ i ].b停止中 )
                 {
@@ -201,7 +201,7 @@ namespace TJAPlayer3
                         this.ctレベルアップダウン[ i ].t停止();
                     }
                 }
-                if( ( this.ctレベルアップダウン[ i ].b進行中 && ( CDTXMania.Tx.Taiko_LevelUp != null && CDTXMania.Tx.Taiko_LevelDown != null ) ) && !CDTXMania.ConfigIni.bNoInfo )
+                if( ( this.ctレベルアップダウン[ i ].b進行中 && ( TJAPlayer3.Tx.Taiko_LevelUp != null && TJAPlayer3.Tx.Taiko_LevelDown != null ) ) && !TJAPlayer3.ConfigIni.bNoInfo )
                 {
                     //this.ctレベルアップダウン[ i ].n現在の値 = 110;
 
@@ -251,18 +251,18 @@ namespace TJAPlayer3
                     if( this.After[ i ] - this.Before[ i ] >= 0 )
                     {
                         //レベルアップ
-                        CDTXMania.Tx.Taiko_LevelUp.n透明度 = nAlpha;
-                        CDTXMania.Tx.Taiko_LevelUp.t3D描画( CDTXMania.app.Device, mat );
+                        TJAPlayer3.Tx.Taiko_LevelUp.n透明度 = nAlpha;
+                        TJAPlayer3.Tx.Taiko_LevelUp.t3D描画( TJAPlayer3.app.Device, mat );
                     }
                     else
                     {
-                        CDTXMania.Tx.Taiko_LevelDown.n透明度 = nAlpha;
-                        CDTXMania.Tx.Taiko_LevelDown.t3D描画( CDTXMania.app.Device, mat );
+                        TJAPlayer3.Tx.Taiko_LevelDown.n透明度 = nAlpha;
+                        TJAPlayer3.Tx.Taiko_LevelDown.t3D描画( TJAPlayer3.app.Device, mat );
                     }
                 }
             }
 
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
                 // 2018/7/1 一時的にオプション画像の廃止。オプション画像については後日作り直します。(AioiLight)
                 //if( !CDTXMania.ConfigIni.bNoInfo && CDTXMania.Skin.eDiffDispMode != E難易度表示タイプ.mtaikoに画像で表示 )
@@ -293,21 +293,21 @@ namespace TJAPlayer3
                 //    else if( CDTXMania.ConfigIni.eSTEALTH == Eステルスモード.DORON )
                 //        this.txオプションパネル_特殊.t2D描画( CDTXMania.app.Device, 0, 300, new Rectangle( 0, 44, 162, 44 ) );
                 //}
-                if (CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度] != null)
+                if (TJAPlayer3.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度] != null)
                 {
-                    CDTXMania.Tx.Couse_Symbol[CDTXMania.stage選曲.n確定された曲の難易度].t2D描画(CDTXMania.app.Device,
-                        CDTXMania.Skin.Game_CourseSymbol_X[i],
-                        CDTXMania.Skin.Game_CourseSymbol_Y[i]
+                    TJAPlayer3.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度].t2D描画(TJAPlayer3.app.Device,
+                        TJAPlayer3.Skin.Game_CourseSymbol_X[i],
+                        TJAPlayer3.Skin.Game_CourseSymbol_Y[i]
                         );
                 }
 
-                if (CDTXMania.ConfigIni.ShinuchiMode)
+                if (TJAPlayer3.ConfigIni.ShinuchiMode)
                 {
-                    if (CDTXMania.Tx.Couse_Symbol[(int)Difficulty.Total] != null)
+                    if (TJAPlayer3.Tx.Couse_Symbol[(int)Difficulty.Total] != null)
                     {
-                        CDTXMania.Tx.Couse_Symbol[(int)Difficulty.Total].t2D描画(CDTXMania.app.Device,
-                            CDTXMania.Skin.Game_CourseSymbol_X[i],
-                            CDTXMania.Skin.Game_CourseSymbol_Y[i]
+                        TJAPlayer3.Tx.Couse_Symbol[(int)Difficulty.Total].t2D描画(TJAPlayer3.app.Device,
+                            TJAPlayer3.Skin.Game_CourseSymbol_X[i],
+                            TJAPlayer3.Skin.Game_CourseSymbol_Y[i]
                             );
                     }
 
@@ -315,22 +315,22 @@ namespace TJAPlayer3
 
 
             }
-            if (CDTXMania.Tx.Taiko_NamePlate[0] != null)
+            if (TJAPlayer3.Tx.Taiko_NamePlate[0] != null)
             {
-                CDTXMania.Tx.Taiko_NamePlate[0].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_NamePlate_X[0], CDTXMania.Skin.Game_Taiko_NamePlate_Y[0]);
+                TJAPlayer3.Tx.Taiko_NamePlate[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_NamePlate_X[0], TJAPlayer3.Skin.Game_Taiko_NamePlate_Y[0]);
             }
-            if(CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Taiko_NamePlate[1] != null)
+            if(TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Taiko_NamePlate[1] != null)
             {
-                CDTXMania.Tx.Taiko_NamePlate[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_NamePlate_X[1], CDTXMania.Skin.Game_Taiko_NamePlate_Y[1]);
+                TJAPlayer3.Tx.Taiko_NamePlate[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_NamePlate_X[1], TJAPlayer3.Skin.Game_Taiko_NamePlate_Y[1]);
             }
 
-            if (CDTXMania.Tx.Taiko_PlayerNumber[0] != null)
+            if (TJAPlayer3.Tx.Taiko_PlayerNumber[0] != null)
             {
-                CDTXMania.Tx.Taiko_PlayerNumber[0].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_PlayerNumber_X[0], CDTXMania.Skin.Game_Taiko_PlayerNumber_Y[0]);
+                TJAPlayer3.Tx.Taiko_PlayerNumber[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_PlayerNumber_X[0], TJAPlayer3.Skin.Game_Taiko_PlayerNumber_Y[0]);
             }
-            if (CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Taiko_PlayerNumber[1] != null)
+            if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Taiko_PlayerNumber[1] != null)
             {
-                CDTXMania.Tx.Taiko_PlayerNumber[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Taiko_PlayerNumber_X[1], CDTXMania.Skin.Game_Taiko_PlayerNumber_Y[1]);
+                TJAPlayer3.Tx.Taiko_PlayerNumber[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Taiko_PlayerNumber_X[1], TJAPlayer3.Skin.Game_Taiko_PlayerNumber_Y[1]);
             }
 
             //if (CDTXMania.Input管理.Keyboard.bキーが押された((int)SlimDX.DirectInput.Key.V))
@@ -357,7 +357,7 @@ namespace TJAPlayer3
 
         public void tMtaikoEvent( int nChannel, int nHand, int nPlayer )
         {
-            if( !CDTXMania.ConfigIni.b太鼓パートAutoPlay )
+            if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay )
             {
                 switch( nChannel )
                 {
@@ -419,7 +419,7 @@ namespace TJAPlayer3
         public void tBranchEvent( int Before, int After, int player )
         {
             if( After != Before )
-                this.ctレベルアップダウン[ player ] = new CCounter( 0, 1000, 1, CDTXMania.Timer );
+                this.ctレベルアップダウン[ player ] = new CCounter( 0, 1000, 1, TJAPlayer3.Timer );
 
             this.After[ player ] = After;
             this.Before[ player ] = Before;

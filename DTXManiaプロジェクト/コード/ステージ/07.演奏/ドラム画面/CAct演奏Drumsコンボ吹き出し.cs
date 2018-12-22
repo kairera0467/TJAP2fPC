@@ -25,7 +25,7 @@ namespace TJAPlayer3
 		// メソッド
         public virtual void Start( int nCombo, int player )
 		{
-            this.ct進行[ player ] = new CCounter( 1, 103, 20, CDTXMania.Timer );
+            this.ct進行[ player ] = new CCounter( 1, 103, 20, TJAPlayer3.Timer );
             this.nCombo_渡[ player ] = nCombo;
 		}
 
@@ -86,42 +86,42 @@ namespace TJAPlayer3
                         }
                     }
 
-                    if( CDTXMania.Tx.Balloon_Combo[ i ] != null )
+                    if( TJAPlayer3.Tx.Balloon_Combo[ i ] != null )
                     {
                         //半透明4f
                         if( this.ct進行[ i ].n現在の値 == 1 || this.ct進行[ i ].n現在の値 == 103 )
                         {
-                            CDTXMania.Tx.Balloon_Combo[ i ].n透明度 = 64;
-                            CDTXMania.Tx.Balloon_Number_Combo.n透明度 = 64;
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].n透明度 = 64;
+                            TJAPlayer3.Tx.Balloon_Number_Combo.n透明度 = 64;
                         }
                         else if( this.ct進行[ i ].n現在の値 == 2 || this.ct進行[ i ].n現在の値 == 102 )
                         {
-                            CDTXMania.Tx.Balloon_Combo[ i ].n透明度 = 128;
-                            CDTXMania.Tx.Balloon_Number_Combo.n透明度 = 128;
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].n透明度 = 128;
+                            TJAPlayer3.Tx.Balloon_Number_Combo.n透明度 = 128;
                         }
                         else if( this.ct進行[ i ].n現在の値 == 3 || this.ct進行[ i ].n現在の値 == 101 )
                         {
-                            CDTXMania.Tx.Balloon_Combo[ i ].n透明度 = 192;
-                            CDTXMania.Tx.Balloon_Number_Combo.n透明度 = 192;
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].n透明度 = 192;
+                            TJAPlayer3.Tx.Balloon_Number_Combo.n透明度 = 192;
                         }
                         else if( this.ct進行[ i ].n現在の値 >= 4 && this.ct進行[ i ].n現在の値 <= 100 )
                         {
-                            CDTXMania.Tx.Balloon_Combo[ i ].n透明度 = 255;
-                            CDTXMania.Tx.Balloon_Number_Combo.n透明度 = 255;
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].n透明度 = 255;
+                            TJAPlayer3.Tx.Balloon_Number_Combo.n透明度 = 255;
                         }
 
                         if( this.ct進行[ i ].b進行中 )
                         {
-                            CDTXMania.Tx.Balloon_Combo[ i ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Combo_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Y[ i ] );
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Combo_X[ i ], TJAPlayer3.Skin.Game_Balloon_Combo_Y[ i ] );
                             if( this.nCombo_渡[ i ] < 1000 ) //2016.08.23 kairera0467 仮実装。
                             {
-                                this.t小文字表示( CDTXMania.Skin.Game_Balloon_Combo_Number_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Number_Y[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
-                                CDTXMania.Tx.Balloon_Number_Combo.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Combo_Text_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Text_Y[ i ], new Rectangle( 0, 54, 77, 32 ) );
+                                this.t小文字表示( TJAPlayer3.Skin.Game_Balloon_Combo_Number_X[ i ], TJAPlayer3.Skin.Game_Balloon_Combo_Number_Y[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
+                                TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Combo_Text_X[ i ], TJAPlayer3.Skin.Game_Balloon_Combo_Text_Y[ i ], new Rectangle( 0, 54, 77, 32 ) );
                             }
                             else
                             {
-                                this.t小文字表示( CDTXMania.Skin.Game_Balloon_Combo_Number_Ex_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Number_Ex_Y[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
-                                CDTXMania.Tx.Balloon_Number_Combo.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Combo_Text_Ex_X[ i ], CDTXMania.Skin.Game_Balloon_Combo_Text_Ex_Y[ i ], new Rectangle( 0, 54, 77, 32 ) );
+                                this.t小文字表示( TJAPlayer3.Skin.Game_Balloon_Combo_Number_Ex_X[ i ], TJAPlayer3.Skin.Game_Balloon_Combo_Number_Ex_Y[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
+                                TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Combo_Text_Ex_X[ i ], TJAPlayer3.Skin.Game_Balloon_Combo_Text_Ex_Y[ i ], new Rectangle( 0, 54, 77, 32 ) );
                             }
                         }
                     }
@@ -173,9 +173,9 @@ namespace TJAPlayer3
 					if( this.st小文字位置[ i ].ch == ch )
 					{
 						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, this.st小文字位置[ i ].pt.Y, 44, 54 );
-						if(CDTXMania.Tx.Balloon_Number_Combo != null )
+						if(TJAPlayer3.Tx.Balloon_Number_Combo != null )
 						{
-                            CDTXMania.Tx.Balloon_Number_Combo.t2D描画( CDTXMania.app.Device, x, y, rectangle );
+                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画( TJAPlayer3.app.Device, x, y, rectangle );
 						}
 						break;
 					}

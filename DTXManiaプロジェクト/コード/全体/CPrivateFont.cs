@@ -319,7 +319,7 @@ namespace TJAPlayer3
             // 縁取りの縁のサイズは、とりあえずフォントの大きさの1/4とする
             //int nEdgePt = (bEdge)? _pt / 4 : 0;
             //int nEdgePt = (bEdge) ? (_pt / 3) : 0; // 縁取りが少なすぎるという意見が多かったため変更。 (AioiLight)
-            int nEdgePt = (bEdge) ? (10 * _pt / CDTXMania.Skin.Font_Edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
+            int nEdgePt = (bEdge) ? (10 * _pt / TJAPlayer3.Skin.Font_Edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
 
             // 描画サイズを測定する
             Size stringSize = System.Windows.Forms.TextRenderer.MeasureText( drawstr, this._font, new Size( int.MaxValue, int.MaxValue ),
@@ -340,7 +340,7 @@ namespace TJAPlayer3
             sf.FormatFlags = StringFormatFlags.NoWrap; // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
             sf.Trimming = StringTrimming.None; // どんなに長くてもトリミングしない (AioiLight)
 			// レイアウト枠
-			Rectangle r = new Rectangle( 0, 0, stringSize.Width + nEdgePt * 2 + (CDTXMania.Skin.Text_Correction_X * stringSize.Width / 100), stringSize.Height + nEdgePt * 2 + (CDTXMania.Skin.Text_Correction_Y * stringSize.Height / 100));
+			Rectangle r = new Rectangle( 0, 0, stringSize.Width + nEdgePt * 2 + (TJAPlayer3.Skin.Text_Correction_X * stringSize.Width / 100), stringSize.Height + nEdgePt * 2 + (TJAPlayer3.Skin.Text_Correction_Y * stringSize.Height / 100));
 
 			if ( bEdge )	// 縁取り有りの描画
 			{
@@ -514,17 +514,17 @@ namespace TJAPlayer3
                 gV.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
 
-                if (strName[i].In(CDTXMania.Skin.SongSelect_CorrectionX_Chara))
+                if (strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
                 {
-                    nEdge補正X = CDTXMania.Skin.SongSelect_CorrectionX_Chara_Value;
+                    nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value;
                 }
                 else
                 {
                     nEdge補正X = 0;
                 }
-                if (strName[i].In(CDTXMania.Skin.SongSelect_CorrectionY_Chara))
+                if (strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
                 {
-                    nEdge補正Y = CDTXMania.Skin.SongSelect_CorrectionY_Chara_Value;
+                    nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value;
                 }
                 else
                 {
@@ -547,7 +547,7 @@ namespace TJAPlayer3
 
                 // 縁取りを描画する
                 //int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
-                int nEdgePt = (10 * _pt / CDTXMania.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
+                int nEdgePt = (10 * _pt / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
                 Pen pV = new Pen(edgeColor, nEdgePt);
                 pV.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
                 gV.DrawPath(pV, gpV);
@@ -613,7 +613,7 @@ namespace TJAPlayer3
                         //nNowPos = nNowPos;
                     }
                 }
-                else if (strName[i].In(CDTXMania.Skin.SongSelect_Rotate_Chara))
+                else if (strName[i].In(TJAPlayer3.Skin.SongSelect_Rotate_Chara))
                 {
                     bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
                 }

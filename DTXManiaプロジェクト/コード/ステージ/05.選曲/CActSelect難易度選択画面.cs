@@ -50,7 +50,7 @@ namespace TJAPlayer3
                 for( int i = pos; i < 5; i++ )
                 {
                     if( i == pos ) continue;
-                    if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) return i;
+                    if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) return i;
                     if( i == 4 ) return this.t指定した方向に近い難易度番号を返す( 0, 0 );
                 }
             }
@@ -59,7 +59,7 @@ namespace TJAPlayer3
                 for( int i = pos; i > -1; i-- )
                 {
                     if( pos == i ) continue;
-                    if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) return i;
+                    if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) return i;
                     if( i == 0 ) return this.t指定した方向に近い難易度番号を返す( 1, 4 );
                 }
             }
@@ -68,7 +68,7 @@ namespace TJAPlayer3
         
         public void t次に移動()
 		{
-			if( CDTXMania.stage選曲.r現在選択中の曲 != null )
+			if( TJAPlayer3.stage選曲.r現在選択中の曲 != null )
 			{
 		        if( this.n現在の選択行 < 5 )
                 {
@@ -79,7 +79,7 @@ namespace TJAPlayer3
 		}
 		public void t前に移動()
 		{
-			if( CDTXMania.stage選曲.r現在選択中の曲 != null )
+			if( TJAPlayer3.stage選曲.r現在選択中の曲 != null )
 			{
 		        if( this.n現在の選択行 > 0 )
                 {
@@ -96,7 +96,7 @@ namespace TJAPlayer3
 			//かんたんから一番近いところにカーソルを移動させる。
             for( int i = 0; i < (int)Difficulty.Total; i++ )
             {
-                if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] != null )
+                if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] != null )
                 {
                     this.n現在の選択行 = i;
                     break;
@@ -106,7 +106,7 @@ namespace TJAPlayer3
             int n譜面数 = 0;
             for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
-                if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) n譜面数++;
+                if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] != null ) n譜面数++;
             }
             for( int i = 0; i < (int)Difficulty.Total; i++ )
 			{
@@ -173,18 +173,18 @@ namespace TJAPlayer3
 			if( this.b活性化してない )
 				return;
 
-            this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffselect_background.png" ) );
-            this.txヘッダー = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffselect_header_panel.png" ) );
-            this.txフッター = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer panel.png" ) );
+            this.tx背景 = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffselect_background.png" ) );
+            this.txヘッダー = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffselect_header_panel.png" ) );
+            this.txフッター = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_footer panel.png" ) );
 
-            this.tx説明背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_information_BG.png" ) );
-            this.tx説明1 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_information.png" ) );
+            this.tx説明背景 = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_information_BG.png" ) );
+            this.tx説明1 = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_information.png" ) );
 
-            this.soundSelectAnnounce = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\DiffSelect.ogg" ), ESoundGroup.SoundEffect );
+            this.soundSelectAnnounce = TJAPlayer3.Sound管理.tサウンドを生成する( CSkin.Path( @"Sounds\DiffSelect.ogg" ), ESoundGroup.SoundEffect );
 
             for( int i = 0; i < (int)Difficulty.Total; i++ )
             {
-                this.tx踏み台[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffSelect_table" + i.ToString() + @".png" ) );
+                this.tx踏み台[ i ] = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_diffSelect_table" + i.ToString() + @".png" ) );
             }
 
 			base.OnManagedリソースの作成();
@@ -194,18 +194,18 @@ namespace TJAPlayer3
 			if( this.b活性化してない )
 				return;
 
-            CDTXMania.tテクスチャの解放( ref this.tx背景 );
-            CDTXMania.tテクスチャの解放( ref this.txヘッダー );
-            CDTXMania.tテクスチャの解放( ref this.txフッター );
+            TJAPlayer3.tテクスチャの解放( ref this.tx背景 );
+            TJAPlayer3.tテクスチャの解放( ref this.txヘッダー );
+            TJAPlayer3.tテクスチャの解放( ref this.txフッター );
 
-            CDTXMania.tテクスチャの解放( ref this.tx説明背景 );
-            CDTXMania.tテクスチャの解放( ref this.tx説明1 );
+            TJAPlayer3.tテクスチャの解放( ref this.tx説明背景 );
+            TJAPlayer3.tテクスチャの解放( ref this.tx説明1 );
 
-            CDTXMania.t安全にDisposeする( ref this.soundSelectAnnounce );
+            TJAPlayer3.t安全にDisposeする( ref this.soundSelectAnnounce );
 
             for( int i = 0; i < (int)Difficulty.Total; i++ )
             {
-                CDTXMania.tテクスチャの解放( ref this.tx踏み台[ i ] );
+                TJAPlayer3.tテクスチャの解放( ref this.tx踏み台[ i ] );
             }
 
 			base.OnManagedリソースの解放();
@@ -220,12 +220,12 @@ namespace TJAPlayer3
 			if( this.b初めての進行描画 )
 			{
 				for( int i = 0; i < 13; i++ )
-					this.ct登場アニメ用[ i ] = new CCounter( -i * 10, 100, 3, CDTXMania.Timer );
+					this.ct登場アニメ用[ i ] = new CCounter( -i * 10, 100, 3, TJAPlayer3.Timer );
 				this.nスクロールタイマ = CSound管理.rc演奏用タイマ.n現在時刻;
-				CDTXMania.stage選曲.t選択曲変更通知();
+				TJAPlayer3.stage選曲.t選択曲変更通知();
 
                 this.n矢印スクロール用タイマ値 = CSound管理.rc演奏用タイマ.n現在時刻;
-				this.ct三角矢印アニメ.t開始( 0, 19, 40, CDTXMania.Timer );
+				this.ct三角矢印アニメ.t開始( 0, 19, 40, TJAPlayer3.Timer );
 				
                 this.soundSelectAnnounce.tサウンドを再生する();
 				base.b初めての進行描画 = false;
@@ -241,7 +241,7 @@ namespace TJAPlayer3
             //this.ct三角矢印アニメ.t進行Loop();
 
             if( this.tx背景 != null )
-                this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+                this.tx背景.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 
 			if( !this.b登場アニメ全部完了 )
 			{
@@ -275,35 +275,35 @@ namespace TJAPlayer3
 				//-----------------
 
                 //キー操作
-                if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.RightArrow ) )
+                if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.RightArrow ) )
                 {
                     this.t次に移動();
                 }
-                else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.LeftArrow ) )
+                else if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.LeftArrow ) )
                 {
                     this.t前に移動();
                 }
-                else if ( ( CDTXMania.Pad.b押されたDGB( Eパッド.Decide ) ||
-						( ( CDTXMania.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) ) )
+                else if ( ( TJAPlayer3.Pad.b押されたDGB( Eパッド.Decide ) ||
+						( ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) ) )
                 {
-                    CDTXMania.stage選曲.actPresound.tサウンド停止();
-                    switch( CDTXMania.stage選曲.r現在選択中の曲.eノード種別 )
+                    TJAPlayer3.stage選曲.actPresound.tサウンド停止();
+                    switch( TJAPlayer3.stage選曲.r現在選択中の曲.eノード種別 )
                     {
                         case C曲リストノード.Eノード種別.SCORE:
                             {
-                                CDTXMania.Skin.sound決定音.t再生する();
-                                CDTXMania.stage選曲.t曲を選択する( this.n現在の選択行 );
+                                TJAPlayer3.Skin.sound決定音.t再生する();
+                                TJAPlayer3.stage選曲.t曲を選択する( this.n現在の選択行 );
                             }
                             break;
                         case C曲リストノード.Eノード種別.RANDOM:
                             {
-                                CDTXMania.Skin.sound曲決定音.t再生する();
-                                CDTXMania.stage選曲.t曲を選択する( this.n現在の選択行 );
+                                TJAPlayer3.Skin.sound曲決定音.t再生する();
+                                TJAPlayer3.stage選曲.t曲を選択する( this.n現在の選択行 );
                             }
                             break;
                     }
                 }
-                else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F7 ) )
+                else if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F7 ) )
                 {
                     this.bIsDifficltSelect = false;
                 }
@@ -335,18 +335,18 @@ namespace TJAPlayer3
 				#region [ (2) 通常フェーズの描画。]
 				//-----------------
                 int nバー基準X = 64;
-                CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.白, this.n現在の選択行.ToString() );
+                TJAPlayer3.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.白, this.n現在の選択行.ToString() );
 
 				for( int i = 0; i < (int)Difficulty.Total; i++ )
 				{
-                    if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ i ] == null )
+                    if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ i ] == null )
                         continue;
 
                     string strFlag = this.n現在の選択行 == i ? "NowSelect" : "UnSelect";
                     C文字コンソール.Eフォント種別 bColorFlag = this.n現在の選択行 == i ? C文字コンソール.Eフォント種別.赤 : C文字コンソール.Eフォント種別.灰;
 
                     nバー基準X = nバー基準X + 16;
-                    CDTXMania.act文字コンソール.tPrint( 0, nバー基準X, bColorFlag, strFlag );
+                    TJAPlayer3.act文字コンソール.tPrint( 0, nバー基準X, bColorFlag, strFlag );
 
                     
 				}
@@ -355,7 +355,7 @@ namespace TJAPlayer3
 
 				for( int j = 0; j < (int)Difficulty.Total; j++ )
 				{
-                    if( CDTXMania.stage選曲.r現在選択中の曲.arスコア[ n描画順[ j ] ] == null )
+                    if( TJAPlayer3.stage選曲.r現在選択中の曲.arスコア[ n描画順[ j ] ] == null )
                         continue;
                     //if( j == 4 )
                     //    break;
@@ -366,7 +366,7 @@ namespace TJAPlayer3
                         if( n描画順[ j ] % 2 == 0 && n描画順[ j ] != 0 )
                             bEven = true;
 
-                        this.tx踏み台[ n描画順[ j ] ].t2D描画( CDTXMania.app.Device, n踏み台座標[ j ], 720 - this.tx踏み台[ n描画順[ j ] ].szテクスチャサイズ.Height + ( bEven ? 35 : 0 ) );
+                        this.tx踏み台[ n描画順[ j ] ].t2D描画( TJAPlayer3.app.Device, n踏み台座標[ j ], 720 - this.tx踏み台[ n描画順[ j ] ].szテクスチャサイズ.Height + ( bEven ? 35 : 0 ) );
                     }
 				}
 
@@ -375,14 +375,14 @@ namespace TJAPlayer3
 				#endregion
 			}
             if( this.txヘッダー != null )
-                this.txヘッダー.t2D描画( CDTXMania.app.Device, 0, 0 );
+                this.txヘッダー.t2D描画( TJAPlayer3.app.Device, 0, 0 );
             if( this.txフッター != null )
-                this.txフッター.t2D描画( CDTXMania.app.Device, 0, 720 - this.txフッター.sz画像サイズ.Height );
+                this.txフッター.t2D描画( TJAPlayer3.app.Device, 0, 720 - this.txフッター.sz画像サイズ.Height );
 
             if( this.tx説明背景 != null )
-                this.tx説明背景.t2D描画( CDTXMania.app.Device, 340, 600 );
+                this.tx説明背景.t2D描画( TJAPlayer3.app.Device, 340, 600 );
             if( this.tx説明1 != null )
-                this.tx説明1.t2D描画( CDTXMania.app.Device, 340, 600 );
+                this.tx説明1.t2D描画( TJAPlayer3.app.Device, 340, 600 );
 
 			return 0;
 		}

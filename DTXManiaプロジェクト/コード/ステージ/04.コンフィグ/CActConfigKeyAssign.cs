@@ -31,9 +31,9 @@ namespace TJAPlayer3
 				this.strパッド名 = strパッド名;
 				for( int i = 0; i < 0x10; i++ )
 				{
-					this.structReset用KeyAssign[ i ].入力デバイス = CDTXMania.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].入力デバイス;
-					this.structReset用KeyAssign[ i ].ID = CDTXMania.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].ID;
-					this.structReset用KeyAssign[ i ].コード = CDTXMania.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].コード;
+					this.structReset用KeyAssign[ i ].入力デバイス = TJAPlayer3.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].入力デバイス;
+					this.structReset用KeyAssign[ i ].ID = TJAPlayer3.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].ID;
+					this.structReset用KeyAssign[ i ].コード = TJAPlayer3.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].コード;
 				}
 			}
 		}
@@ -42,20 +42,20 @@ namespace TJAPlayer3
 		{
 			if( !this.bキー入力待ち )
 			{
-				CDTXMania.Skin.sound決定音.t再生する();
+				TJAPlayer3.Skin.sound決定音.t再生する();
 				switch( this.n現在の選択行 )
 				{
 					case 0x10:
 						for( int i = 0; i < 0x10; i++ )
 						{
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].入力デバイス = this.structReset用KeyAssign[ i ].入力デバイス;
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].ID = this.structReset用KeyAssign[ i ].ID;
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].コード = this.structReset用KeyAssign[ i ].コード;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].入力デバイス = this.structReset用KeyAssign[ i ].入力デバイス;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].ID = this.structReset用KeyAssign[ i ].ID;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].コード = this.structReset用KeyAssign[ i ].コード;
 						}
 						return;
 
 					case 0x11:
-						CDTXMania.stageコンフィグ.tアサイン完了通知();
+						TJAPlayer3.stageコンフィグ.tアサイン完了通知();
 						return;
 				}
 				this.bキー入力待ち = true;
@@ -65,7 +65,7 @@ namespace TJAPlayer3
 		{
 			if( !this.bキー入力待ち )
 			{
-				CDTXMania.Skin.soundカーソル移動音.t再生する();
+				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 				this.n現在の選択行 = ( this.n現在の選択行 + 1 ) % 0x12;
 			}
 		}
@@ -73,7 +73,7 @@ namespace TJAPlayer3
 		{
 			if( !this.bキー入力待ち )
 			{
-				CDTXMania.Skin.soundカーソル移動音.t再生する();
+				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 				this.n現在の選択行 = ( ( this.n現在の選択行 - 1 ) + 0x12 ) % 0x12;
 			}
 		}
@@ -115,46 +115,46 @@ namespace TJAPlayer3
 			{
 				if( this.bキー入力待ち )
 				{
-					if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.Escape ) )
+					if( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.Escape ) )
 					{
-						CDTXMania.Skin.sound取消音.t再生する();
+						TJAPlayer3.Skin.sound取消音.t再生する();
 						this.bキー入力待ち = false;
-						CDTXMania.Input管理.tポーリング( CDTXMania.app.bApplicationActive, false );
+						TJAPlayer3.Input管理.tポーリング( TJAPlayer3.app.bApplicationActive, false );
 					}
 					else if( ( this.tキーチェックとアサイン_Keyboard() || this.tキーチェックとアサイン_MidiIn() ) || ( this.tキーチェックとアサイン_Joypad() || this.tキーチェックとアサイン_Mouse() ) )
 					{
 						this.bキー入力待ち = false;
-						CDTXMania.Input管理.tポーリング( CDTXMania.app.bApplicationActive, false );
+						TJAPlayer3.Input管理.tポーリング( TJAPlayer3.app.bApplicationActive, false );
 					}
 				}
-				else if( ( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.Delete ) && ( this.n現在の選択行 >= 0 ) ) && ( this.n現在の選択行 <= 15 ) )
+				else if( ( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.Delete ) && ( this.n現在の選択行 >= 0 ) ) && ( this.n現在の選択行 <= 15 ) )
 				{
-					CDTXMania.Skin.sound決定音.t再生する();
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.不明;
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = 0;
+					TJAPlayer3.Skin.sound決定音.t再生する();
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.不明;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = 0;
 				}
-				if(CDTXMania.Tx.Menu_Highlight != null )
+				if(TJAPlayer3.Tx.Menu_Highlight != null )
 				{
 					int num = 20;
 					int num2 = 0x144;
 					int num3 = 0x3e + ( num * ( this.n現在の選択行 + 1 ) );
-                    CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, num2, num3, new Rectangle( 0, 0, 0x10, 0x20 ) );
+                    TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, num2, num3, new Rectangle( 0, 0, 0x10, 0x20 ) );
 					num2 += 0x10;
 					Rectangle rectangle = new Rectangle( 8, 0, 0x10, 0x20 );
 					for( int j = 0; j < 14; j++ )
 					{
-                        CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, num2, num3, rectangle );
+                        TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, num2, num3, rectangle );
 						num2 += 0x10;
 					}
-                    CDTXMania.Tx.Menu_Highlight.t2D描画( CDTXMania.app.Device, num2, num3, new Rectangle( 0x10, 0, 0x10, 0x20 ) );
+                    TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, num2, num3, new Rectangle( 0x10, 0, 0x10, 0x20 ) );
 				}
 				int num5 = 20;
 				int x = 0x134;
 				int y = 0x40;
-				CDTXMania.stageコンフィグ.actFont.t文字列描画( x, y, this.strパッド名, false, 0.75f );
+				TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x, y, this.strパッド名, false, 0.75f );
 				y += num5;
-				CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ];
+				CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ];
 				for( int i = 0; i < 0x10; i++ )
 				{
 					switch( stkeyassignArray[ i ].入力デバイス )
@@ -176,18 +176,18 @@ namespace TJAPlayer3
 							break;
 
 						default:
-							CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 20, y, string.Format( "{0,2}.", i + 1 ), this.n現在の選択行 == i, 0.75f );
+							TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x + 20, y, string.Format( "{0,2}.", i + 1 ), this.n現在の選択行 == i, 0.75f );
 							break;
 					}
 					y += num5;
 				}
-				CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 20, y, "Reset", this.n現在の選択行 == 0x10, 0.75f );
+				TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x + 20, y, "Reset", this.n現在の選択行 == 0x10, 0.75f );
 				y += num5;
-				CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 20, y, "<< Returnto List", this.n現在の選択行 == 0x11, 0.75f );
+				TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x + 20, y, "<< Returnto List", this.n現在の選択行 == 0x11, 0.75f );
 				y += num5;
-				if( this.bキー入力待ち && ( CDTXMania.Tx.Config_KeyAssign != null ) )
+				if( this.bキー入力待ち && ( TJAPlayer3.Tx.Config_KeyAssign != null ) )
 				{
-                    CDTXMania.Tx.Config_KeyAssign.t2D描画( CDTXMania.app.Device, 0x185, 0xd7 );
+                    TJAPlayer3.Tx.Config_KeyAssign.t2D描画( TJAPlayer3.app.Device, 0x185, 0xd7 );
 				}
 			}
 			return 0;
@@ -274,7 +274,7 @@ namespace TJAPlayer3
 					}
 					break;
 			}
-			CDTXMania.stageコンフィグ.actFont.t文字列描画( x, y, string.Format( "{0,2}. Joypad #{1} ", line, nID ) + str, b強調, 0.75f );
+			TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x, y, string.Format( "{0,2}. Joypad #{1} ", line, nID ) + str, b強調, 0.75f );
 		}
 		private void tアサインコードの描画_Keyboard( int line, int x, int y, int nID, int nCode, bool b強調 )
 		{
@@ -291,19 +291,19 @@ namespace TJAPlayer3
 			{
 				str = string.Format( "{0,2}. Key 0x{1:X2}", line, nCode );
 			}
-			CDTXMania.stageコンフィグ.actFont.t文字列描画( x, y, str, b強調, 0.75f );
+			TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x, y, str, b強調, 0.75f );
 		}
 		private void tアサインコードの描画_MidiIn( int line, int x, int y, int nID, int nCode, bool b強調 )
 		{
-			CDTXMania.stageコンフィグ.actFont.t文字列描画( x, y, string.Format( "{0,2}. MidiIn #{1} code.{2}", line, nID, nCode ), b強調, 0.75f );
+			TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x, y, string.Format( "{0,2}. MidiIn #{1} code.{2}", line, nID, nCode ), b強調, 0.75f );
 		}
 		private void tアサインコードの描画_Mouse( int line, int x, int y, int nID, int nCode, bool b強調 )
 		{
-			CDTXMania.stageコンフィグ.actFont.t文字列描画( x, y, string.Format( "{0,2}. Mouse Button{1}", line, nCode ), b強調, 0.75f );
+			TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x, y, string.Format( "{0,2}. Mouse Button{1}", line, nCode ), b強調, 0.75f );
 		}
 		private bool tキーチェックとアサイン_Joypad()
 		{
-			foreach( IInputDevice device in CDTXMania.Input管理.list入力デバイス )
+			foreach( IInputDevice device in TJAPlayer3.Input管理.list入力デバイス )
 			{
 				if( device.e入力デバイス種別 == E入力デバイス種別.Joystick )
 				{
@@ -311,11 +311,11 @@ namespace TJAPlayer3
 					{
 						if( device.bキーが押された( i ) )
 						{
-							CDTXMania.Skin.sound決定音.t再生する();
-							CDTXMania.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.ジョイパッド, device.ID, i );
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.ジョイパッド;
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
+							TJAPlayer3.Skin.sound決定音.t再生する();
+							TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.ジョイパッド, device.ID, i );
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.ジョイパッド;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
 							return true;
 						}
 					}
@@ -333,13 +333,13 @@ namespace TJAPlayer3
 					i != (int)SlimDX.DirectInput.Key.LeftArrow &&
 					i != (int)SlimDX.DirectInput.Key.RightArrow &&
 					i != (int)SlimDX.DirectInput.Key.Delete &&
-					 CDTXMania.Input管理.Keyboard.bキーが押された( i ) )
+					 TJAPlayer3.Input管理.Keyboard.bキーが押された( i ) )
 				{
-					CDTXMania.Skin.sound決定音.t再生する();
-					CDTXMania.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.キーボード, 0, i );
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.キーボード;
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
+					TJAPlayer3.Skin.sound決定音.t再生する();
+					TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.キーボード, 0, i );
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.キーボード;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
 					return true;
 				}
 			}
@@ -347,7 +347,7 @@ namespace TJAPlayer3
 		}
 		private bool tキーチェックとアサイン_MidiIn()
 		{
-			foreach( IInputDevice device in CDTXMania.Input管理.list入力デバイス )
+			foreach( IInputDevice device in TJAPlayer3.Input管理.list入力デバイス )
 			{
 				if( device.e入力デバイス種別 == E入力デバイス種別.MidiIn )
 				{
@@ -355,11 +355,11 @@ namespace TJAPlayer3
 					{
 						if( device.bキーが押された( i ) )
 						{
-							CDTXMania.Skin.sound決定音.t再生する();
-							CDTXMania.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.MIDI入力, device.ID, i );
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.MIDI入力;
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
-							CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
+							TJAPlayer3.Skin.sound決定音.t再生する();
+							TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.MIDI入力, device.ID, i );
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.MIDI入力;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
 							return true;
 						}
 					}
@@ -371,12 +371,12 @@ namespace TJAPlayer3
 		{
 			for( int i = 0; i < 8; i++ )
 			{
-				if( CDTXMania.Input管理.Mouse.bキーが押された( i ) )
+				if( TJAPlayer3.Input管理.Mouse.bキーが押された( i ) )
 				{
-					CDTXMania.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.マウス, 0, i );
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.マウス;
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-					CDTXMania.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
+					TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.マウス, 0, i );
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.マウス;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
 				}
 			}
 			return false;

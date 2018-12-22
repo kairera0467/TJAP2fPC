@@ -31,7 +31,7 @@ namespace TJAPlayer3
 
         public override void OnManagedリソースの作成()
         {
-            this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(CDTXMania.Skin.Game_Dancer_Motion);
+            this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Dancer_Motion);
             if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
             this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.01, CSound管理.rc演奏用タイマ);
             base.OnManagedリソースの作成();
@@ -49,16 +49,16 @@ namespace TJAPlayer3
                 this.b初めての進行描画 = true;
             }
 
-            if (this.ct踊り子モーション != null || CDTXMania.Skin.Game_Dancer_Ptn != 0) this.ct踊り子モーション.t進行LoopDb();
+            if (this.ct踊り子モーション != null || TJAPlayer3.Skin.Game_Dancer_Ptn != 0) this.ct踊り子モーション.t進行LoopDb();
 
-            if (CDTXMania.ConfigIni.ShowDancer && this.ct踊り子モーション != null && CDTXMania.Skin.Game_Dancer_Ptn != 0)
+            if (TJAPlayer3.ConfigIni.ShowDancer && this.ct踊り子モーション != null && TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    if (CDTXMania.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
+                    if (TJAPlayer3.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
                     {
-                        if ((int)CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= CDTXMania.Skin.Game_Dancer_Gauge[i])
-                            CDTXMania.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Dancer_X[i], CDTXMania.Skin.Game_Dancer_Y[i]);
+                        if ((int)TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= TJAPlayer3.Skin.Game_Dancer_Gauge[i])
+                            TJAPlayer3.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D中心基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Dancer_X[i], TJAPlayer3.Skin.Game_Dancer_Y[i]);
                     }
                 }
             }

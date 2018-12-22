@@ -82,7 +82,7 @@ namespace TJAPlayer3
 		{
             // When performing calibration, reduce visual distraction
             // and current judgment feedback near the judgment position.
-            if (CDTXMania.IsPerformingCalibration)
+            if (TJAPlayer3.IsPerformingCalibration)
             {
                 return;
             }
@@ -92,7 +92,7 @@ namespace TJAPlayer3
                 return;
             }
 
-			if( ( (E判定文字表示位置) CDTXMania.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.表示OFF )
+			if( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.表示OFF )
 			{
                 for( int i = 0; i < 1; i++ )
                 {
@@ -100,7 +100,7 @@ namespace TJAPlayer3
                     {
                         if( this.st状態[ j ].b使用中 == false )
                         {
-				            this.st状態[ j ].ct進行 = new CCounter( 0, 300, 1, CDTXMania.Timer );
+				            this.st状態[ j ].ct進行 = new CCounter( 0, 300, 1, TJAPlayer3.Timer );
                             this.st状態[ j ].b使用中 = true;
         				    this.st状態[ j ].judge = judge;
     		        		this.st状態[ j ].fX方向拡大率 = 1f;

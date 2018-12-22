@@ -18,11 +18,11 @@ namespace TJAPlayer3
 		}
 		public void t選択曲が変更された()
 		{
-			Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
+			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
 			if( cスコア != null )
 			{
 				Bitmap image = new Bitmap( 1, 1 );
-				CDTXMania.tテクスチャの解放( ref this.txArtist );
+				TJAPlayer3.tテクスチャの解放( ref this.txArtist );
 				this.strArtist = cスコア.譜面情報.アーティスト名;
 				if( ( this.strArtist != null ) && ( this.strArtist.Length > 0 ) )
 				{
@@ -41,7 +41,7 @@ namespace TJAPlayer3
 						graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 						graphics.DrawString( this.strArtist, this.ft描画用フォント, Brushes.White, ( float ) 0f, ( float ) 0f );
 						graphics.Dispose();
-						this.txArtist = new CTexture( CDTXMania.app.Device, bitmap2, CDTXMania.TextureFormat );
+						this.txArtist = new CTexture( TJAPlayer3.app.Device, bitmap2, TJAPlayer3.TextureFormat );
 						this.txArtist.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 						bitmap2.Dispose();
 					}
@@ -52,7 +52,7 @@ namespace TJAPlayer3
 						this.txArtist = null;
 					}
 				}
-				CDTXMania.tテクスチャの解放( ref this.txComment );
+				TJAPlayer3.tテクスチャの解放( ref this.txComment );
 				//this.strComment = cスコア.譜面情報.コメント;
                 this.strComment = cスコア.譜面情報.ジャンル;
 				if( ( this.strComment != null ) && ( this.strComment.Length > 0 ) )
@@ -62,8 +62,8 @@ namespace TJAPlayer3
 					SizeF ef2 = graphics2.MeasureString( this.strComment, this.ft描画用フォント );
 					Size size = new Size( (int) Math.Ceiling( (double) ef2.Width ), (int) Math.Ceiling( (double) ef2.Height ) );
 					graphics2.Dispose();
-					this.nテクスチャの最大幅 = CDTXMania.app.Device.Capabilities.MaxTextureWidth;
-					int maxTextureHeight = CDTXMania.app.Device.Capabilities.MaxTextureHeight;
+					this.nテクスチャの最大幅 = TJAPlayer3.app.Device.Capabilities.MaxTextureWidth;
+					int maxTextureHeight = TJAPlayer3.app.Device.Capabilities.MaxTextureHeight;
 					Bitmap bitmap3 = new Bitmap( size.Width, (int) Math.Ceiling( (double) this.ft描画用フォント.Size ) );
 					graphics2 = Graphics.FromImage( bitmap3 );
 					graphics2.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
@@ -100,7 +100,7 @@ namespace TJAPlayer3
 					graphics2.Dispose();
 					try
 					{
-						this.txComment = new CTexture( CDTXMania.app.Device, bitmap4, CDTXMania.TextureFormat );
+						this.txComment = new CTexture( TJAPlayer3.app.Device, bitmap4, TJAPlayer3.TextureFormat );
 						this.txComment.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 					}
 					catch( CTextureCreateFailedException e )
@@ -115,7 +115,7 @@ namespace TJAPlayer3
 				image.Dispose();
 				if( this.txComment != null )
 				{
-					this.ctComment = new CCounter( -740, (int) ( ( ( ( this.nComment行数 - 1 ) * this.nテクスチャの最大幅 ) + this.nComment最終行の幅 ) * this.txComment.vc拡大縮小倍率.X ), 10, CDTXMania.Timer );
+					this.ctComment = new CCounter( -740, (int) ( ( ( ( this.nComment行数 - 1 ) * this.nテクスチャの最大幅 ) + this.nComment最終行の幅 ) * this.txComment.vc拡大縮小倍率.X ), 10, TJAPlayer3.Timer );
 				}
 			}
 		}
@@ -138,8 +138,8 @@ namespace TJAPlayer3
 		}
 		public override void On非活性化()
 		{
-			CDTXMania.tテクスチャの解放( ref this.txArtist );
-			CDTXMania.tテクスチャの解放( ref this.txComment );
+			TJAPlayer3.tテクスチャの解放( ref this.txArtist );
+			TJAPlayer3.tテクスチャの解放( ref this.txComment );
 			if( this.ft描画用フォント != null )
 			{
 				this.ft描画用フォント.Dispose();
@@ -160,8 +160,8 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txArtist );
-				CDTXMania.tテクスチャの解放( ref this.txComment );
+				TJAPlayer3.tテクスチャの解放( ref this.txArtist );
+				TJAPlayer3.tテクスチャの解放( ref this.txComment );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -177,7 +177,7 @@ namespace TJAPlayer3
 				{
 					int x = 1260 - ( (int) ( this.txArtist.szテクスチャサイズ.Width * this.txArtist.vc拡大縮小倍率.X ) );		// #27648 2012.3.14 yyagi: -12 for scrollbar
 					int y = 322;
-					this.txArtist.t2D描画( CDTXMania.app.Device, x, y );
+					this.txArtist.t2D描画( TJAPlayer3.app.Device, x, y );
 				}
 				if( ( this.txComment != null ) && ( ( this.ctComment.n現在の値 + 750 ) >= 0 ) )
 				{
@@ -200,7 +200,7 @@ namespace TJAPlayer3
 						int num7 = num6 - rectangle2.X;
 						rectangle2.Width = num7;
 						rectangle2.Height = (int) this.ft描画用フォント.Size;
-						this.txComment.t2D描画( CDTXMania.app.Device, num3, num4, rectangle2 );
+						this.txComment.t2D描画( TJAPlayer3.app.Device, num3, num4, rectangle2 );
 						if( ++num5 == this.nComment行数 )
 						{
 							break;

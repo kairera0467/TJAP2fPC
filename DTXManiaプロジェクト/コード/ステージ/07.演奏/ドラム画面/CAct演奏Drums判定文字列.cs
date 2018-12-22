@@ -103,12 +103,12 @@ namespace TJAPlayer3
 					{
 						int baseX = 370;
                         //int baseY = 135;
-                        int baseY = CDTXMania.Skin.nScrollFieldY[base.st状態[j].nPlayer] - 53;
-						int x = CDTXMania.Skin.nScrollFieldX[ 0 ] - CDTXMania.Tx.Judge.szテクスチャサイズ.Width / 2;
+                        int baseY = TJAPlayer3.Skin.nScrollFieldY[base.st状態[j].nPlayer] - 53;
+						int x = TJAPlayer3.Skin.nScrollFieldX[ 0 ] - TJAPlayer3.Tx.Judge.szテクスチャサイズ.Width / 2;
 						int y = ( baseY + base.st状態[ j ].n相対Y座標 );
-						if( CDTXMania.Tx.Judge != null )
+						if( TJAPlayer3.Tx.Judge != null )
 						{
-                            CDTXMania.Tx.Judge.t2D描画( CDTXMania.app.Device, x, y, base.st判定文字列[ (int) base.st状態[ j ].judge ].rc );
+                            TJAPlayer3.Tx.Judge.t2D描画( TJAPlayer3.app.Device, x, y, base.st判定文字列[ (int) base.st状態[ j ].judge ].rc );
 						}
 					}
 				}

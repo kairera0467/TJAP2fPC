@@ -63,8 +63,8 @@ namespace TJAPlayer3
 		}
 		public void t選択曲が変更された()
 		{
-			Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
-			if( ( cスコア != null ) && !CDTXMania.stage選曲.bスクロール中 )
+			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
+			if( ( cスコア != null ) && !TJAPlayer3.stage選曲.bスクロール中 )
 			{
 				try
 				{
@@ -83,7 +83,7 @@ namespace TJAPlayer3
 					{
 						this.tx文字列パネル.Dispose();
 					}
-					this.tx文字列パネル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
+					this.tx文字列パネル = new CTexture( TJAPlayer3.app.Device, image, TJAPlayer3.TextureFormat );
 					this.tx文字列パネル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 					image.Dispose();
 				}
@@ -150,21 +150,21 @@ namespace TJAPlayer3
 			{
 				if( base.b初めての進行描画 )
 				{
-					this.ct登場アニメ用 = new CCounter( 0, 3000, 1, CDTXMania.Timer );
+					this.ct登場アニメ用 = new CCounter( 0, 3000, 1, TJAPlayer3.Timer );
 					base.b初めての進行描画 = false;
 				}
 				this.ct登場アニメ用.t進行();
                 int x = 980;
                 int y = 350;
-                if (CDTXMania.stage選曲.r現在選択中のスコア != null && this.ct登場アニメ用.n現在の値 >= 2000 && CDTXMania.stage選曲.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+                if (TJAPlayer3.stage選曲.r現在選択中のスコア != null && this.ct登場アニメ用.n現在の値 >= 2000 && TJAPlayer3.stage選曲.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
                 {
                     //CDTXMania.Tx.SongSelect_ScoreWindow_Text.n透明度 = ct登場アニメ用.n現在の値 - 1745;
-                    if (CDTXMania.Tx.SongSelect_ScoreWindow[CDTXMania.stage選曲.n現在選択中の曲の難易度] != null)
+                    if (TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度] != null)
                     {
                         //CDTXMania.Tx.SongSelect_ScoreWindow[CDTXMania.stage選曲.n現在選択中の曲の難易度].n透明度 = ct登場アニメ用.n現在の値 - 1745;
-                        CDTXMania.Tx.SongSelect_ScoreWindow[CDTXMania.stage選曲.n現在選択中の曲の難易度].t2D描画(CDTXMania.app.Device, x, y);
-                        this.t小文字表示(x + 56, y + 160, string.Format("{0,7:######0}", CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nハイスコア[CDTXMania.stage選曲.n現在選択中の曲の難易度].ToString()));
-                        CDTXMania.Tx.SongSelect_ScoreWindow_Text.t2D描画(CDTXMania.app.Device, x + 236, y + 166, new Rectangle(0, 36, 32, 30));
+                        TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度].t2D描画(TJAPlayer3.app.Device, x, y);
+                        this.t小文字表示(x + 56, y + 160, string.Format("{0,7:######0}", TJAPlayer3.stage選曲.r現在選択中のスコア.譜面情報.nハイスコア[TJAPlayer3.stage選曲.n現在選択中の曲の難易度].ToString()));
+                        TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x + 236, y + 166, new Rectangle(0, 36, 32, 30));
                     }
                 }
 			}
@@ -203,9 +203,9 @@ namespace TJAPlayer3
                     if (this.st小文字位置[i].ch == ch)
                     {
                         Rectangle rectangle = new Rectangle( this.st小文字位置[i].pt.X, this.st小文字位置[i].pt.Y, 26, 36 );
-                        if (CDTXMania.Tx.SongSelect_ScoreWindow_Text != null)
+                        if (TJAPlayer3.Tx.SongSelect_ScoreWindow_Text != null)
                         {
-                            CDTXMania.Tx.SongSelect_ScoreWindow_Text.t2D描画(CDTXMania.app.Device, x, y, rectangle);
+                            TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
                         }
                         break;
                     }
@@ -216,7 +216,7 @@ namespace TJAPlayer3
 
         public void tSongChange()
         {
-            this.ct登場アニメ用 = new CCounter( 0, 3000, 1, CDTXMania.Timer );
+            this.ct登場アニメ用 = new CCounter( 0, 3000, 1, TJAPlayer3.Timer );
         }
 
 

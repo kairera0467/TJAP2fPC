@@ -17,7 +17,7 @@ using System.Reflection;
 
 namespace TJAPlayer3
 {
-	internal class CDTXMania : Game
+	internal class TJAPlayer3 : Game
 	{
         // プロパティ
         #region [ properties ]
@@ -28,7 +28,7 @@ namespace TJAPlayer3
         //public static readonly string D3DXDLL = "d3dx9_42.dll";	// February 2010
         //public static readonly string D3DXDLL = "d3dx9_41.dll";	// March 2009
 
-		public static CDTXMania app
+		public static TJAPlayer3 app
 		{
 			get;
 			private set;
@@ -343,9 +343,9 @@ namespace TJAPlayer3
 
         // コンストラクタ
 
-        public CDTXMania()
+        public TJAPlayer3()
 		{
-			CDTXMania.app = this;
+			TJAPlayer3.app = this;
 			this.t起動処理();
 		}
 
@@ -435,7 +435,7 @@ namespace TJAPlayer3
 			}
 
 			// http://www.gamedev.net/topic/594369-dx9slimdxati-incorrect-saving-surface-to-file/
-			using ( Surface pSurface = CDTXMania.app.Device.GetRenderTarget( 0 ) )
+			using ( Surface pSurface = TJAPlayer3.app.Device.GetRenderTarget( 0 ) )
 			{
 				Surface.ToFile( pSurface, strFullPath, ImageFileFormat.Png );
 			}
@@ -464,7 +464,7 @@ namespace TJAPlayer3
 			{
 				Directory.SetCurrentDirectory( st.strプラグインフォルダ );
 				st.plugin.OnManagedリソースの作成();
-				Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+				Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 			}
 #if GPUFlushAfterPresent
 			FrameEnd += dtxmania_FrameEnd;
@@ -522,7 +522,7 @@ namespace TJAPlayer3
 			{
 				Directory.SetCurrentDirectory( st.strプラグインフォルダ );
 				st.plugin.OnUnmanagedリソースの作成();
-				Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+				Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 			}
 		}
 		protected override void UnloadContent()
@@ -537,7 +537,7 @@ namespace TJAPlayer3
 			{
 				Directory.SetCurrentDirectory( st.strプラグインフォルダ );
 				st.plugin.OnUnmanagedリソースの解放();
-				Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+				Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 			}
 		}
 		protected override void OnExiting( EventArgs e )
@@ -559,7 +559,7 @@ namespace TJAPlayer3
                 CSound管理.rc演奏用タイマ.t更新();
 
 			if( Input管理 != null )
-				Input管理.tポーリング( this.bApplicationActive, CDTXMania.ConfigIni.bバッファ入力を行う );
+				Input管理.tポーリング( this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力を行う );
 
 			if( FPS != null )
 				FPS.tカウンタ更新();
@@ -608,7 +608,7 @@ namespace TJAPlayer3
 									this.previewSound.Dispose();
 									this.previewSound = null;
 								}
-								this.previewSound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPlayback );
+								this.previewSound = TJAPlayer3.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPlayback );
 
 							    // 2018-08-23 twopointzero: DTXVmode previewVolume will always set
 							    // Gain since in this mode it should override the application of
@@ -648,12 +648,12 @@ namespace TJAPlayer3
 				{
 					Directory.SetCurrentDirectory( sp.strプラグインフォルダ );
 
-					if( CDTXMania.act現在入力を占有中のプラグイン == null || CDTXMania.act現在入力を占有中のプラグイン == sp.plugin )
-						sp.plugin.On進行描画( CDTXMania.Pad, CDTXMania.Input管理.Keyboard );
+					if( TJAPlayer3.act現在入力を占有中のプラグイン == null || TJAPlayer3.act現在入力を占有中のプラグイン == sp.plugin )
+						sp.plugin.On進行描画(TJAPlayer3.Pad, TJAPlayer3.Input管理.Keyboard );
 					else
 						sp.plugin.On進行描画( null, null );
 
-					Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+					Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 				}
 				//---------------------
 				#endregion
@@ -665,10 +665,10 @@ namespace TJAPlayer3
 				{														// → songs.db等の書き込み時だと音切れするっぽい
 					actEnumSongs.On非活性化();
 					EnumSongs.SongListEnumCompletelyDone();
-					CDTXMania.stage選曲.bIsEnumeratingSongs = false;
+					TJAPlayer3.stage選曲.bIsEnumeratingSongs = false;
 				}
 				#region [ 曲検索スレッドの起動/終了 ]					// ここに"Enumerating Songs..."表示を集約
-				if ( !CDTXMania.bコンパクトモード )
+				if ( !TJAPlayer3.bコンパクトモード )
 				{
 					actEnumSongs.On進行描画();							// "Enumerating Songs..."アイコンの描画
 				}
@@ -687,10 +687,10 @@ namespace TJAPlayer3
 								 !EnumSongs.IsSongListEnumStarted )
 							{
 								actEnumSongs.On活性化();
-								CDTXMania.stage選曲.bIsEnumeratingSongs = true;
-								EnumSongs.Init( CDTXMania.Songs管理.listSongsDB, CDTXMania.Songs管理.nSongsDBから取得できたスコア数 );	// songs.db情報と、取得した曲数を、新インスタンスにも与える
+								TJAPlayer3.stage選曲.bIsEnumeratingSongs = true;
+								EnumSongs.Init( TJAPlayer3.Songs管理.listSongsDB, TJAPlayer3.Songs管理.nSongsDBから取得できたスコア数 );	// songs.db情報と、取得した曲数を、新インスタンスにも与える
 								EnumSongs.StartEnumFromDisk();		// 曲検索スレッドの起動_開始
-								if ( CDTXMania.Songs管理.nSongsDBから取得できたスコア数 == 0 )	// もし初回起動なら、検索スレッドのプライオリティをLowestでなくNormalにする
+								if ( TJAPlayer3.Songs管理.nSongsDBから取得できたスコア数 == 0 )	// もし初回起動なら、検索スレッドのプライオリティをLowestでなくNormalにする
 								{
 									EnumSongs.ChangeEnumeratePriority( ThreadPriority.Normal );
 								}
@@ -704,7 +704,7 @@ namespace TJAPlayer3
 								{
 									case 0:		// 何もない
 										//if ( CDTXMania.stage選曲.bIsEnumeratingSongs )
-										if ( !CDTXMania.stage選曲.bIsPlayingPremovie )
+										if ( !TJAPlayer3.stage選曲.bIsPlayingPremovie )
 										{
 											EnumSongs.Resume();						// #27060 2012.2.6 yyagi 中止していたバックグランド曲検索を再開
 											EnumSongs.IsSlowdown = false;
@@ -738,10 +738,10 @@ namespace TJAPlayer3
 							if ( EnumSongs.IsSongListEnumerated )
 							{
 								actEnumSongs.On非活性化();
-								CDTXMania.stage選曲.bIsEnumeratingSongs = false;
+								TJAPlayer3.stage選曲.bIsEnumeratingSongs = false;
 
 								bool bRemakeSongTitleBar = ( r現在のステージ.eステージID == CStage.Eステージ.選曲 ) ? true : false;
-								CDTXMania.stage選曲.Refresh( EnumSongs.Songs管理, bRemakeSongTitleBar );
+								TJAPlayer3.stage選曲.Refresh( EnumSongs.Songs管理, bRemakeSongTitleBar );
 								EnumSongs.SongListEnumCompletelyDone();
 							}
 							#endregion
@@ -783,7 +783,7 @@ namespace TJAPlayer3
 							{
 								Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 								pg.plugin.Onステージ変更();
-								Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+								Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 							}
 
 							this.tガベージコレクションを実行する();
@@ -856,7 +856,7 @@ namespace TJAPlayer3
 						{
 							Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 							pg.plugin.Onステージ変更();
-							Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+							Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 						}
 
 						//this.tガベージコレクションを実行する();		// #31980 2013.9.3 yyagi タイトル画面でだけ、毎フレームGCを実行して重くなっていた問題の修正
@@ -941,7 +941,7 @@ namespace TJAPlayer3
 									{
 										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 										pg.plugin.Onステージ変更();
-										Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+										Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 									}
 
 									this.tガベージコレクションを実行する();
@@ -963,7 +963,7 @@ namespace TJAPlayer3
 									{
 										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 										pg.plugin.Onステージ変更();
-										Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+										Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 									}
 
 									this.tガベージコレクションを実行する();
@@ -995,7 +995,7 @@ namespace TJAPlayer3
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 
 								this.tガベージコレクションを実行する();
@@ -1017,7 +1017,7 @@ namespace TJAPlayer3
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 
 								this.tガベージコレクションを実行する();
@@ -1061,7 +1061,7 @@ namespace TJAPlayer3
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 
 								this.tガベージコレクションを実行する();
@@ -1093,7 +1093,7 @@ namespace TJAPlayer3
 						DTXVmode.Refreshed = false;		// 曲のリロード中に発生した再リロードは、無視する。
 						if( this.n進行描画の戻り値 != 0 )
 						{
-							CDTXMania.Pad.st検知したデバイス.Clear();	// 入力デバイスフラグクリア(2010.9.11)
+							TJAPlayer3.Pad.st検知したデバイス.Clear();	// 入力デバイスフラグクリア(2010.9.11)
 							r現在のステージ.On非活性化();
 							#region [ ESC押下時は、曲の読み込みを中止して選曲画面に戻る ]
 							if ( this.n進行描画の戻り値 == (int) E曲読込画面の戻り値.読込中止 )
@@ -1112,7 +1112,7 @@ namespace TJAPlayer3
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 								break;
 							}
@@ -1138,7 +1138,7 @@ for (int i = 0; i < 3; i++) {
 							{
 								Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 								pg.plugin.Onステージ変更();
-								Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+								Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 							}
 
 							this.tガベージコレクションを実行する();
@@ -1169,7 +1169,7 @@ for (int i = 0; i < 3; i++) {
 
 							if ( DTXVmode.Command == CDTXVmode.ECommand.Stop )
 							{
-								CDTXMania.stage演奏ドラム画面.t停止();
+								TJAPlayer3.stage演奏ドラム画面.t停止();
 								if ( previewSound != null )
 								{
 									this.previewSound.tサウンドを停止する();
@@ -1212,19 +1212,19 @@ for (int i = 0; i < 3; i++) {
 							{
 								if ( DTXVmode.NeedReload )
 								{
-									CDTXMania.stage演奏ドラム画面.t再読込();
+									TJAPlayer3.stage演奏ドラム画面.t再読込();
 
-									CDTXMania.ConfigIni.bTimeStretch = DTXVmode.TimeStretch;
+									TJAPlayer3.ConfigIni.bTimeStretch = DTXVmode.TimeStretch;
 									CSound管理.bIsTimeStretch = DTXVmode.TimeStretch;
-									if ( CDTXMania.ConfigIni.b垂直帰線待ちを行う != DTXVmode.VSyncWait )
+									if ( TJAPlayer3.ConfigIni.b垂直帰線待ちを行う != DTXVmode.VSyncWait )
 									{
-										CDTXMania.ConfigIni.b垂直帰線待ちを行う = DTXVmode.VSyncWait;
-										CDTXMania.app.b次のタイミングで垂直帰線同期切り替えを行う = true;
+										TJAPlayer3.ConfigIni.b垂直帰線待ちを行う = DTXVmode.VSyncWait;
+										TJAPlayer3.app.b次のタイミングで垂直帰線同期切り替えを行う = true;
 									}
 								}
 								else
 								{
-									CDTXMania.stage演奏ドラム画面.t演奏位置の変更( CDTXMania.DTXVmode.nStartBar, 0 );
+									TJAPlayer3.stage演奏ドラム画面.t演奏位置の変更( TJAPlayer3.DTXVmode.nStartBar, 0 );
 								}
 							}
 						}
@@ -1290,7 +1290,7 @@ for (int i = 0; i < 3; i++) {
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.On演奏キャンセル( scoreIni );
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 								//---------------------
 								#endregion
@@ -1316,7 +1316,7 @@ for (int i = 0; i < 3; i++) {
 									{
 										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 										pg.plugin.Onステージ変更();
-										Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+										Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 									}
 									//---------------------
 									#endregion
@@ -1339,7 +1339,7 @@ for (int i = 0; i < 3; i++) {
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.On演奏失敗( scoreIni );
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 								//---------------------
 								#endregion
@@ -1365,7 +1365,7 @@ for (int i = 0; i < 3; i++) {
 									{
 										Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 										pg.plugin.Onステージ変更();
-										Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+										Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 									}
 									//---------------------
 									#endregion
@@ -1431,7 +1431,7 @@ for (int i = 0; i < 3; i++) {
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.On演奏クリア( scoreIni );
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 								//---------------------
 								#endregion
@@ -1450,7 +1450,7 @@ for (int i = 0; i < 3; i++) {
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 								//---------------------
 								#endregion
@@ -1485,7 +1485,7 @@ for (int i = 0; i < 3; i++) {
 								{
 									Directory.SetCurrentDirectory( pg.strプラグインフォルダ );
 									pg.plugin.Onステージ変更();
-									Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+									Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 								}
 
 								this.tガベージコレクションを実行する();
@@ -1531,9 +1531,9 @@ for (int i = 0; i < 3; i++) {
 			    actScanningLoudness.On進行描画();
 
                 // オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
-                if(r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && CDTXMania.Tx.Overlay != null)
+                if(r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Overlay != null)
                 {
-                    CDTXMania.Tx.Overlay.t2D描画(app.Device, 0, 0);
+                    TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
                 }
 			}
 			this.Device.EndScene();			// Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
@@ -1605,11 +1605,11 @@ for (int i = 0; i < 3; i++) {
 		}
 		public static void tテクスチャの解放(ref CTexture tx )
 		{
-			CDTXMania.t安全にDisposeする( ref tx );
+			TJAPlayer3.t安全にDisposeする( ref tx );
 		}
         public static void tテクスチャの解放( ref CTextureAf tx )
 		{
-			CDTXMania.t安全にDisposeする( ref tx );
+			TJAPlayer3.t安全にDisposeする( ref tx );
 		}
 		public static CTexture tテクスチャの生成( byte[] txData )
 		{
@@ -1820,7 +1820,7 @@ for (int i = 0; i < 3; i++) {
 					Trace.TraceError( "例外が発生しましたが処理を継続します。 (b8d93255-bbe4-4ca3-8264-7ee5175b19f3)" );
 				}
 			}
-			this.Window.EnableSystemMenu = CDTXMania.ConfigIni.bIsEnabledSystemMenu;	// #28200 2011.5.1 yyagi
+			this.Window.EnableSystemMenu = TJAPlayer3.ConfigIni.bIsEnabledSystemMenu;	// #28200 2011.5.1 yyagi
 			// 2012.8.22 Config.iniが無いときに初期値が適用されるよう、この設定行をifブロック外に移動
 
 			//---------------------
@@ -1898,7 +1898,7 @@ for (int i = 0; i < 3; i++) {
 			base.Window.FormBorderStyle = FormBorderStyle.Sizable;	// #23510 2010.10.27 yyagi: changed from FixedDialog to Sizable, to support window resize
 																		// #30666 2013.02.02 yyagi: moved the code to t全画面_ウインドウモード切り替え()
 			base.Window.ShowIcon = true;
-			base.Window.Icon = TJAPlayer3.Properties.Resources.tjap3;
+			base.Window.Icon = global::TJAPlayer3.Properties.Resources.tjap3;
 			base.Window.KeyDown += new KeyEventHandler( this.Window_KeyDown );
 			base.Window.MouseUp +=new MouseEventHandler( this.Window_MouseUp);
 			base.Window.MouseDoubleClick += new MouseEventHandler(this.Window_MouseDoubleClick);	// #23510 2010.11.13 yyagi: to go fullscreen mode
@@ -1958,8 +1958,8 @@ for (int i = 0; i < 3; i++) {
 			Trace.Indent();
 			try
 			{
-				Skin = new CSkin( CDTXMania.ConfigIni.strSystemSkinSubfolderFullName, false);
-				CDTXMania.ConfigIni.strSystemSkinSubfolderFullName = CDTXMania.Skin.GetCurrentSkinSubfolderFullName( true );	// 旧指定のSkinフォルダが消滅していた場合に備える
+				Skin = new CSkin( TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
+				TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName( true );	// 旧指定のSkinフォルダが消滅していた場合に備える
 				Trace.TraceInformation( "スキンの初期化を完了しました。" );
 			}
 			catch (Exception e)
@@ -2104,7 +2104,7 @@ for (int i = 0; i < 3; i++) {
 			try
 			{
 				ESoundDeviceType soundDeviceType;
-				switch ( CDTXMania.ConfigIni.nSoundDeviceType )
+				switch ( TJAPlayer3.ConfigIni.nSoundDeviceType )
 				{
 					case 0:
 						soundDeviceType = ESoundDeviceType.DirectSound;
@@ -2121,11 +2121,11 @@ for (int i = 0; i < 3; i++) {
 				}
 				Sound管理 = new CSound管理(base.Window.Handle,
 											soundDeviceType,
-											CDTXMania.ConfigIni.nWASAPIBufferSizeMs,
+											TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs,
 					// CDTXMania.ConfigIni.nASIOBufferSizeMs,
 											0,
-											CDTXMania.ConfigIni.nASIODevice,
-											CDTXMania.ConfigIni.bUseOSTimer
+											TJAPlayer3.ConfigIni.nASIODevice,
+											TJAPlayer3.ConfigIni.bUseOSTimer
 				);
 				//Sound管理 = FDK.CSound管理.Instance;
 				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
@@ -2154,8 +2154,8 @@ for (int i = 0; i < 3; i++) {
 				}
 
 				ShowWindowTitleWithSoundType();
-				FDK.CSound管理.bIsTimeStretch = CDTXMania.ConfigIni.bTimeStretch;
-				Sound管理.nMasterVolume = CDTXMania.ConfigIni.nMasterVolume;
+				FDK.CSound管理.bIsTimeStretch = TJAPlayer3.ConfigIni.bTimeStretch;
+				Sound管理.nMasterVolume = TJAPlayer3.ConfigIni.nMasterVolume;
 				//FDK.CSound管理.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
 				Trace.TraceInformation( "サウンドデバイスの初期化を完了しました。" );
 			}
@@ -2263,7 +2263,7 @@ for (int i = 0; i < 3; i++) {
 						st.plugin.On初期化( this.PluginHost );
 						st.plugin.OnManagedリソースの作成();
 						st.plugin.OnUnmanagedリソースの作成();
-						Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+						Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 					}
 					Trace.TraceInformation( "すべてのプラグインの初期化を完了しました。" );
 				}
@@ -2290,7 +2290,7 @@ for (int i = 0; i < 3; i++) {
             Trace.TraceInformation( "----------------------" );
 			Trace.TraceInformation( "■ 起動" );
 
-			if ( CDTXMania.bコンパクトモード )
+			if ( TJAPlayer3.bコンパクトモード )
 			{
 				r現在のステージ = stage曲読み込み;
 			}
@@ -2347,7 +2347,7 @@ for (int i = 0; i < 3; i++) {
 				#endregion
 				#region [ 現在のステージの終了処理 ]
 				//---------------------
-				if( CDTXMania.r現在のステージ != null && CDTXMania.r現在のステージ.b活性化してる )		// #25398 2011.06.07 MODIFY FROM
+				if( TJAPlayer3.r現在のステージ != null && TJAPlayer3.r現在のステージ.b活性化してる )		// #25398 2011.06.07 MODIFY FROM
 				{
 					Trace.TraceInformation( "現在のステージを終了します。" );
 					Trace.Indent();
@@ -2377,7 +2377,7 @@ for (int i = 0; i < 3; i++) {
 							st.plugin.OnUnmanagedリソースの解放();
 							st.plugin.OnManagedリソースの解放();
 							st.plugin.On終了();
-							Directory.SetCurrentDirectory( CDTXMania.strEXEのあるフォルダ );
+							Directory.SetCurrentDirectory( TJAPlayer3.strEXEのあるフォルダ );
 						}
 						PluginHost = null;
 						Trace.TraceInformation( "すべてのプラグインの終了処理を完了しました。" );
@@ -2730,19 +2730,19 @@ for (int i = 0; i < 3; i++) {
 
         public void RefleshSkin()
         {
-            Trace.TraceInformation("スキン変更:" + CDTXMania.Skin.GetCurrentSkinSubfolderFullName(false));
+            Trace.TraceInformation("スキン変更:" + TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(false));
 
-            CDTXMania.act文字コンソール.On非活性化();
+            TJAPlayer3.act文字コンソール.On非活性化();
 
-            CDTXMania.Skin.Dispose();
-            CDTXMania.Skin = null;
-            CDTXMania.Skin = new CSkin(CDTXMania.ConfigIni.strSystemSkinSubfolderFullName, false);
+            TJAPlayer3.Skin.Dispose();
+            TJAPlayer3.Skin = null;
+            TJAPlayer3.Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
 
 
-            CDTXMania.Tx.DisposeTexture();
-            CDTXMania.Tx.LoadTexture();
+            TJAPlayer3.Tx.DisposeTexture();
+            TJAPlayer3.Tx.LoadTexture();
 
-            CDTXMania.act文字コンソール.On活性化();
+            TJAPlayer3.act文字コンソール.On活性化();
         }
 		#region [ Windowイベント処理 ]
 		private void t指定フォルダ内でのプラグイン検索と生成( string strプラグインフォルダパス, string strプラグイン型名 )
@@ -2830,7 +2830,7 @@ for (int i = 0; i < 3; i++) {
 					{
 						// Debug.WriteLine( "capture: " + string.Format( "{0:2x}", (int) e.KeyCode ) + " " + (int) e.KeyCode );
 						string strFullPath =
-						   Path.Combine( CDTXMania.strEXEのあるフォルダ, "Capture_img" );
+						   Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "Capture_img" );
 						strFullPath = Path.Combine( strFullPath, DateTime.Now.ToString( "yyyyMMddHHmmss" ) + ".png" );
 						SaveResultScreen( strFullPath );
 					}

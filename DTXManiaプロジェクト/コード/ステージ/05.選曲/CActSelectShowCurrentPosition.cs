@@ -39,11 +39,11 @@ namespace TJAPlayer3
 				string pathScrollPosition = CSkin.Path( @"Graphics\5_scrollbar.png" );
 				if ( File.Exists( pathScrollBar ) )
 				{
-					this.txScrollBar = CDTXMania.tテクスチャの生成( pathScrollBar, false );
+					this.txScrollBar = TJAPlayer3.tテクスチャの生成( pathScrollBar, false );
 				}
 				if ( File.Exists( pathScrollPosition ) )
 				{
-					this.txScrollPosition = CDTXMania.tテクスチャの生成( pathScrollPosition, false );
+					this.txScrollPosition = TJAPlayer3.tテクスチャの生成( pathScrollPosition, false );
 				}
 				base.OnManagedリソースの作成();
 			}
@@ -52,8 +52,8 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-				CDTXMania.t安全にDisposeする( ref this.txScrollBar );
-				CDTXMania.t安全にDisposeする( ref this.txScrollPosition );
+				TJAPlayer3.t安全にDisposeする( ref this.txScrollBar );
+				TJAPlayer3.t安全にDisposeする( ref this.txScrollPosition );
 
 				base.OnManagedリソースの解放();
 			}
@@ -66,7 +66,7 @@ namespace TJAPlayer3
                 //this.txScrollBar.t2D描画( CDTXMania.app.Device, (int)(1280 - ((429.0f / 100.0f ) * CDTXMania.stage選曲.ct登場時アニメ用共通.n現在の値)), 164, new Rectangle( 0, 0, 352, 26 ) ); //移動後のxは851
 			    #endregion
 			    #region [ スクロール地点の描画 (計算はCActSelect曲リストで行う。スクロール位置と選曲項目の同期のため。)#27648 ]
-				int py = CDTXMania.stage選曲.nスクロールバー相対y座標;
+				int py = TJAPlayer3.stage選曲.nスクロールバー相対y座標;
 				if( py <= 336 && py >= 0 )
 				{
 					//this.txScrollBar.t2D描画( CDTXMania.app.Device, (int)( 1280 - 4 - (( 424.0f / 100.0f ) * CDTXMania.stage選曲.ct登場時アニメ用共通.n現在の値 ) ) + py, 164, new Rectangle( 352, 0, 26, 26 ) );//856

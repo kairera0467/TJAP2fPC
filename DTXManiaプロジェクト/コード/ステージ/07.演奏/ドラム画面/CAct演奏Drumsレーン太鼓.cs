@@ -37,9 +37,9 @@ namespace TJAPlayer3
 
             this.n総移動時間 = -1;
             this.n総移動時間2 = -1;
-            this.nDefaultJudgePos[0] = CDTXMania.Skin.nScrollFieldX[0];
-            this.nDefaultJudgePos[1] = CDTXMania.Skin.nScrollFieldY[0];
-            this.ctゴーゴー炎 = new CCounter(0, 6, 50, CDTXMania.Timer);
+            this.nDefaultJudgePos[0] = TJAPlayer3.Skin.nScrollFieldX[0];
+            this.nDefaultJudgePos[1] = TJAPlayer3.Skin.nScrollFieldY[0];
+            this.ctゴーゴー炎 = new CCounter(0, 6, 50, TJAPlayer3.Timer);
             base.On活性化();
         }
 
@@ -50,8 +50,8 @@ namespace TJAPlayer3
                 this.st状態[i].ct進行 = null;
                 this.stBranch[i].ct分岐アニメ進行 = null;
             }
-            CDTXMania.Skin.nScrollFieldX[0] = this.nDefaultJudgePos[0];
-            CDTXMania.Skin.nScrollFieldY[0] = this.nDefaultJudgePos[1];
+            TJAPlayer3.Skin.nScrollFieldX[0] = this.nDefaultJudgePos[0];
+            TJAPlayer3.Skin.nScrollFieldY[0] = this.nDefaultJudgePos[1];
             this.ctゴーゴー = null;
 
             base.On非活性化();
@@ -146,15 +146,15 @@ namespace TJAPlayer3
             //それぞれが独立したレイヤーでないといけないのでforループはパーツごとに分離すること。
 
             #region[ レーン本体 ]
-            if (CDTXMania.Tx.Lane_Background_Main != null)
+            if (TJAPlayer3.Tx.Lane_Background_Main != null)
             {
-                for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+                for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
                 {
-                    CDTXMania.Tx.Lane_Background_Main.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i]);
+                    TJAPlayer3.Tx.Lane_Background_Main.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i]);
                 }
             }
             #endregion
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
                 #region[ 分岐アニメ制御タイマー ]
                 long num = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
@@ -193,38 +193,38 @@ namespace TJAPlayer3
                 #endregion
             }
             #region[ 分岐レイヤー ]
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
-                if (CDTXMania.stage演奏ドラム画面.bUseBranch[i] == true)
+                if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
                 {
                     #region[ 動いていない ]
-                    switch (CDTXMania.stage演奏ドラム画面.n次回のコース[i])
+                    switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
                     {
                         case 0:
-                            if (CDTXMania.Tx.Lane_Base[0] != null)
+                            if (TJAPlayer3.Tx.Lane_Base[0] != null)
                             {
-                                CDTXMania.Tx.Lane_Base[0].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Base[0].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i]);
+                                TJAPlayer3.Tx.Lane_Base[0].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i]);
                             }
                             break;
                         case 1:
-                            if (CDTXMania.Tx.Lane_Base[1] != null)
+                            if (TJAPlayer3.Tx.Lane_Base[1] != null)
                             {
-                                CDTXMania.Tx.Lane_Base[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Base[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i]);
+                                TJAPlayer3.Tx.Lane_Base[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i]);
                             }
                             break;
                         case 2:
-                            if (CDTXMania.Tx.Lane_Base[2] != null)
+                            if (TJAPlayer3.Tx.Lane_Base[2] != null)
                             {
-                                CDTXMania.Tx.Lane_Base[2].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Base[2].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i]);
+                                TJAPlayer3.Tx.Lane_Base[2].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i]);
                             }
                             break;
                     }
                     #endregion
 
-                    if (CDTXMania.ConfigIni.nBranchAnime == 1)
+                    if (TJAPlayer3.ConfigIni.nBranchAnime == 1)
                     {
                         #region[ AC7～14風の背後レイヤー ]
                         if (this.stBranch[i].ct分岐アニメ進行.b進行中)
@@ -241,11 +241,11 @@ namespace TJAPlayer3
                             //普通→玄人
                             if (this.stBranch[i].nBefore == 0 && this.stBranch[i].nAfter == 1)
                             {
-                                if (CDTXMania.Tx.Lane_Base[0] != null && CDTXMania.Tx.Lane_Base[1] != null)
+                                if (TJAPlayer3.Tx.Lane_Base[0] != null && TJAPlayer3.Tx.Lane_Base[1] != null)
                                 {
-                                    CDTXMania.Tx.Lane_Base[0].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[1].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
-                                    CDTXMania.Tx.Lane_Base[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[1].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                    TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                 }
                             }
                             //普通→達人
@@ -255,61 +255,61 @@ namespace TJAPlayer3
                                 {
                                     n透明度 = ((100 - this.stBranch[i].ct分岐アニメ進行.n現在の値) * 0xff) / 100;
                                 }
-                                if (CDTXMania.Tx.Lane_Base[0] != null && CDTXMania.Tx.Lane_Base[2] != null)
+                                if (TJAPlayer3.Tx.Lane_Base[0] != null && TJAPlayer3.Tx.Lane_Base[2] != null)
                                 {
-                                    CDTXMania.Tx.Lane_Base[0].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[2].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[2].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                    TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[2].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                                 }
                             }
                             #endregion
                             #region[ 玄人譜面_レベルアップ ]
                             if (this.stBranch[i].nBefore == 1 && this.stBranch[i].nAfter == 2)
                             {
-                                if (CDTXMania.Tx.Lane_Base[1] != null && CDTXMania.Tx.Lane_Base[2] != null)
+                                if (TJAPlayer3.Tx.Lane_Base[1] != null && TJAPlayer3.Tx.Lane_Base[2] != null)
                                 {
-                                    CDTXMania.Tx.Lane_Base[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[2].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[2].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                    TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[2].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                                 }
                             }
                             #endregion
                             #region[ 玄人譜面_レベルダウン ]
                             if (this.stBranch[i].nBefore == 1 && this.stBranch[i].nAfter == 0)
                             {
-                                if (CDTXMania.Tx.Lane_Base[1] != null && CDTXMania.Tx.Lane_Base[0] != null)
+                                if (TJAPlayer3.Tx.Lane_Base[1] != null && TJAPlayer3.Tx.Lane_Base[0] != null)
                                 {
-                                    CDTXMania.Tx.Lane_Base[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[0].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[0].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                    TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[0].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                                 }
                             }
                             #endregion
                             #region[ 達人譜面_レベルダウン ]
                             if (this.stBranch[i].nBefore == 2 && this.stBranch[i].nAfter == 0)
                             {
-                                if (CDTXMania.Tx.Lane_Base[2] != null && CDTXMania.Tx.Lane_Base[0] != null)
+                                if (TJAPlayer3.Tx.Lane_Base[2] != null && TJAPlayer3.Tx.Lane_Base[0] != null)
                                 {
-                                    CDTXMania.Tx.Lane_Base[2].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[0].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Base[0].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                    TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Base[0].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                                 }
                             }
                             #endregion
                         }
                         #endregion
                     }
-                    else if (CDTXMania.ConfigIni.nBranchAnime == 0)
+                    else if (TJAPlayer3.ConfigIni.nBranchAnime == 0)
                     {
-                        CDTXMania.stage演奏ドラム画面.actLane.On進行描画();
+                        TJAPlayer3.stage演奏ドラム画面.actLane.On進行描画();
                     }
                 }
             }
             #endregion
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
                 #region[ ゴーゴータイムレーン背景レイヤー ]
-                if (CDTXMania.Tx.Lane_Background_GoGo != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[i])
+                if (TJAPlayer3.Tx.Lane_Background_GoGo != null && TJAPlayer3.stage演奏ドラム画面.bIsGOGOTIME[i])
                 {
                     if (!this.ctゴーゴー.b停止中)
                     {
@@ -318,54 +318,54 @@ namespace TJAPlayer3
 
                     if (this.ctゴーゴー.n現在の値 <= 4)
                     {
-                        CDTXMania.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.2f;
-                        CDTXMania.Tx.Lane_Background_GoGo.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i] + 54);
+                        TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.2f;
+                        TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i] + 54);
                     }
                     else if (this.ctゴーゴー.n現在の値 <= 5)
                     {
-                        CDTXMania.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.4f;
-                        CDTXMania.Tx.Lane_Background_GoGo.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i] + 40);
+                        TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.4f;
+                        TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i] + 40);
                     }
                     else if (this.ctゴーゴー.n現在の値 <= 6)
                     {
-                        CDTXMania.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.6f;
-                        CDTXMania.Tx.Lane_Background_GoGo.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i] + 26);
+                        TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.6f;
+                        TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i] + 26);
                     }
                     else if (this.ctゴーゴー.n現在の値 <= 8)
                     {
-                        CDTXMania.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.8f;
-                        CDTXMania.Tx.Lane_Background_GoGo.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i] + 13);
+                        TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.8f;
+                        TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i] + 13);
                     }
                     else if (this.ctゴーゴー.n現在の値 >= 9)
                     {
-                        CDTXMania.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 1.0f;
-                        CDTXMania.Tx.Lane_Background_GoGo.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[i], CDTXMania.Skin.nScrollFieldY[i]);
+                        TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 1.0f;
+                        TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i]);
                     }
                 }
                 #endregion
             }
             
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
-                if (CDTXMania.stage演奏ドラム画面.bUseBranch[i] == true)
+                if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
                 {
-                    if (CDTXMania.ConfigIni.nBranchAnime == 0)
+                    if (TJAPlayer3.ConfigIni.nBranchAnime == 0)
                     {
                         if (!this.stBranch[i].ct分岐アニメ進行.b進行中)
                         {
-                            switch (CDTXMania.stage演奏ドラム画面.n次回のコース[i])
+                            switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
                             {
                                 case 0:
-                                    CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                     break;
                                 case 1:
-                                    CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                     break;
                                 case 2:
-                                    CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                     break;
                             }
                         }
@@ -375,23 +375,23 @@ namespace TJAPlayer3
                             //普通→玄人
                             if (this.stBranch[i].nBefore == 0 && this.stBranch[i].nAfter == 1)
                             {
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
 
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
                                 //CDTXMania.Tx.Lane_Text[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 60 ) );
                                 if (this.stBranch[i].ct分岐アニメ進行.n現在の値 < 60)
                                 {
                                     this.stBranch[i].nY = this.stBranch[i].ct分岐アニメ進行.n現在の値 / 2;
-                                    CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i] + this.stBranch[i].nY);
-                                    CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] - 30) + this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i] + this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] - 30) + this.stBranch[i].nY);
                                 }
                                 else
                                 {
-                                    CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                 }
 
                             }
@@ -399,15 +399,15 @@ namespace TJAPlayer3
                             //普通→達人
                             if (this.stBranch[i].nBefore == 0 && this.stBranch[i].nAfter == 2)
                             {
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
                                 if (this.stBranch[i].ct分岐アニメ進行.n現在の値 < 60)
                                 {
                                     this.stBranch[i].nY = this.stBranch[i].ct分岐アニメ進行.n現在の値 / 2;
-                                    CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] - 12) + this.stBranch[i].nY);
-                                    CDTXMania.Tx.Lane_Text[0].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] - 20) + this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] - 12) + this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[0].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] - 20) + this.stBranch[i].nY);
                                 }
                                 //if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 >= 5 && this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 60 )
                                 //{
@@ -419,21 +419,21 @@ namespace TJAPlayer3
                                 else if (this.stBranch[i].ct分岐アニメ進行.n現在の値 >= 60 && this.stBranch[i].ct分岐アニメ進行.n現在の値 < 150)
                                 {
                                     this.stBranch[i].nY = 21;
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
                                 }
                                 else if (this.stBranch[i].ct分岐アニメ進行.n現在の値 >= 150 && this.stBranch[i].ct分岐アニメ進行.n現在の値 < 210)
                                 {
                                     this.stBranch[i].nY = ((this.stBranch[i].ct分岐アニメ進行.n現在の値 - 150) / 2);
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i] + this.stBranch[i].nY);
-                                    CDTXMania.Tx.Lane_Text[1].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
-                                    CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] - 20) + this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i] + this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
+                                    TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] - 20) + this.stBranch[i].nY);
                                 }
                                 else
                                 {
-                                    CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                 }
                             }
                             #endregion
@@ -441,93 +441,93 @@ namespace TJAPlayer3
                             //玄人→達人
                             if (this.stBranch[i].nBefore == 1 && this.stBranch[i].nAfter == 2)
                             {
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
 
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
                                 if (this.stBranch[i].ct分岐アニメ進行.n現在の値 < 60)
                                 {
                                     this.stBranch[i].nY = this.stBranch[i].ct分岐アニメ進行.n現在の値 / 2;
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i] + this.stBranch[i].nY);
-                                    CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] - 20) + this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i] + this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] - 20) + this.stBranch[i].nY);
                                 }
                                 else
                                 {
-                                    CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                 }
                             }
                             #endregion
                             #region[ 玄人譜面_レベルダウン ]
                             if (this.stBranch[i].nBefore == 1 && this.stBranch[i].nAfter == 0)
                             {
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
 
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
                                 if (this.stBranch[i].ct分岐アニメ進行.n現在の値 < 60)
                                 {
                                     this.stBranch[i].nY = this.stBranch[i].ct分岐アニメ進行.n現在の値 / 2;
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i] - this.stBranch[i].nY);
-                                    CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] + 30) - this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i] - this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] + 30) - this.stBranch[i].nY);
                                 }
                                 else
                                 {
-                                    CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                 }
                             }
                             #endregion
                             #region[ 達人譜面_レベルダウン ]
                             if (this.stBranch[i].nBefore == 2 && this.stBranch[i].nAfter == 0)
                             {
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
 
                                 if (this.stBranch[i].ct分岐アニメ進行.n現在の値 < 60)
                                 {
                                     this.stBranch[i].nY = this.stBranch[i].ct分岐アニメ進行.n現在の値 / 2;
-                                    CDTXMania.Tx.Lane_Text[2].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                                    CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i] - this.stBranch[i].nY);
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] + 30) - this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[2].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
+                                    TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i] - this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] + 30) - this.stBranch[i].nY);
                                 }
                                 else if (this.stBranch[i].ct分岐アニメ進行.n現在の値 >= 60 && this.stBranch[i].ct分岐アニメ進行.n現在の値 < 150)
                                 {
                                     this.stBranch[i].nY = 21;
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
-                                    CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
                                 }
                                 else if (this.stBranch[i].ct分岐アニメ進行.n現在の値 >= 150 && this.stBranch[i].ct分岐アニメ進行.n現在の値 < 210)
                                 {
                                     this.stBranch[i].nY = ((this.stBranch[i].ct分岐アニメ進行.n現在の値 - 150) / 2);
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i] - this.stBranch[i].nY);
-                                    CDTXMania.Tx.Lane_Text[1].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
-                                    CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] + 30) - this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i] - this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
+                                    TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] + 30) - this.stBranch[i].nY);
                                 }
                                 else if (this.stBranch[i].ct分岐アニメ進行.n現在の値 >= 210)
                                 {
-                                    CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                 }
                             }
                             if (this.stBranch[i].nBefore == 2 && this.stBranch[i].nAfter == 1)
                             {
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
 
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = this.stBranch[i].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[i].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
                                 if (this.stBranch[i].ct分岐アニメ進行.n現在の値 < 60)
                                 {
                                     this.stBranch[i].nY = this.stBranch[i].ct分岐アニメ進行.n現在の値 / 2;
-                                    CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i] - this.stBranch[i].nY);
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, (CDTXMania.Skin.nScrollFieldY[i] + 30) - this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i] - this.stBranch[i].nY);
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, (TJAPlayer3.Skin.nScrollFieldY[i] + 30) - this.stBranch[i].nY);
                                 }
                                 else
                                 {
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[i]);
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.Skin.nScrollFieldY[i]);
                                 }
 
                             }
@@ -543,19 +543,19 @@ namespace TJAPlayer3
 
                         if (this.stBranch[i].nY座標 == 0)
                         {
-                            switch (CDTXMania.stage演奏ドラム画面.n次回のコース[0])
+                            switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[0])
                             {
                                 case 0:
-                                    CDTXMania.Tx.Lane_Text[0].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, 192);
+                                    TJAPlayer3.Tx.Lane_Text[0].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, 192);
                                     break;
                                 case 1:
-                                    CDTXMania.Tx.Lane_Text[1].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, 192);
+                                    TJAPlayer3.Tx.Lane_Text[1].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, 192);
                                     break;
                                 case 2:
-                                    CDTXMania.Tx.Lane_Text[2].n透明度 = 255;
-                                    CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, 192);
+                                    TJAPlayer3.Tx.Lane_Text[2].n透明度 = 255;
+                                    TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, 192);
                                     break;
                             }
                         }
@@ -567,47 +567,47 @@ namespace TJAPlayer3
                             //普通→玄人
                             if (this.stBranch[i].nBefore == 0 && this.stBranch[i].nAfter == 1)
                             {
-                                CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, 192 - this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, 212 - this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, 192 - this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, 212 - this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                             }
                             //普通→達人
                             if (this.stBranch[i].nBefore == 0 && this.stBranch[i].nAfter == 2)
                             {
-                                CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, 192 - this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, 212 - this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[0].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, 192 - this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, 212 - this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[0].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                             }
                             #endregion
                             #region[ 玄人譜面_レベルアップ ]
                             //玄人→達人
                             if (this.stBranch[i].nBefore == 1 && this.stBranch[i].nAfter == 2)
                             {
-                                CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, 192 - this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, 212 - this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, 192 - this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, 212 - this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                             }
                             #endregion
                             #region[ 玄人譜面_レベルダウン ]
                             if (this.stBranch[i].nBefore == 1 && this.stBranch[i].nAfter == 0)
                             {
-                                CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, 192 + this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, 168 + this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[1].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, 192 + this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, 168 + this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[1].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                             }
                             #endregion
                             #region[ 達人譜面_レベルダウン ]
                             if (this.stBranch[i].nBefore == 2 && this.stBranch[i].nAfter == 0)
                             {
-                                CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, 192 + this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[0].t2D描画(CDTXMania.app.Device, 333, 168 + this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, 192 + this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, 168 + this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                             }
                             if (this.stBranch[i].nBefore == 2 && this.stBranch[i].nAfter == 1)
                             {
-                                CDTXMania.Tx.Lane_Text[2].t2D描画(CDTXMania.app.Device, 333, 192 + this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[1].t2D描画(CDTXMania.app.Device, 333, 168 + this.stBranch[i].nY座標);
-                                CDTXMania.Tx.Lane_Text[2].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
+                                TJAPlayer3.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, 192 + this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, 168 + this.stBranch[i].nY座標);
+                                TJAPlayer3.Tx.Lane_Text[2].n透明度 = this.stBranch[i].nBranchレイヤー透明度;
                             }
                             #endregion
                         }
@@ -618,29 +618,29 @@ namespace TJAPlayer3
 
 
 
-            if (CDTXMania.Tx.Lane_Background_Sub != null)
+            if (TJAPlayer3.Tx.Lane_Background_Sub != null)
             {
-                CDTXMania.Tx.Lane_Background_Sub.t2D描画(CDTXMania.app.Device, 333, 326);
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                TJAPlayer3.Tx.Lane_Background_Sub.t2D描画(TJAPlayer3.app.Device, 333, 326);
+                if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay)
                 {
-                    CDTXMania.Tx.Lane_Background_Sub.t2D描画(CDTXMania.app.Device, 333, 502);
+                    TJAPlayer3.Tx.Lane_Background_Sub.t2D描画(TJAPlayer3.app.Device, 333, 502);
                 }
             }
 
 
-            CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.On進行描画();
+            TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.On進行描画();
 
 
 
-            if (CDTXMania.Tx.Taiko_Frame[0] != null)
+            if (TJAPlayer3.Tx.Taiko_Frame[0] != null)
             {
-                CDTXMania.Tx.Taiko_Frame[0].t2D描画(CDTXMania.app.Device, 329, 136, new Rectangle(0, 0, 951, 224));
+                TJAPlayer3.Tx.Taiko_Frame[0].t2D描画(TJAPlayer3.app.Device, 329, 136, new Rectangle(0, 0, 951, 224));
 
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
+                if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay)
                 {
-                    if(CDTXMania.Tx.Taiko_Frame[1] != null)
+                    if(TJAPlayer3.Tx.Taiko_Frame[1] != null)
                     {
-                        CDTXMania.Tx.Taiko_Frame[1].t2D描画(CDTXMania.app.Device, 329, 360, new Rectangle(0, 224, 951, 224));
+                        TJAPlayer3.Tx.Taiko_Frame[1].t2D描画(TJAPlayer3.app.Device, 329, 360, new Rectangle(0, 224, 951, 224));
                     }
                 }
             }
@@ -650,13 +650,13 @@ namespace TJAPlayer3
             {
                 if (n移動方向 == 1)
                 {
-                    CDTXMania.Skin.nScrollFieldX[0] = this.n移動開始X + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
-                    CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[0] = this.n移動開始X + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
+                    TJAPlayer3.Skin.nScrollFieldX[0] = this.n移動開始X + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
+                    TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[0] = this.n移動開始X + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
                 }
                 else
                 {
-                    CDTXMania.Skin.nScrollFieldX[0] = this.n移動開始X - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
-                    CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[0] = this.n移動開始X - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
+                    TJAPlayer3.Skin.nScrollFieldX[0] = this.n移動開始X - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
+                    TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[0] = this.n移動開始X - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻) / (double)(this.n総移動時間)) * this.n移動距離px);
                 }
 
                 if (((int)CSound管理.rc演奏用タイマ.n現在時刻ms) > this.n移動開始時刻 + this.n総移動時間)
@@ -668,13 +668,13 @@ namespace TJAPlayer3
             {
                 if (n移動方向2 == 1)
                 {
-                    CDTXMania.Skin.nScrollFieldX[1] = this.n移動開始X2 + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
-                    CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[1] = this.n移動開始X2 + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
+                    TJAPlayer3.Skin.nScrollFieldX[1] = this.n移動開始X2 + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
+                    TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[1] = this.n移動開始X2 + (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
                 }
                 else
                 {
-                    CDTXMania.Skin.nScrollFieldX[1] = this.n移動開始X2 - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
-                    CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[1] = this.n移動開始X2 - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
+                    TJAPlayer3.Skin.nScrollFieldX[1] = this.n移動開始X2 - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
+                    TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[1] = this.n移動開始X2 - (int)((((int)CSound管理.rc演奏用タイマ.n現在時刻ms - this.n移動開始時刻2) / (double)(this.n総移動時間2)) * this.n移動距離px2);
                 }
 
 
@@ -687,11 +687,11 @@ namespace TJAPlayer3
 
 
 
-            if (CDTXMania.ConfigIni.bAVI有効)
+            if (TJAPlayer3.ConfigIni.bAVI有効)
             {
-                CDTXMania.Tx.Lane_Background_Main.n透明度 = 200;
-                CDTXMania.Tx.Lane_Background_Sub.n透明度 = 200;
-                CDTXMania.Tx.Lane_Background_GoGo.n透明度 = 200;
+                TJAPlayer3.Tx.Lane_Background_Main.n透明度 = 200;
+                TJAPlayer3.Tx.Lane_Background_Sub.n透明度 = 200;
+                TJAPlayer3.Tx.Lane_Background_GoGo.n透明度 = 200;
             }
 
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.nBranchレイヤー透明度.ToString());
@@ -762,26 +762,26 @@ namespace TJAPlayer3
         public void ゴーゴー炎()
         {
             //判定枠
-            if (CDTXMania.Tx.Notes != null)
+            if (TJAPlayer3.Tx.Notes != null)
             {
-                int nJudgeX = CDTXMania.Skin.nScrollFieldX[0] - (130 / 2); //元の値は349なんだけど...
-                int nJudgeY = CDTXMania.Skin.nScrollFieldY[0]; //元の値は349なんだけど...
-                CDTXMania.Tx.Judge_Frame.b加算合成 = CDTXMania.Skin.Game_JudgeFrame_AddBlend;
-                CDTXMania.Tx.Judge_Frame.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY, new Rectangle(0, 0, 130, 130));
+                int nJudgeX = TJAPlayer3.Skin.nScrollFieldX[0] - (130 / 2); //元の値は349なんだけど...
+                int nJudgeY = TJAPlayer3.Skin.nScrollFieldY[0]; //元の値は349なんだけど...
+                TJAPlayer3.Tx.Judge_Frame.b加算合成 = TJAPlayer3.Skin.Game_JudgeFrame_AddBlend;
+                TJAPlayer3.Tx.Judge_Frame.t2D描画(TJAPlayer3.app.Device, nJudgeX, nJudgeY, new Rectangle(0, 0, 130, 130));
 
-                if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-                    CDTXMania.Tx.Judge_Frame.t2D描画(CDTXMania.app.Device, nJudgeX, nJudgeY + 176, new Rectangle(0, 0, 130, 130));
+                if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay)
+                    TJAPlayer3.Tx.Judge_Frame.t2D描画(TJAPlayer3.app.Device, nJudgeX, nJudgeY + 176, new Rectangle(0, 0, 130, 130));
             }
 
 
             #region[ ゴーゴー炎 ]
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
-                if (CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[i])
+                if (TJAPlayer3.stage演奏ドラム画面.bIsGOGOTIME[i])
                 {
                     this.ctゴーゴー炎.t進行Loop();
 
-                    if (CDTXMania.Tx.Effects_Fire != null)
+                    if (TJAPlayer3.Tx.Effects_Fire != null)
                     {
                         float f倍率 = 1.0f;
 
@@ -791,24 +791,24 @@ namespace TJAPlayer3
 
                         Matrix mat = Matrix.Identity;
                         mat *= Matrix.Scaling(f倍率, f倍率, 1.0f);
-                        mat *= Matrix.Translation(CDTXMania.Skin.nScrollFieldX[i] - SampleFramework.GameWindowSize.Width / 2.0f, -(CDTXMania.Skin.nJudgePointY[i] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
+                        mat *= Matrix.Translation(TJAPlayer3.Skin.nScrollFieldX[i] - SampleFramework.GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[i] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
 
                         //this.txゴーゴー炎.b加算合成 = true;
 
                         //this.ctゴーゴー.n現在の値 = 6;
                         if (this.ctゴーゴー.b終了値に達した)
                         {
-                            CDTXMania.Tx.Effects_Fire.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[i] - 180, CDTXMania.Skin.nJudgePointY[i] - (CDTXMania.Tx.Effects_Fire.szテクスチャサイズ.Height / 2), new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
+                            TJAPlayer3.Tx.Effects_Fire.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - 180, TJAPlayer3.Skin.nJudgePointY[i] - (TJAPlayer3.Tx.Effects_Fire.szテクスチャサイズ.Height / 2), new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
                         }
                         else
                         {
-                            CDTXMania.Tx.Effects_Fire.t3D描画(CDTXMania.app.Device, mat, new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
+                            TJAPlayer3.Tx.Effects_Fire.t3D描画(TJAPlayer3.app.Device, mat, new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
                         }
                     }
                 }
             }
             #endregion
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
                 if (!this.st状態[i].ct進行.b停止中)
                 {
@@ -828,18 +828,18 @@ namespace TJAPlayer3
                             case E判定.Great:
                             case E判定.Auto:
                                 //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
-                                if (this.st状態[i].nIsBig == 1 && CDTXMania.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値] != null)
-                                    CDTXMania.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2);
-                                else if (CDTXMania.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値] != null)
-                                    CDTXMania.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2);
+                                if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値] != null)
+                                    TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[0] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2);
+                                else if (TJAPlayer3.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値] != null)
+                                    TJAPlayer3.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[0] - TJAPlayer3.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2);
                                 break;
 
                             case E判定.Good:
                                 //this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
-                                if (this.st状態[i].nIsBig == 1 && CDTXMania.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値] != null)
-                                    CDTXMania.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2);
-                                else if (CDTXMania.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値] != null)
-                                    CDTXMania.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[0] - CDTXMania.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2, CDTXMania.Skin.nJudgePointY[i] - CDTXMania.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2);
+                                if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値] != null)
+                                    TJAPlayer3.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[0] - TJAPlayer3.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2);
+                                else if (TJAPlayer3.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値] != null)
+                                    TJAPlayer3.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[0] - TJAPlayer3.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2);
                                 break;
 
                             case E判定.Miss:
@@ -859,7 +859,7 @@ namespace TJAPlayer3
 
             //for( int n = 0; n < 1; n++ )
             {
-                this.st状態[nPlayer].ct進行 = new CCounter(0, 14, 20, CDTXMania.Timer);
+                this.st状態[nPlayer].ct進行 = new CCounter(0, 14, 20, TJAPlayer3.Timer);
                 this.st状態[nPlayer].judge = judge;
                 this.st状態[nPlayer].nPlayer = nPlayer;
 
@@ -887,8 +887,8 @@ namespace TJAPlayer3
 
         public void GOGOSTART()
         {
-            this.ctゴーゴー = new CCounter(0, 17, 18, CDTXMania.Timer);
-            if(CDTXMania.ConfigIni.nPlayerCount == 1 && CDTXMania.stage選曲.n確定された曲の難易度 != (int)Difficulty.Dan) CDTXMania.stage演奏ドラム画面.GoGoSplash.StartSplash();
+            this.ctゴーゴー = new CCounter(0, 17, 18, TJAPlayer3.Timer);
+            if(TJAPlayer3.ConfigIni.nPlayerCount == 1 && TJAPlayer3.stage選曲.n確定された曲の難易度 != (int)Difficulty.Dan) TJAPlayer3.stage演奏ドラム画面.GoGoSplash.StartSplash();
         }
 
 
@@ -898,7 +898,7 @@ namespace TJAPlayer3
             {
                 return;
             }
-            this.stBranch[nPlayer].ct分岐アニメ進行 = new CCounter(0, 300, 2, CDTXMania.Timer);
+            this.stBranch[nPlayer].ct分岐アニメ進行 = new CCounter(0, 300, 2, TJAPlayer3.Timer);
 
             this.stBranch[nPlayer].nBranchレイヤー透明度 = 6;
             this.stBranch[nPlayer].nY座標 = 1;
@@ -906,13 +906,13 @@ namespace TJAPlayer3
             this.stBranch[nPlayer].nBefore = n現在;
             this.stBranch[nPlayer].nAfter = n次回;
 
-            CDTXMania.stage演奏ドラム画面.actLane.t分岐レイヤー_コース変化(n現在, n次回, nPlayer);
+            TJAPlayer3.stage演奏ドラム画面.actLane.t分岐レイヤー_コース変化(n現在, n次回, nPlayer);
         }
 
         public void t判定枠移動(double db移動時間, int n移動px, int n移動方向)
         {
             this.n移動開始時刻 = (int)CSound管理.rc演奏用タイマ.n現在時刻ms;
-            this.n移動開始X = CDTXMania.Skin.nScrollFieldX[0];
+            this.n移動開始X = TJAPlayer3.Skin.nScrollFieldX[0];
             this.n総移動時間 = (int)(db移動時間 * 1000);
             this.n移動方向 = n移動方向;
             this.n移動距離px = n移動px;
@@ -921,7 +921,7 @@ namespace TJAPlayer3
         public void t判定枠移動2(double db移動時間, int n移動px, int n移動方向)
         {
             this.n移動開始時刻2 = (int)CSound管理.rc演奏用タイマ.n現在時刻ms;
-            this.n移動開始X2 = CDTXMania.Skin.nScrollFieldX[1];
+            this.n移動開始X2 = TJAPlayer3.Skin.nScrollFieldX[1];
             this.n総移動時間2 = (int)(db移動時間 * 1000);
             this.n移動方向2 = n移動方向;
             this.n移動距離px2 = n移動px;

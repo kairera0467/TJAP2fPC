@@ -53,7 +53,7 @@ namespace TJAPlayer3
 						{
 							if( this.txフォント8x16[ (int) ( (int) font / (int) Eフォント種別.白細 ) ] != null )
 							{
-								this.txフォント8x16[ (int) ( (int) font / (int) Eフォント種別.白細 ) ].t2D描画( CDTXMania.app.Device, x, y, this.rc文字の矩形領域[ (int) ( (int) font % (int) Eフォント種別.白細 ), index ] );
+								this.txフォント8x16[ (int) ( (int) font / (int) Eフォント種別.白細 ) ].t2D描画( TJAPlayer3.app.Device, x, y, this.rc文字の矩形領域[ (int) ( (int) font % (int) Eフォント種別.白細 ), index ] );
 							}
 							x += nFontWidth;
 						}
@@ -92,8 +92,8 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				this.txフォント8x16[ 0 ] = CDTXMania.Tx.TxC(@"Console_Font.png");
-				this.txフォント8x16[ 1 ] = CDTXMania.Tx.TxC(@"Console_Font_Small.png");
+				this.txフォント8x16[ 0 ] = TJAPlayer3.Tx.TxC(@"Console_Font.png");
+				this.txフォント8x16[ 1 ] = TJAPlayer3.Tx.TxC(@"Console_Font_Small.png");
                 base.OnManagedリソースの作成();
 			}
 		}

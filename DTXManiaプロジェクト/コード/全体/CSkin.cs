@@ -205,7 +205,7 @@ namespace TJAPlayer3
                 {
                     try
                     {
-                        this.rSound[i] = CDTXMania.Sound管理.tサウンドを生成する(CSkin.Path(this.strファイル名), _soundGroup);
+                        this.rSound[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(this.strファイル名), _soundGroup);
                     }
                     catch
                     {
@@ -257,13 +257,13 @@ namespace TJAPlayer3
 
             public void tRemoveMixer()
             {
-                if (CDTXMania.Sound管理.GetCurrentSoundDeviceType() != "DirectShow")
+                if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() != "DirectShow")
                 {
                     for (int i = 0; i < 2; i++)
                     {
                         if (this.rSound[i] != null)
                         {
-                            CDTXMania.Sound管理.RemoveMixer(this.rSound[i]);
+                            TJAPlayer3.Sound管理.RemoveMixer(this.rSound[i]);
                         }
                     }
                 }
@@ -279,7 +279,7 @@ namespace TJAPlayer3
                     {
                         if (this.rSound[i] != null)
                         {
-                            CDTXMania.Sound管理.tサウンドを破棄する(this.rSound[i]);
+                            TJAPlayer3.Sound管理.tサウンドを破棄する(this.rSound[i]);
                             this.rSound[i] = null;
                         }
                     }
@@ -575,7 +575,7 @@ namespace TJAPlayer3
         }
         private string InitializeSkinPathRoot()
         {
-            strSystemSkinRoot = System.IO.Path.Combine(CDTXMania.strEXEのあるフォルダ, "System" + System.IO.Path.DirectorySeparatorChar);
+            strSystemSkinRoot = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System" + System.IO.Path.DirectorySeparatorChar);
             return strSystemSkinRoot;
         }
 
@@ -635,7 +635,7 @@ namespace TJAPlayer3
                 if (!this[i].b排他)   // BGM系以外のみ読み込む。(BGM系は必要になったときに読み込む)
                 {
                     Cシステムサウンド cシステムサウンド = this[i];
-                    if (!CDTXMania.bコンパクトモード || cシステムサウンド.bCompact対象)
+                    if (!TJAPlayer3.bコンパクトモード || cシステムサウンド.bCompact対象)
                     {
                         try
                         {

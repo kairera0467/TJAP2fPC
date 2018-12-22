@@ -190,7 +190,7 @@ namespace TJAPlayer3
 					throw new ArgumentException();
 				#endregion
 			}
-            this.ctTimer = new CCounter( 0, 400, 1, CDTXMania.Timer );
+            this.ctTimer = new CCounter( 0, 400, 1, TJAPlayer3.Timer );
 
             for( int sc = 0; sc < 1; sc++ )
             {
@@ -201,7 +201,7 @@ namespace TJAPlayer3
                         this.stScore[ i ].b使用中 = true;
                         this.stScore[ i ].b表示中 = true;
                         this.stScore[ i ].nAddScore = (int)delta;
-                        this.stScore[ i ].ctTimer = new CCounter( 0, 500, 1, CDTXMania.Timer );
+                        this.stScore[ i ].ctTimer = new CCounter( 0, 500, 1, TJAPlayer3.Timer );
                         this.stScore[ i ].bBonusScore = false;
                         this.stScore[ i ].nPlayer = player;
                         this.n現在表示中のAddScore++;
@@ -224,7 +224,7 @@ namespace TJAPlayer3
                         this.stScore[ i ].b使用中 = true;
                         this.stScore[ i ].b表示中 = true;
                         this.stScore[ i ].nAddScore = 10000;
-                        this.stScore[ i ].ctTimer = new CCounter( 0, 400, 1, CDTXMania.Timer );
+                        this.stScore[ i ].ctTimer = new CCounter( 0, 400, 1, TJAPlayer3.Timer );
                         this.stScore[ i ].bBonusScore = true;
                         this.stScore[ i ].nPlayer = player;
                         this.n現在表示中のAddScore++;
@@ -300,44 +300,44 @@ namespace TJAPlayer3
                 {
                     if( this.stFont[ i ].ch == ch )
                     {
-                        Rectangle rectangle = new Rectangle(CDTXMania.Skin.Game_Score_Size[0] * i, 0, CDTXMania.Skin.Game_Score_Size[0], CDTXMania.Skin.Game_Score_Size[1]);
+                        Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_Score_Size[0] * i, 0, TJAPlayer3.Skin.Game_Score_Size[0], TJAPlayer3.Skin.Game_Score_Size[1]);
                         switch( mode )
                         {
                             case 0:
-                                if( CDTXMania.Tx.Taiko_Score[0] != null )
+                                if( TJAPlayer3.Tx.Taiko_Score[0] != null )
                                 {
                                     //this.txScore.color4 = new SlimDX.Color4( 1.0f, 1.0f, 1.0f );
-                                    CDTXMania.Tx.Taiko_Score[0].n透明度 = alpha;
-                                    CDTXMania.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
-                                    CDTXMania.Tx.Taiko_Score[0].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x , y, rectangle );
+                                    TJAPlayer3.Tx.Taiko_Score[0].n透明度 = alpha;
+                                    TJAPlayer3.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
+                                    TJAPlayer3.Tx.Taiko_Score[0].t2D拡大率考慮下基準描画( TJAPlayer3.app.Device, x , y, rectangle );
                                     
                                 }
                                 break;
                             case 1:
-                                if(CDTXMania.Tx.Taiko_Score[1] != null )
+                                if(TJAPlayer3.Tx.Taiko_Score[1] != null )
                                 {
                                     //this.txScore.color4 = new SlimDX.Color4( 1.0f, 0.5f, 0.4f );
                                     //this.txScore.color4 = CDTXMania.Skin.cScoreColor1P;
-                                    CDTXMania.Tx.Taiko_Score[1].n透明度 = alpha;
-                                    CDTXMania.Tx.Taiko_Score[1].vc拡大縮小倍率.Y = 1;
-                                    CDTXMania.Tx.Taiko_Score[1].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x, y, rectangle );
+                                    TJAPlayer3.Tx.Taiko_Score[1].n透明度 = alpha;
+                                    TJAPlayer3.Tx.Taiko_Score[1].vc拡大縮小倍率.Y = 1;
+                                    TJAPlayer3.Tx.Taiko_Score[1].t2D拡大率考慮下基準描画( TJAPlayer3.app.Device, x, y, rectangle );
                                 }
                                 break;
                             case 2:
-                                if(CDTXMania.Tx.Taiko_Score[2] != null )
+                                if(TJAPlayer3.Tx.Taiko_Score[2] != null )
                                 {
                                     //this.txScore.color4 = new SlimDX.Color4( 0.4f, 0.5f, 1.0f );
                                     //this.txScore.color4 = CDTXMania.Skin.cScoreColor2P;
-                                    CDTXMania.Tx.Taiko_Score[2].n透明度 = alpha;
-                                    CDTXMania.Tx.Taiko_Score[2].vc拡大縮小倍率.Y = 1;
-                                    CDTXMania.Tx.Taiko_Score[2].t2D拡大率考慮下基準描画( CDTXMania.app.Device, x, y, rectangle );
+                                    TJAPlayer3.Tx.Taiko_Score[2].n透明度 = alpha;
+                                    TJAPlayer3.Tx.Taiko_Score[2].vc拡大縮小倍率.Y = 1;
+                                    TJAPlayer3.Tx.Taiko_Score[2].t2D拡大率考慮下基準描画( TJAPlayer3.app.Device, x, y, rectangle );
                                 }
                                 break;
                         }
                         break;
                     }
                 }
-                x += CDTXMania.Skin.Game_Score_Padding;
+                x += TJAPlayer3.Skin.Game_Score_Padding;
             }
         }
 	}

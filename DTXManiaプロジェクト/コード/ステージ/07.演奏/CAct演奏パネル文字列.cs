@@ -26,21 +26,21 @@ namespace TJAPlayer3
 		{
 			if( base.b活性化してる )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txPanel );
+				TJAPlayer3.tテクスチャの解放( ref this.txPanel );
 				if( (songName != null ) && (songName.Length > 0 ) )
 				{
 					try
 					{
-					    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(songName, CDTXMania.Skin.Game_MusicName_ForeColor, CDTXMania.Skin.Game_MusicName_BackColor))
+					    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(songName, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor))
 					    {
-					        this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
+					        this.txMusicName = TJAPlayer3.tテクスチャの生成( bmpSongTitle, false );
 					    }
 
                         Bitmap bmpDiff;
                         string strDiff = "";
-                        if (CDTXMania.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示)
+                        if (TJAPlayer3.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示)
                         {
-                            switch (CDTXMania.stage選曲.n確定された曲の難易度)
+                            switch (TJAPlayer3.stage選曲.n確定された曲の難易度)
                             {
                                 case 0:
                                     strDiff = "かんたん ";
@@ -61,16 +61,16 @@ namespace TJAPlayer3
                                     strDiff = "おに ";
                                     break;
                             }
-                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + stageText, CDTXMania.Skin.Game_StageText_ForeColor, CDTXMania.Skin.Game_StageText_BackColor );
+                            bmpDiff = pfMusicName.DrawPrivateFont(strDiff + stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor );
                         }
                         else
                         {
-                            bmpDiff = pfMusicName.DrawPrivateFont(stageText, CDTXMania.Skin.Game_StageText_ForeColor, CDTXMania.Skin.Game_StageText_BackColor );
+                            bmpDiff = pfMusicName.DrawPrivateFont(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor );
                         }
 
 					    using (bmpDiff)
 					    {
-					        this.tx難易度とステージ数 = CDTXMania.tテクスチャの生成( bmpDiff, false );
+					        this.tx難易度とステージ数 = TJAPlayer3.tテクスチャの生成( bmpDiff, false );
 					    }
 					}
 					catch( CTextureCreateFailedException e )
@@ -84,46 +84,46 @@ namespace TJAPlayer3
                 {
                     if(genreName.Equals( "アニメ" ) )
                     {
-                        this.txGENRE = CDTXMania.Tx.TxCGen("Anime");
+                        this.txGENRE = TJAPlayer3.Tx.TxCGen("Anime");
                     }
                     else if(genreName.Equals( "J-POP" ) )
                     {
-                        this.txGENRE = CDTXMania.Tx.TxCGen("J-POP");
+                        this.txGENRE = TJAPlayer3.Tx.TxCGen("J-POP");
                     }
                     else if(genreName.Equals( "ゲームミュージック" ) )
                     {
-                        this.txGENRE = CDTXMania.Tx.TxCGen("Game");
+                        this.txGENRE = TJAPlayer3.Tx.TxCGen("Game");
                     }
                     else if(genreName.Equals( "ナムコオリジナル" ) )
                     {
-                        this.txGENRE = CDTXMania.Tx.TxCGen("Namco");
+                        this.txGENRE = TJAPlayer3.Tx.TxCGen("Namco");
                     }
                     else if(genreName.Equals( "クラシック" ) )
                     {
-                        this.txGENRE = CDTXMania.Tx.TxCGen("Classic");
+                        this.txGENRE = TJAPlayer3.Tx.TxCGen("Classic");
                     }
                     else if(genreName.Equals( "どうよう" ) )
                     {
-                        this.txGENRE = CDTXMania.Tx.TxCGen("Child");
+                        this.txGENRE = TJAPlayer3.Tx.TxCGen("Child");
                     }
                     else if(genreName.Equals( "バラエティ" ) )
                     {
-                        this.txGENRE = CDTXMania.Tx.TxCGen("Variety");
+                        this.txGENRE = TJAPlayer3.Tx.TxCGen("Variety");
                     }
                     else if(genreName.Equals( "ボーカロイド" ) || genreName.Equals( "VOCALOID" ) )
                     {
-                        this.txGENRE = CDTXMania.Tx.TxCGen("Vocaloid");
+                        this.txGENRE = TJAPlayer3.Tx.TxCGen("Vocaloid");
                     }
                     else
                     {
                         using (var bmpDummy = new Bitmap( 1, 1 ))
                         {
-                            this.txGENRE = CDTXMania.tテクスチャの生成( bmpDummy, true );
+                            this.txGENRE = TJAPlayer3.tテクスチャの生成( bmpDummy, true );
                         }
                     }
                 }
 
-			    this.ct進行用 = new CCounter( 0, 2000, 2, CDTXMania.Timer );
+			    this.ct進行用 = new CCounter( 0, 2000, 2, TJAPlayer3.Timer );
 				this.Start();
 
 
@@ -133,9 +133,9 @@ namespace TJAPlayer3
 
         public void t歌詞テクスチャを生成する( string str歌詞 )
         {
-            using (var bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, CDTXMania.Skin.Game_Lyric_ForeColor, CDTXMania.Skin.Game_Lyric_BackColor ))
+            using (var bmpleric = this.pf歌詞フォント.DrawPrivateFont( str歌詞, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor ))
             {
-                this.tx歌詞テクスチャ = CDTXMania.tテクスチャの生成( bmpleric, false );
+                this.tx歌詞テクスチャ = TJAPlayer3.tテクスチャの生成( bmpleric, false );
             }
         }
 
@@ -146,17 +146,17 @@ namespace TJAPlayer3
         {
             if( this.tx歌詞テクスチャ != null )
             {
-                if (CDTXMania.Skin.Game_Lyric_ReferencePoint == CSkin.ReferencePoint.Left)
+                if (TJAPlayer3.Skin.Game_Lyric_ReferencePoint == CSkin.ReferencePoint.Left)
                 {
-                this.tx歌詞テクスチャ.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Lyric_X , CDTXMania.Skin.Game_Lyric_Y);
+                this.tx歌詞テクスチャ.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Lyric_X , TJAPlayer3.Skin.Game_Lyric_Y);
                 }
-                else if (CDTXMania.Skin.Game_Lyric_ReferencePoint == CSkin.ReferencePoint.Right)
+                else if (TJAPlayer3.Skin.Game_Lyric_ReferencePoint == CSkin.ReferencePoint.Right)
                 {
-                this.tx歌詞テクスチャ.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Lyric_X - this.tx歌詞テクスチャ.szテクスチャサイズ.Width, CDTXMania.Skin.Game_Lyric_Y);
+                this.tx歌詞テクスチャ.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Lyric_X - this.tx歌詞テクスチャ.szテクスチャサイズ.Width, TJAPlayer3.Skin.Game_Lyric_Y);
                 }
                 else
                 {
-                this.tx歌詞テクスチャ.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Lyric_X - (this.tx歌詞テクスチャ.szテクスチャサイズ.Width / 2), CDTXMania.Skin.Game_Lyric_Y);
+                this.tx歌詞テクスチャ.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Lyric_X - (this.tx歌詞テクスチャ.szテクスチャサイズ.Width / 2), TJAPlayer3.Skin.Game_Lyric_Y);
                 }
             }
         }
@@ -175,21 +175,21 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.FontName ) )
+            if( !string.IsNullOrEmpty( TJAPlayer3.ConfigIni.FontName ) )
             {
-                this.pfMusicName = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.FontName), CDTXMania.Skin.Game_MusicName_FontSize);
+                this.pfMusicName = new CPrivateFastFont( new FontFamily( TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.Game_MusicName_FontSize);
                 //this.pf縦書きテスト = new CPrivateFastFont( new FontFamily( CDTXMania.ConfigIni.strPrivateFontで使うフォント名 ), 22 );
             }
             else
-                this.pfMusicName = new CPrivateFastFont( new FontFamily("MS UI Gothic"), CDTXMania.Skin.Game_MusicName_FontSize);
+                this.pfMusicName = new CPrivateFastFont( new FontFamily("MS UI Gothic"), TJAPlayer3.Skin.Game_MusicName_FontSize);
 
-            if( !string.IsNullOrEmpty(CDTXMania.Skin.Game_Lyric_FontName))
+            if( !string.IsNullOrEmpty(TJAPlayer3.Skin.Game_Lyric_FontName))
             {
-                this.pf歌詞フォント = new CPrivateFastFont(new FontFamily(CDTXMania.Skin.Game_Lyric_FontName), CDTXMania.Skin.Game_Lyric_FontSize);
+                this.pf歌詞フォント = new CPrivateFastFont(new FontFamily(TJAPlayer3.Skin.Game_Lyric_FontName), TJAPlayer3.Skin.Game_Lyric_FontSize);
             }
             else
             {
-                this.pf歌詞フォント = new CPrivateFastFont(new FontFamily("MS UI Gothic"), CDTXMania.Skin.Game_Lyric_FontSize);
+                this.pf歌詞フォント = new CPrivateFastFont(new FontFamily("MS UI Gothic"), TJAPlayer3.Skin.Game_Lyric_FontSize);
             }
 
 			this.txPanel = null;
@@ -214,13 +214,13 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txPanel );
-				CDTXMania.tテクスチャの解放( ref this.txMusicName );
-                CDTXMania.tテクスチャの解放( ref this.txGENRE );
-                CDTXMania.tテクスチャの解放(ref this.txPanel);
-                CDTXMania.tテクスチャの解放(ref this.tx歌詞テクスチャ);
-                CDTXMania.t安全にDisposeする(ref this.pfMusicName);
-                CDTXMania.t安全にDisposeする(ref this.pf歌詞フォント);
+				TJAPlayer3.tテクスチャの解放( ref this.txPanel );
+				TJAPlayer3.tテクスチャの解放( ref this.txMusicName );
+                TJAPlayer3.tテクスチャの解放( ref this.txGENRE );
+                TJAPlayer3.tテクスチャの解放(ref this.txPanel);
+                TJAPlayer3.tテクスチャの解放(ref this.tx歌詞テクスチャ);
+                TJAPlayer3.t安全にDisposeする(ref this.pfMusicName);
+                TJAPlayer3.t安全にDisposeする(ref this.pf歌詞フォント);
                 base.OnManagedリソースの解放();
 			}
 		}
@@ -230,7 +230,7 @@ namespace TJAPlayer3
 		}
 		public int t進行描画( int x, int y )
 		{
-            if (CDTXMania.stage演奏ドラム画面.actDan.IsAnimating) return 0;
+            if (TJAPlayer3.stage演奏ドラム画面.actDan.IsAnimating) return 0;
 			if( !base.b活性化してない && !this.bMute )
 			{
 				this.ct進行用.t進行Loop();
@@ -239,9 +239,9 @@ namespace TJAPlayer3
                     this.ct進行用.n現在の値 = 300;
                 }
                 if( this.txGENRE != null )
-                    this.txGENRE.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.Game_Genre_X, CDTXMania.Skin.Game_Genre_Y );
+                    this.txGENRE.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Genre_X, TJAPlayer3.Skin.Game_Genre_Y );
 
-                if( CDTXMania.Skin.b現在のステージ数を表示しない )
+                if( TJAPlayer3.Skin.b現在のステージ数を表示しない )
                 {
                     if( this.txMusicName != null )
                     {
@@ -249,17 +249,17 @@ namespace TJAPlayer3
                         if (this.txMusicName.szテクスチャサイズ.Width <= 660.0f)
                             fRate = 1.0f;
                         this.txMusicName.vc拡大縮小倍率.X = fRate;
-                        if (CDTXMania.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
+                        if (TJAPlayer3.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
                         {
-                            this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X - ((this.txMusicName.szテクスチャサイズ.Width * fRate) / 2), CDTXMania.Skin.Game_MusicName_Y);
+                            this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X - ((this.txMusicName.szテクスチャサイズ.Width * fRate) / 2), TJAPlayer3.Skin.Game_MusicName_Y);
                         }
-                        else if (CDTXMania.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
+                        else if (TJAPlayer3.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
                         {
-                            this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X, CDTXMania.Skin.Game_MusicName_Y);
+                            this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X, TJAPlayer3.Skin.Game_MusicName_Y);
                         }
                         else
                         {
-                            this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X - (this.txMusicName.szテクスチャサイズ.Width * fRate), CDTXMania.Skin.Game_MusicName_Y);
+                            this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X - (this.txMusicName.szテクスチャサイズ.Width * fRate), TJAPlayer3.Skin.Game_MusicName_Y);
                         }
                     }
                 }
@@ -301,34 +301,34 @@ namespace TJAPlayer3
                     {
                         if(this.b初めての進行描画)
                         {
-                            this.txMusicName.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txMusicName);
+                            this.txMusicName.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
                             b初めての進行描画 = false;
                         }
-                        if (CDTXMania.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
+                        if (TJAPlayer3.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
                         {
-                            this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X - ((this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X) / 2), CDTXMania.Skin.Game_MusicName_Y);
+                            this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X - ((this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X) / 2), TJAPlayer3.Skin.Game_MusicName_Y);
                         }
-                        else if (CDTXMania.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
+                        else if (TJAPlayer3.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
                         {
-                            this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X, CDTXMania.Skin.Game_MusicName_Y);
+                            this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X, TJAPlayer3.Skin.Game_MusicName_Y);
                         }
                         else
                         {
-                            this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X - (this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X), CDTXMania.Skin.Game_MusicName_Y);
+                            this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X - (this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X), TJAPlayer3.Skin.Game_MusicName_Y);
                         }
                     }
                     if (this.tx難易度とステージ数 != null)
-                        if (CDTXMania.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
+                        if (TJAPlayer3.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
                         {
-                            this.tx難易度とステージ数.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X - (this.tx難易度とステージ数.szテクスチャサイズ.Width / 2), CDTXMania.Skin.Game_MusicName_Y);
+                            this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X - (this.tx難易度とステージ数.szテクスチャサイズ.Width / 2), TJAPlayer3.Skin.Game_MusicName_Y);
                         }
-                        else if (CDTXMania.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
+                        else if (TJAPlayer3.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
                         {
-                            this.tx難易度とステージ数.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X, CDTXMania.Skin.Game_MusicName_Y);
+                            this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X, TJAPlayer3.Skin.Game_MusicName_Y);
                         }
                         else
                         {
-                            this.tx難易度とステージ数.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_MusicName_X - this.tx難易度とステージ数.szテクスチャサイズ.Width, CDTXMania.Skin.Game_MusicName_Y);
+                            this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X - this.tx難易度とステージ数.szテクスチャサイズ.Width, TJAPlayer3.Skin.Game_MusicName_Y);
                         }
                 }
 

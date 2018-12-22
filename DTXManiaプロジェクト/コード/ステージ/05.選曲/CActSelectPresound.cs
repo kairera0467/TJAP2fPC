@@ -19,13 +19,13 @@ namespace TJAPlayer3
 			if( this.sound != null )
 			{
 				this.sound.t再生を停止する();
-				CDTXMania.Sound管理.tサウンドを破棄する( this.sound );
+				TJAPlayer3.Sound管理.tサウンドを破棄する( this.sound );
 				this.sound = null;
 			}
 		}
 		public void t選択曲が変更された()
 		{
-			Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
+			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
 			
             if( ( cスコア != null ) && ( ( !( cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名 ).Equals( this.str現在のファイル名 ) || ( this.sound == null ) ) || !this.sound.b再生中 ) )
 			{
@@ -35,12 +35,12 @@ namespace TJAPlayer3
 				if( ( cスコア.譜面情報.strBGMファイル名 != null ) && ( cスコア.譜面情報.strBGMファイル名.Length > 0 ) )
 				{
 					//this.ct再生待ちウェイト = new CCounter( 0, CDTXMania.ConfigIni.n曲が選択されてからプレビュー音が鳴るまでのウェイトms, 1, CDTXMania.Timer );
-                    if(CDTXMania.Sound管理.GetCurrentSoundDeviceType() != "DirectSound")
+                    if(TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() != "DirectSound")
                     {
-                        this.ct再生待ちウェイト = new CCounter(0, 1, 270, CDTXMania.Timer);
+                        this.ct再生待ちウェイト = new CCounter(0, 1, 270, TJAPlayer3.Timer);
                     } else
                     {
-                        this.ct再生待ちウェイト = new CCounter(0, 1, 500, CDTXMania.Timer);
+                        this.ct再生待ちウェイト = new CCounter(0, 1, 500, TJAPlayer3.Timer);
                     }
                 }
 			}
@@ -85,7 +85,7 @@ namespace TJAPlayer3
 				if( ( this.ctBGMフェードイン用 != null ) && this.ctBGMフェードイン用.b進行中 )
 				{
 					this.ctBGMフェードイン用.t進行();
-					CDTXMania.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = this.ctBGMフェードイン用.n現在の値;
+					TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = this.ctBGMフェードイン用.n現在の値;
 					if( this.ctBGMフェードイン用.b終了値に達した )
 					{
 						this.ctBGMフェードイン用.t停止();
@@ -94,7 +94,7 @@ namespace TJAPlayer3
 				if( ( this.ctBGMフェードアウト用 != null ) && this.ctBGMフェードアウト用.b進行中 )
 				{
 					this.ctBGMフェードアウト用.t進行();
-					CDTXMania.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = CSound.MaximumAutomationLevel - this.ctBGMフェードアウト用.n現在の値;
+					TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = CSound.MaximumAutomationLevel - this.ctBGMフェードアウト用.n現在の値;
 					if( this.ctBGMフェードアウト用.b終了値に達した )
 					{
 						this.ctBGMフェードアウト用.t停止();
@@ -104,7 +104,7 @@ namespace TJAPlayer3
 
                 if (this.sound != null)
                 {
-                    Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
+                    Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
                     if (long再生位置 == -1)
                     {
                         this.long再生開始時のシステム時刻 = CSound管理.rc演奏用タイマ.nシステム時刻ms;
@@ -145,8 +145,8 @@ namespace TJAPlayer3
 			{
 				this.ctBGMフェードイン用.t停止();
 			}
-			this.ctBGMフェードアウト用 = new CCounter( 0, 100, 10, CDTXMania.Timer );
-			this.ctBGMフェードアウト用.n現在の値 = 100 - CDTXMania.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
+			this.ctBGMフェードアウト用 = new CCounter( 0, 100, 10, TJAPlayer3.Timer );
+			this.ctBGMフェードアウト用.n現在の値 = 100 - TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
 		}
 		private void tBGMフェードイン開始()
 		{
@@ -154,19 +154,19 @@ namespace TJAPlayer3
 			{
 				this.ctBGMフェードアウト用.t停止();
 			}
-			this.ctBGMフェードイン用 = new CCounter( 0, 100, 20, CDTXMania.Timer );
-			this.ctBGMフェードイン用.n現在の値 = CDTXMania.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
+			this.ctBGMフェードイン用 = new CCounter( 0, 100, 20, TJAPlayer3.Timer );
+			this.ctBGMフェードイン用.n現在の値 = TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
 		}
 		private void tプレビューサウンドの作成()
 		{
-			Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
-			if( ( cスコア != null ) && !string.IsNullOrEmpty( cスコア.譜面情報.strBGMファイル名 ) && CDTXMania.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト )
+			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
+			if( ( cスコア != null ) && !string.IsNullOrEmpty( cスコア.譜面情報.strBGMファイル名 ) && TJAPlayer3.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト )
 			{
 				string strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Presound;
 				try
                 {
                     strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
-                    this.sound = CDTXMania.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPreview );
+                    this.sound = TJAPlayer3.Sound管理.tサウンドを生成する( strPreviewFilename, ESoundGroup.SongPreview );
 
                     // 2018-08-27 twopointzero - DO attempt to load (or queue scanning) loudness metadata here.
                     //                           Initialization, song enumeration, and/or interactions may have
@@ -174,7 +174,7 @@ namespace TJAPlayer3
                     //                           If is not yet available then we wish to queue scanning.
                     var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata
                                            ?? LoudnessMetadataScanner.LoadForAudioPath(strPreviewFilename);
-                    CDTXMania.SongGainController.Set( cスコア.譜面情報.SongVol, loudnessMetadata, this.sound );
+                    TJAPlayer3.SongGainController.Set( cスコア.譜面情報.SongVol, loudnessMetadata, this.sound );
 
                     this.sound.t再生を開始する( true );
                     if( long再生位置 == -1 )
@@ -218,7 +218,7 @@ namespace TJAPlayer3
 				if( !this.ct再生待ちウェイト.b終了値に達してない )
 				{
 					this.ct再生待ちウェイト.t停止();
-					if( !CDTXMania.stage選曲.bスクロール中 )
+					if( !TJAPlayer3.stage選曲.bスクロール中 )
 					{
                         this.tプレビューサウンドの作成();
 					}

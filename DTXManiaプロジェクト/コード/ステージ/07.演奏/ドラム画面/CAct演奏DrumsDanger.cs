@@ -42,7 +42,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txDANGER );
+				TJAPlayer3.tテクスチャの解放( ref this.txDANGER );
 				base.OnManagedリソースの解放();
 			}
 		}

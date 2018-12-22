@@ -26,7 +26,7 @@ namespace TJAPlayer3
 		{
 			for( int i = 0; i < 3; i++ )
 			{
-				this.db現在の譜面スクロール速度[ i ] = (double) CDTXMania.ConfigIni.n譜面スクロール速度[ i ];
+				this.db現在の譜面スクロール速度[ i ] = (double) TJAPlayer3.ConfigIni.n譜面スクロール速度[ i ];
 				this.n速度変更制御タイマ[ i ] = -1;
 			}
 			base.On活性化();
@@ -43,7 +43,7 @@ namespace TJAPlayer3
 				long n現在時刻 = CSound管理.rc演奏用タイマ.n現在時刻;
 				for( int i = 0; i < 3; i++ )
 				{
-					double db譜面スクロールスピード = (double) CDTXMania.ConfigIni.n譜面スクロール速度[ i ];
+					double db譜面スクロールスピード = (double) TJAPlayer3.ConfigIni.n譜面スクロール速度[ i ];
 					if( n現在時刻 < this.n速度変更制御タイマ[ i ] )
 					{
 						this.n速度変更制御タイマ[ i ] = n現在時刻;

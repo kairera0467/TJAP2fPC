@@ -79,7 +79,7 @@ namespace TJAPlayer3
 				}
 
                 //スキン変更処理
-                CDTXMania.app.RefleshSkin();
+                TJAPlayer3.app.RefleshSkin();
 
                 return 1;
 			}

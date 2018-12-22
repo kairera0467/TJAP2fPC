@@ -17,7 +17,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txオプションパネル );
+				TJAPlayer3.tテクスチャの解放( ref this.txオプションパネル );
 				base.On非活性化();
 			}
 		}
@@ -25,7 +25,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				this.txオプションパネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen option panels.png" ), false );
+				this.txオプションパネル = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\Screen option panels.png" ), false );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -33,8 +33,8 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				Device device = CDTXMania.app.Device;
-				CConfigIni configIni = CDTXMania.ConfigIni;
+				Device device = TJAPlayer3.app.Device;
+				CConfigIni configIni = TJAPlayer3.ConfigIni;
 				if( this.txオプションパネル != null )
 				{
 					#region [ ScrollSpeed ]

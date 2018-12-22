@@ -27,7 +27,7 @@ namespace TJAPlayer3
 			this.n画像Index下 = 0;
 
             this.bFirst = true;
-            this.ct進行用 = new CCounter( 0, 3000, 3, CDTXMania.Timer );
+            this.ct進行用 = new CCounter( 0, 3000, 3, TJAPlayer3.Timer );
 			base.On活性化();
 		}
 		public override void On非活性化()
@@ -39,9 +39,9 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-                this.txInfo_Back = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_information_BG.png" ) );
-                this.txInfo[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_information.png" ) );
-                this.txInfo[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_information2.png" ) );
+                this.txInfo_Back = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_information_BG.png" ) );
+                this.txInfo[ 0 ] = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_information.png" ) );
+                this.txInfo[ 1 ] = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_information2.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -49,9 +49,9 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txInfo_Back );
-				CDTXMania.tテクスチャの解放( ref this.txInfo[ 0 ] );
-				CDTXMania.tテクスチャの解放( ref this.txInfo[ 1 ] );
+				TJAPlayer3.tテクスチャの解放( ref this.txInfo_Back );
+				TJAPlayer3.tテクスチャの解放( ref this.txInfo[ 0 ] );
+				TJAPlayer3.tテクスチャの解放( ref this.txInfo[ 1 ] );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -65,7 +65,7 @@ namespace TJAPlayer3
 				}
 
                 if( this.txInfo_Back != null )
-                    this.txInfo_Back.t2D描画( CDTXMania.app.Device, 340, 600 );
+                    this.txInfo_Back.t2D描画( TJAPlayer3.app.Device, 340, 600 );
 
 
 				this.ct進行用.t進行Loop();
@@ -99,8 +99,8 @@ namespace TJAPlayer3
                         this.txInfo[ 1 ].n透明度 = 255;
                     }
 
-                    this.txInfo[ 0 ].t2D描画( CDTXMania.app.Device, 340, 600 );
-                    this.txInfo[ 1 ].t2D描画( CDTXMania.app.Device, 340, 600 );
+                    this.txInfo[ 0 ].t2D描画( TJAPlayer3.app.Device, 340, 600 );
+                    this.txInfo[ 1 ].t2D描画( TJAPlayer3.app.Device, 340, 600 );
                 }
 
                 #endregion

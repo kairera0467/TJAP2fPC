@@ -530,7 +530,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない && !string.IsNullOrEmpty( str ) )
 			{
-				CTexture texture = b強調 ? CDTXMania.Tx.Config_Font_Bold : CDTXMania.Tx.Config_Font;
+				CTexture texture = b強調 ? TJAPlayer3.Tx.Config_Font_Bold : TJAPlayer3.Tx.Config_Font;
 				if( texture != null )
 				{
 					texture.vc拡大縮小倍率 = new Vector3( fScale, fScale, 1f );
@@ -540,7 +540,7 @@ namespace TJAPlayer3
 						{
 							if( st文字領域.ch == ch )
 							{
-								texture.t2D描画( CDTXMania.app.Device, x, y, st文字領域.rc );
+								texture.t2D描画( TJAPlayer3.app.Device, x, y, st文字領域.rc );
 								x += (int) ( ( st文字領域.rc.Width - 5 ) * fScale );
 								break;
 							}

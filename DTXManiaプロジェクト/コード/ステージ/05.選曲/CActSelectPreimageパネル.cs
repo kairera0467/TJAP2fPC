@@ -20,7 +20,7 @@ namespace TJAPlayer3
 		}
 		public void t選択曲が変更された()
 		{
-			this.ct遅延表示 = new CCounter( -CDTXMania.ConfigIni.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms, 100, 1, CDTXMania.Timer );
+			this.ct遅延表示 = new CCounter( -TJAPlayer3.ConfigIni.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms, 100, 1, TJAPlayer3.Timer );
 			this.b新しいプレビューファイルを読み込んだ = false;
 		}
 
@@ -58,12 +58,12 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				this.txパネル本体 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_preimage panel.png" ), false );
-				this.txセンサ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_sensor.png" ), false );
+				this.txパネル本体 = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_preimage panel.png" ), false );
+				this.txセンサ = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_sensor.png" ), false );
 				//this.txセンサ光 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_sensor light.png" ), false );
 				this.txプレビュー画像 = null;
-				this.txプレビュー画像がないときの画像 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\5_preimage default.png" ), false );
-				this.sfAVI画像 = Surface.CreateOffscreenPlain( CDTXMania.app.Device.UnderlyingDevice, 0xcc, 0x10d, CDTXMania.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.SystemMemory );
+				this.txプレビュー画像がないときの画像 = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\5_preimage default.png" ), false );
+				this.sfAVI画像 = Surface.CreateOffscreenPlain( TJAPlayer3.app.Device.UnderlyingDevice, 0xcc, 0x10d, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.SystemMemory );
 				this.nAVI再生開始時刻 = -1;
 				this.n前回描画したフレーム番号 = -1;
 				this.b動画フレームを作成した = false;
@@ -76,11 +76,11 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
-				CDTXMania.tテクスチャの解放( ref this.txセンサ );
-				CDTXMania.tテクスチャの解放( ref this.txセンサ光 );
-				CDTXMania.tテクスチャの解放( ref this.txプレビュー画像 );
-				CDTXMania.tテクスチャの解放( ref this.txプレビュー画像がないときの画像 );
+				TJAPlayer3.tテクスチャの解放( ref this.txパネル本体 );
+				TJAPlayer3.tテクスチャの解放( ref this.txセンサ );
+				TJAPlayer3.tテクスチャの解放( ref this.txセンサ光 );
+				TJAPlayer3.tテクスチャの解放( ref this.txプレビュー画像 );
+				TJAPlayer3.tテクスチャの解放( ref this.txプレビュー画像がないときの画像 );
 				if( this.sfAVI画像 != null )
 				{
 					this.sfAVI画像.Dispose();
@@ -95,21 +95,21 @@ namespace TJAPlayer3
 			{
 				if( base.b初めての進行描画 )
 				{
-					this.ct登場アニメ用 = new CCounter( 0, 100, 5, CDTXMania.Timer );
-					this.ctセンサ光 = new CCounter( 0, 100, 30, CDTXMania.Timer );
+					this.ct登場アニメ用 = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
+					this.ctセンサ光 = new CCounter( 0, 100, 30, TJAPlayer3.Timer );
 					this.ctセンサ光.n現在の値 = 70;
 					base.b初めての進行描画 = false;
 				}
 				this.ct登場アニメ用.t進行();
 				this.ctセンサ光.t進行Loop();
-				if( ( !CDTXMania.stage選曲.bスクロール中 && ( this.ct遅延表示 != null ) ) && this.ct遅延表示.b進行中 )
+				if( ( !TJAPlayer3.stage選曲.bスクロール中 && ( this.ct遅延表示 != null ) ) && this.ct遅延表示.b進行中 )
 				{
 					this.ct遅延表示.t進行();
 					if ( ( this.ct遅延表示.n現在の値 >= 0 ) && this.b新しいプレビューファイルをまだ読み込んでいない )
 					{
 						this.tプレビュー画像_動画の変更();
-						CDTXMania.Timer.t更新();
-						this.ct遅延表示.n現在の経過時間ms = CDTXMania.Timer.n現在時刻;
+						TJAPlayer3.Timer.t更新();
+						this.ct遅延表示.n現在の経過時間ms = TJAPlayer3.Timer.n現在時刻;
 						this.b新しいプレビューファイルを読み込んだ = true;
 					}
 					else if ( this.ct遅延表示.b終了値に達した && this.ct遅延表示.b進行中 )
@@ -119,11 +119,11 @@ namespace TJAPlayer3
 				}
 				else if( ( ( this.avi != null ) && ( this.sfAVI画像 != null ) ) && ( this.nAVI再生開始時刻 != -1 ) )
 				{
-					int time = (int) ( ( CDTXMania.Timer.n現在時刻 - this.nAVI再生開始時刻 ) * ( ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0 ) );
+					int time = (int) ( ( TJAPlayer3.Timer.n現在時刻 - this.nAVI再生開始時刻 ) * ( ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0 ) );
 					int frameNoFromTime = this.avi.GetFrameNoFromTime( time );
 					if( frameNoFromTime >= this.avi.GetMaxFrameCount() )
 					{
-						this.nAVI再生開始時刻 = CDTXMania.Timer.n現在時刻;
+						this.nAVI再生開始時刻 = TJAPlayer3.Timer.n現在時刻;
 					}
 					else if( ( this.n前回描画したフレーム番号 != frameNoFromTime ) && !this.b動画フレームを作成した )
 					{
@@ -222,7 +222,7 @@ namespace TJAPlayer3
 			}
 			this.pAVIBmp = IntPtr.Zero;
 			this.nAVI再生開始時刻 = -1;
-			if( !CDTXMania.ConfigIni.bストイックモード )
+			if( !TJAPlayer3.ConfigIni.bストイックモード )
 			{
 				if( this.tプレビュー動画の指定があれば構築する() )
 				{
@@ -242,7 +242,7 @@ namespace TJAPlayer3
 		}
 		private bool tプレビュー画像の指定があれば構築する()
 		{
-			Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
+			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
 			if( ( cスコア == null ) || string.IsNullOrEmpty( cスコア.譜面情報.Preimage ) )
 			{
 				return false;
@@ -250,14 +250,14 @@ namespace TJAPlayer3
 			string str = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Preimage;
 			if( !str.Equals( this.str現在のファイル名 ) )
 			{
-				CDTXMania.tテクスチャの解放( ref this.txプレビュー画像 );
+				TJAPlayer3.tテクスチャの解放( ref this.txプレビュー画像 );
 				this.str現在のファイル名 = str;
 				if( !File.Exists( this.str現在のファイル名 ) )
 				{
 					Trace.TraceWarning( "ファイルが存在しません。({0})", new object[] { this.str現在のファイル名 } );
 					return false;
 				}
-				this.txプレビュー画像 = CDTXMania.tテクスチャの生成( this.str現在のファイル名, false );
+				this.txプレビュー画像 = TJAPlayer3.tテクスチャの生成( this.str現在のファイル名, false );
 				if( this.txプレビュー画像 != null )
 				{
 					this.r表示するプレビュー画像 = this.txプレビュー画像;
@@ -271,8 +271,8 @@ namespace TJAPlayer3
 		}
 		private bool tプレビュー動画の指定があれば構築する()
 		{
-			Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
-			if( ( CDTXMania.ConfigIni.bAVI有効 && ( cスコア != null ) ) && !string.IsNullOrEmpty( cスコア.譜面情報.Premovie ) )
+			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
+			if( ( TJAPlayer3.ConfigIni.bAVI有効 && ( cスコア != null ) ) && !string.IsNullOrEmpty( cスコア.譜面情報.Premovie ) )
 			{
 				string filename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.Premovie;
 				if( filename.Equals( this.str現在のファイル名 ) )
@@ -293,7 +293,7 @@ namespace TJAPlayer3
 				try
 				{
 					this.avi = new CAvi( filename );
-					this.nAVI再生開始時刻 = CDTXMania.Timer.n現在時刻;
+					this.nAVI再生開始時刻 = TJAPlayer3.Timer.n現在時刻;
 					this.n前回描画したフレーム番号 = -1;
 					this.b動画フレームを作成した = false;
 					this.tサーフェイスをクリアする( this.sfAVI画像 );
@@ -311,7 +311,7 @@ namespace TJAPlayer3
 		}
 		private bool t背景画像があればその一部からプレビュー画像を構築する()
 		{
-			Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
+			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
 			if( ( cスコア == null ) || string.IsNullOrEmpty( cスコア.譜面情報.Backgound ) )
 			{
 				return false;
@@ -324,7 +324,7 @@ namespace TJAPlayer3
 					Trace.TraceWarning( "ファイルが存在しません。({0})", new object[] { path } );
 					return false;
 				}
-				CDTXMania.tテクスチャの解放( ref this.txプレビュー画像 );
+				TJAPlayer3.tテクスチャの解放( ref this.txプレビュー画像 );
 				this.str現在のファイル名 = path;
 				Bitmap image = null;
 				Bitmap bitmap2 = null;
@@ -347,7 +347,7 @@ namespace TJAPlayer3
 					graphics = Graphics.FromImage( bitmap3 );
 					graphics.DrawImage( bitmap2, 5, 5, new Rectangle( 0x157, 0x6d, 0xcc, 0x10d ), GraphicsUnit.Pixel );
 					graphics.Dispose();
-					this.txプレビュー画像 = new CTexture( CDTXMania.app.Device, bitmap3, CDTXMania.TextureFormat );
+					this.txプレビュー画像 = new CTexture( TJAPlayer3.app.Device, bitmap3, TJAPlayer3.TextureFormat );
 					this.r表示するプレビュー画像 = this.txプレビュー画像;
 				}
 				catch (Exception e)
@@ -380,8 +380,8 @@ namespace TJAPlayer3
         /// </summary>
 		private void t描画処理_ジャンル文字列()
 		{
-			C曲リストノード c曲リストノード = CDTXMania.stage選曲.r現在選択中の曲;
-			Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
+			C曲リストノード c曲リストノード = TJAPlayer3.stage選曲.r現在選択中の曲;
+			Cスコア cスコア = TJAPlayer3.stage選曲.r現在選択中のスコア;
 			if( ( c曲リストノード != null ) && ( cスコア != null ) )
 			{
 				string str = "";
@@ -447,7 +447,7 @@ namespace TJAPlayer3
 						str = "Unknown";
 						break;
 				}
-				CDTXMania.act文字コンソール.tPrint( this.n本体X + 0x12, this.n本体Y - 1, C文字コンソール.Eフォント種別.赤細, str );
+				TJAPlayer3.act文字コンソール.tPrint( this.n本体X + 0x12, this.n本体Y - 1, C文字コンソール.Eフォント種別.赤細, str );
 			}
 		}
 		private void t描画処理_センサ光()
@@ -461,7 +461,7 @@ namespace TJAPlayer3
 				{
 					this.txセンサ光.vc拡大縮小倍率 = new Vector3( 1f, 1f, 1f );
 					this.txセンサ光.n透明度 = 0xff;
-					this.txセンサ光.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( ( num % 4 ) * 0x40, ( num / 4 ) * 0x40, 0x40, 0x40 ) );
+					this.txセンサ光.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( ( num % 4 ) * 0x40, ( num / 4 ) * 0x40, 0x40, 0x40 ) );
 				}
 			}
 			else if( num < 0x18 )
@@ -477,7 +477,7 @@ namespace TJAPlayer3
 				{
 					this.txセンサ光.vc拡大縮小倍率 = new Vector3( (float) num6, (float) num6, 1f );
 					this.txセンサ光.n透明度 = (int) ( 255.0 * ( 1.0 - num5 ) );
-					this.txセンサ光.t2D描画( CDTXMania.app.Device, num9, num10, this.rcセンサ光 );
+					this.txセンサ光.t2D描画( TJAPlayer3.app.Device, num9, num10, this.rcセンサ光 );
 				}
 			}
 		}
@@ -487,9 +487,9 @@ namespace TJAPlayer3
 			int y = this.n本体Y - 4;
 			if( this.txセンサ != null )
 			{
-				this.txセンサ.t2D描画( CDTXMania.app.Device, x, y, this.rcセンサ本体上半分 );
+				this.txセンサ.t2D描画( TJAPlayer3.app.Device, x, y, this.rcセンサ本体上半分 );
 				y += 0x80;
-				this.txセンサ.t2D描画( CDTXMania.app.Device, x, y, this.rcセンサ本体下半分 );
+				this.txセンサ.t2D描画( TJAPlayer3.app.Device, x, y, this.rcセンサ本体下半分 );
 			}
 		}
 		private void t描画処理_パネル本体()
@@ -508,12 +508,12 @@ namespace TJAPlayer3
 			}
 			if( this.txパネル本体 != null )
 			{
-				this.txパネル本体.t2D描画( CDTXMania.app.Device, this.n本体X, this.n本体Y );
+				this.txパネル本体.t2D描画( TJAPlayer3.app.Device, this.n本体X, this.n本体Y );
 			}
 		}
 		private unsafe void t描画処理_プレビュー画像()
 		{
-			if( !CDTXMania.stage選曲.bスクロール中 && ( ( ( this.ct遅延表示 != null ) && ( this.ct遅延表示.n現在の値 > 0 ) ) && !this.b新しいプレビューファイルをまだ読み込んでいない ) )
+			if( !TJAPlayer3.stage選曲.bスクロール中 && ( ( ( this.ct遅延表示 != null ) && ( this.ct遅延表示.n現在の値 > 0 ) ) && !this.b新しいプレビューファイルをまだ読み込んでいない ) )
 			{
 				int x = this.n本体X + 0x12;
 				int y = this.n本体Y + 0x10;
@@ -543,11 +543,11 @@ namespace TJAPlayer3
 						this.sfAVI画像.UnlockRectangle();
 						this.b動画フレームを作成した = false;
 					}
-					using( Surface surface = CDTXMania.app.Device.GetBackBuffer( 0, 0 ) )
+					using( Surface surface = TJAPlayer3.app.Device.GetBackBuffer( 0, 0 ) )
 					{
 						try
 						{
-							CDTXMania.app.Device.UpdateSurface( this.sfAVI画像, new Rectangle( 0, 0, this.sfAVI画像.Description.Width, this.sfAVI画像.Description.Height ), surface, new Point( x, y ) );
+							TJAPlayer3.app.Device.UpdateSurface( this.sfAVI画像, new Rectangle( 0, 0, this.sfAVI画像.Description.Width, this.sfAVI画像.Description.Height ), surface, new Point( x, y ) );
 						}
 						catch( Exception e )	// #32335 2013.10.26 yyagi: codecがないと、D3DERR_INVALIDCALLが発生する場合がある
 						{
@@ -575,7 +575,7 @@ namespace TJAPlayer3
 					this.r表示するプレビュー画像.n透明度 = (int) ( 255f * num3 );
 					this.r表示するプレビュー画像.vc拡大縮小倍率.X = num4;
 					this.r表示するプレビュー画像.vc拡大縮小倍率.Y = num4;
-					this.r表示するプレビュー画像.t2D描画( CDTXMania.app.Device, x + 22, y + 12, new Rectangle( 0, 0, width, height ) );
+					this.r表示するプレビュー画像.t2D描画( TJAPlayer3.app.Device, x + 22, y + 12, new Rectangle( 0, 0, width, height ) );
 				}
 			}
 		}

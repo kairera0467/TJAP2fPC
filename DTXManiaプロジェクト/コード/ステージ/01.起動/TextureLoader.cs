@@ -54,15 +54,15 @@ namespace TJAPlayer3
 
         internal CTexture TxC(string FileName)
         {
-            return CDTXMania.tテクスチャの生成(CSkin.Path(BASE + FileName));
+            return TJAPlayer3.tテクスチャの生成(CSkin.Path(BASE + FileName));
         }
         internal CTextureAf TxCAf(string FileName)
         {
-            return CDTXMania.tテクスチャの生成Af(CSkin.Path(BASE + FileName));
+            return TJAPlayer3.tテクスチャの生成Af(CSkin.Path(BASE + FileName));
         }
         internal CTexture TxCGen(string FileName)
         {
-            return CDTXMania.tテクスチャの生成(CSkin.Path(BASE + GAME + GENRE + FileName + ".png"));
+            return TJAPlayer3.tテクスチャの生成(CSkin.Path(BASE + GAME + GENRE + FileName + ".png"));
         }
 
         public void LoadTexture()
@@ -150,142 +150,142 @@ namespace TJAPlayer3
 
             #endregion
             #region キャラクター
-            CDTXMania.Skin.Game_Chara_Ptn_Normal = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Normal\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_Normal != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_Normal = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Normal\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_Normal != 0)
             {
-                Chara_Normal = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Normal];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Normal; i++)
+                Chara_Normal = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Normal];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Normal; i++)
                 {
                     Chara_Normal[i] = TxC(GAME + CHARA + @"Normal\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_Clear = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Clear\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_Clear = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Clear\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_Clear != 0)
             {
-                Chara_Normal_Cleared = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Clear];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Clear; i++)
+                Chara_Normal_Cleared = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Clear];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Clear; i++)
                 {
                     Chara_Normal_Cleared[i] = TxC(GAME + CHARA + @"Clear\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_Clear != 0)
             {
-                Chara_Normal_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Clear];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Clear; i++)
+                Chara_Normal_Maxed = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Clear];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Clear; i++)
                 {
                     Chara_Normal_Maxed[i] = TxC(GAME + CHARA + @"Clear_Max\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_GoGo = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGo\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_GoGo = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGo\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGo != 0)
             {
-                Chara_GoGoTime = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_GoGo];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGo; i++)
+                Chara_GoGoTime = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_GoGo];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGo; i++)
                 {
                     Chara_GoGoTime[i] = TxC(GAME + CHARA + @"GoGo\" + i.ToString() + ".png");
                 }
             }
-            if (CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGo != 0)
             {
-                Chara_GoGoTime_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_GoGo];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGo; i++)
+                Chara_GoGoTime_Maxed = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_GoGo];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGo; i++)
                 {
                     Chara_GoGoTime_Maxed[i] = TxC(GAME + CHARA + @"GoGo_Max\" + i.ToString() + ".png");
                 }
             }
 
-            CDTXMania.Skin.Game_Chara_Ptn_10combo = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"10combo\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_10combo = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"10combo\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo != 0)
             {
-                Chara_10Combo = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_10combo];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_10combo; i++)
+                Chara_10Combo = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_10combo];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_10combo; i++)
                 {
                     Chara_10Combo[i] = TxC(GAME + CHARA + @"10combo\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_10combo_Max = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"10combo_Max\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"10combo_Max\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max != 0)
             {
-                Chara_10Combo_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_10combo_Max];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_10combo_Max; i++)
+                Chara_10Combo_Maxed = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max; i++)
                 {
                     Chara_10Combo_Maxed[i] = TxC(GAME + CHARA + @"10combo_Max\" + i.ToString() + ".png");
                 }
             }
 
-            CDTXMania.Skin.Game_Chara_Ptn_GoGoStart = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGoStart\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGoStart\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart != 0)
             {
-                Chara_GoGoStart = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_GoGoStart];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGoStart; i++)
+                Chara_GoGoStart = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart; i++)
                 {
                     Chara_GoGoStart[i] = TxC(GAME + CHARA + @"GoGoStart\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGoStart_Max\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"GoGoStart_Max\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max != 0)
             {
-                Chara_GoGoStart_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max; i++)
+                Chara_GoGoStart_Maxed = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max; i++)
                 {
                     Chara_GoGoStart_Maxed[i] = TxC(GAME + CHARA + @"GoGoStart_Max\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_ClearIn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"ClearIn\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"ClearIn\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn != 0)
             {
-                Chara_Become_Cleared = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_ClearIn];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_ClearIn; i++)
+                Chara_Become_Cleared = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn; i++)
                 {
                     Chara_Become_Cleared[i] = TxC(GAME + CHARA + @"ClearIn\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_SoulIn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"SoulIn\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"SoulIn\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn != 0)
             {
-                Chara_Become_Maxed = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_SoulIn];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_SoulIn; i++)
+                Chara_Become_Maxed = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn; i++)
                 {
                     Chara_Become_Maxed[i] = TxC(GAME + CHARA + @"SoulIn\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Breaking\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Breaking\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking != 0)
             {
-                Chara_Balloon_Breaking = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking; i++)
+                Chara_Balloon_Breaking = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking; i++)
                 {
                     Chara_Balloon_Breaking[i] = TxC(GAME + CHARA + @"Balloon_Breaking\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Broke\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Broke\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
             {
-                Chara_Balloon_Broke = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke; i++)
+                Chara_Balloon_Broke = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke; i++)
                 {
                     Chara_Balloon_Broke[i] = TxC(GAME + CHARA + @"Balloon_Broke\" + i.ToString() + ".png");
                 }
             }
-            CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Miss\"));
-            if (CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
+            TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + @"Balloon_Miss\"));
+            if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
             {
-                Chara_Balloon_Miss = new CTexture[CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss];
-                for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss; i++)
+                Chara_Balloon_Miss = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss; i++)
                 {
                     Chara_Balloon_Miss[i] = TxC(GAME + CHARA + @"Balloon_Miss\" + i.ToString() + ".png");
                 }
             }
             #endregion
             #region 踊り子
-            CDTXMania.Skin.Game_Dancer_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + DANCER + @"1\"));
-            if (CDTXMania.Skin.Game_Dancer_Ptn != 0)
+            TJAPlayer3.Skin.Game_Dancer_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + DANCER + @"1\"));
+            if (TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
             {
                 Dancer = new CTexture[5][];
                 for (int i = 0; i < 5; i++)
                 {
-                    Dancer[i] = new CTexture[CDTXMania.Skin.Game_Dancer_Ptn];
-                    for (int p = 0; p < CDTXMania.Skin.Game_Dancer_Ptn; p++)
+                    Dancer[i] = new CTexture[TJAPlayer3.Skin.Game_Dancer_Ptn];
+                    for (int p = 0; p < TJAPlayer3.Skin.Game_Dancer_Ptn; p++)
                     {
                         Dancer[i][p] = TxC(GAME + DANCER + (i + 1) + @"\" + p.ToString() + ".png");
                     }
@@ -293,9 +293,9 @@ namespace TJAPlayer3
             }
             #endregion
             #region モブ
-            CDTXMania.Skin.Game_Mob_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + MOB));
-            Mob = new CTexture[CDTXMania.Skin.Game_Mob_Ptn];
-            for (int i = 0; i < CDTXMania.Skin.Game_Mob_Ptn; i++)
+            TJAPlayer3.Skin.Game_Mob_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + MOB));
+            Mob = new CTexture[TJAPlayer3.Skin.Game_Mob_Ptn];
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Mob_Ptn; i++)
             {
                 Mob[i] = TxC(GAME + MOB + i.ToString() + ".png");
             }
@@ -362,11 +362,11 @@ namespace TJAPlayer3
             Gauge_Line = new CTexture[2];
             Gauge_Line[0] = TxC(GAME + GAUGE + @"1P_Line.png");
             Gauge_Line[1] = TxC(GAME + GAUGE + @"2P_Line.png");
-            CDTXMania.Skin.Game_Gauge_Rainbow_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"Rainbow\"));
-            if (CDTXMania.Skin.Game_Gauge_Rainbow_Ptn != 0)
+            TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"Rainbow\"));
+            if (TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn != 0)
             {
-                Gauge_Rainbow = new CTexture[CDTXMania.Skin.Game_Gauge_Rainbow_Ptn];
-                for (int i = 0; i < CDTXMania.Skin.Game_Gauge_Rainbow_Ptn; i++)
+                Gauge_Rainbow = new CTexture[TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn];
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn; i++)
                 {
                     Gauge_Rainbow[i] = TxC(GAME + GAUGE + @"Rainbow\" + i.ToString() + ".png");
                 }
@@ -394,20 +394,20 @@ namespace TJAPlayer3
             #endregion
             #region エフェクト
             Effects_Hit_Explosion = TxCAf(GAME + EFFECTS + @"Hit\Explosion.png");
-            if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.b加算合成 = CDTXMania.Skin.Game_Effect_HitExplosion_AddBlend;
+            if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.b加算合成 = TJAPlayer3.Skin.Game_Effect_HitExplosion_AddBlend;
             Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit\Explosion_Big.png");
-            if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.b加算合成 = CDTXMania.Skin.Game_Effect_HitExplosionBig_AddBlend;
+            if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.b加算合成 = TJAPlayer3.Skin.Game_Effect_HitExplosionBig_AddBlend;
             Effects_Hit_FireWorks = TxC(GAME + EFFECTS + @"Hit\FireWorks.png");
-            if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.b加算合成 = CDTXMania.Skin.Game_Effect_FireWorks_AddBlend;
+            if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.b加算合成 = TJAPlayer3.Skin.Game_Effect_FireWorks_AddBlend;
 
 
             Effects_Fire = TxC(GAME + EFFECTS + @"Fire.png");
-            if (Effects_Fire != null) Effects_Fire.b加算合成 = CDTXMania.Skin.Game_Effect_Fire_AddBlend;
+            if (Effects_Fire != null) Effects_Fire.b加算合成 = TJAPlayer3.Skin.Game_Effect_Fire_AddBlend;
 
             Effects_Rainbow = TxC(GAME + EFFECTS + @"Rainbow.png");
 
             Effects_GoGoSplash = TxC(GAME + EFFECTS + @"GoGoSplash.png");
-            if (Effects_GoGoSplash != null) Effects_GoGoSplash.b加算合成 = CDTXMania.Skin.Game_Effect_GoGoSplash_AddBlend;
+            if (Effects_GoGoSplash != null) Effects_GoGoSplash.b加算合成 = TJAPlayer3.Skin.Game_Effect_GoGoSplash_AddBlend;
             Effects_Hit_Great = new CTexture[15];
             Effects_Hit_Great_Big = new CTexture[15];
             Effects_Hit_Good = new CTexture[15];
@@ -419,9 +419,9 @@ namespace TJAPlayer3
                 Effects_Hit_Good[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good\" + i.ToString() + ".png");
                 Effects_Hit_Good_Big[i] = TxC(GAME + EFFECTS + @"Hit\" + @"Good_Big\" + i.ToString() + ".png");
             }
-            CDTXMania.Skin.Game_Effect_Roll_Ptn = CDTXMania.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + EFFECTS + @"Roll\"));
-            Effects_Roll = new CTexture[CDTXMania.Skin.Game_Effect_Roll_Ptn];
-            for (int i = 0; i < CDTXMania.Skin.Game_Effect_Roll_Ptn; i++)
+            TJAPlayer3.Skin.Game_Effect_Roll_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + EFFECTS + @"Roll\"));
+            Effects_Roll = new CTexture[TJAPlayer3.Skin.Game_Effect_Roll_Ptn];
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Effect_Roll_Ptn; i++)
             {
                 Effects_Roll[i] = TxC(GAME + EFFECTS + @"Roll\" + i.ToString() + ".png");
             }
@@ -509,285 +509,285 @@ namespace TJAPlayer3
 
         public void DisposeTexture()
         {
-            CDTXMania.tテクスチャの解放(ref Title_Background);
-            CDTXMania.tテクスチャの解放(ref Title_Menu);
+            TJAPlayer3.tテクスチャの解放(ref Title_Background);
+            TJAPlayer3.tテクスチャの解放(ref Title_Menu);
             #region 共通
-            CDTXMania.tテクスチャの解放(ref Tile_Black);
-            CDTXMania.tテクスチャの解放(ref Tile_White);
-            CDTXMania.tテクスチャの解放(ref Menu_Title);
-            CDTXMania.tテクスチャの解放(ref Menu_Highlight);
-            CDTXMania.tテクスチャの解放(ref Enum_Song);
-            CDTXMania.tテクスチャの解放(ref Scanning_Loudness);
-            CDTXMania.tテクスチャの解放(ref Overlay);
+            TJAPlayer3.tテクスチャの解放(ref Tile_Black);
+            TJAPlayer3.tテクスチャの解放(ref Tile_White);
+            TJAPlayer3.tテクスチャの解放(ref Menu_Title);
+            TJAPlayer3.tテクスチャの解放(ref Menu_Highlight);
+            TJAPlayer3.tテクスチャの解放(ref Enum_Song);
+            TJAPlayer3.tテクスチャの解放(ref Scanning_Loudness);
+            TJAPlayer3.tテクスチャの解放(ref Overlay);
             for (int i = 0; i < 2; i++)
             {
-                CDTXMania.tテクスチャの解放(ref NamePlate[i]);
+                TJAPlayer3.tテクスチャの解放(ref NamePlate[i]);
             }
 
             #endregion
             #region 1_タイトル画面
-            CDTXMania.tテクスチャの解放(ref Title_Background);
-            CDTXMania.tテクスチャの解放(ref Title_Menu);
+            TJAPlayer3.tテクスチャの解放(ref Title_Background);
+            TJAPlayer3.tテクスチャの解放(ref Title_Menu);
             #endregion
 
             #region 2_コンフィグ画面
-            CDTXMania.tテクスチャの解放(ref Config_Background);
-            CDTXMania.tテクスチャの解放(ref Config_Cursor);
-            CDTXMania.tテクスチャの解放(ref Config_ItemBox);
-            CDTXMania.tテクスチャの解放(ref Config_Arrow);
-            CDTXMania.tテクスチャの解放(ref Config_KeyAssign);
-            CDTXMania.tテクスチャの解放(ref Config_Font);
-            CDTXMania.tテクスチャの解放(ref Config_Font_Bold);
-            CDTXMania.tテクスチャの解放(ref Config_Enum_Song);
+            TJAPlayer3.tテクスチャの解放(ref Config_Background);
+            TJAPlayer3.tテクスチャの解放(ref Config_Cursor);
+            TJAPlayer3.tテクスチャの解放(ref Config_ItemBox);
+            TJAPlayer3.tテクスチャの解放(ref Config_Arrow);
+            TJAPlayer3.tテクスチャの解放(ref Config_KeyAssign);
+            TJAPlayer3.tテクスチャの解放(ref Config_Font);
+            TJAPlayer3.tテクスチャの解放(ref Config_Font_Bold);
+            TJAPlayer3.tテクスチャの解放(ref Config_Enum_Song);
             #endregion
 
             #region 3_選曲画面
-            CDTXMania.tテクスチャの解放(ref SongSelect_Background);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Header);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Footer);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Difficulty);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Auto);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Level);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Branch);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Branch_Text);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Bar_Center);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Score);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Box);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_BackBox);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Frame_Random);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Score_Select);
-            CDTXMania.tテクスチャの解放(ref SongSelect_GenreText);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Left);
-            CDTXMania.tテクスチャの解放(ref SongSelect_Cursor_Right);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Background);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Header);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Footer);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Difficulty);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Auto);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Level);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Branch);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Branch_Text);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_Center);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_Score);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_Box);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_BackBox);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Frame_Random);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Score_Select);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_GenreText);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Left);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Right);
             for (int i = 0; i < 9; i++)
             {
-                CDTXMania.tテクスチャの解放(ref SongSelect_Bar_Genre[i]);
+                TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_Genre[i]);
             }
             for (int i = 0; i < (int)Difficulty.Total; i++)
             {
-                CDTXMania.tテクスチャの解放(ref SongSelect_ScoreWindow[i]);
+                TJAPlayer3.tテクスチャの解放(ref SongSelect_ScoreWindow[i]);
             }
 
             for (int i = 0; i < 9; i++)
             {
-                CDTXMania.tテクスチャの解放(ref SongSelect_GenreBack[i]);
+                TJAPlayer3.tテクスチャの解放(ref SongSelect_GenreBack[i]);
             }
-            CDTXMania.tテクスチャの解放(ref SongSelect_ScoreWindow_Text);
+            TJAPlayer3.tテクスチャの解放(ref SongSelect_ScoreWindow_Text);
             #endregion
 
             #region 4_読み込み画面
-            CDTXMania.tテクスチャの解放(ref SongLoading_Plate);
-            CDTXMania.tテクスチャの解放(ref SongLoading_FadeIn);
-            CDTXMania.tテクスチャの解放(ref SongLoading_FadeOut);
+            TJAPlayer3.tテクスチャの解放(ref SongLoading_Plate);
+            TJAPlayer3.tテクスチャの解放(ref SongLoading_FadeIn);
+            TJAPlayer3.tテクスチャの解放(ref SongLoading_FadeOut);
             #endregion
 
             #region 5_演奏画面
             #region 共通
-            CDTXMania.tテクスチャの解放(ref Notes);
-            CDTXMania.tテクスチャの解放(ref Judge_Frame);
-            CDTXMania.tテクスチャの解放(ref SENotes);
-            CDTXMania.tテクスチャの解放(ref Notes_Arm);
-            CDTXMania.tテクスチャの解放(ref Judge);
+            TJAPlayer3.tテクスチャの解放(ref Notes);
+            TJAPlayer3.tテクスチャの解放(ref Judge_Frame);
+            TJAPlayer3.tテクスチャの解放(ref SENotes);
+            TJAPlayer3.tテクスチャの解放(ref Notes_Arm);
+            TJAPlayer3.tテクスチャの解放(ref Judge);
 
-            CDTXMania.tテクスチャの解放(ref Judge_Meter);
-            CDTXMania.tテクスチャの解放(ref Bar);
-            CDTXMania.tテクスチャの解放(ref Bar_Branch);
+            TJAPlayer3.tテクスチャの解放(ref Judge_Meter);
+            TJAPlayer3.tテクスチャの解放(ref Bar);
+            TJAPlayer3.tテクスチャの解放(ref Bar_Branch);
 
             #endregion
             #region キャラクター
 
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Normal; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Normal; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_Normal[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_Normal[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Clear; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Clear; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_Normal_Cleared[i]);
-                CDTXMania.tテクスチャの解放(ref Chara_Normal_Maxed[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_Normal_Cleared[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_Normal_Maxed[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGo; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGo; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_GoGoTime[i]);
-                CDTXMania.tテクスチャの解放(ref Chara_GoGoTime_Maxed[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_GoGoTime[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_GoGoTime_Maxed[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_10combo; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_10combo; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_10Combo[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_10Combo[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_10combo_Max; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_10Combo_Maxed[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_10Combo_Maxed[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGoStart; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_GoGoStart[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_GoGoStart[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_GoGoStart_Maxed[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_GoGoStart_Maxed[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_ClearIn; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_Become_Cleared[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_Become_Cleared[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_SoulIn; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_Become_Maxed[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_Become_Maxed[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Breaking[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_Balloon_Breaking[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Broke[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_Balloon_Broke[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Chara_Ptn_Balloon_Miss; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Chara_Balloon_Miss[i]);
+                TJAPlayer3.tテクスチャの解放(ref Chara_Balloon_Miss[i]);
             }
             #endregion
             #region 踊り子
             for (int i = 0; i < 5; i++)
             {
-                for (int p = 0; p < CDTXMania.Skin.Game_Dancer_Ptn; p++)
+                for (int p = 0; p < TJAPlayer3.Skin.Game_Dancer_Ptn; p++)
                 {
-                    CDTXMania.tテクスチャの解放(ref Dancer[i][p]);
+                    TJAPlayer3.tテクスチャの解放(ref Dancer[i][p]);
                 }
             }
             #endregion
             #region モブ
-            for (int i = 0; i < CDTXMania.Skin.Game_Mob_Ptn; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Mob_Ptn; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Mob[i]);
+                TJAPlayer3.tテクスチャの解放(ref Mob[i]);
             }
             #endregion
             #region フッター
-            CDTXMania.tテクスチャの解放(ref Mob_Footer);
+            TJAPlayer3.tテクスチャの解放(ref Mob_Footer);
             #endregion
             #region 背景
-            CDTXMania.tテクスチャの解放(ref Background);
-            CDTXMania.tテクスチャの解放(ref Background_Up[0]);
-            CDTXMania.tテクスチャの解放(ref Background_Up[1]);
-            CDTXMania.tテクスチャの解放(ref Background_Up_Clear[0]);
-            CDTXMania.tテクスチャの解放(ref Background_Up_Clear[1]);
-            CDTXMania.tテクスチャの解放(ref Background_Down);
-            CDTXMania.tテクスチャの解放(ref Background_Down_Clear);
-            CDTXMania.tテクスチャの解放(ref Background_Down_Scroll);
+            TJAPlayer3.tテクスチャの解放(ref Background);
+            TJAPlayer3.tテクスチャの解放(ref Background_Up[0]);
+            TJAPlayer3.tテクスチャの解放(ref Background_Up[1]);
+            TJAPlayer3.tテクスチャの解放(ref Background_Up_Clear[0]);
+            TJAPlayer3.tテクスチャの解放(ref Background_Up_Clear[1]);
+            TJAPlayer3.tテクスチャの解放(ref Background_Down);
+            TJAPlayer3.tテクスチャの解放(ref Background_Down_Clear);
+            TJAPlayer3.tテクスチャの解放(ref Background_Down_Scroll);
 
             #endregion
             #region 太鼓
-            CDTXMania.tテクスチャの解放(ref Taiko_Background[0]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Background[1]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Frame[0]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Frame[1]);
-            CDTXMania.tテクスチャの解放(ref Taiko_PlayerNumber[0]);
-            CDTXMania.tテクスチャの解放(ref Taiko_PlayerNumber[1]);
-            CDTXMania.tテクスチャの解放(ref Taiko_NamePlate[0]);
-            CDTXMania.tテクスチャの解放(ref Taiko_NamePlate[1]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Base);
-            CDTXMania.tテクスチャの解放(ref Taiko_Don_Left);
-            CDTXMania.tテクスチャの解放(ref Taiko_Don_Right);
-            CDTXMania.tテクスチャの解放(ref Taiko_Ka_Left);
-            CDTXMania.tテクスチャの解放(ref Taiko_Ka_Right);
-            CDTXMania.tテクスチャの解放(ref Taiko_LevelUp);
-            CDTXMania.tテクスチャの解放(ref Taiko_LevelDown);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Background[0]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Background[1]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Frame[0]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Frame[1]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_PlayerNumber[0]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_PlayerNumber[1]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_NamePlate[0]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_NamePlate[1]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Base);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Don_Left);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Don_Right);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Ka_Left);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Ka_Right);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_LevelUp);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_LevelDown);
             for (int i = 0; i < 6; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Couse_Symbol[i]);
+                TJAPlayer3.tテクスチャの解放(ref Couse_Symbol[i]);
             }
-            CDTXMania.tテクスチャの解放(ref Taiko_Score[0]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Score[1]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Score[2]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Combo[0]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Combo[1]);
-            CDTXMania.tテクスチャの解放(ref Taiko_Combo_Effect);
-            CDTXMania.tテクスチャの解放(ref Taiko_Combo_Text);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Score[0]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Score[1]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Score[2]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Combo[0]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Combo[1]);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Combo_Effect);
+            TJAPlayer3.tテクスチャの解放(ref Taiko_Combo_Text);
             #endregion
             #region ゲージ
-            CDTXMania.tテクスチャの解放(ref Gauge[0]);
-            CDTXMania.tテクスチャの解放(ref Gauge[1]);
-            CDTXMania.tテクスチャの解放(ref Gauge_Base[0]);
-            CDTXMania.tテクスチャの解放(ref Gauge_Base[1]);
-            CDTXMania.tテクスチャの解放(ref Gauge_Line[0]);
-            CDTXMania.tテクスチャの解放(ref Gauge_Line[1]);
-            for (int i = 0; i < CDTXMania.Skin.Game_Gauge_Rainbow_Ptn; i++)
+            TJAPlayer3.tテクスチャの解放(ref Gauge[0]);
+            TJAPlayer3.tテクスチャの解放(ref Gauge[1]);
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Base[0]);
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Base[1]);
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Line[0]);
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Line[1]);
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Gauge_Rainbow[i]);
+                TJAPlayer3.tテクスチャの解放(ref Gauge_Rainbow[i]);
             }
-            CDTXMania.tテクスチャの解放(ref Gauge_Soul);
-            CDTXMania.tテクスチャの解放(ref Gauge_Soul_Fire);
-            CDTXMania.tテクスチャの解放(ref Gauge_Soul_Explosion[0]);
-            CDTXMania.tテクスチャの解放(ref Gauge_Soul_Explosion[1]);
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Soul);
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Soul_Fire);
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Soul_Explosion[0]);
+            TJAPlayer3.tテクスチャの解放(ref Gauge_Soul_Explosion[1]);
             #endregion
             #region 吹き出し
-            CDTXMania.tテクスチャの解放(ref Balloon_Combo[0]);
-            CDTXMania.tテクスチャの解放(ref Balloon_Combo[1]);
-            CDTXMania.tテクスチャの解放(ref Balloon_Roll);
-            CDTXMania.tテクスチャの解放(ref Balloon_Balloon);
-            CDTXMania.tテクスチャの解放(ref Balloon_Number_Roll);
-            CDTXMania.tテクスチャの解放(ref Balloon_Number_Combo);
+            TJAPlayer3.tテクスチャの解放(ref Balloon_Combo[0]);
+            TJAPlayer3.tテクスチャの解放(ref Balloon_Combo[1]);
+            TJAPlayer3.tテクスチャの解放(ref Balloon_Roll);
+            TJAPlayer3.tテクスチャの解放(ref Balloon_Balloon);
+            TJAPlayer3.tテクスチャの解放(ref Balloon_Number_Roll);
+            TJAPlayer3.tテクスチャの解放(ref Balloon_Number_Combo);
 
             for (int i = 0; i < 6; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Balloon_Breaking[i]);
+                TJAPlayer3.tテクスチャの解放(ref Balloon_Breaking[i]);
             }
             #endregion
             #region エフェクト
-            CDTXMania.tテクスチャの解放(ref Effects_Hit_Explosion);
-            CDTXMania.tテクスチャの解放(ref  Effects_Hit_Explosion_Big);
-            CDTXMania.tテクスチャの解放(ref Effects_Hit_FireWorks);
+            TJAPlayer3.tテクスチャの解放(ref Effects_Hit_Explosion);
+            TJAPlayer3.tテクスチャの解放(ref  Effects_Hit_Explosion_Big);
+            TJAPlayer3.tテクスチャの解放(ref Effects_Hit_FireWorks);
 
-            CDTXMania.tテクスチャの解放(ref Effects_Fire);
-            CDTXMania.tテクスチャの解放(ref Effects_Rainbow);
+            TJAPlayer3.tテクスチャの解放(ref Effects_Fire);
+            TJAPlayer3.tテクスチャの解放(ref Effects_Rainbow);
 
-            CDTXMania.tテクスチャの解放(ref Effects_GoGoSplash);
+            TJAPlayer3.tテクスチャの解放(ref Effects_GoGoSplash);
 
             for (int i = 0; i < 15; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Effects_Hit_Great[i]);
-                CDTXMania.tテクスチャの解放(ref Effects_Hit_Great_Big[i]);
-                CDTXMania.tテクスチャの解放(ref Effects_Hit_Good[i]);
-                CDTXMania.tテクスチャの解放(ref Effects_Hit_Good_Big[i]);
+                TJAPlayer3.tテクスチャの解放(ref Effects_Hit_Great[i]);
+                TJAPlayer3.tテクスチャの解放(ref Effects_Hit_Great_Big[i]);
+                TJAPlayer3.tテクスチャの解放(ref Effects_Hit_Good[i]);
+                TJAPlayer3.tテクスチャの解放(ref Effects_Hit_Good_Big[i]);
             }
-            for (int i = 0; i < CDTXMania.Skin.Game_Effect_Roll_Ptn; i++)
+            for (int i = 0; i < TJAPlayer3.Skin.Game_Effect_Roll_Ptn; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Effects_Roll[i]);
+                TJAPlayer3.tテクスチャの解放(ref Effects_Roll[i]);
             }
             #endregion
             #region レーン
             for (int i = 0; i < 3; i++)
             {
-                CDTXMania.tテクスチャの解放(ref Lane_Base[i]);
-                CDTXMania.tテクスチャの解放(ref Lane_Text[i]);
+                TJAPlayer3.tテクスチャの解放(ref Lane_Base[i]);
+                TJAPlayer3.tテクスチャの解放(ref Lane_Text[i]);
             }
-            CDTXMania.tテクスチャの解放(ref Lane_Red);
-            CDTXMania.tテクスチャの解放(ref Lane_Blue);
-            CDTXMania.tテクスチャの解放(ref Lane_Yellow);
-            CDTXMania.tテクスチャの解放(ref Lane_Background_Main);
-            CDTXMania.tテクスチャの解放(ref Lane_Background_Sub);
-            CDTXMania.tテクスチャの解放(ref Lane_Background_GoGo);
+            TJAPlayer3.tテクスチャの解放(ref Lane_Red);
+            TJAPlayer3.tテクスチャの解放(ref Lane_Blue);
+            TJAPlayer3.tテクスチャの解放(ref Lane_Yellow);
+            TJAPlayer3.tテクスチャの解放(ref Lane_Background_Main);
+            TJAPlayer3.tテクスチャの解放(ref Lane_Background_Sub);
+            TJAPlayer3.tテクスチャの解放(ref Lane_Background_GoGo);
 
             #endregion
             #region 終了演出
             for (int i = 0; i < 5; i++)
             {
-                CDTXMania.tテクスチャの解放(ref End_Clear_L[i]);
-                CDTXMania.tテクスチャの解放(ref End_Clear_R[i]);
+                TJAPlayer3.tテクスチャの解放(ref End_Clear_L[i]);
+                TJAPlayer3.tテクスチャの解放(ref End_Clear_R[i]);
             }
-            CDTXMania.tテクスチャの解放(ref End_Clear_Text);
-            CDTXMania.tテクスチャの解放(ref End_Clear_Text_Effect);
+            TJAPlayer3.tテクスチャの解放(ref End_Clear_Text);
+            TJAPlayer3.tテクスチャの解放(ref End_Clear_Text_Effect);
             #endregion
             #region ゲームモード
-            CDTXMania.tテクスチャの解放(ref GameMode_Timer_Tick);
-            CDTXMania.tテクスチャの解放(ref GameMode_Timer_Frame);
+            TJAPlayer3.tテクスチャの解放(ref GameMode_Timer_Tick);
+            TJAPlayer3.tテクスチャの解放(ref GameMode_Timer_Frame);
             #endregion
             #region ステージ失敗
-            CDTXMania.tテクスチャの解放(ref Failed_Game);
-            CDTXMania.tテクスチャの解放(ref Failed_Stage);
+            TJAPlayer3.tテクスチャの解放(ref Failed_Game);
+            TJAPlayer3.tテクスチャの解放(ref Failed_Stage);
             #endregion
             #region ランナー
-            CDTXMania.tテクスチャの解放(ref Runner);
+            TJAPlayer3.tテクスチャの解放(ref Runner);
             #endregion
             #region DanC
             DanC_Background?.Dispose();
@@ -804,26 +804,26 @@ namespace TJAPlayer3
             DanC_Screen?.Dispose();
             #endregion
             #region PuchiChara
-            CDTXMania.tテクスチャの解放(ref PuchiChara);
+            TJAPlayer3.tテクスチャの解放(ref PuchiChara);
             #endregion
             #endregion
 
             #region 6_結果発表
-            CDTXMania.tテクスチャの解放(ref Result_Background);
-            CDTXMania.tテクスチャの解放(ref Result_FadeIn);
-            CDTXMania.tテクスチャの解放(ref Result_Gauge);
-            CDTXMania.tテクスチャの解放(ref Result_Gauge_Base);
-            CDTXMania.tテクスチャの解放(ref Result_Judge);
-            CDTXMania.tテクスチャの解放(ref Result_Header);
-            CDTXMania.tテクスチャの解放(ref Result_Number);
-            CDTXMania.tテクスチャの解放(ref Result_Panel);
-            CDTXMania.tテクスチャの解放(ref Result_Score_Text);
-            CDTXMania.tテクスチャの解放(ref Result_Score_Number);
-            CDTXMania.tテクスチャの解放(ref Result_Dan);
+            TJAPlayer3.tテクスチャの解放(ref Result_Background);
+            TJAPlayer3.tテクスチャの解放(ref Result_FadeIn);
+            TJAPlayer3.tテクスチャの解放(ref Result_Gauge);
+            TJAPlayer3.tテクスチャの解放(ref Result_Gauge_Base);
+            TJAPlayer3.tテクスチャの解放(ref Result_Judge);
+            TJAPlayer3.tテクスチャの解放(ref Result_Header);
+            TJAPlayer3.tテクスチャの解放(ref Result_Number);
+            TJAPlayer3.tテクスチャの解放(ref Result_Panel);
+            TJAPlayer3.tテクスチャの解放(ref Result_Score_Text);
+            TJAPlayer3.tテクスチャの解放(ref Result_Score_Number);
+            TJAPlayer3.tテクスチャの解放(ref Result_Dan);
             #endregion
 
             #region 7_終了画面
-            CDTXMania.tテクスチャの解放(ref Exit_Background);
+            TJAPlayer3.tテクスチャの解放(ref Exit_Background);
             #endregion
 
         }

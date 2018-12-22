@@ -32,13 +32,13 @@ namespace TJAPlayer3
 			//if (  )
 			{
 				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, 0 );
-				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( CDTXMania.DTX.LEVEL.Drums, CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.nPerfect数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Perfect : this.nヒット数_Auto含まない.Drums.Perfect;
-				Drums.nGreat数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Great : this.nヒット数_Auto含まない.Drums.Great;
-				Drums.nGood数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Good : this.nヒット数_Auto含まない.Drums.Good;
-				Drums.nPoor数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Poor : this.nヒット数_Auto含まない.Drums.Poor;
-				Drums.nMiss数 = CDTXMania.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Miss : this.nヒット数_Auto含まない.Drums.Miss;
+				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( TJAPlayer3.DTX.LEVEL.Drums, TJAPlayer3.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS, bIsAutoPlay );
+				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( TJAPlayer3.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS, bIsAutoPlay );
+				Drums.nPerfect数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Perfect : this.nヒット数_Auto含まない.Drums.Perfect;
+				Drums.nGreat数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Great : this.nヒット数_Auto含まない.Drums.Great;
+				Drums.nGood数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Good : this.nヒット数_Auto含まない.Drums.Good;
+				Drums.nPoor数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Poor : this.nヒット数_Auto含まない.Drums.Poor;
+				Drums.nMiss数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay ? this.nヒット数_Auto含む.Drums.Miss : this.nヒット数_Auto含まない.Drums.Miss;
 				Drums.nPerfect数_Auto含まない = this.nヒット数_Auto含まない.Drums.Perfect;
 				Drums.nGreat数_Auto含まない = this.nヒット数_Auto含まない.Drums.Great;
 				Drums.nGood数_Auto含まない = this.nヒット数_Auto含まない.Drums.Good;
@@ -46,47 +46,47 @@ namespace TJAPlayer3
 				Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない.Drums.Miss;
                 Drums.n連打数 = this.n合計連打数[ 0 ];
 				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
-				Drums.n全チップ数 = CDTXMania.DTX.n可視チップ数.Drums;
+				Drums.n全チップ数 = TJAPlayer3.DTX.n可視チップ数.Drums;
 				for ( int i = 0; i < (int) Eレーン.MAX;  i++ )
 				{
 					Drums.bAutoPlay[ i ] = bIsAutoPlay[ i ];
 				}
-				Drums.bTight = CDTXMania.ConfigIni.bTight;
+				Drums.bTight = TJAPlayer3.ConfigIni.bTight;
 				for ( int i = 0; i < 3; i++ )
 				{
-					Drums.bSudden[ i ] = CDTXMania.ConfigIni.bSudden[ i ];
-					Drums.bHidden[ i ] = CDTXMania.ConfigIni.bHidden[ i ];
-					Drums.eInvisible[ i ] = CDTXMania.ConfigIni.eInvisible[ i ];
-					Drums.bReverse[ i ] = CDTXMania.ConfigIni.bReverse[ i ];
-					Drums.eRandom[ i ] = CDTXMania.ConfigIni.eRandom[ i ];
-					Drums.bLight[ i ] = CDTXMania.ConfigIni.bLight[ i ];
-					Drums.bLeft[ i ] = CDTXMania.ConfigIni.bLeft[ i ];
-					Drums.f譜面スクロール速度[ i ] = ( (float) ( CDTXMania.ConfigIni.n譜面スクロール速度[ i ] + 1 ) ) * 0.5f;
+					Drums.bSudden[ i ] = TJAPlayer3.ConfigIni.bSudden[ i ];
+					Drums.bHidden[ i ] = TJAPlayer3.ConfigIni.bHidden[ i ];
+					Drums.eInvisible[ i ] = TJAPlayer3.ConfigIni.eInvisible[ i ];
+					Drums.bReverse[ i ] = TJAPlayer3.ConfigIni.bReverse[ i ];
+					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[ i ];
+					Drums.bLight[ i ] = TJAPlayer3.ConfigIni.bLight[ i ];
+					Drums.bLeft[ i ] = TJAPlayer3.ConfigIni.bLeft[ i ];
+					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[ i ] + 1 ) ) * 0.5f;
 				}
-				Drums.eDark = CDTXMania.ConfigIni.eDark;
-				Drums.n演奏速度分子 = CDTXMania.ConfigIni.n演奏速度;
+				Drums.eDark = TJAPlayer3.ConfigIni.eDark;
+				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
 				Drums.n演奏速度分母 = 20;
-				Drums.bSTAGEFAILED有効 = CDTXMania.ConfigIni.bSTAGEFAILED有効;
-				Drums.eダメージレベル = CDTXMania.ConfigIni.eダメージレベル;
+				Drums.bSTAGEFAILED有効 = TJAPlayer3.ConfigIni.bSTAGEFAILED有効;
+				Drums.eダメージレベル = TJAPlayer3.ConfigIni.eダメージレベル;
 				Drums.b演奏にキーボードを使用した = this.b演奏にキーボードを使った.Drums;
 				Drums.b演奏にMIDI入力を使用した = this.b演奏にMIDI入力を使った.Drums;
 				Drums.b演奏にジョイパッドを使用した = this.b演奏にジョイパッドを使った.Drums;
 				Drums.b演奏にマウスを使用した = this.b演奏にマウスを使った.Drums;
-				Drums.nPerfectになる範囲ms = CDTXMania.nPerfect範囲ms;
-				Drums.nGreatになる範囲ms = CDTXMania.nGreat範囲ms;
-				Drums.nGoodになる範囲ms = CDTXMania.nGood範囲ms;
-				Drums.nPoorになる範囲ms = CDTXMania.nPoor範囲ms;
-				Drums.strDTXManiaのバージョン = CDTXMania.VERSION;
+				Drums.nPerfectになる範囲ms = TJAPlayer3.nPerfect範囲ms;
+				Drums.nGreatになる範囲ms = TJAPlayer3.nGreat範囲ms;
+				Drums.nGoodになる範囲ms = TJAPlayer3.nGood範囲ms;
+				Drums.nPoorになる範囲ms = TJAPlayer3.nPoor範囲ms;
+				Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;
 				Drums.最終更新日時 = DateTime.Now.ToString();
 				Drums.Hash = CScoreIni.t演奏セクションのMD5を求めて返す( Drums );
                 Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ 0 ];
-                if( !CDTXMania.ConfigIni.b太鼓パートAutoPlay )
+                if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay )
                 {
-                    Drums.nハイスコア = CDTXMania.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
-                    if( CDTXMania.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ CDTXMania.stage選曲.n確定された曲の難易度 ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
-                        Drums.nハイスコア[ CDTXMania.stage選曲.n確定された曲の難易度 ] = (int)this.actScore.Get( E楽器パート.DRUMS, 0 );
+                    Drums.nハイスコア = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
+                    if( TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度 ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
+                        Drums.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度 ] = (int)this.actScore.Get( E楽器パート.DRUMS, 0 );
                 }
-                var danC = CDTXMania.stage演奏ドラム画面.actDan.GetExam();
+                var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
                 for (int i = 0; i < danC.Length; i++)
                 {
                     Drums.Dan_C[i] = danC[i];
@@ -102,8 +102,8 @@ namespace TJAPlayer3
 			//if ( CDTXMania.DTX.bチップがある.Drums )
 			{
 				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, 0 );
-				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( CDTXMania.DTX.LEVEL.Drums, CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P2, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS, bIsAutoPlay );
+				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( TJAPlayer3.DTX.LEVEL.Drums, TJAPlayer3.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.actCombo.n現在のコンボ数.P2, E楽器パート.DRUMS, bIsAutoPlay );
+				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( TJAPlayer3.DTX.n可視チップ数.Drums, this.nヒット数_Auto含まない.Drums.Perfect, this.nヒット数_Auto含まない.Drums.Great, this.nヒット数_Auto含まない.Drums.Good, this.nヒット数_Auto含まない.Drums.Poor, this.nヒット数_Auto含まない.Drums.Miss, E楽器パート.DRUMS, bIsAutoPlay );
 				Drums.nPerfect数 = this.nヒット数_Auto含まない.Taiko.Perfect;
 				Drums.nGreat数 = this.nヒット数_Auto含まない.Taiko.Great;
 				Drums.nGood数 = this.nヒット数_Auto含まない.Taiko.Good;
@@ -116,37 +116,37 @@ namespace TJAPlayer3
 				Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない.Taiko.Miss;
                 Drums.n連打数 = this.n合計連打数[ 0 ];
 				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P2;
-				Drums.n全チップ数 = CDTXMania.DTX.nノーツ数[ 3 ];
+				Drums.n全チップ数 = TJAPlayer3.DTX.nノーツ数[ 3 ];
 				for ( int i = 0; i < (int) Eレーン.MAX;  i++ )
 				{
-					Drums.bAutoPlay[ i ] = CDTXMania.ConfigIni.b太鼓パートAutoPlay;
+					Drums.bAutoPlay[ i ] = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay;
 				}
-				Drums.bTight = CDTXMania.ConfigIni.bTight;
+				Drums.bTight = TJAPlayer3.ConfigIni.bTight;
 				for ( int i = 0; i < 3; i++ )
 				{
-					Drums.bSudden[ i ] = CDTXMania.ConfigIni.bSudden[ i ];
-					Drums.bHidden[ i ] = CDTXMania.ConfigIni.bHidden[ i ];
-					Drums.eInvisible[ i ] = CDTXMania.ConfigIni.eInvisible[ i ];
-					Drums.bReverse[ i ] = CDTXMania.ConfigIni.bReverse[ i ];
-					Drums.eRandom[ i ] = CDTXMania.ConfigIni.eRandom[ i ];
-					Drums.bLight[ i ] = CDTXMania.ConfigIni.bLight[ i ];
-					Drums.bLeft[ i ] = CDTXMania.ConfigIni.bLeft[ i ];
-					Drums.f譜面スクロール速度[ i ] = ( (float) ( CDTXMania.ConfigIni.n譜面スクロール速度[ i ] + 1 ) ) * 0.5f;
+					Drums.bSudden[ i ] = TJAPlayer3.ConfigIni.bSudden[ i ];
+					Drums.bHidden[ i ] = TJAPlayer3.ConfigIni.bHidden[ i ];
+					Drums.eInvisible[ i ] = TJAPlayer3.ConfigIni.eInvisible[ i ];
+					Drums.bReverse[ i ] = TJAPlayer3.ConfigIni.bReverse[ i ];
+					Drums.eRandom[ i ] = TJAPlayer3.ConfigIni.eRandom[ i ];
+					Drums.bLight[ i ] = TJAPlayer3.ConfigIni.bLight[ i ];
+					Drums.bLeft[ i ] = TJAPlayer3.ConfigIni.bLeft[ i ];
+					Drums.f譜面スクロール速度[ i ] = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[ i ] + 1 ) ) * 0.5f;
 				}
-				Drums.eDark = CDTXMania.ConfigIni.eDark;
-				Drums.n演奏速度分子 = CDTXMania.ConfigIni.n演奏速度;
+				Drums.eDark = TJAPlayer3.ConfigIni.eDark;
+				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
 				Drums.n演奏速度分母 = 20;
-				Drums.bSTAGEFAILED有効 = CDTXMania.ConfigIni.bSTAGEFAILED有効;
-				Drums.eダメージレベル = CDTXMania.ConfigIni.eダメージレベル;
+				Drums.bSTAGEFAILED有効 = TJAPlayer3.ConfigIni.bSTAGEFAILED有効;
+				Drums.eダメージレベル = TJAPlayer3.ConfigIni.eダメージレベル;
 				Drums.b演奏にキーボードを使用した = this.b演奏にキーボードを使った.Drums;
 				Drums.b演奏にMIDI入力を使用した = this.b演奏にMIDI入力を使った.Drums;
 				Drums.b演奏にジョイパッドを使用した = this.b演奏にジョイパッドを使った.Drums;
 				Drums.b演奏にマウスを使用した = this.b演奏にマウスを使った.Drums;
-				Drums.nPerfectになる範囲ms = CDTXMania.nPerfect範囲ms;
-				Drums.nGreatになる範囲ms = CDTXMania.nGreat範囲ms;
-				Drums.nGoodになる範囲ms = CDTXMania.nGood範囲ms;
-				Drums.nPoorになる範囲ms = CDTXMania.nPoor範囲ms;
-				Drums.strDTXManiaのバージョン = CDTXMania.VERSION;
+				Drums.nPerfectになる範囲ms = TJAPlayer3.nPerfect範囲ms;
+				Drums.nGreatになる範囲ms = TJAPlayer3.nGreat範囲ms;
+				Drums.nGoodになる範囲ms = TJAPlayer3.nGood範囲ms;
+				Drums.nPoorになる範囲ms = TJAPlayer3.nPoor範囲ms;
+				Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;
 				Drums.最終更新日時 = DateTime.Now.ToString();
 				Drums.Hash = CScoreIni.t演奏セクションのMD5を求めて返す( Drums );
                 Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ 0 ];
@@ -159,15 +159,15 @@ namespace TJAPlayer3
 		public override void On活性化()
 		{
             listChip = new List<CDTX.CChip>[ 4 ];
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
                 switch( i )
                 {
                     case 0:
-			            listChip[i] = CDTXMania.DTX.listChip;
+			            listChip[i] = TJAPlayer3.DTX.listChip;
                         break;
                     case 1:
-			            listChip[i] = CDTXMania.DTX_2P.listChip;
+			            listChip[i] = TJAPlayer3.DTX_2P.listChip;
                         break;
                 }
 
@@ -195,7 +195,7 @@ namespace TJAPlayer3
                 ctChipAnimeLag[i] = new CCounter();
             }
 
-            listWAV = CDTXMania.DTX.listWAV;
+            listWAV = TJAPlayer3.DTX.listWAV;
 
 			this.eフェードアウト完了時の戻り値 = E演奏画面の戻り値.継続;
 			this.n現在のトップChip = ( listChip[0].Count > 0 ) ? 0 : -1;
@@ -208,7 +208,7 @@ namespace TJAPlayer3
 				this.n最後に再生したBGMの実WAV番号[ i ] = -1;
 			}
 
-			cInvisibleChip = new CInvisibleChip( CDTXMania.ConfigIni.nDisplayTimesMs, CDTXMania.ConfigIni.nFadeoutTimeMs );
+			cInvisibleChip = new CInvisibleChip( TJAPlayer3.ConfigIni.nDisplayTimesMs, TJAPlayer3.ConfigIni.nFadeoutTimeMs );
 			this.演奏判定ライン座標 = new C演奏判定ライン座標共通();
 			for ( int k = 0; k < 4; k++ )
 			{
@@ -219,17 +219,17 @@ namespace TJAPlayer3
 				//}
 				this.queWailing[ k ] = new Queue<CDTX.CChip>();
 				this.r現在の歓声Chip[ k ] = null;
-				cInvisibleChip.eInvisibleMode[ k ] = CDTXMania.ConfigIni.eInvisible[ k ];
-				if ( CDTXMania.DTXVmode.Enabled )
+				cInvisibleChip.eInvisibleMode[ k ] = TJAPlayer3.ConfigIni.eInvisible[ k ];
+				if ( TJAPlayer3.DTXVmode.Enabled )
 				{
-					CDTXMania.ConfigIni.n譜面スクロール速度[ k ] = CDTXMania.ConfigIni.nViewerScrollSpeed[ k ];
+					TJAPlayer3.ConfigIni.n譜面スクロール速度[ k ] = TJAPlayer3.ConfigIni.nViewerScrollSpeed[ k ];
 				}
 
 				//this.nJudgeLinePosY_delta[ k ] = CDTXMania.ConfigIni.nJudgeLinePosOffset[ k ];		// #31602 2013.6.23 yyagi
 
-				this.演奏判定ライン座標.n判定位置[ k ] = CDTXMania.ConfigIni.e判定位置[ k ];
-				this.演奏判定ライン座標.nJudgeLinePosY_delta[ k ] = CDTXMania.ConfigIni.nJudgeLinePosOffset[ k ];
-				this.bReverse[ k ]             = CDTXMania.ConfigIni.bReverse[ k ];					//
+				this.演奏判定ライン座標.n判定位置[ k ] = TJAPlayer3.ConfigIni.e判定位置[ k ];
+				this.演奏判定ライン座標.nJudgeLinePosY_delta[ k ] = TJAPlayer3.ConfigIni.nJudgeLinePosOffset[ k ];
+				this.bReverse[ k ]             = TJAPlayer3.ConfigIni.bReverse[ k ];					//
 
 			}
 			actCombo.演奏判定ライン座標 = 演奏判定ライン座標;
@@ -258,7 +258,7 @@ namespace TJAPlayer3
             this.nJPOSSCROLL = new int[ 4 ];
             this.bLEVELHOLD = new bool[]{ false, false, false, false };
 
-            this.bDoublePlay = CDTXMania.ConfigIni.nPlayerCount >= 2 ? true : false;
+            this.bDoublePlay = TJAPlayer3.ConfigIni.nPlayerCount >= 2 ? true : false;
 
             this.nLoopCount_Clear = 1;
 
@@ -269,32 +269,32 @@ namespace TJAPlayer3
             this.nBranch_roll = new int[]{ 0, 0, 0, 0 };
             #endregion
 
-            this.bIsAutoPlay = CDTXMania.ConfigIni.bAutoPlay;									// #24239 2011.1.23 yyagi
+            this.bIsAutoPlay = TJAPlayer3.ConfigIni.bAutoPlay;									// #24239 2011.1.23 yyagi
 
 			
 			//this.bIsAutoPlay.Guitar = CDTXMania.ConfigIni.bギターが全部オートプレイである;
 			//this.bIsAutoPlay.Bass = CDTXMania.ConfigIni.bベースが全部オートプレイである;
 //			this.nRisky = CDTXMania.ConfigIni.nRisky;											// #23559 2011.7.28 yyagi
-			actGauge.Init( CDTXMania.ConfigIni.nRisky );									// #23559 2011.7.28 yyagi
-			this.nPolyphonicSounds = CDTXMania.ConfigIni.nPoliphonicSounds;
-			e判定表示優先度 = CDTXMania.ConfigIni.e判定表示優先度;
+			actGauge.Init( TJAPlayer3.ConfigIni.nRisky );									// #23559 2011.7.28 yyagi
+			this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
+			e判定表示優先度 = TJAPlayer3.ConfigIni.e判定表示優先度;
 
-			CDTXMania.Skin.tRemoveMixerAll();	// 効果音のストリームをミキサーから解除しておく
+			TJAPlayer3.Skin.tRemoveMixerAll();	// 効果音のストリームをミキサーから解除しておく
 
 			queueMixerSound = new Queue<stmixer>( 64 );
-			bIsDirectSound = ( CDTXMania.Sound管理.GetCurrentSoundDeviceType() == "DirectSound" );
-			bUseOSTimer = CDTXMania.ConfigIni.bUseOSTimer;
+			bIsDirectSound = ( TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() == "DirectSound" );
+			bUseOSTimer = TJAPlayer3.ConfigIni.bUseOSTimer;
 			this.bPAUSE = false;
-			if ( CDTXMania.DTXVmode.Enabled )
+			if ( TJAPlayer3.DTXVmode.Enabled )
 			{
-				db再生速度 = CDTXMania.DTX.dbDTXVPlaySpeed;
-				CDTXMania.ConfigIni.n演奏速度 = (int) (CDTXMania.DTX.dbDTXVPlaySpeed * 20 + 0.5 );
+				db再生速度 = TJAPlayer3.DTX.dbDTXVPlaySpeed;
+				TJAPlayer3.ConfigIni.n演奏速度 = (int) (TJAPlayer3.DTX.dbDTXVPlaySpeed * 20 + 0.5 );
 			}
 			else
 			{
-				db再生速度 = ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0;
+				db再生速度 = ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0;
 			}
-			bValidScore = ( CDTXMania.DTXVmode.Enabled ) ? false : true;
+			bValidScore = ( TJAPlayer3.DTXVmode.Enabled ) ? false : true;
 
 			#region [ 演奏開始前にmixer登録しておくべきサウンド(開幕してすぐに鳴らすことになるチップ音)を登録しておく ]
 			foreach ( CDTX.CChip pChip in listChip[0] )
@@ -312,7 +312,7 @@ namespace TJAPlayer3
 							{
 								if ( wc.rSound[ i ] != null )
 								{
-									CDTXMania.Sound管理.AddMixer( wc.rSound[ i ], db再生速度, pChip.b演奏終了後も再生が続くチップである );
+									TJAPlayer3.Sound管理.AddMixer( wc.rSound[ i ], db再生速度, pChip.b演奏終了後も再生が続くチップである );
 									//AddMixer( wc.rSound[ i ] );		// 最初はqueueを介さず直接ミキサー登録する
 								}
 							}
@@ -363,12 +363,12 @@ namespace TJAPlayer3
 
 			var meanLag = CLagLogger.LogAndReturnMeanLag();
 
-			if (CDTXMania.IsPerformingCalibration && meanLag != null)
+			if (TJAPlayer3.IsPerformingCalibration && meanLag != null)
 			{
-			    var oldInputAdjustTimeMs = CDTXMania.ConfigIni.nInputAdjustTimeMs;
+			    var oldInputAdjustTimeMs = TJAPlayer3.ConfigIni.nInputAdjustTimeMs;
 			    var newInputAdjustTimeMs = oldInputAdjustTimeMs - (int) Math.Round(meanLag.Value);
 			    Trace.TraceInformation($"Calibration complete. Updating InputAdjustTime from {oldInputAdjustTimeMs}ms to {newInputAdjustTimeMs}ms.");
-			    CDTXMania.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
+			    TJAPlayer3.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
 			}
 
 			base.On非活性化();
@@ -385,7 +385,7 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.tx背景 );
+				TJAPlayer3.tテクスチャの解放( ref this.tx背景 );
                 Trace.TraceInformation("CStage演奏画面共通 リソースの開放");
                 base.OnManagedリソースの解放();
 			}
@@ -801,11 +801,11 @@ namespace TJAPlayer3
 						stmixer stm = queueMixerSound.Dequeue();
 						if ( stm.bIsAdd )
 						{
-							CDTXMania.Sound管理.AddMixer( stm.csound, db再生速度, stm.b演奏終了後も再生が続くチップである );
+							TJAPlayer3.Sound管理.AddMixer( stm.csound, db再生速度, stm.b演奏終了後も再生が続くチップである );
 						}
 						else
 						{
-							CDTXMania.Sound管理.RemoveMixer( stm.csound );
+							TJAPlayer3.Sound管理.RemoveMixer( stm.csound );
 						}
 					}
 				}
@@ -827,7 +827,7 @@ namespace TJAPlayer3
 	        // current (and soon to be replaced) input adjust time values.
 	        // Instead, we want them focused on the sounds of their keyboard, tatacon,
 	        // other controller, etc. and the visuals of notes crossing the judgment position.
-	        if (CDTXMania.IsPerformingCalibration)
+	        if (TJAPlayer3.IsPerformingCalibration)
 	        {
 	            return e判定 < E判定.Good ? E判定.Good : e判定;
 	        }
@@ -859,17 +859,17 @@ namespace TJAPlayer3
 					    return E判定.Perfect;
 				    }
                 }
-				if ( nDeltaTime <= CDTXMania.nPerfect範囲ms )
+				if ( nDeltaTime <= TJAPlayer3.nPerfect範囲ms )
 				{
 					return E判定.Perfect;
 				}
-				if ( nDeltaTime <= CDTXMania.nGood範囲ms )
+				if ( nDeltaTime <= TJAPlayer3.nGood範囲ms )
 				{
-                    if( CDTXMania.ConfigIni.bJust )
+                    if( TJAPlayer3.ConfigIni.bJust )
                         return E判定.Poor;
 					return E判定.Good;
 				}
-				if ( nDeltaTime <= CDTXMania.nPoor範囲ms )
+				if ( nDeltaTime <= TJAPlayer3.nPoor範囲ms )
 				{
 					return E判定.Poor;
 				}
@@ -1080,13 +1080,13 @@ namespace TJAPlayer3
 
 		protected void tステータスパネルの選択()
 		{
-			if ( CDTXMania.bコンパクトモード )
+			if ( TJAPlayer3.bコンパクトモード )
 			{
 				this.actStatusPanels.tラベル名からステータスパネルを決定する( null );
 			}
-			else if ( CDTXMania.stage選曲.r確定された曲 != null )
+			else if ( TJAPlayer3.stage選曲.r確定された曲 != null )
 			{
-				this.actStatusPanels.tラベル名からステータスパネルを決定する( CDTXMania.stage選曲.r確定された曲.ar難易度ラベル[ CDTXMania.stage選曲.n確定された曲の難易度 ] );
+				this.actStatusPanels.tラベル名からステータスパネルを決定する( TJAPlayer3.stage選曲.r確定された曲.ar難易度ラベル[ TJAPlayer3.stage選曲.n確定された曲の難易度 ] );
 			}
 		}
 
@@ -1104,12 +1104,12 @@ namespace TJAPlayer3
                 this.b連打中[ nPlayer ] = true;
                 if(this.actRoll.ct連打アニメ[nPlayer].b終了値に達してない)
                 {
-                    this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, CDTXMania.Timer);
+                    this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
                     this.actRoll.ct連打アニメ[nPlayer].n現在の値 = 1;
                 }
                 else
                 {
-                    this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, CDTXMania.Timer);
+                    this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
                 }
 
 
@@ -1117,11 +1117,11 @@ namespace TJAPlayer3
                 if(pChip.RollEffectLevel >= 100)
                 {
                     pChip.RollEffectLevel = 100;
-                    pChip.RollInputTime = new CCounter(0, 1500, 1, CDTXMania.Timer);
+                    pChip.RollInputTime = new CCounter(0, 1500, 1, TJAPlayer3.Timer);
                     pChip.RollDelay?.t停止();
                 } else
                 {
-                    pChip.RollInputTime = new CCounter(0, 150, 1, CDTXMania.Timer);
+                    pChip.RollInputTime = new CCounter(0, 150, 1, TJAPlayer3.Timer);
                     pChip.RollDelay?.t停止(); 
                 }
 
@@ -1135,13 +1135,13 @@ namespace TJAPlayer3
                 this.n現在の連打数[ nPlayer ]++;
                 this.nBranch_roll[ nPlayer ]++;
                 this.n合計連打数[ nPlayer ]++;
-                if(CDTXMania.stage選曲.n確定された曲の難易度 != (int)Difficulty.Dan) this.actRollChara.Start(nPlayer);
+                if(TJAPlayer3.stage選曲.n確定された曲の難易度 != (int)Difficulty.Dan) this.actRollChara.Start(nPlayer);
 
                 //2017.01.28 DD CDTXから直接呼び出す
-                if (pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+                if (pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                 {
                     // 旧配点・旧筐体配点
-                    if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
+                    if( TJAPlayer3.DTX.nScoreModeTmp == 0 || TJAPlayer3.DTX.nScoreModeTmp == 1 )
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
                             this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, (long)( 300 * 1.2f ), nPlayer );
@@ -1160,7 +1160,7 @@ namespace TJAPlayer3
                 else
                 {
                     // 旧配点・旧筐体配点
-                    if( CDTXMania.DTX.nScoreModeTmp == 0 || CDTXMania.DTX.nScoreModeTmp == 1 )
+                    if( TJAPlayer3.DTX.nScoreModeTmp == 0 || TJAPlayer3.DTX.nScoreModeTmp == 1 )
                     {
                         if( pChip.nチャンネル番号 == 0x15 )
                             this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 300L, nPlayer );
@@ -1186,13 +1186,13 @@ namespace TJAPlayer3
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 1, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(1, nPlayer, true);
+                        TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(1, nPlayer, true);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundRed.t再生する();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer, true);
+                        TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer, true);
                     }
                 }
                 else
@@ -1202,17 +1202,17 @@ namespace TJAPlayer3
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 2, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(2, nPlayer, true);
+                        TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(2, nPlayer, true);
                     }
                     else
                     {
                         //CDTXMania.Skin.soundBlue.t再生する();
                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 4, nPlayer );
-                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(4, nPlayer, true);
+                        TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(4, nPlayer, true);
                     }
                 }
 
-                CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
+                TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
             }
             else
             {
@@ -1238,17 +1238,17 @@ namespace TJAPlayer3
                 {
                     actChara.アクションタイマーリセット();
                     actChara.bマイどんアクション中 = true;
-                    actChara.CharaAction_Balloon_Breaking = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Breaking - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
+                    actChara.CharaAction_Balloon_Breaking = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking - 1, TJAPlayer3.Skin.Game_Chara_Balloon_Timer, TJAPlayer3.Timer);
                    
                 }
                 if (this.actBalloon.ct風船アニメ[player].b終了値に達してない)
                 {
-                    this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, CDTXMania.Timer);
+                    this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
                     this.actBalloon.ct風船アニメ[player].n現在の値 = 1;
                 }
                 else
                 {
-                    this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, CDTXMania.Timer);
+                    this.actBalloon.ct風船アニメ[player] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
                 }
                 this.eRollState = E連打State.balloon;
                 pChip.nRollCount++;
@@ -1261,12 +1261,12 @@ namespace TJAPlayer3
                 if ( pChip.nBalloon == pChip.nRollCount )
                 {
                     //ﾊﾟｧｰﾝ
-                    CDTXMania.Skin.soundBalloon.t再生する();
+                    TJAPlayer3.Skin.soundBalloon.t再生する();
                     //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, player ); //ここで飛ばす。飛ばされるのは大音符のみ。
-                    CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(3, player);
-                    CDTXMania.stage演奏ドラム画面.Rainbow.Start( player );
+                    TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(3, player);
+                    TJAPlayer3.stage演奏ドラム画面.Rainbow.Start( player );
                     //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
-                    if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
+                    if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 6000L, player);
                     } else
@@ -1283,14 +1283,14 @@ namespace TJAPlayer3
                     {
                         actChara.アクションタイマーリセット();
                         actChara.bマイどんアクション中 = true;
-                        actChara.CharaAction_Balloon_Broke = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_Balloon_Broke - 1, CDTXMania.Skin.Game_Chara_Balloon_Timer, CDTXMania.Timer);
-                        if(actChara.CharaAction_Balloon_Delay != null )actChara.CharaAction_Balloon_Delay = new CCounter(0, CDTXMania.Skin.Game_Chara_Balloon_Delay - 1, 1, CDTXMania.Timer);
+                        actChara.CharaAction_Balloon_Broke = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke - 1, TJAPlayer3.Skin.Game_Chara_Balloon_Timer, TJAPlayer3.Timer);
+                        if(actChara.CharaAction_Balloon_Delay != null )actChara.CharaAction_Balloon_Delay = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Balloon_Delay - 1, 1, TJAPlayer3.Timer);
                     }
                     this.eRollState = E連打State.none;
                 }
                 else
                 {
-                    if(pChip.bGOGOTIME && !CDTXMania.ConfigIni.ShinuchiMode)
+                    if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode)
                     {
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 360L, player);
                     } else
@@ -1300,7 +1300,7 @@ namespace TJAPlayer3
                     //CDTXMania.Skin.soundRed.t再生する();
                     this.soundRed?.t再生を開始する();
                 }
-                CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[player].Start(PlayerLane.FlashType.Hit);
+                TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[player].Start(PlayerLane.FlashType.Hit);
             }
             else
             {
@@ -1339,10 +1339,10 @@ namespace TJAPlayer3
             switch( nPlayer )
             {
                 case 0:
-                    bAutoPlay = CDTXMania.ConfigIni.b太鼓パートAutoPlay;
+                    bAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay;
                     break;
                 case 1:
-                    bAutoPlay = CDTXMania.ConfigIni.b太鼓パートAutoPlay2P;
+                    bAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay2P;
                     break;
             }
 
@@ -1388,7 +1388,7 @@ namespace TJAPlayer3
                             this.b連打中[ nPlayer ] = true;
                             if( bAutoPlay )
                             {
-                                if( CDTXMania.ConfigIni.bAuto先生の連打 )
+                                if( TJAPlayer3.ConfigIni.bAuto先生の連打 )
                                 {
                                     if( CSound管理.rc演奏用タイマ.n現在時刻ms > ( pChip.n発声時刻ms + ( 1000.0 / 15.0 ) * pChip.nRollCount ) )
                                     {
@@ -1397,10 +1397,10 @@ namespace TJAPlayer3
                                         else
                                             this.nHand[ nPlayer ] = 0;
 
-                                        CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
+                                        TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
                                         //CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer );
-                                        CDTXMania.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
-                                        CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
+                                        TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
+                                        TJAPlayer3.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
 
                                         this.tRollProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, 1, 0, 0, nPlayer );
@@ -1450,8 +1450,8 @@ namespace TJAPlayer3
                                         else
                                             this.nHand[ nPlayer ] = 0;
 
-                                        CDTXMania.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
-                                        CDTXMania.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
+                                        TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
+                                        TJAPlayer3.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
                                 
                                         this.tBalloonProcess( pChip, CSound管理.rc演奏用タイマ.n現在時刻ms, nPlayer );
                                     }
@@ -1479,8 +1479,8 @@ namespace TJAPlayer3
                             if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
                             {
 	    					    this.actJudgeString.Start( 0, E判定.Bad, pChip.nLag, pChip, nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( 0x11, eJudgeResult, true, nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0x11, eJudgeResult, nPlayer );
+                                TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start( 0x11, eJudgeResult, true, nPlayer );
+                                TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start( 0x11, eJudgeResult, nPlayer );
                             }
                             break;
                         }
@@ -1495,10 +1495,10 @@ namespace TJAPlayer3
                         if( eJudgeResult != E判定.Auto && eJudgeResult != E判定.Miss )
                         {
 						    this.actJudgeString.Start( 0, bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
-                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true, nPlayer );
-                            CDTXMania.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult, nPlayer );
+                            TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true, nPlayer );
+                            TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult, nPlayer );
 
-                            if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
+                            if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay ? true : ( nNowInput == 2 || nNowInput == 3 ) )
                             {
                                 //if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x1A )
                                 //    //CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
@@ -1527,17 +1527,17 @@ namespace TJAPlayer3
 
             if ( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
             {
-                double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
+                double dbUnit = (((60.0 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))));
 
                 // ランナー(たたけたやつ)
                 this.actRunner.Start(nPlayer, false, pChip);
 
                 if ((int)actGauge.db現在のゲージ値[nPlayer] >= 100 && this.bIsAlreadyMaxed[nPlayer] == false)
                 {
-                    if(CDTXMania.Skin.Game_Chara_Ptn_SoulIn != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
+                    if(TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                     {
                         this.actChara.アクションタイマーリセット();
-                        this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_SoulIn - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_SoulIn) * 2, CSound管理.rc演奏用タイマ);
+                        this.actChara.ctキャラクターアクション_魂MAX = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn) * 2, CSound管理.rc演奏用タイマ);
                         this.actChara.ctキャラクターアクション_魂MAX.t進行db();
                         this.actChara.ctキャラクターアクション_魂MAX.db現在の値 = 0D;
                         this.actChara.bマイどんアクション中 = true;
@@ -1546,16 +1546,16 @@ namespace TJAPlayer3
                 }
                 if ((int)actGauge.db現在のゲージ値[nPlayer] >= 80 && this.bIsAlreadyCleared[nPlayer] == false)
                 {
-                    if(CDTXMania.Skin.Game_Chara_Ptn_ClearIn != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
+                    if(TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                     {
                         this.actChara.アクションタイマーリセット();
-                        this.actChara.ctキャラクターアクション_ノルマ = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_ClearIn - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_ClearIn) * 2, CSound管理.rc演奏用タイマ);
+                        this.actChara.ctキャラクターアクション_ノルマ = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn) * 2, CSound管理.rc演奏用タイマ);
                         this.actChara.ctキャラクターアクション_ノルマ.t進行db();
                         this.actChara.ctキャラクターアクション_ノルマ.db現在の値 = 0D;
                         this.actChara.bマイどんアクション中 = true;
                     }
                     this.bIsAlreadyCleared[nPlayer] = true;
-                    CDTXMania.stage演奏ドラム画面.actBackground.ClearIn(nPlayer);
+                    TJAPlayer3.stage演奏ドラム画面.actBackground.ClearIn(nPlayer);
                 }
             }
 
@@ -1700,7 +1700,7 @@ namespace TJAPlayer3
                         }
                         this.actComboVoice.t再生( this.actCombo.n現在のコンボ数[ nPlayer ], nPlayer );
 
-                        double dbUnit = (((60.0 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))));
+                        double dbUnit = (((60.0 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))));
                         dbUnit = (((60.0 / pChip.dbBPM)));
 
                         //CDTXMania.act文字コンソール.tPrint(620, 80, C文字コンソール.Eフォント種別.白, "BPM: " + dbUnit.ToString());
@@ -1709,7 +1709,7 @@ namespace TJAPlayer3
                         {
                             if (this.actCombo.n現在のコンボ数[i] == 50 || this.actCombo.n現在のコンボ数[i] == 300)
                             {
-                                ctChipAnimeLag[i] = new CCounter(0, 664, 1, CDTXMania.Timer);
+                                ctChipAnimeLag[i] = new CCounter(0, 664, 1, TJAPlayer3.Timer);
                             }
                         }
 
@@ -1719,28 +1719,28 @@ namespace TJAPlayer3
                             //{
                                 if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
                                 {
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_ノルマ.b進行中db && actChara.CharaAction_Balloon_Delay.b終了値に達した)
+                                    if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_ノルマ.b進行中db && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                     {
-                                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
+                                        if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                         {
                                             // 魂ゲージMAXではない
                                             // ジャンプ_ノーマル
                                             this.actChara.アクションタイマーリセット();
-                                            this.actChara.ctキャラクターアクション_10コンボ = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_10combo - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_10combo) * 2, CSound管理.rc演奏用タイマ);
+                                            this.actChara.ctキャラクターアクション_10コンボ = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo) * 2, CSound管理.rc演奏用タイマ);
                                             this.actChara.ctキャラクターアクション_10コンボ.t進行db();
                                             this.actChara.ctキャラクターアクション_10コンボ.db現在の値 = 0D;
                                             this.actChara.bマイどんアクション中 = true;
                                             //this.actChara.マイどん_アクション_10コンボ();
                                         }
                                     }
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_魂MAX.b進行中db && actChara.CharaAction_Balloon_Delay.b終了値に達した)
+                                    if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max != 0 && nPlayer == 0 && !this.actChara.ctキャラクターアクション_魂MAX.b進行中db && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                     {
-                                        if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
+                                        if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                         {
                                             // 魂ゲージMAX
                                             // ジャンプ_MAX
                                             this.actChara.アクションタイマーリセット();
-                                            this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_10combo_Max - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_10combo_Max) * 2, CSound管理.rc演奏用タイマ);
+                                            this.actChara.ctキャラクターアクション_10コンボMAX = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max) * 2, CSound管理.rc演奏用タイマ);
                                             this.actChara.ctキャラクターアクション_10コンボMAX.t進行db();
                                             this.actChara.ctキャラクターアクション_10コンボMAX.db現在の値 = 0D;
                                             this.actChara.bマイどんアクション中 = true;
@@ -1795,13 +1795,13 @@ namespace TJAPlayer3
 			if ( ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) ) && ( eJudgeResult != E判定.Miss ) && ( eJudgeResult != E判定.Bad ) && ( eJudgeResult != E判定.Poor ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
 			{
 				int nCombos = this.actCombo.n現在のコンボ数[ nPlayer ];
-                long nInit = CDTXMania.DTX.nScoreInit[ 0, CDTXMania.stage選曲.n確定された曲の難易度 ];
-                long nDiff = CDTXMania.DTX.nScoreDiff[ CDTXMania.stage選曲.n確定された曲の難易度 ];
+                long nInit = TJAPlayer3.DTX.nScoreInit[ 0, TJAPlayer3.stage選曲.n確定された曲の難易度 ];
+                long nDiff = TJAPlayer3.DTX.nScoreDiff[ TJAPlayer3.stage選曲.n確定された曲の難易度 ];
                 long nAddScore = 0;
 
-                if( CDTXMania.ConfigIni.ShinuchiMode )  //2016.07.04 kairera0467 真打モード。
+                if( TJAPlayer3.ConfigIni.ShinuchiMode )  //2016.07.04 kairera0467 真打モード。
                 {
-                    nAddScore = CDTXMania.DTX.nScoreInit[ 1, CDTXMania.stage選曲.n確定された曲の難易度 ];
+                    nAddScore = TJAPlayer3.DTX.nScoreInit[ 1, TJAPlayer3.stage選曲.n確定された曲の難易度 ];
                     if( nAddScore == 0 )
                     {
                         //可の時に0除算をするとエラーが発生するため、それらしい数値を自動算出する。
@@ -1827,7 +1827,7 @@ namespace TJAPlayer3
 
                     this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
                 }
-                else if( CDTXMania.DTX.nScoreModeTmp == 2 )
+                else if( TJAPlayer3.DTX.nScoreModeTmp == 2 )
                 {
                     if( nCombos < 10 )
                     {
@@ -1869,7 +1869,7 @@ namespace TJAPlayer3
                             this.actScore.BonusAdd(nPlayer);
                         }
                         this.actScore.ctボーナス加算タイマ[nPlayer].n現在の値 = 0;
-                        this.actScore.ctボーナス加算タイマ[nPlayer] = new CCounter(0, 2, 1000, CDTXMania.Timer);
+                        this.actScore.ctボーナス加算タイマ[nPlayer] = new CCounter(0, 2, 1000, TJAPlayer3.Timer);
 
                         //combot = new System.Timers.Timer();
                         //if(nPlayer == 0)
@@ -1896,7 +1896,7 @@ namespace TJAPlayer3
                     this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
                     //this.actScore.Add( E楽器パート.DRUMS, bIsAutoPlay, nAddScore );
                 }
-                else if( CDTXMania.DTX.nScoreModeTmp == 1 )
+                else if( TJAPlayer3.DTX.nScoreModeTmp == 1 )
                 {
                     if (nCombos < 10)
                     {
@@ -2009,12 +2009,12 @@ namespace TJAPlayer3
 
         protected void t分岐状況チェック( int n現在時刻, int nPlayer )
         {
-            CDTX dTX = CDTXMania.DTX;
+            CDTX dTX = TJAPlayer3.DTX;
 
             switch( nPlayer )
             {
                 case 1:
-                    dTX = CDTXMania.DTX_2P;
+                    dTX = TJAPlayer3.DTX_2P;
                     break;
                 default:
                     break;
@@ -2555,8 +2555,8 @@ namespace TJAPlayer3
 				offset = plusminus * 10;
 			}
 
-		    var newInputAdjustTimeMs = (CDTXMania.ConfigIni.nInputAdjustTimeMs + offset).Clamp(-99, 99);
-			CDTXMania.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
+		    var newInputAdjustTimeMs = (TJAPlayer3.ConfigIni.nInputAdjustTimeMs + offset).Clamp(-99, 99);
+			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = newInputAdjustTimeMs;
 		}
 
 		protected abstract void t入力処理_ドラム();
@@ -2564,7 +2564,7 @@ namespace TJAPlayer3
 		protected abstract void ドラムスクロール速度ダウン();
 		protected void tキー入力()
 		{
-			IInputDevice keyboard = CDTXMania.Input管理.Keyboard;
+			IInputDevice keyboard = TJAPlayer3.Input管理.Keyboard;
 			if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F1 ) &&
 				( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightShift ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftShift ) ) )
 			{	// shift+f1 (pause)
@@ -2587,13 +2587,13 @@ namespace TJAPlayer3
 				this.t入力処理_ドラム();
 				if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.UpArrow ) && ( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightShift ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftShift ) ) )
 				{	// shift (+ctrl) + UpArrow (BGMAdjust)
-					CDTXMania.DTX.t各自動再生音チップの再生時刻を変更する( ( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftControl ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightControl ) ) ? 1 : 10 );
-					CDTXMania.DTX.tWave再生位置自動補正();
+					TJAPlayer3.DTX.t各自動再生音チップの再生時刻を変更する( ( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftControl ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightControl ) ) ? 1 : 10 );
+					TJAPlayer3.DTX.tWave再生位置自動補正();
 				}
 				else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.DownArrow ) && ( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightShift ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftShift ) ) )
 				{	// shift + DownArrow (BGMAdjust)
-					CDTXMania.DTX.t各自動再生音チップの再生時刻を変更する( ( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftControl ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightControl ) ) ? -1 : -10 );
-					CDTXMania.DTX.tWave再生位置自動補正();
+					TJAPlayer3.DTX.t各自動再生音チップの再生時刻を変更する( ( keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.LeftControl ) || keyboard.bキーが押されている( (int) SlimDX.DirectInput.Key.RightControl ) ) ? -1 : -10 );
+					TJAPlayer3.DTX.tWave再生位置自動補正();
 				}
 				else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.UpArrow ) )
 				{	// UpArrow(scrollspeed up)
@@ -2605,7 +2605,7 @@ namespace TJAPlayer3
 				}
 				else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Delete ) )
 				{	// del (debug info)
-					CDTXMania.ConfigIni.b演奏情報を表示する = !CDTXMania.ConfigIni.b演奏情報を表示する;
+					TJAPlayer3.ConfigIni.b演奏情報を表示する = !TJAPlayer3.ConfigIni.b演奏情報を表示する;
 				}
 				else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.LeftArrow ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
 				{
@@ -2615,36 +2615,36 @@ namespace TJAPlayer3
 				{
 					ChangeInputAdjustTimeInPlaying( keyboard, +1 );
 				}
-				else if ( ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) && ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) || CDTXMania.Pad.b押されたGB( Eパッド.FT ) ) && !this.actPauseMenu.bIsActivePopupMenu )
+				else if ( ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) && ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) || TJAPlayer3.Pad.b押されたGB( Eパッド.FT ) ) && !this.actPauseMenu.bIsActivePopupMenu )
 				{	// escape (exit)
                     this.t演奏中止();
 				}
                 else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D1 ) )
                 {
-                    if( this.n分岐した回数[ 0 ] < CDTXMania.DTX.listBRANCH.Count )
-                        this.t分岐処理( 0, CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
-                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 0, 0 );
-                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 0, 0 );
+                    if( this.n分岐した回数[ 0 ] < TJAPlayer3.DTX.listBRANCH.Count )
+                        this.t分岐処理( 0, TJAPlayer3.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
+                    TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 0, 0 );
+                    TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 0, 0 );
                     this.n現在のコース[ 0 ] = 0;
                     this.n次回のコース[ 0 ] = 0;
                     this.b強制的に分岐させた[ 0 ] = true;
                 }
                 else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D2 ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
                 {
-                    if( this.n分岐した回数[ 0 ] < CDTXMania.DTX.listBRANCH.Count )
-                        this.t分岐処理( 1, CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
-                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 1, 0 );
-                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 1, 0 );
+                    if( this.n分岐した回数[ 0 ] < TJAPlayer3.DTX.listBRANCH.Count )
+                        this.t分岐処理( 1, TJAPlayer3.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
+                    TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 1, 0 );
+                    TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 1, 0 );
                     this.n現在のコース[ 0 ] = 1;
                     this.n次回のコース[ 0 ] = 1;
                     this.b強制的に分岐させた[ 0 ] = true;
                 }
                 else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D3 ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
                 {
-                    if( this.n分岐した回数[ 0 ] < CDTXMania.DTX.listBRANCH.Count )
-                        this.t分岐処理( 2, CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
-                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 2, 0 );
-                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 2, 0 );
+                    if( this.n分岐した回数[ 0 ] < TJAPlayer3.DTX.listBRANCH.Count )
+                        this.t分岐処理( 2, TJAPlayer3.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
+                    TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 2, 0 );
+                    TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 2, 0 );
                     this.n現在のコース[ 0 ] = 2;
                     this.n次回のコース[ 0 ] = 2;
                     this.b強制的に分岐させた[ 0 ] = true;
@@ -2682,26 +2682,26 @@ namespace TJAPlayer3
 
 				if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F4 ) )
 				{
-                    if( CDTXMania.ConfigIni.bJudgeCountDisplay == false )
-                        CDTXMania.ConfigIni.bJudgeCountDisplay = true;
+                    if( TJAPlayer3.ConfigIni.bJudgeCountDisplay == false )
+                        TJAPlayer3.ConfigIni.bJudgeCountDisplay = true;
                     else
-                        CDTXMania.ConfigIni.bJudgeCountDisplay = false;
+                        TJAPlayer3.ConfigIni.bJudgeCountDisplay = false;
 				}
 				else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F5 ) )
 				{
-                    switch( CDTXMania.ConfigIni.eClipDispType  )
+                    switch( TJAPlayer3.ConfigIni.eClipDispType  )
                     {
                         case EClipDispType.OFF:
-                            CDTXMania.ConfigIni.eClipDispType = EClipDispType.背景のみ;
+                            TJAPlayer3.ConfigIni.eClipDispType = EClipDispType.背景のみ;
                             break;
                         case EClipDispType.背景のみ:
-                            CDTXMania.ConfigIni.eClipDispType = EClipDispType.ウィンドウのみ;
+                            TJAPlayer3.ConfigIni.eClipDispType = EClipDispType.ウィンドウのみ;
                             break;
                         case EClipDispType.ウィンドウのみ:
-                            CDTXMania.ConfigIni.eClipDispType = EClipDispType.両方;
+                            TJAPlayer3.ConfigIni.eClipDispType = EClipDispType.両方;
                             break;
                         case EClipDispType.両方:
-                            CDTXMania.ConfigIni.eClipDispType = EClipDispType.OFF;
+                            TJAPlayer3.ConfigIni.eClipDispType = EClipDispType.OFF;
                             break;
                     }
 				}
@@ -2734,31 +2734,31 @@ namespace TJAPlayer3
 				}
 				else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Delete ) )
 				{	// del (debug info)
-					CDTXMania.ConfigIni.b演奏情報を表示する = !CDTXMania.ConfigIni.b演奏情報を表示する;
+					TJAPlayer3.ConfigIni.b演奏情報を表示する = !TJAPlayer3.ConfigIni.b演奏情報を表示する;
 				}
             }
 
 		    #region [ Minus & Equals Sound Group Level ]
 		    KeyboardSoundGroupLevelControlHandler.Handle(
-		        keyboard, CDTXMania.SoundGroupLevelController, CDTXMania.Skin, false);
+		        keyboard, TJAPlayer3.SoundGroupLevelController, TJAPlayer3.Skin, false);
 		    #endregion
 		}
 
 		protected void t入力メソッド記憶( E楽器パート part )
 		{
-			if ( CDTXMania.Pad.st検知したデバイス.Keyboard )
+			if ( TJAPlayer3.Pad.st検知したデバイス.Keyboard )
 			{
 				this.b演奏にキーボードを使った[ (int) part ] = true;
 			}
-			if ( CDTXMania.Pad.st検知したデバイス.Joypad )
+			if ( TJAPlayer3.Pad.st検知したデバイス.Joypad )
 			{
 				this.b演奏にジョイパッドを使った[ (int) part ] = true;
 			}
-			if ( CDTXMania.Pad.st検知したデバイス.MIDIIN )
+			if ( TJAPlayer3.Pad.st検知したデバイス.MIDIIN )
 			{
 				this.b演奏にMIDI入力を使った[ (int) part ] = true;
 			}
-			if ( CDTXMania.Pad.st検知したデバイス.Mouse )
+			if ( TJAPlayer3.Pad.st検知したデバイス.Mouse )
 			{
 				this.b演奏にマウスを使った[ (int) part ] = true;
 			}
@@ -2768,7 +2768,7 @@ namespace TJAPlayer3
 		protected abstract void t進行描画_AVI();
 		protected void t進行描画_AVI(int x, int y)
 		{
-			if ( ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) ) && ( !CDTXMania.ConfigIni.bストイックモード && CDTXMania.ConfigIni.bAVI有効 ) )
+			if ( ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) ) && ( !TJAPlayer3.ConfigIni.bストイックモード && TJAPlayer3.ConfigIni.bAVI有効 ) )
 			{
 				this.actAVI.t進行描画( x, y );
 			}
@@ -2809,11 +2809,11 @@ namespace TJAPlayer3
 		    // calibration is taking place, rather than
 		    // displaying the panel title or song title as usual.
 
-		    var panelString = CDTXMania.IsPerformingCalibration
+		    var panelString = TJAPlayer3.IsPerformingCalibration
 		        ? "Calibrating input..."
-		        : string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE: CDTXMania.DTX.PANEL;
+		        : string.IsNullOrEmpty( TJAPlayer3.DTX.PANEL ) ? TJAPlayer3.DTX.TITLE: TJAPlayer3.DTX.PANEL;
 
-		    this.actPanel.SetPanelString( panelString, CDTXMania.stage選曲.str確定された曲のジャンル, CDTXMania.Skin.Game_StageText );
+		    this.actPanel.SetPanelString( panelString, TJAPlayer3.stage選曲.str確定された曲のジャンル, TJAPlayer3.Skin.Game_StageText );
 		}
 
 
@@ -2872,9 +2872,9 @@ namespace TJAPlayer3
 			double ScrollSpeedBass = ( db現在の譜面スクロール速度.Bass + 1.0 ) * 0.5 * 0.5 * 37.5 * speed / 60000.0;
             double ScrollSpeedTaiko = (( db現在の譜面スクロール速度.Drums + 1.0 ) * speed ) * 0.5 * 37.5 / 60000.0;
 
-			CConfigIni configIni = CDTXMania.ConfigIni;
+			CConfigIni configIni = TJAPlayer3.ConfigIni;
 
-			CDTX dTX = CDTXMania.DTX;
+			CDTX dTX = TJAPlayer3.DTX;
             bool bAutoPlay = false;
             switch( nPlayer ) //2017.08.11 kairera0467
             {
@@ -2883,7 +2883,7 @@ namespace TJAPlayer3
                     break;
                 case 1:
                     bAutoPlay = configIni.b太鼓パートAutoPlay2P;
-                    dTX = CDTXMania.DTX_2P;
+                    dTX = TJAPlayer3.DTX_2P;
                     break;
                 default:
                     break;
@@ -3137,30 +3137,30 @@ namespace TJAPlayer3
                                 {
                                     for (int i = 0; i < 2; i++)
                                     {
-                                        ctChipAnime[i] = new CCounter(0, 3, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
+                                        ctChipAnime[i] = new CCounter(0, 3, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
                                     }
 
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_Normal != 0)
+                                    if (TJAPlayer3.Skin.Game_Chara_Ptn_Normal != 0)
                                     {
-                                        double dbPtn_Normal = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Normal / this.actChara.arモーション番号.Length;
+                                        double dbPtn_Normal = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_Normal / this.actChara.arモーション番号.Length;
                                         this.actChara.ctChara_Normal = new CCounter(0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ);
                                     }
                                     else
                                     {
                                         this.actChara.ctChara_Normal = new CCounter();
                                     }
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
+                                    if (TJAPlayer3.Skin.Game_Chara_Ptn_Clear != 0)
                                     {
-                                        double dbPtn_Clear = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Clear / this.actChara.arクリアモーション番号.Length;
+                                        double dbPtn_Clear = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_Clear / this.actChara.arクリアモーション番号.Length;
                                         this.actChara.ctChara_Clear = new CCounter(0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ);
                                     }
                                     else
                                     {
                                         this.actChara.ctChara_Clear = new CCounter();
                                     }
-                                    if (CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
+                                    if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGo != 0)
                                     {
-                                        double dbPtn_GoGo = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_GoGo / this.actChara.arゴーゴーモーション番号.Length;
+                                        double dbPtn_GoGo = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_GoGo / this.actChara.arゴーゴーモーション番号.Length;
                                         this.actChara.ctChara_GoGo = new CCounter(0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ);
                                     }
                                     else
@@ -3168,26 +3168,26 @@ namespace TJAPlayer3
                                         this.actChara.ctChara_GoGo = new CCounter();
                                     }
                                     this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
-                                    if (CDTXMania.Skin.Game_Dancer_Ptn != 0)
+                                    if (TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
                                     {
-                                        double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
-                                        this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * CDTXMania.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
+                                        double dbUnit_dancer = (((60 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
+                                        this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
                                     }
                                     else
                                     {
                                         this.actDancer.ct踊り子モーション = new CCounter();
                                     }
-                                    if (CDTXMania.Skin.Game_Mob_Ptn != 0 && CDTXMania.Skin.Game_Mob_Beat > 0 ) //2018.6.15 Game_Mob_Beatが0のままCCounter生成をされて無限ループが発生しないよう対策
+                                    if (TJAPlayer3.Skin.Game_Mob_Ptn != 0 && TJAPlayer3.Skin.Game_Mob_Beat > 0 ) //2018.6.15 Game_Mob_Beatが0のままCCounter生成をされて無限ループが発生しないよう対策
                                     {
-                                        this.actMob.ctMob = new CCounter(1, 180, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
-                                        this.actMob.ctMobPtn = new CCounter(0, CDTXMania.Skin.Game_Mob_Ptn - 1, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Ptn_Beat / CDTXMania.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
+                                        this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
+                                        this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Ptn_Beat / TJAPlayer3.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
                                     }
                                     else
                                     {
                                         this.actMob.ctMob = new CCounter();
                                         this.actMob.ctMobPtn = new CCounter();
                                     }
-                                    CDTXMania.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM);
+                                    TJAPlayer3.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM);
 
                                     //this.actChara.ctChara_Normal = new CCounter( 0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ );
                                     //this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
@@ -3342,7 +3342,7 @@ namespace TJAPlayer3
                             {
                                 if (this.actDan.GetFailedAllChallenges())
                                 {
-                                    this.n現在のトップChip = CDTXMania.DTX.listChip.Count - 1;	// 終端にシーク
+                                    this.n現在のトップChip = TJAPlayer3.DTX.listChip.Count - 1;	// 終端にシーク
                                     IsDanFailed = true;
                                     return true;
                                 }
@@ -3367,55 +3367,55 @@ namespace TJAPlayer3
 
                                 for (int i = 0; i < 2; i++)
                                 {
-                                    ctChipAnime[i] = new CCounter(0, 3, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
+                                    ctChipAnime[i] = new CCounter(0, 3, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4, CSound管理.rc演奏用タイマ);
                                 }
 
-                                if (CDTXMania.Skin.Game_Chara_Ptn_Normal != 0)
+                                if (TJAPlayer3.Skin.Game_Chara_Ptn_Normal != 0)
                                 {
-                                    double dbPtn_Normal = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Normal / this.actChara.arモーション番号.Length;
+                                    double dbPtn_Normal = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_Normal / this.actChara.arモーション番号.Length;
                                     this.actChara.ctChara_Normal = new CCounter(0, this.actChara.arモーション番号.Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ);
                                 } else
                                 {
                                     this.actChara.ctChara_Normal = new CCounter();
                                 }
-                                if (CDTXMania.Skin.Game_Chara_Ptn_Clear != 0)
+                                if (TJAPlayer3.Skin.Game_Chara_Ptn_Clear != 0)
                                 {
-                                    double dbPtn_Clear = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_Clear / this.actChara.arクリアモーション番号.Length;
+                                    double dbPtn_Clear = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_Clear / this.actChara.arクリアモーション番号.Length;
                                     this.actChara.ctChara_Clear = new CCounter(0, this.actChara.arクリアモーション番号.Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ);
                                 }
                                 else
                                 {
                                     this.actChara.ctChara_Clear = new CCounter();
                                 }
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGo != 0)
+                                if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGo != 0)
                                 {
-                                    double dbPtn_GoGo = (60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM) * CDTXMania.Skin.Game_Chara_Beat_GoGo / this.actChara.arゴーゴーモーション番号.Length;
+                                    double dbPtn_GoGo = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_GoGo / this.actChara.arゴーゴーモーション番号.Length;
                                     this.actChara.ctChara_GoGo = new CCounter(0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ);
                                 } else
                                 {
                                     this.actChara.ctChara_GoGo = new CCounter();
                                 }
                                 this.ct制御タイマ = new CCounter(0, 10, 500, CSound管理.rc演奏用タイマ);
-                                if (CDTXMania.Skin.Game_Dancer_Ptn != 0)
+                                if (TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
                                 {
-                                    double dbUnit_dancer = (((60 / (CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
-                                    this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * CDTXMania.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
+                                    double dbUnit_dancer = (((60 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
+                                    this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
                                 }
                                 else
                                 {
                                     this.actDancer.ct踊り子モーション = new CCounter();
                                 }
-                                if (CDTXMania.Skin.Game_Mob_Ptn != 0)
+                                if (TJAPlayer3.Skin.Game_Mob_Ptn != 0)
                                 {
-                                    this.actMob.ctMob = new CCounter(1, 180, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
-                                    this.actMob.ctMobPtn = new CCounter(0, CDTXMania.Skin.Game_Mob_Ptn - 1, 60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM * CDTXMania.Skin.Game_Mob_Ptn_Beat / CDTXMania.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
+                                    this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180, CSound管理.rc演奏用タイマ);
+                                    this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Ptn_Beat / TJAPlayer3.Skin.Game_Mob_Ptn, CSound管理.rc演奏用タイマ);
                                 } else
                                 {
                                     this.actMob.ctMob = new CCounter();
                                     this.actMob.ctMobPtn = new CCounter();
                                 }
 
-                                CDTXMania.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / CDTXMania.stage演奏ドラム画面.actPlayInfo.dbBPM);
+                                TJAPlayer3.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM);
                                 //this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
                                 //this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
                                 //#if C_82D982F182AF82CD82A282AF82A2
@@ -3452,28 +3452,28 @@ namespace TJAPlayer3
                             double dbUnit = (((60.0 / pChip.dbBPM)));
                             if(nPlayer == 0)
                             {
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
+                                if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                 {
-                                    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
+                                    if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] < 100)
                                     {
                                         // 魂ゲージMAXではない
                                         // ゴーゴースタート_ノーマル
                                         this.actChara.アクションタイマーリセット();
-                                        this.actChara.ctキャラクターアクション_ゴーゴースタート = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_GoGoStart - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_GoGoStart) * 2, CSound管理.rc演奏用タイマ);
+                                        this.actChara.ctキャラクターアクション_ゴーゴースタート = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart) * 2, CSound管理.rc演奏用タイマ);
                                         this.actChara.ctキャラクターアクション_ゴーゴースタート.t進行db();
                                         this.actChara.ctキャラクターアクション_ゴーゴースタート.db現在の値 = 0D;
                                         this.actChara.bマイどんアクション中 = true;
                                         //this.actChara.マイどん_アクション_10コンボ();
                                     }
                                 }
-                                if (CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
+                                if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max != 0 && nPlayer == 0 && actChara.CharaAction_Balloon_Delay.b終了値に達した)
                                 {
-                                    if (CDTXMania.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
+                                    if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
                                     {
                                         // 魂ゲージMAX
                                         // ゴーゴースタート_MAX
                                         this.actChara.アクションタイマーリセット();
-                                        this.actChara.ctキャラクターアクション_ゴーゴースタートMAX = new CCounter(0, CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max - 1, (dbUnit / CDTXMania.Skin.Game_Chara_Ptn_GoGoStart_Max) * 2, CSound管理.rc演奏用タイマ);
+                                        this.actChara.ctキャラクターアクション_ゴーゴースタートMAX = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max) * 2, CSound管理.rc演奏用タイマ);
                                         this.actChara.ctキャラクターアクション_ゴーゴースタートMAX.t進行db();
                                         this.actChara.ctキャラクターアクション_ゴーゴースタートMAX.db現在の値 = 0D;
                                         this.actChara.bマイどんアクション中 = true;
@@ -3481,7 +3481,7 @@ namespace TJAPlayer3
                                 }
 
                             }
-                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.GOGOSTART();
+                            TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.GOGOSTART();
                         }
                         break;
                     case 0x9F: //ゴーゴータイム
@@ -3603,13 +3603,13 @@ namespace TJAPlayer3
                         //CDTXMania.act文字コンソール.tPrint( 414 + pChip.nバーからの距離dot.Taiko + 4, 192, C文字コンソール.Eフォント種別.白, "BRANCH START" + "  " + pChip.n整数値.ToString() );
                         if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
                         {
-                            CDTXMania.stage演奏ドラム画面.bUseBranch[ nPlayer ] = true;
+                            TJAPlayer3.stage演奏ドラム画面.bUseBranch[ nPlayer ] = true;
                             if( !this.bLEVELHOLD[ nPlayer ] )
                             {
                                 this.tBranchJudge( dTX, this.nBranch_roll[ nPlayer ], this.nBranch_Perfect[ nPlayer ], this.nBranch_Good[ nPlayer ], this.nBranch_Miss[ nPlayer ], nPlayer );
                                 this.t分岐処理( this.n次回のコース[ nPlayer ], dTX.listBRANCH[ this.n分岐した回数[ nPlayer ] ].n命令時のChipList番号, nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ nPlayer ], this.n次回のコース[ nPlayer ], nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ nPlayer ], this.n次回のコース[ nPlayer ], nPlayer );
+                                TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ nPlayer ], this.n次回のコース[ nPlayer ], nPlayer );
+                                TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ nPlayer ], this.n次回のコース[ nPlayer ], nPlayer );
                                 if( dTX.listBRANCH[ this.n分岐した回数[ nPlayer ] ].n分岐の種類 == 0 )
                                 {
                                     this.n現在のコース[ nPlayer ] = this.n次回のコース[ nPlayer ];
@@ -3659,11 +3659,11 @@ namespace TJAPlayer3
                         {
                             if (nPlayer == 0)
                             {
-                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
+                                TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠移動(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
                             }
                             else
                             {
-                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t判定枠移動2(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
+                                TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠移動2(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動方向);
                             }
                             this.nJPOSSCROLL[ nPlayer ]++;
                             pChip.bHit = true;
@@ -3718,9 +3718,9 @@ namespace TJAPlayer3
 				return true;
 			}
 
-			CConfigIni configIni = CDTXMania.ConfigIni;
+			CConfigIni configIni = TJAPlayer3.ConfigIni;
 
-			CDTX dTX = CDTXMania.DTX;
+			CDTX dTX = TJAPlayer3.DTX;
             bool bAutoPlay = false;
             switch( nPlayer ) //2017.08.11 kairera0467
             {
@@ -3729,7 +3729,7 @@ namespace TJAPlayer3
                     break;
                 case 1:
                     bAutoPlay = configIni.b太鼓パートAutoPlay2P;
-                    dTX = CDTXMania.DTX_2P;
+                    dTX = TJAPlayer3.DTX_2P;
                     break;
                 default:
                     break;
@@ -3927,11 +3927,11 @@ namespace TJAPlayer3
             n分岐開始位置のChip番号 = chipNoHit.n整数値;
             
             //2017.08.15 kairera0467 複数譜面同時再生対応もどき
-            CDTX dTX = CDTXMania.DTX;
+            CDTX dTX = TJAPlayer3.DTX;
             switch( nPlayer )
             {
                 case 1:
-                    dTX = CDTXMania.DTX_2P;
+                    dTX = TJAPlayer3.DTX_2P;
                     break;
                 default:
                     break;
@@ -4056,7 +4056,7 @@ namespace TJAPlayer3
 
 		public void t再読込()
 		{
-			CDTXMania.DTX.t全チップの再生停止とミキサーからの削除();
+			TJAPlayer3.DTX.t全チップの再生停止とミキサーからの削除();
 			this.eフェードアウト完了時の戻り値 = E演奏画面の戻り値.再読込_再演奏;
 			base.eフェーズID = CStage.Eフェーズ.演奏_再読込;
 			this.bPAUSE = false;
@@ -4064,13 +4064,13 @@ namespace TJAPlayer3
 
         public void t演奏やりなおし()
         {
-			CDTXMania.DTX.t全チップの再生停止とミキサーからの削除();
+			TJAPlayer3.DTX.t全チップの再生停止とミキサーからの削除();
             this.t数値の初期化( true, true );
             this.actAVI.tReset();
             this.t演奏位置の変更( 0, 0 );
             this.t演奏位置の変更( 0, 1 );
-            CDTXMania.stage演奏ドラム画面.On活性化();
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            TJAPlayer3.stage演奏ドラム画面.On活性化();
+            for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
                 this.chip現在処理中の連打チップ[ i ] = null;
             }
@@ -4079,12 +4079,12 @@ namespace TJAPlayer3
 
 		public void t停止()
 		{
-			CDTXMania.DTX.t全チップの再生停止とミキサーからの削除();
+			TJAPlayer3.DTX.t全チップの再生停止とミキサーからの削除();
 			this.actAVI.Stop();
 			this.actPanel.Stop();				// PANEL表示停止
-			CDTXMania.Timer.t一時停止();		// 再生時刻カウンタ停止
+			TJAPlayer3.Timer.t一時停止();		// 再生時刻カウンタ停止
 
-			this.n現在のトップChip = CDTXMania.DTX.listChip.Count - 1;	// 終端にシーク
+			this.n現在のトップChip = TJAPlayer3.DTX.listChip.Count - 1;	// 終端にシーク
 
 			// 自分自身のOn活性化()相当の処理もすべき。
 		}
@@ -4107,11 +4107,11 @@ namespace TJAPlayer3
 
                 this.actCombo.On活性化();
                 this.actScore.On活性化();
-                this.actGauge.Init( CDTXMania.ConfigIni.nRisky );
+                this.actGauge.Init( TJAPlayer3.ConfigIni.nRisky );
             }
             if( b演奏状態 )
             {
-                for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
                 {
                     this.bIsGOGOTIME[ i ] = false;
                     this.bLEVELHOLD[ i ] = false;
@@ -4128,20 +4128,20 @@ namespace TJAPlayer3
                 this.actComboVoice.tリセット();
             }
 
-            this.ReSetScore(CDTXMania.DTX.nScoreInit[0, CDTXMania.stage選曲.n確定された曲の難易度], CDTXMania.DTX.nScoreDiff[CDTXMania.stage選曲.n確定された曲の難易度]);
+            this.ReSetScore(TJAPlayer3.DTX.nScoreInit[0, TJAPlayer3.stage選曲.n確定された曲の難易度], TJAPlayer3.DTX.nScoreDiff[TJAPlayer3.stage選曲.n確定された曲の難易度]);
             this.nHand = new int[]{ 0, 0, 0, 0 };
         }
 
 		public void t演奏位置の変更( int nStartBar, int nPlayer )
 		{
 			// まず全サウンドオフにする
-			CDTXMania.DTX.t全チップの再生停止();
+			TJAPlayer3.DTX.t全チップの再生停止();
 			this.actAVI.Stop();
-            CDTX dTX = CDTXMania.DTX;
+            CDTX dTX = TJAPlayer3.DTX;
             switch( nPlayer )
             {
                 case 1:
-                    dTX = CDTXMania.DTX_2P;
+                    dTX = TJAPlayer3.DTX_2P;
                     break;
                 default:
                     break;
@@ -4223,9 +4223,9 @@ namespace TJAPlayer3
 						bool b = dTX.listWAV.TryGetValue( pChip.n整数値_内部番号, out wc );
 						if ( !b ) continue;
 
-						if ( ( wc.bIsBGMSound && CDTXMania.ConfigIni.bBGM音を発声する ) || ( !wc.bIsBGMSound ) )
+						if ( ( wc.bIsBGMSound && TJAPlayer3.ConfigIni.bBGM音を発声する ) || ( !wc.bIsBGMSound ) )
 						{
-							CDTXMania.DTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM );
+							TJAPlayer3.DTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM );
 							#region [ PAUSEする ]
 							int j = wc.n現在再生中のサウンド番号;
 							if ( wc.rSound[ j ] != null )
@@ -4253,8 +4253,8 @@ namespace TJAPlayer3
 			#endregion
 			#region [ タイマを再開して、PAUSEから復帰する ]
 			CSound管理.rc演奏用タイマ.n現在時刻 = nStartTime;
-			CDTXMania.Timer.tリセット();						// これでPAUSE解除されるので、3行先の再開()は不要
-			CDTXMania.Timer.n現在時刻 = nStartTime;				// Debug表示のTime: 表記を正しくするために必要
+			TJAPlayer3.Timer.tリセット();						// これでPAUSE解除されるので、3行先の再開()は不要
+			TJAPlayer3.Timer.n現在時刻 = nStartTime;				// Debug表示のTime: 表記を正しくするために必要
 			CSound管理.rc演奏用タイマ.t再開();
 			//CDTXMania.Timer.t再開();
 			this.bPAUSE = false;								// システムがPAUSE状態だったら、強制解除
@@ -4276,57 +4276,57 @@ namespace TJAPlayer3
 		/// </summary>
 		protected void tDTXV用の設定()
 		{
-			CDTXMania.ConfigIni.bAutoPlay.HH = true;
-			CDTXMania.ConfigIni.bAutoPlay.SD = true;
-			CDTXMania.ConfigIni.bAutoPlay.BD = true;
-			CDTXMania.ConfigIni.bAutoPlay.HT = true;
-			CDTXMania.ConfigIni.bAutoPlay.LT = true;
-			CDTXMania.ConfigIni.bAutoPlay.CY = true;
-			CDTXMania.ConfigIni.bAutoPlay.FT = true;
-			CDTXMania.ConfigIni.bAutoPlay.RD = true;
-			CDTXMania.ConfigIni.bAutoPlay.LC = true;
-            CDTXMania.ConfigIni.bAutoPlay.LP = true;
-            CDTXMania.ConfigIni.bAutoPlay.LBD = true;
-			CDTXMania.ConfigIni.bAutoPlay.GtR = true;
-			CDTXMania.ConfigIni.bAutoPlay.GtB = true;
-			CDTXMania.ConfigIni.bAutoPlay.GtB = true;
-			CDTXMania.ConfigIni.bAutoPlay.GtPick = true;
-			CDTXMania.ConfigIni.bAutoPlay.GtW = true;
-			CDTXMania.ConfigIni.bAutoPlay.BsR = true;
-			CDTXMania.ConfigIni.bAutoPlay.BsB = true;
-			CDTXMania.ConfigIni.bAutoPlay.BsB = true;
-			CDTXMania.ConfigIni.bAutoPlay.BsPick = true;
-			CDTXMania.ConfigIni.bAutoPlay.BsW = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.HH = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.SD = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.BD = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.HT = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.LT = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.CY = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.FT = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.RD = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.LC = true;
+            TJAPlayer3.ConfigIni.bAutoPlay.LP = true;
+            TJAPlayer3.ConfigIni.bAutoPlay.LBD = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.GtR = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.GtB = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.GtB = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.GtPick = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.GtW = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.BsR = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.BsB = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.BsB = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.BsPick = true;
+			TJAPlayer3.ConfigIni.bAutoPlay.BsW = true;
 
-			this.bIsAutoPlay = CDTXMania.ConfigIni.bAutoPlay;
+			this.bIsAutoPlay = TJAPlayer3.ConfigIni.bAutoPlay;
 
-			CDTXMania.ConfigIni.bAVI有効 = true;
-			CDTXMania.ConfigIni.bBGA有効 = true;
+			TJAPlayer3.ConfigIni.bAVI有効 = true;
+			TJAPlayer3.ConfigIni.bBGA有効 = true;
 			for ( int i = 0; i < 3; i++ )
 			{
-				CDTXMania.ConfigIni.bGraph[ i ] = false;
-				CDTXMania.ConfigIni.bHidden[ i ] = false;
-				CDTXMania.ConfigIni.bLeft[ i ] = false;
-				CDTXMania.ConfigIni.bLight[ i ] = false;
-				CDTXMania.ConfigIni.bReverse[ i ] = false;
-				CDTXMania.ConfigIni.bSudden[ i ] = false;
-				CDTXMania.ConfigIni.eInvisible[ i ] = EInvisible.OFF;
-				CDTXMania.ConfigIni.eRandom[ i ] = Eランダムモード.OFF;
-				CDTXMania.ConfigIni.n表示可能な最小コンボ数[ i ] = 65535;
-				CDTXMania.ConfigIni.判定文字表示位置[ i ] = E判定文字表示位置.表示OFF;
+				TJAPlayer3.ConfigIni.bGraph[ i ] = false;
+				TJAPlayer3.ConfigIni.bHidden[ i ] = false;
+				TJAPlayer3.ConfigIni.bLeft[ i ] = false;
+				TJAPlayer3.ConfigIni.bLight[ i ] = false;
+				TJAPlayer3.ConfigIni.bReverse[ i ] = false;
+				TJAPlayer3.ConfigIni.bSudden[ i ] = false;
+				TJAPlayer3.ConfigIni.eInvisible[ i ] = EInvisible.OFF;
+				TJAPlayer3.ConfigIni.eRandom[ i ] = Eランダムモード.OFF;
+				TJAPlayer3.ConfigIni.n表示可能な最小コンボ数[ i ] = 65535;
+				TJAPlayer3.ConfigIni.判定文字表示位置[ i ] = E判定文字表示位置.表示OFF;
 				// CDTXMania.ConfigIni.n譜面スクロール速度[ i ] = CDTXMania.ConfigIni.nViewerScrollSpeed[ i ];	// これだけはOn活性化()で行うこと。
 																												// そうしないと、演奏開始直後にスクロール速度が変化して見苦しい。
 			}
 
-			CDTXMania.ConfigIni.eDark = Eダークモード.OFF;
+			TJAPlayer3.ConfigIni.eDark = Eダークモード.OFF;
 
-			CDTXMania.ConfigIni.b演奏情報を表示する = CDTXMania.ConfigIni.bViewerShowDebugStatus;
-			CDTXMania.ConfigIni.bScoreIniを出力する = false;
-			CDTXMania.ConfigIni.bSTAGEFAILED有効 = false;
-			CDTXMania.ConfigIni.bTight = false;
-			CDTXMania.ConfigIni.bストイックモード = false;
+			TJAPlayer3.ConfigIni.b演奏情報を表示する = TJAPlayer3.ConfigIni.bViewerShowDebugStatus;
+			TJAPlayer3.ConfigIni.bScoreIniを出力する = false;
+			TJAPlayer3.ConfigIni.bSTAGEFAILED有効 = false;
+			TJAPlayer3.ConfigIni.bTight = false;
+			TJAPlayer3.ConfigIni.bストイックモード = false;
 
-			CDTXMania.ConfigIni.nRisky = 0;
+			TJAPlayer3.ConfigIni.nRisky = 0;
 		}
 
 		protected abstract void t進行描画_チップ_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip );
@@ -4454,7 +4454,7 @@ namespace TJAPlayer3
 		protected abstract void t進行描画_演奏情報();
 		protected void t進行描画_演奏情報(int x, int y)
 		{
-			if ( !CDTXMania.ConfigIni.b演奏情報を表示しない )
+			if ( !TJAPlayer3.ConfigIni.b演奏情報を表示しない )
 			{
 				this.actPlayInfo.t進行描画( x, y );
 			}
@@ -4463,19 +4463,19 @@ namespace TJAPlayer3
 		{
 			if ( this.tx背景 != null )
 			{
-				this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+				this.tx背景.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 			}
 		}
 
 		protected void t進行描画_判定ライン()
 		{
-			if ( CDTXMania.ConfigIni.eDark != Eダークモード.FULL )
+			if ( TJAPlayer3.ConfigIni.eDark != Eダークモード.FULL )
 			{
-				int y = CDTXMania.ConfigIni.bReverse.Drums ? 53 - 演奏判定ライン座標.nJudgeLinePosY_delta.Drums : 567 + 演奏判定ライン座標.nJudgeLinePosY_delta.Drums;
+				int y = TJAPlayer3.ConfigIni.bReverse.Drums ? 53 - 演奏判定ライン座標.nJudgeLinePosY_delta.Drums : 567 + 演奏判定ライン座標.nJudgeLinePosY_delta.Drums;
 																// #31602 2013.6.23 yyagi 描画遅延対策として、判定ラインの表示位置をオフセット調整できるようにする
 				if ( this.txヒットバー != null )
 				{
-				    this.txヒットバー.t2D描画( CDTXMania.app.Device, 295, y, new Rectangle( 0, 0, 558, 6 ) );
+				    this.txヒットバー.t2D描画( TJAPlayer3.app.Device, 295, y, new Rectangle( 0, 0, 558, 6 ) );
 				}
 			}
 		}
@@ -4485,14 +4485,14 @@ namespace TJAPlayer3
 		}
 		protected void t進行描画_判定文字列1_通常位置指定の場合()
 		{
-			if ( ( (E判定文字表示位置) CDTXMania.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.コンボ下 )	// 判定ライン上または横
+			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置.Drums ) != E判定文字表示位置.コンボ下 )	// 判定ライン上または横
 			{
 				this.actJudgeString.t進行描画( 演奏判定ライン座標 );
 			}
 		}
 		protected void t進行描画_判定文字列2_判定ライン上指定の場合()
 		{
-			if ( ( (E判定文字表示位置) CDTXMania.ConfigIni.判定文字表示位置.Drums ) == E判定文字表示位置.コンボ下 )	// 判定ライン上または横
+			if ( ( (E判定文字表示位置) TJAPlayer3.ConfigIni.判定文字表示位置.Drums ) == E判定文字表示位置.コンボ下 )	// 判定ライン上または横
 			{
 				this.actJudgeString.t進行描画( 演奏判定ライン座標 );
 			}
@@ -4509,9 +4509,9 @@ namespace TJAPlayer3
             try
             {
                 if( !String.IsNullOrEmpty( bgfilename ) )
-                    this.tx背景 = CDTXMania.tテクスチャの生成( CDTXMania.stage選曲.r確定されたスコア.ファイル情報.フォルダの絶対パス + bgfilename );
+                    this.tx背景 = TJAPlayer3.tテクスチャの生成( TJAPlayer3.stage選曲.r確定されたスコア.ファイル情報.フォルダの絶対パス + bgfilename );
                 else
-                    this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( DefaultBgFilename ) );
+                    this.tx背景 = TJAPlayer3.tテクスチャの生成( CSkin.Path( DefaultBgFilename ) );
             }
             catch (Exception e)
             {
@@ -4530,14 +4530,14 @@ namespace TJAPlayer3
             int nAddScore = 0;
             int[] n倍率 = { 0, 1, 2, 4, 8 };
 
-            if( CDTXMania.DTX.nScoreModeTmp == 1 )
+            if( TJAPlayer3.DTX.nScoreModeTmp == 1 )
             {
                 for( int i = 0; i < 11; i++ )
                 {
                     this.nScore[ i ] = (int)( nInit + ( nDiff * ( i ) ) );
                 }
             }
-            else if( CDTXMania.DTX.nScoreModeTmp == 2 )
+            else if( TJAPlayer3.DTX.nScoreModeTmp == 2 )
             {
                 for( int i = 0; i < 5; i++ )
                 {

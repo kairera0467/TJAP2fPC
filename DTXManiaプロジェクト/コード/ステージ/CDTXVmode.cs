@@ -381,7 +381,7 @@ Trace.TraceInformation( "Command: " + s[ (int) this.Command ] );
 		public void tUpdateConfigIni()
 		{
 			CConfigIni cc = new CConfigIni();
-			string path = CDTXMania.strEXEのあるフォルダ + "Config.ini";
+			string path = TJAPlayer3.strEXEのあるフォルダ + "Config.ini";
 			if ( File.Exists( path ) )
 			{
 				FileInfo fi = new FileInfo( path );
@@ -401,10 +401,10 @@ Trace.TraceInformation( "Command: " + s[ (int) this.Command ] );
 				fi = null;
 			}
 
-			cc.nViewerScrollSpeed     = CDTXMania.ConfigIni.n譜面スクロール速度;
-			cc.bViewerShowDebugStatus = CDTXMania.ConfigIni.b演奏情報を表示する;
-			cc.bViewerVSyncWait       = CDTXMania.ConfigIni.b垂直帰線待ちを行う;
-			cc.bViewerTimeStretch     = CDTXMania.ConfigIni.bTimeStretch;
+			cc.nViewerScrollSpeed     = TJAPlayer3.ConfigIni.n譜面スクロール速度;
+			cc.bViewerShowDebugStatus = TJAPlayer3.ConfigIni.b演奏情報を表示する;
+			cc.bViewerVSyncWait       = TJAPlayer3.ConfigIni.b垂直帰線待ちを行う;
+			cc.bViewerTimeStretch     = TJAPlayer3.ConfigIni.bTimeStretch;
 			cc.bViewerDrums有効       = true;
 
 			cc.t書き出し( path );

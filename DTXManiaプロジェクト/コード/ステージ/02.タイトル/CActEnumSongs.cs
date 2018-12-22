@@ -49,7 +49,7 @@ namespace TJAPlayer3
 			try
 			{
 				this.ctNowEnumeratingSongs = new CCounter();	// 0, 1000, 17, CDTXMania.Timer );
-				this.ctNowEnumeratingSongs.t開始( 0, 100, 17, CDTXMania.Timer );
+				this.ctNowEnumeratingSongs.t開始( 0, 100, 17, TJAPlayer3.Timer );
 			}
 			finally
 			{
@@ -107,10 +107,10 @@ namespace TJAPlayer3
 					graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 					graphics.DrawString( strMessage[ ci ], ftMessage, Brushes.White, (float) 0f, (float) 0f );
 					graphics.Dispose();
-					this.txMessage = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
+					this.txMessage = new CTexture( TJAPlayer3.app.Device, image, TJAPlayer3.TextureFormat );
 					this.txMessage.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 					image.Dispose();
-					CDTXMania.t安全にDisposeする( ref ftMessage );
+					TJAPlayer3.t安全にDisposeする( ref ftMessage );
 				}
 				else
 				{
@@ -134,7 +134,7 @@ namespace TJAPlayer3
 
 			//CDTXMania.t安全にDisposeする( ref this.txDialogNowEnumeratingSongs );
 			//CDTXMania.t安全にDisposeする( ref this.txNowEnumeratingSongs );
-			CDTXMania.t安全にDisposeする( ref this.txMessage );
+			TJAPlayer3.t安全にDisposeする( ref this.txMessage );
 			base.OnManagedリソースの解放();
 		}
 
@@ -145,15 +145,15 @@ namespace TJAPlayer3
 				return 0;
 			}
 			this.ctNowEnumeratingSongs.t進行Loop();
-			if ( CDTXMania.Tx.Enum_Song != null )
+			if ( TJAPlayer3.Tx.Enum_Song != null )
 			{
-                CDTXMania.Tx.Enum_Song.n透明度 = (int) ( 176.0 + 80.0 * Math.Sin( (double) (2 * Math.PI * this.ctNowEnumeratingSongs.n現在の値 * 2 / 100.0 ) ) );
-                CDTXMania.Tx.Enum_Song.t2D描画( CDTXMania.app.Device, 18, 7 );
+                TJAPlayer3.Tx.Enum_Song.n透明度 = (int) ( 176.0 + 80.0 * Math.Sin( (double) (2 * Math.PI * this.ctNowEnumeratingSongs.n現在の値 * 2 / 100.0 ) ) );
+                TJAPlayer3.Tx.Enum_Song.t2D描画( TJAPlayer3.app.Device, 18, 7 );
 			}
-			if ( bコマンドでの曲データ取得 && CDTXMania.Tx.Config_Enum_Song != null )
+			if ( bコマンドでの曲データ取得 && TJAPlayer3.Tx.Config_Enum_Song != null )
 			{
-                CDTXMania.Tx.Config_Enum_Song.t2D描画( CDTXMania.app.Device, 180, 177 );
-				this.txMessage.t2D描画( CDTXMania.app.Device, 190, 197 );
+                TJAPlayer3.Tx.Config_Enum_Song.t2D描画( TJAPlayer3.app.Device, 180, 177 );
+				this.txMessage.t2D描画( TJAPlayer3.app.Device, 190, 197 );
 			}
 
 			return 0;

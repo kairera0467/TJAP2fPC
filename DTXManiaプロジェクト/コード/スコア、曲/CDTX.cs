@@ -35,10 +35,10 @@ namespace TJAPlayer3
                 #region [ strAVIファイル名の作成。]
                 //-----------------
                 string strAVIファイル名;
-                if (!string.IsNullOrEmpty(CDTXMania.DTX.PATH_WAV))
-                    strAVIファイル名 = CDTXMania.DTX.PATH_WAV + this.strファイル名;
+                if (!string.IsNullOrEmpty(TJAPlayer3.DTX.PATH_WAV))
+                    strAVIファイル名 = TJAPlayer3.DTX.PATH_WAV + this.strファイル名;
                 else
-                    strAVIファイル名 = CDTXMania.DTX.strフォルダ名 + this.strファイル名;
+                    strAVIファイル名 = TJAPlayer3.DTX.strフォルダ名 + this.strファイル名;
                 //-----------------
                 #endregion
 
@@ -80,10 +80,10 @@ namespace TJAPlayer3
                     #region [ strAVIファイル名 の作成。 ]
                     //-----------------
                     string strAVIファイル名;
-                    if (!string.IsNullOrEmpty(CDTXMania.DTX.PATH_WAV))
-                        strAVIファイル名 = CDTXMania.DTX.PATH_WAV + this.strファイル名;
+                    if (!string.IsNullOrEmpty(TJAPlayer3.DTX.PATH_WAV))
+                        strAVIファイル名 = TJAPlayer3.DTX.PATH_WAV + this.strファイル名;
                     else
-                        strAVIファイル名 = CDTXMania.DTX.strフォルダ名 + this.strファイル名;
+                        strAVIファイル名 = TJAPlayer3.DTX.strフォルダ名 + this.strファイル名;
                     //-----------------
                     #endregion
 
@@ -137,10 +137,10 @@ namespace TJAPlayer3
                 #region [ str動画ファイル名の作成。]
                 //-----------------
                 string str動画ファイル名;
-                if (!string.IsNullOrEmpty(CDTXMania.DTX.PATH_WAV))
-                    str動画ファイル名 = CDTXMania.DTX.PATH_WAV + this.strファイル名;
+                if (!string.IsNullOrEmpty(TJAPlayer3.DTX.PATH_WAV))
+                    str動画ファイル名 = TJAPlayer3.DTX.PATH_WAV + this.strファイル名;
                 else
-                    str動画ファイル名 = CDTXMania.DTX.strフォルダ名 + this.strファイル名;
+                    str動画ファイル名 = TJAPlayer3.DTX.strフォルダ名 + this.strファイル名;
                 //-----------------
                 #endregion
 
@@ -154,7 +154,7 @@ namespace TJAPlayer3
 
                 try
                 {
-                    this.dshow = new FDK.CDirectShow(CDTXMania.stage選曲.r確定されたスコア.ファイル情報.フォルダの絶対パス + this.strファイル名, CDTXMania.app.WindowHandle, true);
+                    this.dshow = new FDK.CDirectShow(TJAPlayer3.stage選曲.r確定されたスコア.ファイル情報.フォルダの絶対パス + this.strファイル名, TJAPlayer3.app.WindowHandle, true);
                     Trace.TraceInformation("DirectShowを生成しました。({0})({1})({2}byte)", this.strコメント文, str動画ファイル名, this.dshow.nデータサイズbyte);
                 }
                 catch (Exception e)
@@ -181,10 +181,10 @@ namespace TJAPlayer3
                     #region [ strAVIファイル名 の作成。 ]
                     //-----------------
                     string str動画ファイル名;
-                    if (!string.IsNullOrEmpty(CDTXMania.DTX.PATH_WAV))
-                        str動画ファイル名 = CDTXMania.DTX.PATH_WAV + this.strファイル名;
+                    if (!string.IsNullOrEmpty(TJAPlayer3.DTX.PATH_WAV))
+                        str動画ファイル名 = TJAPlayer3.DTX.PATH_WAV + this.strファイル名;
                     else
-                        str動画ファイル名 = CDTXMania.DTX.strフォルダ名 + this.strファイル名;
+                        str動画ファイル名 = TJAPlayer3.DTX.strフォルダ名 + this.strファイル名;
                     //-----------------
                     #endregion
 
@@ -561,7 +561,7 @@ namespace TJAPlayer3
                 if (this.bWAVを使うチャンネルである)       // WAV
                 {
                     CDTX.CWAV wc;
-                    CDTXMania.DTX.listWAV.TryGetValue(this.n整数値_内部番号, out wc);
+                    TJAPlayer3.DTX.listWAV.TryGetValue(this.n整数値_内部番号, out wc);
                     if (wc == null)
                     {
                         nDuration = 0;
@@ -581,7 +581,7 @@ namespace TJAPlayer3
                     }
                 }
 
-                double _db再生速度 = (CDTXMania.DTXVmode.Enabled) ? CDTXMania.DTX.dbDTXVPlaySpeed : CDTXMania.DTX.db再生速度;
+                double _db再生速度 = (TJAPlayer3.DTXVmode.Enabled) ? TJAPlayer3.DTX.dbDTXVPlaySpeed : TJAPlayer3.DTX.db再生速度;
                 return (int)(nDuration / _db再生速度);
             }
 
@@ -661,14 +661,14 @@ namespace TJAPlayer3
             public List<int> listこのWAVを使用するチャンネル番号の集合 = new List<int>(16);
             public int nチップサイズ = 100;
             public int n位置;
-            public long[] n一時停止時刻 = new long[CDTXMania.ConfigIni.nPoliphonicSounds];    // 4
+            public long[] n一時停止時刻 = new long[TJAPlayer3.ConfigIni.nPoliphonicSounds];    // 4
             public int SongVol = CSound.DefaultSongVol;
             public LoudnessMetadata? SongLoudnessMetadata = null;
             public int n現在再生中のサウンド番号;
-            public long[] n再生開始時刻 = new long[CDTXMania.ConfigIni.nPoliphonicSounds];    // 4
+            public long[] n再生開始時刻 = new long[TJAPlayer3.ConfigIni.nPoliphonicSounds];    // 4
             public int n内部番号;
             public int n表記上の番号;
-            public CSound[] rSound = new CSound[CDTXMania.ConfigIni.nPoliphonicSounds];     // 4
+            public CSound[] rSound = new CSound[TJAPlayer3.ConfigIni.nPoliphonicSounds];     // 4
             public string strコメント文 = "";
             public string strファイル名 = "";
             public bool bBGMとして使わない
@@ -720,13 +720,13 @@ namespace TJAPlayer3
 
                 if (bManagedリソースの解放も行う)
                 {
-                    for (int i = 0; i < CDTXMania.ConfigIni.nPoliphonicSounds; i++) // 4
+                    for (int i = 0; i < TJAPlayer3.ConfigIni.nPoliphonicSounds; i++) // 4
                     {
                         if (this.rSound[i] != null)
-                            CDTXMania.Sound管理.tサウンドを破棄する(this.rSound[i]);
+                            TJAPlayer3.Sound管理.tサウンドを破棄する(this.rSound[i]);
                         this.rSound[i] = null;
 
-                        if ((i == 0) && CDTXMania.ConfigIni.bLog作成解放ログ出力)
+                        if ((i == 0) && TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
                             Trace.TraceInformation("サウンドを解放しました。({0})({1})", this.strコメント文, this.strファイル名);
                     }
                 }
@@ -1365,7 +1365,7 @@ namespace TJAPlayer3
             this.stGDAParam = stgdaparamArray;
             #endregion
             this.nBGMAdjust = 0;
-            this.nPolyphonicSounds = CDTXMania.ConfigIni.nPoliphonicSounds;
+            this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
             this.dbDTXVPlaySpeed = 1.0f;
 
             //this.nScoreModeTmp = 1;
@@ -1555,7 +1555,7 @@ namespace TJAPlayer3
                 #region [ 同時発音数を、チャンネルによって変える ]
 
                 int nPoly = nPolyphonicSounds;
-                if (CDTXMania.Sound管理.GetCurrentSoundDeviceType() != "DirectSound") // DShowでの再生の場合はミキシング負荷が高くないため、
+                if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() != "DirectSound") // DShowでの再生の場合はミキシング負荷が高くないため、
                 {
                     // チップのライフタイム管理を行わない
                     if (cwav.bIsBassSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
@@ -1572,14 +1572,14 @@ namespace TJAPlayer3
                 {
                     try
                     {
-                        cwav.rSound[i] = CDTXMania.Sound管理.tサウンドを生成する(str, ESoundGroup.SongPlayback);
+                        cwav.rSound[i] = TJAPlayer3.Sound管理.tサウンドを生成する(str, ESoundGroup.SongPlayback);
 
-                        if (!CDTXMania.ConfigIni.bDynamicBassMixerManagement)
+                        if (!TJAPlayer3.ConfigIni.bDynamicBassMixerManagement)
                         {
                             cwav.rSound[i].tBASSサウンドをミキサーに追加する();
                         }
 
-                        if (CDTXMania.ConfigIni.bLog作成解放ログ出力)
+                        if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
                         {
                             Trace.TraceInformation("サウンドを作成しました。({3})({0})({1})({2}bytes)", cwav.strコメント文, str,
                                 cwav.rSound[0].nサウンドバッファサイズ, cwav.rSound[0].bストリーム再生する ? "Stream" : "OnMemory");
@@ -1781,13 +1781,13 @@ namespace TJAPlayer3
                     if (sound != null)
                     {
                         sound.db周波数倍率 = 1.0;
-                        sound.db再生速度 = ((double)CDTXMania.ConfigIni.n演奏速度) / 20.0;
+                        sound.db再生速度 = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
                         // 再生速度によって、WASAPI/ASIOで使う使用mixerが決まるため、付随情報の設定(音量/PAN)は、再生速度の設定後に行う
 
                         // 2018-08-27 twopointzero - DON'T attempt to load (or queue scanning) loudness metadata here.
                         //                           This code is called right after loading the .tja, and that code
                         //                           will have just made such an attempt.
-                        CDTXMania.SongGainController.Set(wc.SongVol, wc.SongLoudnessMetadata, sound);
+                        TJAPlayer3.SongGainController.Set(wc.SongVol, wc.SongLoudnessMetadata, sound);
 
                         sound.n位置 = wc.n位置;
                         sound.t再生を開始する();
@@ -2580,7 +2580,7 @@ namespace TJAPlayer3
                         }
                         if (this.db再生速度 > 0.0)
                         {
-                            double _db再生速度 = (CDTXMania.DTXVmode.Enabled) ? this.dbDTXVPlaySpeed : this.db再生速度;
+                            double _db再生速度 = (TJAPlayer3.DTXVmode.Enabled) ? this.dbDTXVPlaySpeed : this.db再生速度;
                             foreach (CChip chip in this.listChip)
                             {
                                 chip.n発声時刻ms = (int)(((double)chip.n発声時刻ms) / _db再生速度);
@@ -2660,7 +2660,7 @@ namespace TJAPlayer3
 
                         #endregion
                         #region [ bLogDTX詳細ログ出力 ]
-                        if (CDTXMania.ConfigIni.bLogDTX詳細ログ出力)
+                        if (TJAPlayer3.ConfigIni.bLogDTX詳細ログ出力)
                         {
                             foreach (CWAV cwav in this.listWAV.Values)
                             {
@@ -3034,9 +3034,9 @@ namespace TJAPlayer3
                         this.b譜面が存在する[i] = false;
                 }
                 #region[ 読み込ませるコースを決定 ]
-                if (this.b譜面が存在する[CDTXMania.stage選曲.n確定された曲の難易度] == false)
+                if (this.b譜面が存在する[TJAPlayer3.stage選曲.n確定された曲の難易度] == false)
                 {
-                    n読み込むコース = CDTXMania.stage選曲.n確定された曲の難易度;
+                    n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度;
                     n読み込むコース++;
                     for (int n = 1; n < (int)Difficulty.Total; n++)
                     {
@@ -3051,13 +3051,13 @@ namespace TJAPlayer3
                     }
                 }
                 else
-                    n読み込むコース = CDTXMania.stage選曲.n確定された曲の難易度;
+                    n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度;
                 #endregion
 
                 //指定したコースの譜面の命令を消去する。
                 strSplitした譜面[n読み込むコース] = CDTXStyleExtractor.tセッション譜面がある(
                     strSplitした譜面[n読み込むコース],
-                    CDTXMania.ConfigIni.nPlayerCount > 1 ? (this.nPlayerSide + 1) : 0,
+                    TJAPlayer3.ConfigIni.nPlayerCount > 1 ? (this.nPlayerSide + 1) : 0,
                     this.strファイル名の絶対パス);
 
                 //命令をすべて消去した譜面
@@ -4179,13 +4179,13 @@ namespace TJAPlayer3
         /// <param name="InputText"></param>
         private void t難易度別ヘッダ(string InputText)
         {
-            if (InputText.Equals("#HBSCROLL") && CDTXMania.ConfigIni.bスクロールモードを上書き == false)
+            if (InputText.Equals("#HBSCROLL") && TJAPlayer3.ConfigIni.bスクロールモードを上書き == false)
             {
-                CDTXMania.ConfigIni.eScrollMode = EScrollMode.HBSCROLL;
+                TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.HBSCROLL;
             }
-            if (InputText.Equals("#BMSCROLL") && CDTXMania.ConfigIni.bスクロールモードを上書き == false)
+            if (InputText.Equals("#BMSCROLL") && TJAPlayer3.ConfigIni.bスクロールモードを上書き == false)
             {
-                CDTXMania.ConfigIni.eScrollMode = EScrollMode.BMSCROLL;
+                TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.BMSCROLL;
             }
 
 
@@ -4357,9 +4357,9 @@ namespace TJAPlayer3
 
             if (this.nScoreModeTmp == 99) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
             {
-                this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
+                this.nScoreModeTmp = TJAPlayer3.ConfigIni.nScoreMode;
             }
-            if (CDTXMania.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[2, this.n参照中の難易度])
+            if (TJAPlayer3.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[2, this.n参照中の難易度])
             { //2017.06.04 kairera0467
                 this.nScoreModeTmp = 3;
             }
@@ -4758,7 +4758,7 @@ namespace TJAPlayer3
             if (this.nScoreModeTmp == 99)
             {
                 //2017.01.28 DD 
-                this.nScoreModeTmp = CDTXMania.ConfigIni.nScoreMode;
+                this.nScoreModeTmp = TJAPlayer3.ConfigIni.nScoreMode;
             }
         }
         /// <summary>
@@ -6356,7 +6356,7 @@ namespace TJAPlayer3
         /// </summary>
         public void PlanToAddMixerChannel()
         {
-            if (CDTXMania.Sound管理.GetCurrentSoundDeviceType() == "DirectSound") // DShowでの再生の場合はミキシング負荷が高くないため、
+            if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() == "DirectSound") // DShowでの再生の場合はミキシング負荷が高くないため、
             {                                                                       // チップのライフタイム管理を行わない
                 return;
             }
@@ -6445,7 +6445,7 @@ namespace TJAPlayer3
                         int duration = 0;
                         if (listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV wc))
                         {
-                            double _db再生速度 = (CDTXMania.DTXVmode.Enabled) ? this.dbDTXVPlaySpeed : this.db再生速度;
+                            double _db再生速度 = (TJAPlayer3.DTXVmode.Enabled) ? this.dbDTXVPlaySpeed : this.db再生速度;
                             duration = (wc.rSound[0] == null) ? 0 : (int)(wc.rSound[0].n総演奏時間ms / _db再生速度); // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
                         }
                         //Debug.WriteLine("duration=" + duration );
@@ -7076,7 +7076,7 @@ namespace TJAPlayer3
                     if (!int.TryParse(strパラメータ, out n数値))
                         n数値 = 1;
 
-                    this.n現在の乱数 = CDTXMania.Random.Next(n数値) + 1;       // 1～数値 までの乱数を生成。
+                    this.n現在の乱数 = TJAPlayer3.Random.Next(n数値) + 1;       // 1～数値 までの乱数を生成。
                 }
                 //-----------------
                 #endregion
@@ -7992,8 +7992,8 @@ namespace TJAPlayer3
         /// </summary>
         private void AddMusicPreTimeMs()
         {
-            this.dbNowTime += CDTXMania.ConfigIni.MusicPreTimeMs;
-            this.dbNowBMScollTime += CDTXMania.ConfigIni.MusicPreTimeMs * this.dbNowBPM / 15000;
+            this.dbNowTime += TJAPlayer3.ConfigIni.MusicPreTimeMs;
+            this.dbNowBMScollTime += TJAPlayer3.ConfigIni.MusicPreTimeMs * this.dbNowBPM / 15000;
         }
         //-----------------
         #endregion

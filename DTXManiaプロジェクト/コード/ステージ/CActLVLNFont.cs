@@ -63,7 +63,7 @@ namespace TJAPlayer3
 						ST数字 s = st数字[p, (int)efc];
 						int sw = s.rc.Width;
 						int delta = bRightAlign ? 0 : -sw;
-						this.tx数値.t2D描画(CDTXMania.app.Device, x + delta, y, s.rc);
+						this.tx数値.t2D描画(TJAPlayer3.app.Device, x + delta, y, s.rc);
 						x += bRightAlign ? -sw : sw;
 					}
 				}
@@ -77,7 +77,7 @@ namespace TJAPlayer3
 		{
 			if (!base.b活性化してない)
 			{
-				this.tx数値 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\ScreenSelect level numbers.png"));
+				this.tx数値 = TJAPlayer3.tテクスチャの生成(CSkin.Path(@"Graphics\ScreenSelect level numbers.png"));
 				base.OnManagedリソースの作成();
 			}
 		}

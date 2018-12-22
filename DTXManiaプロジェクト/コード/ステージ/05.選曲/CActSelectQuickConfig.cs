@@ -53,7 +53,7 @@ namespace TJAPlayer3
 			#region [ 共通 Target/AutoMode/AutoLane ]
 			#endregion
 			#region [ 個別 ScrollSpeed ]
-			l.Add( new CItemInteger( "ばいそく", 0, 1999, CDTXMania.ConfigIni.n譜面スクロール速度[ nInst ],
+			l.Add( new CItemInteger( "ばいそく", 0, 1999, TJAPlayer3.ConfigIni.n譜面スクロール速度[ nInst ],
 				"演奏時のドラム譜面のスクロールの\n" +
 				"速度を指定します。\n" +
 				"x0.5 ～ x1000.0 を指定可能です。",
@@ -63,7 +63,7 @@ namespace TJAPlayer3
 				"(ScrollSpeed=x0.5 means half speed)" ) );
 			#endregion
 			#region [ 共通 Dark/Risky/PlaySpeed ]
-			l.Add( new CItemInteger( "演奏速度", 5, 40, CDTXMania.ConfigIni.n演奏速度,
+			l.Add( new CItemInteger( "演奏速度", 5, 40, TJAPlayer3.ConfigIni.n演奏速度,
 				"曲の演奏速度を、速くしたり遅くした\n" +
 				"りすることができます。\n" +
 				"（※一部のサウンドカードでは正しく\n" +
@@ -75,14 +75,14 @@ namespace TJAPlayer3
 				"Note: It also changes the songs' pitch." ) );
 			#endregion
 			#region [ 個別 Sud/Hid ]
-            l.Add( new CItemList( "ランダム", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eRandom.Taiko,
+            l.Add( new CItemList( "ランダム", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eRandom.Taiko,
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Guitar chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 				new string[] { "OFF", "RANDOM", "あべこべ", "SUPER", "HYPER" } ) );
-            l.Add( new CItemList( "ドロン", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eSTEALTH,
+            l.Add( new CItemList( "ドロン", CItemBase.Eパネル種別.通常, (int) TJAPlayer3.ConfigIni.eSTEALTH,
 				"",
 				new string[] { "OFF", "ドロン", "ステルス" } ) );
-            l.Add( new CItemList( "ゲーム", CItemBase.Eパネル種別.通常, (int)CDTXMania.ConfigIni.eGameMode,
+            l.Add( new CItemList( "ゲーム", CItemBase.Eパネル種別.通常, (int)TJAPlayer3.ConfigIni.eGameMode,
                 "ゲームモード\n" +
                 "TYPE-A: 完走!叩ききりまショー!\n" +
                 "TYPE-B: 完走!叩ききりまショー!(激辛)\n" +
@@ -92,7 +92,7 @@ namespace TJAPlayer3
                 " ",
                 new string[] { "OFF", "完走!", "完走!激辛" }) );
 
-            l.Add(new CItemList(nameof(CDTXMania.ConfigIni.ShinuchiMode), CItemBase.Eパネル種別.通常, CDTXMania.ConfigIni.ShinuchiMode ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
+            l.Add(new CItemList(nameof(TJAPlayer3.ConfigIni.ShinuchiMode), CItemBase.Eパネル種別.通常, TJAPlayer3.ConfigIni.ShinuchiMode ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
 
 			#endregion
 			#region [ 共通 SET切り替え/More/Return ]
@@ -124,17 +124,17 @@ namespace TJAPlayer3
             switch ( n現在の選択行 )
             {
 				case (int) EOrder.ScrollSpeed:
-					CDTXMania.ConfigIni.n譜面スクロール速度[ nCurrentTarget ] = (int) GetObj現在値( (int) EOrder.ScrollSpeed );
+					TJAPlayer3.ConfigIni.n譜面スクロール速度[ nCurrentTarget ] = (int) GetObj現在値( (int) EOrder.ScrollSpeed );
 					break;
 
 				case (int) EOrder.PlaySpeed:
-					CDTXMania.ConfigIni.n演奏速度 = (int) GetObj現在値( (int) EOrder.PlaySpeed );
+					TJAPlayer3.ConfigIni.n演奏速度 = (int) GetObj現在値( (int) EOrder.PlaySpeed );
 					break;
 				case (int) EOrder.Random:
-                    CDTXMania.ConfigIni.eRandom.Taiko = (Eランダムモード)GetIndex( (int)EOrder.Random );
+                    TJAPlayer3.ConfigIni.eRandom.Taiko = (Eランダムモード)GetIndex( (int)EOrder.Random );
 					break;
 				case (int) EOrder.Stealth:
-                    CDTXMania.ConfigIni.eSTEALTH = (Eステルスモード)GetIndex( (int)EOrder.Stealth );
+                    TJAPlayer3.ConfigIni.eSTEALTH = (Eステルスモード)GetIndex( (int)EOrder.Stealth );
 					break;
 				case (int) EOrder.GameMode:
                     EGame game = EGame.OFF;
@@ -144,10 +144,10 @@ namespace TJAPlayer3
                         case 1: game = EGame.完走叩ききりまショー; break;
                         case 2: game = EGame.完走叩ききりまショー激辛; break;
                     }
-					CDTXMania.ConfigIni.eGameMode = game;
+					TJAPlayer3.ConfigIni.eGameMode = game;
 					break;
                 case (int)EOrder.ShinuchiMode:
-                    CDTXMania.ConfigIni.ShinuchiMode = !CDTXMania.ConfigIni.ShinuchiMode;
+                    TJAPlayer3.ConfigIni.ShinuchiMode = !TJAPlayer3.ConfigIni.ShinuchiMode;
                     break;
 				case (int) EOrder.More:
 					SetAutoParameters();			// 簡易CONFIGメニュー脱出に伴い、簡易CONFIG内のAUTOの設定をConfigIniクラスに反映する
@@ -232,7 +232,7 @@ namespace TJAPlayer3
 			if ( !base.b活性化してない )
 			{
 				//CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
-				CDTXMania.tテクスチャの解放( ref this.tx文字列パネル );
+				TJAPlayer3.tテクスチャの解放( ref this.tx文字列パネル );
 				base.OnManagedリソースの解放();
 			}
 		}

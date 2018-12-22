@@ -96,7 +96,7 @@ namespace TJAPlayer3
             //    this.tx風船枠[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon_" + i.ToString() + ".png"));
             //}
 
-            this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, CDTXMania.Timer);
+            this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, TJAPlayer3.Timer);
             base.OnManagedリソースの作成();
         }
 
@@ -154,21 +154,21 @@ namespace TJAPlayer3
                 {
                     if (n残り打数[j] < n連打数)
                     {
-                        if (CDTXMania.Tx.Balloon_Breaking[j] != null)
-                            CDTXMania.Tx.Balloon_Breaking[j].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Balloon_X[player] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0), CDTXMania.Skin.Game_Balloon_Balloon_Y[player]);
+                        if (TJAPlayer3.Tx.Balloon_Breaking[j] != null)
+                            TJAPlayer3.Tx.Balloon_Breaking[j].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Balloon_X[player] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0), TJAPlayer3.Skin.Game_Balloon_Balloon_Y[player]);
                         break;
                     }
                 }
                 //1P:31 2P:329
-                if (CDTXMania.Tx.Balloon_Balloon != null)
-                    CDTXMania.Tx.Balloon_Balloon.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Balloon_Frame_X[player], CDTXMania.Skin.Game_Balloon_Balloon_Frame_Y[player]);
-                this.t文字表示(CDTXMania.Skin.Game_Balloon_Balloon_Number_X[player], CDTXMania.Skin.Game_Balloon_Balloon_Number_Y[player], n連打数.ToString(), n連打数, player);
+                if (TJAPlayer3.Tx.Balloon_Balloon != null)
+                    TJAPlayer3.Tx.Balloon_Balloon.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Balloon_Frame_X[player], TJAPlayer3.Skin.Game_Balloon_Balloon_Frame_Y[player]);
+                this.t文字表示(TJAPlayer3.Skin.Game_Balloon_Balloon_Number_X[player], TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Y[player], n連打数.ToString(), n連打数, player);
                 //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, n連打数.ToString() );
             }
-            if (n連打数 == 0 && CDTXMania.stage演奏ドラム画面.actChara.b風船連打中)
+            if (n連打数 == 0 && TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中)
             {
-                CDTXMania.stage演奏ドラム画面.actChara.b風船連打中 = false;
-                CDTXMania.stage演奏ドラム画面.b連打中[player] = false;
+                TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中 = false;
+                TJAPlayer3.stage演奏ドラム画面.b連打中[player] = false;
                 //this.tEnd();
                 ////this.ct風船終了.n現在の値 = 0;
                 //if (this.ct風船終了.b進行中db)
@@ -271,19 +271,19 @@ namespace TJAPlayer3
                 {
                     if (this.st文字位置[i].ch == ch)
                     {
-                        Rectangle rectangle = new Rectangle(CDTXMania.Skin.Game_Balloon_Number_Size[0] * i, 0, CDTXMania.Skin.Game_Balloon_Number_Size[0], CDTXMania.Skin.Game_Balloon_Number_Size[1]);
+                        Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_Balloon_Number_Size[0] * i, 0, TJAPlayer3.Skin.Game_Balloon_Number_Size[0], TJAPlayer3.Skin.Game_Balloon_Number_Size[1]);
 
-                        if (CDTXMania.Tx.Balloon_Number_Roll != null)
+                        if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
                         {
-                            CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 255;
-                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = CDTXMania.Skin.Game_Balloon_Balloon_Number_Scale;
-                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Balloon_Balloon_Number_Scale + RollScale[this.ct風船アニメ[nPlayer].n現在の値];
-                            CDTXMania.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画(CDTXMania.app.Device, x - (((CDTXMania.Skin.Game_Balloon_Number_Padding + 2) * n桁数) / 2), y, rectangle);
+                            TJAPlayer3.Tx.Balloon_Number_Roll.n透明度 = 255;
+                            TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Scale;
+                            TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Scale + RollScale[this.ct風船アニメ[nPlayer].n現在の値];
+                            TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, x - (((TJAPlayer3.Skin.Game_Balloon_Number_Padding + 2) * n桁数) / 2), y, rectangle);
                         }
                         break;
                     }
                 }
-                x += (CDTXMania.Skin.Game_Balloon_Number_Padding - (n桁数 > 2 ? n桁数 * 2 : 0));
+                x += (TJAPlayer3.Skin.Game_Balloon_Number_Padding - (n桁数 > 2 ? n桁数 * 2 : 0));
             }
         }
 

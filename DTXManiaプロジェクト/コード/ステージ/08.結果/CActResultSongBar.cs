@@ -30,15 +30,15 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-            if( !string.IsNullOrEmpty( CDTXMania.ConfigIni.FontName) )
+            if( !string.IsNullOrEmpty( TJAPlayer3.ConfigIni.FontName) )
             {
-                this.pfMusicName = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), CDTXMania.Skin.Result_MusicName_FontSize);
-                this.pfStageText = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.FontName), CDTXMania.Skin.Result_StageText_FontSize);
+                this.pfMusicName = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.Result_MusicName_FontSize);
+                this.pfStageText = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.Result_StageText_FontSize);
             }
             else
             {
-                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS UI Gothic"), CDTXMania.Skin.Result_MusicName_FontSize);
-                this.pfStageText = new CPrivateFastFont(new FontFamily("MS UI Gothic"), CDTXMania.Skin.Result_StageText_FontSize);
+                this.pfMusicName = new CPrivateFastFont(new FontFamily("MS UI Gothic"), TJAPlayer3.Skin.Result_MusicName_FontSize);
+                this.pfStageText = new CPrivateFastFont(new FontFamily("MS UI Gothic"), TJAPlayer3.Skin.Result_StageText_FontSize);
             }
 
 		    // After performing calibration, inform the player that
@@ -46,20 +46,20 @@ namespace TJAPlayer3
 		    // displaying the song title as usual.
 
 
-		    var title = CDTXMania.IsPerformingCalibration
-		        ? $"Calibration complete. InputAdjustTime is now {CDTXMania.ConfigIni.nInputAdjustTimeMs}ms"
-		        : CDTXMania.DTX.TITLE;
+		    var title = TJAPlayer3.IsPerformingCalibration
+		        ? $"Calibration complete. InputAdjustTime is now {TJAPlayer3.ConfigIni.nInputAdjustTimeMs}ms"
+		        : TJAPlayer3.DTX.TITLE;
 
-		    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(title, CDTXMania.Skin.Result_MusicName_ForeColor, CDTXMania.Skin.Result_MusicName_BackColor))
+		    using (var bmpSongTitle = pfMusicName.DrawPrivateFont(title, TJAPlayer3.Skin.Result_MusicName_ForeColor, TJAPlayer3.Skin.Result_MusicName_BackColor))
 
 		    {
-		        this.txMusicName = CDTXMania.tテクスチャの生成(bmpSongTitle, false);
-		        txMusicName.vc拡大縮小倍率.X = CDTXMania.GetSongNameXScaling(ref txMusicName);
+		        this.txMusicName = TJAPlayer3.tテクスチャの生成(bmpSongTitle, false);
+		        txMusicName.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
 		    }
 
-		    using (var bmpStageText = pfStageText.DrawPrivateFont(CDTXMania.Skin.Game_StageText, CDTXMania.Skin.Result_StageText_ForeColor, CDTXMania.Skin.Result_StageText_BackColor))
+		    using (var bmpStageText = pfStageText.DrawPrivateFont(TJAPlayer3.Skin.Game_StageText, TJAPlayer3.Skin.Result_StageText_ForeColor, TJAPlayer3.Skin.Result_StageText_BackColor))
 		    {
-		        this.txStageText = CDTXMania.tテクスチャの生成(bmpStageText, false);
+		        this.txStageText = TJAPlayer3.tテクスチャの生成(bmpStageText, false);
 		    }
 
 			base.On活性化();
@@ -83,11 +83,11 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-                CDTXMania.t安全にDisposeする(ref this.pfMusicName);
-                CDTXMania.tテクスチャの解放( ref this.txMusicName );
+                TJAPlayer3.t安全にDisposeする(ref this.pfMusicName);
+                TJAPlayer3.tテクスチャの解放( ref this.txMusicName );
 
-                CDTXMania.t安全にDisposeする(ref this.pfStageText);
-                CDTXMania.tテクスチャの解放(ref this.txStageText);
+                TJAPlayer3.t安全にDisposeする(ref this.pfStageText);
+                TJAPlayer3.tテクスチャの解放(ref this.txStageText);
                 base.OnManagedリソースの解放();
 			}
 		}
@@ -99,37 +99,37 @@ namespace TJAPlayer3
 			}
 			if( base.b初めての進行描画 )
 			{
-				this.ct登場用 = new CCounter( 0, 270, 4, CDTXMania.Timer );
+				this.ct登場用 = new CCounter( 0, 270, 4, TJAPlayer3.Timer );
 				base.b初めての進行描画 = false;
 			}
 			this.ct登場用.t進行();
 
-            if (CDTXMania.Skin.Result_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
+            if (TJAPlayer3.Skin.Result_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
             {
-                this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_MusicName_X - ((this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X) / 2), CDTXMania.Skin.Result_MusicName_Y);
+                this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_MusicName_X - ((this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X) / 2), TJAPlayer3.Skin.Result_MusicName_Y);
             }
-            else if (CDTXMania.Skin.Result_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
+            else if (TJAPlayer3.Skin.Result_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
             {
-                this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_MusicName_X, CDTXMania.Skin.Result_MusicName_Y);
+                this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_MusicName_X, TJAPlayer3.Skin.Result_MusicName_Y);
             }
             else
             {
-                this.txMusicName.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_MusicName_X - this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X, CDTXMania.Skin.Result_MusicName_Y);
+                this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_MusicName_X - this.txMusicName.szテクスチャサイズ.Width * txMusicName.vc拡大縮小倍率.X, TJAPlayer3.Skin.Result_MusicName_Y);
             }
 
-            if(CDTXMania.stage選曲.n確定された曲の難易度 != (int)Difficulty.Dan)
+            if(TJAPlayer3.stage選曲.n確定された曲の難易度 != (int)Difficulty.Dan)
             {
-                if (CDTXMania.Skin.Result_StageText_ReferencePoint == CSkin.ReferencePoint.Center)
+                if (TJAPlayer3.Skin.Result_StageText_ReferencePoint == CSkin.ReferencePoint.Center)
                 {
-                    this.txStageText.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_StageText_X - ((this.txStageText.szテクスチャサイズ.Width * txStageText.vc拡大縮小倍率.X) / 2), CDTXMania.Skin.Result_StageText_Y);
+                    this.txStageText.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_StageText_X - ((this.txStageText.szテクスチャサイズ.Width * txStageText.vc拡大縮小倍率.X) / 2), TJAPlayer3.Skin.Result_StageText_Y);
                 }
-                else if (CDTXMania.Skin.Result_StageText_ReferencePoint == CSkin.ReferencePoint.Right)
+                else if (TJAPlayer3.Skin.Result_StageText_ReferencePoint == CSkin.ReferencePoint.Right)
                 {
-                    this.txStageText.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_StageText_X - this.txStageText.szテクスチャサイズ.Width, CDTXMania.Skin.Result_StageText_Y);
+                    this.txStageText.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_StageText_X - this.txStageText.szテクスチャサイズ.Width, TJAPlayer3.Skin.Result_StageText_Y);
                 }
                 else
                 {
-                    this.txStageText.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Result_StageText_X, CDTXMania.Skin.Result_StageText_Y);
+                    this.txStageText.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_StageText_X, TJAPlayer3.Skin.Result_StageText_Y);
                 }
             }
 

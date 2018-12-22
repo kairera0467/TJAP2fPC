@@ -44,35 +44,35 @@ namespace TJAPlayer3
             }
             if (Splash.b進行中)
             {
-                for (int i = 0; i < CDTXMania.Skin.Game_Effect_GoGoSplash_X.Length; i++)
+                for (int i = 0; i < TJAPlayer3.Skin.Game_Effect_GoGoSplash_X.Length; i++)
                 {
-                    if (i > CDTXMania.Skin.Game_Effect_GoGoSplash_Y.Length) break;
+                    if (i > TJAPlayer3.Skin.Game_Effect_GoGoSplash_Y.Length) break;
                     // Yの配列がiよりも小さかったらそこでキャンセルする。
-                    if(CDTXMania.Skin.Game_Effect_GoGoSplash_Rotate && CDTXMania.Tx.Effects_GoGoSplash != null)
+                    if(TJAPlayer3.Skin.Game_Effect_GoGoSplash_Rotate && TJAPlayer3.Tx.Effects_GoGoSplash != null)
                     {
                         // Switch文を使いたかったが、定数じゃないから使えねぇ!!!!
                         if (i == 0)
                         {
-                            CDTXMania.Tx.Effects_GoGoSplash.fZ軸中心回転 = -0.2792526803190927f;
+                            TJAPlayer3.Tx.Effects_GoGoSplash.fZ軸中心回転 = -0.2792526803190927f;
                         }
                         else if (i == 1)
                         {
-                            CDTXMania.Tx.Effects_GoGoSplash.fZ軸中心回転 = -0.13962634015954636f;
+                            TJAPlayer3.Tx.Effects_GoGoSplash.fZ軸中心回転 = -0.13962634015954636f;
                         }
-                        else if (i == CDTXMania.Skin.Game_Effect_GoGoSplash_X.Length - 2)
+                        else if (i == TJAPlayer3.Skin.Game_Effect_GoGoSplash_X.Length - 2)
                         {
-                            CDTXMania.Tx.Effects_GoGoSplash.fZ軸中心回転 = 0.13962634015954636f;
+                            TJAPlayer3.Tx.Effects_GoGoSplash.fZ軸中心回転 = 0.13962634015954636f;
                         }
-                        else if (i == CDTXMania.Skin.Game_Effect_GoGoSplash_X.Length - 1)
+                        else if (i == TJAPlayer3.Skin.Game_Effect_GoGoSplash_X.Length - 1)
                         {
-                            CDTXMania.Tx.Effects_GoGoSplash.fZ軸中心回転 = 0.2792526803190927f;
+                            TJAPlayer3.Tx.Effects_GoGoSplash.fZ軸中心回転 = 0.2792526803190927f;
                         }
                         else
                         {
-                            CDTXMania.Tx.Effects_GoGoSplash.fZ軸中心回転 = 0.0f;
+                            TJAPlayer3.Tx.Effects_GoGoSplash.fZ軸中心回転 = 0.0f;
                         }
                     }
-                    CDTXMania.Tx.Effects_GoGoSplash?.t2D拡大率考慮下中心基準描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Effect_GoGoSplash_X[i], CDTXMania.Skin.Game_Effect_GoGoSplash_Y[i], new Rectangle(CDTXMania.Skin.Game_Effect_GoGoSplash[0] * Splash.n現在の値, 0, CDTXMania.Skin.Game_Effect_GoGoSplash[0], CDTXMania.Skin.Game_Effect_GoGoSplash[1]));
+                    TJAPlayer3.Tx.Effects_GoGoSplash?.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Effect_GoGoSplash_X[i], TJAPlayer3.Skin.Game_Effect_GoGoSplash_Y[i], new Rectangle(TJAPlayer3.Skin.Game_Effect_GoGoSplash[0] * Splash.n現在の値, 0, TJAPlayer3.Skin.Game_Effect_GoGoSplash[0], TJAPlayer3.Skin.Game_Effect_GoGoSplash[1]));
                 }
             }
             return base.On進行描画();
@@ -80,7 +80,7 @@ namespace TJAPlayer3
 
         public void StartSplash()
         {
-            Splash = new CCounter(0, CDTXMania.Skin.Game_Effect_GoGoSplash[2] - 1, CDTXMania.Skin.Game_Effect_GoGoSplash_Timer, CDTXMania.Timer);
+            Splash = new CCounter(0, TJAPlayer3.Skin.Game_Effect_GoGoSplash[2] - 1, TJAPlayer3.Skin.Game_Effect_GoGoSplash_Timer, TJAPlayer3.Timer);
         }
 
         private CCounter Splash;

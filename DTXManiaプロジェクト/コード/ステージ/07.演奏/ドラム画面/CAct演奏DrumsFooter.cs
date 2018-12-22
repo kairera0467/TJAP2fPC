@@ -39,9 +39,9 @@ namespace TJAPlayer3
 
         public override int On進行描画()
         {
-            if (CDTXMania.Tx.Mob_Footer != null)
+            if (TJAPlayer3.Tx.Mob_Footer != null)
             {
-                CDTXMania.Tx.Mob_Footer.t2D描画(CDTXMania.app.Device, 0, 720 - CDTXMania.Tx.Mob_Footer.szテクスチャサイズ.Height);
+                TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, 720 - TJAPlayer3.Tx.Mob_Footer.szテクスチャサイズ.Height);
             }
             return base.On進行描画();
         }

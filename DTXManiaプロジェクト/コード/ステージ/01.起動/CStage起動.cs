@@ -68,7 +68,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\1_Title\Background.png" ), false );
+				this.tx背景 = TJAPlayer3.tテクスチャの生成( CSkin.Path( @"Graphics\1_Title\Background.png" ), false );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -76,7 +76,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				CDTXMania.tテクスチャの解放( ref this.tx背景 );
+				TJAPlayer3.tテクスチャの解放( ref this.tx背景 );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -88,7 +88,7 @@ namespace TJAPlayer3
 				{
 					this.list進行文字列.Add( "DTXManiaXG Ver.K powered by YAMAHA Silent Session Drums\n" );
 					this.list進行文字列.Add( "Product by.kairera0467\n" );
-					this.list進行文字列.Add( "Release: " + CDTXMania.VERSION + " [" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "]" );
+					this.list進行文字列.Add( "Release: " + TJAPlayer3.VERSION + " [" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "]" );
 
                     this.list進行文字列.Add("");
                     this.list進行文字列.Add("TJAPlayer3 forked TJAPlayer2 forPC(kairera0467)");
@@ -144,7 +144,7 @@ namespace TJAPlayer3
 
 					case CStage.Eフェーズ.起動7_完了:
                         this.list進行文字列.Add("LOADING TEXTURES...");
-                        CDTXMania.Tx.LoadTexture();
+                        TJAPlayer3.Tx.LoadTexture();
                         this.list進行文字列.Add("LOADING TEXTURES...OK");
                         this.str現在進行中 = "Setup done.";
                         break;
@@ -159,17 +159,17 @@ namespace TJAPlayer3
 					int y = 20;
 					foreach( string str in this.list進行文字列 )
 					{
-						CDTXMania.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, str );
+						TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, str );
 						y += 24;
 					}
-					CDTXMania.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, this.str現在進行中 );
+					TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, this.str現在進行中 );
 				}
 				//-----------------
 				#endregion
 
 				if( es != null && es.IsSongListEnumCompletelyDone )							// 曲リスト作成が終わったら
 				{
-					CDTXMania.Songs管理 = ( es != null ) ? es.Songs管理 : null;		// 最後に、曲リストを拾い上げる
+					TJAPlayer3.Songs管理 = ( es != null ) ? es.Songs管理 : null;		// 最後に、曲リストを拾い上げる
 					return 1;
 				}
 			}

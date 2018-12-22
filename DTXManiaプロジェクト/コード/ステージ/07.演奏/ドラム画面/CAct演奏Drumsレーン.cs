@@ -20,7 +20,7 @@ namespace TJAPlayer3
 
         public override void On非活性化()
         {
-            CDTXMania.t安全にDisposeする( ref this.ct分岐アニメ進行 );
+            TJAPlayer3.t安全にDisposeする( ref this.ct分岐アニメ進行 );
             base.On非活性化();
         }
 
@@ -35,14 +35,14 @@ namespace TJAPlayer3
             this.ct分岐アニメ進行 = new CCounter[ 4 ];
             this.nBefore = new int[ 4 ];
             this.nAfter = new int[ 4 ];
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
                 this.ct分岐アニメ進行[ i ] = new CCounter();
                 this.nBefore[ i ] = 0;
                 this.nAfter[ i ] = 0;
                 this.bState[ i ] = false;
             }
-            CDTXMania.Tx.Lane_Base[0].n透明度 = 255;
+            TJAPlayer3.Tx.Lane_Base[0].n透明度 = 255;
 
             base.OnManagedリソースの作成();
         }
@@ -61,7 +61,7 @@ namespace TJAPlayer3
 
         public override int On進行描画()
         {
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
                 if( !this.ct分岐アニメ進行[ i ].b停止中 )
                 {
@@ -76,9 +76,9 @@ namespace TJAPlayer3
 
 
             //アニメーション中の分岐レイヤー(背景)の描画を行う。
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
-                if( CDTXMania.stage演奏ドラム画面.bUseBranch[ i ] == true )
+                if( TJAPlayer3.stage演奏ドラム画面.bUseBranch[ i ] == true )
                 {
                     if( this.ct分岐アニメ進行[ i ].b進行中 )
                     {
@@ -86,74 +86,74 @@ namespace TJAPlayer3
                         //普通→玄人
                         if( nBefore[ i ] == 0 && nAfter[ i ] == 1 )
                         {
-                            CDTXMania.Tx.Lane_Base[1].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
-                            CDTXMania.Tx.Lane_Base[0].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                            CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[1].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                            TJAPlayer3.Tx.Lane_Base[0].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                         }
                         //普通→達人
                         if( nBefore[ i ] == 0 && nAfter[ i ] == 2)
                         {
-                            CDTXMania.Tx.Lane_Base[0].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[0].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                             if( this.ct分岐アニメ進行[ i ].n現在の値 < 100 )
                             {
-                                CDTXMania.Tx.Lane_Base[1].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
-                                CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                TJAPlayer3.Tx.Lane_Base[1].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                                TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                             }
                             else if( this.ct分岐アニメ進行[ i ].n現在の値 >= 100 && this.ct分岐アニメ進行[ i ].n現在の値 < 150 )
                             {
-                                CDTXMania.Tx.Lane_Base[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                TJAPlayer3.Tx.Lane_Base[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                             }
                             else if( this.ct分岐アニメ進行[ i ].n現在の値 >= 150 )
                             {
-                                CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                CDTXMania.Tx.Lane_Base[2].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 250 ? 255 : ( ( (this.ct分岐アニメ進行[ i ].n現在の値 - 150) * 0xff ) / 100 );
-                                CDTXMania.Tx.Lane_Base[2].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
+                                TJAPlayer3.Tx.Lane_Base[2].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 250 ? 255 : ( ( (this.ct分岐アニメ進行[ i ].n現在の値 - 150) * 0xff ) / 100 );
+                                TJAPlayer3.Tx.Lane_Base[2].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                             }
                         }
                         #endregion
                         #region[ 玄人譜面_レベルアップ ]
                         if( nBefore[ i ] == 1 && nAfter[ i ] == 2 )
                         {
-                            CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                            CDTXMania.Tx.Lane_Base[2].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
-                            CDTXMania.Tx.Lane_Base[2].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[2].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                            TJAPlayer3.Tx.Lane_Base[2].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                         }
                         #endregion
                         #region[ 玄人譜面_レベルダウン ]
                         if( nBefore[ i ] == 1 && nAfter[ i ] == 0)
                         {
-                            CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                            CDTXMania.Tx.Lane_Base[0].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
-                            CDTXMania.Tx.Lane_Base[0].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[0].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                            TJAPlayer3.Tx.Lane_Base[0].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                         }
                         #endregion
                         #region[ 達人譜面_レベルダウン ]
                         if( nBefore[ i ] == 2 && nAfter[ i ] == 0)
                         {
-                            CDTXMania.Tx.Lane_Base[2].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[2].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                             if( this.ct分岐アニメ進行[ i ].n現在の値 < 100 )
                             {
-                                CDTXMania.Tx.Lane_Base[1].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
-                                CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                TJAPlayer3.Tx.Lane_Base[1].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                                TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                             }
                             else if( this.ct分岐アニメ進行[ i ].n現在の値 >= 100 && this.ct分岐アニメ進行[ i ].n現在の値 < 150 )
                             {
-                                CDTXMania.Tx.Lane_Base[1].n透明度 = 255;
-                                CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                TJAPlayer3.Tx.Lane_Base[1].n透明度 = 255;
+                                TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                             }
                             else if( this.ct分岐アニメ進行[ i ].n現在の値 >= 150 )
                             {
-                                CDTXMania.Tx.Lane_Base[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                CDTXMania.Tx.Lane_Base[0].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 250 ? 255 : ( ( ( this.ct分岐アニメ進行[ i ].n現在の値 - 150 ) * 0xff ) / 100 );
-                                CDTXMania.Tx.Lane_Base[0].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                TJAPlayer3.Tx.Lane_Base[1].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
+                                TJAPlayer3.Tx.Lane_Base[0].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 250 ? 255 : ( ( ( this.ct分岐アニメ進行[ i ].n現在の値 - 150 ) * 0xff ) / 100 );
+                                TJAPlayer3.Tx.Lane_Base[0].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                             }
                         }
                         if( nBefore[ i ] == 2 && nAfter[ i ] == 1 )
                         {
-                            CDTXMania.Tx.Lane_Base[2].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                            CDTXMania.Tx.Lane_Base[2].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
-                            CDTXMania.Tx.Lane_Base[2].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[2].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
+                            TJAPlayer3.Tx.Lane_Base[2].n透明度 = this.ct分岐アニメ進行[ i ].n現在の値 > 100 ? 255 : ( ( this.ct分岐アニメ進行[ i ].n現在の値 * 0xff ) / 100 );
+                            TJAPlayer3.Tx.Lane_Base[2].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[ i ], TJAPlayer3.Skin.nScrollFieldY[ i ] );
                         }
                         #endregion
                     }
@@ -167,7 +167,7 @@ namespace TJAPlayer3
             if( n現在 == n次回 ) {
                 return;
             }
-            this.ct分岐アニメ進行[ player ] = new CCounter( 0, 300, 2, CDTXMania.Timer );
+            this.ct分岐アニメ進行[ player ] = new CCounter( 0, 300, 2, TJAPlayer3.Timer );
             this.bState[ player ] = true;
 
             this.nBefore[ player ] = n現在;

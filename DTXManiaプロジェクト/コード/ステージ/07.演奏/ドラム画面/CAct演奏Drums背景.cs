@@ -21,7 +21,7 @@ namespace TJAPlayer3
 
         public void tFadeIn(int player)
         {
-            this.ct上背景クリアインタイマー[player] = new CCounter( 0, 100, 2, CDTXMania.Timer );
+            this.ct上背景クリアインタイマー[player] = new CCounter( 0, 100, 2, TJAPlayer3.Timer );
             this.eFadeMode = EFIFOモード.フェードイン;
         }
 
@@ -33,9 +33,9 @@ namespace TJAPlayer3
 
         public void ClearIn(int player)
         {
-            this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 2, CDTXMania.Timer);
+            this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 2, TJAPlayer3.Timer);
             this.ct上背景クリアインタイマー[player].n現在の値 = 0;
-            this.ct上背景FIFOタイマー = new CCounter(0, 100, 2, CDTXMania.Timer);
+            this.ct上背景FIFOタイマー = new CCounter(0, 100, 2, TJAPlayer3.Timer);
             this.ct上背景FIFOタイマー.n現在の値 = 0;
         }
 
@@ -46,12 +46,12 @@ namespace TJAPlayer3
 
         public override void On非活性化()
         {
-            CDTXMania.t安全にDisposeする( ref this.ct上背景FIFOタイマー );
+            TJAPlayer3.t安全にDisposeする( ref this.ct上背景FIFOタイマー );
             for (int i = 0; i < 2; i++)
             {
                 ct上背景スクロール用タイマー[i] = null;
             }
-            CDTXMania.t安全にDisposeする( ref this.ct下背景スクロール用タイマー1 );
+            TJAPlayer3.t安全にDisposeする( ref this.ct下背景スクロール用タイマー1 );
             base.On非活性化();
         }
 
@@ -67,14 +67,14 @@ namespace TJAPlayer3
             this.ct上背景クリアインタイマー = new CCounter[2];
             for (int i = 0; i < 2; i++)
             {
-                if (CDTXMania.Tx.Background_Up[i] != null)
+                if (TJAPlayer3.Tx.Background_Up[i] != null)
                 {
-                    this.ct上背景スクロール用タイマー[i] = new CCounter(1, CDTXMania.Tx.Background_Up[i].szテクスチャサイズ.Width, 16, CDTXMania.Timer);
+                    this.ct上背景スクロール用タイマー[i] = new CCounter(1, TJAPlayer3.Tx.Background_Up[i].szテクスチャサイズ.Width, 16, TJAPlayer3.Timer);
                     this.ct上背景クリアインタイマー[i] = new CCounter();
                 }
             }
-            if (CDTXMania.Tx.Background_Down_Scroll != null)
-                this.ct下背景スクロール用タイマー1 = new CCounter( 1, CDTXMania.Tx.Background_Down_Scroll.szテクスチャサイズ.Width, 4, CDTXMania.Timer );
+            if (TJAPlayer3.Tx.Background_Down_Scroll != null)
+                this.ct下背景スクロール用タイマー1 = new CCounter( 1, TJAPlayer3.Tx.Background_Down_Scroll.szテクスチャサイズ.Width, 4, TJAPlayer3.Timer );
 
             this.ct上背景FIFOタイマー = new CCounter();
             base.OnManagedリソースの作成();
@@ -115,65 +115,65 @@ namespace TJAPlayer3
             {
                 if (this.ct上背景スクロール用タイマー[i] != null)
                 {
-                    double TexSize = 1280 / CDTXMania.Tx.Background_Up[i].szテクスチャサイズ.Width;
+                    double TexSize = 1280 / TJAPlayer3.Tx.Background_Up[i].szテクスチャサイズ.Width;
                     // 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
                     int ForLoop = (int)Math.Ceiling(TexSize) + 1;
                     //int nループ幅 = 328;
-                    CDTXMania.Tx.Background_Up[i].t2D描画(CDTXMania.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, CDTXMania.Skin.Background_Scroll_Y[i]);
+                    TJAPlayer3.Tx.Background_Up[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i]);
                     for (int l = 1; l < ForLoop + 1; l++)
                     {
-                        CDTXMania.Tx.Background_Up[i].t2D描画(CDTXMania.app.Device, +(l * CDTXMania.Tx.Background_Up[i].szテクスチャサイズ.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, CDTXMania.Skin.Background_Scroll_Y[i]);
+                        TJAPlayer3.Tx.Background_Up[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up[i].szテクスチャサイズ.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i]);
                     }
                 }
                 if (this.ct上背景スクロール用タイマー[i] != null)
                 {
-                    if (CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[i])
-                        CDTXMania.Tx.Background_Up_Clear[i].n透明度 = ((this.ct上背景クリアインタイマー[i].n現在の値 * 0xff) / 100);
+                    if (TJAPlayer3.stage演奏ドラム画面.bIsAlreadyCleared[i])
+                        TJAPlayer3.Tx.Background_Up_Clear[i].n透明度 = ((this.ct上背景クリアインタイマー[i].n現在の値 * 0xff) / 100);
                     else
-                        CDTXMania.Tx.Background_Up_Clear[i].n透明度 = 0;
+                        TJAPlayer3.Tx.Background_Up_Clear[i].n透明度 = 0;
 
-                    double TexSize = 1280 / CDTXMania.Tx.Background_Up_Clear[i].szテクスチャサイズ.Width;
+                    double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_Clear[i].szテクスチャサイズ.Width;
                     // 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
                     int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 
-                    CDTXMania.Tx.Background_Up_Clear[i].t2D描画(CDTXMania.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, CDTXMania.Skin.Background_Scroll_Y[i]);
+                    TJAPlayer3.Tx.Background_Up_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i]);
                     for (int l = 1; l < ForLoop + 1; l++)
                     {
-                        CDTXMania.Tx.Background_Up_Clear[i].t2D描画(CDTXMania.app.Device, (l * CDTXMania.Tx.Background_Up_Clear[i].szテクスチャサイズ.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, CDTXMania.Skin.Background_Scroll_Y[i]);
+                        TJAPlayer3.Tx.Background_Up_Clear[i].t2D描画(TJAPlayer3.app.Device, (l * TJAPlayer3.Tx.Background_Up_Clear[i].szテクスチャサイズ.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i]);
                     }
                 }
 
             }
             #endregion
             #region 1P-下背景
-            if( !CDTXMania.stage演奏ドラム画面.bDoublePlay )
+            if( !TJAPlayer3.stage演奏ドラム画面.bDoublePlay )
             {
                 {
-                    if( CDTXMania.Tx.Background_Down != null )
+                    if( TJAPlayer3.Tx.Background_Down != null )
                     {
-                        CDTXMania.Tx.Background_Down.t2D描画( CDTXMania.app.Device, 0, 360 );
+                        TJAPlayer3.Tx.Background_Down.t2D描画( TJAPlayer3.app.Device, 0, 360 );
                     }
                 }
-                if(CDTXMania.stage演奏ドラム画面.bIsAlreadyCleared[0])
+                if(TJAPlayer3.stage演奏ドラム画面.bIsAlreadyCleared[0])
                 {
-                    if( CDTXMania.Tx.Background_Down_Clear != null && CDTXMania.Tx.Background_Down_Scroll != null )
+                    if( TJAPlayer3.Tx.Background_Down_Clear != null && TJAPlayer3.Tx.Background_Down_Scroll != null )
                     {
-                        CDTXMania.Tx.Background_Down_Clear.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
-                        CDTXMania.Tx.Background_Down_Scroll.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
-                        CDTXMania.Tx.Background_Down_Clear.t2D描画( CDTXMania.app.Device, 0, 360 );
+                        TJAPlayer3.Tx.Background_Down_Clear.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
+                        TJAPlayer3.Tx.Background_Down_Scroll.n透明度 = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
+                        TJAPlayer3.Tx.Background_Down_Clear.t2D描画( TJAPlayer3.app.Device, 0, 360 );
 
                         //int nループ幅 = 1257;
                         //CDTXMania.Tx.Background_Down_Scroll.t2D描画( CDTXMania.app.Device, 0 - this.ct下背景スクロール用タイマー1.n現在の値, 360 );
                         //CDTXMania.Tx.Background_Down_Scroll.t2D描画(CDTXMania.app.Device, (1 * nループ幅) - this.ct下背景スクロール用タイマー1.n現在の値, 360);
-                        double TexSize = 1280 / CDTXMania.Tx.Background_Down_Scroll.szテクスチャサイズ.Width;
+                        double TexSize = 1280 / TJAPlayer3.Tx.Background_Down_Scroll.szテクスチャサイズ.Width;
                         // 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
                         int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 
                         //int nループ幅 = 328;
-                        CDTXMania.Tx.Background_Down_Scroll.t2D描画(CDTXMania.app.Device, 0 - this.ct下背景スクロール用タイマー1.n現在の値, 360);
+                        TJAPlayer3.Tx.Background_Down_Scroll.t2D描画(TJAPlayer3.app.Device, 0 - this.ct下背景スクロール用タイマー1.n現在の値, 360);
                         for (int l = 1; l < ForLoop + 1; l++)
                         {
-                            CDTXMania.Tx.Background_Down_Scroll.t2D描画(CDTXMania.app.Device, +(l * CDTXMania.Tx.Background_Down_Scroll.szテクスチャサイズ.Width) - this.ct下背景スクロール用タイマー1.n現在の値, 360);
+                            TJAPlayer3.Tx.Background_Down_Scroll.t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Down_Scroll.szテクスチャサイズ.Width) - this.ct下背景スクロール用タイマー1.n現在の値, 360);
                         }
 
                     }

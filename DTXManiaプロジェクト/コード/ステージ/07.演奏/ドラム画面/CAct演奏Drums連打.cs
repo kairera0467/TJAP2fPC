@@ -114,27 +114,27 @@ namespace TJAPlayer3
             //仮置き
             int[] nRollBalloon = new int[] { -3, 514, 0, 0 };
             int[] nRollNumber = new int[] { 48, 559, 0, 0 };
-            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
                 //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ct連打枠カウンター[player].n現在の値.ToString());
                 if ( this.ct連打枠カウンター[ player ].b終了値に達してない)
                 {
-                    CDTXMania.Tx.Balloon_Roll.t2D描画(CDTXMania.app.Device, CDTXMania.Skin.Game_Balloon_Roll_Frame_X[player], CDTXMania.Skin.Game_Balloon_Roll_Frame_Y[player]);
-                    this.t文字表示(CDTXMania.Skin.Game_Balloon_Roll_Number_X[player], CDTXMania.Skin.Game_Balloon_Roll_Number_Y[player], n連打数.ToString(), n連打数, player);
-                    CDTXMania.Tx.Balloon_Roll.n透明度 = 256;
-                    CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 256;
+                    TJAPlayer3.Tx.Balloon_Roll.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Roll_Frame_X[player], TJAPlayer3.Skin.Game_Balloon_Roll_Frame_Y[player]);
+                    this.t文字表示(TJAPlayer3.Skin.Game_Balloon_Roll_Number_X[player], TJAPlayer3.Skin.Game_Balloon_Roll_Number_Y[player], n連打数.ToString(), n連打数, player);
+                    TJAPlayer3.Tx.Balloon_Roll.n透明度 = 256;
+                    TJAPlayer3.Tx.Balloon_Number_Roll.n透明度 = 256;
                     if ((int)this.ct連打枠カウンター[player].n現在の値 > 96)
                     {
-                        CDTXMania.Tx.Balloon_Roll.n透明度 = 50;
-                        CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 50;
+                        TJAPlayer3.Tx.Balloon_Roll.n透明度 = 50;
+                        TJAPlayer3.Tx.Balloon_Number_Roll.n透明度 = 50;
                     } else if((int)this.ct連打枠カウンター[player].n現在の値 > 92)
                     {
-                        CDTXMania.Tx.Balloon_Roll.n透明度 = 125;
-                        CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 125;
+                        TJAPlayer3.Tx.Balloon_Roll.n透明度 = 125;
+                        TJAPlayer3.Tx.Balloon_Number_Roll.n透明度 = 125;
                     } else if ((int)this.ct連打枠カウンター[player].n現在の値 > 88)
                     {
-                        CDTXMania.Tx.Balloon_Roll.n透明度 = 200;
-                        CDTXMania.Tx.Balloon_Number_Roll.n透明度 = 200;
+                        TJAPlayer3.Tx.Balloon_Roll.n透明度 = 200;
+                        TJAPlayer3.Tx.Balloon_Number_Roll.n透明度 = 200;
                     }
 
                 }
@@ -145,7 +145,7 @@ namespace TJAPlayer3
 
         public void t枠表示時間延長( int player )
         {
-            this.ct連打枠カウンター[ player ] = new CCounter( 0, 100, 10, CDTXMania.Timer );
+            this.ct連打枠カウンター[ player ] = new CCounter( 0, 100, 10, TJAPlayer3.Timer );
         }
 
 
@@ -188,18 +188,18 @@ namespace TJAPlayer3
 				{
 					if( this.st文字位置[ i ].ch == ch )
 					{
-						Rectangle rectangle = new Rectangle(CDTXMania.Skin.Game_Balloon_Number_Size[0] * i, 0, CDTXMania.Skin.Game_Balloon_Number_Size[0], CDTXMania.Skin.Game_Balloon_Number_Size[1]);
+						Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_Balloon_Number_Size[0] * i, 0, TJAPlayer3.Skin.Game_Balloon_Number_Size[0], TJAPlayer3.Skin.Game_Balloon_Number_Size[1]);
 
-						if(CDTXMania.Tx.Balloon_Number_Roll != null )
+						if(TJAPlayer3.Tx.Balloon_Number_Roll != null )
 						{
-                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = CDTXMania.Skin.Game_Balloon_Roll_Number_Scale;
-                            CDTXMania.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = CDTXMania.Skin.Game_Balloon_Roll_Number_Scale + RollScale[this.ct連打アニメ[nPlayer].n現在の値];
-                            CDTXMania.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画( CDTXMania.app.Device, x - ( ( (CDTXMania.Skin.Game_Balloon_Number_Padding + 2) * n桁数 ) / 2 ), y, rectangle );
+                            TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = TJAPlayer3.Skin.Game_Balloon_Roll_Number_Scale;
+                            TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = TJAPlayer3.Skin.Game_Balloon_Roll_Number_Scale + RollScale[this.ct連打アニメ[nPlayer].n現在の値];
+                            TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画( TJAPlayer3.app.Device, x - ( ( (TJAPlayer3.Skin.Game_Balloon_Number_Padding + 2) * n桁数 ) / 2 ), y, rectangle );
 						}
 						break;
 					}
 				}
-				x += ( CDTXMania.Skin.Game_Balloon_Number_Padding - ( n桁数 > 2 ? n桁数 * 2 : 0 ) );
+				x += ( TJAPlayer3.Skin.Game_Balloon_Number_Padding - ( n桁数 > 2 ? n桁数 * 2 : 0 ) );
 			}
 		}
     }

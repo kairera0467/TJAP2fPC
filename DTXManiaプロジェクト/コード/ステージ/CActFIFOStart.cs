@@ -14,12 +14,12 @@ namespace TJAPlayer3
 		{
 			this.mode = EFIFOモード.フェードアウト;
 
-            this.counter = new CCounter( 0, 1500, 1, CDTXMania.Timer );
+            this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
 		}
 		public void tフェードイン開始()
 		{
 			this.mode = EFIFOモード.フェードイン;
-			this.counter = new CCounter( 0, 1500, 1, CDTXMania.Timer );
+			this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
 		}
 		public void tフェードイン完了()		// #25406 2011.6.9 yyagi
 		{
@@ -57,19 +57,19 @@ namespace TJAPlayer3
 
             if( this.mode == EFIFOモード.フェードアウト )
             {
-                if( CDTXMania.Tx.SongLoading_FadeOut != null )
+                if( TJAPlayer3.Tx.SongLoading_FadeOut != null )
 			    {
                     int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-                    CDTXMania.Tx.SongLoading_FadeOut.t2D描画( CDTXMania.app.Device, 0, 720 - y );
+                    TJAPlayer3.Tx.SongLoading_FadeOut.t2D描画( TJAPlayer3.app.Device, 0, 720 - y );
                 }
 
 			}
             else
             {
-                if(CDTXMania.Tx.SongLoading_FadeIn != null )
+                if(TJAPlayer3.Tx.SongLoading_FadeIn != null )
                 {
                     int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-                    CDTXMania.Tx.SongLoading_FadeIn.t2D描画( CDTXMania.app.Device, 0, 0 - y );
+                    TJAPlayer3.Tx.SongLoading_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 0 - y );
                 }
             }
 

@@ -23,7 +23,7 @@ namespace TJAPlayer3
 
 		public void Start( int nチャンネル番号, CDTX.CAVI rAVI, CDTX.CDirectShow dsBGV, int n開始サイズW, int n開始サイズH, int n終了サイズW, int n終了サイズH, int n画像側開始位置X, int n画像側開始位置Y, int n画像側終了位置X, int n画像側終了位置Y, int n表示側開始位置X, int n表示側開始位置Y, int n表示側終了位置X, int n表示側終了位置Y, int n総移動時間ms, int n移動開始時刻ms )
 		{
-            if ( ( nチャンネル番号 == 0x54 || nチャンネル番号 == 0x5A ) && CDTXMania.ConfigIni.bAVI有効 )
+            if ( ( nチャンネル番号 == 0x54 || nチャンネル番号 == 0x5A ) && TJAPlayer3.ConfigIni.bAVI有効 )
             {
                 this.rAVI = rAVI;
                 this.dsBGV = dsBGV;
@@ -60,7 +60,7 @@ namespace TJAPlayer3
                     }
                     if (this.tx描画用 == null)
                     {
-                        this.tx描画用 = new CTexture(CDTXMania.app.Device, (int)this.framewidth, (int)this.frameheight, CDTXMania.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed);
+                        this.tx描画用 = new CTexture(TJAPlayer3.app.Device, (int)this.framewidth, (int)this.frameheight, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed);
                     }
 
                     #region[ リサイズ処理 ]
@@ -145,7 +145,7 @@ namespace TJAPlayer3
 		}
 		public void SkipStart( int n移動開始時刻ms )
 		{
-			foreach ( CDTX.CChip chip in CDTXMania.DTX.listChip )
+			foreach ( CDTX.CChip chip in TJAPlayer3.DTX.listChip )
 			{
 				if ( chip.n発声時刻ms > n移動開始時刻ms )
 				{
@@ -202,7 +202,7 @@ namespace TJAPlayer3
 				{
 					return 0;
 				}
-				int time = (int) ( ( CSound管理.rc演奏用タイマ.n現在時刻 - this.n移動開始時刻ms ) * ( ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0 ) );
+				int time = (int) ( ( CSound管理.rc演奏用タイマ.n現在時刻 - this.n移動開始時刻ms ) * ( ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0 ) );
                 int frameNoFromTime = 0;
 
                 #region[ frameNoFromTime ]
@@ -283,7 +283,7 @@ namespace TJAPlayer3
 				{
 					num4 = CSound管理.rc演奏用タイマ.n現在時刻;
 				}
-				time = (int) ( ( CSound管理.rc演奏用タイマ.n現在時刻 - num4 ) * ( ( (double) CDTXMania.ConfigIni.n演奏速度 ) / 20.0 ) );
+				time = (int) ( ( CSound管理.rc演奏用タイマ.n現在時刻 - num4 ) * ( ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0 ) );
 				if ( num3 == 0 )
 				{
 					rectangle = new Rectangle( location, size3 );
@@ -384,12 +384,12 @@ namespace TJAPlayer3
                         this.dsBGV.dshow.t現時点における最新のスナップイメージをTextureに転写する( this.tx描画用 );
                         this.dsBGV.dshow.t現時点における最新のスナップイメージをTextureに転写する( this.tx窓描画用 );
 
-                        if( CDTXMania.ConfigIni.eClipDispType == EClipDispType.背景のみ || CDTXMania.ConfigIni.eClipDispType == EClipDispType.両方 )
+                        if( TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.背景のみ || TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.両方 )
                         {
                             if( this.dsBGV.dshow.b上下反転 )
-                                this.tx描画用.t2D上下反転描画( CDTXMania.app.Device, x, y );
+                                this.tx描画用.t2D上下反転描画( TJAPlayer3.app.Device, x, y );
                             else
-                                this.tx描画用.t2D描画( CDTXMania.app.Device, x, y );
+                                this.tx描画用.t2D描画( TJAPlayer3.app.Device, x, y );
                         }
                         #endregion
                     }
@@ -422,7 +422,7 @@ namespace TJAPlayer3
 
                     //とりあえず16:9以外は再生しない。
                     if( dbAVI比率 < 1.77 )
-					    this.tx描画用.t2D描画( CDTXMania.app.Device, 0, 0 );
+					    this.tx描画用.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 				}
 
                 #region[キー入力処理]
@@ -476,9 +476,9 @@ namespace TJAPlayer3
                     this.tx窓描画用.vc拡大縮小倍率.X = (float)( fRatio[ 0 ] / this.dsBGV.dshow.n幅px );
                     this.tx窓描画用.vc拡大縮小倍率.Y = (float)( fRatio[ 1 ] / this.dsBGV.dshow.n高さpx );
                     if( this.dsBGV.dshow.b上下反転 )
-                        this.tx窓描画用.t2D上下反転描画( CDTXMania.app.Device, (int)fRatio[ 2 ], (int)fRatio[ 3 ] );
+                        this.tx窓描画用.t2D上下反転描画( TJAPlayer3.app.Device, (int)fRatio[ 2 ], (int)fRatio[ 3 ] );
                     else
-                        this.tx窓描画用.t2D描画( CDTXMania.app.Device, (int)fRatio[ 2 ], (int)fRatio[ 3 ] );
+                        this.tx窓描画用.t2D描画( TJAPlayer3.app.Device, (int)fRatio[ 2 ], (int)fRatio[ 3 ] );
                 }
 
                 #endregion
@@ -524,11 +524,11 @@ namespace TJAPlayer3
             if( this.tx描画用 != null && this.tx窓描画用 != null )
             {
                 //2016.12.22 kairera0467 解放→生成というのもどうなのだろうか...
-                CDTXMania.t安全にDisposeする( ref this.tx描画用 );
-                CDTXMania.t安全にDisposeする( ref this.tx窓描画用 );
+                TJAPlayer3.t安全にDisposeする( ref this.tx描画用 );
+                TJAPlayer3.t安全にDisposeする( ref this.tx窓描画用 );
 
-				this.tx描画用 = new CTexture( CDTXMania.app.Device, 1280, 720, CDTXMania.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
-				this.tx窓描画用 = new CTexture( CDTXMania.app.Device, 1280, 720, CDTXMania.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
+				this.tx描画用 = new CTexture( TJAPlayer3.app.Device, 1280, 720, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
+				this.tx窓描画用 = new CTexture( TJAPlayer3.app.Device, 1280, 720, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
             }
             
         }
@@ -551,8 +551,8 @@ namespace TJAPlayer3
 #if TEST_Direct3D9Ex
 				this.tx描画用 = new CTexture( CDTXMania.app.Device, 320, 355, CDTXMania.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Default, Usage.Dynamic );
 #else
-				this.tx描画用 = new CTexture( CDTXMania.app.Device, 1280, 720, CDTXMania.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
-				this.tx窓描画用 = new CTexture( CDTXMania.app.Device, 1280, 720, CDTXMania.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
+				this.tx描画用 = new CTexture( TJAPlayer3.app.Device, 1280, 720, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
+				this.tx窓描画用 = new CTexture( TJAPlayer3.app.Device, 1280, 720, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
 #endif
 				base.OnManagedリソースの作成();
 			}

@@ -10,7 +10,7 @@
 		/// <summary>
 		/// DTXMania のバージョンを表します。
 		/// </summary>
-		TJAPlayer3.CDTXVersion DTXManiaVersion { get; }
+		global::TJAPlayer3.CDTXVersion DTXManiaVersion { get; }
 
 		/// <summary>
 		/// <para>Direct3D9 デバイスオブジェクト。</para>
@@ -32,12 +32,12 @@
 		/// <summary>
 		/// 現在のステージのIDを表します。
 		/// </summary>
-		TJAPlayer3.CStage.Eステージ e現在のステージ { get; }
+		global::TJAPlayer3.CStage.Eステージ e現在のステージ { get; }
 
 		/// <summary>
 		/// 現在のステージにおけるフェーズのIDを表します。
 		/// </summary>
-		TJAPlayer3.CStage.Eフェーズ e現在のフェーズ { get; }
+		global::TJAPlayer3.CStage.Eフェーズ e現在のフェーズ { get; }
 
 		/// <summary>
 		/// <para>自分以外は入力データを扱ってはならないことを宣言します。</para>

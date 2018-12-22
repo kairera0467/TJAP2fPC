@@ -144,7 +144,7 @@ namespace TJAPlayer3
 
 			DirectoryInfo info = new DirectoryInfo( str基点フォルダ );
 
-			if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+			if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 				Trace.TraceInformation( "基点フォルダ: " + str基点フォルダ );
 
 			#region [ a.フォルダ内に set.def が存在する場合 → 1フォルダ内のtjaファイル無制限]
@@ -153,7 +153,7 @@ namespace TJAPlayer3
 			if( File.Exists( path ) )
 			{
 				new FileInfo( path );
-				if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+				if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 				{
 					Trace.TraceInformation( "set.def検出 : {0}", path );
 					Trace.Indent();
@@ -230,7 +230,7 @@ namespace TJAPlayer3
 				}
 				finally
 				{
-					if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+					if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 					{
 						Trace.Unindent();
 					}
@@ -309,36 +309,36 @@ namespace TJAPlayer3
                                 switch (CStrジャンルtoNum.ForAC15(c曲リストノード.strジャンル))
                                 {
                                     case 0:
-                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_JPOP;
-                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_JPOP;
+                                        c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_JPOP;
+                                        c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_JPOP;
                                         break;
                                     case 1:
-                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Anime;
-                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Anime;
+                                        c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Anime;
+                                        c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Anime;
                                         break;
                                     case 2:
-                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_VOCALOID;
-                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_VOCALOID;
+                                        c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_VOCALOID;
+                                        c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_VOCALOID;
                                         break;
                                     case 3:
-                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Children;
-                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Children;
+                                        c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Children;
+                                        c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Children;
                                         break;
                                     case 4:
-                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Variety;
-                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Variety;
+                                        c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Variety;
+                                        c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Variety;
                                         break;
                                     case 5:
-                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Classic;
-                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Classic;
+                                        c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Classic;
+                                        c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Classic;
                                         break;
                                     case 6:
-                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_GameMusic;
-                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_GameMusic;
+                                        c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_GameMusic;
+                                        c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_GameMusic;
                                         break;
                                     case 7:
-                                        c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Namco;
-                                        c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Namco;
+                                        c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Namco;
+                                        c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Namco;
                                         break;
                                     default:
                                         break;
@@ -367,7 +367,7 @@ namespace TJAPlayer3
                                     b = true;
                                 }
 
-                                if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+                                if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
                                 {
                                 //    Trace.Indent();
                                 //    try
@@ -454,7 +454,7 @@ namespace TJAPlayer3
                             c曲リストノード.BackColor = boxdef.BackColor;
                         }
                     }
-					if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+					if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 					{
 						Trace.Indent();
 						try
@@ -513,36 +513,36 @@ namespace TJAPlayer3
                     switch (CStrジャンルtoNum.ForAC15(c曲リストノード.strジャンル))
                     {
                         case 0:
-                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_JPOP;
-                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_JPOP;
+                            c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_JPOP;
+                            c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_JPOP;
                             break;
                         case 1:
-                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Anime;
-                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Anime;
+                            c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Anime;
+                            c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Anime;
                             break;
                         case 2:
-                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_VOCALOID;
-                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_VOCALOID;
+                            c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_VOCALOID;
+                            c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_VOCALOID;
                             break;
                         case 3:
-                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Children;
-                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Children;
+                            c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Children;
+                            c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Children;
                             break;
                         case 4:
-                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Variety;
-                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Variety;
+                            c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Variety;
+                            c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Variety;
                             break;
                         case 5:
-                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Classic;
-                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Classic;
+                            c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Classic;
+                            c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Classic;
                             break;
                         case 6:
-                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_GameMusic;
-                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_GameMusic;
+                            c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_GameMusic;
+                            c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_GameMusic;
                             break;
                         case 7:
-                            c曲リストノード.ForeColor = CDTXMania.Skin.SongSelect_ForeColor_Namco;
-                            c曲リストノード.BackColor = CDTXMania.Skin.SongSelect_BackColor_Namco;
+                            c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Namco;
+                            c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Namco;
                             break;
                         default:
                             break;
@@ -563,7 +563,7 @@ namespace TJAPlayer3
 					
 					c曲リストノード.list子リスト = new List<C曲リストノード>();
 					listノードリスト.Add( c曲リストノード );
-					if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+					if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 					{
 						Trace.TraceInformation( "box.def検出 : {0}", infoDir.FullName + @"\box.def" );
 						Trace.Indent();
@@ -663,7 +663,7 @@ namespace TJAPlayer3
 								if( nMatched == -1 )
 								{
 //Trace.TraceInformation( "songs.db に存在しません。({0})", node.arスコア[ lv ].ファイル情報.ファイルの絶対パス );
-									if ( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+									if ( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 									{
 										Trace.TraceInformation( "songs.db に存在しません。({0})", node.arスコア[ lv ].ファイル情報.ファイルの絶対パス );
 									}
@@ -672,7 +672,7 @@ namespace TJAPlayer3
 								{
 									node.arスコア[ lv ].譜面情報 = this.listSongsDB[ nMatched ].譜面情報;
 									node.arスコア[ lv ].bSongDBにキャッシュがあった = true;
-									if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+									if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 									{
 										Trace.TraceInformation( "songs.db から転記しました。({0})", node.arスコア[ lv ].ファイル情報.ファイルの絶対パス );
 									}
@@ -845,7 +845,7 @@ namespace TJAPlayer3
 //Debug.WriteLine( "★" + this.nファイルから反映できたスコア数 + " " + c曲リストノード.arスコア[ i ].譜面情報.タイトル );
 									#region [ 曲検索ログ出力 ]
 									//-----------------
-									if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+									if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 									{
 										StringBuilder sb = new StringBuilder( 0x400 );
 										sb.Append( string.Format( "曲データファイルから譜面情報を転記しました。({0})", path ) );
@@ -917,9 +917,9 @@ namespace TJAPlayer3
 		public void t曲リストへ後処理を適用する()
 		{
 			listStrBoxDefSkinSubfolderFullName = new List<string>();
-			if ( CDTXMania.Skin.strBoxDefSkinSubfolders != null )
+			if ( TJAPlayer3.Skin.strBoxDefSkinSubfolders != null )
 			{
-				foreach ( string b in CDTXMania.Skin.strBoxDefSkinSubfolders )
+				foreach ( string b in TJAPlayer3.Skin.strBoxDefSkinSubfolders )
 				{
 					listStrBoxDefSkinSubfolderFullName.Add( b );
 				}
@@ -928,7 +928,7 @@ namespace TJAPlayer3
 			this.t曲リストへ後処理を適用する( this.list曲ルート );
 
 			#region [ skin名で比較して、systemスキンとboxdefスキンに重複があれば、boxdefスキン側を削除する ]
-			string[] systemSkinNames = CSkin.GetSkinName( CDTXMania.Skin.strSystemSkinSubfolders );
+			string[] systemSkinNames = CSkin.GetSkinName( TJAPlayer3.Skin.strSystemSkinSubfolders );
 			List<string> l = new List<string>( listStrBoxDefSkinSubfolderFullName );
 			foreach ( string boxdefSkinSubfolderFullName in l )
 			{
@@ -942,7 +942,7 @@ namespace TJAPlayer3
 			#endregion
 			string[] ba = listStrBoxDefSkinSubfolderFullName.ToArray();
 			Array.Sort( ba );
-			CDTXMania.Skin.strBoxDefSkinSubfolders = ba;
+			TJAPlayer3.Skin.strBoxDefSkinSubfolders = ba;
 		}
 		private void t曲リストへ後処理を適用する( List<C曲リストノード> ノードリスト )
 		{
@@ -973,7 +973,7 @@ namespace TJAPlayer3
 
 				#region [ ログ出力 ]
 				//-----------------------------
-				if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+				if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 				{
 					StringBuilder sb = new StringBuilder( 0x100 );
 					sb.Append( string.Format( "nID#{0:D3}", itemRandom.nID ) );
@@ -1031,7 +1031,7 @@ namespace TJAPlayer3
 
 					#region [ ログ出力 ]
 					//-----------------------------
-					if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+					if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 					{
 						StringBuilder sb = new StringBuilder( 0x100 );
 						sb.Append( string.Format( "nID#{0:D3}", itemBack.nID ) );
@@ -1065,7 +1065,7 @@ namespace TJAPlayer3
 						{
 							c曲リストノード.strタイトル = c曲リストノード.arスコア[ j ].譜面情報.タイトル;
 
-							if( CDTXMania.ConfigIni.bLog曲検索ログ出力 )
+							if( TJAPlayer3.ConfigIni.bLog曲検索ログ出力 )
 								Trace.TraceInformation( "タイトルを設定しました。(nID#{0:D3}, title={1})", c曲リストノード.nID, c曲リストノード.strタイトル );
 
 							break;
@@ -1078,15 +1078,15 @@ namespace TJAPlayer3
 
 			#region [ ノードをソートする ]
 			//-----------------------------
-            if( CDTXMania.ConfigIni.nDefaultSongSort == 0 )
+            if( TJAPlayer3.ConfigIni.nDefaultSongSort == 0 )
             {
 			    t曲リストのソート1_絶対パス順( ノードリスト );
             }
-            else if( CDTXMania.ConfigIni.nDefaultSongSort == 1 )
+            else if( TJAPlayer3.ConfigIni.nDefaultSongSort == 1 )
             {
                 t曲リストのソート9_ジャンル順( ノードリスト, E楽器パート.TAIKO, 1, 0 );
             }
-            else if( CDTXMania.ConfigIni.nDefaultSongSort == 2 )
+            else if( TJAPlayer3.ConfigIni.nDefaultSongSort == 2 )
             {
                 t曲リストのソート9_ジャンル順( ノードリスト, E楽器パート.TAIKO, 2, 0 );
             }

@@ -66,7 +66,7 @@ namespace TJAPlayer3
                         this.ctボーナス加算タイマ[i].t進行();
                         if (this.ctボーナス加算タイマ[i].b終了値に達した)
                         {
-                            CDTXMania.stage演奏ドラム画面.actScore.BonusAdd(i);
+                            TJAPlayer3.stage演奏ドラム画面.actScore.BonusAdd(i);
                             this.ctボーナス加算タイマ[i].t停止();
                         }
                     }
@@ -74,8 +74,8 @@ namespace TJAPlayer3
 
                 //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ctボーナス加算タイマ[0].n現在の値.ToString());
 
-                base.t小文字表示(CDTXMania.Skin.Game_Score_X[0], CDTXMania.Skin.Game_Score_Y[0], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256, 0);
-                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示(CDTXMania.Skin.Game_Score_X[1], CDTXMania.Skin.Game_Score_Y[1], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256, 1);
+                base.t小文字表示(TJAPlayer3.Skin.Game_Score_X[0], TJAPlayer3.Skin.Game_Score_Y[0], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 , 256, 0);
+                if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示(TJAPlayer3.Skin.Game_Score_X[1], TJAPlayer3.Skin.Game_Score_Y[1], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 , 256, 1);
 
                 for( int i = 0; i < 256; i++ )
                 {
@@ -93,14 +93,14 @@ namespace TJAPlayer3
                                 this.stScore[ i ].b使用中 = false;
                                 if (ct点数アニメタイマ[stScore[i].nPlayer].b終了値に達してない)
                                 {
-                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, TJAPlayer3.Timer);
                                     this.ct点数アニメタイマ[stScore[i].nPlayer].n現在の値 = 1;
                                 }
                                 else
                                 {
-                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, CDTXMania.Timer);
+                                    this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, TJAPlayer3.Timer);
                                 }
-                                CDTXMania.stage演奏ドラム画面.actDan.Update();
+                                TJAPlayer3.stage演奏ドラム画面.actDan.Update();
                             }
 
                             int xAdd = 0;
@@ -196,9 +196,9 @@ namespace TJAPlayer3
 
 
                             if ( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
-                                base.t小文字表示(CDTXMania.Skin.Game_Score_Add_X[this.stScore[i].nPlayer] + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.Game_Score_Add_Y[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.Game_Score_Add_Y[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
+                                base.t小文字表示(TJAPlayer3.Skin.Game_Score_Add_X[this.stScore[i].nPlayer] + xAdd, this.stScore[ i ].nPlayer == 0 ? TJAPlayer3.Skin.Game_Score_Add_Y[ this.stScore[ i ].nPlayer ] + yAdd : TJAPlayer3.Skin.Game_Score_Add_Y[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true )
-                                base.t小文字表示(CDTXMania.Skin.Game_Score_AddBonus_X[this.stScore[i].nPlayer] + xAdd, CDTXMania.Skin.Game_Score_AddBonus_Y[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
+                                base.t小文字表示(TJAPlayer3.Skin.Game_Score_AddBonus_X[this.stScore[i].nPlayer] + xAdd, TJAPlayer3.Skin.Game_Score_AddBonus_Y[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 , alpha, stScore[i].nPlayer);
                             else
                             {
                                 this.n現在表示中のAddScore--;

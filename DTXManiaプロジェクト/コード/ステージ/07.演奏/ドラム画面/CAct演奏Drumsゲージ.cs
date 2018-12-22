@@ -52,7 +52,7 @@ namespace TJAPlayer3
                 {
                     if( !this.st花火状態[ j ].b使用中 )
                     {
-                        this.st花火状態[j].ct進行 = new CCounter(0, 10, 20, CDTXMania.Timer);
+                        this.st花火状態[j].ct進行 = new CCounter(0, 10, 20, TJAPlayer3.Timer);
                         this.st花火状態[j].nPlayer = player;
 
                         switch (nLane)
@@ -79,7 +79,7 @@ namespace TJAPlayer3
                 {
                     if( !this.st花火状態2P[ j ].b使用中 )
                     {
-                        this.st花火状態2P[ j ].ct進行 = new CCounter(0, 10, 20, CDTXMania.Timer);
+                        this.st花火状態2P[ j ].ct進行 = new CCounter(0, 10, 20, TJAPlayer3.Timer);
                         this.st花火状態2P[ j ].nPlayer = player;
 
                         switch (nLane)
@@ -108,7 +108,7 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-            this.ct炎 = new CCounter( 0, 6, 50, CDTXMania.Timer );
+            this.ct炎 = new CCounter( 0, 6, 50, TJAPlayer3.Timer );
 
             for (int i = 0; i < 32; i++ )
             {
@@ -148,12 +148,12 @@ namespace TJAPlayer3
                 //{
                 //    this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\Gauge\Gauge_rainbow_" + i.ToString() + ".png") );
                 //}
-                if(CDTXMania.Skin.Game_Gauge_Rainbow_Timer <= 1)
+                if(TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer <= 1)
                 {
                     throw new DivideByZeroException("SkinConfigの設定\"Game_Gauge_Rainbow_Timer\"を1以下にすることは出来ません。");
                 }
-                this.ct虹アニメ = new CCounter( 0, CDTXMania.Skin.Game_Gauge_Rainbow_Ptn -1, CDTXMania.Skin.Game_Gauge_Rainbow_Timer, CDTXMania.Timer );
-                this.ct虹透明度 = new CCounter(0, CDTXMania.Skin.Game_Gauge_Rainbow_Timer-1, 1, CDTXMania.Timer);
+                this.ct虹アニメ = new CCounter( 0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn -1, TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer, TJAPlayer3.Timer );
+                this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer-1, 1, TJAPlayer3.Timer);
                 //this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_taiko_notes.png"));
                 base.OnManagedリソースの作成();
 			}
@@ -218,107 +218,107 @@ namespace TJAPlayer3
                 */
 
 
-                if( CDTXMania.Tx.Gauge_Base[0] != null )
+                if( TJAPlayer3.Tx.Gauge_Base[0] != null )
                 {
-                    CDTXMania.Tx.Gauge_Base[0].t2D描画( CDTXMania.app.Device, 492, 144, new Rectangle( 0, 0, 700, 44 ) );
+                    TJAPlayer3.Tx.Gauge_Base[0].t2D描画( TJAPlayer3.app.Device, 492, 144, new Rectangle( 0, 0, 700, 44 ) );
                 }
-                if( CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Gauge_Base[1] != null )
+                if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Gauge_Base[1] != null )
                 {
-                    CDTXMania.Tx.Gauge_Base[1].t2D描画( CDTXMania.app.Device, 492, 532, new Rectangle( 0, 0, 700, 44 ) );
+                    TJAPlayer3.Tx.Gauge_Base[1].t2D描画( TJAPlayer3.app.Device, 492, 532, new Rectangle( 0, 0, 700, 44 ) );
                 }
                 #region[ ゲージ1P ]
-                if( CDTXMania.Tx.Gauge[0] != null )
+                if( TJAPlayer3.Tx.Gauge[0] != null )
                 {
-                    CDTXMania.Tx.Gauge[0].t2D描画( CDTXMania.app.Device, 492, 144, new Rectangle( 0, 0, nRectX, 44 ) );
+                    TJAPlayer3.Tx.Gauge[0].t2D描画( TJAPlayer3.app.Device, 492, 144, new Rectangle( 0, 0, nRectX, 44 ) );
 
-                    if(CDTXMania.Tx.Gauge_Line[0] != null )
+                    if(TJAPlayer3.Tx.Gauge_Line[0] != null )
                     {
                         if( this.db現在のゲージ値[ 0 ] >= 100.0 )
                         {
                             this.ct虹アニメ.t進行Loop();
 			    this.ct虹透明度.t進行Loop();
-                            if(CDTXMania.Tx.Gauge_Rainbow[ this.ct虹アニメ.n現在の値 ] != null )
+                            if(TJAPlayer3.Tx.Gauge_Rainbow[ this.ct虹アニメ.n現在の値 ] != null )
                             {
-				CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].n透明度 = 255;
-				CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D描画(CDTXMania.app.Device, 492, 144);
-                                CDTXMania.Tx.Gauge_Rainbow[虹ベース].n透明度 = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値)/1;
-                                CDTXMania.Tx.Gauge_Rainbow[虹ベース].t2D描画(CDTXMania.app.Device, 492, 144);
+				TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].n透明度 = 255;
+				TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D描画(TJAPlayer3.app.Device, 492, 144);
+                                TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].n透明度 = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値)/1;
+                                TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].t2D描画(TJAPlayer3.app.Device, 492, 144);
                             }
                         }
-                        CDTXMania.Tx.Gauge_Line[0].t2D描画( CDTXMania.app.Device, 492, 144 );
+                        TJAPlayer3.Tx.Gauge_Line[0].t2D描画( TJAPlayer3.app.Device, 492, 144 );
                     }
                     #region[ 「クリア」文字 ]
                     if( this.db現在のゲージ値[ 0 ] >= 80.0 )
                     {
-                        CDTXMania.Tx.Gauge[0].t2D描画( CDTXMania.app.Device, 1038, 144, new Rectangle( 0, 44, 58, 24 ) );
+                        TJAPlayer3.Tx.Gauge[0].t2D描画( TJAPlayer3.app.Device, 1038, 144, new Rectangle( 0, 44, 58, 24 ) );
                     }
                     else
                     {
-                        CDTXMania.Tx.Gauge[0].t2D描画( CDTXMania.app.Device, 1038, 144, new Rectangle( 58, 44, 58, 24 ) );
+                        TJAPlayer3.Tx.Gauge[0].t2D描画( TJAPlayer3.app.Device, 1038, 144, new Rectangle( 58, 44, 58, 24 ) );
                     }
                     #endregion
                 }
                 #endregion
                 #region[ ゲージ2P ]
-                if( CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Gauge[1] != null )
+                if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Gauge[1] != null )
                 {
-                    CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 492, 532, new Rectangle( 0, 0, nRectX2P, 44 ) );
-                    if(CDTXMania.Tx.Gauge[1] != null )
+                    TJAPlayer3.Tx.Gauge[1].t2D描画( TJAPlayer3.app.Device, 492, 532, new Rectangle( 0, 0, nRectX2P, 44 ) );
+                    if(TJAPlayer3.Tx.Gauge[1] != null )
                     {
                         if (this.db現在のゲージ値[1] >= 100.0)
                         {
                             this.ct虹アニメ.t進行Loop();
 			    this.ct虹透明度.t進行Loop();
-                            if (CDTXMania.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値] != null)
+                            if (TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値] != null)
                             {
-                                CDTXMania.Tx.Gauge_Rainbow[ct虹アニメ.n現在の値].n透明度 = 255;
-                                CDTXMania.Tx.Gauge_Rainbow[ct虹アニメ.n現在の値].t2D上下反転描画(CDTXMania.app.Device, 492, 532);
-                                CDTXMania.Tx.Gauge_Rainbow[虹ベース].n透明度 = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値) / 1;
-                                CDTXMania.Tx.Gauge_Rainbow[虹ベース].t2D上下反転描画(CDTXMania.app.Device, 492, 532);
+                                TJAPlayer3.Tx.Gauge_Rainbow[ct虹アニメ.n現在の値].n透明度 = 255;
+                                TJAPlayer3.Tx.Gauge_Rainbow[ct虹アニメ.n現在の値].t2D上下反転描画(TJAPlayer3.app.Device, 492, 532);
+                                TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].n透明度 = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値) / 1;
+                                TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].t2D上下反転描画(TJAPlayer3.app.Device, 492, 532);
                             }
                         }
-                        CDTXMania.Tx.Gauge_Line[1].t2D描画( CDTXMania.app.Device, 492, 532 );
+                        TJAPlayer3.Tx.Gauge_Line[1].t2D描画( TJAPlayer3.app.Device, 492, 532 );
                     }
                     #region[ 「クリア」文字 ]
                     if( this.db現在のゲージ値[ 1 ] >= 80.0 )
                     {
-                        CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 1038, 554, new Rectangle( 0, 44, 58, 24 ) );
+                        TJAPlayer3.Tx.Gauge[1].t2D描画( TJAPlayer3.app.Device, 1038, 554, new Rectangle( 0, 44, 58, 24 ) );
                     }
                     else
                     {
-                        CDTXMania.Tx.Gauge[1].t2D描画( CDTXMania.app.Device, 1038, 554, new Rectangle( 58, 44, 58, 24 ) );
+                        TJAPlayer3.Tx.Gauge[1].t2D描画( TJAPlayer3.app.Device, 1038, 554, new Rectangle( 58, 44, 58, 24 ) );
                     }
                     #endregion
                 }
                 #endregion
 
 
-                if(CDTXMania.Tx.Gauge_Soul_Fire != null )
+                if(TJAPlayer3.Tx.Gauge_Soul_Fire != null )
                 {
                     //仮置き
                     int[] nSoulFire = new int[] { 52, 443, 0, 0 };
-                    for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                    for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
                     {
                         if( this.db現在のゲージ値[ i ] >= 100.0 )
                         {
                             this.ct炎.t進行Loop();
-                            CDTXMania.Tx.Gauge_Soul_Fire.t2D描画( CDTXMania.app.Device, 1112, nSoulFire[ i ], new Rectangle( 230 * ( this.ct炎.n現在の値 ), 0, 230, 230 ) );
+                            TJAPlayer3.Tx.Gauge_Soul_Fire.t2D描画( TJAPlayer3.app.Device, 1112, nSoulFire[ i ], new Rectangle( 230 * ( this.ct炎.n現在の値 ), 0, 230, 230 ) );
                         }
                     }
                 }
-                if(CDTXMania.Tx.Gauge_Soul != null )
+                if(TJAPlayer3.Tx.Gauge_Soul != null )
                 {
                     //仮置き
                     int[] nSoulY = new int[] { 125, 516, 0, 0 };
-                    for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+                    for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
                     {
                         if( this.db現在のゲージ値[ i ] >= 80.0 )
                         {
-                            CDTXMania.Tx.Gauge_Soul.t2D描画( CDTXMania.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 0, 80, 80 ) );
+                            TJAPlayer3.Tx.Gauge_Soul.t2D描画( TJAPlayer3.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 0, 80, 80 ) );
                         }
                         else
                         {
-                            CDTXMania.Tx.Gauge_Soul.t2D描画( CDTXMania.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 80, 80, 80 ) );
+                            TJAPlayer3.Tx.Gauge_Soul.t2D描画( TJAPlayer3.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 80, 80, 80 ) );
                         }
                     }
                 }

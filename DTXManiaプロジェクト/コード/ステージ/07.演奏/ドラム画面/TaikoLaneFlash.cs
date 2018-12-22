@@ -19,8 +19,8 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-            PlayerLane = new PlayerLane[CDTXMania.ConfigIni.nPlayerCount];
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            PlayerLane = new PlayerLane[TJAPlayer3.ConfigIni.nPlayerCount];
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
                 PlayerLane[i] = new PlayerLane(i);
             }
@@ -28,7 +28,7 @@ namespace TJAPlayer3
 		}
 		public override void On非活性化()
 		{
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
                 PlayerLane[i] = null;
             }
@@ -37,9 +37,9 @@ namespace TJAPlayer3
 
         public override int On進行描画()
         {
-            for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
-                for (int j = 0; j < (int)TJAPlayer3.PlayerLane.FlashType.Total; j++)
+                for (int j = 0; j < (int)global::TJAPlayer3.PlayerLane.FlashType.Total; j++)
                 {
                     PlayerLane[i].Flash[j].On進行描画();
                 }   
@@ -54,19 +54,19 @@ namespace TJAPlayer3
     {
         public PlayerLane(int player)
         {
-            Flash = new TJAPlayer3.LaneFlash[(int)FlashType.Total];
+            Flash = new global::TJAPlayer3.LaneFlash[(int)FlashType.Total];
             for (int i = 0; i < (int)FlashType.Total; i++)
             {
                 switch (i)
                 {
                     case (int)FlashType.Red:
-                        Flash[i] = new TJAPlayer3.LaneFlash(ref CDTXMania.Tx.Lane_Red, player);
+                        Flash[i] = new global::TJAPlayer3.LaneFlash(ref TJAPlayer3.Tx.Lane_Red, player);
                         break;
                     case (int)FlashType.Blue:
-                        Flash[i] = new TJAPlayer3.LaneFlash(ref CDTXMania.Tx.Lane_Blue, player);
+                        Flash[i] = new global::TJAPlayer3.LaneFlash(ref TJAPlayer3.Tx.Lane_Blue, player);
                         break;
                     case (int)FlashType.Hit:
-                        Flash[i] = new TJAPlayer3.LaneFlash(ref CDTXMania.Tx.Lane_Yellow, player);
+                        Flash[i] = new global::TJAPlayer3.LaneFlash(ref TJAPlayer3.Tx.Lane_Yellow, player);
                         break;
                     default:
                         break;
@@ -79,7 +79,7 @@ namespace TJAPlayer3
             Flash[(int)flashType].Start();
         }
 
-        public TJAPlayer3.LaneFlash[] Flash;
+        public global::TJAPlayer3.LaneFlash[] Flash;
 
         public enum FlashType
         {

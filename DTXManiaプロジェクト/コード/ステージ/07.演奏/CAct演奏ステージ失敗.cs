@@ -69,11 +69,11 @@ namespace TJAPlayer3
 
 		public void Start()
 		{
-            this.dbFailedTime = CDTXMania.Timer.n現在時刻;
-			this.ct進行 = new CCounter( 0, 1000, 2, CDTXMania.Timer );
-            if( CDTXMania.ConfigIni.eGameMode != EGame.OFF )
+            this.dbFailedTime = TJAPlayer3.Timer.n現在時刻;
+			this.ct進行 = new CCounter( 0, 1000, 2, TJAPlayer3.Timer );
+            if( TJAPlayer3.ConfigIni.eGameMode != EGame.OFF )
             {
-			    this.ct進行 = new CCounter( 0, 4000, 2, CDTXMania.Timer );
+			    this.ct進行 = new CCounter( 0, 4000, 2, TJAPlayer3.Timer );
             }
 		}
 
@@ -92,7 +92,7 @@ namespace TJAPlayer3
 			this.ct進行 = null;
 			if( this.sd効果音 != null )
 			{
-				CDTXMania.Sound管理.tサウンドを破棄する( this.sd効果音 );
+				TJAPlayer3.Sound管理.tサウンドを破棄する( this.sd効果音 );
 				this.sd効果音 = null;
 			}
 			base.On非活性化();
@@ -131,24 +131,24 @@ namespace TJAPlayer3
 			}
 			this.ct進行.t進行();
 
-            if (CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー || CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)
+            if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー || TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)
             {
-                if (CDTXMania.Tx.Tile_Black != null)
+                if (TJAPlayer3.Tx.Tile_Black != null)
                 {
                     for (int i = 0; i <= (SampleFramework.GameWindowSize.Width / 64); i++)
                     {
                         for (int j = 0; j <= (SampleFramework.GameWindowSize.Height / 64); j++)
                         {
-                            CDTXMania.Tx.Tile_Black.t2D描画(CDTXMania.app.Device, i * 64, j * 64);
+                            TJAPlayer3.Tx.Tile_Black.t2D描画(TJAPlayer3.app.Device, i * 64, j * 64);
                         }
                     }
                 }
                 if (this.ct進行.n現在の値 > 1500)
                 {
-                    if (CDTXMania.Tx.Failed_Game != null)
-                        CDTXMania.Tx.Failed_Game.t2D描画(CDTXMania.app.Device, 0, 0);
+                    if (TJAPlayer3.Tx.Failed_Game != null)
+                        TJAPlayer3.Tx.Failed_Game.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
-                    int num = (CDTXMania.DTX.listChip.Count > 0) ? CDTXMania.DTX.listChip[CDTXMania.DTX.listChip.Count - 1].n発声時刻ms : 0;
+                    int num = (TJAPlayer3.DTX.listChip.Count > 0) ? TJAPlayer3.DTX.listChip[TJAPlayer3.DTX.listChip.Count - 1].n発声時刻ms : 0;
                     this.t文字表示(640, 520, (((this.dbFailedTime) / 1000.0) / (((double)num) / 1000.0) * 100).ToString("##0") + "%");
                 }
 
@@ -162,30 +162,30 @@ namespace TJAPlayer3
                 if (this.ct進行.n現在の値 < 100)
                 {
                     int x = (int)(640.0 * Math.Cos((Math.PI / 2 * this.ct進行.n現在の値) / 100.0));
-                    if ((x != 640) && (CDTXMania.Tx.Failed_Stage != null))
+                    if ((x != 640) && (TJAPlayer3.Tx.Failed_Stage != null))
                     {
-                        CDTXMania.Tx.Failed_Stage.t2D描画(CDTXMania.app.Device, 0, 0, new Rectangle(x, 0, 640 - x, 720));
-                        CDTXMania.Tx.Failed_Stage.t2D描画(CDTXMania.app.Device, 640 + x, 0, new Rectangle(640, 0, 640 - x, 720));
+                        TJAPlayer3.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, 0, 0, new Rectangle(x, 0, 640 - x, 720));
+                        TJAPlayer3.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, 640 + x, 0, new Rectangle(640, 0, 640 - x, 720));
                     }
                 }
                 else
                 {
-                    if (CDTXMania.Tx.Failed_Stage != null)
+                    if (TJAPlayer3.Tx.Failed_Stage != null)
                     {
-                        CDTXMania.Tx.Failed_Stage.t2D描画(CDTXMania.app.Device, 0, 0);
+                        TJAPlayer3.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, 0, 0);
                     }
                     if (this.ct進行.n現在の値 <= 250)
                     {
-                        int num2 = CDTXMania.Random.Next(5) - 2;
-                        int y = CDTXMania.Random.Next(5) - 2;
-                        if (CDTXMania.Tx.Failed_Stage != null)
+                        int num2 = TJAPlayer3.Random.Next(5) - 2;
+                        int y = TJAPlayer3.Random.Next(5) - 2;
+                        if (TJAPlayer3.Tx.Failed_Stage != null)
                         {
-                            CDTXMania.Tx.Failed_Stage.t2D描画(CDTXMania.app.Device, num2, y);
+                            TJAPlayer3.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, num2, y);
                         }
                     }
                     if (!this.b効果音再生済み)
                     {
-                        CDTXMania.Skin.soundSTAGEFAILED音.t再生する();
+                        TJAPlayer3.Skin.soundSTAGEFAILED音.t再生する();
                         this.b効果音再生済み = true;
                     }
                 }
@@ -239,9 +239,9 @@ namespace TJAPlayer3
                         {
                             rectangle.Width = 80;
                         }
-						if(CDTXMania.Tx.Balloon_Number_Roll != null )
+						if(TJAPlayer3.Tx.Balloon_Number_Roll != null )
 						{
-                            CDTXMania.Tx.Balloon_Number_Roll.t2D描画( CDTXMania.app.Device, x - ( 62 * str.Length / 2 ), y, rectangle );
+                            TJAPlayer3.Tx.Balloon_Number_Roll.t2D描画( TJAPlayer3.app.Device, x - ( 62 * str.Length / 2 ), y, rectangle );
 						}
 						break;
 					}

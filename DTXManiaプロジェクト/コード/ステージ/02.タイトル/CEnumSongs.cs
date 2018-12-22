@@ -78,8 +78,8 @@ namespace TJAPlayer3
 				this.thDTXFileEnumerate.Priority = tp;
 			}
 		}
-		private readonly string strPathSongsDB = CDTXMania.strEXEのあるフォルダ + "songs.db";
-		private readonly string strPathSongList = CDTXMania.strEXEのあるフォルダ + "songlist.db";
+		private readonly string strPathSongsDB = TJAPlayer3.strEXEのあるフォルダ + "songs.db";
+		private readonly string strPathSongList = TJAPlayer3.strEXEのあるフォルダ + "songlist.db";
 
 		public Thread thDTXFileEnumerate
 		{
@@ -243,20 +243,20 @@ namespace TJAPlayer3
 			{
 				#region [ 0) システムサウンドの構築  ]
 				//-----------------------------
-				CDTXMania.stage起動.eフェーズID = CStage.Eフェーズ.起動0_システムサウンドを構築;
+				TJAPlayer3.stage起動.eフェーズID = CStage.Eフェーズ.起動0_システムサウンドを構築;
 
 				Trace.TraceInformation( "0) システムサウンドを構築します。" );
 				Trace.Indent();
 
 				try
 				{
-					CDTXMania.Skin.bgm起動画面.t再生する();
-					for ( int i = 0; i < CDTXMania.Skin.nシステムサウンド数; i++ )
+					TJAPlayer3.Skin.bgm起動画面.t再生する();
+					for ( int i = 0; i < TJAPlayer3.Skin.nシステムサウンド数; i++ )
 					{
-						if ( !CDTXMania.Skin[ i ].b排他 )	// BGM系以外のみ読み込む。(BGM系は必要になったときに読み込む)
+						if ( !TJAPlayer3.Skin[ i ].b排他 )	// BGM系以外のみ読み込む。(BGM系は必要になったときに読み込む)
 						{
-							CSkin.Cシステムサウンド cシステムサウンド = CDTXMania.Skin[ i ];
-							if ( !CDTXMania.bコンパクトモード || cシステムサウンド.bCompact対象 )
+							CSkin.Cシステムサウンド cシステムサウンド = TJAPlayer3.Skin[ i ];
+							if ( !TJAPlayer3.bコンパクトモード || cシステムサウンド.bCompact対象 )
 							{
 								try
 								{
@@ -279,9 +279,9 @@ namespace TJAPlayer3
 							}
 						}
 					}
-					lock ( CDTXMania.stage起動.list進行文字列 )
+					lock ( TJAPlayer3.stage起動.list進行文字列 )
 					{
-						CDTXMania.stage起動.list進行文字列.Add( "SYSTEM SOUND...OK" );
+						TJAPlayer3.stage起動.list進行文字列.Add( "SYSTEM SOUND...OK" );
 					}
 				}
 				finally
@@ -291,7 +291,7 @@ namespace TJAPlayer3
 				//-----------------------------
 				#endregion
 
-				if ( CDTXMania.bコンパクトモード )
+				if ( TJAPlayer3.bコンパクトモード )
 				{
 					Trace.TraceInformation( "コンパクトモードなので残りの起動処理は省略します。" );
 					return;
@@ -299,14 +299,14 @@ namespace TJAPlayer3
 
 				#region [ 00) songlist.dbの読み込みによる曲リストの構築  ]
 				//-----------------------------
-				CDTXMania.stage起動.eフェーズID = CStage.Eフェーズ.起動00_songlistから曲リストを作成する;
+				TJAPlayer3.stage起動.eフェーズID = CStage.Eフェーズ.起動00_songlistから曲リストを作成する;
 
 				Trace.TraceInformation( "1) songlist.dbを読み込みます。" );
 				Trace.Indent();
 
 				try
 				{
-					if ( !CDTXMania.ConfigIni.bConfigIniがないかDTXManiaのバージョンが異なる )
+					if ( !TJAPlayer3.ConfigIni.bConfigIniがないかDTXManiaのバージョンが異なる )
 					{
 						CSongs管理 s = new CSongs管理();
 						s = Deserialize( strPathSongList );		// 直接this.Songs管理にdeserialize()結果を代入するのは避ける。nullにされてしまうことがあるため。
@@ -317,17 +317,17 @@ namespace TJAPlayer3
 
 						int scores = this.Songs管理.n検索されたスコア数;
 						Trace.TraceInformation( "songlist.db の読み込みを完了しました。[{0}スコア]", scores );
-						lock ( CDTXMania.stage起動.list進行文字列 )
+						lock ( TJAPlayer3.stage起動.list進行文字列 )
 						{
-							CDTXMania.stage起動.list進行文字列.Add( "SONG LIST...OK" );
+							TJAPlayer3.stage起動.list進行文字列.Add( "SONG LIST...OK" );
 						}
 					}
 					else
 					{
 						Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songlist.db の読み込みをスキップします。" );
-						lock ( CDTXMania.stage起動.list進行文字列 )
+						lock ( TJAPlayer3.stage起動.list進行文字列 )
 						{
-							CDTXMania.stage起動.list進行文字列.Add( "SONG LIST...SKIPPED" );
+							TJAPlayer3.stage起動.list進行文字列.Add( "SONG LIST...SKIPPED" );
 						}
 					}
 				}
@@ -340,14 +340,14 @@ namespace TJAPlayer3
 
 				#region [ 1) songs.db の読み込み ]
 				//-----------------------------
-				CDTXMania.stage起動.eフェーズID = CStage.Eフェーズ.起動1_SongsDBからスコアキャッシュを構築;
+				TJAPlayer3.stage起動.eフェーズID = CStage.Eフェーズ.起動1_SongsDBからスコアキャッシュを構築;
 
 				Trace.TraceInformation( "2) songs.db を読み込みます。" );
 				Trace.Indent();
 
 				try
 				{
-					if ( !CDTXMania.ConfigIni.bConfigIniがないかDTXManiaのバージョンが異なる )
+					if ( !TJAPlayer3.ConfigIni.bConfigIniがないかDTXManiaのバージョンが異なる )
 					{
 						try
 						{
@@ -362,17 +362,17 @@ namespace TJAPlayer3
 
 						int scores = ( this.Songs管理 == null ) ? 0 : this.Songs管理.nSongsDBから取得できたスコア数;	// 読み込み途中でアプリ終了した場合など、CDTXMania.Songs管理 がnullの場合があるので注意
 						Trace.TraceInformation( "songs.db の読み込みを完了しました。[{0}スコア]", scores );
-						lock ( CDTXMania.stage起動.list進行文字列 )
+						lock ( TJAPlayer3.stage起動.list進行文字列 )
 						{
-							CDTXMania.stage起動.list進行文字列.Add( "SONG DATABASE...OK" );
+							TJAPlayer3.stage起動.list進行文字列.Add( "SONG DATABASE...OK" );
 						}
 					}
 					else
 					{
 						Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songs.db の読み込みをスキップします。" );
-						lock ( CDTXMania.stage起動.list進行文字列 )
+						lock ( TJAPlayer3.stage起動.list進行文字列 )
 						{
-							CDTXMania.stage起動.list進行文字列.Add( "SONG DATABASE...SKIPPED" );
+							TJAPlayer3.stage起動.list進行文字列.Add( "SONG DATABASE...SKIPPED" );
 						}
 					}
 				}
@@ -386,7 +386,7 @@ namespace TJAPlayer3
 			}
 			finally
 			{
-				CDTXMania.stage起動.eフェーズID = CStage.Eフェーズ.起動7_完了;
+				TJAPlayer3.stage起動.eフェーズID = CStage.Eフェーズ.起動7_完了;
 				TimeSpan span = (TimeSpan) ( DateTime.Now - now );
 				Trace.TraceInformation( "起動所要時間: {0}", span.ToString() );
 				lock ( this )							// #28700 2012.6.12 yyagi; state change must be in finally{} for exiting as of compact mode.
@@ -425,9 +425,9 @@ namespace TJAPlayer3
 
 				try
 				{
-					if ( !string.IsNullOrEmpty( CDTXMania.ConfigIni.str曲データ検索パス ) )
+					if ( !string.IsNullOrEmpty( TJAPlayer3.ConfigIni.str曲データ検索パス ) )
 					{
-						string[] strArray = CDTXMania.ConfigIni.str曲データ検索パス.Split( new char[] { ';' } );
+						string[] strArray = TJAPlayer3.ConfigIni.str曲データ検索パス.Split( new char[] { ';' } );
 						if ( strArray.Length > 0 )
 						{
 							// 全パスについて…
@@ -436,7 +436,7 @@ namespace TJAPlayer3
 								string path = str;
 								if ( !Path.IsPathRooted( path ) )
 								{
-									path = CDTXMania.strEXEのあるフォルダ + str;	// 相対パスの場合、絶対パスに直す(2010.9.16)
+									path = TJAPlayer3.strEXEのあるフォルダ + str;	// 相対パスの場合、絶対パスに直す(2010.9.16)
 								}
 
 								if ( !string.IsNullOrEmpty( path ) )
