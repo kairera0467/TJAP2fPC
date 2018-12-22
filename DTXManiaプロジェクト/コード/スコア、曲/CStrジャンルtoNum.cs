@@ -1,4 +1,4 @@
-﻿namespace DTXMania
+﻿namespace TJAPlayer3
 {
     internal static class CStrジャンルtoNum
     {

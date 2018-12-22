@@ -8,7 +8,7 @@ using System.Diagnostics;
 using FDK;
 
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     //クラスの設置位置は必ず演奏画面共通に置くこと。
     //そうしなければBPM変化に対応できません。

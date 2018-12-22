@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CAct演奏DrumsコンボDGB : CAct演奏Combo共通
 	{

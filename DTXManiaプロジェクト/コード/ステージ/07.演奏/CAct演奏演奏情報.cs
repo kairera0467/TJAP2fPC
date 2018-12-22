@@ -4,7 +4,7 @@ using System.Text;
 using FDK;
 using System.Diagnostics;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CAct演奏演奏情報 : CActivity
 	{

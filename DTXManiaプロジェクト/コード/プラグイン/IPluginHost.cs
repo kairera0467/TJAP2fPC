@@ -1,4 +1,4 @@
-﻿namespace DTXMania
+﻿namespace TJAPlayer3
 {
 	/// <summary>
 	/// <para>プラグインホスト情報提供インターフェース。</para>
@@ -10,7 +10,7 @@
 		/// <summary>
 		/// DTXMania のバージョンを表します。
 		/// </summary>
-		DTXMania.CDTXVersion DTXManiaVersion { get; }
+		TJAPlayer3.CDTXVersion DTXManiaVersion { get; }
 
 		/// <summary>
 		/// <para>Direct3D9 デバイスオブジェクト。</para>
@@ -32,12 +32,12 @@
 		/// <summary>
 		/// 現在のステージのIDを表します。
 		/// </summary>
-		DTXMania.CStage.Eステージ e現在のステージ { get; }
+		TJAPlayer3.CStage.Eステージ e現在のステージ { get; }
 
 		/// <summary>
 		/// 現在のステージにおけるフェーズのIDを表します。
 		/// </summary>
-		DTXMania.CStage.Eフェーズ e現在のフェーズ { get; }
+		TJAPlayer3.CStage.Eフェーズ e現在のフェーズ { get; }
 
 		/// <summary>
 		/// <para>自分以外は入力データを扱ってはならないことを宣言します。</para>

@@ -11,7 +11,7 @@ using CSharpTest.Net.Collections;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActSelect曲リスト : CActivity
 	{

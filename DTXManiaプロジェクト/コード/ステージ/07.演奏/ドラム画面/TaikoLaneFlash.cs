@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class TaikoLaneFlash : CActivity
 	{
@@ -39,7 +39,7 @@ namespace DTXMania
         {
             for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
             {
-                for (int j = 0; j < (int)DTXMania.PlayerLane.FlashType.Total; j++)
+                for (int j = 0; j < (int)TJAPlayer3.PlayerLane.FlashType.Total; j++)
                 {
                     PlayerLane[i].Flash[j].On進行描画();
                 }   

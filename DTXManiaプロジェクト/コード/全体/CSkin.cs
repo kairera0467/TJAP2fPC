@@ -7,7 +7,7 @@ using FDK;
 using System.Drawing;
 using System.Linq;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	// グローバル定数
 

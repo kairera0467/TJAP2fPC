@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CAct演奏Combo音声 : CActivity
 	{

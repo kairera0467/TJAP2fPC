@@ -7,7 +7,7 @@ using SlimDX.Direct3D9;
 using FDK;
 using DirectShowLib;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CAct演奏AVI : CActivity
 	{

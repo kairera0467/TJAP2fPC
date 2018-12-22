@@ -5,10 +5,10 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using DTXMania.C曲リストノードComparers;
+using TJAPlayer3.C曲リストノードComparers;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	[Serializable]
 	internal class CSongs管理

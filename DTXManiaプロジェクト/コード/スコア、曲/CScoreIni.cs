@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using FDK;
 using TJAPlayer3;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	public class CScoreIni
 	{

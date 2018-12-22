@@ -1,4 +1,4 @@
-﻿using DTXMania;
+﻿using TJAPlayer3;
 using FDK;
 using System;
 using System.Collections.Generic;

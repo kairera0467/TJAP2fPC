@@ -7,7 +7,7 @@ using System.Diagnostics;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// CAct演奏Drumsゲージ と CAct演奏Gutiarゲージ のbaseクラス。ダメージ計算やDanger/Failed判断もこのクラスで行う。

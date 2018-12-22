@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     internal class CStage選曲 : CStage
     {

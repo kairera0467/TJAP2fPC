@@ -3,7 +3,7 @@ using System.IO;
 using System.Diagnostics;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CStage結果 : CStage
 	{

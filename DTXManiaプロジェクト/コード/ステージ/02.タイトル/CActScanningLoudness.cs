@@ -1,7 +1,7 @@
 ﻿using System;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActScanningLoudness :  CActivity
 	{

@@ -6,7 +6,7 @@ using DirectShowLib;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CStage終了 : CStage
 	{

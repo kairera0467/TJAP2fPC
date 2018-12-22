@@ -8,7 +8,7 @@ using SlimDX;
 using System.Drawing.Text;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CStage曲読み込み : CStage
 	{

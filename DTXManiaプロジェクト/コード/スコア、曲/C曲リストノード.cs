@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	[Serializable]
 	internal class C曲リストノード

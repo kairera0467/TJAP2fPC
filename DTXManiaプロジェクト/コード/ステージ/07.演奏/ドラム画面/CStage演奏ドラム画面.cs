@@ -12,7 +12,7 @@ using SlimDX.Direct3D9;
 using FDK;
 using TJAPlayer3;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CStage演奏ドラム画面 : CStage演奏画面共通
 	{

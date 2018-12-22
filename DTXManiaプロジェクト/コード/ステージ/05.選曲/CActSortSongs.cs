@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActSortSongs : CActSelectPopupMenu
 	{

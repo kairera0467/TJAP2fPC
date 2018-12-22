@@ -11,7 +11,7 @@ using System.Drawing.Text;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     /// <summary>
     /// 難易度選択画面。

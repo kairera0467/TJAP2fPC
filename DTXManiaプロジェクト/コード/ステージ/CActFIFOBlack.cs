@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Diagnostics;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActFIFOBlack : CActivity
 	{

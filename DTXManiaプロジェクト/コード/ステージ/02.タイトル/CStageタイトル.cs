@@ -8,7 +8,7 @@ using SlimDX.DirectInput;
 using FDK;
 using System.Reflection;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CStageタイトル : CStage
 	{

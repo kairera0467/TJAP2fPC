@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     internal static class CDTXCompanionFileFinder
     {

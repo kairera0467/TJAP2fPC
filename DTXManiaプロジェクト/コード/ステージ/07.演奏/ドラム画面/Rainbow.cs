@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class Rainbow : CActivity
 	{

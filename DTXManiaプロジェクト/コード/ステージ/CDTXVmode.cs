@@ -7,7 +7,7 @@ using System.Threading;
 using FDK;
 
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	public class CDTXVmode
 	{

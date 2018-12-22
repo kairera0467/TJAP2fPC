@@ -13,7 +13,7 @@ using SlimDX.Direct3D9;
 using FDK;
 using SampleFramework;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActEnumSongs :  CActivity
 	{

@@ -6,7 +6,7 @@ using System.Diagnostics;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActSelectArtistComment : CActivity
 	{

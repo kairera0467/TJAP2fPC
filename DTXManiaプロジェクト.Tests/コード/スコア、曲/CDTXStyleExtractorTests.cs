@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using NUnit.Framework;
 
-namespace DTXMania.Tests
+namespace TJAPlayer3.Tests
 {
     [TestFixture]
     public sealed class CDTXStyleExtractorTests

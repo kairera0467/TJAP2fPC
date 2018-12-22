@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal abstract class CAct演奏Danger共通 : CActivity
 	{

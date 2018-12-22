@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using SlimDX;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CAct演奏Drums判定文字列 : CAct演奏判定文字列共通
 	{

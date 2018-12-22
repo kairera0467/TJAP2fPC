@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DTXMania.C曲リストノードComparers
+namespace TJAPlayer3.C曲リストノードComparers
 {
     internal sealed class ComparerChain<T> : IComparer<T> where T : class
     {

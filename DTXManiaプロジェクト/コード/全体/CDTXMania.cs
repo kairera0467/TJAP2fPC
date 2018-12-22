@@ -15,7 +15,7 @@ using FDK;
 using SampleFramework;
 using System.Reflection;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CDTXMania : Game
 	{

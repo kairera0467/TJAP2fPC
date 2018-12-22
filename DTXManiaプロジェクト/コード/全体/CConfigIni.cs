@@ -8,7 +8,7 @@ using System.Diagnostics;
 using FDK;
 using FDK.ExtensionMethods;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CConfigIni : INotifyPropertyChanged
 	{

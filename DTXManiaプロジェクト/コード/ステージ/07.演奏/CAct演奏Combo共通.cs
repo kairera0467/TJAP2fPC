@@ -6,7 +6,7 @@ using System.Drawing;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CAct演奏Combo共通 : CActivity
 	{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     class FastRender
     {

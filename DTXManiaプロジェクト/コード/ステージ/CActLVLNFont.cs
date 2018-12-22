@@ -7,7 +7,7 @@ using System.Diagnostics;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	public class CActLVLNFont : CActivity
 	{

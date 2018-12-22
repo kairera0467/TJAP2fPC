@@ -7,7 +7,7 @@ using FDK;
 using FDK.ExtensionMethods;
 using TJAPlayer3;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// 演奏画面の共通クラス (ドラム演奏画面, ギター演奏画面の継承元)

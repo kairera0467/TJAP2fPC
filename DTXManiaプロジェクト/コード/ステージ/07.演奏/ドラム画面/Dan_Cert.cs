@@ -7,7 +7,7 @@ using FDK;
 using System.IO;
 using TJAPlayer3;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     internal class Dan_Cert : CActivity
     {

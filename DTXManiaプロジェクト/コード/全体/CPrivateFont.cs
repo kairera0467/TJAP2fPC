@@ -10,7 +10,7 @@ using SlimDX;
 using FDK;
 using System.Linq;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     /// <summary>
     /// プライベートフォントでの描画を扱うクラス。

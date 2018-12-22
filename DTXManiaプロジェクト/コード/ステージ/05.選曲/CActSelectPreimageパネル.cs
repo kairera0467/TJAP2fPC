@@ -8,7 +8,7 @@ using SlimDX;
 using SlimDX.Direct3D9;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActSelectPreimageパネル : CActivity
 	{

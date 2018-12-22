@@ -8,7 +8,7 @@ using FDK;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CStage起動 : CStage
 	{

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// すべてのアイテムの基本クラス。

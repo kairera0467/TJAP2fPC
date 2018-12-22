@@ -7,7 +7,7 @@ using System.Diagnostics;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     internal class CAct演奏Drumsレーン太鼓 : CActivity
     {

@@ -8,7 +8,7 @@ using FDK;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// box.defによるスキン変更時に一時的に遷移する、スキン画像の一切無いステージ。

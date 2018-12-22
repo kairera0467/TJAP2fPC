@@ -7,7 +7,7 @@ using System.IO;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActSelectShowCurrentPosition : CActivity
 	{

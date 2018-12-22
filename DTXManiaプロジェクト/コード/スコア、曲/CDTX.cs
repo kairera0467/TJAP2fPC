@@ -12,7 +12,7 @@ using FDK;
 using FDK.ExtensionMethods;
 using TJAPlayer3;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     internal class CDTX : CActivity
     {

@@ -7,7 +7,7 @@ using System.Threading;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActConfigList : CActivity
 	{

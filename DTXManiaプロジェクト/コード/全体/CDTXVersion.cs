@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// <para>DTXMania のバージョン。</para>

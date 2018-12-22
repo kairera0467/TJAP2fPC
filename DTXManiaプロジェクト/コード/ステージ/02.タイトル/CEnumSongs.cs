@@ -11,7 +11,7 @@ using SlimDX.Direct3D9;
 using FDK;
 using SampleFramework;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得するクラス
 	{													// ファイルキャッシュ(songslist.db)からの取得と、ディスクからの取得を、この一つのクラスに集約。

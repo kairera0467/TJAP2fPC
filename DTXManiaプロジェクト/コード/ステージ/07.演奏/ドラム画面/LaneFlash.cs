@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DTXMania;
+using TJAPlayer3;
 using FDK;
 
 namespace TJAPlayer3

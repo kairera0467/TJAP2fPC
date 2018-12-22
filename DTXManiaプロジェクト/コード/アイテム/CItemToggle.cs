@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// 「トグル」（ON, OFF の2状態）を表すアイテム。

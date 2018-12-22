@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	[Serializable]
 	internal class Cスコア

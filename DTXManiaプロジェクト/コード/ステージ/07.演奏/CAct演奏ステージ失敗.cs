@@ -6,7 +6,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CAct演奏ステージ失敗 : CActivity
 	{

@@ -5,7 +5,7 @@ using System.Drawing;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal abstract class CAct演奏チップファイアGB : CActivity
 	{

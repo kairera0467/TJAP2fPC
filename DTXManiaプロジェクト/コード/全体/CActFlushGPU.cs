@@ -5,7 +5,7 @@ using System.Diagnostics;
 using SlimDX.Direct3D9;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// 描画フレーム毎にGPUをフラッシュして、描画遅延を防ぐ。

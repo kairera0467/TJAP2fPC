@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using SlimDX;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActSelect演奏履歴パネル : CActivity
 	{

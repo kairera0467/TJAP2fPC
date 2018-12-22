@@ -6,7 +6,7 @@ using SlimDX;
 using FDK;
 using System.Drawing;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     class GoGoSplash : CActivity
     {

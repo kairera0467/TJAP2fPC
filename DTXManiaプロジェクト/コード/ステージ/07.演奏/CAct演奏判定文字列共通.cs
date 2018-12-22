@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CAct演奏判定文字列共通 : CActivity
 	{

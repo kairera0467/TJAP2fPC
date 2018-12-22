@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CBoxDef
 	{

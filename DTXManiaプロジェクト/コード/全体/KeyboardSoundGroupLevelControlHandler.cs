@@ -1,6 +1,6 @@
 ﻿using FDK;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     /// <summary>
     /// KeyboardSoundGroupLevelControlHandler is called by the song selection

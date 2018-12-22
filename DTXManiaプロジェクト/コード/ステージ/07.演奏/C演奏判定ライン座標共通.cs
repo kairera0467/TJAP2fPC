@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// 判定ライン関係の座標処理をまとめたクラス

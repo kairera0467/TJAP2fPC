@@ -6,7 +6,7 @@ using System.Drawing;
 using FDK;
 using System.Diagnostics;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
     internal class CAct演奏Drums背景 : CActivity
     {

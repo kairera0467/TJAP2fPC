@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	/// <summary>
 	/// 高速描画版のCPrivateFontクラス。

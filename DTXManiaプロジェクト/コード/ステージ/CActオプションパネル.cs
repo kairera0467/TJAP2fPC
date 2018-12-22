@@ -7,7 +7,7 @@ using FDK;
 
 using Device = SampleFramework.DeviceCache;
 
-namespace DTXMania
+namespace TJAPlayer3
 {
 	internal class CActオプションパネル : CActivity
 	{
