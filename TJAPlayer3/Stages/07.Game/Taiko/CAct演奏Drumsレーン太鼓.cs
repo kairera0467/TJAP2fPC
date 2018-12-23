@@ -634,13 +634,13 @@ namespace TJAPlayer3
 
             if (TJAPlayer3.Tx.Taiko_Frame[0] != null)
             {
-                TJAPlayer3.Tx.Taiko_Frame[0].t2D描画(TJAPlayer3.app.Device, 329, 136, new Rectangle(0, 0, 951, 224));
+                TJAPlayer3.Tx.Taiko_Frame[0].t2D描画(TJAPlayer3.app.Device, 329, 136);
 
                 if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay)
                 {
                     if(TJAPlayer3.Tx.Taiko_Frame[1] != null)
                     {
-                        TJAPlayer3.Tx.Taiko_Frame[1].t2D描画(TJAPlayer3.app.Device, 329, 360, new Rectangle(0, 224, 951, 224));
+                        TJAPlayer3.Tx.Taiko_Frame[1].t2D描画(TJAPlayer3.app.Device, 329, 360);
                     }
                 }
             }

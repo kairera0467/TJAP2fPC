@@ -308,7 +308,9 @@ move /y "$(TargetDir)Bass.Net.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)DirectShowLib-2005.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)SlimDX.dll" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)CSharpTest.Net.Collections.*" "$(SolutionDir)Test\dll\"
-copy /y "$(SolutionDir)Readme.txt" "$(SolutionDir)Test\"</PostBuildEvent>
+copy /y "$(SolutionDir)Readme.txt" "$(SolutionDir)Test\"
+call "$(DevEnvDir)..\Tools\VsDevCmd.bat"
+"editbin.exe" /LARGEADDRESSAWARE "$(SolutionDir)Test\TJAPlayer3.exe"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\SharpDX.2.6.3\build\SharpDX.targets" Condition="Exists('packages\SharpDX.2.6.3\build\SharpDX.targets')" />
 </Project>
