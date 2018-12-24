@@ -9,6 +9,11 @@ https://aioilight.space/taiko/tjap3/
 
 このプログラムを使用した不具合・問題については責任を負いかねます。
 
+## How 2 Build
+- VisualStudio 2017 & C# 7.3
+- VC++ toolset
+- SlimDX用の署名
+
 ## 実装状況いろいろ
 - [x] 小さいコンボ数
 - [x] 踊り子
