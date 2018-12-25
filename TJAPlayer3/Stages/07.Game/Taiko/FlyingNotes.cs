@@ -38,15 +38,15 @@ namespace TJAPlayer3
                         Flying[i].OldValue = 0;
                         Flying[i].IsRoll = isRoll;
                         // 角度の決定
-                        Flying[i].Height = Math.Abs(CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]);
-                        Flying[i].Width = Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer])) / 2;
+                        Flying[i].Height = Math.Abs(TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]);
+                        Flying[i].Width = Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer])) / 2;
                         //Console.WriteLine("{0}, {1}", width2P, height2P);
                         Flying[i].Theta = ((Math.Atan2(Flying[i].Height, Flying[i].Width) * 180.0) / Math.PI);
                         Flying[i].Counter = new CCounter(0, (180), TJAPlayer3.Skin.Game_Effect_FlyingNotes_Timer, TJAPlayer3.Timer);
                         //Flying[i].Counter = new CCounter(0, 200000, CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
 
-                        Flying[i].IncreaseX = (1.00 * Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer]))) / (180);
-                        Flying[i].IncreaseY = (1.00 * Math.Abs((CDTXMania.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - CDTXMania.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]))) / (180);
+                        Flying[i].IncreaseX = (1.00 * Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[nPlayer] - TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_X[nPlayer]))) / (180);
+                        Flying[i].IncreaseY = (1.00 * Math.Abs((TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[nPlayer] - TJAPlayer3.Skin.Game_Effect_FlyingNotes_StartPoint_Y[nPlayer]))) / (180);
                         break;
                     }
                 }
