@@ -1788,8 +1788,9 @@ for (int i = 0; i < 3; i++) {
 			}
 		}
 		private CSound previewSound;
+        private long StartupTime;
 
-		private void t起動処理()
+        private void t起動処理()
 		{
 			#region [ strEXEのあるフォルダを決定する ]
 			//-----------------
@@ -2281,8 +2282,14 @@ for (int i = 0; i < 3; i++) {
             //---------------------
             #endregion
 
+            #region Discordの処理
+            Discord.Initialize("428233983025741855");
+            StartupTime = Discord.GetUnixNowTime();
+            Discord.UpdatePresence("", Properties.Discord.Stage_StartUp, StartupTime);
+            #endregion
 
-			Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
+
+            Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
 
 
             #region [ 最初のステージの起動 ]
@@ -2387,11 +2394,14 @@ for (int i = 0; i < 3; i++) {
 						Trace.Unindent();
 					}
 				}
-				//---------------------
-				#endregion
-				#region [ 曲リストの終了処理 ]
-				//---------------------
-				if (Songs管理 != null)
+                //---------------------
+                #endregion
+                #region Discordの処理
+                Discord.Shutdown();
+                #endregion
+                #region [ 曲リストの終了処理 ]
+                //---------------------
+                if (Songs管理 != null)
 				{
 					Trace.TraceInformation( "曲リストの終了処理を行います。" );
 					Trace.Indent();
