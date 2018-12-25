@@ -272,8 +272,9 @@ namespace TJAPlayer3
             //    this.stream.Close();
             //    this.stream = new StreamWriter("noteTest.txt", false);
             //}
-
-		}
+            // Discord Presence の更新
+            Discord.UpdatePresence(TJAPlayer3.DTX.TITLE + ".tja", Properties.Discord.Stage_InGame + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), 0, Discord.GetUnixTime() + (long)TJAPlayer3.DTX.listChip[TJAPlayer3.DTX.listChip.Count - 1].n発声時刻ms / 1000);
+        }
 		public override void On非活性化()
 		{
             this.ct手つなぎ = null;

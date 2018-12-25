@@ -222,10 +222,13 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				//---------------------
-				#endregion
+                //---------------------
+                #endregion
 
-				base.On活性化();
+                // Discord Presenseの更新
+                Discord.UpdatePresence(TJAPlayer3.DTX.TITLE + ".tja", Properties.Discord.Stage_Result + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), TJAPlayer3.StartupTime);
+
+                base.On活性化();
 			}
 			finally
 			{

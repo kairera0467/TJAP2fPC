@@ -1788,7 +1788,11 @@ for (int i = 0; i < 3; i++) {
 			}
 		}
 		private CSound previewSound;
-        private long StartupTime;
+        public static long StartupTime
+        {
+            get;
+            private set;
+        }
 
         private void t起動処理()
 		{
