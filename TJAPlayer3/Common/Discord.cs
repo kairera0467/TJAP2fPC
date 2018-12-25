@@ -172,9 +172,9 @@ namespace TJAPlayer3
         /// 現在のUnix時間をlong型で返します。
         /// </summary>
         /// <returns>Unix時間。</returns>
-        public static long GetUnixNowTime()
+        public static long GetUnixTime()
         {
-            return (long)(DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds);
+            return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).Ticks / 10000000;
         }
     }
 }
