@@ -192,42 +192,16 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.txパネル本体 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_panel.png" ) );
-				//this.tx文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Result_number_s.png" ) );
-				////this.txFullCombo = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenResult fullcombo.png" ) );
-				//this.txWhite = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile white 64x64.png" ) );
-    //            this.tx判定A = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_judge.png" ) );
-    //            this.tx判定B = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_judge2.png" ) );
-    //            this.txScore = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Score_number.png" ) );
-    //            this.txScoreA = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_Score_number_B.png" ) );
-    //            this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_ResultGauge.png" ) );
-    //            this.txゲージ土台 = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\8_ResultGauge_base.png") );
-    //            this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul.png" ) );
-    //            this.tx炎 = CDTXMania.tテクスチャの生成Af( CSkin.Path(@"Graphics\7_Soul_fire.png") );
-    //            //this.txプレイヤーナンバー = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_PlayerNumber.png"));
-    //            this.txネームプレート = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_NamePlate.png" ) );
-				base.OnManagedリソースの作成();
+                Dan_Plate = TJAPlayer3.tテクスチャの生成(Path.GetDirectoryName(TJAPlayer3.DTX.strファイル名の絶対パス) + @"\Dan_Plate.png");
+                base.OnManagedリソースの作成();
 			}
 		}
 		public override void OnManagedリソースの解放()
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.tテクスチャの解放( ref this.txパネル本体 );
-				//CDTXMania.tテクスチャの解放( ref this.tx文字 );
-				////CDTXMania.tテクスチャの解放( ref this.txFullCombo );
-				//CDTXMania.tテクスチャの解放( ref this.txWhite );
-				//CDTXMania.tテクスチャの解放( ref this.tx判定A );
-				//CDTXMania.tテクスチャの解放( ref this.tx判定B );
-    //            CDTXMania.tテクスチャの解放( ref this.txScore );
-    //            CDTXMania.tテクスチャの解放( ref this.txScoreA );
-    //            CDTXMania.tテクスチャの解放( ref this.txゲージ );
-    //            CDTXMania.tテクスチャの解放( ref this.txゲージ土台 );
-    //            CDTXMania.tテクスチャの解放( ref this.tx魂 );
-    //            CDTXMania.tテクスチャの解放( ref this.tx炎 );
-    //            //CDTXMania.tテクスチャの解放( ref this.txプレイヤーナンバー);
-    //            CDTXMania.tテクスチャの解放( ref this.txネームプレート );
-				base.OnManagedリソースの解放();
+                Dan_Plate?.Dispose();
+                base.OnManagedリソースの解放();
 			}
 		}
 		public override int On進行描画()
@@ -411,7 +385,8 @@ namespace TJAPlayer3
                     default:
                         break;
                 }
-
+                // Dan_Plate
+                Dan_Plate?.t2D中心基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Dan_Plate_XY[0], TJAPlayer3.Skin.Result_Dan_Plate_XY[1]);
             }
             #endregion
 
@@ -442,20 +417,8 @@ namespace TJAPlayer3
 		private readonly ST文字位置[] st小文字位置;
 		private readonly ST文字位置[] st大文字位置;
         private ST文字位置[] stScoreFont;
-		//private CTexture txFullCombo;
-		//private CTexture txWhite;
-		//private CTexture txパネル本体;
-  //      private CTexture tx判定A;
-  //      private CTexture tx判定B;
-  //      private CTexture txScore;
-  //      private CTexture txScoreA;
-  //      private CTexture txゲージ土台;
-  //      private CTexture txゲージ;
-  //      private CTexture tx魂;
-  //      private CTextureAf tx炎;
-		//private CTexture tx文字;
-  //      //private CTexture txプレイヤーナンバー;
-  //      private CTexture txネームプレート;
+
+        private CTexture Dan_Plate;
 
 		private void t小文字表示( int x, int y, string str )
 		{
