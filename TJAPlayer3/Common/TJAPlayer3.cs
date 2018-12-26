@@ -386,6 +386,7 @@ namespace TJAPlayer3
 #endif
 					base.Window.ClientSize =
 						new Size( currentClientSize.Width, currentClientSize.Height );
+                    base.Window.Icon = Properties.Resources.tjap3;
 //					FDK.CTaskBar.ShowTaskBar( true );
 				}
 #if WindowedFullscreen
