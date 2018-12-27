@@ -218,11 +218,7 @@ namespace TJAPlayer3
 				}
 				else
 				{
-                    if (TJAPlayer3.Skin.sound曲読込開始音.b排他 && (CSkin.Cシステムサウンド.r最後に再生した排他システムサウンド != null))
-                    {
-                        CSkin.Cシステムサウンド.r最後に再生した排他システムサウンド.t停止する();
-                    }
-                    TJAPlayer3.Skin.sound曲読込開始音.t再生する();
+					TJAPlayer3.Skin.sound曲読込開始音.t再生する();
 					this.nBGM再生開始時刻 = CSound管理.rc演奏用タイマ.n現在時刻;
 					this.nBGMの総再生時間ms = TJAPlayer3.Skin.sound曲読込開始音.n長さ_現在のサウンド;
 				}

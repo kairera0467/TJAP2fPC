@@ -496,7 +496,11 @@ namespace TJAPlayer3
                                     switch (this.act曲リスト.r現在選択中の曲.eノード種別)
                                     {
                                         case C曲リストノード.Eノード種別.SCORE:
-                                            TJAPlayer3.Skin.sound曲決定音.t再生する();
+                                            if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
+                                                TJAPlayer3.Skin.sound曲決定音.t再生する();
+                                            else
+                                                TJAPlayer3.Skin.sound決定音.t再生する();
+
                                             this.t曲を選択する();
                                             break;
                                         case C曲リストノード.Eノード種別.BOX:
