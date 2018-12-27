@@ -1084,8 +1084,7 @@ namespace TJAPlayer3
                                             {
                                                 // レベルが0以上
                                                 TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f);
-                                                if (i == 3 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4) ;
-                                                else if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
+                                                if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
                                                 {
                                                     // エディット
                                                     TJAPlayer3.Tx.SongSelect_Frame_Score.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + (3 * 60), TJAPlayer3.Skin.SongSelect_Overall_Y + 463, new Rectangle(60 * i, 0, 60, 360));
@@ -1099,8 +1098,7 @@ namespace TJAPlayer3
                                             {
                                                 // レベルが0未満 = 譜面がないとみなす
                                                 TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f);
-                                                if (i == 3 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4) ;
-                                                else if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
+                                                if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
                                                 {
                                                     // エディット
                                                     TJAPlayer3.Tx.SongSelect_Frame_Score.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + (3 * 60), TJAPlayer3.Skin.SongSelect_Overall_Y + 463, new Rectangle(60 * i, 0, 60, 360));
@@ -1333,8 +1331,7 @@ namespace TJAPlayer3
                                             {
                                                 // レベルが0以上
                                                 TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f);
-                                                if (i == 3 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4) ;
-                                                else if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
+                                                if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
                                                 {
                                                     // エディット
                                                     TJAPlayer3.Tx.SongSelect_Frame_Score.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + (3 * 60), TJAPlayer3.Skin.SongSelect_Overall_Y + 463, new Rectangle(60 * i, 0, 60, 360));
@@ -1348,8 +1345,7 @@ namespace TJAPlayer3
                                             {
                                                 // レベルが0未満 = 譜面がないとみなす
                                                 TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f);
-                                                if (i == 3 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4) ;
-                                                else if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
+                                                if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度 == 4)
                                                 {
                                                     // エディット
                                                     TJAPlayer3.Tx.SongSelect_Frame_Score.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + (3 * 60), TJAPlayer3.Skin.SongSelect_Overall_Y + 463, new Rectangle(60 * i, 0, 60, 360));
