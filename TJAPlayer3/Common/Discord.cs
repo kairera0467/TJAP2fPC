@@ -92,7 +92,7 @@ namespace TJAPlayer3
         /// <param name="endTimeStamp">終了時間(Unix時間)</param>
         /// <param name="smallImageKey">小さなアイコン用キー。</param>
         /// <param name="smallImageText">小さなアイコンのツールチップに表示するテキスト。</param>
-        public static void UpdatePresence(string details, string state, long startTimeStamp = 0, long endTimeStamp = 0, string smallImageKey = "None", string smallImageText = "")
+        public static void UpdatePresence(string details, string state, long startTimeStamp = 0, long endTimeStamp = 0, string smallImageKey = null, string smallImageText = null)
         {
             var presence = new DiscordRpc.RichPresence();
             presence.details = StrToPtr(details);

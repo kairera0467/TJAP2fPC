@@ -1760,6 +1760,34 @@ for (int i = 0; i < 3; i++) {
             return scalingRate;
         }
 
+        /// <summary>
+        /// 難易度を表す数字を列挙体に変換します。
+        /// </summary>
+        /// <param name="number">難易度を表す数字。</param>
+        /// <returns>Difficulty 列挙体</returns>
+        public static Difficulty DifficultyNumberToEnum(int number)
+        {
+            switch (number)
+            {
+                case 0:
+                    return Difficulty.Easy;
+                case 1:
+                    return Difficulty.Normal;
+                case 2:
+                    return Difficulty.Hard;
+                case 3:
+                    return Difficulty.Oni;
+                case 4:
+                    return Difficulty.Edit;
+                case 5:
+                    return Difficulty.Tower;
+                case 6:
+                    return Difficulty.Dan;
+                default:
+                    throw new IndexOutOfRangeException();
+            }
+        }
+
         //-----------------
         #endregion
 
