@@ -1760,6 +1760,34 @@ for (int i = 0; i < 3; i++) {
             return scalingRate;
         }
 
+        /// <summary>
+        /// 難易度を表す数字を列挙体に変換します。
+        /// </summary>
+        /// <param name="number">難易度を表す数字。</param>
+        /// <returns>Difficulty 列挙体</returns>
+        public static Difficulty DifficultyNumberToEnum(int number)
+        {
+            switch (number)
+            {
+                case 0:
+                    return Difficulty.Easy;
+                case 1:
+                    return Difficulty.Normal;
+                case 2:
+                    return Difficulty.Hard;
+                case 3:
+                    return Difficulty.Oni;
+                case 4:
+                    return Difficulty.Edit;
+                case 5:
+                    return Difficulty.Tower;
+                case 6:
+                    return Difficulty.Dan;
+                default:
+                    throw new IndexOutOfRangeException();
+            }
+        }
+
         //-----------------
         #endregion
 
@@ -1789,8 +1817,13 @@ for (int i = 0; i < 3; i++) {
 			}
 		}
 		private CSound previewSound;
+        public static long StartupTime
+        {
+            get;
+            private set;
+        }
 
-		private void t起動処理()
+        private void t起動処理()
 		{
 			#region [ strEXEのあるフォルダを決定する ]
 			//-----------------
@@ -2282,8 +2315,14 @@ for (int i = 0; i < 3; i++) {
             //---------------------
             #endregion
 
+            #region Discordの処理
+            Discord.Initialize("428233983025741855");
+            StartupTime = Discord.GetUnixTime();
+            Discord.UpdatePresence("", Properties.Discord.Stage_StartUp, StartupTime);
+            #endregion
 
-			Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
+
+            Trace.TraceInformation( "アプリケーションの初期化を完了しました。" );
 
 
             #region [ 最初のステージの起動 ]
@@ -2388,11 +2427,14 @@ for (int i = 0; i < 3; i++) {
 						Trace.Unindent();
 					}
 				}
-				//---------------------
-				#endregion
-				#region [ 曲リストの終了処理 ]
-				//---------------------
-				if (Songs管理 != null)
+                //---------------------
+                #endregion
+                #region Discordの処理
+                Discord.Shutdown();
+                #endregion
+                #region [ 曲リストの終了処理 ]
+                //---------------------
+                if (Songs管理 != null)
 				{
 					Trace.TraceInformation( "曲リストの終了処理を行います。" );
 					Trace.Indent();
