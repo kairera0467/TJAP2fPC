@@ -98,7 +98,7 @@ namespace TJAPlayer3
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, DrawMode dMode )
+		public Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, DrawMode dMode )
 		{
 			return DrawPrivateFont( drawstr, dMode, fontColor, edgeColor, Color.White, Color.White );
 		}
@@ -138,7 +138,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
+		public Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
 		{
 			return DrawPrivateFont_V( drawstr, fontColor, edgeColor, bVertical );
 		}
