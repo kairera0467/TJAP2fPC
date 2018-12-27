@@ -4015,43 +4015,7 @@ namespace TJAPlayer3
                 }
             }
 
-            //for (int i = 0; ; i++)
-            //{
-            //    if( i >= CDTXMania.DTX.listDELAY.Count )
-            //    {
-                    return bpm_time;
-            //    }
-            //    //コースが異なる = 処理しない
-            //    if( CDTXMania.DTX.listDELAY[ i ].delay_course != 0 && CDTXMania.DTX.listDELAY[ i ].delay_course != this.n現在のコース )
-            //    {
-            //        continue;
-            //    }
-            //    //停止時間が0以下 = 処理しない
-            //    if( CDTXMania.DTX.listDELAY[ i ].nDELAY値 <= 0)
-            //    {
-            //        continue;
-            //    }
-            //    //処理済みのDELAY
-            //    else if( play_time >= CDTXMania.DTX.listDELAY[ i ].delay_time + CDTXMania.DTX.listDELAY[ i ].nDELAY値 )
-            //    {
-            //        //最後のBPMCHANGEの処理以降のものであれば
-            //        if( CDTXMania.DTX.listDELAY[ i ].delay_time > last_bpm_change_time )
-            //        {
-            //            bpm_time -= (float)CDTXMania.DTX.listDELAY[ i ].nDELAY値 * (float)CDTXMania.DTX.listDELAY[ i ].delay_bpm / 15000.0f;
-            //        }
-            //    }
-            //    //DELAY処理終了
-            //    else if( play_time < CDTXMania.DTX.listDELAY[ i ].delay_time )
-            //    {
-            //        return bpm_time;
-            //    }
-            //    //DELAY中
-            //    else
-            //    {
-            //        return (float)CDTXMania.DTX.listDELAY[ i ].delay_bmscroll_time;
-            //    }
-            //}
-            return -1;
+            return bpm_time;
         }
 
 		public void t再読込()
