@@ -632,6 +632,7 @@ namespace TJAPlayer3
 		public STDGBVALUE<bool> bGraph;     // #24074 2011.01.23 add ikanick
 		public bool bWave再生位置自動調整機能有効;
 		public bool bストイックモード;
+		public bool bランダムセレクトを使用する;
 		public bool bランダムセレクトで子BOXを検索対象とする;
 		public bool bログ出力;
 		public bool b演奏情報を表示する;
@@ -1266,6 +1267,7 @@ namespace TJAPlayer3
 			this.bWave再生位置自動調整機能有効 = false;
 			this.bBGM音を発声する = true;
 			this.bScoreIniを出力する = true;
+			this.bランダムセレクトを使用する = true;
 			this.bランダムセレクトで子BOXを検索対象とする = true;
 			this.n表示可能な最小コンボ数 = new STDGBVALUE<int>();
 			this.n表示可能な最小コンボ数.Drums = 3;
@@ -1662,6 +1664,9 @@ namespace TJAPlayer3
             sw.WriteLine("; 最小表示コンボ数");
             sw.WriteLine("MinComboDrums={0}", this.n表示可能な最小コンボ数.Drums);
             sw.WriteLine();
+	                sw.WriteLine("; RANDOM SELECT を使用する (0:OFF, 1:ON)");
+                        sw.WriteLine("Random={0}", this.bランダムセレクトを使用する ? 1 : 0);
+                        sw.WriteLine();
 			sw.WriteLine( "; RANDOM SELECT で子BOXを検索対象に含める (0:OFF, 1:ON)" );
 			sw.WriteLine( "RandomFromSubBox={0}", this.bランダムセレクトで子BOXを検索対象とする ? 1 : 0 );
 			sw.WriteLine();
@@ -2300,6 +2305,10 @@ namespace TJAPlayer3
 											else if( str3.Equals( "SaveScoreIni" ) )
 											{
 												this.bScoreIniを出力する = C変換.bONorOFF( str4[ 0 ] );
+											}
+											else if( str3.Equals( "Random" ) )
+											{
+												this.bランダムセレクトを使用する = C変換.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "RandomFromSubBox" ) )
 											{
