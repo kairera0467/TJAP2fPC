@@ -624,7 +624,7 @@ namespace TJAPlayer3
             this.soundBalloon = new Cシステムサウンド(@"Sounds\balloon.ogg", false, false, true, ESoundGroup.SoundEffect);
             this.sound曲決定音 = new Cシステムサウンド(@"Sounds\SongDecide.ogg", false, false, true, ESoundGroup.Voice);
             this.sound成績発表 = new Cシステムサウンド(@"Sounds\ResultIn.ogg", false, false, false, ESoundGroup.Voice);
-
+            ReloadSkin();
             tReadSkinConfig();
         }
 
