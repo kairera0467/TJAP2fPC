@@ -952,7 +952,7 @@ namespace TJAPlayer3
 			{
 				C曲リストノード itemRandom = new C曲リストノード();
 				itemRandom.eノード種別 = C曲リストノード.Eノード種別.RANDOM;
-				itemRandom.strタイトル = "ランダムで曲を選ぶ";
+				itemRandom.strタイトル = "ランダムに曲をえらぶ";
 				itemRandom.nスコア数 = (int)Difficulty.Total;
 				itemRandom.r親ノード = ノードリスト[ 0 ].r親ノード;
                 
@@ -1005,7 +1005,7 @@ namespace TJAPlayer3
 				{
 					C曲リストノード itemBack = new C曲リストノード();
 					itemBack.eノード種別 = C曲リストノード.Eノード種別.BACKBOX;
-					itemBack.strタイトル = "閉じる";
+					itemBack.strタイトル = "とじる";
 					itemBack.nスコア数 = 1;
 					itemBack.r親ノード = c曲リストノード;
 
