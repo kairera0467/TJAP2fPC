@@ -93,17 +93,18 @@ namespace FDK
 			protected set;
 		}
 		public Vector3 vc拡大縮小倍率;
+        public string filename;
 
-        	// 画面が変わるたび以下のプロパティを設定し治すこと。
+        // 画面が変わるたび以下のプロパティを設定し治すこと。
 
-        	public static Size sz論理画面 = Size.Empty;
-        	public static Size sz物理画面 = Size.Empty;
-        	public static Rectangle rc物理画面描画領域 = Rectangle.Empty;
-        	/// <summary>
-        	/// <para>論理画面を1とする場合の物理画面の倍率。</para>
-        	/// <para>論理値×画面比率＝物理値。</para>
-        	/// </summary>
-        	public static float f画面比率 = 1.0f;
+        public static Size sz論理画面 = Size.Empty;
+        public static Size sz物理画面 = Size.Empty;
+        public static Rectangle rc物理画面描画領域 = Rectangle.Empty;
+        /// <summary>
+        /// <para>論理画面を1とする場合の物理画面の倍率。</para>
+        /// <para>論理値×画面比率＝物理値。</para>
+        /// </summary>
+        public static float f画面比率 = 1.0f;
 
 		// コンストラクタ
 
@@ -119,6 +120,7 @@ namespace FDK
 			this.fZ軸中心回転 = 0f;
 			this.vc拡大縮小倍率 = new Vector3( 1f, 1f, 1f );
 //			this._txData = null;
+            this.filename = "";
 		}
 		
 		/// <summary>
@@ -277,6 +279,7 @@ namespace FDK
 				throw new FileNotFoundException( string.Format( "ファイルが存在しません。\n[{0}]", strファイル名 ) );
 
 			Byte[] _txData = File.ReadAllBytes( strファイル名 );
+            this.filename = Path.GetFileName( strファイル名 );
 			MakeTexture( device, _txData, format, b黒を透過する, pool );
 		}
 
@@ -953,7 +956,7 @@ namespace FDK
 			// CTextureのDispose漏れと見做して警告をログ出力する
 			if (!this.bSlimDXTextureDispose完了済み)
 			{
-				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}))", sz画像サイズ.Width, sz画像サイズ.Height );
+				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2})", sz画像サイズ.Width, sz画像サイズ.Height, filename );
 			}
 			this.Dispose(false);
 		}
