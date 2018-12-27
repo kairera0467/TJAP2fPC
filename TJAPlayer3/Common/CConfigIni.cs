@@ -868,6 +868,10 @@ namespace TJAPlayer3
         public bool ShinuchiMode; // 真打モード
         public bool FastRender; // 事前画像描画モード
         public int MusicPreTimeMs; // 音源再生前の待機時間ms
+        /// <summary>
+        /// DiscordのRitch Presenceに再生中の.tjaファイルの情報を送信するかどうか。
+        /// </summary>
+        public bool SendDiscordPlayingInformation;
 #if false
 		[StructLayout( LayoutKind.Sequential )]
 		public struct STAUTOPLAY								// C定数のEレーンとindexを一致させること
@@ -1419,6 +1423,7 @@ namespace TJAPlayer3
             ShinuchiMode = false;
             FastRender = true;
             MusicPreTimeMs = 1000; // 一秒
+            SendDiscordPlayingInformation = true;
             #region[ Ver.K追加 ]
             this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;
@@ -1718,7 +1723,11 @@ namespace TJAPlayer3
 			sw.WriteLine( "; when you get hiscore/hiskill.");								//
 			sw.WriteLine( "AutoResultCapture={0}", this.bIsAutoResultCapture? 1 : 0 );		//
 			sw.WriteLine();
-			sw.WriteLine( "; 再生速度変更を、ピッチ変更で行うかどうか(0:ピッチ変更, 1:タイムストレッチ" );	// #23664 2013.2.24 yyagi
+            sw.WriteLine("; Discordに再生中の譜面情報を送信する(0:OFF, 1:ON)");                        // #25399 2011.6.9 yyagi
+            sw.WriteLine("; Share Playing .tja file infomation on Discord.");                     //
+            sw.WriteLine("{0}={1}", nameof(SendDiscordPlayingInformation), SendDiscordPlayingInformation ? 1 : 0);       //
+            sw.WriteLine();
+            sw.WriteLine( "; 再生速度変更を、ピッチ変更で行うかどうか(0:ピッチ変更, 1:タイムストレッチ" );	// #23664 2013.2.24 yyagi
 			sw.WriteLine( "; (WASAPI/ASIO使用時のみ有効) " );
 			sw.WriteLine( "; Set \"0\" if you'd like to use pitch shift with PlaySpeed." );	//
 			sw.WriteLine( "; Set \"1\" for time stretch." );								//
@@ -2363,7 +2372,11 @@ namespace TJAPlayer3
 											{
 												this.bIsAutoResultCapture = C変換.bONorOFF( str4[ 0 ] );
 											}
-											else if ( str3.Equals( "TimeStretch" ) )				// #23664 2013.2.24 yyagi
+                                            else if (str3.Equals(nameof(SendDiscordPlayingInformation)))
+                                            {
+                                                SendDiscordPlayingInformation = C変換.bONorOFF(str4[0]);
+                                            }
+                                            else if ( str3.Equals( "TimeStretch" ) )				// #23664 2013.2.24 yyagi
 											{
 												this.bTimeStretch = C変換.bONorOFF( str4[ 0 ] );
 											}
