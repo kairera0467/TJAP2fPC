@@ -297,7 +297,7 @@ namespace TJAPlayer3
 
                 if( this.r現在選択中の曲 != null )
                 {
-                    if(this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) != 0 || r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX)
+                    if(this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) != 0 || r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
                     {
                         nGenreBack = this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
                     }
