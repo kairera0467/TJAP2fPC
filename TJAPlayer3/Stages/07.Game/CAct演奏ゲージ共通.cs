@@ -147,7 +147,7 @@ namespace TJAPlayer3
                 this.nRiskyTimes_Initial = TJAPlayer3.ConfigIni.nRisky;
             }
 
-            switch( TJAPlayer3.DTX.LEVEL.Taiko )
+            switch( TJAPlayer3.DTX.LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度] )
             {
                 case 1:
                 case 2:
@@ -347,7 +347,7 @@ namespace TJAPlayer3
 
                         if( fDamage >= 0 )
                         {
-                            fDamage = -fDamage*2;
+                            fDamage = -fDamage;
                         }
 
                         if( this.bRisky )
