@@ -969,7 +969,10 @@ namespace TJAPlayer3
 						 string.Format("Random select from the songs which has the level about L{0}. Non-leveled songs may also selected.", i + 1);
 					itemRandom.ar難易度ラベル[ i ] = string.Format( "L{0}", i + 1 );
 				}
+				if(TJAPlayer3.ConfigIni.bランダムセレクトを使用する)
+                                { 
 				ノードリスト.Add( itemRandom );
+                                }
 
 				#region [ ログ出力 ]
 				//-----------------------------
