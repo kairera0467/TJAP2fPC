@@ -299,11 +299,15 @@ namespace TJAPlayer3
 
                 if( this.r現在選択中の曲 != null )
                 {
-                    if (TJAPlayer3.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
+                    if(this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) != 0 || r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+                    {
+                        nGenreBack = this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+                    }
+                    if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
                     {
                         for( int i = 0 ; i <(1280 / TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width) + 2; i++ )
-                            if (TJAPlayer3.Tx.SongSelect_GenreBack[ this.nStrジャンルtoNum( this.r現在選択中の曲.strジャンル ) ] != null )
-                                    TJAPlayer3.Tx.SongSelect_GenreBack[this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i , 0);
+                            if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
+                                    TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i , 0);
                     }
                 }
 
@@ -754,6 +758,7 @@ namespace TJAPlayer3
 		public CActSortSongs actSortSongs;
 		private CActSelectQuickConfig actQuickConfig;
 
+                private int nGenreBack;
 		private bool bBGM再生済み;
 		private STキー反復用カウンタ ctキー反復用;
 		public CCounter ct登場時アニメ用共通;
