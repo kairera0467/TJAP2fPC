@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animations\Animator.cs" />
+    <Compile Include="Animations\EaseOut.cs" />
     <Compile Include="Animations\EaseIn.cs" />
     <Compile Include="Animations\FadeIn.cs" />
     <Compile Include="Animations\FadeOut.cs" />
