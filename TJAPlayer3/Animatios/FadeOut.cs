@@ -6,26 +6,26 @@ using System.Text;
 namespace TJAPlayer3.Animatios
 {
     /// <summary>
-    /// フェードインを行うクラス。
+    /// フェードアウトを行うクラス。
     /// </summary>
-    internal class FadeIn : Animator
+    internal class FadeOut : Animator
     {
         /// <summary>
-        /// フェードインを初期化します。
+        /// フェードアウトを初期化します。
         /// </summary>
-        /// <param name="timems">フェードインに掛ける秒数(ミリ秒)</param>
-        public FadeIn(int timems) : base(0, timems - 1, 1, false)
+        /// <param name="timems">フェードアウトに掛ける秒数(ミリ秒)</param>
+        public FadeOut(int timems) : base(0, timems - 1, 1, false)
         {
             TimeMs = timems;
         }
 
         /// <summary>
-        /// フェードインの不透明度を255段階で返します。
+        /// フェードアウトの不透明度を255段階で返します。
         /// </summary>
         /// <returns>不透明度。</returns>
         public override object GetAnimation()
         {
-            var opacity = base.Counter.n現在の値 * 255 / TimeMs;
+            var opacity = (TimeMs - base.Counter.n現在の値) * 255 / TimeMs;
             if (base.Counter.b終了値に達した) base.Stop();
             return opacity;
         }
