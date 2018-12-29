@@ -46,7 +46,8 @@ namespace TJAPlayer3
 				Trace.TraceInformation( "タイトルステージの活性化を完了しました。" );
 				Trace.Unindent();
 			}
-            EaseIn = new Animations.EaseIn(0, 1280, 10000);
+            EaseIn = new Animations.EaseIn(0, 1280, 3000);
+            Fader = new Animations.FadeIn(1000);
 		}
 		public override void On非活性化()
 		{
@@ -109,6 +110,7 @@ namespace TJAPlayer3
 					this.ctカーソルフラッシュ用.n現在の値 = 100;
 					base.b初めての進行描画 = false;
                     EaseIn.Start();
+                    Fader.Start();
 				}
 				//---------------------
 				#endregion
@@ -187,8 +189,10 @@ namespace TJAPlayer3
                 // 描画
 
                 EaseIn.Tick();
+                Fader.Tick();
+                //TJAPlayer3.Tx.Title_Background.n透明度 = (int)Fader.GetAnimation();
                 if (TJAPlayer3.Tx.Title_Background != null )
-                    TJAPlayer3.Tx.Title_Background.t2D描画( TJAPlayer3.app.Device, Convert.ToSingle(EaseIn.GetAnimation()), 0 );
+                    TJAPlayer3.Tx.Title_Background.t2D描画( TJAPlayer3.app.Device, Convert.ToInt32(EaseIn.GetAnimation()), 0 );
                 Console.WriteLine(Convert.ToDouble(EaseIn.GetAnimation()));
 
                 #region[ バージョン表示 ]
@@ -380,6 +384,7 @@ namespace TJAPlayer3
         //private CTexture txメニュー;
         //private CTexture tx背景;
         private Animations.EaseIn EaseIn;
+        private Animations.FadeIn Fader;
 	
 		private void tカーソルを下へ移動する()
 		{

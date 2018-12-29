@@ -99,6 +99,7 @@
     <Compile Include="Animations\FadeIn.cs" />
     <Compile Include="Animations\FadeOut.cs" />
     <Compile Include="Animations\IAnimatable.cs" />
+    <Compile Include="Animations\Linear.cs" />
     <Compile Include="Common\Discord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Discord.resx">

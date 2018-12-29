@@ -6,17 +6,17 @@ using System.Text;
 namespace TJAPlayer3.Animations
 {
     /// <summary>
-    /// イーズインを行うクラス。
+    /// リニア移動を行うクラス。
     /// </summary>
-    class EaseIn : Animator
+    class Linear : Animator
     {
         /// <summary>
-        /// イーズインを初期化します。
+        /// リニア移動を初期化します。
         /// </summary>
         /// <param name="startPoint">始点。</param>
         /// <param name="endPoint">終点。</param>
-        /// <param name="timeMs">イージングにかける時間。</param>
-        public EaseIn(int startPoint, int endPoint, int timeMs) : base(0, timeMs, 1, false)
+        /// <param name="timeMs">移動にかける時間。</param>
+        public Linear(int startPoint, int endPoint, int timeMs) : base(0, timeMs, 1, false)
         {
             StartPoint = startPoint;
             EndPoint = endPoint;
@@ -27,8 +27,7 @@ namespace TJAPlayer3.Animations
         public override object GetAnimation()
         {
             var persent = Counter.n現在の値 / (double)TimeMs;
-            if (base.Counter.b終了値に達した) base.Stop();
-            return ((double)Sa * persent * persent * persent) + StartPoint;
+            return (Sa * persent) + StartPoint;
         }
 
         private readonly int StartPoint;
