@@ -25,7 +25,11 @@ namespace TJAPlayer3.Animatios
         /// <summary>
         /// アニメーションの進行を行います。
         /// </summary>
-        /// <returns>アニメーションのパラメータ。実装するクラスによって異なる。</returns>
-        object Tick();
+        void Tick();
+        /// <summary>
+        /// アニメーションのパラメータを返します。
+        /// </summary>
+        /// <returns>アニメーションのパラメータを返します。</returns>
+        object GetAnimation();
     }
 }

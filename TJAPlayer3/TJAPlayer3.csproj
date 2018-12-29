@@ -94,6 +94,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animatios\Animator.cs" />
     <Compile Include="Animatios\IAnimatable.cs" />
     <Compile Include="Common\Discord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
