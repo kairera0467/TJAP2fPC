@@ -5,7 +5,7 @@ using System.Text;
 using TJAPlayer3;
 using FDK;
 
-namespace TJAPlayer3.Animatios
+namespace TJAPlayer3.Animations
 {
     class Animator : IAnimatable
     {
