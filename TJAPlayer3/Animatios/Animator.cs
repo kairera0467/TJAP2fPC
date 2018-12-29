@@ -76,13 +76,37 @@ namespace TJAPlayer3.Animatios
 
 
 
-        // フィールド
-        protected CCounter Counter;
-        protected readonly CounterType Type;
-        protected readonly object StartValue;
-        protected readonly object EndValue;
-        protected readonly object TickInterval;
-        protected readonly bool IsLoop;
+        // プロパティ
+        public CCounter Counter
+        {
+            get;
+            private set;
+        }
+        public CounterType Type
+        {
+            get;
+            private set;
+        }
+        public object StartValue
+        {
+            get;
+            private set;
+        }
+        public object EndValue
+        {
+            get;
+            private set;
+        }
+        public object TickInterval
+        {
+            get;
+            private set;
+        }
+        public bool IsLoop
+        {
+            get;
+            private set;
+        }
     }
 
     enum CounterType
