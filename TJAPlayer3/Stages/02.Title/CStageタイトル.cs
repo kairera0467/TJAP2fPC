@@ -46,6 +46,7 @@ namespace TJAPlayer3
 				Trace.TraceInformation( "タイトルステージの活性化を完了しました。" );
 				Trace.Unindent();
 			}
+            EaseIn = new Animations.EaseIn(0, 1280, 10000);
 		}
 		public override void On非活性化()
 		{
@@ -107,6 +108,7 @@ namespace TJAPlayer3
 					this.ctカーソルフラッシュ用.t開始( 0, 700, 5, TJAPlayer3.Timer );
 					this.ctカーソルフラッシュ用.n現在の値 = 100;
 					base.b初めての進行描画 = false;
+                    EaseIn.Start();
 				}
 				//---------------------
 				#endregion
@@ -182,10 +184,12 @@ namespace TJAPlayer3
 //						Trace.TraceInformation( "DTXMania Title: SPACE key registered. " + CDTXMania.ct.nシステム時刻 );
 				}
 
-				// 描画
+                // 描画
 
-				if(TJAPlayer3.Tx.Title_Background != null )
-                    TJAPlayer3.Tx.Title_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+                EaseIn.Tick();
+                if (TJAPlayer3.Tx.Title_Background != null )
+                    TJAPlayer3.Tx.Title_Background.t2D描画( TJAPlayer3.app.Device, Convert.ToSingle(EaseIn.GetAnimation()), 0 );
+                Console.WriteLine(Convert.ToDouble(EaseIn.GetAnimation()));
 
                 #region[ バージョン表示 ]
                 //string strVersion = "KTT:J:A:I:2017072200";
@@ -373,8 +377,9 @@ namespace TJAPlayer3
 		private const int MENU_X = 506;
 		private const int MENU_Y = 513;
 		private int n現在のカーソル行;
-		//private CTexture txメニュー;
-		//private CTexture tx背景;
+        //private CTexture txメニュー;
+        //private CTexture tx背景;
+        private Animations.EaseIn EaseIn;
 	
 		private void tカーソルを下へ移動する()
 		{

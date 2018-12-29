@@ -94,10 +94,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animatios\Animator.cs" />
-    <Compile Include="Animatios\FadeIn.cs" />
-    <Compile Include="Animatios\FadeOut.cs" />
-    <Compile Include="Animatios\IAnimatable.cs" />
+    <Compile Include="Animations\Animator.cs" />
+    <Compile Include="Animations\EaseIn.cs" />
+    <Compile Include="Animations\FadeIn.cs" />
+    <Compile Include="Animations\FadeOut.cs" />
+    <Compile Include="Animations\IAnimatable.cs" />
     <Compile Include="Common\Discord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Discord.resx">
