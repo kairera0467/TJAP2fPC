@@ -26,7 +26,7 @@ namespace TJAPlayer3.C曲リストノードComparers
 
         private static string strファイルの絶対パス(C曲リストノード c曲リストノード)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < (int)Difficulty.Total; i++)
             {
                 if (c曲リストノード.arスコア[i] != null)
                 {
