@@ -27,7 +27,6 @@ namespace TJAPlayer3.Animations
         public override object GetAnimation()
         {
             var persent = Counter.n現在の値 / (double)TimeMs * 2.0;
-            if (base.Counter.b終了値に達した) base.Stop();
             if (persent < 1)
             {
                 return ((double)Sa / 2.0 * persent * persent * persent) + StartPoint;

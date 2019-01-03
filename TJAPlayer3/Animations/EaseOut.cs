@@ -28,7 +28,6 @@ namespace TJAPlayer3.Animations
         {
             var persent = Counter.n現在の値 / (double)TimeMs;
             persent -= 1;
-            if (base.Counter.b終了値に達した) base.Stop();
             return (double)Sa * (persent * persent * persent + 1) + StartPoint;
         }
 

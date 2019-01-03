@@ -60,9 +60,11 @@ namespace TJAPlayer3.Animations
             {
                 case CounterType.Normal:
                     if (IsLoop) Counter.t進行Loop(); else Counter.t進行();
+                    if (!IsLoop && Counter.b終了値に達した) Stop();
                     break;
                 case CounterType.Double:
                     if (IsLoop) Counter.t進行LoopDb(); else Counter.t進行db();
+                    if (!IsLoop && Counter.b終了値に達したdb) Stop();
                     break;
                 default:
                     break;
