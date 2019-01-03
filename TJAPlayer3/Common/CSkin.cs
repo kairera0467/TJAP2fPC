@@ -2482,7 +2482,7 @@ namespace TJAPlayer3
         public int Game_Chara_Beat_GoGo = 2;
         public int Game_Chara_Balloon_Timer = 28;
         public int Game_Chara_Balloon_Delay = 500;
-        public int Game_Chara_Balloon_FadeOut = 90;
+        public int Game_Chara_Balloon_FadeOut = 84;
         #endregion
         #region Dancer
         public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
