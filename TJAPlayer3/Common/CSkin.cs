@@ -1622,6 +1622,10 @@ namespace TJAPlayer3
                                     Game_Taiko_Combo_Text_Size[i] = int.Parse(strSplit[i]);
                                 }
                             }
+                            else if (strCommand == nameof(Game_Taiko_Combo_Ex_IsJumping))
+                            {
+                                Game_Taiko_Combo_Ex_IsJumping = C変換.bONorOFF(strParam[0]);
+                            }
                             #endregion
                             #region Gauge
                             else if (strCommand == "Game_Gauge_Rainbow_Timer")
@@ -2542,6 +2546,7 @@ namespace TJAPlayer3
         public int[] Game_Taiko_Combo_Text_X = new int[] { 268, 268 };
         public int[] Game_Taiko_Combo_Text_Y = new int[] { 295, 472 };
         public int[] Game_Taiko_Combo_Text_Size = new int[] { 100, 50 };
+        public bool Game_Taiko_Combo_Ex_IsJumping = true;
         #endregion
         #region Gauge
         public int Game_Gauge_Rainbow_Ptn;
