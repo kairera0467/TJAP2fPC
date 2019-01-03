@@ -1332,6 +1332,11 @@ namespace TJAPlayer3
                                 if (int.Parse(strParam) > 0)
                                     Game_Chara_Balloon_Delay = int.Parse(strParam);
                             }
+                            else if (strCommand == nameof(Game_Chara_Balloon_FadeOut))
+                            {
+                                if (int.Parse(strParam) > 0)
+                                    Game_Chara_Balloon_FadeOut = int.Parse(strParam);
+                            }
                             // パターン数の設定はTextureLoader.csで反映されます。
                             else if (strCommand == "Game_Chara_Motion_Normal")
                             {
@@ -2477,6 +2482,7 @@ namespace TJAPlayer3
         public int Game_Chara_Beat_GoGo = 2;
         public int Game_Chara_Balloon_Timer = 28;
         public int Game_Chara_Balloon_Delay = 500;
+        public int Game_Chara_Balloon_FadeOut = 90;
         #endregion
         #region Dancer
         public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
