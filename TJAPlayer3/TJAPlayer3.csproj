@@ -94,6 +94,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animations\Animator.cs" />
+    <Compile Include="Animations\EaseInOut.cs" />
+    <Compile Include="Animations\EaseOut.cs" />
+    <Compile Include="Animations\EaseIn.cs" />
+    <Compile Include="Animations\FadeIn.cs" />
+    <Compile Include="Animations\FadeOut.cs" />
+    <Compile Include="Animations\IAnimatable.cs" />
+    <Compile Include="Animations\Linear.cs" />
     <Compile Include="Common\Discord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Discord.resx">
