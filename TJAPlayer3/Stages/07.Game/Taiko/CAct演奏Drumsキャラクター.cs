@@ -46,6 +46,15 @@ namespace TJAPlayer3
             this.b風船連打中 = false;
             this.b演奏中 = false;
 
+
+            CharaAction_Balloon_FadeOut = new Animations.FadeOut(TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut);
+            // ふうせん系アニメーションの総再生時間は画像枚数 x Tick間隔なので、
+            // フェードアウトの開始タイミングは、総再生時間 - フェードアウト時間。
+            var tick = TJAPlayer3.Skin.Game_Chara_Balloon_Timer;
+            var balloonBrokePtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke;
+            var balloonMissPtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss;
+            CharaAction_Balloon_FadeOut_StartMs[0] = (balloonBrokePtn * tick) - TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut;
+            CharaAction_Balloon_FadeOut_StartMs[1] = (balloonMissPtn * tick) - TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut;
             this.bマイどんアクション中 = false;
 
             base.On活性化();
@@ -67,6 +76,8 @@ namespace TJAPlayer3
             CharaAction_Balloon_Broke = null;
             CharaAction_Balloon_Miss = null;
             CharaAction_Balloon_Delay = null;
+
+            CharaAction_Balloon_FadeOut = null;
        
             base.On非活性化();
         }
@@ -102,7 +113,6 @@ namespace TJAPlayer3
             if (this.ctキャラクターアクション_ゴーゴースタートMAX != null || TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max != 0) this.ctキャラクターアクション_ゴーゴースタートMAX.t進行db();
             if (this.ctキャラクターアクション_ノルマ != null || TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn != 0) this.ctキャラクターアクション_ノルマ.t進行db();
             if (this.ctキャラクターアクション_魂MAX != null || TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn != 0) this.ctキャラクターアクション_魂MAX.t進行db();
-
 
 
             if ( this.b風船連打中 != true && this.bマイどんアクション中 != true && CharaAction_Balloon_Delay.b終了値に達した)
@@ -248,16 +258,28 @@ namespace TJAPlayer3
             if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke != 0) CharaAction_Balloon_Broke?.t進行();
             CharaAction_Balloon_Delay?.t進行();
             if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss != 0) CharaAction_Balloon_Miss?.t進行();
+            CharaAction_Balloon_FadeOut.Tick();
+
             //CharaAction_Balloon_Delay?.t進行();
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Broke?.b進行中.ToString());
             //CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Miss?.b進行中.ToString());
             //CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Breaking?.b進行中.ToString());
+
             if (bマイどんアクション中)
             {
+                var nowOpacity = CharaAction_Balloon_FadeOut.Counter.b進行中 ? (int)CharaAction_Balloon_FadeOut.GetAnimation() : 255;
                 if (CharaAction_Balloon_Broke?.b進行中 == true && TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
                 {
-                    TJAPlayer3.Tx.Chara_Balloon_Broke[CharaAction_Balloon_Broke.n現在の値]?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Chara_Balloon_X[0], TJAPlayer3.Skin.Game_Chara_Balloon_Y[0]);
-                    TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画(TJAPlayer3.Skin.Game_PuchiChara_BalloonX[0], TJAPlayer3.Skin.Game_PuchiChara_BalloonY[0], false, 255, true);
+                    if (CharaAction_Balloon_FadeOut.Counter.b停止中 && CharaAction_Balloon_Broke.n現在の値 > CharaAction_Balloon_FadeOut_StartMs[0] / CharaAction_Balloon_Broke.n終了値)
+                    {
+                        CharaAction_Balloon_FadeOut.Start();
+                    }
+                    if(TJAPlayer3.Tx.Chara_Balloon_Broke[CharaAction_Balloon_Broke.n現在の値] != null)
+                    {
+                        TJAPlayer3.Tx.Chara_Balloon_Broke[CharaAction_Balloon_Broke.n現在の値].n透明度 = nowOpacity;
+                        TJAPlayer3.Tx.Chara_Balloon_Broke[CharaAction_Balloon_Broke.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Chara_Balloon_X[0], TJAPlayer3.Skin.Game_Chara_Balloon_Y[0]);
+                    }
+                    TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画(TJAPlayer3.Skin.Game_PuchiChara_BalloonX[0], TJAPlayer3.Skin.Game_PuchiChara_BalloonY[0], false, nowOpacity, true);
                     if (CharaAction_Balloon_Broke.b終了値に達した)
                     {
                         CharaAction_Balloon_Broke.t停止();
@@ -267,8 +289,16 @@ namespace TJAPlayer3
                 }
                 else if (CharaAction_Balloon_Miss?.b進行中 == true && TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
                 {
-                    TJAPlayer3.Tx.Chara_Balloon_Miss[CharaAction_Balloon_Miss.n現在の値]?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Chara_Balloon_X[0], TJAPlayer3.Skin.Game_Chara_Balloon_Y[0]);
-                    TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画(TJAPlayer3.Skin.Game_PuchiChara_BalloonX[0], TJAPlayer3.Skin.Game_PuchiChara_BalloonY[0], false, 255, true);
+                    if (CharaAction_Balloon_FadeOut.Counter.b停止中 && CharaAction_Balloon_Miss.n現在の値 > CharaAction_Balloon_FadeOut_StartMs[1] / CharaAction_Balloon_Broke.n終了値)
+                    {
+                        CharaAction_Balloon_FadeOut.Start();
+                    }
+                    if(TJAPlayer3.Tx.Chara_Balloon_Miss[CharaAction_Balloon_Miss.n現在の値] != null)
+                    {
+                        TJAPlayer3.Tx.Chara_Balloon_Miss[CharaAction_Balloon_Miss.n現在の値].n透明度 = nowOpacity;
+                        TJAPlayer3.Tx.Chara_Balloon_Miss[CharaAction_Balloon_Miss.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Chara_Balloon_X[0], TJAPlayer3.Skin.Game_Chara_Balloon_Y[0]);
+                    }
+                    TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画(TJAPlayer3.Skin.Game_PuchiChara_BalloonX[0], TJAPlayer3.Skin.Game_PuchiChara_BalloonY[0], false, nowOpacity, true);
                     if (CharaAction_Balloon_Miss.b終了値に達した)
                     {
                         CharaAction_Balloon_Miss.t停止();
@@ -334,6 +364,9 @@ namespace TJAPlayer3
         public CCounter ctChara_Normal;
         public CCounter ctChara_GoGo;
         public CCounter ctChara_Clear;
+
+        public Animations.FadeOut CharaAction_Balloon_FadeOut;
+        private readonly int[] CharaAction_Balloon_FadeOut_StartMs = new int[2];
 
         public bool bマイどんアクション中;
 
