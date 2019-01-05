@@ -55,6 +55,8 @@ namespace TJAPlayer3
             var balloonMissPtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss;
             CharaAction_Balloon_FadeOut_StartMs[0] = (balloonBrokePtn * tick) - TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut;
             CharaAction_Balloon_FadeOut_StartMs[1] = (balloonMissPtn * tick) - TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut;
+            if (balloonBrokePtn > 1) CharaAction_Balloon_FadeOut_StartMs[0] /= balloonBrokePtn - 1;
+            if (balloonMissPtn > 1) CharaAction_Balloon_FadeOut_StartMs[1] /= balloonMissPtn - 1; // - 1はタイマー用
             this.bマイどんアクション中 = false;
 
             base.On活性化();
@@ -270,7 +272,7 @@ namespace TJAPlayer3
                 var nowOpacity = CharaAction_Balloon_FadeOut.Counter.b進行中 ? (int)CharaAction_Balloon_FadeOut.GetAnimation() : 255;
                 if (CharaAction_Balloon_Broke?.b進行中 == true && TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke != 0)
                 {
-                    if (CharaAction_Balloon_FadeOut.Counter.b停止中 && CharaAction_Balloon_Broke.n現在の値 > CharaAction_Balloon_FadeOut_StartMs[0] / CharaAction_Balloon_Broke.n終了値)
+                    if (CharaAction_Balloon_FadeOut.Counter.b停止中 && CharaAction_Balloon_Broke.n現在の値 > CharaAction_Balloon_FadeOut_StartMs[0])
                     {
                         CharaAction_Balloon_FadeOut.Start();
                     }
@@ -289,7 +291,7 @@ namespace TJAPlayer3
                 }
                 else if (CharaAction_Balloon_Miss?.b進行中 == true && TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
                 {
-                    if (CharaAction_Balloon_FadeOut.Counter.b停止中 && CharaAction_Balloon_Miss.n現在の値 > CharaAction_Balloon_FadeOut_StartMs[1] / CharaAction_Balloon_Miss.n終了値)
+                    if (CharaAction_Balloon_FadeOut.Counter.b停止中 && CharaAction_Balloon_Miss.n現在の値 > CharaAction_Balloon_FadeOut_StartMs[1])
                     {
                         CharaAction_Balloon_FadeOut.Start();
                     }
