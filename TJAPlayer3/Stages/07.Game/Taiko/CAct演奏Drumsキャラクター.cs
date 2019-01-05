@@ -289,7 +289,7 @@ namespace TJAPlayer3
                 }
                 else if (CharaAction_Balloon_Miss?.b進行中 == true && TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss != 0)
                 {
-                    if (CharaAction_Balloon_FadeOut.Counter.b停止中 && CharaAction_Balloon_Miss.n現在の値 > CharaAction_Balloon_FadeOut_StartMs[1] / CharaAction_Balloon_Broke.n終了値)
+                    if (CharaAction_Balloon_FadeOut.Counter.b停止中 && CharaAction_Balloon_Miss.n現在の値 > CharaAction_Balloon_FadeOut_StartMs[1] / CharaAction_Balloon_Miss.n終了値)
                     {
                         CharaAction_Balloon_FadeOut.Start();
                     }
