@@ -1635,7 +1635,7 @@ namespace TJAPlayer3
                                     this.nBranch_Miss[ nPlayer ]++;
                                     if( nPlayer == 0 ) this.nヒット数_Auto含まない.Drums.Miss++;
                                     this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
-                                    this.actComboVoice.tリセット();
+                                    this.actComboVoice.tReset(nPlayer);
                                     //for (int i = 0; i < 2; i++)
                                     //{
                                     //    ctChipAnime[i].t停止();
@@ -1679,7 +1679,7 @@ namespace TJAPlayer3
                                     {
                                         this.nBranch_Miss[ nPlayer ]++;
 								        this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
-                                        this.actComboVoice.tリセット();
+                                        this.actComboVoice.tReset(nPlayer);
                                         //for (int i = 0; i < 2; i++)
                                         //{
                                         //    ctChipAnime[i].t停止();
@@ -4088,8 +4088,8 @@ namespace TJAPlayer3
                     this.n合計連打数[ i ] = 0;
                     this.n分岐した回数[ i ] = 0;
                 }
-
-                this.actComboVoice.tリセット();
+                for (int i = 0; i < 2; i++)
+                    this.actComboVoice.tReset(i);
             }
 
             this.ReSetScore(TJAPlayer3.DTX.nScoreInit[0, TJAPlayer3.stage選曲.n確定された曲の難易度], TJAPlayer3.DTX.nScoreDiff[TJAPlayer3.stage選曲.n確定された曲の難易度]);
