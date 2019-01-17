@@ -37,12 +37,9 @@ namespace TJAPlayer3
         /// カーソルを戻す。
         /// コンボが切れた時に使う。
         /// </summary>
-        public void tリセット()
+        public void tReset(int nPlayer)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                VoiceIndex[i] = 0;
-            }
+            VoiceIndex[nPlayer] = 0;
         }
 
 		// CActivity 実装
