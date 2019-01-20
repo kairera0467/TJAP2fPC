@@ -111,7 +111,6 @@
     <Compile Include="コード\03.サウンド\CSoundDeviceDirectSound.cs" />
     <Compile Include="コード\03.サウンド\CSoundDeviceWASAPI.cs" />
     <Compile Include="コード\03.サウンド\CSoundTimer.cs" />
-    <Compile Include="コード\03.サウンド\Cxa.cs" />
     <Compile Include="コード\03.サウンド\ESoundDeviceType.cs" />
     <Compile Include="コード\03.サウンド\SoundDecoder.cs" />
     <Compile Include="コード\03.サウンド\ISoundDevice.cs" />

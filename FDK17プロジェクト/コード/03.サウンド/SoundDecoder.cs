@@ -6,7 +6,7 @@ using System.Diagnostics;
 namespace FDK
 {
 	/// <summary>
-	/// xa,oggデコード用の基底クラス
+	/// oggデコード用の基底クラス
 	/// </summary>
 	public abstract class SoundDecoder //: IDisposable
 	{

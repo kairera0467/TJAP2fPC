@@ -1760,11 +1760,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 			SoundDecoder sounddecoder;
 
-			if ( String.Compare( Path.GetExtension( strファイル名 ), ".xa", true ) == 0 )
-			{
-				sounddecoder = new Cxa();
-			}
-			else if ( String.Compare( Path.GetExtension( strファイル名 ), ".ogg", true ) == 0 )
+			if ( String.Compare( Path.GetExtension( strファイル名 ), ".ogg", true ) == 0 )
 			{
 				sounddecoder = new Cogg();
 			}
