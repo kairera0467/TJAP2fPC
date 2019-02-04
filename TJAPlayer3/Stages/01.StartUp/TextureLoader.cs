@@ -114,7 +114,7 @@ namespace TJAPlayer3
             SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
             SongSelect_Cursor_Left = TxC(SONGSELECT + @"Cursor_Left.png");
             SongSelect_Cursor_Right = TxC(SONGSELECT + @"Cursor_Right.png");
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < SongSelect_Bar_Genre.Length; i++)
             {
                 SongSelect_Bar_Genre[i] = TxC(SONGSELECT + @"Bar_Genre_" + i.ToString() + ".png");
             }
@@ -123,7 +123,7 @@ namespace TJAPlayer3
                 SongSelect_ScoreWindow[i] = TxC(SONGSELECT + @"ScoreWindow_" + i.ToString() + ".png");
             }
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < SongSelect_GenreBack.Length; i++)
             {
                 SongSelect_GenreBack[i] = TxC(SONGSELECT + @"GenreBackground_" + i.ToString() + ".png");
             }
@@ -559,7 +559,7 @@ namespace TJAPlayer3
             TJAPlayer3.tテクスチャの解放(ref SongSelect_GenreText);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Left);
             TJAPlayer3.tテクスチャの解放(ref SongSelect_Cursor_Right);
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < SongSelect_Bar_Genre.Length; i++)
             {
                 TJAPlayer3.tテクスチャの解放(ref SongSelect_Bar_Genre[i]);
             }
@@ -568,7 +568,7 @@ namespace TJAPlayer3
                 TJAPlayer3.tテクスチャの解放(ref SongSelect_ScoreWindow[i]);
             }
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < SongSelect_GenreBack.Length; i++)
             {
                 TJAPlayer3.tテクスチャの解放(ref SongSelect_GenreBack[i]);
             }
