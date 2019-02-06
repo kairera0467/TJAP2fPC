@@ -552,21 +552,11 @@ namespace TJAPlayer3
 		}
 		protected override void Draw( GameTime gameTime )
 		{
-			Sound管理.t再生中の処理をする();
-
-			if( Timer != null )
-				Timer.t更新();
-            if (CSound管理.rc演奏用タイマ != null)
-                CSound管理.rc演奏用タイマ.t更新();
-
-			if( Input管理 != null )
-				Input管理.tポーリング( this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力を行う );
-
-			if( FPS != null )
-				FPS.tカウンタ更新();
-
-			//if( Pad != null )					ポーリング時にクリアしたらダメ！曲の開始時に1回だけクリアする。(2010.9.11)
-			//	Pad.st検知したデバイス.Clear();
+			Sound管理?.t再生中の処理をする();
+            Timer?.t更新();
+            CSound管理.rc演奏用タイマ?.t更新();
+            Input管理?.tポーリング( this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力を行う );
+            FPS?.tカウンタ更新();
 
 			if( this.Device == null )
 				return;
@@ -1540,11 +1530,11 @@ for (int i = 0; i < 3; i++) {
 			this.Device.EndScene();			// Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
 											// (つまり、Present()は、Draw()完了後に実行される)
 #if !GPUFlushAfterPresent
-			actFlushGPU.On進行描画();		// Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
+			actFlushGPU?.On進行描画();		// Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
 #endif
-			if ( Sound管理.GetCurrentSoundDeviceType() != "DirectSound" )
+			if ( Sound管理?.GetCurrentSoundDeviceType() != "DirectSound" )
 			{
-				Sound管理.t再生中の処理をする();	// サウンドバッファの更新; 画面描画と同期させることで、スクロールをスムーズにする
+				Sound管理?.t再生中の処理をする();	// サウンドバッファの更新; 画面描画と同期させることで、スクロールをスムーズにする
 			}
 
 
