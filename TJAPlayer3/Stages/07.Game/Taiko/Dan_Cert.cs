@@ -44,17 +44,24 @@ namespace TJAPlayer3
                 pfSubTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 22);
             }
 
-            using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Title, Color.White, Color.Black))
+            if (string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Title))
             {
-                TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex = TJAPlayer3.tテクスチャの生成(bmpSongTitle, false);
-                TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex, 710);
-                if (string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Title)) TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex = null;
+                using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Title, Color.White, Color.Black))
+                {
+                    TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex = TJAPlayer3.tテクスチャの生成(bmpSongTitle, false);
+                    TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex, 710);
+                }
             }
-            using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitle, Color.White, Color.Black))
+
+            if (string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitle))
             {
-                TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle, false);
-                if (string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitle)) TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = null;
+                using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitle, Color.White, Color.Black))
+                {
+                    TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle, false);
+                    TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex, 710);
+                }
             }
+
             pfTitle?.Dispose();
             pfSubTitle?.Dispose();
             Sound_Section?.tサウンドを先頭から再生する();
