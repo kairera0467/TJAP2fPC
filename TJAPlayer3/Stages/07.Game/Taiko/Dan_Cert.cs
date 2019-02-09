@@ -354,12 +354,14 @@ namespace TJAPlayer3
             {
                 if (Counter_Text.b終了値に達してない)
                 {
-                    if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex == null)
-                        TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex?.t2D中心基準描画(TJAPlayer3.app.Device, 1280 / 2 + TJAPlayer3.Skin.nScrollFieldBGX[0] / 2, TJAPlayer3.Skin.nScrollFieldY[0] + 65);
+                    var title = TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex;
+                    var subTitle = TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex;
+                    if (subTitle == null)
+                        title?.t2D中心基準描画(TJAPlayer3.app.Device, 1280 / 2 + TJAPlayer3.Skin.nScrollFieldBGX[0] / 2, TJAPlayer3.Skin.nScrollFieldY[0] + 65);
                     else
                     {
-                        TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex?.t2D中心基準描画(TJAPlayer3.app.Device, 1280 / 2 + TJAPlayer3.Skin.nScrollFieldBGX[0] / 2, TJAPlayer3.Skin.nScrollFieldY[0] + 45);
-                        TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex?.t2D中心基準描画(TJAPlayer3.app.Device, 1280 / 2 + TJAPlayer3.Skin.nScrollFieldBGX[0] / 2, TJAPlayer3.Skin.nScrollFieldY[0] + 85);
+                        title?.t2D中心基準描画(TJAPlayer3.app.Device, 1280 / 2 + TJAPlayer3.Skin.nScrollFieldBGX[0] / 2, TJAPlayer3.Skin.nScrollFieldY[0] + 45);
+                        subTitle?.t2D中心基準描画(TJAPlayer3.app.Device, 1280 / 2 + TJAPlayer3.Skin.nScrollFieldBGX[0] / 2, TJAPlayer3.Skin.nScrollFieldY[0] + 85);
                     }
                 }
                 if (Counter_Text.b終了値に達した)
