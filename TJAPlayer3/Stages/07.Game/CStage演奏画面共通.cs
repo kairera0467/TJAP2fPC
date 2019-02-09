@@ -845,8 +845,7 @@ namespace TJAPlayer3
 			{
 				pChip.nLag = (int) ( nTime - pChip.n発声時刻ms );		// #23580 2011.1.3 yyagi: add "nInputAdjustTime" to add input timing adjust feature
 				int nDeltaTime = Math.Abs( pChip.nLag );
-				//Debug.WriteLine("nAbsTime=" + (nTime - pChip.n発声時刻ms) + ", nDeltaTime=" + (nTime + nInputAdjustTime - pChip.n発声時刻ms));
-
+                //Debug.WriteLine("nAbsTime=" + (nTime - pChip.n発声時刻ms) + ", nDeltaTime=" + (nTime + nInputAdjustTime - pChip.n発声時刻ms));
                 if( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
                 {
 				    if ( CSound管理.rc演奏用タイマ.n現在時刻ms > pChip.n発声時刻ms && CSound管理.rc演奏用タイマ.n現在時刻ms < pChip.nノーツ終了時刻ms )
@@ -2182,6 +2181,8 @@ namespace TJAPlayer3
 			{
 				nIndex_NearestChip_Future  = nIndex_InitialPositionSearchingToPast = count - 1;
 			}
+
+
 			// int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToFuture;
 //			while ( nIndex_NearestChip_Future < count )	// 未来方向への検索
 			for ( ; nIndex_NearestChip_Future < count; nIndex_NearestChip_Future++ )
@@ -2214,6 +2215,8 @@ namespace TJAPlayer3
                 }
 //				nIndex_NearestChip_Future++;
 			}
+
+
 			int nIndex_NearestChip_Past = nIndex_InitialPositionSearchingToPast;
 //			while ( nIndex_NearestChip_Past >= 0 )		// 過去方向への検索
 			for ( ; nIndex_NearestChip_Past >= 0; nIndex_NearestChip_Past-- )
@@ -2287,100 +2290,29 @@ namespace TJAPlayer3
 			return nearestChip;
 		}
 
-		protected CDTX.CChip r指定時刻に一番近い未ヒットChip( long nTime, int nInputAdjustTime, int nPlayer )
-		{
-			//sw2.Start();
-//Trace.TraceInformation( "nTime={0}, nChannel={1:x2}, 現在のTop={2}", nTime, nChannel,CDTXMania.DTX.listChip[ this.n現在のトップChip ].n発声時刻ms );
-			nTime += nInputAdjustTime;
+        /// <summary>
+        /// 最も判定枠に近いノーツを返します。
+        /// </summary>
+        /// <param name="nowTime">判定時の時間。</param>
+        /// <param name="player">プレイヤー。</param>
+        /// <returns>最も判定枠に近いノーツ。</returns>
+        protected CDTX.CChip GetChipOfNearest(long nowTime, int player)
+        {
+            var nearestChip = new CDTX.CChip();
 
-			int nIndex_InitialPositionSearchingToPast;
-			int nTimeDiff;
-			if ( this.n現在のトップChip == -1 )			// 演奏データとして1個もチップがない場合は
-			{
-				//sw2.Stop();
-				return null;
-			}
-			int count = listChip[ nPlayer ].Count;
-			int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToPast = this.n現在のトップChip;
-			if ( this.n現在のトップChip >= count )		// その時点で演奏すべきチップが既に全部無くなっていたら
-			{
-				nIndex_NearestChip_Future  = nIndex_InitialPositionSearchingToPast = count - 1;
-			}
-			// int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToFuture;
-//			while ( nIndex_NearestChip_Future < count )	// 未来方向への検索
-			for ( ; nIndex_NearestChip_Future < count; nIndex_NearestChip_Future++ )
-			{
-				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
-				if ( !chip.bHit && chip.b可視 )
-				{
-					if ( ( ( 0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x1F ) ) )
-					{
-						if ( chip.n発声時刻ms > nTime )
-						{
-							break;
-						}
-						nIndex_InitialPositionSearchingToPast = nIndex_NearestChip_Future;
-					}
-				}
-//				nIndex_NearestChip_Future++;
-			}
-			int nIndex_NearestChip_Past = nIndex_InitialPositionSearchingToPast;
-//			while ( nIndex_NearestChip_Past >= 0 )		// 過去方向への検索
-			for ( ; nIndex_NearestChip_Past >= 0; nIndex_NearestChip_Past-- )
-			{
-				CDTX.CChip chip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
-				if ( ( !chip.bHit && chip.b可視 ) && ( (  0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x1F ) ) )
-					{
-						break;
-					}
-//				nIndex_NearestChip_Past--;
-			}
-			if ( ( nIndex_NearestChip_Future >= count ) && ( nIndex_NearestChip_Past < 0 ) )	// 検索対象が過去未来どちらにも見つからなかった場合
-			{
-				//sw2.Stop();
-				return null;
-			}
-			CDTX.CChip nearestChip;	// = null;	// 以下のifブロックのいずれかで必ずnearestChipには非nullが代入されるので、null初期化を削除
-			if ( nIndex_NearestChip_Future >= count )											// 検索対象が未来方向には見つからなかった(しかし過去方向には見つかった)場合
-			{
-				nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
-//				nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
-			}
-			else if ( nIndex_NearestChip_Past < 0 )												// 検索対象が過去方向には見つからなかった(しかし未来方向には見つかった)場合
-			{
-				nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
-//				nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
-			}
-			else
-			{
-				int nTimeDiff_Future = Math.Abs( (int) ( nTime - listChip[ nPlayer ][ nIndex_NearestChip_Future ].n発声時刻ms ) );
-				int nTimeDiff_Past   = Math.Abs( (int) ( nTime - listChip[ nPlayer ][ nIndex_NearestChip_Past   ].n発声時刻ms ) );
-				if ( nTimeDiff_Future < nTimeDiff_Past )
-				{
-					nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Future ];
-//					nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
-				}
-				else
-				{
-					nearestChip = listChip[ nPlayer ][ nIndex_NearestChip_Past ];
-//					nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
-				}
-			}
-			nTimeDiff = Math.Abs( (int) ( nTime - nearestChip.n発声時刻ms ) );
-            int n検索範囲時間ms = 0;
-			if ( ( n検索範囲時間ms > 0 ) && ( nTimeDiff > n検索範囲時間ms ) )					// チップは見つかったが、検索範囲時間外だった場合
-			{
-				//sw2.Stop();
-				return null;
-			}
-			//sw2.Stop();
-			return nearestChip;
-		}
-	
-		protected CDTX.CChip r指定時刻に一番近い未ヒットChip( long nTime, int nChannelFlag, int nInputAdjustTime, int n検索範囲時間ms )
-		{
-			return this.r指定時刻に一番近い未ヒットChip( nTime, nChannelFlag, nInputAdjustTime, 0, 0 );
-		}
+            #region 過去のノーツで、かつ可判定以上のノーツの決定
+
+            #endregion
+            #region 未来のノーツで、かつ可判定以上のノーツの決定
+
+            #endregion
+
+            #region 過去のノーツが見つかったらそれを返却、そうでなければ未来のノーツを返却
+            #endregion
+
+            return nearestChip;
+        }
+
 		protected CDTX.CChip r指定時刻に一番近い未ヒットChip( long nTime, int nChannel, int nInputAdjustTime, int n検索範囲時間ms, int nPlayer )
 		{
 			//sw2.Start();
