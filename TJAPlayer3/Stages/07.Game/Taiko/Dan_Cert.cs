@@ -44,7 +44,7 @@ namespace TJAPlayer3
                 pfSubTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 22);
             }
 
-            if (string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Title))
+            if (!string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Title))
             {
                 using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].Title, Color.White, Color.Black))
                 {
@@ -53,7 +53,7 @@ namespace TJAPlayer3
                 }
             }
 
-            if (string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitle))
+            if (!string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitle))
             {
                 using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitle, Color.White, Color.Black))
                 {
