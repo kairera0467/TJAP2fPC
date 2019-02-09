@@ -58,7 +58,7 @@ namespace TJAPlayer3
                 using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitle, Color.White, Color.Black))
                 {
                     TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle, false);
-                    TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex, 710);
+                    TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex, 710);
                 }
             }
 
