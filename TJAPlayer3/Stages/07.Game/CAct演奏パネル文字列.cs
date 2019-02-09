@@ -22,6 +22,12 @@ namespace TJAPlayer3
 
         // メソッド
 
+        /// <summary>
+        /// 右上の曲名、曲数表示の更新を行います。
+        /// </summary>
+        /// <param name="songName">曲名</param>
+        /// <param name="genreName">ジャンル名</param>
+        /// <param name="stageText">曲数</param>
         public void SetPanelString(string songName, string genreName, string stageText = null)
 		{
 			if( base.b活性化してる )
@@ -35,7 +41,11 @@ namespace TJAPlayer3
 					    {
 					        this.txMusicName = TJAPlayer3.tテクスチャの生成( bmpSongTitle, false );
 					    }
-
+                        if (txMusicName != null)
+                        {
+                            this.txMusicName.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
+                        }
+                    
                         Bitmap bmpDiff;
                         string strDiff = "";
                         if (TJAPlayer3.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示)
@@ -301,7 +311,6 @@ namespace TJAPlayer3
                     {
                         if(this.b初めての進行描画)
                         {
-                            this.txMusicName.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
                             b初めての進行描画 = false;
                         }
                         if (TJAPlayer3.Skin.Game_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
