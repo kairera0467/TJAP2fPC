@@ -1992,7 +1992,7 @@ namespace TJAPlayer3
                 return;
 
 			//int n小節番号plus1 = pChip.n発声位置 / 384;
-            int n小節番号plus1 = this.actPlayInfo.n小節番号;
+            int n小節番号plus1 = this.actPlayInfo.NowMeasure[nPlayer];
             int x = TJAPlayer3.Skin.nScrollFieldX[ nPlayer ] + pChip.nバーからの距離dot.Taiko;
             int y = TJAPlayer3.Skin.nScrollFieldY[ nPlayer ];
 
@@ -2114,9 +2114,9 @@ namespace TJAPlayer3
                 f現在の精度 = 0;
                 n種類 = TJAPlayer3.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n分岐の種類;
                 strNext = "NORMAL";
-                n次回分岐までの小節数 = ( TJAPlayer3.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n現在の小節 - 2 ) - TJAPlayer3.stage演奏ドラム画面.actPlayInfo.n小節番号;
+                n次回分岐までの小節数 = (TJAPlayer3.DTX.listBRANCH[this.n分岐した回数[0]].n現在の小節 - 2) - TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0];
 
-                if( TJAPlayer3.stage演奏ドラム画面.actPlayInfo.n小節番号 < 0 )
+                if( TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] < 0 )
                 {
                     n次回分岐までの小節数 = TJAPlayer3.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n現在の小節 - 2;
                 }

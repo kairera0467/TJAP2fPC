@@ -3135,7 +3135,7 @@ namespace TJAPlayer3
                             if ( !pChip.bHit && ( pChip.nバーからの距離dot.Taiko < 0 ) )
 						    {
                                 this.actChara.b演奏中 = true;
-                                if( this.actPlayInfo.n小節番号 == 0 )
+                                if( this.actPlayInfo.NowMeasure[nPlayer] == 0 )
                                 {
                                     for (int i = 0; i < 2; i++)
                                     {
@@ -3227,8 +3227,7 @@ namespace TJAPlayer3
                                     //    this.actChara.ctChara_GoGo = new CCounter( 0, this.actChara.arゴーゴーモーション番号.Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ );
                                     //}
                                 }
-                                if ( pChip.nコース == this.n現在のコース[ nPlayer ] )
-                                    this.actPlayInfo.n小節番号++;
+                                actPlayInfo.NowMeasure[nPlayer] = pChip.n整数値_内部番号;
                                 pChip.bHit = true;
                             }
                             this.t進行描画_チップ_小節線( configIni, ref dTX, ref pChip, nPlayer );

@@ -6,12 +6,12 @@ using System.Diagnostics;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏演奏情報 : CActivity
-	{
-		// プロパティ
+    internal class CAct演奏演奏情報 : CActivity
+    {
+        // プロパティ
 
-		public double dbBPM;
-		public int n小節番号;
+        public double dbBPM;
+        public readonly int[] NowMeasure = new int[2];
         public double dbSCROLL;
 
 		// コンストラクタ
@@ -26,7 +26,10 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.n小節番号 = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                NowMeasure[i] = 0;
+            }
 			this.dbBPM = TJAPlayer3.DTX.BASEBPM;
             this.dbSCROLL = 1.0;
 			base.On活性化();
@@ -46,7 +49,7 @@ namespace TJAPlayer3
 				string str = "Time:          " + ( ( ( ( double ) TJAPlayer3.Timer.n現在時刻 ) / 1000.0 ) ).ToString( "####0.00" ) + " / " + ( ( ( ( double ) num ) / 1000.0 ) ).ToString( "####0.00" );
 				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, str );
 				y -= 0x10;
-				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "Part:          {0:####0}", this.n小節番号 ) );
+				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "Part:          {0:####0}/{1:####0}", NowMeasure[0], NowMeasure[1] ) );
 				y -= 0x10;
 				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, string.Format( "BPM:           {0:####0.0000}", this.dbBPM ) );
 				y -= 0x10;
