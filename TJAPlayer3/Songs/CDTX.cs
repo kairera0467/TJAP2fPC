@@ -3267,6 +3267,7 @@ namespace TJAPlayer3
                 chip.nチャンネル番号 = 0x01;
                 chip.n発声位置 = 384;
                 chip.n発声時刻ms = (int)this.dbNowTime;
+                chip.fBMSCROLLTime = this.dbNowBMScollTime;
                 chip.n整数値 = 0x01;
                 chip.n整数値_内部番号 = 1;
 
