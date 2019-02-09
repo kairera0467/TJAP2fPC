@@ -2014,7 +2014,7 @@ namespace TJAPlayer3
 			}
 			if ( configIni.b演奏情報を表示する )
 			{
-                int n小節番号 = this.actPlayInfo.n小節番号;
+                int n小節番号 = pChip.n発声位置 / 384;
                 //int n小節番号 = pChip.n整数値;
                    if( x >= 310 )
 				    TJAPlayer3.act文字コンソール.tPrint( x + 8, y - 26, C文字コンソール.Eフォント種別.白, n小節番号.ToString() );
