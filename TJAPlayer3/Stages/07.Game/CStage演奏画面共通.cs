@@ -177,7 +177,7 @@ namespace TJAPlayer3
                     chip.nList上の位置 = n整数値管理;
                     if( ( chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16 ) && ( n整数値管理 < this.listChip[ i ].Count - 1 ) )
                     {
-                        if( chip.db発声時刻ms < GetChipOfNearest( 0, i ).db発声時刻ms)
+                        if( chip.db発声時刻ms < r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, i ).db発声時刻ms)
                         {
                             chip.n描画優先度 = 1;
                         }
@@ -2317,7 +2317,6 @@ namespace TJAPlayer3
 
 
             #region 過去のノーツで、かつ可判定以上のノーツの決定
-            var afterJudge = E判定.Perfect;
             CDTX.CChip afterChip = null;
             for (int pastNote = startPosision; ; pastNote--)
             {
@@ -2335,11 +2334,10 @@ namespace TJAPlayer3
                         || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
                     {
                         var thisChipJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
-                        if (E判定.Poor != thisChipJudge)
+                        if (thisChipJudge != E判定.Poor && thisChipJudge != E判定.Miss)
                         {
-                            // 判定が不可ではない(=可以上)
+                            // 判定が見過ごし不可ではない(=たたいて不可以上)
                             // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
-                            afterJudge = thisChipJudge;
                             afterChip = processingChip;
                             continue;
                         }
@@ -2347,16 +2345,13 @@ namespace TJAPlayer3
                         {
                             // 判定が不可だった
                             // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
-                            if(afterJudge != E判定.Poor)
+                            if(afterChip == null)
                             {
-                                if(afterChip == null)
-                                {
-                                    pastChip = null; // 検索おわり
-                                    break;
-                                }
-                                pastChip = afterChip; // 今処理中のノート
-                                break; // 検索終わり
+                                pastChip = null; // 検索おわり
+                                break;
                             }
+                            pastChip = afterChip; // 今処理中のノート
+                            break; // 検索終わり
                         }
                     }
                 }
@@ -2380,9 +2375,9 @@ namespace TJAPlayer3
                         || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
                     {
                         var thisChipJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
-                        if (E判定.Poor != thisChipJudge)
+                        if (thisChipJudge != E判定.Poor && thisChipJudge != E判定.Miss)
                         {
-                            // 判定が不可ではない(=可以上)
+                            // 判定が見過ごし不可ではない(=たたいて不可以上)
                             // そのノートを処理すべきなので、検索終わり。
                             futureChip = processingChip;
                             break; // 検索終わり
@@ -2416,7 +2411,9 @@ namespace TJAPlayer3
                 nearestChip = pastChip;
             }
             #endregion
-
+            TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
+            TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
+            TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
             return nearestChip;
         }
 
