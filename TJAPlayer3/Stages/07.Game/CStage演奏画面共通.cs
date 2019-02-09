@@ -177,7 +177,7 @@ namespace TJAPlayer3
                     chip.nList上の位置 = n整数値管理;
                     if( ( chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16 ) && ( n整数値管理 < this.listChip[ i ].Count - 1 ) )
                     {
-                        if( chip.db発声時刻ms < this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( 0, i ).db発声時刻ms)
+                        if( chip.db発声時刻ms < GetChipOfNearest( 0, i ).db発声時刻ms)
                         {
                             chip.n描画優先度 = 1;
                         }
@@ -2299,15 +2299,122 @@ namespace TJAPlayer3
         protected CDTX.CChip GetChipOfNearest(long nowTime, int player)
         {
             var nearestChip = new CDTX.CChip();
+            var count = listChip[player].Count;
+            var chips = listChip[player];
+            var startPosision = n現在のトップChip;
+            CDTX.CChip pastChip; // 判定されるべき過去ノート
+            CDTX.CChip futureChip; // 判定されるべき未来ノート
+
+            if (count <= 0)
+            {
+                return null;
+            }
+
+            if(startPosision >= count)
+            {
+                startPosision -= 1;
+            }
+
 
             #region 過去のノーツで、かつ可判定以上のノーツの決定
-
+            var afterJudge = E判定.Perfect;
+            CDTX.CChip afterChip = null;
+            for (int pastNote = startPosision; ; pastNote--)
+            {
+                if(pastNote < 0)
+                {
+                    pastChip = null;
+                    break;
+                }
+                var processingChip = chips[pastNote];
+                if(!processingChip.bHit && processingChip.b可視) // 音符が見えてるかつ未ヒット
+                {
+                    if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
+                        || processingChip.nチャンネル番号 == 0x1A
+                        || processingChip.nチャンネル番号 == 0x1B
+                        || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
+                    {
+                        var thisChipJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                        if (E判定.Poor != thisChipJudge)
+                        {
+                            // 判定が不可ではない(=可以上)
+                            // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
+                            afterJudge = thisChipJudge;
+                            afterChip = processingChip;
+                            continue;
+                        }
+                        else
+                        {
+                            // 判定が不可だった
+                            // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
+                            if(afterJudge != E判定.Poor)
+                            {
+                                if(afterChip == null)
+                                {
+                                    pastChip = null; // 検索おわり
+                                    break;
+                                }
+                                pastChip = afterChip; // 今処理中のノート
+                                break; // 検索終わり
+                            }
+                        }
+                    }
+                }
+            }
             #endregion
+            startPosision++;
             #region 未来のノーツで、かつ可判定以上のノーツの決定
-
+            for (int futureNote = startPosision; ; futureNote++)
+            {
+                if (futureNote >= count)
+                {
+                    futureChip = null;
+                    break;
+                }
+                var processingChip = chips[futureNote];
+                if (!processingChip.bHit && processingChip.b可視) // 音符が見えてるかつ未ヒット
+                {
+                    if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
+                        || processingChip.nチャンネル番号 == 0x1A
+                        || processingChip.nチャンネル番号 == 0x1B
+                        || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
+                    {
+                        var thisChipJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                        if (E判定.Poor != thisChipJudge)
+                        {
+                            // 判定が不可ではない(=可以上)
+                            // そのノートを処理すべきなので、検索終わり。
+                            futureChip = processingChip;
+                            break; // 検索終わり
+                        }
+                        else
+                        {
+                            // 判定が不可だった
+                            // つまり未来に処理すべきノートはないので、検索終わり。
+                            futureChip = null; // 今処理中のノート
+                            break; // 検索終わり
+                        }
+                    }
+                }
+            }
             #endregion
 
             #region 過去のノーツが見つかったらそれを返却、そうでなければ未来のノーツを返却
+            if (futureChip == null && pastChip != null)
+            {
+                // 未来に処理するべきノートがなかったので、過去の処理すべきノートを返す。
+                nearestChip = pastChip;
+            }
+            else if (pastChip == null)
+            {
+                // 過去の検索が該当なしだったので、未来のノートを返す。
+                nearestChip = futureChip;
+            }
+            else
+            {
+                // 基本的には過去のノートを返す。
+                nearestChip = pastChip;
+            }
             #endregion
 
             return nearestChip;

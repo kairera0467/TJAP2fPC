@@ -884,7 +884,7 @@ namespace TJAPlayer3
                             break;
                     }
 
-                    CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( nTime, nUsePlayer );
+                    CDTX.CChip chipNoHit = GetChipOfNearest( nTime, nUsePlayer );
                     E判定 e判定 = ( chipNoHit != null ) ? this.e指定時刻からChipのJUDGEを返す( nTime, chipNoHit ) : E判定.Miss;
 
                     bool b太鼓音再生フラグ = true;
@@ -2177,7 +2177,7 @@ namespace TJAPlayer3
             //CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChip((int)CSound管理.rc演奏用タイマ.n現在時刻ms, 0);
             for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
-                CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( ( int ) CSound管理.rc演奏用タイマ.n現在時刻ms, i );
+                CDTX.CChip chipNoHit = GetChipOfNearest( ( int ) CSound管理.rc演奏用タイマ.n現在時刻ms, i );
 
                 if( chipNoHit != null && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B ) )
                 {
