@@ -254,7 +254,10 @@ namespace TJAPlayer3
             this.n現在の連打数 = new int[]{ 0, 0, 0, 0 };
             this.n合計連打数 = new int[]{ 0, 0, 0, 0 };
             this.n分岐した回数 = new int[ 4 ];
-            this.n表示した歌詞 = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                ShownLyric[i] = 0;
+            }
             this.nJPOSSCROLL = new int[ 4 ];
             this.bLEVELHOLD = new bool[]{ false, false, false, false };
 
@@ -681,8 +684,7 @@ namespace TJAPlayer3
         protected int[] nBranch_Miss = new int[ 4 ];
         protected int nListCount;
 
-        private int n表示した歌詞 = 0;
-
+        private readonly int[] ShownLyric = new int[] { 0, 0 };
         public bool[] b連打中 = new bool[]{ false, false, false, false }; //奥の手
         private int[] n合計連打数 = new int[ 4 ];
         protected int[] n風船残り = new int[ 4 ];
@@ -3674,10 +3676,10 @@ namespace TJAPlayer3
                     case 0xF1:
                         if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
-                            if( dTX.listLiryc.Count > this.n表示した歌詞 )
+                            if( dTX.listLiryc.Count > ShownLyric[nPlayer] && dTX.nPlayerSide == nPlayer )
                             {
-                                this.actPanel.t歌詞テクスチャを生成する( dTX.listLiryc[ this.n表示した歌詞 ] );
-                                this.n表示した歌詞++;
+                                this.actPanel.t歌詞テクスチャを生成する( dTX.listLiryc[ShownLyric[nPlayer]] );
+                                ShownLyric[nPlayer]++;
                             }
                             pChip.bHit = true;
                         }
