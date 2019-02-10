@@ -4,6 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using FDK;
+using static TJAPlayer3.PlayerLane;
 
 namespace TJAPlayer3
 {
@@ -39,7 +40,7 @@ namespace TJAPlayer3
         {
             for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
             {
-                for (int j = 0; j < (int)global::TJAPlayer3.PlayerLane.FlashType.Total; j++)
+                for (int j = 0; j < (int)FlashType.Total; j++)
                 {
                     PlayerLane[i].Flash[j].On進行描画();
                 }   
@@ -54,19 +55,19 @@ namespace TJAPlayer3
     {
         public PlayerLane(int player)
         {
-            Flash = new global::TJAPlayer3.LaneFlash[(int)FlashType.Total];
+            Flash = new LaneFlash[(int)FlashType.Total];
             for (int i = 0; i < (int)FlashType.Total; i++)
             {
                 switch (i)
                 {
                     case (int)FlashType.Red:
-                        Flash[i] = new global::TJAPlayer3.LaneFlash(ref TJAPlayer3.Tx.Lane_Red, player);
+                        Flash[i] = new LaneFlash(ref TJAPlayer3.Tx.Lane_Red, player);
                         break;
                     case (int)FlashType.Blue:
-                        Flash[i] = new global::TJAPlayer3.LaneFlash(ref TJAPlayer3.Tx.Lane_Blue, player);
+                        Flash[i] = new LaneFlash(ref TJAPlayer3.Tx.Lane_Blue, player);
                         break;
                     case (int)FlashType.Hit:
-                        Flash[i] = new global::TJAPlayer3.LaneFlash(ref TJAPlayer3.Tx.Lane_Yellow, player);
+                        Flash[i] = new LaneFlash(ref TJAPlayer3.Tx.Lane_Yellow, player);
                         break;
                     default:
                         break;
@@ -79,7 +80,7 @@ namespace TJAPlayer3
             Flash[(int)flashType].Start();
         }
 
-        public global::TJAPlayer3.LaneFlash[] Flash;
+        public LaneFlash[] Flash;
 
         public enum FlashType
         {
