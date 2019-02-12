@@ -3847,7 +3847,7 @@ namespace TJAPlayer3
 
                 strArray = SplitComma(argument); // \,をエスケープ処理するメソッドだぞっ
                 
-                WarnSplitLength("#NEXTSONG", strArray, 4);
+                WarnSplitLength("#NEXTSONG", strArray, 6);
                 var dansongs = new DanSongs();
                 dansongs.Title = strArray[0];
                 dansongs.SubTitle = strArray[1];
