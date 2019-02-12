@@ -764,6 +764,8 @@ namespace TJAPlayer3
 
         private int ListDan_Number;
         private bool IsDanFailed;
+        private readonly int[] NowProcessingChip = new int[] { 0, 0 };
+
 
 		public void AddMixer( CSound cs, bool _b演奏終了後も再生が続くチップである )
 		{
@@ -2301,9 +2303,11 @@ namespace TJAPlayer3
             var nearestChip = new CDTX.CChip();
             var count = listChip[player].Count;
             var chips = listChip[player];
-            var startPosision = n現在のトップChip;
+            var startPosision = NowProcessingChip[player];
             CDTX.CChip pastChip; // 判定されるべき過去ノート
             CDTX.CChip futureChip; // 判定されるべき未来ノート
+            var pastJudge = E判定.Miss;
+            var futureJudge = E判定.Miss;
 
             if (count <= 0)
             {
@@ -2315,10 +2319,9 @@ namespace TJAPlayer3
                 startPosision -= 1;
             }
 
-
             #region 過去のノーツで、かつ可判定以上のノーツの決定
             CDTX.CChip afterChip = null;
-            for (int pastNote = startPosision; ; pastNote--)
+            for (int pastNote = startPosision - 1; ; pastNote--)
             {
                 if(pastNote < 0)
                 {
@@ -2326,15 +2329,15 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[pastNote];
-                if(!processingChip.bHit && processingChip.b可視) // 音符が見えてるかつ未ヒット
+                if(processingChip.bShow) // 音符が見えてる
                 {
                     if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
                         || processingChip.nチャンネル番号 == 0x1A
                         || processingChip.nチャンネル番号 == 0x1B
                         || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
                     {
-                        var thisChipJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
-                        if (thisChipJudge != E判定.Poor && thisChipJudge != E判定.Miss)
+                        var thisChipJudge = pastJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                        if (thisChipJudge != E判定.Miss)
                         {
                             // 判定が見過ごし不可ではない(=たたいて不可以上)
                             // その前のノートがもしかしたら存在して、可以上の判定かもしれないからまだ処理を続行する。
@@ -2345,11 +2348,6 @@ namespace TJAPlayer3
                         {
                             // 判定が不可だった
                             // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
-                            if(afterChip == null)
-                            {
-                                pastChip = null; // 検索おわり
-                                break;
-                            }
                             pastChip = afterChip; // 今処理中のノート
                             break; // 検索終わり
                         }
@@ -2357,7 +2355,7 @@ namespace TJAPlayer3
                 }
             }
             #endregion
-            startPosision++;
+            
             #region 未来のノーツで、かつ可判定以上のノーツの決定
             for (int futureNote = startPosision; ; futureNote++)
             {
@@ -2374,8 +2372,8 @@ namespace TJAPlayer3
                         || processingChip.nチャンネル番号 == 0x1B
                         || processingChip.nチャンネル番号 == 0x1F) // 音符のチャンネルである
                     {
-                        var thisChipJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
-                        if (thisChipJudge != E判定.Poor && thisChipJudge != E判定.Miss)
+                        var thisChipJudge = futureJudge = e指定時刻からChipのJUDGEを返すImpl(nowTime, processingChip);
+                        if (thisChipJudge != E判定.Miss)
                         {
                             // 判定が見過ごし不可ではない(=たたいて不可以上)
                             // そのノートを処理すべきなので、検索終わり。
@@ -2395,12 +2393,17 @@ namespace TJAPlayer3
             #endregion
 
             #region 過去のノーツが見つかったらそれを返却、そうでなければ未来のノーツを返却
-            if (futureChip == null && pastChip != null)
+            if ((pastJudge == E判定.Miss || pastJudge == E判定.Poor) && (pastJudge != E判定.Miss && pastJudge != E判定.Poor))
+            {
+                // 過去の判定が不可で、未来の判定が可以上なら未来を返却。
+                nearestChip = futureChip;
+            }
+            else if (futureChip == null && pastChip != null)
             {
                 // 未来に処理するべきノートがなかったので、過去の処理すべきノートを返す。
                 nearestChip = pastChip;
             }
-            else if (pastChip == null)
+            else if (pastChip == null && futureChip != null)
             {
                 // 過去の検索が該当なしだったので、未来のノートを返す。
                 nearestChip = futureChip;
@@ -2414,6 +2417,7 @@ namespace TJAPlayer3
             TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
             TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
             TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
+            TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, NowProcessingChip[player].ToString());
             return nearestChip;
         }
 
@@ -3009,6 +3013,16 @@ namespace TJAPlayer3
     		    		        this.tチップのヒット処理( n現在時刻ms, cChipCurrentlyInProcess, E楽器パート.TAIKO, false, 0, nPlayer );
 	    		    	}
                     }
+                }
+
+                //if((!pChip.bHit || pChip.bShow) && (pChip.nバーからの距離dot.Drums < 0))
+                //{
+                //    NowProcessingChip[pChip.nPlayerSide] = nCurrentTopChip;
+                //}
+
+                if(pChip.n発声時刻ms >= n現在時刻ms)
+                {
+                    NowProcessingChip[pChip.nPlayerSide] = nCurrentTopChip;
                 }
                 
 				switch ( pChip.nチャンネル番号 )
@@ -4126,7 +4140,10 @@ namespace TJAPlayer3
                     this.n分岐した回数[ i ] = 0;
                 }
                 for (int i = 0; i < 2; i++)
+                {
                     this.actComboVoice.tReset(i);
+                    NowProcessingChip[i] = 0;
+                }
             }
 
             this.ReSetScore(TJAPlayer3.DTX.nScoreInit[0, TJAPlayer3.stage選曲.n確定された曲の難易度], TJAPlayer3.DTX.nScoreDiff[TJAPlayer3.stage選曲.n確定された曲の難易度]);
