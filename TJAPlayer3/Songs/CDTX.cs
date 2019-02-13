@@ -3245,6 +3245,35 @@ namespace TJAPlayer3
         /// <param name="InputText"></param>
         private void t命令を挿入する(string InputText)
         {
+            string[] SplitComma(string input)
+            {
+                var result = new List<string>();
+                var workingIndex = 0;
+                for (int i = 0; i < input.Length; i++)
+                {
+                    if (input[i] == ',') // カンマにぶち当たった
+                    {
+                        if (input[i - 1] == '\\') // 1文字前がバックスラッシュ
+                        {
+                            input = input.Remove(i - 1, 1);
+                        }
+                        else
+                        {
+                            // workingIndexから今の位置までをリストにブチ込む
+                            result.Add(input.Substring(workingIndex, i - workingIndex));
+                            // workingIndexに今の位置+1を代入
+                            workingIndex = i + 1;
+                        }
+                    }
+                    if (i + 1 == input.Length) // 最後に
+                    {
+                        result.Add(input.Substring(workingIndex, input.Length - workingIndex));
+                    }
+                }
+                return result.ToArray();
+            }
+
+
             var match = CommandAndArgumentRegex.Match(InputText);
             if (!match.Success)
             {
@@ -3816,9 +3845,9 @@ namespace TJAPlayer3
 
                 AddMusicPreTimeMs(); // 段位の幕が開いてからの遅延。
 
-
-                strArray = argument.Split(',');
-                WarnSplitLength("#NEXTSONG", strArray, 4);
+                strArray = SplitComma(argument); // \,をエスケープ処理するメソッドだぞっ
+                
+                WarnSplitLength("#NEXTSONG", strArray, 6);
                 var dansongs = new DanSongs();
                 dansongs.Title = strArray[0];
                 dansongs.SubTitle = strArray[1];
