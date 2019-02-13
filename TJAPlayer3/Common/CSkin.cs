@@ -848,7 +848,7 @@ namespace TJAPlayer3
                         if (nowLine.StartsWith("#include"))
                         {
                             // #include hogehoge.iniにぶち当たった
-                            var includePath = nowLine.Substring("#include".Length);
+                            var includePath = nowLine.Substring("#include".Length + 1).Trim();
                             LoadSkinConfigFromFile(includePath, ref work); // 再帰的に読み込む
                         }
                         else
