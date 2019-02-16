@@ -31,7 +31,7 @@
     </DocumentationFile>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <NoWarn>0219</NoWarn>
-    <DefineConstants>TRACE;TEST_CancelEnterCodeInAltEnter2 TEST_Direct3D9Ex_</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;TEST_CancelEnterCodeInAltEnter2 TEST_Direct3D9Ex_</DefineConstants>
     <Optimize>false</Optimize>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -53,6 +53,12 @@
     </Reference>
     <Reference Include="DirectShowLib-2005">
       <HintPath>..\実行時フォルダ\dll\DirectShowLib-2005.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Animation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Animation.4.0.1\lib\net45\SharpDX.Animation.dll</HintPath>
     </Reference>
     <Reference Include="SlimDXc_net20x86_Jun2010, Version=1002.0.10.43, Culture=neutral, PublicKeyToken=53d0e4ef1f1579f5, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -104,8 +110,7 @@
     <Compile Include="コード\02.入力\E入力デバイス種別.cs" />
     <Compile Include="コード\02.入力\IInputDevice.cs" />
     <Compile Include="コード\02.入力\STInputEvent.cs" />
-    <Compile Include="コード\03.サウンド\Cmp3.cs" />
-    <Compile Include="コード\03.サウンド\Cogg.cs" />
+    <Compile Include="コード\03.サウンド\Cmp3ogg.cs" />
     <Compile Include="コード\03.サウンド\CSound.cs" />
     <Compile Include="コード\03.サウンド\CSoundDeviceASIO.cs" />
     <Compile Include="コード\03.サウンド\CSoundDeviceDirectSound.cs" />
@@ -116,6 +121,7 @@
     <Compile Include="コード\03.サウンド\ISoundDevice.cs" />
     <Compile Include="コード\04.グラフィック\BitmapUtil.cs" />
     <Compile Include="コード\04.グラフィック\CAero.cs" />
+    <Compile Include="コード\04.グラフィック\CAnimationManager.cs" />
     <Compile Include="コード\04.グラフィック\CAvi.cs" />
     <Compile Include="コード\04.グラフィック\CTaskBar.cs" />
     <Compile Include="コード\04.グラフィック\CTextureAutofold.cs" />

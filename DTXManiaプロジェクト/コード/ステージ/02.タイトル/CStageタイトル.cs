@@ -21,6 +21,7 @@ namespace DTXMania
 			base.list子Activities.Add( this.actFI = new CActFIFOFace() );
 			//base.list子Activities.Add( this.actFO = new CActFIFOWhite() );
             base.list子Activities.Add( this.actFO = new CActFIFOFace() );
+            base.list子Activities.Add( this.actFIResult = new CActFIFOResult() );
 		}
 
 
@@ -180,6 +181,10 @@ namespace DTXMania
 					}
 //					if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) Key.Space ) )
 //						Trace.TraceInformation( "DTXMania Title: SPACE key registered. " + CDTXMania.ct.nシステム時刻 );
+					//if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) Key.F8 ) )
+     //               {
+     //                   this.actFIResult.tフェードアウト開始();
+     //               }
 				}
 
 				// 描画
@@ -268,7 +273,7 @@ namespace DTXMania
 						}
 						break;
 				}
-                
+                this.actFIResult.On進行描画();
 			}
 			return 0;
 		}
@@ -342,6 +347,7 @@ namespace DTXMania
 		private CActFIFOWhite actFIfromSetup;
         //private CActFIFOWhite actFO;
         private CActFIFOFace actFO;
+        private CActFIFOResult actFIResult;
 		private CCounter ctカーソルフラッシュ用;
 		private STキー反復用カウンタ ctキー反復用;
 		private CCounter ct下移動用;

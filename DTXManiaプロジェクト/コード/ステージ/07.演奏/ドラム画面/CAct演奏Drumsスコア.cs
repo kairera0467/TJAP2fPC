@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using FDK;
+using SharpDX.Animation;
 
 namespace DTXMania
 {
@@ -122,5 +124,31 @@ namespace DTXMania
             }
             return 0;
         }
-	}
+
+        #region[ アニメーション ]
+        protected class スコア文字 : IDisposable
+        {
+            public Variable 左上位置X;
+            public Variable 左上位置Y;
+            public Variable 透明度;
+            public Storyboard ストーリーボード;
+
+            public void Dispose()
+            {
+                this.ストーリーボード?.Abandon();
+                this.ストーリーボード = null;
+
+                this.左上位置X?.Dispose();
+                this.左上位置X = null;
+
+                this.左上位置Y?.Dispose();
+                this.左上位置Y = null;
+
+                this.透明度?.Dispose();
+                this.透明度 = null;
+            }
+        }
+        private スコア文字[] _スコア文字 = null;
+        #endregion
+    }
 }

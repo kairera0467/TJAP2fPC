@@ -329,163 +329,144 @@ namespace DTXMania
 
             //if( this.tx背景 != null )
             //    this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
+           
+            //キー操作
+            if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.RightArrow ) )
+            {
+                CDTXMania.Skin.soundカーソル移動音.t再生する();
+                this.t次に移動();
+            }
+            else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.LeftArrow ) )
+            {
+                CDTXMania.Skin.soundカーソル移動音.t再生する();
+                this.t前に移動();
+            }
+            else if ( ( CDTXMania.Pad.b押されたDGB( Eパッド.Decide ) ||
+					( ( CDTXMania.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) ) )
+            {
+                if( this.list難易度選択項目[ this.n現在の選択行 ].b選択可 )
+                {
+                    //CDTXMania.stage選曲.actPresound.tサウンド停止();
+                    switch( this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 )
+                    {
+                        case E項目種類.かんたん:
+                        case E項目種類.ふつう:
+                        case E項目種類.むずかしい:
+                        case E項目種類.おに:
+                        case E項目種類.エディット:
+                            {
+                                switch( CDTXMania.stage選曲.r現在選択中の曲.eノード種別 )
+                                {
+                                    case C曲リストノード.Eノード種別.SCORE:
+                                        {
+                                            CDTXMania.Skin.sound決定音.t再生する();
+                                            CDTXMania.stage選曲.t曲を選択する( (int)this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 );
+                                        }
+                                        break;
+                                    case C曲リストノード.Eノード種別.RANDOM:
+                                        {
+                                            CDTXMania.Skin.sound曲決定音.t再生する();
+                                            //CDTXMania.stage選曲.n確定された曲の難易度 = (int)this.list難易度選択項目[this.n現在の選択行].e項目種類;
+                                            CDTXMania.stage選曲.act曲リスト.n現在のアンカ難易度レベル_渡( (int)this.list難易度選択項目[this.n現在の選択行].e項目種類 );
+                                            CDTXMania.stage選曲.t曲をランダム選択する();
+                                        }
+                                        break;
+                                }
+                            }
+                            break;
+                        case E項目種類.戻る:
+                            CDTXMania.stage選曲.t難易度選択画面を閉じる();
+                            break;
+                        case E項目種類.オプション:
+                            break;
+                        case E項目種類.音色:
+                            break;
+                    }
 
-			//if( !this.b登場アニメ全部完了 )
-			//{
-   //             #region [ (1) 登場アニメフェーズの進行。]
-   //             //-----------------
-
-
-			//	//-----------------
-			//	#endregion
-			//}
-			//else
+                }
+                else
+                {
+                    // 選択できない項目だった
+                    CDTXMania.Skin.sound選択不可音.t再生する();
+                }
+            }
+            else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) )
+            {
+                CDTXMania.stage選曲.t難易度選択画面を閉じる();
+            }
+			#region [ F2 簡易オプション ]
+			if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F2 ) )
 			{
-#region [ (2) 通常フェーズの進行。]
-                //-----------------
-
-                //キー操作
-                if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.RightArrow ) )
-                {
-                    CDTXMania.Skin.soundカーソル移動音.t再生する();
-                    this.t次に移動();
-                }
-                else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.LeftArrow ) )
-                {
-                    CDTXMania.Skin.soundカーソル移動音.t再生する();
-                    this.t前に移動();
-                }
-                else if ( ( CDTXMania.Pad.b押されたDGB( Eパッド.Decide ) ||
-						( ( CDTXMania.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) ) )
-                {
-                    if( this.list難易度選択項目[ this.n現在の選択行 ].b選択可 )
-                    {
-                        //CDTXMania.stage選曲.actPresound.tサウンド停止();
-                        switch( this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 )
-                        {
-                            case E項目種類.かんたん:
-                            case E項目種類.ふつう:
-                            case E項目種類.むずかしい:
-                            case E項目種類.おに:
-                            case E項目種類.エディット:
-                                {
-                                    switch( CDTXMania.stage選曲.r現在選択中の曲.eノード種別 )
-                                    {
-                                        case C曲リストノード.Eノード種別.SCORE:
-                                            {
-                                                CDTXMania.Skin.sound決定音.t再生する();
-                                                CDTXMania.stage選曲.t曲を選択する( (int)this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 );
-                                            }
-                                            break;
-                                        case C曲リストノード.Eノード種別.RANDOM:
-                                            {
-                                                CDTXMania.Skin.sound曲決定音.t再生する();
-                                                //CDTXMania.stage選曲.n確定された曲の難易度 = (int)this.list難易度選択項目[this.n現在の選択行].e項目種類;
-                                                CDTXMania.stage選曲.act曲リスト.n現在のアンカ難易度レベル_渡( (int)this.list難易度選択項目[this.n現在の選択行].e項目種類 );
-                                                CDTXMania.stage選曲.t曲をランダム選択する();
-                                            }
-                                            break;
-                                    }
-                                }
-                                break;
-                            case E項目種類.戻る:
-                                CDTXMania.stage選曲.t難易度選択画面を閉じる();
-                                break;
-                            case E項目種類.オプション:
-                                break;
-                            case E項目種類.音色:
-                                break;
-                        }
-
-                    }
-                    else
-                    {
-                        // 選択できない項目だった
-                        CDTXMania.Skin.sound選択不可音.t再生する();
-                    }
-                }
-                else if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Escape ) )
-                {
-                    CDTXMania.stage選曲.t難易度選択画面を閉じる();
-                }
-				#region [ F2 簡易オプション ]
-				if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F2 ) )
-				{
-                    CDTXMania.Skin.sound変更音.t再生する();
-                    CDTXMania.stage選曲.actQuickConfig.tActivatePopupMenu( E楽器パート.DRUMS );
-				}
-				#endregion
-				#region [ F3 オートON/OFF ]
-				if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F3 ) )
-				{	// [ESC]
-					CDTXMania.Skin.sound変更音.t再生する();
-                    C共通.bToggleBoolian( ref CDTXMania.ConfigIni.b太鼓パートAutoPlay );
-				}
-				#endregion
-				#region [ F4 ゲージ ]
-				if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F4 ) )
-				{
-					CDTXMania.Skin.sound変更音.t再生する();
-                    if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.Normal )
-                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.IIDX;
-                    else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.IIDX )
-                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.HARD;
-                    else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
-                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.EXHARD;
-                    else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD )
-                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.DEATH;
-                    else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
-                        CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.Normal;
-				}
-				#endregion
-
-                foreach( var item in this.list難易度選択項目 )
-                {
-                    if( item.txパネル != null )
-                    {
-                        item.txパネル.n透明度 = item.b選択可 ? 255 : 127;
-                        item.txパネル.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X, item.ptパネル座標.Y );
-                        if( item.b譜面 )
-                        {
-                            if( item.b譜面分岐 ? ( this.ct譜面分岐.n現在の値 >= 0 && this.ct譜面分岐.n現在の値 < 100 ) : false )
-                            {
-                                this.tx譜面分岐?.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X, item.ptパネル座標.Y );
-                                //CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
-                            }
-                            else
-                            {
-                                for ( int i = 0; i < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ (int)item.e項目種類 ]; i++ )
-                                {
-                                    this.txレベル星.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X + 40, (item.ptパネル座標.Y + 392) - (20 * i ) );
-                                }
-                            }
-                        }
-                    }
-                }
-
-                switch( this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 )
-                {
-                    case E項目種類.かんたん:
-                    case E項目種類.ふつう:
-                    case E項目種類.むずかしい:
-                    case E項目種類.おに:
-                    case E項目種類.エディット:
-                        if( this.txカーソル大 != null )
-                            this.txカーソル大.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y, new Rectangle( 0, 0, 102, 530 ) );
-                        break;
-                    case E項目種類.戻る:
-                    case E項目種類.オプション:
-                    case E項目種類.音色:
-                        if( this.txカーソル小 != null )
-                            this.txカーソル小.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y, new Rectangle( 0, 0, 70, 310 ) );
-                        break;
-                }
-
-
-
-				//-----------------
-#endregion
+                CDTXMania.Skin.sound変更音.t再生する();
+                CDTXMania.stage選曲.actQuickConfig.tActivatePopupMenu( E楽器パート.DRUMS );
 			}
+			#endregion
+			#region [ F3 オートON/OFF ]
+			if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F3 ) )
+			{	// [ESC]
+				CDTXMania.Skin.sound変更音.t再生する();
+                C共通.bToggleBoolian( ref CDTXMania.ConfigIni.b太鼓パートAutoPlay );
+			}
+			#endregion
+			#region [ F4 ゲージ ]
+			if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F4 ) )
+			{
+				CDTXMania.Skin.sound変更音.t再生する();
+                if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.Normal )
+                    CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.IIDX;
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.IIDX )
+                    CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.HARD;
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
+                    CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.EXHARD;
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD )
+                    CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.DEATH;
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
+                    CDTXMania.ConfigIni.eGaugeMode = Eゲージモード.Normal;
+			}
+			#endregion
+
+            foreach( var item in this.list難易度選択項目 )
+            {
+                if( item.txパネル != null )
+                {
+                    item.txパネル.n透明度 = item.b選択可 ? 255 : 127;
+                    item.txパネル.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X, item.ptパネル座標.Y );
+                    if( item.b譜面 )
+                    {
+                        if( item.b譜面分岐 ? ( this.ct譜面分岐.n現在の値 >= 0 && this.ct譜面分岐.n現在の値 < 100 ) : false )
+                        {
+                            this.tx譜面分岐?.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X, item.ptパネル座標.Y );
+                            //CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nSelectSongDiffIconX + (60 * i), 343, C文字コンソール.Eフォント種別.赤, "B\nr\na\nn\nc\nh" );
+                        }
+                        else
+                        {
+                            for ( int i = 0; i < CDTXMania.stage選曲.r現在選択中のスコア.譜面情報.nレベル[ (int)item.e項目種類 ]; i++ )
+                            {
+                                this.txレベル星.t2D描画( CDTXMania.app.Device, item.ptパネル座標.X + 40, (item.ptパネル座標.Y + 392) - (20 * i ) );
+                            }
+                        }
+                    }
+                }
+            }
+
+            switch( this.list難易度選択項目[ this.n現在の選択行 ].e項目種類 )
+            {
+                case E項目種類.かんたん:
+                case E項目種類.ふつう:
+                case E項目種類.むずかしい:
+                case E項目種類.おに:
+                case E項目種類.エディット:
+                    if( this.txカーソル大 != null )
+                        this.txカーソル大.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y, new Rectangle( 0, 0, 102, 530 ) );
+                    break;
+                case E項目種類.戻る:
+                case E項目種類.オプション:
+                case E項目種類.音色:
+                    if( this.txカーソル小 != null )
+                        this.txカーソル小.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.X, this.list難易度選択項目[ this.n現在の選択行 ].ptパネル座標.Y, new Rectangle( 0, 0, 70, 310 ) );
+                    break;
+            }
+
 
             #region[ デバッグ用表示 ]
             //-----------------

@@ -320,6 +320,11 @@ namespace DTXMania
             get;
             set;
         }
+        public static CAnimationManager AnimationManager
+        {
+            get;
+            set;
+        }
 
 		#endregion
 
@@ -553,6 +558,9 @@ namespace DTXMania
 			if ( this.bApplicationActive )	// DTXMania本体起動中の本体/モニタの省電力モード移行を抑止
 				CPowerManagement.tDisableMonitorSuspend();
 
+            if( AnimationManager == null ) // 2019.2.11 kairera0467
+                AnimationManager = new CAnimationManager();
+
 			// #xxxxx 2013.4.8 yyagi; sleepの挿入位置を、EndScnene～Present間から、BeginScene前に移動。描画遅延を小さくするため。
 			#region [ スリープ ]
 			if ( ConfigIni.nフレーム毎スリープms >= 0 )			// #xxxxx 2011.11.27 yyagi
@@ -611,6 +619,9 @@ namespace DTXMania
 
 			this.Device.BeginScene();
 			this.Device.Clear( ClearFlags.ZBuffer | ClearFlags.Target, Color.Black, 1f, 0 );
+
+            if( AnimationManager != null ) // 2019.2.11 kairera0467 Animationの全体実行
+                AnimationManager.t進行();
 
 			if( r現在のステージ != null )
 			{

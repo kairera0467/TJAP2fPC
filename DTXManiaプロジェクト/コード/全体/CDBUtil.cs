@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Data;
 using System.Data.SQLite;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,18 @@ namespace DTXMania
     /// </summary>
     public class CDBUtil
     {
-        SQLiteConnectionStringBuilder sqlConnectionSb;
+        public int nDBバージョン
+        {
+            get;
+            set;
+        }
 
+        private readonly string strDBFileName = "tjap2fpc";
+        SQLiteConnectionStringBuilder sqlConnectionSb;
         SQLiteConnection connection;
         public void initalize()
         {
-            this.sqlConnectionSb = new SQLiteConnectionStringBuilder { DataSource = CDTXMania.strEXEのあるフォルダ + "\\tjap2fpc.sqlite" };
+            this.sqlConnectionSb = new SQLiteConnectionStringBuilder { DataSource = CDTXMania.strEXEのあるフォルダ + "\\"+ strDBFileName + ".sqlite" };
             this.connection = new SQLiteConnection(sqlConnectionSb.ToString());
         }
 
@@ -50,9 +57,31 @@ namespace DTXMania
             return ret;
         }
 
-        public void tクエリSQL実行( string sql )
+        public DataTable tクエリSQL実行( string sql )
         {
             SQLiteCommand cmd = null;
+            DataTable ret = new DataTable();
+
+
+            return ret;
+        }
+
+        /// <summary>
+        /// データベースを作成する
+        /// ※未完成
+        /// </summary>
+        public void t初期DBを作成する()
+        {
+            int ret = 0;
+            SQLiteCommand cmd = null;
+            try
+            {
+            
+            }
+            catch( Exception ex )
+            {
+
+            }
         }
     }
 }

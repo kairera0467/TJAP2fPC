@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using SlimDX;
 using FDK;
+using SharpDX.Animation;
 
 namespace DTXMania
 {
@@ -39,6 +40,13 @@ namespace DTXMania
             this.nDefaultJudgePos[ 0 ] = CDTXMania.Skin.nScrollFieldX[ 0 ];
             this.nDefaultJudgePos[ 1 ] = CDTXMania.Skin.nScrollFieldY[ 0 ];
             this.ctゴーゴー炎 = new CCounter( 0, 6, 50, CDTXMania.Timer );
+
+            this._分岐文字 = new 分岐文字[3 * 4] { new 分岐文字(), new 分岐文字(), new 分岐文字(),
+                                                   new 分岐文字(), new 分岐文字(), new 分岐文字(),
+                                                   new 分岐文字(), new 分岐文字(), new 分岐文字(),
+                                                   new 分岐文字(), new 分岐文字(), new 分岐文字()};
+
+            this._分岐背景レイヤー = new 分岐背景レイヤー[4]{ new 分岐背景レイヤー(), new 分岐背景レイヤー(), new 分岐背景レイヤー(), new 分岐背景レイヤー()};
             base.On活性化();
         }
 
@@ -53,6 +61,17 @@ namespace DTXMania
             CDTXMania.Skin.nScrollFieldY[ 0 ] = this.nDefaultJudgePos[ 1 ];
             this.ctゴーゴー = null;
 
+            foreach( 分岐文字 s in this._分岐文字 )
+            {
+                s.Dispose();
+            }
+            this._分岐文字 = null;
+
+            foreach( 分岐背景レイヤー s in this._分岐背景レイヤー )
+            {
+                s.Dispose();
+            }
+            this._分岐背景レイヤー = null;
             base.On非活性化();
         }
 
@@ -193,25 +212,26 @@ namespace DTXMania
                     #region[ 動いていない ]
                     switch( CDTXMania.stage演奏ドラム画面.n次回のコース[ i ] )
                     {
-                        case 0:
+                        case E分岐コース.普通:
                             if( this.tx普通譜面[ 0 ] != null ) {
                                 this.tx普通譜面[ 0 ].n透明度 = 255;
                                 this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                             }
                             break;
-                        case 1:
+                        case E分岐コース.玄人:
                             if( this.tx玄人譜面[ 0 ] != null ) {
                                 this.tx玄人譜面[ 0 ].n透明度 = 255;
                                 this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                             }
                             break;
-                        case 2:
+                        case E分岐コース.達人:
                             if( this.tx達人譜面[ 0 ] != null ) {
                                 this.tx達人譜面[ 0 ].n透明度 = 255;
                                 this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                             }
                             break;
                     }
+                    
                     #endregion
 
                     if( CDTXMania.ConfigIni.nBranchAnime == 1 )
@@ -241,15 +261,15 @@ namespace DTXMania
                             //普通→達人
                             if( this.stBranch[ i ].nBefore == 0 && this.stBranch[ i ].nAfter == 2 )
                             {
-                                if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 100 )
-                                {
-                                    n透明度 = ( ( 100 - this.stBranch[ i ].ct分岐アニメ進行.n現在の値 ) * 0xff ) / 100;
-                                }
+                                //if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 100 )
+                                //{
+                                //    n透明度 = ( ( 100 - this.stBranch[ i ].ct分岐アニメ進行.n現在の値 ) * 0xff ) / 100;
+                                //}
                                 if( this.tx普通譜面[ 0 ] != null && this.tx達人譜面[ 0 ] != null )
                                 {
                                     this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                    this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                                     this.tx達人譜面[ 0 ].n透明度 = this.stBranch[ i ].nBranchレイヤー透明度;
+                                    this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                                 }
                             }
                             #endregion
@@ -291,7 +311,75 @@ namespace DTXMania
                     }
                     else if( CDTXMania.ConfigIni.nBranchAnime == 0 )
                     {
-                        CDTXMania.stage演奏ドラム画面.actLane.On進行描画();
+                        if( this._分岐背景レイヤー[ 0 ].ストーリーボード != null )
+                        {
+                            #region[ 普通譜面_レベルアップ ]
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.普通 && this.stBranch[ i ].nAfter == (int)E分岐コース.玄人 )
+                            {
+                                if( this.tx普通譜面[ 0 ] != null && this.tx玄人譜面[ 0 ] != null )
+                                {
+                                    this.tx玄人譜面[ 0 ].n透明度 = (int)( this._分岐背景レイヤー[ i ].不透明度_次回.Value * 255 );
+                                    this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                    this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                }
+                            }
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.普通 && this.stBranch[ i ].nAfter == (int)E分岐コース.達人 )
+                            {
+                                if( this.tx普通譜面[ 0 ] != null && this.tx玄人譜面[ 0 ] != null && this.tx達人譜面[ 0 ] != null )
+                                {
+                                    this.tx玄人譜面[ 0 ].n透明度 = (int)( this._分岐背景レイヤー[ i ].不透明度_次回.Value * 255 );
+                                    this.tx達人譜面[ 0 ].n透明度 = (int)( this._分岐背景レイヤー[ i ].不透明度_次回2.Value * 255 );
+                                    this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                    this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                    this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                }
+                            }
+                            #endregion
+                            #region[ 玄人譜面_レベルアップ ]
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.玄人 && this.stBranch[ i ].nAfter == (int)E分岐コース.達人 )
+                            {
+                                if( this.tx達人譜面[ 0 ] != null && this.tx玄人譜面[ 0 ] != null )
+                                {
+                                    this.tx達人譜面[ 0 ].n透明度 = (int)( this._分岐背景レイヤー[ i ].不透明度_次回.Value * 255 );
+                                    this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                    this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                }
+                            }
+                            #endregion
+                            #region[ 玄人譜面_レベルダウン ]
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.玄人 && this.stBranch[ i ].nAfter == (int)E分岐コース.普通 )
+                            {
+                                if( this.tx玄人譜面[ 0 ] != null && this.tx普通譜面[ 0 ] != null )
+                                {
+                                    this.tx玄人譜面[ 0 ].n透明度 = (int)( this._分岐背景レイヤー[ i ].不透明度_現在.Value * 255 );
+                                    this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                    this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );                                    
+                                }
+                            }
+                            #endregion
+                            #region[ 達人譜面_レベルダウン ]
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.達人 && this.stBranch[ i ].nAfter == (int)E分岐コース.玄人 )
+                            {
+                                if( this.tx達人譜面[ 0 ] != null && this.tx玄人譜面[ 0 ] != null )
+                                {
+                                    this.tx達人譜面[ 0 ].n透明度 = (int)( this._分岐背景レイヤー[ i ].不透明度_現在.Value * 255 );
+                                    this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                    this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );                                    
+                                }
+                            }      
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.達人 && this.stBranch[ i ].nAfter == (int)E分岐コース.普通 )
+                            {
+                                if( this.tx普通譜面[ 0 ] != null && this.tx玄人譜面[ 0 ] != null && this.tx達人譜面[ 0 ] != null )
+                                {
+                                    this.tx玄人譜面[ 0 ].n透明度 = (int)( this._分岐背景レイヤー[ i ].不透明度_次回.Value * 255 );
+                                    this.tx達人譜面[ 0 ].n透明度 = (int)( this._分岐背景レイヤー[ i ].不透明度_現在.Value * 255 );
+                                    this.tx普通譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                    this.tx玄人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                    this.tx達人譜面[ 0 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
+                                }
+                            }
+                            #endregion
+                        }
                     }
                 }
             }
@@ -334,196 +422,97 @@ namespace DTXMania
                 }
                 #endregion
             }
+            
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 if( CDTXMania.stage演奏ドラム画面.bUseBranch[ i ] == true )
                 {
                     if( CDTXMania.ConfigIni.nBranchAnime == 0 )
                     {
-                        if( !this.stBranch[ i ].ct分岐アニメ進行.b進行中 )
+                        if( !this.b分岐アニメ実行中( i ) )
                         {
                             switch( CDTXMania.stage演奏ドラム画面.n次回のコース[ i ] )
                             {
-                                case 0:
+                                case E分岐コース.普通:
                                     this.tx普通譜面[ 1 ].n透明度 = 255;
                                     this.tx普通譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
-                                case 1:
+                                case E分岐コース.玄人:
                                     this.tx玄人譜面[ 1 ].n透明度 = 255;
                                     this.tx玄人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
-                                case 2:
+                                case E分岐コース.達人:
                                     this.tx達人譜面[ 1 ].n透明度 = 255;
                                     this.tx達人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
                             }
                         }
-                        if( this.stBranch[ i ].ct分岐アニメ進行.b進行中 )
+                        if( this._分岐文字[0 + (i * 3)].ストーリーボード != null )
                         {
                             #region[ 普通譜面_レベルアップ ]
                             //普通→玄人
-                            if( this.stBranch[ i ].nBefore == 0 && this.stBranch[ i ].nAfter == 1)
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.普通 && this.stBranch[ i ].nAfter == (int)E分岐コース.玄人)
                             {
-                                this.tx普通譜面[ 1 ].n透明度 = 255;
-                                this.tx玄人譜面[ 1 ].n透明度 = 255;
-                                this.tx達人譜面[ 1 ].n透明度 = 255;
-
-                                this.tx普通譜面[ 1 ].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                                //this.tx玄人譜面[1].n透明度 = this.ct分岐アニメ進行.n現在の値 > 100 ? 255 : ( ( ( this.ct分岐アニメ進行.n現在の値 * 0xff ) / 60 ) );
-                                if (this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 60)
-                                {
-                                    this.stBranch[ i ].nY = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 / 2;
-                                    this.tx普通譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] + this.stBranch[ i ].nY );
-                                    this.tx玄人譜面[ 1 ].n透明度 = 255;
-                                    this.tx玄人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], ( CDTXMania.Skin.nScrollFieldY[ i ] - 30 ) + this.stBranch[ i ].nY );
-                                }
-                                else
-                                {
-                                    this.tx玄人譜面[ 1 ].n透明度 = 255;
-                                    this.tx玄人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                }
-
+                                this.tx普通譜面[1].n透明度 = (int)(255 * this._分岐文字[ 0 + (i * 3) ].不透明度.Value);
+                                this.tx玄人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 1 + (i * 3) ].不透明度.Value);
+                                this.tx達人譜面[1].n透明度 = 0;
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 1 + (i * 3) ].左上位置Y.Value );
+                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 0 + (i * 3) ].左上位置Y.Value );
                             }
-                        
+
                             //普通→達人
-                            if( this.stBranch[ i ].nBefore == 0 && this.stBranch[ i ].nAfter == 2)
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.普通 && this.stBranch[ i ].nAfter == (int)E分岐コース.達人)
                             {
-                                this.tx普通譜面[1].n透明度 = 255;
-                                this.tx玄人譜面[1].n透明度 = 255;
-                                this.tx達人譜面[1].n透明度 = 255;
-                                if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 60 )
-                                {
-                                    this.stBranch[ i ].nY = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 / 2;
-                                    this.tx普通譜面[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], ( CDTXMania.Skin.nScrollFieldY[ i ] - 12 ) + this.stBranch[ i ].nY );
-                                    this.tx普通譜面[1].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : ( 255 - ( ( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff ) / 100 ) );
-                                    this.tx玄人譜面[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], ( CDTXMania.Skin.nScrollFieldY[ i ] - 20 ) + this.stBranch[ i ].nY );
-                                }
-                                //if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 >= 5 && this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 60 )
-                                //{
-                                //    this.stBranch[ i ].nY = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 / 2;
-                                //    this.tx普通譜面[ 1 ].t2D描画(CDTXMania.app.Device, 333, CDTXMania.Skin.nScrollFieldY[ i ] + this.stBranch[ i ].nY);
-                                //    this.tx普通譜面[ 1 ].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : ( 255 - ( ( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
-                                //    this.tx玄人譜面[ 1 ].t2D描画(CDTXMania.app.Device, 333, ( CDTXMania.Skin.nScrollFieldY[ i ] - 10 ) + this.stBranch[ i ].nY);
-                                //}
-                                else if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 >= 60 && this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 150 )
-                                {
-                                    this.stBranch[ i ].nY = 21;
-                                    this.tx玄人譜面[ 1 ].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                    this.tx玄人譜面[ 1 ].n透明度 = 255;
-                                    this.tx達人譜面[ 1 ].n透明度 = 255;
-                                }
-                                else if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 >= 150 && this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 210 )
-                                {
-                                    this.stBranch[ i ].nY = ( ( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 - 150 ) / 2 );
-                                    this.tx玄人譜面[ 1 ].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] + this.stBranch[ i ].nY);
-                                    this.tx玄人譜面[ 1 ].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
-                                    this.tx達人譜面[ 1 ].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (CDTXMania.Skin.nScrollFieldY[ i ] - 20 ) + this.stBranch[ i ].nY);
-                                }
-                                else
-                                {
-                                    this.tx達人譜面[1].n透明度 = 255;
-                                    this.tx達人譜面[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                }
+                                this.tx普通譜面[1].n透明度 = (int)(255 * this._分岐文字[ 0 + (i * 3) ].不透明度.Value);
+                                this.tx玄人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 1 + (i * 3) ].不透明度.Value);
+                                this.tx達人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 2 + (i * 3) ].不透明度.Value);
+                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 2 + (i * 3) ].左上位置Y.Value );
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 1 + (i * 3) ].左上位置Y.Value );
+                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 0 + (i * 3) ].左上位置Y.Value );
                             }
                             #endregion
                             #region[ 玄人譜面_レベルアップ ]
-                            //玄人→達人
-                            if( this.stBranch[ i ].nBefore == 1 && this.stBranch[ i ].nAfter == 2 )
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.玄人 && this.stBranch[ i ].nAfter == (int)E分岐コース.達人)
                             {
-                                this.tx普通譜面[ 1 ].n透明度 = 255;
-                                this.tx玄人譜面[ 1 ].n透明度 = 255;
-                                this.tx達人譜面[ 1 ].n透明度 = 255;
-
-                                this.tx玄人譜面[ 1 ].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                                if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 60 )
-                                {
-                                    this.stBranch[ i ].nY = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 / 2;
-                                    this.tx玄人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] + this.stBranch[ i ].nY );
-                                    this.tx達人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], ( CDTXMania.Skin.nScrollFieldY[ i ] - 20 ) + this.stBranch[ i ].nY );
-                                }
-                                else
-                                {
-                                    this.tx達人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                }
+                                this.tx玄人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 0 + (i * 3) ].不透明度.Value);
+                                this.tx達人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 1 + (i * 3) ].不透明度.Value);
+                                this.tx普通譜面[1].n透明度 = 0;
+                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 1 + (i * 3) ].左上位置Y.Value );
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 0 + (i * 3) ].左上位置Y.Value );
                             }
                             #endregion
                             #region[ 玄人譜面_レベルダウン ]
-                            if( this.stBranch[ i ].nBefore == 1 && this.stBranch[ i ].nAfter == 0 )
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.玄人 && this.stBranch[ i ].nAfter == (int)E分岐コース.普通)
                             {
-                                this.tx普通譜面[ 1 ].n透明度 = 255;
-                                this.tx玄人譜面[ 1 ].n透明度 = 255;
-                                this.tx達人譜面[ 1 ].n透明度 = 255;
-
-                                this.tx玄人譜面[ 1 ].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                                if (this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 60)
-                                {
-                                    this.stBranch[ i ].nY = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 / 2;
-                                    this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] - this.stBranch[ i ].nY);
-                                    this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], ( CDTXMania.Skin.nScrollFieldY[ i ] + 30 ) - this.stBranch[ i ].nY);
-                                }
-                                else
-                                {
-                                    this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ]);
-                                }
+                                this.tx玄人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 0 + (i * 3) ].不透明度.Value);
+                                this.tx普通譜面[1].n透明度 = (int)(255 * this._分岐文字[ 1 + (i * 3) ].不透明度.Value);
+                                this.tx達人譜面[1].n透明度 = 0;
+                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 1 + (i * 3) ].左上位置Y.Value );
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 0 + (i * 3) ].左上位置Y.Value );
                             }
                             #endregion
                             #region[ 達人譜面_レベルダウン ]
-                            if( this.stBranch[ i ].nBefore == 2 && this.stBranch[ i ].nAfter == 0)
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.達人 && this.stBranch[ i ].nAfter == (int)E分岐コース.玄人)
                             {
-                                this.tx普通譜面[1].n透明度 = 255;
-                                this.tx玄人譜面[1].n透明度 = 255;
-                                this.tx達人譜面[1].n透明度 = 255;
-
-                                if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 60 )
-                                {
-                                    this.stBranch[ i ].nY = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 / 2;
-                                    this.tx達人譜面[ 1 ].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                                    this.tx達人譜面[ 1 ].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] - this.stBranch[ i ].nY);
-                                    this.tx玄人譜面[ 1 ].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], ( CDTXMania.Skin.nScrollFieldY[ i ] + 30 ) - this.stBranch[ i ].nY);
-                                }
-                                else if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 >= 60 && this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 150 )
-                                {
-                                    this.stBranch[ i ].nY = 21;
-                                    this.tx玄人譜面[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                    this.tx玄人譜面[1].n透明度 = 255;
-                                    this.tx達人譜面[1].n透明度 = 255;
-                                }
-                                else if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 >= 150 && this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 210 )
-                                {
-                                    this.stBranch[ i ].nY = ((this.stBranch[ i ].ct分岐アニメ進行.n現在の値 - 150) / 2);
-                                    this.tx玄人譜面[1].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] - this.stBranch[ i ].nY );
-                                    this.tx玄人譜面[1].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ( ( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff) / 100));
-                                    this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], ( CDTXMania.Skin.nScrollFieldY[ i ] + 30 ) - this.stBranch[ i ].nY);
-                                }
-                                else if( this.stBranch[ i ].ct分岐アニメ進行.n現在の値 >= 210 )
-                                {
-                                    this.tx普通譜面[1].n透明度 = 255;
-                                    this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ]);
-                                }
+                                this.tx達人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 0 + (i * 3) ].不透明度.Value);
+                                this.tx玄人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 1 + (i * 3) ].不透明度.Value);
+                                this.tx普通譜面[1].n透明度 = 0;
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 1 + (i * 3) ].左上位置Y.Value );
+                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 0 + (i * 3) ].左上位置Y.Value );
                             }
-                            if( this.stBranch[ i ].nBefore == 2 && this.stBranch[ i ].nAfter == 1)
+                            if( this.stBranch[ i ].nBefore == (int)E分岐コース.達人 && this.stBranch[ i ].nAfter == (int)E分岐コース.普通)
                             {
-                                this.tx普通譜面[1].n透明度 = 255;
-                                this.tx玄人譜面[1].n透明度 = 255;
-                                this.tx達人譜面[1].n透明度 = 255;
-
-                                this.tx達人譜面[1].n透明度 = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 > 100 ? 0 : (255 - ((this.stBranch[ i ].ct分岐アニメ進行.n現在の値 * 0xff) / 60));
-                                if (this.stBranch[ i ].ct分岐アニメ進行.n現在の値 < 60)
-                                {
-                                    this.stBranch[ i ].nY = this.stBranch[ i ].ct分岐アニメ進行.n現在の値 / 2;
-                                    this.tx達人譜面[ 1 ].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] - this.stBranch[ i ].nY);
-                                    this.tx玄人譜面[ 1 ].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], ( CDTXMania.Skin.nScrollFieldY[ i ] + 30 ) - this.stBranch[ i ].nY);
-                                }
-                                else
-                                {
-                                    this.tx玄人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
-                                }
-
+                                this.tx達人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 0 + (i * 3) ].不透明度.Value);
+                                this.tx玄人譜面[1].n透明度 = (int)(255 * this._分岐文字[ 1 + (i * 3) ].不透明度.Value);
+                                this.tx普通譜面[1].n透明度 = (int)(255 * this._分岐文字[ 2 + (i * 3) ].不透明度.Value);
+                                this.tx普通譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 2 + (i * 3) ].左上位置Y.Value );
+                                this.tx玄人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 1 + (i * 3) ].左上位置Y.Value );
+                                this.tx達人譜面[1].t2D描画(CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], (float)this._分岐文字[ 0 + (i * 3) ].左上位置Y.Value );
                             }
                             #endregion
                         }
                     }
-                    else
+                    else if( CDTXMania.ConfigIni.nBranchAnime == 1 )
                     {
                         //if( this.stBranch[ i ].nY座標 == 21 )
                         if( this.stBranch[ i ].ct分岐アニメ進行.b停止中 )
@@ -535,15 +524,15 @@ namespace DTXMania
                         {
                             switch( CDTXMania.stage演奏ドラム画面.n次回のコース[ i ] )
                             {
-                                case 0:
+                                case E分岐コース.普通:
                                     this.tx普通譜面[ 1 ].n透明度 = 255;
                                     this.tx普通譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
-                                case 1:
+                                case E分岐コース.玄人:
                                     this.tx玄人譜面[ 1 ].n透明度 = 255;
                                     this.tx玄人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
-                                case 2:
+                                case E分岐コース.達人:
                                     this.tx達人譜面[ 1 ].n透明度 = 255;
                                     this.tx達人譜面[ 1 ].t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldBGX[ i ], CDTXMania.Skin.nScrollFieldY[ i ] );
                                     break;
@@ -638,7 +627,6 @@ namespace DTXMania
                             #endregion
                         }
                     }
-
                 }
             }
 
@@ -822,14 +810,411 @@ namespace DTXMania
         }
 
 
+        //public void t分岐レイヤー_コース変化( int n現在, int n次回, int nPlayer )
+        //{
+        //    if( n現在 == n次回 )
+        //    {
+        //        return;
+        //    }
+        //    if( CDTXMania.ConfigIni.nBranchAnime == 0 ) {
+        //        this.stBranch[ nPlayer ].ct分岐アニメ進行 = new CCounter( 0, 300, 2, CDTXMania.Timer );
+        //    } else if( CDTXMania.ConfigIni.nBranchAnime == 1 ) {
+        //        this.stBranch[ nPlayer ].ct分岐アニメ進行 = new CCounter( 0, 260, 1, CDTXMania.Timer );
+        //    }
+
+        //    this.stBranch[ nPlayer ].nBranchレイヤー透明度 = 6;
+        //    this.stBranch[ nPlayer ].nY座標 = 1;
+
+        //    this.stBranch[ nPlayer ].nBefore = n現在;
+        //    this.stBranch[ nPlayer ].nAfter = n次回;
+
+        //    CDTXMania.stage演奏ドラム画面.actLane.t分岐レイヤー_コース変化( n現在, n次回, nPlayer );
+        //}
+
         public void t分岐レイヤー_コース変化( int n現在, int n次回, int nPlayer )
         {
             if( n現在 == n次回 )
             {
                 return;
             }
+
+            float 速度倍率 = 1.0f; //1.0を基準とした速度。数値が1より小さくなると遅くなる。
+            double 秒( double v ) => ( v / 速度倍率 );
+            var animation = CDTXMania.AnimationManager;
+            var basetime = animation.Timer.Time;
+            var start = basetime;
+
+            var 分岐文字現在 = this._分岐文字[ 0 + (nPlayer * 3) ];
+            var 分岐文字次回 = this._分岐文字[ 1 + (nPlayer * 3) ];
+            var 分岐文字次回2 = this._分岐文字[ 2 + (nPlayer * 3) ]; // 2段階アニメーションする場合に使う
+            var 分岐背景 = this._分岐背景レイヤー[ nPlayer ];
+
+            #region[ 背景レイヤーのアニメーション構築 ]
+            分岐背景.Dispose();
+            分岐背景.不透明度_現在 = new Variable( animation.Manager, 1.0 );
+            分岐背景.不透明度_次回 = new Variable( animation.Manager, 0.0 );
+            分岐背景.不透明度_次回2 = new Variable( animation.Manager, 0.0 );
+            分岐背景.ストーリーボード = new Storyboard( animation.Manager );
+
+            if( CDTXMania.ConfigIni.nBranchAnime == 0 )
+            {
+                // 0.3秒周期で切り替え
+                switch( Math.Abs(n次回 - n現在) )
+                {
+                    case 1:
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.3), 0.0))
+                        using (var 透明度変化_次回 = animation.TrasitionLibrary.Linear(秒(0.3), 1.0))
+                        {
+                            分岐背景.ストーリーボード.AddTransition(分岐背景.不透明度_現在, 透明度変化);
+                            分岐背景.ストーリーボード.AddTransition(分岐背景.不透明度_次回, 透明度変化_次回);
+                        }
+                        break;
+                    case 2:
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.3), 0.0))
+                        using (var 透明度変化_次回 = animation.TrasitionLibrary.Linear(秒(0.3), 1.0))
+                        using (var 透明度変化_次回2 = animation.TrasitionLibrary.Constant(秒(0.3)))
+                        {
+                            分岐背景.ストーリーボード.AddTransition(分岐背景.不透明度_現在, 透明度変化);
+                            分岐背景.ストーリーボード.AddTransition(分岐背景.不透明度_次回, 透明度変化_次回);
+                            分岐背景.ストーリーボード.AddTransition(分岐背景.不透明度_次回2, 透明度変化_次回2);
+                        }
+                        using (var 透明度変化_次回 = animation.TrasitionLibrary.Linear(秒(0.3), 0.0))
+                        using (var 透明度変化_次回2 = animation.TrasitionLibrary.Linear(秒(0.3), 1.0))
+                        {
+                            分岐背景.ストーリーボード.AddTransition(分岐背景.不透明度_次回, 透明度変化_次回);
+                            分岐背景.ストーリーボード.AddTransition(分岐背景.不透明度_次回2, 透明度変化_次回2);
+                        }
+                        break;
+                }
+            }
+            分岐背景.ストーリーボード.Schedule( start );
+            #endregion
+            #region[ 現在の分岐文字アニメーションを構築 ]
+            int n分岐文字Y基準 = CDTXMania.Skin.nScrollFieldY[ nPlayer ];
+
+            分岐文字現在.Dispose();
+            分岐文字現在.左上位置X = new Variable( animation.Manager, 0 );
+            分岐文字現在.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 );
+            分岐文字現在.不透明度 = new Variable( animation.Manager, 1.0 );
+
+            分岐文字現在.ストーリーボード = new Storyboard( animation.Manager );
+
+            if( CDTXMania.ConfigIni.nBranchAnime == 0 )
+            {
+                switch( n次回 - n現在 )
+                {
+                    case 1:
+                    case 2:
+                        // 1段階、2段階レベルアップ
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.07), n分岐文字Y基準 - 26, 0.7, 0.3))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.07), 1.0))
+                        {
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.左上位置Y, 文字Y移動);
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.14), n分岐文字Y基準 + 34, 0.2, 0.8))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.14), 0.0))
+                        {
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.左上位置Y, 文字Y移動);
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.不透明度, 透明度変化);
+                        }
+                        break;
+                    case -1:
+                    case -2:
+                        // 1段階、2段階レベルダウン
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.07), n分岐文字Y基準 + 26, 0.7, 0.3))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.07), 1.0))
+                        {
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.左上位置Y, 文字Y移動);
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.14), n分岐文字Y基準 - 34, 0.2, 0.8))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.14), 0.0))
+                        {
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.左上位置Y, 文字Y移動);
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.不透明度, 透明度変化);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                    
+            }
+            else if( CDTXMania.ConfigIni.nBranchAnime == 1 )
+            {
+                switch( n次回 - n現在 )
+                {
+                    case 1:
+                    case 2:
+                        // レベルアップ
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.1), n分岐文字Y基準 + 12, 0.7, 0.3))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Constant(秒(0.1)))
+                        {
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.左上位置Y, 文字Y移動);
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準 - 36, 0.2, 0.8))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 0.0))
+                        {
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.左上位置Y, 文字Y移動);
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.不透明度, 透明度変化);
+                        }
+                        break;
+                    case -1:
+                    case -2:
+                        // レベルダウン
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.07), n分岐文字Y基準 + 26, 0.7, 0.3))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.07), 1.0))
+                        {
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.左上位置Y, 文字Y移動);
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.14), n分岐文字Y基準 - 34, 0.2, 0.8))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.14), 0.0))
+                        {
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.左上位置Y, 文字Y移動);
+                            分岐文字現在.ストーリーボード.AddTransition(分岐文字現在.不透明度, 透明度変化);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            分岐文字現在.ストーリーボード.Schedule( start );
+            #endregion
+
+            #region[ 次回の分岐文字アニメーションを構築 ]
+
+            分岐文字次回.Dispose();
+            分岐文字次回.左上位置X = new Variable( animation.Manager, 0 );
+            //分岐文字次回.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 - 40 );
+            分岐文字次回.不透明度 = new Variable( animation.Manager, 0.0 );
+
+            分岐文字次回.ストーリーボード = new Storyboard( animation.Manager );
+
+            if( CDTXMania.ConfigIni.nBranchAnime == 0 )
+            {
+                start = basetime + 秒(0.10);
+                switch( n次回 - n現在 )
+                {
+                    case 1:
+                        // 1段階レベルアップ
+                        分岐文字次回.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 - 40 );
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準 - 4))
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準))
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                        break;
+                    case 2:
+                        // 2段階レベルアップ
+                        分岐文字次回.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 - 40 );
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.07), n分岐文字Y基準 - 26, 0.7, 0.3))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.07), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.14), n分岐文字Y基準 + 34, 0.2, 0.8))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.14), 0.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+                        break;
+                    case -1:
+                        // 1段階レベルダウン
+                        分岐文字次回.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 + 40 );
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準 - 4))
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準))
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                        break;
+                    case -2:
+                        // 2段階レベルダウン
+                        分岐文字次回.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 + 40 );
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+                        
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.07), n分岐文字Y基準 + 26, 0.7, 0.3))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.07), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.14), n分岐文字Y基準 - 34, 0.2, 0.8))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.14), 0.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+                        break;
+                    default:
+                        分岐文字次回.左上位置Y = new Variable(animation.Manager, n分岐文字Y基準);
+                        break;
+                }
+                    
+            }
+            else if( CDTXMania.ConfigIni.nBranchAnime == 1 )
+            {
+                start = basetime + 秒(0.10);
+                switch( n次回 - n現在 )
+                {
+                    case 1:
+                        // 1段階レベルアップ
+                        分岐文字次回.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 - 40 );
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準 - 4))
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準))
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                        break;
+                    case -1:
+                        // 1段階レベルダウン
+                        分岐文字次回.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 + 40 );
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準 - 4))
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準))
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                        break;
+                    case -2:
+                        // 2段階レベルダウン
+                        分岐文字次回.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 + 40 );
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+                        
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.07), n分岐文字Y基準 + 26, 0.7, 0.3))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.07), 1.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.14), n分岐文字Y基準 - 34, 0.2, 0.8))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.14), 0.0))
+                        {
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.左上位置Y, 文字Y移動);
+                            分岐文字次回.ストーリーボード.AddTransition(分岐文字次回.不透明度, 透明度変化);
+                        }
+                        break;
+                    default:
+                        分岐文字次回.左上位置Y = new Variable(animation.Manager, n分岐文字Y基準);
+                        break;
+                }
+            }
+            分岐文字次回.ストーリーボード.Schedule( start );
+            #endregion
+            #region[ 2つ先の分岐文字アニメーションを構築 ]
+
+            分岐文字次回2.Dispose();
+            分岐文字次回2.左上位置X = new Variable( animation.Manager, 0 );
+            分岐文字次回2.不透明度 = new Variable( animation.Manager, 0.0 );
+            分岐文字次回2.ストーリーボード = new Storyboard( animation.Manager );
+
+            if( CDTXMania.ConfigIni.nBranchAnime == 0 )
+            {
+                start = basetime + 秒(0.30);
+                switch( n次回 - n現在 )
+                {
+                    case 2:
+                        // 2段階レベルアップ
+                        分岐文字次回2.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 - 40 );
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回2.ストーリーボード.AddTransition(分岐文字次回2.左上位置Y, 文字Y移動);
+                            分岐文字次回2.ストーリーボード.AddTransition(分岐文字次回2.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準 - 4))
+                            分岐文字次回2.ストーリーボード.AddTransition(分岐文字次回2.左上位置Y, 文字Y移動);
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準))
+                            分岐文字次回2.ストーリーボード.AddTransition(分岐文字次回2.左上位置Y, 文字Y移動);
+                        break;
+                    case -2:
+                        // 2段階レベルダウン
+                        分岐文字次回2.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 + 40 );
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.12), n分岐文字Y基準, 0.3, 0.7))
+                        using (var 透明度変化 = animation.TrasitionLibrary.Linear(秒(0.12), 1.0))
+                        {
+                            分岐文字次回2.ストーリーボード.AddTransition(分岐文字次回2.左上位置Y, 文字Y移動);
+                            分岐文字次回2.ストーリーボード.AddTransition(分岐文字次回2.不透明度, 透明度変化);
+                        }
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準 - 4))
+                            分岐文字次回2.ストーリーボード.AddTransition(分岐文字次回2.左上位置Y, 文字Y移動);
+
+                        using (var 文字Y移動 = animation.TrasitionLibrary.Linear(秒(0.04), n分岐文字Y基準))
+                            分岐文字次回2.ストーリーボード.AddTransition(分岐文字次回2.左上位置Y, 文字Y移動);
+                        break;
+                    case 1:
+                    case -1:
+                        // 1段階レベルアップまたは1段階レベルダウンの場合は最小限のエラー防止処理だけを行う
+                    default:
+                        分岐文字次回2.左上位置Y = new Variable( animation.Manager, n分岐文字Y基準 );
+                        break;
+                }
+                    
+            }
+            分岐文字次回2.ストーリーボード.Schedule( start );
+            #endregion
+
             if( CDTXMania.ConfigIni.nBranchAnime == 0 ) {
-                this.stBranch[ nPlayer ].ct分岐アニメ進行 = new CCounter( 0, 300, 2, CDTXMania.Timer );
+                //this.stBranch[ nPlayer ].ct分岐アニメ進行 = new CCounter( 0, 230, 2, CDTXMania.Timer );
             } else if( CDTXMania.ConfigIni.nBranchAnime == 1 ) {
                 this.stBranch[ nPlayer ].ct分岐アニメ進行 = new CCounter( 0, 260, 1, CDTXMania.Timer );
             }
@@ -916,7 +1301,73 @@ namespace DTXMania
 
         private int[] nDefaultJudgePos = new int[ 2 ];
 
+        // 2019.2.11 kairera0467
+        protected class 分岐文字 : IDisposable
+        {
+            public Variable 左上位置X;
+            public Variable 左上位置Y;
+            public Variable 不透明度;
+            public Storyboard ストーリーボード;
 
+            public void Dispose()
+            {
+                this.ストーリーボード?.Abandon();
+                this.ストーリーボード = null;
+
+                this.左上位置X?.Dispose();
+                this.左上位置X = null;
+
+                this.左上位置Y?.Dispose();
+                this.左上位置Y = null;
+
+                this.不透明度?.Dispose();
+                this.不透明度 = null;
+            }
+        }
+        protected 分岐文字[] _分岐文字 = null;
+        protected class 分岐背景レイヤー : IDisposable
+        {
+            public Variable 左上位置X;
+            public Variable 左上位置Y;
+            public Variable 不透明度_現在;
+            public Variable 不透明度_次回;
+            public Variable 不透明度_次回2;
+            public Storyboard ストーリーボード;
+
+            public void Dispose()
+            {
+                this.ストーリーボード?.Abandon();
+                this.ストーリーボード = null;
+
+                this.左上位置X?.Dispose();
+                this.左上位置X = null;
+
+                this.左上位置Y?.Dispose();
+                this.左上位置Y = null;
+
+                this.不透明度_現在?.Dispose();
+                this.不透明度_現在 = null;
+
+                this.不透明度_次回?.Dispose();
+                this.不透明度_次回 = null;
+
+                this.不透明度_次回2?.Dispose();
+                this.不透明度_次回2 = null;
+            }
+        }
+        protected 分岐背景レイヤー[] _分岐背景レイヤー = null;
+        protected bool b分岐アニメ実行中( int player )
+        {
+            if( this._分岐背景レイヤー[ player ].ストーリーボード != null )
+            {
+                if( this._分岐背景レイヤー[ player ].ストーリーボード.Status == StoryboardStatus.Playing ) return true;
+                else return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
         //-----------------
         #endregion
     }

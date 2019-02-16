@@ -1493,6 +1493,17 @@ namespace DTXMania
 			return tランク値を計算して返す( nTotal, nPerfect, nGreat, nGood, nPoor, nMiss );
 		}
 
+        /// <summary>
+        /// 演奏スコアをデータベースに書き込む。
+        /// </summary>
+        /// <returns>-1でなければ成功</returns>
+        internal static int tスコアをデータベースに書き込む()
+        {
+
+
+            return -1;
+        }
+
 		// その他
 
 		#region [ private ]

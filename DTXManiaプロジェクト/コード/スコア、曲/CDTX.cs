@@ -3756,9 +3756,11 @@ namespace DTXMania
 
                 chip2.nチャンネル番号 = 0xDF;
                 chip2.n発声位置 = ((this.n現在の小節数) * 384);
+                chip2.db発声時刻ms = this.dbNowTime;
                 chip2.n発声時刻ms = (int)this.dbNowTime;
                 chip2.dbSCROLL = this.dbNowScroll;
                 chip2.dbBPM = this.dbNowBPM;
+
                 chip2.n整数値_内部番号 = this.n内部番号BRANCH1to;
 
                 this.listChip.Add(chip2);

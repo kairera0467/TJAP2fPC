@@ -383,7 +383,7 @@ namespace DTXMania
 		public void Damage( E楽器パート screenmode, E楽器パート part, E判定 e今回の判定, int player )
 		{
 			float fDamage;
-            int nコース = CDTXMania.stage演奏ドラム画面.n現在のコース[ player ];
+            int nコース = (int)CDTXMania.stage演奏ドラム画面.n現在のコース[ player ];
 
             switch ( e今回の判定 )
 			{

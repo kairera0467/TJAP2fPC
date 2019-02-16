@@ -435,7 +435,6 @@ namespace DTXMania
                 if( !CDTXMania.ConfigIni.bNoInfo )
                     this.t進行描画_判定文字列();
 
-                this.t進行描画_演奏情報();
                 this.actPanel.t歌詞テクスチャを描画する();
                 this.actComboBalloon.On進行描画();
                 this.t全体制御メソッド();
@@ -447,7 +446,9 @@ namespace DTXMania
 				this.t進行描画_STAGEFAILED();
 
                 bIsFinishedEndAnime = this.actEnd.On進行描画() == 1 ? true : false;
-				bIsFinishedFadeout = this.t進行描画_フェードイン_アウト();
+                this.t進行描画_演奏情報(); // 2019.2.10 kairera0467 演奏情報は終了演出の上に描画
+                bIsFinishedFadeout = this.t進行描画_フェードイン_アウト();
+
 
                 //演奏終了→演出表示→フェードアウト
                 if( bIsFinishedPlaying && base.eフェーズID == CStage.Eフェーズ.共通_通常状態 )
@@ -560,7 +561,7 @@ namespace DTXMania
 		{
 			E判定 eJudgeResult = tチップのヒット処理( nHitTime, pChip, E楽器パート.DRUMS, bCorrectLane, 0 );
 			// #24074 2011.01.23 add ikanick
-            if( pChip.nコース == this.n現在のコース[ 0 ] && ( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 )  && eJudgeResult != E判定.Auto )
+            if( pChip.nコース == (int)this.n現在のコース[ 0 ] && ( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 )  && eJudgeResult != E判定.Auto )
                 this.actGame.t叩ききりまショー_判定から各数値を増加させる( eJudgeResult, (int)( nHitTime - pChip.n発声時刻ms ) );
 			return eJudgeResult;
 		}
@@ -1590,11 +1591,6 @@ namespace DTXMania
             float n先頭発声位置 = 0;
             float nX末端 = 0;
 
-            // 2016.11.2 kairera0467
-            // 黄連打音符を赤くするやつの実装方法メモ
-            //前面を黄色、背面を変色後にしたものを重ねて、打数に応じて前面の透明度を操作すれば、色を操作できるはず。
-            //ただしテクスチャのαチャンネル部分が太くなるなどのデメリットが出る。備えよう。
-
             #region[ 作り直したもの ]
             if( pChip.b可視 )
             {
@@ -2005,7 +2001,7 @@ namespace DTXMania
 		}
 		protected override void t進行描画_チップ_小節線( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer )
 		{
-            if( pChip.bBranch && ( pChip.nコース != this.n現在のコース[ nPlayer ] ) ) // 2018.08.22 kairera0467 譜面分岐をしていない場合はどのコースからでも通す(本当は通常の音符と同じ処理にするべきだが...)
+            if( pChip.bBranch && ( pChip.nコース != (int)this.n現在のコース[ nPlayer ] ) ) // 2018.08.22 kairera0467 譜面分岐をしていない場合はどのコースからでも通す(本当は通常の音符と同じ処理にするべきだが...)
                 return;
 
 			//int n小節番号plus1 = pChip.n発声位置 / 384;
@@ -2244,6 +2240,7 @@ namespace DTXMania
                 //this.actChipFireD.Start紙吹雪();
                 //this.actDancer.t入退場( 0, 0, 0.4 );
             //}
+
         }
 
         private void t進行描画_ネームプレート()

@@ -766,8 +766,7 @@ namespace FDK
 		{
 			this.e作成方法 = E作成方法.ファイルから;
 			this.strファイル名 = strファイル名;
-			if ( String.Compare( Path.GetExtension( strファイル名 ), ".xa", true ) == 0 ||
-				 String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 ||
+			if ( String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 ||
 				 String.Compare( Path.GetExtension( strファイル名 ), ".ogg", true ) == 0 )	// caselessで文字列比較
 			{
 				tDirectSoundサウンドを作成するXaOggMp3( strファイル名, DirectSound );
@@ -1762,12 +1761,12 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 			if ( String.Compare( Path.GetExtension( strファイル名 ), ".ogg", true ) == 0 )
 			{
-				sounddecoder = new Cogg();
+				sounddecoder = new Cmp3ogg();
 			}
 			else if ( String.Compare( Path.GetExtension( strファイル名 ), ".mp3", true ) == 0 )
 			{
-				sounddecoder = new Cmp3();
-			}
+                sounddecoder = new Cmp3ogg();
+            }
 			else
 			{
 				throw new NotImplementedException();
@@ -1815,7 +1814,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 					var ms = new MemoryStream();
 					var bw = new BinaryWriter( ms );
 					bw.Write( new byte[] { 0x52, 0x49, 0x46, 0x46 } );		// 'RIFF'
-					bw.Write( (UInt32) totalPCMSize + 44 - 8 );				// ファイルサイズ - 8 [byte]；今は不明なので後で上書きする。
+					bw.Write( (UInt32) totalPCMSize + 44 - 8 );				// ファイルサイズ - 8 [byte]；
 					bw.Write( new byte[] { 0x57, 0x41, 0x56, 0x45 } );		// 'WAVE'
 					bw.Write( new byte[] { 0x66, 0x6D, 0x74, 0x20 } );		// 'fmt '
 					bw.Write( (UInt32) ( 16 + ( ( wfx拡張領域_Length > 0 ) ? ( 2/*sizeof(WAVEFORMATEX.cbSize)*/ + wfx拡張領域_Length ) : 0 ) ) );	// fmtチャンクのサイズ[byte]

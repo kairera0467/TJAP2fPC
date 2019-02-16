@@ -237,8 +237,10 @@ namespace DTXMania
 			//this.演奏判定ライン座標();
             this.bIsGOGOTIME = new bool[]{ false, false, false, false };
             this.bUseBranch = new bool[]{ false, false, false, false };
-            this.n現在のコース = new int[ 4 ];
-            this.n次回のコース = new int[ 4 ];
+            //this.n現在のコース = new int[ 4 ];
+            //this.n次回のコース = new int[ 4 ];
+            this.n現在のコース = new E分岐コース[ 4 ];
+            this.n次回のコース = new E分岐コース[ 4 ];
             this.b連打中 = new bool[]{ false, false, false, false };
             this.n現在の連打数 = new int[]{ 0, 0, 0, 0 };
             this.n合計連打数 = new int[]{ 0, 0, 0, 0 };
@@ -573,8 +575,10 @@ namespace DTXMania
 
         public bool[] bIsGOGOTIME = new bool[ 4 ];
         public bool[] bUseBranch = new bool[ 4 ];
-        public int[] n現在のコース = new int[ 4 ]; //0:普通譜面 1:玄人譜面 2:達人譜面
-        public int[] n次回のコース = new int[ 4 ];
+        //public int[] n現在のコース = new int[ 4 ]; //0:普通譜面 1:玄人譜面 2:達人譜面
+        //public int[] n次回のコース = new int[ 4 ];
+        public E分岐コース[] n現在のコース = new E分岐コース[ 4 ];
+        public E分岐コース[] n次回のコース = new E分岐コース[ 4 ];
         protected bool[] b譜面分岐中 = new bool[] { false, false, false, false };
         protected int[] n分岐した回数 = new int[ 4 ];
         protected int[] nJPOSSCROLL = new int[ 4 ];
@@ -792,7 +796,7 @@ namespace DTXMania
 						{
 							break;
 						}
-                        if( chip.nコース != this.n次回のコース[ nPlayer ] )
+                        if( chip.nコース != (int)this.n次回のコース[ nPlayer ] )
                         {
                             break;
                         }
@@ -882,7 +886,7 @@ namespace DTXMania
 						{
 							break;
 						}
-                        if( chip.nコース != this.n次回のコース[ nPlayer ] )
+                        if( chip.nコース != (int)this.n次回のコース[ nPlayer ] )
                         {
                             break;
                         }
@@ -1297,7 +1301,7 @@ namespace DTXMania
 				            //this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
                         }
 
-                        if( pChip.nコース == this.n現在のコース[ nPlayer ] )
+                        if( pChip.nコース == (int)this.n現在のコース[ nPlayer ] )
                         {
 				            actGauge.Damage( screenmode, pChip.e楽器パート, eJudgeResult, nPlayer );
                         }
@@ -1590,7 +1594,7 @@ namespace DTXMania
             {
                 if( ( dTX.listChip[ i ].nチャンネル番号 <= 0x11 && dTX.listChip[ i ].nチャンネル番号 >= 0x18 ) != false )
                 {
-                    if( dTX.listChip[ i ].nコース == this.n現在のコース[ nPlayer ] )
+                    if( dTX.listChip[ i ].nコース == (int)this.n現在のコース[ nPlayer ] )
                     {
                         dTX.listChip[i].b可視 = true;
                     }
@@ -2124,7 +2128,7 @@ namespace DTXMania
 					{
 						if ( chip.n発声時刻ms < nTime + n検索範囲時間ms )
 						{
-                            if( chip.nコース == this.n現在のコース[ nPlayer ] ) //2016.06.14 kairera0467 譜面分岐も考慮するようにしてみる。
+                            if( chip.nコース == (int)this.n現在のコース[ nPlayer ] ) //2016.06.14 kairera0467 譜面分岐も考慮するようにしてみる。
 						        return true;
 						}
 					}
@@ -2230,30 +2234,30 @@ namespace DTXMania
                 {
                     if( this.n分岐した回数[ 0 ] < CDTXMania.DTX.listBRANCH.Count )
                         this.t分岐処理( 0, CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
-                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 0, 0 );
-                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 0, 0 );
-                    this.n現在のコース[ 0 ] = 0;
-                    this.n次回のコース[ 0 ] = 0;
+                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( (int)this.n現在のコース[ 0 ], 0, 0 );
+                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( (int)this.n現在のコース[ 0 ], 0, 0 );
+                    this.n現在のコース[ 0 ] = E分岐コース.普通;
+                    this.n次回のコース[ 0 ] = E分岐コース.普通;
                     this.b強制的に分岐させた[ 0 ] = true;
                 }
                 else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D2 ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
                 {
                     if( this.n分岐した回数[ 0 ] < CDTXMania.DTX.listBRANCH.Count )
                         this.t分岐処理( 1, CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
-                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 1, 0 );
-                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 1, 0 );
-                    this.n現在のコース[ 0 ] = 1;
-                    this.n次回のコース[ 0 ] = 1;
+                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( (int)this.n現在のコース[ 0 ], 1, 0 );
+                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( (int)this.n現在のコース[ 0 ], 1, 0 );
+                    this.n現在のコース[ 0 ] = E分岐コース.玄人;
+                    this.n次回のコース[ 0 ] = E分岐コース.玄人;
                     this.b強制的に分岐させた[ 0 ] = true;
                 }
                 else if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.D3 ) )		// #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
                 {
                     if( this.n分岐した回数[ 0 ] < CDTXMania.DTX.listBRANCH.Count )
                         this.t分岐処理( 2, CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n命令時のChipList番号, 0 );
-                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ 0 ], 2, 0 );
-                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ 0 ], 2, 0 );
-                    this.n現在のコース[ 0 ] = 2;
-                    this.n次回のコース[ 0 ] = 2;
+                    CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( (int)this.n現在のコース[ 0 ], 2, 0 );
+                    CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( (int)this.n現在のコース[ 0 ], 2, 0 );
+                    this.n現在のコース[ 0 ] = E分岐コース.達人;
+                    this.n次回のコース[ 0 ] = E分岐コース.達人;
                     this.b強制的に分岐させた[ 0 ] = true;
                 }
                 //else if (keyboard.bキーが押された((int)SlimDX.DirectInput.Key.D1))
@@ -2500,7 +2504,7 @@ namespace DTXMania
                 if( pChip.nノーツ終了時刻ms != 0 )
                     pChip.nバーからのノーツ末端距離dot.Taiko = (int) ( ( ( pChip.nノーツ終了時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
 
-                this.play_bpm_time = this.GetNowPBMTime( dTX, 0 );
+                this.play_bpm_time = this.GetNowPBMTime( dTX, 0, nPlayer );
                 if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL )
                 {
                     pChip.nバーからの距離dot.Taiko = (float)( ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
@@ -2591,7 +2595,7 @@ namespace DTXMania
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
 							pChip.bHit = true;
-                            if( pChip.nコース == this.n現在のコース[ nPlayer ] )
+                            if( pChip.nコース == (int)this.n現在のコース[ nPlayer ] )
                             {
 							    if ( dTX.listBPM.ContainsKey( pChip.n整数値_内部番号 ) )
 							    {
@@ -2745,7 +2749,7 @@ namespace DTXMania
                                         this.actChara.ctMAXゴーゴーモーション = new CCounter( 0, this.actChara.ar黄色ゴーゴーモーション番号.Length - 1, dbUnit_max_gogo * 2, CSound管理.rc演奏用タイマ );
                                     }
                                 }
-                                if( pChip.nコース == this.n現在のコース[ nPlayer ] )
+                                if( pChip.nコース == (int)this.n現在のコース[ nPlayer ] )
                                     this.actPlayInfo.n小節番号++;
                                 pChip.bHit = true;
                             }
@@ -2860,7 +2864,7 @@ namespace DTXMania
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
 							pChip.bHit = true;
-                            if( pChip.nコース == this.n現在のコース[ nPlayer ] )
+                            if( pChip.nコース == (int)this.n現在のコース[ nPlayer ] )
                             {
 							    if ( dTX.listBPM.ContainsKey( pChip.n整数値_内部番号 ) )
 							    {
@@ -3045,9 +3049,9 @@ namespace DTXMania
                             if( !this.bLEVELHOLD[ nPlayer ] )
                             {
                                 this.tBranchJudge( dTX, this.nBranch_roll[ nPlayer ], this.nBranch_Perfect[ nPlayer ], this.nBranch_Good[ nPlayer ], this.nBranch_Miss[ nPlayer ], nPlayer );
-                                this.t分岐処理( this.n次回のコース[ nPlayer ], dTX.listBRANCH[ this.n分岐した回数[ nPlayer ] ].n命令時のChipList番号, nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( this.n現在のコース[ nPlayer ], this.n次回のコース[ nPlayer ], nPlayer );
-                                CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( this.n現在のコース[ nPlayer ], this.n次回のコース[ nPlayer ], nPlayer );
+                                this.t分岐処理( (int)this.n次回のコース[ nPlayer ], dTX.listBRANCH[ this.n分岐した回数[ nPlayer ] ].n命令時のChipList番号, nPlayer );
+                                CDTXMania.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化( (int)this.n現在のコース[ nPlayer ], (int)this.n次回のコース[ nPlayer ], nPlayer );
+                                CDTXMania.stage演奏ドラム画面.actMtaiko.tBranchEvent( (int)this.n現在のコース[ nPlayer ], (int)this.n次回のコース[ nPlayer ], nPlayer );
                                 if( dTX.listBRANCH[ this.n分岐した回数[ nPlayer ] ].n分岐の種類 == 0 )
                                 {
                                     this.n現在のコース[ nPlayer ] = this.n次回のコース[ nPlayer ];
@@ -3088,7 +3092,7 @@ namespace DTXMania
                     case 0xE1:
                         if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
                         {
-                            if( this.n現在のコース[ nPlayer ] == pChip.nコース )
+                            if( this.n現在のコース[ nPlayer ] == (E分岐コース)pChip.nコース )
                             {
                                 //LEVELHOLD
                                 this.bLEVELHOLD[ nPlayer ] = true;
@@ -3202,7 +3206,7 @@ namespace DTXMania
                 if( pChip.nノーツ終了時刻ms != 0 )
                     pChip.nバーからのノーツ末端距離dot.Taiko = (int) ( ( ( pChip.nノーツ終了時刻ms - CSound管理.rc演奏用タイマ.n現在時刻 ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) ) / 628.7 );
 
-                this.play_bpm_time = this.GetNowPBMTime( dTX, 0 );
+                this.play_bpm_time = this.GetNowPBMTime( dTX, 0, nPlayer );
                 if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ) //BMSCROLL test
                 {
                     pChip.nバーからの距離dot.Taiko = (int)( ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( this.play_bpm_time * NOTE_GAP ) ) * ( this.act譜面スクロール速度.db現在の譜面スクロール速度.Drums + 1.5 ) );
@@ -3288,30 +3292,30 @@ namespace DTXMania
             {
                 if( dbRate < dTX.listBRANCH[this.n分岐した回数[ nPlayer ]].n条件数値A )
                 {
-                    this.n次回のコース[ nPlayer ] = 0;
+                    this.n次回のコース[ nPlayer ] = E分岐コース.普通;
                 }
                 else if( dbRate >= dTX.listBRANCH[this.n分岐した回数[ nPlayer ]].n条件数値A && dbRate < dTX.listBRANCH[this.n分岐した回数[ nPlayer ]].n条件数値B )
                 {
-                    this.n次回のコース[ nPlayer ] = 1;
+                    this.n次回のコース[ nPlayer ] = E分岐コース.玄人;
                 }
                 else if( dbRate >= dTX.listBRANCH[this.n分岐した回数[ nPlayer ]].n条件数値B )
                 {
-                    this.n次回のコース[ nPlayer ] = 2;
+                    this.n次回のコース[ nPlayer ] = E分岐コース.達人;
                 }
             }
             else if( n種類 == 1 )
             {
                 if( n連打数 < dTX.listBRANCH[this.n分岐した回数[ nPlayer ]].n条件数値A )
                 {
-                    this.n次回のコース[ nPlayer ] = 0;
+                    this.n次回のコース[ nPlayer ] = E分岐コース.普通;
                 }
                 else if( n連打数 >= dTX.listBRANCH[this.n分岐した回数[ nPlayer ]].n条件数値A && n連打数 < dTX.listBRANCH[this.n分岐した回数[ nPlayer ]].n条件数値B )
                 {
-                    this.n次回のコース[ nPlayer ] = 1;
+                    this.n次回のコース[ nPlayer ] = E分岐コース.玄人;
                 }
                 else if( n連打数 >= dTX.listBRANCH[this.n分岐した回数[ nPlayer ]].n条件数値B )
                 {
-                    this.n次回のコース[ nPlayer ] = 2;
+                    this.n次回のコース[ nPlayer ] = E分岐コース.達人;
                 }
 
                 this.nBranch_roll[ nPlayer ] = 0;
@@ -3469,7 +3473,7 @@ namespace DTXMania
             //}
         }
 
-        protected float GetNowPBMTime( CDTX tja, float play_time )
+        protected float GetNowPBMTime( CDTX tja, float play_time, int player )
         {
             float bpm_time = 0;
             int last_input = 0;
@@ -3487,7 +3491,7 @@ namespace DTXMania
                 }
                 for( ; i < tja.listBPM.Count; i++ )
                 {
-                    if ( tja.listBPM[ i ].bpm_change_time == 0 || tja.listBPM[ i ].bpm_change_course == this.n現在のコース[ 0 ] )
+                    if ( tja.listBPM[ i ].bpm_change_time == 0 || tja.listBPM[ i ].bpm_change_course == (int)this.n現在のコース[ player ] )
                     {
                         break;
                     }
@@ -3517,7 +3521,7 @@ namespace DTXMania
                     return bpm_time;
                 }
                 //コースが異なる = 処理しない
-                if( CDTXMania.DTX.listDELAY[ i ].delay_course != 0 && CDTXMania.DTX.listDELAY[ i ].delay_course != this.n現在のコース[ 0 ] )
+                if( CDTXMania.DTX.listDELAY[ i ].delay_course != 0 && CDTXMania.DTX.listDELAY[ i ].delay_course != (int)this.n現在のコース[ player ] )
                 {
                     continue;
                 }

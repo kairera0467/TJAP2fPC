@@ -11,6 +11,12 @@ namespace DTXMania
         BMSCROLL,
         HBSCROLL
     }
+    public enum E分岐コース // 2019.2.10 kairera0467
+    {
+        普通 = 0,
+        玄人 = 1,
+        達人 = 2
+    }
     public enum Eジャンル
     {
         None = 0,

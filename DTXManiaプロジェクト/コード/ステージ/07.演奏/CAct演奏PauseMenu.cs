@@ -19,6 +19,16 @@ namespace DTXMania
             CAct演奏PauseMenuMain();
 		}
 
+        private void tMoveToPrev()
+        {
+            this.nCurrentTarget--;
+        }
+
+        private void tMoveToNext()
+        {
+            this.nCurrentTarget++;
+        }
+
         private void CAct演奏PauseMenuMain()
 		{
             this.bEsc有効 = false;
@@ -32,7 +42,7 @@ namespace DTXMania
 					lci[ nConfSet ][ nInst ] = MakeListCItemBase( nConfSet, nInst );
 				}
 			}
-			base.Initialize( lci[ nCurrentConfigSet ][ 0 ], true, QuickCfgTitle, 2 );	// ConfSet=0, nInst=Drums
+			base.Initialize( lci[ 0 ][ 0 ], true, QuickCfgTitle, 2 );	// ConfSet=0, nInst=Drums
 		}
 
 		private List<CItemBase> MakeListCItemBase( int nConfigSet, int nInst )
@@ -118,6 +128,7 @@ namespace DTXMania
 			base.On活性化();
 			this.bGotoDetailConfig = false;
             this.sw = new Stopwatch();
+            this.nCurrentTarget = 0;
 		}
 		public override void On非活性化()
 		{
@@ -133,6 +144,29 @@ namespace DTXMania
 					this.txパネル本体 = CDTXMania.tテクスチャの生成( pathパネル本体, true );
 				}
 
+                this.listポーズメニュー項目 = new List<STポーズメニュー>();
+                if( this.listポーズメニュー項目 != null )
+                {
+                    for( int i = 0; i < 3; i++ )
+                    {
+                        STポーズメニュー stPause = new STポーズメニュー();
+
+                        switch( i )
+                        {
+                            case 0:
+                                // 閉じる
+                                
+                                break;
+                            case 1:
+                                // やり直す
+                                break;
+                            case 2:
+                                // 曲選択画面へ戻る
+                                break;
+                        }
+                    }
+                }
+
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -146,10 +180,65 @@ namespace DTXMania
 			}
 		}
 
-		#region [ private ]
-		//-----------------
-		private int nCurrentTarget = 0;
-		private int nCurrentConfigSet = 0;
+        public override int On進行描画()
+        {
+            // 2019.02.02 kairera0467 新しいバージョン。CActSelectPopupMenuに依存していない。
+            if( this.b活性化してない )
+                return 0;
+
+            if( this.b初めての進行描画 )
+            {
+
+            }
+
+
+            // キー操作
+            #region[ Up / Left ]
+
+            #endregion
+            #region[ Down / Right ]
+
+            #endregion
+            #region[ Enter ]
+
+            #endregion
+            #region[ Esc ]
+
+            #endregion
+
+            // 背景の描画
+
+
+            // パネルの描画
+
+
+            // 選択肢の描画
+
+
+            // カーソルの描画
+
+
+            #region[ デバッグ用表示 ]
+            //--------------------
+#if DEBUG
+            int nバー基準Y = 64;
+            CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.白, this.nCurrentTarget.ToString() );
+
+            for( int i = 0; i < 0; i++ )
+            {
+
+            }
+#endif
+            //--------------------
+#endregion
+
+
+            return base.On進行描画();
+        }
+
+        #region [ private ]
+        //-----------------
+        private int nCurrentTarget = 0;
 		private List<List<List<CItemBase>>> lci;
 		private enum EOrder : int
 		{
@@ -161,8 +250,41 @@ namespace DTXMania
 
 		private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
+        
+        /// <summary>
+        /// やり直しを確定した後、プレイヤーのリズムを考慮して1.5秒ほど停止させる。
+        /// </summary>
         private Stopwatch sw;
         private bool bやり直しを選択した;
+
+        protected List<STポーズメニュー> listポーズメニュー項目 = new List<STポーズメニュー>();
+        // 2019.01.02 kairera0467
+        protected struct STポーズメニュー
+        {
+            public string str項目名;
+            public string str項目説明;
+
+            public CTexture tx項目名;
+            public CTexture tx説明文;
+            public Eポーズメニュー種類 e項目種類;
+            public Point pt項目名;
+            public Rectangle rect項目説明;
+
+            /// <summary>
+            /// 項目を選択させたくない場合はfalseにすると選択できなくなります。
+            /// </summary>
+            public bool b選択可;
+        }
+
+        // 2019.01.02 kairera0467
+        // ひとまずは基本的なセットのみ実装。
+        public enum Eポーズメニュー種類
+        {
+            閉じる = 0,
+            最初からやり直す = 1,
+            曲選択に戻る = 2,
+            未定義 = 99
+        }
 		//-----------------
 		#endregion
 	}
