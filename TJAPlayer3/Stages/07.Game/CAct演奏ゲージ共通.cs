@@ -231,26 +231,37 @@ namespace TJAPlayer3
 
             }
 
-            int nGaugeRankValue = (int)( Math.Floor( 10000.0f / dbGaugeMaxComboValue ) );
-            int[] nGaugeRankValue_branch = new int[3];
-
-            for (int i = 0; i < 3; i++ )
+            double nGaugeRankValue = 0D;
+            double[] nGaugeRankValue_branch = new double[] { 0D, 0D, 0D };
+            if (TJAPlayer3.DTX.GaugeIncreaseMode == GaugeIncreaseMode.Normal)
             {
-                nGaugeRankValue_branch[i] = (int)( Math.Floor( 10000.0f / dbGaugeMaxComboValue_branch[i] ) );
+                nGaugeRankValue =  Math.Floor( 10000.0f / dbGaugeMaxComboValue);
+                for (int i = 0; i < 3; i++ )
+                {
+                    nGaugeRankValue_branch[i] = Math.Floor( 10000.0f / dbGaugeMaxComboValue_branch[i]);
+                }
+            }
+            else
+            {
+                nGaugeRankValue = 10000.0f / dbGaugeMaxComboValue;
+                for (int i = 0; i < 3; i++)
+                {
+                    nGaugeRankValue_branch[i] = 10000.0f / dbGaugeMaxComboValue_branch[i];
+                }
             }
 
             //ゲージ値計算
             //実機に近い計算
 
-            this.dbゲージ増加量[ 0 ] = nGaugeRankValue / 100.0f;
-            this.dbゲージ増加量[ 1 ] = ( nGaugeRankValue / 100.0f ) * 0.5f;
-            this.dbゲージ増加量[ 2 ] = ( nGaugeRankValue / 100.0f ) * dbDamageRate;
+            this.dbゲージ増加量[0] = (float)nGaugeRankValue / 100.0f;
+            this.dbゲージ増加量[1] = (float)(nGaugeRankValue / 100.0f) * 0.5f;
+            this.dbゲージ増加量[2] = (float)(nGaugeRankValue / 100.0f) * dbDamageRate;
 
             for (int i = 0; i < 3; i++ )
             {
-                this.dbゲージ増加量_Branch[ i, 0 ] = nGaugeRankValue_branch[i] / 100.0f;
-                this.dbゲージ増加量_Branch[ i, 1 ] = ( nGaugeRankValue_branch[i] / 100.0f ) * 0.5f;
-                this.dbゲージ増加量_Branch[ i, 2 ] = ( nGaugeRankValue_branch[i] / 100.0f ) * dbDamageRate;
+                this.dbゲージ増加量_Branch[i, 0] = (float)nGaugeRankValue_branch[i] / 100.0f;
+                this.dbゲージ増加量_Branch[i, 1] = (float)(nGaugeRankValue_branch[i] / 100.0f) * 0.5f;
+                this.dbゲージ増加量_Branch[i, 2] = (float)(nGaugeRankValue_branch[i] / 100.0f) * dbDamageRate;
             }
 
             //this.dbゲージ増加量[ 0 ] = CDTXMania.DTX.bチップがある.Branch ? ( 130.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : ( 130.0 / CDTXMania.DTX.nノーツ数[ 3 ] );
@@ -326,7 +337,6 @@ namespace TJAPlayer3
                 dbゲージ増加量_Branch[i, 1] = increaseBranch[i, 1];
                 dbゲージ増加量_Branch[i, 2] = increaseBranch[i, 2];
             }
-
             #endregion
         }
 
