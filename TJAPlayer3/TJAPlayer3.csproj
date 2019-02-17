@@ -155,6 +155,7 @@
     <Compile Include="Songs\C曲リストノードComparers\C曲リストノードComparerノード種別.cs" />
     <Compile Include="Songs\C曲リストノードComparers\C曲リストノードComparer絶対パス.cs" />
     <Compile Include="Songs\Dan-C.cs" />
+    <Compile Include="Songs\GaugeIncreaseMode.cs" />
     <Compile Include="Stages\01.StartUp\TextureLoader.cs" />
     <Compile Include="Stages\02.Title\CActScanningLoudness.cs" />
     <Compile Include="Stages\02.Title\CEnumSongs.cs" />

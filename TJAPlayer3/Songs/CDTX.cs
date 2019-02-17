@@ -1281,6 +1281,7 @@ namespace TJAPlayer3
 
         public bool IsEnabledFixSENote;
         public int FixSENote;
+        public GaugeIncreaseMode GaugeIncreaseMode;
 
 
 
@@ -1388,6 +1389,8 @@ namespace TJAPlayer3
 
             this.SongVol = CSound.DefaultSongVol;
             this.SongLoudnessMetadata = null;
+
+            GaugeIncreaseMode = GaugeIncreaseMode.Normal;
 
 #if TEST_NOTEOFFMODE
 			this.bHH演奏で直前のHHを消音する = true;
@@ -2948,7 +2951,7 @@ namespace TJAPlayer3
 
         private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
         private static readonly Regex regexForStrippingHeadingLines = new Regex(
-            @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|#HBSCROLL|#BMSCROLL)).+\n",
+            @"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|GAUGEINCR|#HBSCROLL|#BMSCROLL)).+\n",
             RegexOptions.Multiline | RegexOptions.Compiled);
 
         /// <summary>
@@ -4384,7 +4387,6 @@ namespace TJAPlayer3
                     Dan_C[int.Parse(strCommandName.Substring(4)) - 1] = new Dan_C(examType, examValue, examRange);
                 }
             }
-
             if (this.nScoreModeTmp == 99) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
             {
                 this.nScoreModeTmp = TJAPlayer3.ConfigIni.nScoreMode;
@@ -4646,6 +4648,33 @@ namespace TJAPlayer3
                         {
                             this.nScoreInit[1, this.n参照中の難易度] = value;
                         });
+                    }
+                }
+            }
+            else if (strCommandName.Equals("GAUGEINCR"))
+            {
+                if (!string.IsNullOrEmpty(strCommandParam))
+                {
+                    switch (strCommandParam.ToLower())
+                    {
+                        case "normal":
+                            GaugeIncreaseMode = GaugeIncreaseMode.Normal;
+                            break;
+                        case "floor":
+                            GaugeIncreaseMode = GaugeIncreaseMode.Floor;
+                            break;
+                        case "round":
+                            GaugeIncreaseMode = GaugeIncreaseMode.Round;
+                            break;
+                        case "ceiling":
+                            GaugeIncreaseMode = GaugeIncreaseMode.Ceiling;
+                            break;
+                        case "notfix":
+                            GaugeIncreaseMode = GaugeIncreaseMode.NotFix;
+                            break;
+                        default:
+                            GaugeIncreaseMode = GaugeIncreaseMode.Normal;
+                            break;
                     }
                 }
             }

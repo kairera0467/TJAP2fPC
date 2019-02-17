@@ -231,26 +231,37 @@ namespace TJAPlayer3
 
             }
 
-            int nGaugeRankValue = (int)( Math.Floor( 10000.0f / dbGaugeMaxComboValue ) );
-            int[] nGaugeRankValue_branch = new int[3];
-
-            for (int i = 0; i < 3; i++ )
+            double nGaugeRankValue = 0D;
+            double[] nGaugeRankValue_branch = new double[] { 0D, 0D, 0D };
+            if (TJAPlayer3.DTX.GaugeIncreaseMode == GaugeIncreaseMode.Normal)
             {
-                nGaugeRankValue_branch[i] = (int)( Math.Floor( 10000.0f / dbGaugeMaxComboValue_branch[i] ) );
+                nGaugeRankValue =  Math.Floor( 10000.0f / dbGaugeMaxComboValue);
+                for (int i = 0; i < 3; i++ )
+                {
+                    nGaugeRankValue_branch[i] = Math.Floor( 10000.0f / dbGaugeMaxComboValue_branch[i]);
+                }
+            }
+            else
+            {
+                nGaugeRankValue = 10000.0f / dbGaugeMaxComboValue;
+                for (int i = 0; i < 3; i++)
+                {
+                    nGaugeRankValue_branch[i] = 10000.0f / dbGaugeMaxComboValue_branch[i];
+                }
             }
 
             //ゲージ値計算
             //実機に近い計算
 
-            this.dbゲージ増加量[ 0 ] = nGaugeRankValue / 100.0f;
-            this.dbゲージ増加量[ 1 ] = ( nGaugeRankValue / 100.0f ) * 0.5f;
-            this.dbゲージ増加量[ 2 ] = ( nGaugeRankValue / 100.0f ) * dbDamageRate;
+            this.dbゲージ増加量[0] = (float)nGaugeRankValue / 100.0f;
+            this.dbゲージ増加量[1] = (float)(nGaugeRankValue / 100.0f) * 0.5f;
+            this.dbゲージ増加量[2] = (float)(nGaugeRankValue / 100.0f) * dbDamageRate;
 
             for (int i = 0; i < 3; i++ )
             {
-                this.dbゲージ増加量_Branch[ i, 0 ] = nGaugeRankValue_branch[i] / 100.0f;
-                this.dbゲージ増加量_Branch[ i, 1 ] = ( nGaugeRankValue_branch[i] / 100.0f ) * 0.5f;
-                this.dbゲージ増加量_Branch[ i, 2 ] = ( nGaugeRankValue_branch[i] / 100.0f ) * dbDamageRate;
+                this.dbゲージ増加量_Branch[i, 0] = (float)nGaugeRankValue_branch[i] / 100.0f;
+                this.dbゲージ増加量_Branch[i, 1] = (float)(nGaugeRankValue_branch[i] / 100.0f) * 0.5f;
+                this.dbゲージ増加量_Branch[i, 2] = (float)(nGaugeRankValue_branch[i] / 100.0f) * dbDamageRate;
             }
 
             //this.dbゲージ増加量[ 0 ] = CDTXMania.DTX.bチップがある.Branch ? ( 130.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : ( 130.0 / CDTXMania.DTX.nノーツ数[ 3 ] );
@@ -258,24 +269,82 @@ namespace TJAPlayer3
             //this.dbゲージ増加量[ 2 ] = CDTXMania.DTX.bチップがある.Branch ? ( -260.0 / CDTXMania.DTX.nノーツ数[ 0 ] ) : -260.0 / CDTXMania.DTX.nノーツ数[ 3 ];
 
             //2015.03.26 kairera0467 計算を初期化時にするよう修正。
-            this.dbゲージ増加量[ 0 ] = (float)Math.Truncate( this.dbゲージ増加量[ 0 ] * 10000.0f ) / 10000.0f;
-            this.dbゲージ増加量[ 1 ] = (float)Math.Truncate( this.dbゲージ増加量[ 1 ] * 10000.0f ) / 10000.0f;
-            this.dbゲージ増加量[ 2 ] = (float)Math.Truncate( this.dbゲージ増加量[ 2 ] * 10000.0f ) / 10000.0f;
 
-            for (int i = 0; i < 3; i++ )
+            #region ゲージの丸め処理
+            var increase = new float[] { dbゲージ増加量[0], dbゲージ増加量[1], dbゲージ増加量[2] };
+            var increaseBranch = new float[3, 3];
+            for (int i = 0; i < 3; i++)
             {
-                this.dbゲージ増加量_Branch[ i, 0 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 0 ] * 10000.0f ) / 10000.0f;
-                this.dbゲージ増加量_Branch[ i, 1 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 1 ] * 10000.0f ) / 10000.0f;
-                this.dbゲージ増加量_Branch[ i, 2 ] = (float)Math.Truncate( this.dbゲージ増加量_Branch[ i, 2 ] * 10000.0f ) / 10000.0f;
+                increaseBranch[i, 0] = dbゲージ増加量_Branch[i, 0];
+                increaseBranch[i, 1] = dbゲージ増加量_Branch[i, 1];
+                increaseBranch[i, 2] = dbゲージ増加量_Branch[i, 0];
+            }
+            switch (TJAPlayer3.DTX.GaugeIncreaseMode)
+            {
+                case GaugeIncreaseMode.Normal:
+                case GaugeIncreaseMode.Floor:
+                    // 切り捨て
+                    for (int i = 0; i < 3; i++)
+                    {
+                        increase[i] = (float)Math.Truncate(increase[i] * 10000.0f) / 10000.0f;
+                    }
+                    for (int i = 0; i < 3; i++)
+                    {
+                        increaseBranch[i, 0] = (float)Math.Truncate(increaseBranch[i, 0] * 10000.0f) / 10000.0f;
+                        increaseBranch[i, 1] = (float)Math.Truncate(increaseBranch[i, 1] * 10000.0f) / 10000.0f;
+                        increaseBranch[i, 2] = (float)Math.Truncate(increaseBranch[i, 2] * 10000.0f) / 10000.0f;
+                    }
+                    break;
+                case GaugeIncreaseMode.Round:
+                    // 四捨五入
+                    for (int i = 0; i < 3; i++)
+                    {
+                        increase[i] = (float)Math.Round(increase[i] * 10000.0f) / 10000.0f;
+                    }
+                    for (int i = 0; i < 3; i++)
+                    {
+                        increaseBranch[i, 0] = (float)Math.Round(increaseBranch[i, 0] * 10000.0f) / 10000.0f;
+                        increaseBranch[i, 1] = (float)Math.Round(increaseBranch[i, 1] * 10000.0f) / 10000.0f;
+                        increaseBranch[i, 2] = (float)Math.Round(increaseBranch[i, 2] * 10000.0f) / 10000.0f;
+                    }
+                    break;
+                case GaugeIncreaseMode.Ceiling:
+                    // 切り上げ
+                    for (int i = 0; i < 3; i++)
+                    {
+                        increase[i] = (float)Math.Ceiling(increase[i] * 10000.0f) / 10000.0f;
+                    }
+                    for (int i = 0; i < 3; i++)
+                    {
+                        increaseBranch[i, 0] = (float)Math.Ceiling(increaseBranch[i, 0] * 10000.0f) / 10000.0f;
+                        increaseBranch[i, 1] = (float)Math.Ceiling(increaseBranch[i, 1] * 10000.0f) / 10000.0f;
+                        increaseBranch[i, 2] = (float)Math.Ceiling(increaseBranch[i, 2] * 10000.0f) / 10000.0f;
+                    }
+                    break;
+                case GaugeIncreaseMode.NotFix:
+                default:
+                    // 丸めない
+                    break;
             }
 
-		}
+            for (int i = 0; i < 3; i++)
+            {
+                dbゲージ増加量[i] = increase[i];
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                dbゲージ増加量_Branch[i, 0] = increaseBranch[i, 0];
+                dbゲージ増加量_Branch[i, 1] = increaseBranch[i, 1];
+                dbゲージ増加量_Branch[i, 2] = increaseBranch[i, 2];
+            }
+            #endregion
+        }
 
-		#region [ DAMAGE ]
-#if true		// DAMAGELEVELTUNING
-		#region [ DAMAGELEVELTUNING ]
-		// ----------------------------------
-		public float[ , ] fDamageGaugeDelta = {			// #23625 2011.1.10 ickw_284: tuned damage/recover factors
+        #region [ DAMAGE ]
+#if true       // DAMAGELEVELTUNING
+        #region [ DAMAGELEVELTUNING ]
+        // ----------------------------------
+        public float[ , ] fDamageGaugeDelta = {			// #23625 2011.1.10 ickw_284: tuned damage/recover factors
 			// drums,   guitar,  bass
 			{  0.004f,  0.006f,  0.006f,  0.004f },
 			{  0.002f,  0.003f,  0.003f,  0.002f },
