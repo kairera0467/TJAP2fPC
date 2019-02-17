@@ -1281,6 +1281,7 @@ namespace TJAPlayer3
 
         public bool IsEnabledFixSENote;
         public int FixSENote;
+        public GaugeIncreaseMode GaugeIncreaseMode;
 
 
 
@@ -4783,6 +4784,33 @@ namespace TJAPlayer3
                 if (!string.IsNullOrEmpty(strCommandParam))
                 {
                     this.bHIDDENBRANCH = true;
+                }
+            }
+            else if (strCommandName.Equals("GAUGEINCR"))
+            {
+                if(!string.IsNullOrEmpty(strCommandParam))
+                {
+                    switch (strCommandParam)
+                    {
+                        case "normal":
+                            GaugeIncreaseMode = GaugeIncreaseMode.Normal;
+                            break;
+                        case "floor":
+                            GaugeIncreaseMode = GaugeIncreaseMode.Floor;
+                            break;
+                        case "round":
+                            GaugeIncreaseMode = GaugeIncreaseMode.Round;
+                            break;
+                        case "ceiling":
+                            GaugeIncreaseMode = GaugeIncreaseMode.Ceiling;
+                            break;
+                        case "notfix":
+                            GaugeIncreaseMode = GaugeIncreaseMode.NotFix;
+                            break;
+                        default:
+                            GaugeIncreaseMode = GaugeIncreaseMode.Normal;
+                            break;
+                    }
                 }
             }
             if (this.nScoreModeTmp == 99)
