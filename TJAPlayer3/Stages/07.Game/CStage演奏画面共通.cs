@@ -3277,7 +3277,10 @@ namespace TJAPlayer3
                                 this.actChara.b風船連打中 = false;
                                 pChip.bHit = true;
                                 if( chip現在処理中の連打チップ[ nPlayer ] != null )
+                                {
                                     chip現在処理中の連打チップ[ nPlayer ].bHit = true;
+                                    chip現在処理中の連打チップ[nPlayer] = null;
+                                }
                                 this.eRollState = E連打State.none;
                             }
                             if( pChip.n描画優先度 <= 0 )
