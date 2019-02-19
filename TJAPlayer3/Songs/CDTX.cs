@@ -385,6 +385,7 @@ namespace TJAPlayer3
             public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
             public int nList上の位置;
             public bool IsFixedSENote;
+            public bool IsHitted = false;
             public bool bBPMチップである
             {
                 get
