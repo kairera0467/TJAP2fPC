@@ -1277,6 +1277,7 @@ namespace TJAPlayer3
                         this.actScore.Add(E楽器パート.TAIKO, this.bIsAutoPlay, 5000L, player);
                     }
                     pChip.bHit = true;
+                    pChip.IsHitted = true;
                     chip現在処理中の連打チップ[ player ].bHit = true;
                     //this.b連打中 = false;
                     //this.actChara.b風船連打中 = false;
@@ -1356,6 +1357,7 @@ namespace TJAPlayer3
             {
                 //if( nPlayer == pChip.nPlayerSide )
 			        pChip.bHit = true;
+                pChip.IsHitted = true;
             }
 
 			if ( pChip.e楽器パート == E楽器パート.UNKNOWN )
@@ -1384,7 +1386,7 @@ namespace TJAPlayer3
 					        CLagLogger.Add(nPlayer, pChip);
 					    }
 
-                        if( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
+                        if ( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
                         {
                             #region[ 連打 ]
                             //---------------------------
@@ -1474,6 +1476,7 @@ namespace TJAPlayer3
                                 this.b連打中[ nPlayer ] = false;
                                 //this.actChara.b風船連打中 = false;
                                 pChip.bHit = true;
+                                pChip.IsHitted = true;
                                 break;
                             }
                         }
@@ -2323,13 +2326,13 @@ namespace TJAPlayer3
             CDTX.CChip afterChip = null;
             for (int pastNote = startPosision - 1; ; pastNote--)
             {
-                if(pastNote < 0)
+                if (pastNote < 0)
                 {
-                    pastChip = null;
+                    pastChip = afterChip != null ? afterChip : null; // afterChipに過去の判定があるかもしれないので
                     break;
                 }
                 var processingChip = chips[pastNote];
-                if(processingChip.bShow) // 音符が見えてる
+                if(!processingChip.IsHitted) // まだ判定されてない音符
                 {
                     if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
                         || processingChip.nチャンネル番号 == 0x1A
@@ -2348,8 +2351,19 @@ namespace TJAPlayer3
                         {
                             // 判定が不可だった
                             // その前のノーツを過去で可以上のノート(つまり判定されるべきノート)とする。
-                            pastChip = afterChip; // 今処理中のノート
+                            pastChip = afterChip;
                             break; // 検索終わり
+                        }
+                    }
+                }
+                if (processingChip.IsHitted) // 連打
+                {
+                    if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
+                    {
+                        if (processingChip.nノーツ終了時刻ms > nowTime)
+                        {
+                            pastChip = processingChip;
+                            break;
                         }
                     }
                 }
@@ -2365,7 +2379,7 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[futureNote];
-                if (!processingChip.bHit && processingChip.b可視) // 音符が見えてるかつ未ヒット
+                if (!processingChip.IsHitted) // まだ判定されてない音符
                 {
                     if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
                         || processingChip.nチャンネル番号 == 0x1A
@@ -2417,7 +2431,7 @@ namespace TJAPlayer3
             TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
             TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
             TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, NowProcessingChip[player].ToString());
+            TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
             return nearestChip;
         }
 

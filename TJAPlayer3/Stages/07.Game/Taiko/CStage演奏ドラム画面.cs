@@ -2177,7 +2177,7 @@ namespace TJAPlayer3
             //CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChip((int)CSound管理.rc演奏用タイマ.n現在時刻ms, 0);
             for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
             {
-                CDTX.CChip chipNoHit = GetChipOfNearest( ( int ) CSound管理.rc演奏用タイマ.n現在時刻ms, i );
+                CDTX.CChip chipNoHit = GetChipOfNearest( CSound管理.rc演奏用タイマ.n現在時刻ms, i );
 
                 if( chipNoHit != null && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B ) )
                 {
@@ -2189,6 +2189,7 @@ namespace TJAPlayer3
                         this.nWaitButton = 0;
                         chipNoHit.eNoteState = ENoteState.none;
                         chipNoHit.bHit = true;
+                        chipNoHit.IsHitted = true;
                     }
                 }
             }
