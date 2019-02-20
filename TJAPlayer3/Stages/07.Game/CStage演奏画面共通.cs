@@ -4340,6 +4340,7 @@ namespace TJAPlayer3
 				{
 					CDTX.CChip p = (CDTX.CChip) pChip.Clone();
 					p.bHit = false;
+                    p.IsHitted = false;
                     //2016.11.23 kairera0467 太鼓用に追加
                     p.eNoteState = ENoteState.none;
                     p.nProcessTime = 0;
