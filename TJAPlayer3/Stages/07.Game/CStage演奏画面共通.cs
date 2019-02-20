@@ -2428,10 +2428,10 @@ namespace TJAPlayer3
                 nearestChip = pastChip;
             }
             #endregion
-            TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
+            //TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
+            //TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
+            //TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
+            //TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
             return nearestChip;
         }
         /// <summary>
@@ -2571,10 +2571,10 @@ namespace TJAPlayer3
                 nearestChip = pastChip;
             }
             #endregion
-            TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
+            //TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
+            //TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
+            //TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
+            //TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
             return nearestChip;
         }
 
