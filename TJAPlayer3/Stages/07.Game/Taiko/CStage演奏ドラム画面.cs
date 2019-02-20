@@ -884,7 +884,10 @@ namespace TJAPlayer3
                             break;
                     }
 
-                    CDTX.CChip chipNoHit = GetChipOfNearest( nTime, nUsePlayer );
+                    var padTo = nUsePlayer == 0 ? nPad - 12 : nPad - 12 - 4;
+                    var isDon = padTo < 2 ? true : false;
+
+                    CDTX.CChip chipNoHit = chip現在処理中の連打チップ[nUsePlayer] == null ? GetChipOfNearest( nTime, nUsePlayer, isDon) : GetChipOfNearest(nTime, nUsePlayer);
                     E判定 e判定 = ( chipNoHit != null ) ? this.e指定時刻からChipのJUDGEを返す( nTime, chipNoHit ) : E判定.Miss;
 
                     bool b太鼓音再生フラグ = true;
