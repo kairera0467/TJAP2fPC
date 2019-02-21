@@ -3279,7 +3279,18 @@ namespace TJAPlayer3
                                 if( chip現在処理中の連打チップ[ nPlayer ] != null )
                                 {
                                     chip現在処理中の連打チップ[ nPlayer ].bHit = true;
+                                    if (nPlayer == 0 && chip現在処理中の連打チップ[nPlayer].nBalloon > chip現在処理中の連打チップ[nPlayer].nRollCount && chip現在処理中の連打チップ[nPlayer].nRollCount > 0 && actChara.CharaAction_Balloon_Miss != null)
+                                    {
+                                        if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss > 0)
+                                        {
+                                            actChara.アクションタイマーリセット();
+                                            actChara.bマイどんアクション中 = true;
+                                            actChara.CharaAction_Balloon_Miss = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss - 1, TJAPlayer3.Skin.Game_Chara_Balloon_Timer, TJAPlayer3.Timer);
+                                            if (actChara.CharaAction_Balloon_Delay != null) actChara.CharaAction_Balloon_Delay = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Balloon_Delay - 1, 1, TJAPlayer3.Timer);
+                                        }
+                                    }
                                     chip現在処理中の連打チップ[nPlayer] = null;
+
                                 }
                                 this.eRollState = E連打State.none;
                             }

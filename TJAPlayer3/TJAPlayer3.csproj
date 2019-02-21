@@ -42,7 +42,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\Test\</OutputPath>
-    <DefineConstants>TRACE;_TEST_ENGLISH TEST_Direct3D9Ex_ _WindowedFullscreen MemoryRenderer</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;_TEST_ENGLISH TEST_Direct3D9Ex_ _WindowedFullscreen MemoryRenderer</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>

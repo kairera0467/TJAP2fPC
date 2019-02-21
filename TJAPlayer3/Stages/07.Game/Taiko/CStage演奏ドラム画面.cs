@@ -2086,17 +2086,6 @@ namespace TJAPlayer3
                     {
                         if (actChara.CharaAction_Balloon_Breaking.b進行中 && chip現在処理中の連打チップ[i].nPlayerSide == 0)
                         {
-                            this.actChara.bマイどんアクション中 = false; // 風船終了後、再生されていたアクションがされないようにするために追加。(AioiLight)
-                            if (actChara.CharaAction_Balloon_Miss != null)
-                            {
-                                if(TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss > 0)
-                                {
-                                    actChara.アクションタイマーリセット();
-                                    actChara.bマイどんアクション中 = true;
-                                    actChara.CharaAction_Balloon_Miss = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss - 1, TJAPlayer3.Skin.Game_Chara_Balloon_Timer, TJAPlayer3.Timer);
-                                    if (actChara.CharaAction_Balloon_Delay != null) actChara.CharaAction_Balloon_Delay = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Balloon_Delay - 1, 1, TJAPlayer3.Timer);
-                                }
-                            }
                         }
                     }
                 }
