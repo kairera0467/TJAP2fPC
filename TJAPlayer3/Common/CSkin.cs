@@ -2614,7 +2614,7 @@ namespace TJAPlayer3
         public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
         public int Game_Effect_NotesFlash_Timer = 20;
         public int[] Game_Effect_GoGoSplash = new int[] { 300, 400, 30 };
-        public int[] Game_Effect_GoGoSplash_X = new int[] { 80, 300, 520, 760, 980, 1160 };
+        public int[] Game_Effect_GoGoSplash_X = new int[] { 120, 300, 520, 760, 980, 1160 };
         public int[] Game_Effect_GoGoSplash_Y = new int[] { 740, 730, 720, 720, 730, 740 };
         public bool Game_Effect_GoGoSplash_Rotate = true;
         public int Game_Effect_GoGoSplash_Timer = 18;
