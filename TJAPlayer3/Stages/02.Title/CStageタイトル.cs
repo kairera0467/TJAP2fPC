@@ -192,7 +192,7 @@ namespace TJAPlayer3
                 string strCreator = "https://github.com/AioiLight/TJAPlayer3";
                 AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 #if DEBUG
-                strVersion += "  DEBUG";
+                TJAPlayer3.act文字コンソール.tPrint(4, 44, C文字コンソール.Eフォント種別.白, "DEBUG BUILD");
 #endif
                 TJAPlayer3.act文字コンソール.tPrint(4, 4, C文字コンソール.Eフォント種別.白, asmApp.Name + " Ver." + TJAPlayer3.VERSION + " (" + strCreator + ")" );
                 TJAPlayer3.act文字コンソール.tPrint(4, 24, C文字コンソール.Eフォント種別.白, "Skin:" + TJAPlayer3.Skin.Skin_Name + " Ver." + TJAPlayer3.Skin.Skin_Version + " (" + TJAPlayer3.Skin.Skin_Creator + ")");
