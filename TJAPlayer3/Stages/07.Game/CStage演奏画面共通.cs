@@ -2908,17 +2908,17 @@ namespace TJAPlayer3
 #if DEBUG
                 if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F6 ) )
                 {
-                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay == false )
-                        CDTXMania.ConfigIni.b太鼓パートAutoPlay = true;
+                    if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay == false )
+                        TJAPlayer3.ConfigIni.b太鼓パートAutoPlay = true;
                     else
-                        CDTXMania.ConfigIni.b太鼓パートAutoPlay = false;
+                        TJAPlayer3.ConfigIni.b太鼓パートAutoPlay = false;
                 }
                 if ( keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F7 ) )
                 {
-                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay2P == false )
-                        CDTXMania.ConfigIni.b太鼓パートAutoPlay2P = true;
+                    if(TJAPlayer3.ConfigIni.b太鼓パートAutoPlay2P == false )
+                        TJAPlayer3.ConfigIni.b太鼓パートAutoPlay2P = true;
                     else
-                        CDTXMania.ConfigIni.b太鼓パートAutoPlay2P = false;
+                        TJAPlayer3.ConfigIni.b太鼓パートAutoPlay2P = false;
                 }
 #endif
 			}
