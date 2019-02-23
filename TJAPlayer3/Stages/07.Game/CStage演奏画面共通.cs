@@ -2332,7 +2332,7 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[pastNote];
-                if(!processingChip.IsHitted) // まだ判定されてない音符
+                if(!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
                 {
                     if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
                         || processingChip.nチャンネル番号 == 0x1A
@@ -2356,7 +2356,7 @@ namespace TJAPlayer3
                         }
                     }
                 }
-                if (processingChip.IsHitted) // 連打
+                if (processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // 連打
                 {
                     if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
                     {
@@ -2379,7 +2379,7 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[futureNote];
-                if (!processingChip.IsHitted) // まだ判定されてない音符
+                if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
                 {
                     if (((0x11 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x18))
                         || processingChip.nチャンネル番号 == 0x1A
@@ -2481,7 +2481,7 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[pastNote];
-                if (!processingChip.IsHitted) // まだ判定されてない音符
+                if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
                 {
                     if (don ? GetDon(processingChip) : GetKatsu(processingChip)) // 音符のチャンネルである
                     {
@@ -2502,7 +2502,7 @@ namespace TJAPlayer3
                         }
                     }
                 }
-                if (processingChip.IsHitted) // 連打
+                if (processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // 連打
                 {
                     if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
                     {
@@ -2525,7 +2525,7 @@ namespace TJAPlayer3
                     break;
                 }
                 var processingChip = chips[futureNote];
-                if (!processingChip.IsHitted) // まだ判定されてない音符
+                if (!processingChip.IsHitted && processingChip.nコース == n現在のコース[player]) // まだ判定されてない音符
                 {
                     if (don ? GetDon(processingChip) : GetKatsu(processingChip)) // 音符のチャンネルである
                     {
