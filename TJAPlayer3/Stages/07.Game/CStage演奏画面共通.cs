@@ -2428,10 +2428,16 @@ namespace TJAPlayer3
                 nearestChip = pastChip;
             }
             #endregion
-            //TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
-            //TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
-            //TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
-            //TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
+#if DEBUG
+            if (player == 0)
+            {
+                TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
+                TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
+                TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
+                TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
+
+            }
+#endif
             return nearestChip;
         }
         /// <summary>
@@ -2571,10 +2577,16 @@ namespace TJAPlayer3
                 nearestChip = pastChip;
             }
             #endregion
-            //TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
-            //TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
-            //TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
-            //TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
+#if DEBUG
+            if(player == 0)
+            {
+                TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
+                TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
+                TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
+                TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
+
+            }
+#endif
             return nearestChip;
         }
 
@@ -2938,10 +2950,10 @@ namespace TJAPlayer3
 				}
             }
 
-		    #region [ Minus & Equals Sound Group Level ]
+#region [ Minus & Equals Sound Group Level ]
 		    KeyboardSoundGroupLevelControlHandler.Handle(
 		        keyboard, TJAPlayer3.SoundGroupLevelController, TJAPlayer3.Skin, false);
-		    #endregion
+#endregion
 		}
 
 		protected void t入力メソッド記憶( E楽器パート part )
@@ -3185,7 +3197,7 @@ namespace TJAPlayer3
                 
 				switch ( pChip.nチャンネル番号 )
 				{
-					#region [ 01: BGM ]
+#region [ 01: BGM ]
 					case 0x01:	// BGM
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
@@ -3196,8 +3208,8 @@ namespace TJAPlayer3
 							}
 						}
 						break;
-					#endregion
-					#region [ 03: BPM変更 ]
+#endregion
+#region [ 03: BPM変更 ]
 					case 0x03:	// BPM変更
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
@@ -3205,13 +3217,13 @@ namespace TJAPlayer3
 							this.actPlayInfo.dbBPM = ( ( ( (double) configIni.n演奏速度 ) / 20.0 ) ) * dTX.BASEBPM; //2016.07.10 kairera0467 太鼓の仕様にあわせて修正。(そもそもの仕様が不明&コードミス疑惑)
 						}
 						break;
-					#endregion
-					#region [ 04, 07: EmptySlot ]
+#endregion
+#region [ 04, 07: EmptySlot ]
 					case 0x04:
 					case 0x07:
 						break;
-					#endregion
-					#region [ 08: BPM変更(拡張) ]
+#endregion
+#region [ 08: BPM変更(拡張) ]
 					case 0x08:	// BPM変更(拡張)
                         //CDTXMania.act文字コンソール.tPrint( 414 + pChip.nバーからの距離dot.Drums + 4, 192, C文字コンソール.Eフォント種別.白, "BRANCH START" + "  " + pChip.n整数値.ToString() );
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
@@ -3232,9 +3244,9 @@ namespace TJAPlayer3
                             //}
 						}
 						break;
-					#endregion
+#endregion
 
-					#region [ 11-1f: 太鼓1P ]
+#region [ 11-1f: 太鼓1P ]
 					case 0x11:
 					case 0x12:
 					case 0x13:
@@ -3312,8 +3324,8 @@ namespace TJAPlayer3
                             this.t進行描画_チップ_Taiko( configIni, ref dTX, ref pChip, nPlayer );
                         }
 						break;
-					#endregion
-					#region [ 20-2F: EmptySlot ]
+#endregion
+#region [ 20-2F: EmptySlot ]
 					case 0x20:
 					case 0x21:
 					case 0x22:
@@ -3331,8 +3343,8 @@ namespace TJAPlayer3
                     case 0x2e:
                     case 0x2f:
 						break;
-					#endregion
-					#region [ 31-3f: EmptySlot ]
+#endregion
+#region [ 31-3f: EmptySlot ]
 					case 0x31:
 					case 0x32:
 					case 0x33:
@@ -3349,9 +3361,9 @@ namespace TJAPlayer3
                     case 0x3e:
                     case 0x3f:
 						break;
-					#endregion
+#endregion
 
-					#region [ 50: 小節線 ]
+#region [ 50: 小節線 ]
 					case 0x50:	// 小節線
 						{
                             if ( !pChip.bHit && ( pChip.nバーからの距離dot.Taiko < 0 ) )
@@ -3455,8 +3467,8 @@ namespace TJAPlayer3
                             this.t進行描画_チップ_小節線( configIni, ref dTX, ref pChip, nPlayer );
 							break;
 						}
-					#endregion
-					#region [ 51: 拍線 ]
+#endregion
+#region [ 51: 拍線 ]
 					case 0x51:	// 拍線
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
@@ -3467,12 +3479,12 @@ namespace TJAPlayer3
 
                         //this.t進行描画_チップ_小節線( configIni, ref dTX, ref pChip );
 						break;
-					#endregion
-					#region [ 52-53: EmptySlot ]
+#endregion
+#region [ 52-53: EmptySlot ]
 					case 0x52:
 						break;
-					#endregion
-					#region [ 54: 動画再生 ]
+#endregion
+#region [ 54: 動画再生 ]
 					case 0x54:	// 動画再生
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
@@ -3497,16 +3509,16 @@ namespace TJAPlayer3
 							}
 						}
 						break;
-					#endregion
-                    #region[ 55-60: EmptySlot ]
+#endregion
+#region[ 55-60: EmptySlot ]
                     case 0x55:
                     case 0x56:
                     case 0x57:
                     case 0x58:
                     case 0x59:
                         break;
-                    #endregion
-                    #region [ 61-89: EmptySlot ]
+#endregion
+#region [ 61-89: EmptySlot ]
                     case 0x60:
                     case 0x61:
 					case 0x62:
@@ -3538,9 +3550,9 @@ namespace TJAPlayer3
                     case 0x88:
                     case 0x89:
                         break;
-					#endregion
+#endregion
 
-                    #region[ 90-9A: EmptySlot ]
+#region[ 90-9A: EmptySlot ]
                     case 0x90:
 					case 0x91:
 					case 0x92:
@@ -3553,9 +3565,9 @@ namespace TJAPlayer3
                     case 0x99:
                     case 0x9A:
 						break;
-                    #endregion
+#endregion
 
-                    #region[ 9B-9F: 太鼓 ]
+#region[ 9B-9F: 太鼓 ]
                     case 0x9B:
                         // 段位認定モードの幕アニメーション
                         if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0))
@@ -3714,9 +3726,9 @@ namespace TJAPlayer3
                             this.bIsGOGOTIME[ nPlayer ] = false;
                         }
                         break;
-                    #endregion
+#endregion
 
-					#region [ a0-a8: EmptySlot ]
+#region [ a0-a8: EmptySlot ]
 					case 0xa0:
 					case 0xa1:
 					case 0xa2:
@@ -3727,8 +3739,8 @@ namespace TJAPlayer3
 					case 0xa7:
 					case 0xa8:
                         break;
-					#endregion
-					#region [ B1～BC EmptySlot ]
+#endregion
+#region [ B1～BC EmptySlot ]
 					case 0xb1:
 					case 0xb2:
 					case 0xb3:
@@ -3742,8 +3754,8 @@ namespace TJAPlayer3
                     case 0xbb:
 					case 0xbc:
 						break;
-					#endregion
-					#region [ c4, c7, d5-d9: EmptySlot ]
+#endregion
+#region [ c4, c7, d5-d9: EmptySlot ]
 					case 0xc4:
 					case 0xc7:
 					case 0xd5:
@@ -3757,9 +3769,9 @@ namespace TJAPlayer3
 							pChip.bHit = true;
 						}
 						break;
-					#endregion
+#endregion
 
-					#region [ da: ミキサーへチップ音追加 ]
+#region [ da: ミキサーへチップ音追加 ]
 					case 0xDA:
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
@@ -3778,8 +3790,8 @@ namespace TJAPlayer3
 							}
 						}
 						break;
-					#endregion
-					#region [ db: ミキサーからチップ音削除 ]
+#endregion
+#region [ db: ミキサーからチップ音削除 ]
 					case 0xDB:
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
@@ -3801,9 +3813,9 @@ namespace TJAPlayer3
 							}
 						}
 						break;
-                    #endregion
+#endregion
 
-                    #region[ dc-df:太鼓(特殊命令) ]
+#region[ dc-df:太鼓(特殊命令) ]
                     case 0xDC: //DELAY
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
@@ -3892,8 +3904,8 @@ namespace TJAPlayer3
                             pChip.bHit = true;
                         }
                         break;
-                    #endregion
-                    #region[ f1: 歌詞 ]
+#endregion
+#region[ f1: 歌詞 ]
                     case 0xF1:
                         if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
@@ -3905,8 +3917,8 @@ namespace TJAPlayer3
                             pChip.bHit = true;
                         }
                         break;
-					#endregion
-                    #region[ ff: 譜面の強制終了 ]
+#endregion
+#region[ ff: 譜面の強制終了 ]
                     //バグで譜面がとてつもないことになっているため、#ENDがきたらこれを差し込む。
                     case 0xFF:
                         if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
@@ -3914,16 +3926,16 @@ namespace TJAPlayer3
                             return true;
                         }
                         break;
-					#endregion
+#endregion
 
-					#region [ その他(未定義) ]
+#region [ その他(未定義) ]
 					default:
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
 							pChip.bHit = true;
 						}
 						break;
-					#endregion 
+#endregion
                 }
 
             }
@@ -3983,7 +3995,7 @@ namespace TJAPlayer3
 
 				switch ( pChip.nチャンネル番号 )
 				{
-                    #region[ 15-19: 連打 ]
+#region[ 15-19: 連打 ]
                     case 0x15: //連打
                     case 0x16: //連打(大)
                     case 0x17: //風船
@@ -3994,7 +4006,7 @@ namespace TJAPlayer3
                                 this.t進行描画_チップ_Taiko連打( configIni, ref dTX, ref pChip, nPlayer );
                         }
                         break;
-                    #endregion
+#endregion
                 }
 
             }
@@ -4340,10 +4352,10 @@ namespace TJAPlayer3
             if( dTX == null ) return; //CDTXがnullの場合はプレイヤーが居ないのでその場で処理終了
 
 
-			#region [ 再生開始小節の変更 ]
+#region [ 再生開始小節の変更 ]
 			//nStartBar++;									// +1が必要
 
-			#region [ 演奏済みフラグのついたChipをリセットする ]
+#region [ 演奏済みフラグのついたChipをリセットする ]
 			for ( int i = 0; i < dTX.listChip.Count; i++ )
 			{
 				CDTX.CChip pChip = dTX.listChip[ i ];
@@ -4361,9 +4373,9 @@ namespace TJAPlayer3
 					dTX.listChip[ i ] = p;
 				}
 			}
-			#endregion
+#endregion
 
-			#region [ 処理を開始するチップの特定 ]
+#region [ 処理を開始するチップの特定 ]
 			//for ( int i = this.n現在のトップChip; i < CDTXMania.DTX.listChip.Count; i++ )
 			bool bSuccessSeek = false;
 			for ( int i = 0; i < dTX.listChip.Count; i++ )
@@ -4385,9 +4397,9 @@ namespace TJAPlayer3
 				// this.n現在のトップChip = CDTXMania.DTX.listChip.Count - 1;
 				this.n現在のトップChip = 0;		// 対象小節が存在しないなら、最初から再生
 			}
-			#endregion
+#endregion
 
-			#region [ 演奏開始の発声時刻msを取得し、タイマに設定 ]
+#region [ 演奏開始の発声時刻msを取得し、タイマに設定 ]
 			int nStartTime = dTX.listChip[ this.n現在のトップChip ].n発声時刻ms;
 
 			CSound管理.rc演奏用タイマ.tリセット();	// これでPAUSE解除されるので、次のPAUSEチェックは不要
@@ -4396,11 +4408,11 @@ namespace TJAPlayer3
 				CSound管理.rc演奏用タイマ.t一時停止();
 			//}
 			CSound管理.rc演奏用タイマ.n現在時刻 = nStartTime;
-			#endregion
+#endregion
 
 			List<CSound> pausedCSound = new List<CSound>();
 
-			#region [ BGMやギターなど、演奏開始のタイミングで再生がかかっているサウンドのの途中再生開始 ] // (CDTXのt入力_行解析_チップ配置()で小節番号が+1されているのを削っておくこと)
+#region [ BGMやギターなど、演奏開始のタイミングで再生がかかっているサウンドのの途中再生開始 ] // (CDTXのt入力_行解析_チップ配置()で小節番号が+1されているのを削っておくこと)
 			for ( int i = this.n現在のトップChip; i >= 0; i-- )
 			{
 				CDTX.CChip pChip = dTX.listChip[ i ];
@@ -4417,7 +4429,7 @@ namespace TJAPlayer3
 						if ( ( wc.bIsBGMSound && TJAPlayer3.ConfigIni.bBGM音を発声する ) || ( !wc.bIsBGMSound ) )
 						{
 							TJAPlayer3.DTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻 + pChip.n発声時刻ms, (int) Eレーン.BGM );
-							#region [ PAUSEする ]
+#region [ PAUSEする ]
 							int j = wc.n現在再生中のサウンド番号;
 							if ( wc.rSound[ j ] != null )
 							{
@@ -4425,24 +4437,24 @@ namespace TJAPlayer3
 							    wc.rSound[ j ].t再生位置を変更する( nStartTime - pChip.n発声時刻ms );
 							    pausedCSound.Add( wc.rSound[ j ] );
 							}
-							#endregion
+#endregion
 						}
 					}
 				}
 			}
-			#endregion
-			#region [ 演奏開始時点で既に表示されているBGAとAVIの、シークと再生 ]
+#endregion
+#region [ 演奏開始時点で既に表示されているBGAとAVIの、シークと再生 ]
 			this.actAVI.SkipStart( nStartTime );
-			#endregion
-			#region [ PAUSEしていたサウンドを一斉に再生再開する(ただしタイマを止めているので、ここではまだ再生開始しない) ]
+#endregion
+#region [ PAUSEしていたサウンドを一斉に再生再開する(ただしタイマを止めているので、ここではまだ再生開始しない) ]
 			foreach ( CSound cs in pausedCSound )
 			{
 				cs.tサウンドを再生する();
 			}
 			pausedCSound.Clear();
 			pausedCSound = null;
-			#endregion
-			#region [ タイマを再開して、PAUSEから復帰する ]
+#endregion
+#region [ タイマを再開して、PAUSEから復帰する ]
 			CSound管理.rc演奏用タイマ.n現在時刻 = nStartTime;
 			TJAPlayer3.Timer.tリセット();						// これでPAUSE解除されるので、3行先の再開()は不要
 			TJAPlayer3.Timer.n現在時刻 = nStartTime;				// Debug表示のTime: 表記を正しくするために必要
@@ -4450,8 +4462,8 @@ namespace TJAPlayer3
 			//CDTXMania.Timer.t再開();
 			this.bPAUSE = false;								// システムがPAUSE状態だったら、強制解除
 			this.actPanel.Start();
-			#endregion
-			#endregion
+#endregion
+#endregion
 		}
 
         public void t演奏中止()
@@ -4746,6 +4758,6 @@ namespace TJAPlayer3
                 //this.nScore[ 4 ] = (int)( nInit + ( nDiff * 8 ) );
             }
         }
-        #endregion
+#endregion
 	}
 }
