@@ -2429,7 +2429,7 @@ namespace TJAPlayer3
             }
             #endregion
 #if DEBUG
-            if (player == 0)
+            if(player == 0)
             {
                 TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
                 TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
@@ -3190,7 +3190,7 @@ namespace TJAPlayer3
                 //    NowProcessingChip[pChip.nPlayerSide] = nCurrentTopChip;
                 //}
 
-                if(pChip.n発声時刻ms >= n現在時刻ms)
+                if(pChip.nPlayerSide == nPlayer && pChip.n発声時刻ms >= n現在時刻ms)
                 {
                     NowProcessingChip[pChip.nPlayerSide] = nCurrentTopChip;
                 }
