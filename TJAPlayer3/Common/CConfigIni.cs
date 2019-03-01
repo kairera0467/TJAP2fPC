@@ -1342,8 +1342,8 @@ namespace TJAPlayer3
 			this.nヒット範囲ms = new STRANGE();
 			this.nヒット範囲ms.Perfect = 30;
 			this.nヒット範囲ms.Great = -1; //使用しません。
-			this.nヒット範囲ms.Good = 110;
-			this.nヒット範囲ms.Poor = 140;
+			this.nヒット範囲ms.Good = 100;
+			this.nヒット範囲ms.Poor = 130;
 			this.ConfigIniファイル名 = "";
 			this.dicJoystick = new Dictionary<int, string>( 10 );
 			this.tデフォルトのキーアサインに設定する();
