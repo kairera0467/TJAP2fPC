@@ -93,7 +93,7 @@ namespace TJAPlayer3
 					"     曲データの一覧を\n       取得しています。\n   しばらくお待ちください。",
 					" Now enumerating songs.\n         Please wait..."
 				};
-				int ci = ( CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
+				int ci = ( CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
 				if ( ( strMessage != null ) && ( strMessage.Length > 0 ) )
 				{
 					Bitmap image = new Bitmap( 1, 1 );

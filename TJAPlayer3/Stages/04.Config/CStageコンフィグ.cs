@@ -642,7 +642,7 @@ namespace TJAPlayer3
 						break;
 				}
 				
-				int c = (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
+				int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 				for (int i = 0; i < 2; i++)
 				{
 					graphics.DrawString( str[ c, i ], this.ftフォント, Brushes.White, new PointF( 8f, ( i * 30 ) * 1.5f ) );

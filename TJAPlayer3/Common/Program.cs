@@ -20,7 +20,7 @@ namespace TJAPlayer3
 
 		private static bool tDLLの存在チェック( string strDll名, string str存在しないときに表示するエラー文字列jp, string str存在しないときに表示するエラー文字列en, bool bLoadDllCheck )
 		{
-			string str存在しないときに表示するエラー文字列 = ( CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja" ) ?
+			string str存在しないときに表示するエラー文字列 = ( CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja" ) ?
 				str存在しないときに表示するエラー文字列jp : str存在しないときに表示するエラー文字列en;
 			if ( bLoadDllCheck )
 			{
@@ -73,6 +73,7 @@ namespace TJAPlayer3
 				Trace.WriteLine( "EXEのあるフォルダ: " + Path.GetDirectoryName( Application.ExecutablePath ) );
 
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ja-JP");
 
                 #region [DLLの存在チェック]
                 if ( !tDLLの存在チェック( "dll\\SlimDX" + TJAPlayer3.SLIMDXDLL + ".dll",
