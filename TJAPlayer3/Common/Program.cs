@@ -73,7 +73,7 @@ namespace TJAPlayer3
 				Trace.WriteLine( "EXEのあるフォルダ: " + Path.GetDirectoryName( Application.ExecutablePath ) );
 
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ja-JP");
+
 
                 #region [DLLの存在チェック]
                 if ( !tDLLの存在チェック( "dll\\SlimDX" + TJAPlayer3.SLIMDXDLL + ".dll",
