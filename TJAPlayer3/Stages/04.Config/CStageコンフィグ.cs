@@ -583,6 +583,7 @@ namespace TJAPlayer3
 				var image = new Bitmap( 440, 288 );		// 説明文領域サイズの縦横 2 倍。（描画時に 0.5 倍で表示する。）
 				var graphics = Graphics.FromImage( image );
 				graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 				
 				string[,] str = new string[ 2, 2 ];
 				switch( this.n現在のメニュー番号 )
@@ -669,8 +670,9 @@ namespace TJAPlayer3
 				var image = new Bitmap( 440, 288 );		// 説明文領域サイズの縦横 2 倍。（描画時に 0.5 倍で表示する___のは中止。処理速度向上のため。）
 				var graphics = Graphics.FromImage( image );
 				graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
-				CItemBase item = this.actList.ib現在の選択項目;
+                CItemBase item = this.actList.ib現在の選択項目;
 				if( ( item.str説明文 != null ) && ( item.str説明文.Length > 0 ) )
 				{
                     graphics.DrawString( item.str説明文, this.ftフォント, Brushes.White, new RectangleF( 8f, 0, 630, 430 ) );
