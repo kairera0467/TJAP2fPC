@@ -47,6 +47,7 @@ namespace DTXMania
                                                    new 分岐文字(), new 分岐文字(), new 分岐文字()};
 
             this._分岐背景レイヤー = new 分岐背景レイヤー[4]{ new 分岐背景レイヤー(), new 分岐背景レイヤー(), new 分岐背景レイヤー(), new 分岐背景レイヤー()};
+            this._ゴーゴー炎 = new ゴーゴー炎[ 4 ] { new ゴーゴー炎(), new ゴーゴー炎(), new ゴーゴー炎(), new ゴーゴー炎() };
             base.On活性化();
         }
 
@@ -72,6 +73,12 @@ namespace DTXMania
                 s.Dispose();
             }
             this._分岐背景レイヤー = null;
+
+            foreach( ゴーゴー炎 s in this._ゴーゴー炎 )
+            {
+                s.Dispose();
+            }
+            this._ゴーゴー炎 = null;
             base.On非活性化();
         }
 
@@ -236,7 +243,7 @@ namespace DTXMania
 
                     if( CDTXMania.ConfigIni.nBranchAnime == 1 )
                     {
-                        #region[ AC7～14風の背後レイヤー ]
+                        #region[ AC15風の背後レイヤー ]
                         if( this.stBranch[ i ].ct分岐アニメ進行.b進行中 )
                         {
                             int n透明度 = ( ( 100 - this.stBranch[ i ].ct分岐アニメ進行.n現在の値 ) * 0xff ) / 100;
@@ -311,6 +318,7 @@ namespace DTXMania
                     }
                     else if( CDTXMania.ConfigIni.nBranchAnime == 0 )
                     {
+                        #region[ AC7～14風背景レイヤー(Storyboard使用) ]
                         if( this._分岐背景レイヤー[ 0 ].ストーリーボード != null )
                         {
                             #region[ 普通譜面_レベルアップ ]
@@ -380,6 +388,7 @@ namespace DTXMania
                             }
                             #endregion
                         }
+                        #endregion
                     }
                 }
             }
@@ -387,6 +396,7 @@ namespace DTXMania
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 #region[ ゴーゴータイムレーン背景レイヤー ]
+                // ToDo:登場アニメーションにStoryboardを使用する
                 if( this.txゴーゴー != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[ i ] )
                 {
                     if( !this.ctゴーゴー.b停止中 )
@@ -665,23 +675,20 @@ namespace DTXMania
                     {
                         float f倍率 = 1.0f;
 
-                        float[] ar倍率 = new float[] { 0.8f, 1.2f, 1.7f, 2.5f, 2.3f, 2.2f, 2.0f, 1.8f, 1.7f, 1.6f, 1.6f, 1.5f, 1.5f, 1.4f, 1.3f, 1.2f, 1.1f, 1.0f };
-
-                        f倍率 = ar倍率[ this.ctゴーゴー.n現在の値 ];
-
-                        Matrix mat = Matrix.Identity;
-                        mat *= Matrix.Scaling(f倍率, f倍率, 1.0f);
-                        mat *= Matrix.Translation( CDTXMania.Skin.nScrollFieldX[ i ] - SampleFramework.GameWindowSize.Width / 2.0f, -( CDTXMania.Skin.nJudgePointY[ i ] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
-
                         this.txゴーゴー炎.b加算合成 = true;
-
-                        //this.ctゴーゴー.n現在の値 = 6;
-                        if( this.ctゴーゴー.b終了値に達した )
+                        
+                        if( !CAnimationManager.b進行中( this._ゴーゴー炎[ 0 ].ストーリーボード ) )
                         {
                             this.txゴーゴー炎.t2D描画( CDTXMania.app.Device, CDTXMania.Skin.nScrollFieldX[ i ] - 180, CDTXMania.Skin.nJudgePointY[ i ] - (this.txゴーゴー炎.szテクスチャサイズ.Height / 2), new Rectangle( 360 * ( this.ctゴーゴー炎.n現在の値 ), 0, 360, 370 ) );
                         }
                         else
                         {
+                            f倍率 = ( float )this._ゴーゴー炎[ 0 ].拡大率.Value;
+
+                            Matrix mat = Matrix.Identity;
+                            mat *= Matrix.Scaling(f倍率, f倍率, 1.0f);
+                            mat *= Matrix.Translation( CDTXMania.Skin.nScrollFieldX[ i ] - SampleFramework.GameWindowSize.Width / 2.0f, -( CDTXMania.Skin.nJudgePointY[ i ] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
+
                             this.txゴーゴー炎.t3D描画( CDTXMania.app.Device, mat, new Rectangle( 360 * ( this.ctゴーゴー炎.n現在の値 ), 0, 360, 370 ) );
                         }
                     }
@@ -802,11 +809,34 @@ namespace DTXMania
 			}
 		}
 
-        public void GOGOSTART()
+        /// <summary>
+        /// ゴーゴータイム開始のアニメーションを構築して実行する
+        /// </summary>
+        public void GOGOSTART( int player )
         {
             this.ctゴーゴー = new CCounter( 0, 17, 18, CDTXMania.Timer );
             //if( this.ctゴーゴー.b停止中 )
-                //this.ctゴーゴー.t進行();
+            //this.ctゴーゴー.t進行();
+            #region[ ストーリーボードの構築 ]
+            float 速度倍率 = 1.0f;
+            double 秒(double v) => ( v / 速度倍率 );
+            var animation = CDTXMania.AnimationManager;
+            var basetime = animation.Timer.Time;
+            var start = basetime;
+
+            var ゴーゴー炎 = this._ゴーゴー炎[ player ];
+            ゴーゴー炎.Dispose();
+            ゴーゴー炎.拡大率 = new Variable( animation.Manager, 0.8 );
+            ゴーゴー炎.ストーリーボード = new Storyboard( animation.Manager );
+
+            using (var 拡大率変化 = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.07), 2.5, 0.2, 0.8))
+                ゴーゴー炎.ストーリーボード.AddTransition( ゴーゴー炎.拡大率, 拡大率変化 );
+
+            using (var 拡大率変化 = animation.TrasitionLibrary.Linear(秒(0.25), 1.0))
+                ゴーゴー炎.ストーリーボード.AddTransition( ゴーゴー炎.拡大率, 拡大率変化 );
+
+            ゴーゴー炎.ストーリーボード.Schedule( start );
+            #endregion
         }
 
 
@@ -986,7 +1016,6 @@ namespace DTXMania
             }
             分岐文字現在.ストーリーボード.Schedule( start );
             #endregion
-
             #region[ 次回の分岐文字アニメーションを構築 ]
 
             分岐文字次回.Dispose();
@@ -1368,6 +1397,20 @@ namespace DTXMania
                 return false;
             }
         }
+        protected class ゴーゴー炎 : IDisposable
+        {
+            public Variable 拡大率;
+            public Storyboard ストーリーボード;
+            public void Dispose()
+            {
+                this.ストーリーボード?.Abandon();
+                this.ストーリーボード = null;
+
+                this.拡大率?.Dispose();
+                this.拡大率 = null;
+            }
+        }
+        protected ゴーゴー炎[] _ゴーゴー炎 = null;
         //-----------------
         #endregion
     }

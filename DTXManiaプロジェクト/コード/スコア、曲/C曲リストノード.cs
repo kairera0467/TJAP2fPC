@@ -19,6 +19,7 @@ namespace DTXMania
 			BOX,
 			BACKBOX,
 			RANDOM,
+            COURSE,
 			UNKNOWN
 		}
 		public int nID { get; private set; }

@@ -57,12 +57,6 @@ namespace DTXMania
 		HALF,
 		FULL
 	}
-    public enum EWindowMovieMode
-    {
-        OFF = 0,
-        左下 = 1,
-        中央下 = 2
-    }
 	public enum Eダメージレベル
 	{
 		少ない	= 0,
@@ -763,19 +757,7 @@ namespace DTXMania
 		}
     }
 
-    #region[Ver.K追加]
-    public enum Eレーンタイプ
-    {
-        TypeA,
-        TypeB,
-        TypeC,
-        TypeD
-    }
-    public enum Eミラー
-    {
-        TypeA,
-        TypeB
-    }
+
     public enum EClipDispType
     {
         背景のみ           = 1,
@@ -783,7 +765,12 @@ namespace DTXMania
         両方               = 3,
         OFF                = 0
     }
-    #endregion
+    
+    public enum EDBモード // 2019.2.24 kairera0467 デバッグ以外での使用は禁止。(公開してしまうとトラブルの元になるため)
+    {
+        SQLite,
+        MySQL
+    }
 
     internal class C定数
 	{

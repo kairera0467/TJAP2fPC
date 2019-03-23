@@ -14,6 +14,8 @@ namespace DTXMania
     /// </summary>
     public class CDBUtil
     {
+        //public 
+
         public int nDBバージョン
         {
             get;
@@ -23,10 +25,17 @@ namespace DTXMania
         private readonly string strDBFileName = "tjap2fpc";
         SQLiteConnectionStringBuilder sqlConnectionSb;
         SQLiteConnection connection;
-        public void initalize()
+        public void initalize( EDBモード eDBmode )
         {
-            this.sqlConnectionSb = new SQLiteConnectionStringBuilder { DataSource = CDTXMania.strEXEのあるフォルダ + "\\"+ strDBFileName + ".sqlite" };
-            this.connection = new SQLiteConnection(sqlConnectionSb.ToString());
+            if( eDBmode == EDBモード.SQLite )
+            {
+                this.sqlConnectionSb = new SQLiteConnectionStringBuilder { DataSource = CDTXMania.strEXEのあるフォルダ + "\\"+ strDBFileName + ".sqlite" };
+                this.connection = new SQLiteConnection(sqlConnectionSb.ToString());
+            }
+            else if( eDBmode == EDBモード.MySQL )
+            {
+
+            }
         }
 
         /// <summary>

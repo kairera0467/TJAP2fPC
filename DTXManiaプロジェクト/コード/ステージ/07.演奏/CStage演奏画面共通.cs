@@ -2920,7 +2920,7 @@ namespace DTXMania
                         {
                             pChip.bHit = true;
                             this.bIsGOGOTIME[ nPlayer ] = true;
-                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.GOGOSTART();
+                            CDTXMania.stage演奏ドラム画面.actLaneTaiko.GOGOSTART( 0 );
                             this.actGogoSplash.tSplashStart();
                         }
                         break;

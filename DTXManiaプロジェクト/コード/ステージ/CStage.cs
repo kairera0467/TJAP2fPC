@@ -69,7 +69,8 @@ namespace DTXMania
 			演奏_STAGE_FAILED_フェードアウト,
 			演奏_STAGE_CLEAR_フェードアウト,
             演奏_演奏終了演出, //2016.07.15 kairera0467
-			演奏_再読込
+			演奏_再読込,
+            演奏_次曲開始待機 // 2019.03.18 kairera0467
 		}
 	}
 }

@@ -1161,8 +1161,8 @@ namespace DTXMania
         #endregion
 
         #region[Position]
-        public Eレーンタイプ eLaneType;
-        public Eミラー eMirror;
+        //public Eレーンタイプ eLaneType;
+        //public Eミラー eMirror;
 
         #endregion
         #region[System]
@@ -1364,7 +1364,7 @@ namespace DTXMania
             this.eGaugeMode = Eゲージモード.Normal;
 
             #region[ Ver.K追加 ]
-            this.eLaneType = Eレーンタイプ.TypeA;
+            //this.eLaneType = Eレーンタイプ.TypeA;
             this.bDirectShowMode = false;
             this.bドラムコンボ表示 = true;
             #endregion

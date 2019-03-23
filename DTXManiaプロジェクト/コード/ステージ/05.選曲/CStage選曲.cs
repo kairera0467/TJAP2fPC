@@ -51,6 +51,13 @@ namespace DTXMania
 				return this.act曲リスト.bスクロール中;
 			}
 		}
+        public bool bActivePopup // 2019.3.22 kairera0467
+        {
+            get
+            {
+                return this.actQuickConfig.bIsActivePopupMenu || this.actSortSongs.bIsActivePopupMenu;
+            }
+        }
 		public int n確定された曲の難易度
 		{
 			get;

@@ -33,15 +33,16 @@ namespace DTXMania
 				return true;
 			}
 		}
-        public void n現在のアンカ難易度レベル_渡( int nCurrentLevel )
+        public void n現在のアンカ難易度レベル_渡( int player, int nCurrentLevel )
         {
-            this.n現在のアンカ難易度レベル = nCurrentLevel;
+            this.n現在のアンカ難易度レベル[ player ] = nCurrentLevel;
         }
-		public int n現在のアンカ難易度レベル 
-		{
-			get;
-			private set;
-		}
+		//public int n現在のアンカ難易度レベル 
+		//{
+		//	get;
+		//	private set;
+		//}
+        public int[] n現在のアンカ難易度レベル = new int[ 2 ];
 		public int n現在選択中の曲の現在の難易度レベル
 		{
 			get
@@ -136,7 +137,7 @@ namespace DTXMania
                 this.nパネル枚数 = 15;
 
             this.r現在選択中の曲 = null;
-            this.n現在のアンカ難易度レベル = CDTXMania.ConfigIni.nDefaultCourse;
+            this.n現在のアンカ難易度レベル[ 0 ] = CDTXMania.ConfigIni.nDefaultCourse;
 			base.b活性化してない = true;
 			this.bIsEnumeratingSongs = false;
 		}
@@ -149,10 +150,10 @@ namespace DTXMania
 			// 事前チェック。
 
 			if( song == null )
-				return this.n現在のアンカ難易度レベル;	// 曲がまったくないよ
+				return this.n現在のアンカ難易度レベル[ 0 ];	// 曲がまったくないよ
 
-			if( song.arスコア[ this.n現在のアンカ難易度レベル ] != null )
-				return this.n現在のアンカ難易度レベル;	// 難易度ぴったりの曲があったよ
+			if( song.arスコア[ this.n現在のアンカ難易度レベル[ 0 ] ] != null )
+				return this.n現在のアンカ難易度レベル[ 0 ];	// 難易度ぴったりの曲があったよ
 
 			if( ( song.eノード種別 == C曲リストノード.Eノード種別.BOX ) || ( song.eノード種別 == C曲リストノード.Eノード種別.BACKBOX ) )
 				return 0;								// BOX と BACKBOX は関係無いよ
@@ -160,7 +161,7 @@ namespace DTXMania
 
 			// 現在のアンカレベルから、難易度上向きに検索開始。
 
-			int n最も近いレベル = this.n現在のアンカ難易度レベル;
+			int n最も近いレベル = this.n現在のアンカ難易度レベル[ 0 ];
 
 			for( int i = 0; i < 5; i++ )
 			{
@@ -174,11 +175,11 @@ namespace DTXMania
 			// 見つかった曲がアンカより下のレベルだった場合……
 			// アンカから下向きに検索すれば、もっとアンカに近い曲があるんじゃね？
 
-			if( n最も近いレベル < this.n現在のアンカ難易度レベル )
+			if( n最も近いレベル < this.n現在のアンカ難易度レベル[ 0 ] )
 			{
 				// 現在のアンカレベルから、難易度下向きに検索開始。
 
-				n最も近いレベル = this.n現在のアンカ難易度レベル;
+				n最も近いレベル = this.n現在のアンカ難易度レベル[ 0 ];
 
 				for( int i = 0; i < 5; i++ )
 				{
@@ -341,12 +342,12 @@ namespace DTXMania
 
 			// 難易度レベルを＋１し、現在選曲中のスコアを変更する。
 
-			this.n現在のアンカ難易度レベル = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r現在選択中の曲 );
+			this.n現在のアンカ難易度レベル[ 0 ] = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r現在選択中の曲 );
 
 			for( int i = 0; i < 5; i++ )
 			{
-				this.n現在のアンカ難易度レベル = ( this.n現在のアンカ難易度レベル + 1 ) % 5;	// ５以上になったら０に戻る。
-				if( this.r現在選択中の曲.arスコア[ this.n現在のアンカ難易度レベル ] != null )	// 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
+				this.n現在のアンカ難易度レベル[ 0 ] = ( this.n現在のアンカ難易度レベル[ 0 ] + 1 ) % 5;	// ５以上になったら０に戻る。
+				if( this.r現在選択中の曲.arスコア[ this.n現在のアンカ難易度レベル[ 0 ] ] != null )	// 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
 					break;
 			}
 
@@ -385,21 +386,21 @@ namespace DTXMania
 
 			// 難易度レベルを＋１し、現在選曲中のスコアを変更する。
 
-			this.n現在のアンカ難易度レベル = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r現在選択中の曲 );
+			this.n現在のアンカ難易度レベル[ 0 ] = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す( this.r現在選択中の曲 );
 
-            this.n現在のアンカ難易度レベル--;
-            if( this.n現在のアンカ難易度レベル < 0 ) // 0より下になったら4に戻す。
+            this.n現在のアンカ難易度レベル[ 0 ]--;
+            if( this.n現在のアンカ難易度レベル[ 0 ] < 0 ) // 0より下になったら4に戻す。
             {
-                this.n現在のアンカ難易度レベル = 4;
+                this.n現在のアンカ難易度レベル[ 0 ] = 4;
             }
 
             //2016.08.13 kairera0467 かんたん譜面が無い譜面(ふつう、むずかしいのみ)で、難易度を最上位に戻せない不具合の修正。
             bool bLabel0NotFound = true;
-            for( int i = this.n現在のアンカ難易度レベル; i >= 0; i-- )
+            for( int i = this.n現在のアンカ難易度レベル[ 0 ]; i >= 0; i-- )
             {
                 if( this.r現在選択中の曲.arスコア[ i ] != null )
                 {
-                    this.n現在のアンカ難易度レベル = i;
+                    this.n現在のアンカ難易度レベル[ 0 ] = i;
                     bLabel0NotFound = false;
                     break;
                 }
@@ -410,7 +411,7 @@ namespace DTXMania
                 {
                     if( this.r現在選択中の曲.arスコア[ i ] != null )
                     {
-                        this.n現在のアンカ難易度レベル = i;
+                        this.n現在のアンカ難易度レベル[ 0 ] = i;
                         break;
                     }
                 }

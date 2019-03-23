@@ -41,5 +41,23 @@ namespace FDK
         private Manager _Manager = null;
         private Timer _Timer = null;
         private TransitionLibrary _TrasitionLibrary = null;
+
+        /// <summary>
+        /// ストーリーボードのアニメーションが実行中であるかをbool型で返す
+        /// </summary>
+        /// <param name="ストーリーボード">対象のストーリーボード</param>
+        /// <returns>アニメーション実行中であればtrue、実行中でなければfalse</returns>
+        public static bool b進行中( Storyboard ストーリーボード )
+        {
+            if( ストーリーボード != null )
+            {
+                if( ストーリーボード.Status == StoryboardStatus.Playing ) return true;
+                else return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using FDK;
 
 namespace DTXMania
@@ -29,7 +31,8 @@ namespace DTXMania
 			
             if( ( cスコア != null ) && ( ( !( cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名 ).Equals( this.str現在のファイル名 ) || ( this.sound == null ) ) || !this.sound.b再生中 ) )
 			{
-				this.tサウンド停止();
+                //this.tサウンド停止();
+                this.tサウンドの停止MT();
 				this.tBGMフェードイン開始();
                 this.long再生位置 = -1;
 				if( ( cスコア.譜面情報.strBGMファイル名 != null ) && ( cスコア.譜面情報.strBGMファイル名.Length > 0 ) )
@@ -50,7 +53,6 @@ namespace DTXMania
             //}
 		}
 
-
 		// CActivity 実装
 
 		public override void On活性化()
@@ -62,6 +64,7 @@ namespace DTXMania
 			this.ctBGMフェードイン用 = null;
             this.long再生位置 = -1;
             this.long再生開始時のシステム時刻 = -1;
+            this.token = new CancellationTokenSource();
 			base.On活性化();
 		}
 		public override void On非活性化()
@@ -94,7 +97,8 @@ namespace DTXMania
 						this.ctBGMフェードアウト用.t停止();
 					}
 				}
-				this.t進行処理_プレビューサウンド();
+                //this.t進行処理_プレビューサウンド();
+                this.t進行処理MT_プレビューサウンド();
 
                 if (this.sound != null)
                 {
@@ -132,6 +136,7 @@ namespace DTXMania
         private long long再生開始時のシステム時刻;
 		private CSound sound;
 		private string str現在のファイル名;
+        private CancellationTokenSource token; // 2019.03.23 kairera0467 マルチスレッドの中断処理を行うためのトークン
 		
 		private void tBGMフェードアウト開始()
 		{
@@ -211,6 +216,88 @@ namespace DTXMania
 				}
 			}
 		}
+
+        /// <summary>
+        /// マルチスレッドに対応したプレビューサウンド進行処理
+        /// </summary>
+        private async void t進行処理MT_プレビューサウンド()
+        {
+			if( ( this.ct再生待ちウェイト != null ) && !this.ct再生待ちウェイト.b停止中 )
+			{
+				this.ct再生待ちウェイト.t進行();
+				if( !this.ct再生待ちウェイト.b終了値に達してない )
+				{
+					this.ct再生待ちウェイト.t停止();
+					if( !CDTXMania.stage選曲.bスクロール中 )
+					{
+                        Cスコア cスコア = CDTXMania.stage選曲.r現在選択中のスコア;
+			            if( ( cスコア != null ) && !string.IsNullOrEmpty( cスコア.譜面情報.strBGMファイル名 ) && CDTXMania.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト )
+			            {
+                            string strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
+
+                            // 2019.03.22 kairera0467 簡易マルチスレッド化
+                            Task<CSound> task = Task.Run<CSound>( () => {
+                                return this.tプレビューサウンドの作成MT( strPreviewFilename, token.Token );
+                            });
+                            this.sound = await task;
+                            if( this.sound != null )
+                            {
+                                this.sound.n音量 = 80;
+                                this.sound.t再生を開始する( true );
+                                if( long再生位置 == -1 )
+                                {
+                                    this.long再生開始時のシステム時刻 = CSound管理.rc演奏用タイマ.nシステム時刻ms;
+                                    this.long再生位置 = cスコア.譜面情報.nデモBGMオフセット;
+                                    this.sound.t再生位置を変更する( cスコア.譜面情報.nデモBGMオフセット );
+                                    this.long再生位置 = CSound管理.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
+                                }
+                                //if( long再生位置 == this.sound.n総演奏時間ms - 10 )
+                                //    this.long再生位置 = -1;
+
+                                this.str現在のファイル名 = strPreviewFilename;
+                                this.tBGMフェードアウト開始();
+                                Trace.TraceInformation( "プレビューサウンドを生成しました。({0})", strPreviewFilename );
+                            }
+                        }
+					}
+				}
+			}
+        }
+
+        public void tサウンドの停止MT()
+        {
+            if( this.sound != null )
+			{
+                if( token != null )
+                {
+                    token.Token.ThrowIfCancellationRequested();
+                    //token.Cancel();
+                }
+				this.sound.t再生を停止する();
+				CDTXMania.Sound管理.tサウンドを破棄する( this.sound );
+				this.sound = null;
+			}
+        }
+
+        /// <summary>
+        /// マルチスレッドに対応したプレビューサウンドの作成処理
+        /// </summary>
+        /// <param name="path">サウンドファイルのパス</param>
+        /// <param name="token">中断用トークン</param>
+        /// <returns></returns>
+        private CSound tプレビューサウンドの作成MT( string path, CancellationToken token )
+        {
+            try
+            {
+                return CDTXMania.Sound管理.tサウンドを生成する( path );
+            }
+            catch
+            {
+                Trace.TraceError( "プレビューサウンドの生成に失敗しました。({0})", path );
+            }
+
+            return null;
+        }
 		//-----------------
 		#endregion
 	}

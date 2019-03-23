@@ -2235,7 +2235,7 @@ for (int i = 0; i < 3; i++) {
             #region[ DBUtilの初期化 ]
             //----------
             DBUtil = new CDBUtil();
-            DBUtil.initalize();
+            DBUtil.initalize( EDBモード.SQLite );
             //----------
             #endregion
 
