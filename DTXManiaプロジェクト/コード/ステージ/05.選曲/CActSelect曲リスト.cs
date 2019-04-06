@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Diagnostics;
 using System.Drawing.Text;
+using SharpDX.Animation;
 
 using SlimDX;
 using FDK;
@@ -580,6 +581,8 @@ namespace DTXMania
             this.ct三角矢印アニメ = new CCounter();
             this.ct譜面分岐文字アニメ = new CCounter();
 
+            this._曲パネル位置 = new 曲パネル位置();
+
 			base.On活性化();
 
 			this.t選択曲が変更された(true);		// #27648 2012.3.31 yyagi 選曲画面に入った直後の 現在位置/全アイテム数 の表示を正しく行うため
@@ -596,6 +599,8 @@ namespace DTXMania
 
             this.ct三角矢印アニメ = null;
             this.ct譜面分岐文字アニメ = null;
+
+            this._曲パネル位置?.Dispose();
 
 			base.On非活性化();
 		}
@@ -2230,7 +2235,27 @@ namespace DTXMania
                 x += 16;
             }
         }
-		//-----------------
-		#endregion
+        //-----------------
+        #endregion
+
+        private 曲パネル位置 _曲パネル位置;
+        private class 曲パネル位置 : IDisposable
+        {
+            public Variable 非選択X;
+            public Variable 非選択Y;
+            public Storyboard ストーリーボード;
+
+            public void Dispose()
+            {
+                ストーリーボード?.Abandon();
+                ストーリーボード = null;
+
+                this.非選択X?.Dispose();
+                this.非選択X = null;
+
+                this.非選択Y?.Dispose();
+                this.非選択Y = null;
+            }
+        }
 	}
 }

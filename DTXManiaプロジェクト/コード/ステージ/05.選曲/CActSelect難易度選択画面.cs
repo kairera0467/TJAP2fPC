@@ -603,7 +603,7 @@ namespace DTXMania
         //構造体
         protected struct ST難易度選択項目
         {
-            public CTexture txパネル;
+            public CTexture txパネル; // 2019.03.31 kairera0467 ここでパネルのテクスチャを管理するのはメモリリークの原因になるので構造体からは分離するべき
             public E項目種類 e項目種類;
             public Point ptパネル座標;
             public Rectangle rectパネル位置;

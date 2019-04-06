@@ -284,7 +284,7 @@ namespace FDK
 		{
 			t2D描画( device, (int) x, (int) y );
 		}
-		public new void t2D描画( Device device, float x, float y, Rectangle rc )
+		public void t2D描画( Device device, float x, float y, Rectangle rc )
 		{
 			t2D描画( device, (int) x, (int) y, rc );
 		}

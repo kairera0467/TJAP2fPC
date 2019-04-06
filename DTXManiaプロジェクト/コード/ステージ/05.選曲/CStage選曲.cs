@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
 using System.IO;
+using SharpDX.Animation;
 using FDK;
 
 namespace DTXMania
@@ -196,6 +197,8 @@ namespace DTXMania
 
                 this.ctDiffSelect移動待ち = new CCounter();
                 this.ctDiffSelect戻り待ち = new CCounter();
+
+                this._左上テキスト = new 左上テキスト();
 			}
 			finally
 			{
@@ -222,6 +225,8 @@ namespace DTXMania
 				}
                 this.ct背景スクロール = null;
 				base.On非活性化();
+
+                this._左上テキスト.Dispose();
 			}
 			finally
 			{
@@ -329,6 +334,7 @@ namespace DTXMania
 						base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
 					}
 					this.t選択曲変更通知();
+                    this.t左上テキスト登場();
 					base.b初めての進行描画 = false;
 				}
 				//---------------------
@@ -384,10 +390,25 @@ namespace DTXMania
 
                 this.tx上部パネル?.t2D描画( CDTXMania.app.Device, 0, 0 );
 
-                if( !this.act難易度選択画面.bIsDifficltSelect )
-                    this.tx左上テキスト?.t2D描画( CDTXMania.app.Device, -this.tx左上テキスト.sz画像サイズ.Width + x, 0, new Rectangle( 0, 0, this.tx左上テキスト.sz画像サイズ.Width, 90 ) );
-                else if( this.act難易度選択画面.bIsDifficltSelect && this.ctDiffSelect移動待ち.b終了値に達した )
-                    this.tx左上テキスト?.t2D描画( CDTXMania.app.Device, -this.tx左上テキスト.sz画像サイズ.Width + x, 0, new Rectangle( 0, 90, this.tx左上テキスト.sz画像サイズ.Width, 90 ) );
+                //if( !this.act難易度選択画面.bIsDifficltSelect )
+                //    this.tx左上テキスト?.t2D描画( CDTXMania.app.Device, -this.tx左上テキスト.sz画像サイズ.Width + x, 0, new Rectangle( 0, 0, this.tx左上テキスト.sz画像サイズ.Width, 90 ) );
+                //else if( this.act難易度選択画面.bIsDifficltSelect && this.ctDiffSelect移動待ち.b終了値に達した )
+                //    this.tx左上テキスト?.t2D描画( CDTXMania.app.Device, -this.tx左上テキスト.sz画像サイズ.Width + x, 0, new Rectangle( 0, 90, this.tx左上テキスト.sz画像サイズ.Width, 90 ) );
+                if( this.tx左上テキスト != null )
+                {
+                    if( (int)this._左上テキスト.var表示内容.Value == 0 )
+                    {
+                        this.tx左上テキスト.n透明度 = (int)this._左上テキスト.var左上テキスト不透明度.Value;
+                        this.tx左上テキスト?.t2D描画( CDTXMania.app.Device, (int)this._左上テキスト.var左上テキスト位置X.Value, 0, new Rectangle( 0, 0, this.tx左上テキスト.sz画像サイズ.Width, 90 ) );
+                    }
+                    else if( (int)this._左上テキスト.var表示内容.Value == 1 )
+                    {
+                        this.tx左上テキスト.n透明度 = (int)this._左上テキスト.var左上テキスト不透明度.Value;
+                        this.tx左上テキスト?.t2D描画( CDTXMania.app.Device, (int)this._左上テキスト.var左上テキスト位置X.Value, 0, new Rectangle( 0, 90, this.tx左上テキスト.sz画像サイズ.Width, 90 ) );
+                    }
+                }
+                
+
 
 				this.actInformation.On進行描画();
 				this.tx下部パネル?.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.sz画像サイズ.Height );
@@ -591,15 +612,16 @@ namespace DTXMania
 						}
                         #endregion
                         #region [ TEST ]
-                        //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F11 ) )
-                        //{
-                        //    CDTXMania.Skin.sound決定音.t再生する();
-                        //    CDTXMania.Skin.sound曲読込開始音.t再生する();
-                        //    if( !this.act難易度選択画面.bIsDifficltSelect )
-                        //        this.ctDiffSelect移動待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
-                        //    this.act難易度選択画面.t選択画面初期化();
-                        //    C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
-                        //}
+                        if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.F11 ) )
+                        {
+                            //    CDTXMania.Skin.sound決定音.t再生する();
+                            //    CDTXMania.Skin.sound曲読込開始音.t再生する();
+                            //    if( !this.act難易度選択画面.bIsDifficltSelect )
+                            //        this.ctDiffSelect移動待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
+                            //    this.act難易度選択画面.t選択画面初期化();
+                            //    C共通.bToggleBoolian( ref this.act難易度選択画面.bIsDifficltSelect );
+                            this.t左上テキスト登場();
+                        }
                         //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.NumberPad7 ) )
                         //{
                         //    this.t難易度選択画面を閉じる();
@@ -607,7 +629,7 @@ namespace DTXMania
 						#endregion
 
 
-						if ( this.act曲リスト.r現在選択中の曲 != null )
+						if( this.act曲リスト.r現在選択中の曲 != null && (!this.ctDiffSelect戻り待ち.b進行中 || this.ctDiffSelect戻り待ち.b終了値に達した) )
 						{
 							#region [ Decide ]
 							if ( ( CDTXMania.Pad.b押されたDGB( Eパッド.Decide ) || ( CDTXMania.Pad.b押されたDGB( Eパッド.LRed ) || CDTXMania.Pad.b押されたDGB( Eパッド.RRed ) ) ||
@@ -622,6 +644,7 @@ namespace DTXMania
                                             {
                                                 CDTXMania.Skin.sound決定音.t再生する();
                                                 CDTXMania.Skin.sound曲読込開始音.t再生する();
+                                                this.t曲確定進行();
                                                 if( !this.act難易度選択画面.bIsDifficltSelect )
                                                     this.ctDiffSelect移動待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
                                                 this.act難易度選択画面.t選択画面初期化();
@@ -1174,6 +1197,56 @@ namespace DTXMania
                 this.ctDiffSelect戻り待ち = new CCounter( 0, 1062, 1, CDTXMania.Timer );
             //this.act難易度選択画面.t選択画面初期化();
             this.act難易度選択画面.bIsDifficltSelect = false;
+
+            float f速度倍率 = 1.0f;
+            double 秒( double v ) => ( v / f速度倍率 );
+            var animation = CDTXMania.AnimationManager;
+            var basetime = animation.Timer.Time;
+            var start = basetime;
+
+            var text = this._左上テキスト;
+            text.Dispose();
+            text.var左上テキスト位置X = new Variable( animation.Manager, 0 );
+            text.var左上テキスト位置Y = new Variable( animation.Manager, 0 );
+            text.var左上テキスト不透明度 = new Variable( animation.Manager, 255 );
+            text.var表示内容 = new Variable( animation.Manager, 1 );
+            text.sb左上テキスト = new Storyboard( animation.Manager );
+            
+            using ( var 透明度 = animation.TrasitionLibrary.Linear( 秒( 0.1 ), 0 ) )
+            using ( var 内容 = animation.TrasitionLibrary.Constant( 秒( 0.1 ) ) )
+            using ( var 移動X = animation.TrasitionLibrary.Constant(秒(0.1)))
+            {
+                text.sb左上テキスト.AddTransition( text.var左上テキスト不透明度, 透明度 );
+                text.sb左上テキスト.AddTransition( text.var表示内容, 内容 );
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+            }
+            using (var 透明度 = animation.TrasitionLibrary.Constant(秒(0.5)))
+            using (var 内容 = animation.TrasitionLibrary.Constant(秒(0.5)))
+            using(var 移動X = animation.TrasitionLibrary.Constant(秒(0.5))) 
+            {
+                text.sb左上テキスト.AddTransition(text.var左上テキスト不透明度, 透明度);
+                text.sb左上テキスト.AddTransition(text.var表示内容, 内容);
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+            }
+            using ( var 透明度 = animation.TrasitionLibrary.Constant( 秒( 0.7 ) ) )
+            using ( var 内容 = animation.TrasitionLibrary.Linear( 秒( 0.7 ), 0 ) )
+            using ( var 移動X = animation.TrasitionLibrary.Linear(秒(0.7), -120))
+            {
+                text.sb左上テキスト.AddTransition( text.var左上テキスト不透明度, 透明度 );
+                text.sb左上テキスト.AddTransition( text.var表示内容, 内容 );
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+            }
+            using (var 移動X = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.25), 20, 0.3, 0.7))
+            using (var 透明度 = animation.TrasitionLibrary.Linear( 秒( 0.25 ), 255 ) )
+            {
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+                text.sb左上テキスト.AddTransition(text.var左上テキスト不透明度, 透明度);
+            }
+            using ( var 移動X = animation.TrasitionLibrary.AccelerateDecelerate( 秒(0.05), 0, 0.5, 0.5 ) )
+            {
+                text.sb左上テキスト.AddTransition( text.var左上テキスト位置X, 移動X );
+            }
+            text.sb左上テキスト.Schedule( start );
         }
 
         private int nStrジャンルtoNum( string strジャンル )
@@ -1214,6 +1287,118 @@ namespace DTXMania
 
             return nGenre;
         }
+
+        private void t左上テキスト登場()
+        {
+            float f速度倍率 = 1.0f;
+            double 秒( double v ) => ( v / f速度倍率 );
+            var animation = CDTXMania.AnimationManager;
+            var basetime = animation.Timer.Time;
+            var start = basetime;
+
+            var text = this._左上テキスト;
+            text.Dispose();
+            text.var左上テキスト位置X = new Variable( animation.Manager, -140 );
+            text.var左上テキスト位置Y = new Variable( animation.Manager, 0 );
+            text.var左上テキスト不透明度 = new Variable( animation.Manager, 0 );
+            text.var表示内容 = new Variable( animation.Manager, 0 );
+            text.sb左上テキスト = new Storyboard( animation.Manager );
+
+            using (var 移動X = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.25), 20, 0.3, 0.7))
+            using (var 透明度 = animation.TrasitionLibrary.Linear( 秒( 0.25 ), 255 ) )
+            {
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+                text.sb左上テキスト.AddTransition(text.var左上テキスト不透明度, 透明度);
+            }
+            using ( var 移動X = animation.TrasitionLibrary.AccelerateDecelerate( 秒(0.05), 0, 0.5, 0.5 ) )
+            {
+                text.sb左上テキスト.AddTransition( text.var左上テキスト位置X, 移動X );
+            }
+            text.sb左上テキスト.Schedule( start );
+        }
+
+        private void t曲確定進行()
+        {
+            float f速度倍率 = 1.0f;
+            double 秒( double v ) => ( v / f速度倍率 );
+            var animation = CDTXMania.AnimationManager;
+            var basetime = animation.Timer.Time;
+            var start = basetime;
+
+            var text = this._左上テキスト;
+            text.Dispose();
+            text.var左上テキスト位置X = new Variable( animation.Manager, 0 );
+            text.var左上テキスト位置Y = new Variable( animation.Manager, 0 );
+            text.var左上テキスト不透明度 = new Variable( animation.Manager, 255 );
+            text.var表示内容 = new Variable( animation.Manager, 0 );
+            text.sb左上テキスト = new Storyboard( animation.Manager );
+
+            using (var 透明度 = animation.TrasitionLibrary.Constant(秒(0.5)))
+            using (var 内容 = animation.TrasitionLibrary.Constant(秒(0.5)))
+            using(var 移動X = animation.TrasitionLibrary.Constant(秒(0.5))) 
+            {
+                text.sb左上テキスト.AddTransition(text.var左上テキスト不透明度, 透明度);
+                text.sb左上テキスト.AddTransition(text.var表示内容, 内容);
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+            }
+            using ( var 透明度 = animation.TrasitionLibrary.Linear( 秒( 0.1 ), 0 ) )
+            using ( var 内容 = animation.TrasitionLibrary.Constant( 秒( 0.1 ) ) )
+            using ( var 移動X = animation.TrasitionLibrary.Constant(秒(0.1)))
+            {
+                text.sb左上テキスト.AddTransition( text.var左上テキスト不透明度, 透明度 );
+                text.sb左上テキスト.AddTransition( text.var表示内容, 内容 );
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+            }
+            using ( var 透明度 = animation.TrasitionLibrary.Constant( 秒( 0.7 ) ) )
+            using ( var 内容 = animation.TrasitionLibrary.Linear( 秒( 0.7 ), 1 ) )
+            using ( var 移動X = animation.TrasitionLibrary.Linear(秒(0.7), -120))
+            {
+                text.sb左上テキスト.AddTransition( text.var左上テキスト不透明度, 透明度 );
+                text.sb左上テキスト.AddTransition( text.var表示内容, 内容 );
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+            }
+            using (var 移動X = animation.TrasitionLibrary.AccelerateDecelerate(秒(0.25), 20, 0.3, 0.7))
+            using (var 透明度 = animation.TrasitionLibrary.Linear( 秒( 0.25 ), 255 ) )
+            {
+                text.sb左上テキスト.AddTransition(text.var左上テキスト位置X, 移動X);
+                text.sb左上テキスト.AddTransition(text.var左上テキスト不透明度, 透明度);
+            }
+            using ( var 移動X = animation.TrasitionLibrary.AccelerateDecelerate( 秒(0.05), 0, 0.5, 0.5 ) )
+            {
+                text.sb左上テキスト.AddTransition( text.var左上テキスト位置X, 移動X );
+            }
+            text.sb左上テキスト.Schedule( start );
+        }
+
+        protected class 左上テキスト : IDisposable
+        {
+            public Storyboard sb左上テキスト;
+            public Variable var左上テキスト位置X;
+            public Variable var左上テキスト位置Y;
+            public Variable var左上テキスト不透明度;
+            /// <summary>
+            /// 0:曲を選ぶ 1:難易度を選ぶ
+            /// </summary>
+            public Variable var表示内容;
+            public void Dispose()
+            {
+                this.sb左上テキスト?.Abandon();
+                this.sb左上テキスト = null;
+
+                this.var左上テキスト位置X?.Dispose();
+                this.var左上テキスト位置X = null;
+
+                this.var左上テキスト位置Y?.Dispose();
+                this.var左上テキスト位置Y = null;
+
+                this.var左上テキスト不透明度?.Dispose();
+                this.var左上テキスト不透明度 = null;
+
+                this.var表示内容?.Dispose();
+                this.var表示内容 = null;
+            }
+        }
+        protected 左上テキスト _左上テキスト;
 		//-----------------
 		#endregion
 	}

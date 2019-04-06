@@ -508,7 +508,6 @@ namespace DTXMania
         private CAct演奏Drumsゲームモード actGame;
         public CAct演奏Drums背景 actBackground;
         private CAct演奏Drums背景フッター actFooter;
-        private int[] nチャンネルtoX座標 = new int[] { 370, 470, 582, 527, 645, 748, 694, 373, 815, 298, 419, 419 };
         private CCounter ct手つなぎ;
         private CTexture txヒットバーGB;
 		private CTexture txレーンフレームGB;
@@ -2288,6 +2287,10 @@ namespace DTXMania
                 this.t小文字表示( 206, 494, string.Format( "{0,3:##0}%", dbPERFECT率 ), false );
                 this.t小文字表示( 206, 532, string.Format( "{0,3:##0}%", dbGREAT率 ), false );
                 this.t小文字表示( 206, 570, string.Format( "{0,3:##0}%", dbMISS率 ), false );
+
+                // 2019.04.06 kairera0467
+                // 再生速度を仮設置
+                CDTXMania.act文字コンソール.tPrint( 0, 400, C文字コンソール.Eフォント種別.白, string.Format( "PlaySpeed x{0,4:#.00}", (double)(CDTXMania.ConfigIni.n演奏速度 / 20.0 ) ) );
             }
         }
 
