@@ -407,14 +407,21 @@ namespace TJAPlayer3
 				    this.t進行描画_背景();
                 }
 
-                actBackground.On進行描画();
-                actRollChara.On進行描画();
-                if ( TJAPlayer3.ConfigIni.bAVI有効 )
+                if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX.listAVI.Count > 0 && TJAPlayer3.DTX.listAVI[0].avi != null)
                 {
                     this.t進行描画_AVI();
                 }
+                else if (TJAPlayer3.ConfigIni.bBGA有効)
+                {
+                    actBackground.On進行描画();
+                }
 
-                if(!bDoublePlay && TJAPlayer3.ConfigIni.ShowDancer)
+                if (!TJAPlayer3.ConfigIni.bAVI有効)
+                {
+                    actRollChara.On進行描画();
+                }
+
+                if (!bDoublePlay && TJAPlayer3.ConfigIni.ShowDancer)
                 {
                     actDancer.On進行描画();
                 }
