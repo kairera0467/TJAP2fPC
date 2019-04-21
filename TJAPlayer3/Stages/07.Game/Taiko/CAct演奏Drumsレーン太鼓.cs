@@ -687,11 +687,17 @@ namespace TJAPlayer3
 
 
 
-            if (TJAPlayer3.ConfigIni.bAVI有効)
+            if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX.listAVI.Count > 0)
             {
-                if(TJAPlayer3.Tx.Lane_Background_Main != null) TJAPlayer3.Tx.Lane_Background_Main.n透明度 = 200;
-                if(TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.n透明度 = 200;
-                if(TJAPlayer3.Tx.Lane_Background_GoGo != null) TJAPlayer3.Tx.Lane_Background_GoGo.n透明度 = 200;
+                if (TJAPlayer3.Tx.Lane_Background_Main != null) TJAPlayer3.Tx.Lane_Background_Main.n透明度 = TJAPlayer3.ConfigIni.nBGAlpha;
+                if(TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.n透明度 = TJAPlayer3.ConfigIni.nBGAlpha;
+                if (TJAPlayer3.Tx.Lane_Background_GoGo != null) TJAPlayer3.Tx.Lane_Background_GoGo.n透明度 = TJAPlayer3.ConfigIni.nBGAlpha;
+            }
+            else
+            {
+                if (TJAPlayer3.Tx.Lane_Background_Main != null) TJAPlayer3.Tx.Lane_Background_Main.n透明度 = 255;
+                if (TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.n透明度 = 255;
+                if (TJAPlayer3.Tx.Lane_Background_GoGo != null) TJAPlayer3.Tx.Lane_Background_GoGo.n透明度 = 255;
             }
 
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.nBranchレイヤー透明度.ToString());
