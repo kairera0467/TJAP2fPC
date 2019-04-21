@@ -407,7 +407,7 @@ namespace TJAPlayer3
 				    this.t進行描画_背景();
                 }
 
-                if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX.listAVI.Count > 0 && TJAPlayer3.DTX.listAVI[0].avi != null)
+                if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX.listAVI.Count > 0)
                 {
                     this.t進行描画_AVI();
                 }
