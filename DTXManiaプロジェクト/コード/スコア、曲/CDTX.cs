@@ -3188,7 +3188,7 @@ namespace DTXMania
                 string str = "";
                 try
                 {
-                    if( n譜面数 > 0 )
+                    if( n譜面数 > 1 )
                     {
                         //2017.07.22 kairera0467 譜面が2つ以上ある場合はCOURSE以下のBALLOON命令を使う
                         this.listBalloon.Clear();

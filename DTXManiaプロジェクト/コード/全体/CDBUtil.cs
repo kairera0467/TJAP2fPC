@@ -11,6 +11,7 @@ namespace DTXMania
 {
     /// <summary>
     /// SQLiteデータベースを利用するためのクラス
+    /// ToDo: 将来はSQLite以外のデータベースを扱うクラスはTJAP2fPC側では持たず、DB専用のドライバとして扱う予定。
     /// </summary>
     public class CDBUtil
     {
@@ -34,7 +35,11 @@ namespace DTXMania
             }
             else if( eDBmode == EDBモード.MySQL )
             {
-
+                Trace.TraceWarning( "MySQLでのSQL接続は現在未実装です。" );
+            }
+            else if( eDBmode == EDBモード.Plugin )
+            {
+                Trace.TraceWarning( "プラグイン形式でのSQL接続は現在未実装です。" );
             }
         }
 
@@ -85,11 +90,14 @@ namespace DTXMania
             SQLiteCommand cmd = null;
             try
             {
-            
+                string strCommand = "CREATE DATABASE tjap2fpc;";
+                this.tノンクエリSQL実行( strCommand );
+
+
             }
             catch( Exception ex )
             {
-
+                Trace.TraceError( ex.StackTrace );
             }
         }
     }

@@ -1360,7 +1360,7 @@ namespace DTXMania
                                 this.nBranch_Miss[ nPlayer ]++;
                                 this.tチップのヒット処理_BadならびにTight時のMiss( eJudgeResult, nPlayer );
                                 this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
-                                this.actComboVoice.tリセット();
+                                this.actComboVoice.tリセット( nPlayer );
                                 if( this.bMiss中[ nPlayer ] == false )
                                 {
                                     this.bMiss中[ nPlayer ] = true;
@@ -1625,7 +1625,7 @@ namespace DTXMania
                     this.nヒット数[ nPlayer ].空打ち不可++;
                     this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
                     this.actJudgeString.Start( 0, E判定.Miss, 0, null, nPlayer );
-                    this.actComboVoice.tリセット();
+                    this.actComboVoice.tリセット( nPlayer );
                     if( this.bMiss中[ nPlayer ] == false )
                     {
                         this.bMiss中[ nPlayer ] = true;
@@ -3623,9 +3623,8 @@ namespace DTXMania
                     this.n分岐した回数[ i ] = 0;
                     this.n風船結果合計[ i ] = 0;
                     this.n風船打数合計[ i ] = 0;
-                }
-
-                this.actComboVoice.tリセット();
+                    this.actComboVoice.tリセット( i );
+                }                
                 this.actPlayInfo.n小節番号 = 0; // Issues #29
             }
 

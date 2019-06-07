@@ -338,6 +338,15 @@ namespace DTXMania
         potato
     }
 
+    public enum EクリアState
+    {
+        failed = 0,
+        clear = 1,
+        fullcombo = 2,
+        perfect = 3,
+        noplay = 99
+    }
+
     public enum Eステルスモード
     {
         OFF = 0,
@@ -766,10 +775,11 @@ namespace DTXMania
         OFF                = 0
     }
     
-    public enum EDBモード // 2019.2.24 kairera0467 デバッグ以外での使用は禁止。(公開してしまうとトラブルの元になるため)
+    public enum EDBモード // 2019.2.24 kairera0467 現状デバッグ以外での使用は禁止。(公開してしまうとトラブルの元になるため)
     {
         SQLite,
-        MySQL
+        MySQL,
+        Plugin
     }
 
     internal class C定数

@@ -56,10 +56,17 @@ namespace DTXMania
         /// カーソルを戻す。
         /// コンボが切れた時に使う。
         /// </summary>
-        public void tリセット()
+        public void tリセット( int player )
         {
-            this.nVoiceIndex = 0;
-            this.nVoiceIndexP2 = 0;
+            switch( player )
+            {
+                case 0:
+                    this.nVoiceIndex = 0;
+                    break;
+                case 1:
+                    this.nVoiceIndexP2 = 0;
+                    break;
+            }
         }
 
 

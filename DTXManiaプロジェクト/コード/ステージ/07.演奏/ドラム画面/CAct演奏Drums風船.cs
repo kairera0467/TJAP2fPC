@@ -11,7 +11,7 @@ namespace DTXMania
 {
     internal class CAct演奏Drums風船 : CActivity
     {
-
+        // ToDo:WAM導入して簡易アニメ作成
 
         public CAct演奏Drums風船()
         {
@@ -124,26 +124,26 @@ namespace DTXMania
 
         public int On進行描画( int n連打ノルマ, int n連打数, int player )
         {
-                this.ct風船ふきだしアニメ.t進行Loop();
+            this.ct風船ふきだしアニメ.t進行Loop();
 
-                //CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.赤, this.ct風船終了.n現在の値.ToString() );
-                int[] n残り打数 = new int[] { 0, 0, 0, 0, 0 };
-                #region[  ]
-                if( n連打ノルマ > 0 )
+            //CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.赤, this.ct風船終了.n現在の値.ToString() );
+            int[] n残り打数 = new int[] { 0, 0, 0, 0, 0 };
+            #region[ 風船の画像を変える打数を風船の残り打数から算出 ]
+            if ( n連打ノルマ > 0 )
+            {
+                if( n連打ノルマ < 5 )
                 {
-                    if( n連打ノルマ < 5 )
-                    {
-                        n残り打数 = new int[] { 99, 99, 99, 99, 99 };
-                    }
-                    else
-                    {
-                        n残り打数[ 0 ] = ( n連打ノルマ / 5 ) * 4;
-                        n残り打数[ 1 ] = ( n連打ノルマ / 5 ) * 3;
-                        n残り打数[ 2 ] = ( n連打ノルマ / 5 ) * 2;
-                        n残り打数[ 3 ] = ( n連打ノルマ / 5 ) * 1;
-                    }
+                    n残り打数 = new int[] { 99, 99, 99, 99, 99 };
                 }
-                #endregion
+                else
+                {
+                    n残り打数[ 0 ] = ( n連打ノルマ / 5 ) * 4;
+                    n残り打数[ 1 ] = ( n連打ノルマ / 5 ) * 3;
+                    n残り打数[ 2 ] = ( n連打ノルマ / 5 ) * 2;
+                    n残り打数[ 3 ] = ( n連打ノルマ / 5 ) * 1;
+                }
+            }
+            #endregion
 
                 if( n連打数 != 0 )
                 {

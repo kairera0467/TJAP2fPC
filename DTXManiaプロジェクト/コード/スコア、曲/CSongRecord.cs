@@ -12,8 +12,11 @@ namespace DTXMania
     /// </summary>
     public class CSongRecord
     {
+
+        // リザルト単位の記録
         public struct ST演奏記録
         {
+            public string str曲名;
             public long nスコア;
             public float fゲージ;
             public int n良;
@@ -26,8 +29,14 @@ namespace DTXMania
             public int n全ノート数;
             public int n演奏速度分子;
             public int n演奏速度分母;
+            /// <summary>
+            /// 演奏記録の正当性を証明するためのハッシュ値。
+            /// </summary>
             public string Hash;
             public string strプレイ日時;
+            public int n判定範囲Perfect;
+            public int n判定範囲Good;
+            public int n判定範囲Miss;
         }
     }
 }

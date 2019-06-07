@@ -4,6 +4,7 @@ using System.Text;
 using FDK;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using SharpDX.Animation;
 
 namespace DTXMania
 {
@@ -29,6 +30,7 @@ namespace DTXMania
             public CCounter ctTimer;
             public int nAddScore;
             public int nPlayer;
+            public スコア文字[] _スコア文字;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -213,6 +215,19 @@ namespace DTXMania
                 this.stScore[ sc ].ctTimer = new CCounter();
                 this.stScore[ sc ].nAddScore = 0;
                 this.stScore[ sc ].bBonusScore = false;
+                this.stScore[ sc ]._スコア文字 = new スコア文字[] // 一応10桁用意しておけば十分だろう...
+                {
+                    new スコア文字(),
+                    new スコア文字(),
+                    new スコア文字(),
+                    new スコア文字(),
+                    new スコア文字(),
+                    new スコア文字(),
+                    new スコア文字(),
+                    new スコア文字(),
+                    new スコア文字(),
+                    new スコア文字()
+                };
             }
 
             this.n現在表示中のAddScore = 0;
@@ -276,6 +291,43 @@ namespace DTXMania
                     }
                 }
                 x += 20;
+            }
+        }
+
+        protected class スコア文字 : IDisposable
+        {
+            // 1桁ずつ扱う
+            public int n桁;
+            public Variable 文字X;
+            public Variable 文字Y;
+            public Variable 不透明度;
+            public Storyboard sbストーリーボード;
+
+            public スコア文字()
+            {
+                this.n桁 = 0;
+            }
+
+            public スコア文字( int 桁 )
+            {
+                this.n桁 = 桁;
+            }
+
+            public void Dispose()
+            {
+                this.sbストーリーボード?.Abandon();
+                this.sbストーリーボード = null;
+
+                this.文字X?.Dispose();
+                this.文字X = null;
+
+                this.文字Y?.Dispose();
+                this.文字Y = null;
+
+                this.不透明度?.Dispose();
+                this.不透明度 = null;
+
+                this.n桁 = 0;
             }
         }
 	}
