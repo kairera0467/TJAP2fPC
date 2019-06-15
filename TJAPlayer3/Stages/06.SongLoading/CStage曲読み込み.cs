@@ -171,8 +171,9 @@ namespace TJAPlayer3
 						this.txタイトル = null;
                         this.txサブタイトル = null;
                     }
-				}
-				catch( CTextureCreateFailedException e )
+
+                }
+                catch ( CTextureCreateFailedException e )
 				{
 					Trace.TraceError( e.ToString() );
 					Trace.TraceError( "テクスチャの生成に失敗しました。({0})", new object[] { this.strSTAGEFILE } );
@@ -359,6 +360,48 @@ namespace TJAPlayer3
 
 	    					span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
     						Trace.TraceInformation( "DTX読込所要時間:           {0}", span.ToString() );
+
+                            // 段位認定モード用。
+                            if (TJAPlayer3.stage選曲.n確定された曲の難易度 == (int)Difficulty.Dan && TJAPlayer3.DTX.List_DanSongs != null)
+                            {
+                                var pfTitle = new CPrivateFont();
+                                var pfSubTitle = new CPrivateFont();
+                                if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
+                                {
+                                    pfTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
+                                    pfSubTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 22);
+                                }
+                                else
+                                {
+                                    pfTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 30);
+                                    pfSubTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 22);
+                                }
+
+                                for (int i = 0; i < TJAPlayer3.DTX.List_DanSongs.Count; i++)
+                                {
+                                    if (!string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[i].Title))
+                                    {
+                                        using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[i].Title, Color.White, Color.Black))
+                                        {
+                                            TJAPlayer3.DTX.List_DanSongs[i].TitleTex = TJAPlayer3.tテクスチャの生成(bmpSongTitle, false);
+                                            TJAPlayer3.DTX.List_DanSongs[i].TitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[i].TitleTex, 710);
+                                        }
+                                    }
+
+                                    if (!string.IsNullOrEmpty(TJAPlayer3.DTX.List_DanSongs[i].SubTitle))
+                                    {
+                                        using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX.List_DanSongs[i].SubTitle, Color.White, Color.Black))
+                                        {
+                                            TJAPlayer3.DTX.List_DanSongs[i].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle, false);
+                                            TJAPlayer3.DTX.List_DanSongs[i].SubTitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX.List_DanSongs[i].SubTitleTex, 710);
+                                        }
+                                    }
+
+                                }
+
+                                pfTitle?.Dispose();
+                                pfSubTitle?.Dispose();
+                            }
                         }
 
                         //2017.01.28 DD Config.iniに反映しないように変更
@@ -380,7 +423,7 @@ namespace TJAPlayer3
                         }
                         */
 
-						base.eフェーズID = CStage.Eフェーズ.NOWLOADING_WAV読み込み待機;
+                        base.eフェーズID = CStage.Eフェーズ.NOWLOADING_WAV読み込み待機;
 						timeBeginLoadWAV = DateTime.Now;
 						return (int) E曲読込画面の戻り値.継続;
 					}
