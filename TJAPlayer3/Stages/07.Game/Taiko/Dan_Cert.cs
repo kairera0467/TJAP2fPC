@@ -231,11 +231,11 @@ namespace TJAPlayer3
                         {
                             if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex != null)
                             {
-                                TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex.n透明度--;
+                                TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex.Opacity--;
                             }
                             if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex != null)
                             {
-                                TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.n透明度--;
+                                TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.Opacity--;
                             }
                         }
                     }
@@ -244,11 +244,11 @@ namespace TJAPlayer3
                 {
                     if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex != null)
                     {
-                        TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex.n透明度 = 255;
+                        TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].TitleTex.Opacity = 255;
                     }
                     if (TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex != null)
                     {
-                        TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.n透明度 = 255;
+                        TJAPlayer3.DTX.List_DanSongs[NowShowingNumber].SubTitleTex.Opacity = 255;
                     }
                 }
                 Counter_Text_Old = Counter_Text.n現在の値;

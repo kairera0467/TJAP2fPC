@@ -275,7 +275,7 @@ namespace TJAPlayer3
 
                         if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
                         {
-                            TJAPlayer3.Tx.Balloon_Number_Roll.n透明度 = 255;
+                            TJAPlayer3.Tx.Balloon_Number_Roll.Opacity = 255;
                             TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Scale;
                             TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Scale + RollScale[this.ct風船アニメ[nPlayer].n現在の値];
                             TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, x - (((TJAPlayer3.Skin.Game_Balloon_Number_Padding + 2) * n桁数) / 2), y, rectangle);

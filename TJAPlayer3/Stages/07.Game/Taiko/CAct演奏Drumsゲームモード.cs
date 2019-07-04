@@ -437,13 +437,13 @@ namespace TJAPlayer3
                 if( TJAPlayer3.Tx.Tile_Black != null )
                 {
                     if( this.st叩ききりまショー.ct残り時間.n現在の値 >= 22000 && this.st叩ききりまショー.ct残り時間.n現在の値 < 23000 )
-                        TJAPlayer3.Tx.Tile_Black.n透明度 = 64;
+                        TJAPlayer3.Tx.Tile_Black.Opacity = 64;
                     else if( this.st叩ききりまショー.ct残り時間.n現在の値 >= 23000 && this.st叩ききりまショー.ct残り時間.n現在の値 < 24000 )
-                        TJAPlayer3.Tx.Tile_Black.n透明度 = 128;
+                        TJAPlayer3.Tx.Tile_Black.Opacity = 128;
                     else if( this.st叩ききりまショー.ct残り時間.n現在の値 >= 24000 )
-                        TJAPlayer3.Tx.Tile_Black.n透明度 = 192;
+                        TJAPlayer3.Tx.Tile_Black.Opacity = 192;
                     else
-                        TJAPlayer3.Tx.Tile_Black.n透明度 = 0;
+                        TJAPlayer3.Tx.Tile_Black.Opacity = 0;
 
                     for (int i = 0; i <= (SampleFramework.GameWindowSize.Width / 64); i++)
                     {
@@ -857,11 +857,11 @@ namespace TJAPlayer3
 						if(TJAPlayer3.Tx.Taiko_Combo[0]  != null )
 						{
                             if( this.st叩ききりまショー.bタイマー使用中 )
-                                TJAPlayer3.Tx.Taiko_Combo[0].n透明度 = 255;
+                                TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 255;
                             else if( this.st叩ききりまショー.b最初のチップが叩かれた && !this.st叩ききりまショー.bタイマー使用中 )
-                                TJAPlayer3.Tx.Taiko_Combo[0].n透明度 = 128;
+                                TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 128;
                             if (this.st叩ききりまショー.b加算アニメ中)
-                                TJAPlayer3.Tx.Taiko_Combo[0].n透明度 = 0;
+                                TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 0;
                             TJAPlayer3.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 1f;
                             TJAPlayer3.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = 1f;
                             TJAPlayer3.Tx.Taiko_Combo[0].t2D中心基準描画( TJAPlayer3.app.Device, x, y, rectangle );

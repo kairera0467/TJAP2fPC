@@ -79,24 +79,24 @@ namespace TJAPlayer3
                 {
                     if( this.ct進行用.n現在の値 < 255 )
                     {
-                        this.txInfo[ 0 ].n透明度 = this.ct進行用.n現在の値;
-                        this.txInfo[ 1 ].n透明度 = 255 - this.ct進行用.n現在の値;
+                        this.txInfo[ 0 ].Opacity = this.ct進行用.n現在の値;
+                        this.txInfo[ 1 ].Opacity = 255 - this.ct進行用.n現在の値;
                     }
                     else if( this.ct進行用.n現在の値 >= 255 && this.ct進行用.n現在の値 < 1245 )
                     {
                         this.bFirst = false;
-                        this.txInfo[ 0 ].n透明度 = 255;
-                        this.txInfo[ 1 ].n透明度 = 0;
+                        this.txInfo[ 0 ].Opacity = 255;
+                        this.txInfo[ 1 ].Opacity = 0;
                     }
                     else if( this.ct進行用.n現在の値 >= 1245 && this.ct進行用.n現在の値 < 1500 )
                     {
-                        this.txInfo[ 0 ].n透明度 = 255 - ( this.ct進行用.n現在の値 - 1245 );
-                        this.txInfo[ 1 ].n透明度 = this.ct進行用.n現在の値 - 1245;
+                        this.txInfo[ 0 ].Opacity = 255 - ( this.ct進行用.n現在の値 - 1245 );
+                        this.txInfo[ 1 ].Opacity = this.ct進行用.n現在の値 - 1245;
                     }
                     else if( this.ct進行用.n現在の値 >= 1500 && this.ct進行用.n現在の値 <= 3000 )
                     {
-                        this.txInfo[ 0 ].n透明度 = 0;
-                        this.txInfo[ 1 ].n透明度 = 255;
+                        this.txInfo[ 0 ].Opacity = 0;
+                        this.txInfo[ 1 ].Opacity = 255;
                     }
 
                     this.txInfo[ 0 ].t2D描画( TJAPlayer3.app.Device, 340, 600 );

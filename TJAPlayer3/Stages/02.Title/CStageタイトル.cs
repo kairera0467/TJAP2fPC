@@ -218,14 +218,14 @@ namespace TJAPlayer3
 						float nMag = (float) ( 1.0 + ( ( ( (double) this.ctカーソルフラッシュ用.n現在の値 ) / 100.0 ) * 0.5 ) );
                         TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.X = nMag;
                         TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.Y = nMag;
-                        TJAPlayer3.Tx.Title_Menu.n透明度 = (int) ( 255.0 * ( 1.0 - ( ( (double) this.ctカーソルフラッシュ用.n現在の値 ) / 100.0 ) ) );
+                        TJAPlayer3.Tx.Title_Menu.Opacity = (int) ( 255.0 * ( 1.0 - ( ( (double) this.ctカーソルフラッシュ用.n現在の値 ) / 100.0 ) ) );
 						int x_magnified = x + ( (int) ( ( MENU_W * ( 1.0 - nMag ) ) / 2.0 ) );
 						int y_magnified = y + ( (int) ( ( MENU_H * ( 1.0 - nMag ) ) / 2.0 ) );
                         TJAPlayer3.Tx.Title_Menu.t2D描画( TJAPlayer3.app.Device, x_magnified, y_magnified, new Rectangle( 0, MENU_H * 5, MENU_W, MENU_H ) );
 					}
                     TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.X = 1f;
                     TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.Y = 1f;
-                    TJAPlayer3.Tx.Title_Menu.n透明度 = 0xff;
+                    TJAPlayer3.Tx.Title_Menu.Opacity = 0xff;
                     TJAPlayer3.Tx.Title_Menu.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( 0, MENU_H * 4, MENU_W, MENU_H ) );
 				}
 				if( TJAPlayer3.Tx.Title_Menu != null )

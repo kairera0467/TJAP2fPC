@@ -280,31 +280,31 @@ namespace TJAPlayer3
                     if( this.ct進行用.n現在の値 < 745 )
                     {
                         this.bFirst = false;
-                        this.txMusicName.n透明度 = 255;
+                        this.txMusicName.Opacity = 255;
                         if( this.txGENRE != null )
-                            this.txGENRE.n透明度 = 255;
-                        this.tx難易度とステージ数.n透明度 = 0;
+                            this.txGENRE.Opacity = 255;
+                        this.tx難易度とステージ数.Opacity = 0;
                     }
                     else if( this.ct進行用.n現在の値 >= 745 && this.ct進行用.n現在の値 < 1000 )
                     {
-                        this.txMusicName.n透明度 = 255 - ( this.ct進行用.n現在の値 - 745 );
+                        this.txMusicName.Opacity = 255 - ( this.ct進行用.n現在の値 - 745 );
                         if( this.txGENRE != null )
-                            this.txGENRE.n透明度 = 255 - ( this.ct進行用.n現在の値 - 745 );
-                        this.tx難易度とステージ数.n透明度 = this.ct進行用.n現在の値 - 745;
+                            this.txGENRE.Opacity = 255 - ( this.ct進行用.n現在の値 - 745 );
+                        this.tx難易度とステージ数.Opacity = this.ct進行用.n現在の値 - 745;
                     }
                     else if( this.ct進行用.n現在の値 >= 1000 && this.ct進行用.n現在の値 <= 1745 )
                     {
-                        this.txMusicName.n透明度 = 0;
+                        this.txMusicName.Opacity = 0;
                         if( this.txGENRE != null )
-                            this.txGENRE.n透明度 = 0;
-                        this.tx難易度とステージ数.n透明度 = 255;
+                            this.txGENRE.Opacity = 0;
+                        this.tx難易度とステージ数.Opacity = 255;
                     }
                     else if( this.ct進行用.n現在の値 >= 1745 )
                     {
-                        this.txMusicName.n透明度 = this.ct進行用.n現在の値 - 1745;
+                        this.txMusicName.Opacity = this.ct進行用.n現在の値 - 1745;
                         if( this.txGENRE != null )
-                            this.txGENRE.n透明度 = this.ct進行用.n現在の値 - 1745;
-                        this.tx難易度とステージ数.n透明度 = 255 - ( this.ct進行用.n現在の値 - 1745 );
+                            this.txGENRE.Opacity = this.ct進行用.n現在の値 - 1745;
+                        this.tx難易度とステージ数.Opacity = 255 - ( this.ct進行用.n現在の値 - 1745 );
                     }
                     #endregion
                     if( this.txMusicName != null )

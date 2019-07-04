@@ -91,23 +91,23 @@ namespace TJAPlayer3
                         //半透明4f
                         if( this.ct進行[ i ].n現在の値 == 1 || this.ct進行[ i ].n現在の値 == 103 )
                         {
-                            TJAPlayer3.Tx.Balloon_Combo[ i ].n透明度 = 64;
-                            TJAPlayer3.Tx.Balloon_Number_Combo.n透明度 = 64;
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].Opacity = 64;
+                            TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 64;
                         }
                         else if( this.ct進行[ i ].n現在の値 == 2 || this.ct進行[ i ].n現在の値 == 102 )
                         {
-                            TJAPlayer3.Tx.Balloon_Combo[ i ].n透明度 = 128;
-                            TJAPlayer3.Tx.Balloon_Number_Combo.n透明度 = 128;
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].Opacity = 128;
+                            TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 128;
                         }
                         else if( this.ct進行[ i ].n現在の値 == 3 || this.ct進行[ i ].n現在の値 == 101 )
                         {
-                            TJAPlayer3.Tx.Balloon_Combo[ i ].n透明度 = 192;
-                            TJAPlayer3.Tx.Balloon_Number_Combo.n透明度 = 192;
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].Opacity = 192;
+                            TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 192;
                         }
                         else if( this.ct進行[ i ].n現在の値 >= 4 && this.ct進行[ i ].n現在の値 <= 100 )
                         {
-                            TJAPlayer3.Tx.Balloon_Combo[ i ].n透明度 = 255;
-                            TJAPlayer3.Tx.Balloon_Number_Combo.n透明度 = 255;
+                            TJAPlayer3.Tx.Balloon_Combo[ i ].Opacity = 255;
+                            TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 255;
                         }
 
                         if( this.ct進行[ i ].b進行中 )

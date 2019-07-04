@@ -40,25 +40,25 @@ namespace FDK
             get;
             set;
         }
-        public int n透明度
+        public int Opacity
         {
             get
             {
-                return this._透明度;
+                return this._opacity;
             }
             set
             {
                 if (value < 0)
                 {
-                    this._透明度 = 0;
+                    this._opacity = 0;
                 }
                 else if (value > 0xff)
                 {
-                    this._透明度 = 0xff;
+                    this._opacity = 0xff;
                 }
                 else
                 {
-                    this._透明度 = value;
+                    this._opacity = value;
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace FDK
         {
             this.sz画像サイズ = new Size(0, 0);
             this.szテクスチャサイズ = new Size(0, 0);
-            this._透明度 = 0xff;
+            this._opacity = 0xff;
             this.texture = null;
             this.cvPositionColoredVertexies = null;
             this.b加算合成 = false;
@@ -469,7 +469,7 @@ namespace FDK
                 float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
                 float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
                 float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-                this.color4.Alpha = ((float)this._透明度) / 255f;
+                this.color4.Alpha = ((float)this._opacity) / 255f;
                 int color = this.color4.ToArgb();
 
                 if (this.cvTransformedColoredVertexies == null)
@@ -527,7 +527,7 @@ namespace FDK
                 float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
                 float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
                 float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-                this.color4.Alpha = ((float)this._透明度) / 255f;
+                this.color4.Alpha = ((float)this._opacity) / 255f;
                 int color = this.color4.ToArgb();
 
                 if (this.cvPositionColoredVertexies == null)
@@ -598,7 +598,7 @@ namespace FDK
                 float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
                 float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
                 float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-                this.color4.Alpha = ((float)this._透明度) / 255f;
+                this.color4.Alpha = ((float)this._opacity) / 255f;
                 int color = this.color4.ToArgb();
 
                 if (this.cvTransformedColoredVertexies == null)
@@ -656,7 +656,7 @@ namespace FDK
                 float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
                 float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
                 float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-                this.color4.Alpha = ((float)this._透明度) / 255f;
+                this.color4.Alpha = ((float)this._opacity) / 255f;
                 int color = this.color4.ToArgb();
 
                 if (this.cvPositionColoredVertexies == null)
@@ -731,7 +731,7 @@ namespace FDK
             float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
             float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
             float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-            this.color4.Alpha = ((float)this._透明度) / 255f;
+            this.color4.Alpha = ((float)this._opacity) / 255f;
             int color = this.color4.ToArgb();
 
             if (this.cvTransformedColoredVertexies == null)
@@ -831,7 +831,7 @@ namespace FDK
             float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
             float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
             float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-            this.color4.Alpha = ((float)this._透明度) / 255f;
+            this.color4.Alpha = ((float)this._opacity) / 255f;
             int color = this.color4.ToArgb();
 
             if (this.cvPositionColoredVertexies == null)
@@ -898,7 +898,7 @@ namespace FDK
             float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
             float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
             float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-            this.color4.Alpha = ((float)this._透明度) / 255f;
+            this.color4.Alpha = ((float)this._opacity) / 255f;
             int color = this.color4.ToArgb();
 
             if (this.cvPositionColoredVertexies == null)
@@ -966,7 +966,7 @@ namespace FDK
 
         #region [ private ]
         //-----------------
-        private int _透明度;
+        private int _opacity;
         private bool bDispose完了済み;
         private PositionColoredTexturedVertex[] cvPositionColoredVertexies;
         protected TransformedColoredTexturedVertex[] cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[]

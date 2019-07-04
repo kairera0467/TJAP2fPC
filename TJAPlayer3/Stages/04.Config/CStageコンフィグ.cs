@@ -197,7 +197,7 @@ namespace TJAPlayer3
 			if( TJAPlayer3.Tx.Config_Cursor != null )
 			{
 				Rectangle rectangle;
-                TJAPlayer3.Tx.Config_Cursor.n透明度 = this.bメニューにフォーカス中 ? 255 : 128;
+                TJAPlayer3.Tx.Config_Cursor.Opacity = this.bメニューにフォーカス中 ? 255 : 128;
 				int x = 110;
 				int y = (int)( 145.5 + ( this.n現在のメニュー番号 * 37.5 ) );
 				int num3 = 340;

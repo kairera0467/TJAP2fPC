@@ -127,8 +127,8 @@ namespace TJAPlayer3
                         FadeOut[player].Start();
                     }
                     var opacity = (int)FadeOut[player].GetAnimation();
-                    TJAPlayer3.Tx.Balloon_Roll.n透明度 = opacity;
-                    TJAPlayer3.Tx.Balloon_Number_Roll.n透明度 = opacity;
+                    TJAPlayer3.Tx.Balloon_Roll.Opacity = opacity;
+                    TJAPlayer3.Tx.Balloon_Number_Roll.Opacity = opacity;
 
 
                     TJAPlayer3.Tx.Balloon_Roll.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Roll_Frame_X[player], TJAPlayer3.Skin.Game_Balloon_Roll_Frame_Y[player]);

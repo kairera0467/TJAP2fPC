@@ -324,7 +324,7 @@ namespace TJAPlayer3
                                         //mat *= Matrix.Translation( 0f, 0f, 0f );
 
 
-                                        TJAPlayer3.Tx.Effects_Hit_Explosion_Big.n透明度 = 255;
+                                        TJAPlayer3.Tx.Effects_Hit_Explosion_Big.Opacity = 255;
                                         TJAPlayer3.Tx.Effects_Hit_Explosion_Big.t3D描画( TJAPlayer3.app.Device, mat );
                                     }
                                     break;

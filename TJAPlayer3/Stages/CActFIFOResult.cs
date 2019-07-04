@@ -14,13 +14,13 @@ namespace TJAPlayer3
 		{
 			this.mode = EFIFOモード.フェードアウト;
 			this.counter = new CCounter( 0, 500, 2, TJAPlayer3.Timer );
-            TJAPlayer3.Tx.Result_FadeIn.n透明度 = 255;
+            TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
         }
 		public void tフェードイン開始()
 		{
 			this.mode = EFIFOモード.フェードイン;
 			this.counter = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
-            TJAPlayer3.Tx.Result_FadeIn.n透明度 = 255;
+            TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
         }
         public void tフェードイン完了()		// #25406 2011.6.9 yyagi
 		{
@@ -64,7 +64,7 @@ namespace TJAPlayer3
                 }
                 else
                 {
-                    TJAPlayer3.Tx.Result_FadeIn.n透明度 = (((100 - this.counter.n現在の値) * 0xff) / 100);
+                    TJAPlayer3.Tx.Result_FadeIn.Opacity = (((100 - this.counter.n現在の値) * 0xff) / 100);
                     TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 0, new Rectangle( 0, 0, 1280, 360 ) );
                     TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 360, new Rectangle( 0, 380, 1280, 360 ) );
                 }

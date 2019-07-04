@@ -460,7 +460,7 @@ namespace TJAPlayer3
 				if( this.txセンサ光 != null )
 				{
 					this.txセンサ光.vc拡大縮小倍率 = new Vector3( 1f, 1f, 1f );
-					this.txセンサ光.n透明度 = 0xff;
+					this.txセンサ光.Opacity = 0xff;
 					this.txセンサ光.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( ( num % 4 ) * 0x40, ( num / 4 ) * 0x40, 0x40, 0x40 ) );
 				}
 			}
@@ -476,7 +476,7 @@ namespace TJAPlayer3
 				if( this.txセンサ光 != null )
 				{
 					this.txセンサ光.vc拡大縮小倍率 = new Vector3( (float) num6, (float) num6, 1f );
-					this.txセンサ光.n透明度 = (int) ( 255.0 * ( 1.0 - num5 ) );
+					this.txセンサ光.Opacity = (int) ( 255.0 * ( 1.0 - num5 ) );
 					this.txセンサ光.t2D描画( TJAPlayer3.app.Device, num9, num10, this.rcセンサ光 );
 				}
 			}
@@ -572,7 +572,7 @@ namespace TJAPlayer3
 					}
 					x += ( 400 - ( (int) ( width * num4 ) ) ) / 2;
 					y += ( 400 - ( (int) ( height * num4 ) ) ) / 2;
-					this.r表示するプレビュー画像.n透明度 = (int) ( 255f * num3 );
+					this.r表示するプレビュー画像.Opacity = (int) ( 255f * num3 );
 					this.r表示するプレビュー画像.vc拡大縮小倍率.X = num4;
 					this.r表示するプレビュー画像.vc拡大縮小倍率.Y = num4;
 					this.r表示するプレビュー画像.t2D描画( TJAPlayer3.app.Device, x + 22, y + 12, new Rectangle( 0, 0, width, height ) );
