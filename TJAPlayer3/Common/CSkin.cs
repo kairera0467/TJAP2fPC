@@ -2023,6 +2023,22 @@ namespace TJAPlayer3
                             }
                             #endregion
                             #region Dan_C
+                            else if (strCommand == nameof(Game_DanC_Title_ForeColor))
+                            {
+                                Game_DanC_Title_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_DanC_Title_BackColor))
+                            {
+                                Game_DanC_Title_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_DanC_SubTitle_ForeColor))
+                            {
+                                Game_DanC_SubTitle_ForeColor = ColorTranslator.FromHtml(strParam);
+                            }
+                            else if (strCommand == nameof(Game_DanC_SubTitle_BackColor))
+                            {
+                                Game_DanC_SubTitle_BackColor = ColorTranslator.FromHtml(strParam);
+                            }
                             else if (strCommand == nameof(Game_DanC_X))
                             {
                                 Game_DanC_X = strParam.Split(',').Select(int.Parse).ToArray();
@@ -2658,6 +2674,10 @@ namespace TJAPlayer3
         public double Game_PuchiChara_SineTimer = 2;
         #endregion
         #region Dan-C
+        public Color Game_DanC_Title_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        public Color Game_DanC_Title_BackColor = ColorTranslator.FromHtml("#000000");
+        public Color Game_DanC_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
+        public Color Game_DanC_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
         public int[] Game_DanC_X = new int[] { 302, 302, 302 };
         public int[] Game_DanC_Y = new int[] { 473, 419, 365 };
         public int[] Game_DanC_Size = new int[] { 956, 92 };
