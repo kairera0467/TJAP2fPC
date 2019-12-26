@@ -1181,14 +1181,9 @@ namespace DTXMania
         //分岐関連
         private int n現在の発声時刻;
         private int n現在の発声時刻ms;
-        private int n現在のコース;
 
-        private bool b最初の分岐である;
         public int[] nノーツ数 = new int[ 4 ]; //0～2:各コース 3:共通
         public int[] n風船数 = new int[ 4 ]; //0～2:各コース 3:共通
-        private bool b次の小節が分岐である;
-        private bool b次の分岐で数値リセット; //2018.03.16 kairera0467 SECTION処理を分岐判定と同時に行う。
-        private bool bBranch中である = false;
 
         private string strTemp;
         private int n文字数;
@@ -1220,17 +1215,27 @@ namespace DTXMania
         public int[] bBARLINECUE = new int[ 2 ]; //命令を入れた次の小節の操作を実現するためのフラグ。0 = mainflag, 1 = cuetype
         public bool b小節線を挿入している = false;
 
-        //譜面分岐関連
         private List<int> listBalloon_Normal;
         private List<int> listBalloon_Expert;
         private List<int> listBalloon_Master;
         private List<int> listBalloon; //旧構文用
-
         private int listBalloon_Normal_数値管理;
         private int listBalloon_Expert_数値管理;
         private int listBalloon_Master_数値管理;
 
         public List<string> listLiryc; //歌詞を格納していくリスト。スペル忘れた(ぉい
+        //譜面分岐関連
+        #region[ 譜面分岐 ]
+        private int n現在のコース;
+        private bool b最初の分岐である;
+        private bool b次の小節が分岐である;
+        private bool b次の分岐で数値リセット; //2018.03.16 kairera0467 SECTION処理を分岐判定と同時に行う。
+        private bool bBranch中である = false;
+        public bool bHIDDENBRANCH; //2016.04.01 kairera0467 選曲画面上、譜面分岐開始前まで譜面分岐の表示を隠す
+
+        private bool bAutoBranch = true; // 2019.8.19 kairera0467 譜面分岐の各コースで一番ノートが取れるコースに自動で分岐させる。(連打を考慮した実装は後々)
+        private int[] n現在小節のノート数コース毎 = new int[ 3 ]; // 2019.8.19 kairera0467
+        #endregion
 
         public bool[] b譜面が存在する = new bool[5];
 
@@ -1259,7 +1264,7 @@ namespace DTXMania
 
         public string strBGM_PATH;
 
-        public bool bHIDDENBRANCH; //2016.04.01 kairera0467 選曲画面上、譜面分岐開始前まで譜面分岐の表示を隠す
+
         public bool bGOGOTIME; //2018.03.11 kairera0467
 
 #if TEST_NOTEOFFMODE
@@ -3712,7 +3717,6 @@ namespace DTXMania
 
                 this.bBranch中である = true; // 2018.08.22 kairera0467 譜面分岐中かのフラグ
 
-
                 //まずはリストに現在の小節、発声位置、分岐条件を追加。
                 var branch = new CBRANCH();
                 branch.db判定時間 = this.dbNowTime;
@@ -4041,6 +4045,7 @@ namespace DTXMania
 
                         if (nObjectNum != 0)
                         {
+                            // 連打音符
                             if (( nObjectNum >= 5 && nObjectNum <= 7 ) || nObjectNum == 9 )
                             {
                                 if (nNowRoll != 0)
@@ -4083,6 +4088,7 @@ namespace DTXMania
                             chip.nPlayerSide = this.nPlayerSide;
                             chip.bGOGOTIME = this.bGOGOTIME;
 
+                            // 風船連打
                             if( nObjectNum == 7 || nObjectNum == 9 )
                             {
                                 switch( this.n現在のコース )
@@ -4204,7 +4210,10 @@ namespace DTXMania
                             if( nObjectNum < 5 )
                             {
                                 if( this.b最初の分岐である == false )
+                                {
                                     this.nノーツ数[ this.n現在のコース ]++;
+                                    this.n現在小節のノート数コース毎[ this.n現在のコース ]++;
+                                }
                                 else
                                     this.nノーツ数[ 3 ]++;
                             }
@@ -8059,8 +8068,17 @@ namespace DTXMania
 			}
 			return double.TryParse(decimalStr.ToString(), out result);	// 最後に、自分のlocale向けの文字列に対してTryParse実行
 		}
-		#endregion
-		//-----------------
-		#endregion
-	}
+        #endregion
+        //-----------------
+        #endregion
+
+        #region[ tja譜面読み込みエンジンV5(WIP) ]
+        // CDTX→CTJA[5]
+        // CDTXMania→CTJA[2]
+        // 基本的にCTJAはCDTXで生成したものをCDTXMania直下のCTJAに複製するような仕組みになる予定
+        // 構造的に継承が一切不可能である命令についてはCDTX、各難易度ごとの命令はCTJA側に持たせる。
+
+
+        #endregion
+    }
 }

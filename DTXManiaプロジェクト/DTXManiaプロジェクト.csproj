@@ -117,6 +117,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="コード\スコア、曲\CSongRecord.cs" />
+    <Compile Include="コード\スコア、曲\CTJA.cs" />
     <Compile Include="コード\ステージ\07.演奏\ドラム画面\CAct演奏Drumsゴーゴースプラッシュ.cs" />
     <Compile Include="コード\ステージ\CActFIFOFace.cs" />
     <Compile Include="コード\アイテム\CItemBase.cs" />

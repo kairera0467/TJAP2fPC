@@ -77,39 +77,39 @@ namespace DTXMania
 
             #region[ ストーリーボード構築 ]
             float 速度倍率 = 1.0f; //1.0を基準とした速度。数値が1より小さくなると遅くなる。
-            double 秒( double v ) => ( v / 速度倍率 );
-            var animation = CDTXMania.AnimationManager;
-            var basetime = animation.Timer.Time;
-            var start = basetime;
+            //double 秒( double v ) => ( v / 速度倍率 );
+            //var animation = CDTXMania.AnimationManager;
+            //var basetime = animation.Timer.Time;
+            //var start = basetime;
 
-            // 表示中のスコアボード(カーソル種類)切り替え
-            // 0.1秒 カーソルを次の位置へ移動
-            var 直前の選択項目 = this.list難易度選択項目[ this.n現在の選択行[ player ] - 1 ];
-            var 次の選択項目 = this.list難易度選択項目[ this.n現在の選択行[ player ] ];
+            //// 表示中のスコアボード(カーソル種類)切り替え
+            //// 0.1秒 カーソルを次の位置へ移動
+            //var 直前の選択項目 = this.list難易度選択項目[ this.n現在の選択行[ player ] - 1 ];
+            //var 次の選択項目 = this.list難易度選択項目[ this.n現在の選択行[ player ] ];
 
-            var 直前のパネル位置中心X = 直前の選択項目.ptパネル座標.X + 直前の選択項目.txパネル.szテクスチャサイズ.Width / 2;
-            var 次のパネル位置中心X = 次の選択項目.ptパネル座標.X + 次の選択項目.txパネル.szテクスチャサイズ.Width / 2;
+            //var 直前のパネル位置中心X = 直前の選択項目.ptパネル座標.X + 直前の選択項目.txパネル.szテクスチャサイズ.Width / 2;
+            //var 次のパネル位置中心X = 次の選択項目.ptパネル座標.X + 次の選択項目.txパネル.szテクスチャサイズ.Width / 2;
             
-            var カーソル = this._プレイヤーカーソル[ player ];
-            var カーソルの幅 = カーソル.txカーソル.szテクスチャサイズ.Width / 2;
+            //var カーソル = this._プレイヤーカーソル[ player ];
+            //var カーソルの幅 = カーソル.txカーソル.szテクスチャサイズ.Width / 2;
 
-            カーソル.Dispose();
-            カーソル.枠左上位置X = new Variable( animation.Manager, 0.0 );
-            カーソル.枠左上位置Y = new Variable( animation.Manager, 0.0 );
-            カーソル.枠不透明度 = new Variable( animation.Manager, 0.0 );
-            カーソル.吹き出し左上位置X = new Variable( animation.Manager, 0 );
-            カーソル.吹き出し左上位置Y = new Variable( animation.Manager, 4.0 );
-            カーソル.ストーリーボード = new Storyboard( animation.Manager );
+            //カーソル.Dispose();
+            //カーソル.枠左上位置X = new Variable( animation.Manager, 0.0 );
+            //カーソル.枠左上位置Y = new Variable( animation.Manager, 0.0 );
+            //カーソル.枠不透明度 = new Variable( animation.Manager, 0.0 );
+            //カーソル.吹き出し左上位置X = new Variable( animation.Manager, 0 );
+            //カーソル.吹き出し左上位置Y = new Variable( animation.Manager, 4.0 );
+            //カーソル.ストーリーボード = new Storyboard( animation.Manager );
 
-            Trace.WriteLine( "現在の選択行:" + this.n現在の選択行[ player ] );
-            Trace.WriteLine( "吹き出し位置初期値X:" + (直前のパネル位置中心X) );
-            Trace.WriteLine( "吹き出し位置移動先X:" + (次のパネル位置中心X) );
+            //Trace.WriteLine( "現在の選択行:" + this.n現在の選択行[ player ] );
+            //Trace.WriteLine( "吹き出し位置初期値X:" + (直前のパネル位置中心X) );
+            //Trace.WriteLine( "吹き出し位置移動先X:" + (次のパネル位置中心X) );
 
-            using (var 枠座標移動X = animation.TrasitionLibrary.Linear(秒(0.1), 次のパネル位置中心X - 直前のパネル位置中心X))
-            {
-                カーソル.ストーリーボード.AddTransition(カーソル.吹き出し左上位置X, 枠座標移動X);
-            }
-            カーソル.ストーリーボード.Schedule( start );
+            //using (var 枠座標移動X = animation.TrasitionLibrary.Linear(秒(0.1), 次のパネル位置中心X - 直前のパネル位置中心X))
+            //{
+            //    カーソル.ストーリーボード.AddTransition(カーソル.吹き出し左上位置X, 枠座標移動X);
+            //}
+            //カーソル.ストーリーボード.Schedule( start );
             #endregion
         }
 		public void t前に移動( int player )
