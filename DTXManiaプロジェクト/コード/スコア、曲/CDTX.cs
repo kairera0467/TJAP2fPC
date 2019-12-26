@@ -1185,11 +1185,6 @@ namespace DTXMania
         public int[] nノーツ数 = new int[ 4 ]; //0～2:各コース 3:共通
         public int[] n風船数 = new int[ 4 ]; //0～2:各コース 3:共通
 
-        private string strTemp;
-        private int n文字数;
-        private bool b直前の行に小節末端定義が無かった = false;
-        private int n命令行のチップ番号_temp = 0;
-
         private List<CLine> listLine;
         private int nLineCountTemp; //分岐開始時の小節数を記録。
         private int nLineCountCourseTemp; //現在カウント中のコースを記録。
@@ -3198,7 +3193,7 @@ namespace DTXMania
                 string str = "";
                 try
                 {
-                    if( n譜面数 > 0 )
+                    if( n譜面数 > 1 )
                     {
                         //2017.07.22 kairera0467 譜面が2つ以上ある場合はCOURSE以下のBALLOON命令を使う
                         this.listBalloon.Clear();

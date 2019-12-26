@@ -34,10 +34,13 @@ namespace DTXMania
                 //ファイル一覧を生成する
                 string[] strUpperBG = Directory.GetFiles( CSkin.Path("Graphics\\Dancer_BG\\footer"), "*.png" );
 
-                //一覧からランダムで選ぶ
-                Random rand = new Random();
-                int now = rand.Next( 0, strUpperBG.Length - 1 );
-                this.txフッター = CDTXMania.tテクスチャの生成( strUpperBG[ now ] );
+                if( strUpperBG.Length > 0 )
+                {
+                    //一覧からランダムで選ぶ
+                    Random rand = new Random();
+                    int now = rand.Next( 0, strUpperBG.Length - 1 );
+                    this.txフッター = CDTXMania.tテクスチャの生成( strUpperBG[ now ] );
+                }
                 
                 base.OnManagedリソースの作成();
             }

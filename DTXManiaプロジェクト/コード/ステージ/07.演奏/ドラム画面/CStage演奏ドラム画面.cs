@@ -508,7 +508,6 @@ namespace DTXMania
         private CAct演奏Drumsゲームモード actGame;
         public CAct演奏Drums背景 actBackground;
         private CAct演奏Drums背景フッター actFooter;
-        private int[] nチャンネルtoX座標 = new int[] { 370, 470, 582, 527, 645, 748, 694, 373, 815, 298, 419, 419 };
         private CCounter ct手つなぎ;
         private CTexture txヒットバーGB;
 		private CTexture txレーンフレームGB;
@@ -2097,68 +2096,75 @@ namespace DTXMania
             float f現在の精度 = 0;
             int n種類 = 0;
             int n次回分岐までの小節数 = 0;
+            int[] nY基準位置 = new int[] { 118, 536 };
             string strNext = "BRANCH END";
 
-            if( ( this.n分岐した回数[ 0 ] < CDTXMania.DTX.listBRANCH.Count ) && CDTXMania.ConfigIni.bBranchGuide && !CDTXMania.ConfigIni.b太鼓パートAutoPlay )
+            // 2019.4.24 kairera0467 2P対応
+            // ToDo:スコア分岐のガイド対応
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
-                f現在の精度 = 0;
-                n種類 = CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n分岐の種類;
-                strNext = "NORMAL";
-                n次回分岐までの小節数 = ( CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n現在の小節 - 2 ) - CDTXMania.stage演奏ドラム画面.actPlayInfo.n小節番号;
+                bool bAutoPlay = i == 0 ? CDTXMania.ConfigIni.b太鼓パートAutoPlay : CDTXMania.ConfigIni.b太鼓パートAutoPlay2P;
 
-                if( CDTXMania.stage演奏ドラム画面.actPlayInfo.n小節番号 < 0 )
+                if( ( this.n分岐した回数[ i ] < CDTXMania.DTX.listBRANCH.Count ) && CDTXMania.ConfigIni.bBranchGuide && !bAutoPlay )
                 {
-                    n次回分岐までの小節数 = CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n現在の小節 - 2;
-                }
+                    f現在の精度 = 0;
+                    n種類 = CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n分岐の種類;
+                    strNext = "NORMAL";
+                    n次回分岐までの小節数 = ( CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n現在の小節 - 2 ) - CDTXMania.stage演奏ドラム画面.actPlayInfo.n小節番号;
 
-                if( ( this.nBranch_Perfect[ 0 ] + this.nBranch_Good[ 0 ] + this.nBranch_Miss[ 0 ] ) != 0 )
+                    if( CDTXMania.stage演奏ドラム画面.actPlayInfo.n小節番号 < 0 )
+                    {
+                        n次回分岐までの小節数 = CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n現在の小節 - 2;
+                    }
+
+                    if( ( this.nBranch_Perfect[ i ] + this.nBranch_Good[ i ] + this.nBranch_Miss[ i ] ) != 0 )
+                    {
+                        f現在の精度 = ( (float)this.nBranch_Perfect[ i ] / (float)( this.nBranch_Perfect[ i ] + this.nBranch_Good[ i ] + this.nBranch_Miss[ i ] ) ) * 100.0f;
+                    }
+
+                    if( n種類 == 0 )
+                    {
+                        if( f現在の精度 < CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値A )
+                        {
+                            strNext = "NORMAL";
+                        }
+                        else if( f現在の精度 >= CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値A && f現在の精度 < CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値B )
+                        {
+                            strNext = "EXPERT";
+                        }
+                        else if( f現在の精度 >= CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値B )
+                        {
+                            strNext = "MASTER";
+                        }
+
+                        CDTXMania.act文字コンソール.tPrint( 0, nY基準位置[ i ], C文字コンソール.Eフォント種別.白, f現在の精度.ToString() );
+                    }
+                    if( n種類 == 1 )
+                    {
+                        if( this.nBranch_roll[ i ] < CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値A )
+                        {
+                            strNext = "NORMAL";
+                        }
+                        else if( this.nBranch_roll[ i ] >= CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値A && this.nBranch_roll[ 0 ] < CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値B )
+                        {
+                            strNext = "EXPERT";
+                        }
+                        else if( this.nBranch_roll[ i ] >= CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値B )
+                        {
+                            strNext = "MASTER";
+                        }
+
+                        CDTXMania.act文字コンソール.tPrint( 0, nY基準位置[ i ], C文字コンソール.Eフォント種別.白, this.nBranch_roll.ToString() );
+                    }
+
+                    CDTXMania.act文字コンソール.tPrint( 0, nY基準位置[ i ] + (16 * 1), C文字コンソール.Eフォント種別.白, strNext.ToString() );
+                    CDTXMania.act文字コンソール.tPrint( 0, nY基準位置[ i ] + (16 * 2), C文字コンソール.Eフォント種別.白, string.Format( "NEXT BRANCH:{0:##0}", n次回分岐までの小節数.ToString() ) );
+                    CDTXMania.act文字コンソール.tPrint( 0, nY基準位置[ i ] + (16 * 3), C文字コンソール.Eフォント種別.白, string.Format( "NEXT BRANCH INFO:{0:##0} , {1:##0}", CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値A.ToString(), CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ i ] ].n条件数値B.ToString() ) );
+                }
+                else if( ( this.n分岐した回数[ i ] >= CDTXMania.DTX.listBRANCH.Count ) && CDTXMania.ConfigIni.bBranchGuide && !bAutoPlay  )
                 {
-                    f現在の精度 = ( (float)this.nBranch_Perfect[ 0 ] / (float)( this.nBranch_Perfect[ 0 ] + this.nBranch_Good[ 0 ] + this.nBranch_Miss[ 0 ] ) ) * 100.0f;
+                    CDTXMania.act文字コンソール.tPrint( 0, nY基準位置[ i ] + (16 * 1), C文字コンソール.Eフォント種別.白, strNext.ToString() );
                 }
-
-                if( n種類 == 0 )
-                {
-                    if( f現在の精度 < CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n条件数値A )
-                    {
-                        strNext = "NORMAL";
-                    }
-                    else if( f現在の精度 >= CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n条件数値A && f現在の精度 < CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n条件数値B )
-                    {
-                        strNext = "EXPERT";
-                    }
-                    else if( f現在の精度 >= CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n条件数値B )
-                    {
-                        strNext = "MASTER";
-                    }
-
-                    CDTXMania.act文字コンソール.tPrint( 0, 128, C文字コンソール.Eフォント種別.白, f現在の精度.ToString() );
-                }
-                if( n種類 == 1 )
-                {
-                    if( this.nBranch_roll[ 0 ] < CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n条件数値A )
-                    {
-                        strNext = "NORMAL";
-                    }
-                    else if( this.nBranch_roll[ 0 ] >= CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n条件数値A && this.nBranch_roll[ 0 ] < CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n条件数値B )
-                    {
-                        strNext = "EXPERT";
-                    }
-                    else if( this.nBranch_roll[ 0 ] >= CDTXMania.DTX.listBRANCH[this.n分岐した回数[ 0 ]].n条件数値B )
-                    {
-                        strNext = "MASTER";
-                    }
-
-                    CDTXMania.act文字コンソール.tPrint( 0, 128, C文字コンソール.Eフォント種別.白, this.nBranch_roll.ToString() );
-                }
-
-
-                CDTXMania.act文字コンソール.tPrint( 0, 160, C文字コンソール.Eフォント種別.白, string.Format( "NEXT BRANCH:{0:##0}", n次回分岐までの小節数.ToString() ) );
-                CDTXMania.act文字コンソール.tPrint( 0, 362, C文字コンソール.Eフォント種別.白, string.Format( "NEXT BRANCH INFO:{0:##0} , {1:##0}", CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n条件数値A.ToString(), CDTXMania.DTX.listBRANCH[ this.n分岐した回数[ 0 ] ].n条件数値B.ToString() ) );
-                CDTXMania.act文字コンソール.tPrint( 0, 144, C文字コンソール.Eフォント種別.白, strNext.ToString() );
-            }
-            else if( ( this.n分岐した回数[ 0 ] >= CDTXMania.DTX.listBRANCH.Count ) && CDTXMania.ConfigIni.bBranchGuide && !CDTXMania.ConfigIni.b太鼓パートAutoPlay  )
-            {
-                CDTXMania.act文字コンソール.tPrint( 0, 144, C文字コンソール.Eフォント種別.白, strNext.ToString() );
             }
             #endregion
 
@@ -2199,7 +2205,7 @@ namespace DTXMania
             count_y += 16;
             CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PO:{this.nヒット数[0].見逃し不可:0000}") );
 
-            count_y = 536;
+            count_y = 640;
             CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PG:{this.nヒット数[1].良:0000}") );
             count_y += 16;
             CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"GR:{this.nヒット数[1].可:0000}") );
@@ -2212,7 +2218,8 @@ namespace DTXMania
 #endif
             #endregion
 
-            string strNull = "Found";
+            string strNull = "Found"; // 不要?
+            #region[ ポーズメニュー ]
             if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F1 ) )
             {
                 if( !this.actPauseMenu.bIsActivePopupMenu )
@@ -2235,10 +2242,11 @@ namespace DTXMania
                     C共通.bToggleBoolian( ref this.bポーズメニューを表示する );
                 }
             }
+            #endregion
             //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F8 ) )
             //{
-                //this.actChipFireD.Start紙吹雪();
-                //this.actDancer.t入退場( 0, 0, 0.4 );
+            //this.actChipFireD.Start紙吹雪();
+            //this.actDancer.t入退場( 0, 0, 0.4 );
             //}
 
         }
@@ -2288,6 +2296,10 @@ namespace DTXMania
                 this.t小文字表示( 206, 494, string.Format( "{0,3:##0}%", dbPERFECT率 ), false );
                 this.t小文字表示( 206, 532, string.Format( "{0,3:##0}%", dbGREAT率 ), false );
                 this.t小文字表示( 206, 570, string.Format( "{0,3:##0}%", dbMISS率 ), false );
+
+                // 2019.04.06 kairera0467
+                // 再生速度を仮設置
+                CDTXMania.act文字コンソール.tPrint( 0, 400, C文字コンソール.Eフォント種別.白, string.Format( "PlaySpeed x{0,4:#.00}", (double)(CDTXMania.ConfigIni.n演奏速度 / 20.0 ) ) );
             }
         }
 

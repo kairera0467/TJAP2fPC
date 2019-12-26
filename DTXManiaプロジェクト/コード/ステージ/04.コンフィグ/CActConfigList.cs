@@ -1730,7 +1730,6 @@ namespace DTXMania
 		private CItemBase iSystemReturnToMenu;
 		private CItemToggle iSystemSaveScore;
 		private CItemToggle iSystemStageFailed;
-		private CItemToggle iSystemStoicMode;
 		private CItemToggle iSystemVSyncWait;
 		private CItemList	iSystemShowLag;					// #25370 2011.6.3 yyagi
 		private CItemToggle iSystemAutoResultCapture;		// #25399 2011.6.9 yyagi
@@ -1749,13 +1748,6 @@ namespace DTXMania
 		private int iSystemSoundTimerType_initial;			// #33689 2014.6.17 yyagi
 
 		private CItemToggle iSystemTimeStretch;				// #23664 2013.2.24 yyagi
-		private CItemList iSystemJudgePosGuitar;			// #33891 2014.6.26 yyagi
-		private CItemList iSystemJudgePosBass;				// #33891 2014.6.26 yyagi
-
-		//private CItemList iDrumsJudgeDispPriority;	//
-		//private CItemList iGuitarJudgeDispPriority;	//
-		//private CItemList iBassJudgeDispPriority;		//
-		private CItemList iSystemJudgeDispPriority;
 
 		private List<CItemBase> list項目リスト;
 		private long nスクロール用タイマ値;
