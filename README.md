@@ -10,10 +10,11 @@ DTXManiaをいじってtja再生プログラムにしちゃったアレ。
 ・DirectShowLib<br/>
 ・FDK21<br/>
 ・SlimDX<br/>
-・xadec<br/>
+・SharpDX(ゲーム中ではAnimationのみ使用)<br/>
 ・IPAフォント<br/>
 ・libogg<br/>
 ・libvorbis<br/>
-「実行時フォルダ/Licenses」に収録しています。<br/>
+・SQLite<br/>
+各ライブラリの著作権表記は「License」フォルダに収録しています。<br/>
 <br/>
 また、このプログラムはFROM氏の「DTXMania」を元に製作しています。

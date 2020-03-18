@@ -3569,6 +3569,7 @@ namespace DTXMania
             this.t演奏位置の変更( 0, 0 );
             this.t演奏位置の変更( 0, 1 );
             CDTXMania.stage演奏ドラム画面.On活性化();
+            CDTXMania.stage演奏ドラム画面.actLaneTaiko.tリセット();
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 this.chip現在処理中の連打チップ[ i ] = null;

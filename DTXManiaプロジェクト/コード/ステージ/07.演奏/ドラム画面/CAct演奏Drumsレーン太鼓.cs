@@ -1266,6 +1266,20 @@ namespace DTXMania
             this.n移動距離px = n移動px;
         }
 
+        /// <summary>
+        /// 全プレイヤーの譜面分岐の描画関係をリセットする
+        /// </summary>
+        public void tリセット()
+        {
+            // STBranch構造体の中身をリセット
+            // 透明度のリセットは演奏再開後の処理で賄う
+            for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
+            {
+                this.stBranch[ i ].nBefore = 0;
+                this.stBranch[ i ].nAfter = 0;
+            }
+        }
+
 
         #region[ private ]
         //-----------------
