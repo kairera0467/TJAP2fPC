@@ -2307,7 +2307,7 @@ namespace DTXMania
 
                 // 2019.04.06 kairera0467
                 // 再生速度を仮設置
-                CDTXMania.act文字コンソール.tPrint( 0, 400, C文字コンソール.Eフォント種別.白, string.Format( "PlaySpeed x{0,4:#.00}", (double)(CDTXMania.ConfigIni.n演奏速度 / 20.0 ) ) );
+                //CDTXMania.act文字コンソール.tPrint( 0, 400, C文字コンソール.Eフォント種別.白, string.Format( "PlaySpeed x{0,4:#.00}", (double)(CDTXMania.ConfigIni.n演奏速度 / 20.0 ) ) );
             }
         }
 
