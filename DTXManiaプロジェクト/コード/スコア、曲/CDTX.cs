@@ -3336,30 +3336,35 @@ namespace DTXMania
             {
                 //#STARTと同時に鳴らすのはどうかと思うけどしゃーなしだな。
 
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0x01;
-                chip.n発声位置 = 384;
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.n整数値 = 0x01;
-                chip.n整数値_内部番号 = 1;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0x01,
+                    n発声位置 = 384,
+                    n発声時刻ms = (int)this.dbNowTime,
+                    n整数値 = 0x01,
+                    n整数値_内部番号 = 1
+                };
 
                 // チップを配置。
                 this.listChip.Add(chip);
 
-                var chip1 = new CChip();
-                chip1.nチャンネル番号 = 0x54;
+                var chip1 = new CChip
+                {
+                    nチャンネル番号 = 0x54,
+                    dbBPM = this.dbNowBPM,
+                    dbSCROLL = this.dbNowScroll,
+                    n整数値 = 0x01,
+                    n整数値_内部番号 = 1,
+                    eAVI種別 = EAVI種別.AVI
+                };
+
                 //chip1.n発声位置 = 384;
                 //chip1.n発声時刻ms = (int)this.dbNowTime;
-                if( this.nMOVIEOFFSET == 0 )
+                if ( this.nMOVIEOFFSET == 0 )
                     chip1.n発声時刻ms = (int)this.dbNowTime;
                 else
                     chip1.n発声時刻ms = (int)this.nMOVIEOFFSET;
-                chip1.dbBPM = this.dbNowBPM;
-                chip1.dbSCROLL = this.dbNowScroll;
-                chip1.n整数値 = 0x01;
-                chip1.n整数値_内部番号 = 1;
-                chip1.eAVI種別 = EAVI種別.AVI;
+
 
                 // チップを配置。
 
@@ -3368,14 +3373,16 @@ namespace DTXMania
             else if (InputText.StartsWith("#END"))
             {
                 //ためしに割り込む。
-                var chip = new CChip();
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xFF,
+                    n発声位置 = ((this.n現在の小節数 + 2) * 384),
+                    //n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  ),
+                    n発声時刻ms = (int)( this.dbNowTime + 1000 ), //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
+                    n整数値 = 0xFF,
+                    n整数値_内部番号 = 1
+                };
 
-                chip.nチャンネル番号 = 0xFF;
-                chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
-                //chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
-                chip.n発声時刻ms = (int)( this.dbNowTime + 1000 ); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
-                chip.n整数値 = 0xFF;
-                chip.n整数値_内部番号 = 1;
                 // チップを配置。
 
                 this.listChip.Add(chip);
@@ -3403,27 +3410,30 @@ namespace DTXMania
 
 
                 //チップ追加して割り込んでみる。
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0x08;
-                chip.n発声位置 = ((this.n現在の小節数) * 384);
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
-                chip.dbBPM = dbBPM;
-                chip.n整数値_内部番号 = this.n内部番号BPM1to - 1;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0x08,
+                    n発声位置 = ((this.n現在の小節数) * 384),
+                    n発声時刻ms = (int)this.dbNowTime,
+                    fBMSCROLLTime = (float)this.dbNowBMScollTime,
+                    dbBPM = dbBPM,
+                    n整数値_内部番号 = this.n内部番号BPM1to - 1
+                };
 
                 // チップを配置。
 
                 this.listChip.Add(chip);
 
-                var chip1 = new CChip();
-                chip1.nチャンネル番号 = 0x9C;
-                chip1.n発声位置 = ((this.n現在の小節数) * 384);
-                chip1.n発声時刻ms = (int)this.dbNowTime;
-                chip1.fBMSCROLLTime = (float)this.dbNowBMScollTime;
-                chip1.dbBPM = dbBPM;
-                chip1.dbSCROLL = this.dbNowScroll;
-                chip1.n整数値_内部番号 = this.n内部番号BPM1to - 1;
+                var chip1 = new CChip
+                {
+                    nチャンネル番号 = 0x9C,
+                    n発声位置 = ((this.n現在の小節数) * 384),
+                    n発声時刻ms = (int)this.dbNowTime,
+                    fBMSCROLLTime = (float)this.dbNowBMScollTime,
+                    dbBPM = dbBPM,
+                    dbSCROLL = this.dbNowScroll,
+                    n整数値_内部番号 = this.n内部番号BPM1to - 1
+                };
 
                 // チップを配置。
 
@@ -3466,15 +3476,16 @@ namespace DTXMania
                     }
 
                     //チップ追加して割り込んでみる。
-                    var chip = new CChip();
-
-                    chip.nチャンネル番号 = 0x9D;
-                    chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-                    chip.n発声時刻ms = (int)this.dbNowTime;
-                    chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
-                    chip.dbSCROLL = dbComplexNum[ 0 ];
-                    chip.dbSCROLL_Y = dbComplexNum[ 1 ];
-                    chip.nコース = this.n現在のコース;
+                    var chip = new CChip
+                    {
+                        nチャンネル番号 = 0x9D,
+                        n発声位置 = ((this.n現在の小節数) * 384) - 1,
+                        n発声時刻ms = (int)this.dbNowTime,
+                        n整数値_内部番号 = this.n内部番号SCROLL1to,
+                        dbSCROLL = dbComplexNum[0],
+                        dbSCROLL_Y = dbComplexNum[1],
+                        nコース = this.n現在のコース
+                    };
 
                     // チップを配置。
 
@@ -3505,23 +3516,21 @@ namespace DTXMania
                     }
 
                     //チップ追加して割り込んでみる。
-                    var chip = new CChip();
-
-                    chip.nチャンネル番号 = 0x9D;
-                    chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-                    chip.n発声時刻ms = (int)this.dbNowTime;
-                    chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
-                    chip.dbSCROLL = dbSCROLL;
-                    chip.dbSCROLL_Y = 0.0;
-                    chip.nコース = this.n現在のコース;
+                    var chip = new CChip
+                    {
+                        nチャンネル番号 = 0x9D,
+                        n発声位置 = ((this.n現在の小節数) * 384) - 1,
+                        n発声時刻ms = (int)this.dbNowTime,
+                        n整数値_内部番号 = this.n内部番号SCROLL1to,
+                        dbSCROLL = dbSCROLL,
+                        dbSCROLL_Y = 0.0,
+                        nコース = this.n現在のコース
+                    };
 
                     // チップを配置。
 
                     this.listChip.Add(chip);
                 }
-
-
-
 
                 this.n内部番号SCROLL1to++;
             }
@@ -3540,14 +3549,15 @@ namespace DTXMania
                 this.fNow_Measure_m = (float)dbLength[1];
                 this.fNow_Measure_s = (float)dbLength[0];
 
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0x02;
-                chip.n発声位置 = ((this.n現在の小節数) * 384);
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.dbSCROLL = this.dbNowScroll;
-                chip.db実数値 = db小節長倍率;
-                chip.n整数値_内部番号 = 1;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0x02,
+                    n発声位置 = ((this.n現在の小節数) * 384),
+                    n発声時刻ms = (int)this.dbNowTime,
+                    dbSCROLL = this.dbNowScroll,
+                    db実数値 = db小節長倍率,
+                    n整数値_内部番号 = 1
+                };
                 // チップを配置。
 
                 this.listChip.Add(chip);
@@ -3565,15 +3575,16 @@ namespace DTXMania
 
 
                 //チップ追加して割り込んでみる。
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xDC;
-                chip.n発声位置 = ((this.n現在の小節数) * 384);
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.db発声時刻ms = this.dbNowTime;
-                chip.n整数値_内部番号 = this.n内部番号DELAY1to;
-                chip.fBMSCROLLTime = this.dbNowBMScollTime;
-                chip.nコース = this.n現在のコース;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xDC,
+                    n発声位置 = ((this.n現在の小節数) * 384),
+                    n発声時刻ms = (int)this.dbNowTime,
+                    db発声時刻ms = this.dbNowTime,
+                    n整数値_内部番号 = this.n内部番号DELAY1to,
+                    fBMSCROLLTime = this.dbNowBMScollTime,
+                    nコース = this.n現在のコース
+                };
 
                 // チップを配置。
 
@@ -3586,13 +3597,14 @@ namespace DTXMania
 
             else if (InputText.StartsWith("#GOGOSTART"))
             {
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0x9E;
-                chip.n発声位置 = ((this.n現在の小節数) * 384);
-                chip.dbBPM = this.dbNowBPM;
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.n整数値_内部番号 = 1;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0x9E,
+                    n発声位置 = ((this.n現在の小節数) * 384),
+                    dbBPM = this.dbNowBPM,
+                    n発声時刻ms = (int)this.dbNowTime,
+                    n整数値_内部番号 = 1
+                };
                 this.bGOGOTIME = true;
 
                 // チップを配置。
@@ -3600,13 +3612,14 @@ namespace DTXMania
             }
             else if (InputText.StartsWith("#GOGOEND"))
             {
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0x9F;
-                chip.n発声位置 = ((this.n現在の小節数) * 384);
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.dbBPM = this.dbNowBPM;
-                chip.n整数値_内部番号 = 1;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0x9F,
+                    n発声位置 = ((this.n現在の小節数) * 384),
+                    n発声時刻ms = (int)this.dbNowTime,
+                    dbBPM = this.dbNowBPM,
+                    n整数値_内部番号 = 1
+                };
                 this.bGOGOTIME = false;
 
                 // チップを配置。
@@ -3615,13 +3628,14 @@ namespace DTXMania
             else if (InputText.StartsWith("#SECTION"))
             {
                 //分岐:条件リセット
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xDD;
-                chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.db発声時刻ms = this.dbNowTime;
-                chip.n整数値_内部番号 = 1;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xDD,
+                    n発声位置 = ((this.n現在の小節数 - 1) * 384),
+                    n発声時刻ms = (int)this.dbNowTime,
+                    db発声時刻ms = this.dbNowTime,
+                    n整数値_内部番号 = 1
+                };
 
                 // チップを配置。
                 this.listChip.Add(chip);
@@ -3704,54 +3718,58 @@ namespace DTXMania
                 this.bBranch中である = true; // 2018.08.22 kairera0467 譜面分岐中かのフラグ
 
                 //まずはリストに現在の小節、発声位置、分岐条件を追加。
-                var branch = new CBRANCH();
-                branch.db判定時間 = this.dbNowTime;
-                branch.db分岐時間 = ((this.n現在の小節数 + 1) * 384);
-                branch.db分岐時間ms = this.dbNowTime; //ここがうまく計算できてないので後からバグが出る。
-                //branch.db分岐時間ms = this.dbNowTime + ((((60.0 / this.dbNowBPM) / 4.0 ) * 16.0) * 1000.0);
-                branch.dbBPM = this.dbNowBPM;
-                branch.dbSCROLL = this.dbNowScroll;
-                branch.dbBMScrollTime = this.dbNowBMScollTime;
-                branch.n現在の小節 = this.n現在の小節数;
-                branch.n条件数値A = nNum[0];
-                branch.n条件数値B = nNum[1];
-                branch.n内部番号 = this.n内部番号BRANCH1to;
-                branch.n表記上の番号 = 0;
-                branch.n分岐の種類 = n条件;
-                branch.n命令時のChipList番号 = this.listChip.Count;
-                branch.fMeasure_m = this.fNow_Measure_m;
-                branch.fMeasure_s = this.fNow_Measure_s;
-                branch.bGOGOTIME = this.bGOGOTIME;
+                var branch = new CBRANCH
+                {
+                    db判定時間 = this.dbNowTime,
+                    db分岐時間 = ((this.n現在の小節数 + 1) * 384),
+                    db分岐時間ms = this.dbNowTime, //ここがうまく計算できてないので後からバグが出る。
+                    //db分岐時間ms = this.dbNowTime + ((((60.0 / this.dbNowBPM) / 4.0 ) * 16.0) * 1000.0);
+                    dbBPM = this.dbNowBPM,
+                    dbSCROLL = this.dbNowScroll,
+                    dbBMScrollTime = this.dbNowBMScollTime,
+                    n現在の小節 = this.n現在の小節数,
+                    n条件数値A = nNum[0],
+                    n条件数値B = nNum[1],
+                    n内部番号 = this.n内部番号BRANCH1to,
+                    n表記上の番号 = 0,
+                    n分岐の種類 = n条件,
+                    n命令時のChipList番号 = this.listChip.Count,
+                    fMeasure_m = this.fNow_Measure_m,
+                    fMeasure_s = this.fNow_Measure_s,
+                    bGOGOTIME = this.bGOGOTIME
+                };
 
                 this.listBRANCH.Add(this.n内部番号BRANCH1to, branch);
 
 
                 //分岐アニメ開始時(分岐の1小節前)に設置。
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xDE;
-                chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
-                chip.n発声時刻ms = (int)(this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 16.0 )); //ここの時間設定は前の小節の開始時刻である必要があるのだが...
-                chip.db発声時刻ms = this.dbNowTime;
-                //chip.n発声時刻ms = (int)this.dbLastTime;
-                chip.dbSCROLL = this.dbNowScroll;
-                chip.dbBPM = this.dbNowBPM;
-                chip.n整数値_内部番号 = this.n内部番号BRANCH1to;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xDE,
+                    n発声位置 = ((this.n現在の小節数 - 1) * 384),
+                    n発声時刻ms = (int)(this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 16.0)), //ここの時間設定は前の小節の開始時刻である必要があるのだが...
+                    db発声時刻ms = this.dbNowTime,
+                    //n発声時刻ms = (int)this.dbLastTime;
+                    dbSCROLL = this.dbNowScroll,
+                    dbBPM = this.dbNowBPM,
+                    n整数値_内部番号 = this.n内部番号BRANCH1to
+                };
 
                 // チップを配置。
                 this.listChip.Add(chip);
 
                 //実質的な位置に配置
-                var chip2 = new CChip();
+                var chip2 = new CChip
+                {
+                    nチャンネル番号 = 0xDF,
+                    n発声位置 = ((this.n現在の小節数) * 384),
+                    db発声時刻ms = this.dbNowTime,
+                    n発声時刻ms = (int)this.dbNowTime,
+                    dbSCROLL = this.dbNowScroll,
+                    dbBPM = this.dbNowBPM,
 
-                chip2.nチャンネル番号 = 0xDF;
-                chip2.n発声位置 = ((this.n現在の小節数) * 384);
-                chip2.db発声時刻ms = this.dbNowTime;
-                chip2.n発声時刻ms = (int)this.dbNowTime;
-                chip2.dbSCROLL = this.dbNowScroll;
-                chip2.dbBPM = this.dbNowBPM;
-
-                chip2.n整数値_内部番号 = this.n内部番号BRANCH1to;
+                    n整数値_内部番号 = this.n内部番号BRANCH1to
+                };
 
                 this.listChip.Add(chip2);
 
@@ -3801,13 +3819,14 @@ namespace DTXMania
             }
             else if( InputText.StartsWith( "#LEVELHOLD" ) )
             {
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xE1;
-                chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-                chip.nコース = this.n現在のコース;
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.n整数値_内部番号 = 1;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xE1,
+                    n発声位置 = ((this.n現在の小節数) * 384) - 1,
+                    nコース = this.n現在のコース,
+                    n発声時刻ms = (int)this.dbNowTime,
+                    n整数値_内部番号 = 1
+                };
 
                 this.listChip.Add(chip);
             }
@@ -3819,26 +3838,28 @@ namespace DTXMania
             }
             else if( InputText.StartsWith( "#BARLINEOFF" ) )
             {
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xE0;
-                chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-                chip.n発声時刻ms = (int)this.dbNowTime + 1;
-                chip.n整数値_内部番号 = 1;
-                chip.nコース = this.n現在のコース;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xE0,
+                    n発声位置 = ((this.n現在の小節数) * 384) - 1,
+                    n発声時刻ms = (int)this.dbNowTime + 1,
+                    n整数値_内部番号 = 1,
+                    nコース = this.n現在のコース
+                };
                 this.bBARLINECUE[ 0 ] = 1;
 
                 this.listChip.Add(chip);
             }
             else if( InputText.StartsWith( "#BARLINEON" ) )
             {
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xE0;
-                chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-                chip.n発声時刻ms = (int)this.dbNowTime + 1;
-                chip.n整数値_内部番号 = 2;
-                chip.nコース = this.n現在のコース;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xE0,
+                    n発声位置 = ((this.n現在の小節数) * 384) - 1,
+                    n発声時刻ms = (int)this.dbNowTime + 1,
+                    n整数値_内部番号 = 2,
+                    nコース = this.n現在のコース
+                };
                 this.bBARLINECUE[ 0 ] = 0;
 
                 this.listChip.Add(chip);
@@ -3849,13 +3870,14 @@ namespace DTXMania
 
                 this.listLiryc.Add(strArray[1]);
 
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xF1;
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.n整数値_内部番号 = 0;
-                chip.nコース = this.n現在のコース;
-                chip.nPlayerSide = this.nPlayerSide;  // Issue#11 DP時に歌詞が2つ進んでしまうのを修正
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xF1,
+                    n発声時刻ms = (int)this.dbNowTime,
+                    n整数値_内部番号 = 0,
+                    nコース = this.n現在のコース,
+                    nPlayerSide = this.nPlayerSide  // Issue#11 DP時に歌詞が2つ進んでしまうのを修正
+                };
 
                 // チップを配置。
 
@@ -3868,14 +3890,15 @@ namespace DTXMania
                 this.nスクロール方向 = (int)dbSCROLL;
 
                 //チップ追加して割り込んでみる。
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xF2;
-                chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.n整数値_内部番号 = 0;
-                chip.nスクロール方向 = (int)dbSCROLL;
-                chip.nコース = this.n現在のコース;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xF2,
+                    n発声位置 = ((this.n現在の小節数) * 384) - 1,
+                    n発声時刻ms = (int)this.dbNowTime,
+                    n整数値_内部番号 = 0,
+                    nスクロール方向 = (int)dbSCROLL,
+                    nコース = this.n現在のコース
+                };
 
                 // チップを配置。
 
@@ -3890,15 +3913,16 @@ namespace DTXMania
                 this.db移動待機時刻 = db移動待機時刻;
 
                 //チップ追加して割り込んでみる。
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xF3;
-                chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.n整数値_内部番号 = 0;
-                chip.nノーツ出現時刻ms = (int)this.db出現時刻;
-                chip.nノーツ移動開始時刻ms = (int)this.db移動待機時刻;
-                chip.nコース = this.n現在のコース;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xF3,
+                    n発声位置 = ((this.n現在の小節数) * 384) - 1,
+                    n発声時刻ms = (int)this.dbNowTime,
+                    n整数値_内部番号 = 0,
+                    nノーツ出現時刻ms = (int)this.db出現時刻,
+                    nノーツ移動開始時刻ms = (int)this.db移動待機時刻,
+                    nコース = this.n現在のコース
+                };
 
                 // チップを配置。
 
@@ -3912,13 +3936,14 @@ namespace DTXMania
                 int n移動方向 = Convert.ToInt32(strArray[3]);
 
                 //チップ追加して割り込んでみる。
-                var chip = new CChip();
-
-                chip.nチャンネル番号 = 0xE2;
-                chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-                chip.n発声時刻ms = (int)this.dbNowTime;
-                chip.n整数値_内部番号 = 0;
-                chip.nコース = this.n現在のコース;
+                var chip = new CChip
+                {
+                    nチャンネル番号 = 0xE2,
+                    n発声位置 = ((this.n現在の小節数) * 384) - 1,
+                    n発声時刻ms = (int)this.dbNowTime,
+                    n整数値_内部番号 = 0,
+                    nコース = this.n現在のコース
+                };
 
                 // チップを配置。
 
@@ -3954,20 +3979,22 @@ namespace DTXMania
                 {
                     if( this.b小節線を挿入している == false )
                     {
-                        CChip chip = new CChip();
-                        chip.bBranch = this.bBranch中である;
-                        chip.nチャンネル番号 = 0x50;
-                        chip.n発声位置 = ( ( this.n現在の小節数 ) * 384 );
-                        chip.n発声時刻ms = (int)this.dbNowTime;
-                        chip.db発声時刻ms = this.dbNowTime;
-                        chip.n整数値_内部番号 = this.n現在の小節数;
-                        chip.dbBPM = this.dbNowBPM;
-                        chip.dbSCROLL = this.dbNowScroll;
-                        chip.dbSCROLL_Y = this.dbNowScrollY;
-                        chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
-                        chip.nコース = this.n現在のコース;
+                        CChip chip = new CChip
+                        {
+                            bBranch = this.bBranch中である,
+                            nチャンネル番号 = 0x50,
+                            n発声位置 = ((this.n現在の小節数) * 384),
+                            n発声時刻ms = (int)this.dbNowTime,
+                            db発声時刻ms = this.dbNowTime,
+                            n整数値_内部番号 = this.n現在の小節数,
+                            dbBPM = this.dbNowBPM,
+                            dbSCROLL = this.dbNowScroll,
+                            dbSCROLL_Y = this.dbNowScrollY,
+                            fBMSCROLLTime = (float)this.dbNowBMScollTime,
+                            nコース = this.n現在のコース
+                        };
 
-                        if( this.bBARLINECUE[ 0 ] == 1 )
+                        if ( this.bBARLINECUE[ 0 ] == 1 )
                         {
                             chip.b可視 = false;
                         }
@@ -3991,17 +4018,19 @@ namespace DTXMania
                         //forループ(拍数)
                         for( int measure = 1; measure < this.fNow_Measure_s; measure++ )
                         {
-                            CChip hakusen = new CChip();
-                            hakusen.n発声位置 = ( ( this.n現在の小節数) * 384 );
-                            hakusen.n発声時刻ms = (int)(this.dbNowTime + (((db1拍 * 4.0)) * measure ) * 1000.0);
-                            hakusen.nチャンネル番号 = 0x51;
-                            //hakusen.n発声時刻ms = (int)this.dbNowTime;
-                            hakusen.fBMSCROLLTime = this.dbNowBMScollTime;
-                            hakusen.n整数値_内部番号 = this.n現在の小節数;
-                            hakusen.dbBPM = this.dbNowBPM;
-                            hakusen.dbSCROLL = this.dbNowScroll;
-                            hakusen.dbSCROLL_Y = this.dbNowScrollY;
-                            hakusen.nコース = this.n現在のコース;
+                            CChip hakusen = new CChip
+                            {
+                                n発声位置 = ((this.n現在の小節数) * 384),
+                                n発声時刻ms = (int)(this.dbNowTime + (((db1拍 * 4.0)) * measure) * 1000.0),
+                                nチャンネル番号 = 0x51,
+                                //n発声時刻ms = (int)this.dbNowTime;
+                                fBMSCROLLTime = this.dbNowBMScollTime,
+                                n整数値_内部番号 = this.n現在の小節数,
+                                dbBPM = this.dbNowBPM,
+                                dbSCROLL = this.dbNowScroll,
+                                dbSCROLL_Y = this.dbNowScrollY,
+                                nコース = this.n現在のコース
+                            };
 
                             this.listChip.Add( hakusen );
 //--全ての拍線の時間を出力する--
@@ -4047,35 +4076,36 @@ namespace DTXMania
                                 }
                             }
 
-                            var chip = new CChip();
-
-                            chip.bBranch = this.bBranch中である;
-                            chip.bHit = false;
-                            chip.b可視 = true;
-                            chip.bShow = true;
-                            chip.nチャンネル番号 = 0x10 + nObjectNum;
-                            chip.n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
-                            chip.db発声位置 = this.dbNowTime;
-                            chip.n発声時刻ms = (int)this.dbNowTime;
-                            chip.db発声時刻ms = this.dbNowTime;
-                            //chip.fBMSCROLLTime = (float)(( this.dbBarLength ) * (16.0f / this.n各小節の文字数[this.n現在の小節数]));
-                            chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
-                            chip.n整数値 = nObjectNum;
-                            chip.n整数値_内部番号 = 1;
-                            chip.dbBPM = this.dbNowBPM;
-                            chip.dbSCROLL = this.dbNowScroll;
-                            chip.dbSCROLL_Y = this.dbNowScrollY;
-                            chip.nスクロール方向 = this.nスクロール方向;
-                            chip.nコース = this.n現在のコース;
-                            chip.n分岐回数 = this.n内部番号BRANCH1to;
-                            chip.e楽器パート = E楽器パート.TAIKO;
-                            chip.nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0);
-                            chip.nノーツ移動開始時刻ms = (int)(this.db移動待機時刻 * 1000.0);
-                            chip.nPlayerSide = this.nPlayerSide;
-                            chip.bGOGOTIME = this.bGOGOTIME;
+                            var chip = new CChip
+                            {
+                                bBranch = this.bBranch中である,
+                                bHit = false,
+                                b可視 = true,
+                                bShow = true,
+                                nチャンネル番号 = 0x10 + nObjectNum,
+                                n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数)),
+                                db発声位置 = this.dbNowTime,
+                                n発声時刻ms = (int)this.dbNowTime,
+                                db発声時刻ms = this.dbNowTime,
+                                //fBMSCROLLTime = (float)(( this.dbBarLength ) * (16.0f / this.n各小節の文字数[this.n現在の小節数]));
+                                fBMSCROLLTime = (float)this.dbNowBMScollTime,
+                                n整数値 = nObjectNum,
+                                n整数値_内部番号 = 1,
+                                dbBPM = this.dbNowBPM,
+                                dbSCROLL = this.dbNowScroll,
+                                dbSCROLL_Y = this.dbNowScrollY,
+                                nスクロール方向 = this.nスクロール方向,
+                                nコース = this.n現在のコース,
+                                n分岐回数 = this.n内部番号BRANCH1to,
+                                e楽器パート = E楽器パート.TAIKO,
+                                nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0),
+                                nノーツ移動開始時刻ms = (int)(this.db移動待機時刻 * 1000.0),
+                                nPlayerSide = this.nPlayerSide,
+                                bGOGOTIME = this.bGOGOTIME
+                            };
 
                             // 風船連打
-                            if( nObjectNum == 7 || nObjectNum == 9 )
+                            if ( nObjectNum == 7 || nObjectNum == 9 )
                             {
                                 switch( this.n現在のコース )
                                 {
