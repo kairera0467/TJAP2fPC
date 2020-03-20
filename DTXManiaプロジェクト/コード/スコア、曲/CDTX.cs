@@ -1308,9 +1308,6 @@ namespace DTXMania
 			this.strファイル名の絶対パス = "";
 			this.n無限管理WAV = new int[ 36 * 36 ];
 			this.n無限管理BPM = new int[ 36 * 36 ];
-			this.n無限管理VOL = new int[ 36 * 36 ];
-			this.n無限管理PAN = new int[ 36 * 36 ];
-			this.n無限管理SIZE = new int[ 36 * 36 ];
             this.listBalloon_Normal_数値管理 = 0;
             this.listBalloon_Expert_数値管理 = 0;
             this.listBalloon_Master_数値管理 = 0;
@@ -2001,9 +1998,6 @@ namespace DTXMania
 				{
 					this.n無限管理WAV[ j ] = -j;
 					this.n無限管理BPM[ j ] = -j;
-					this.n無限管理VOL[ j ] = -j;
-					this.n無限管理PAN[ j ] = -10000 - j;
-					this.n無限管理SIZE[ j ] = -j;
 				}
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
@@ -2074,9 +2068,6 @@ namespace DTXMania
 					//timeBeginLoad = DateTime.Now;
 					this.n無限管理WAV = null;
 					this.n無限管理BPM = null;
-					this.n無限管理VOL = null;
-					this.n無限管理PAN = null;
-					this.n無限管理SIZE = null;
                     //this.t入力_行解析ヘッダ( str1 );
 					if ( !this.bヘッダのみ )
 					{
@@ -4495,9 +4486,6 @@ namespace DTXMania
                     var wav = new CWAV() {
 				        n内部番号 = this.n内部番号WAV1to,
 				        n表記上の番号 = 1,
-			    	    nチップサイズ = this.n無限管理SIZE[ this.n内部番号WAV1to ],
-		        		n位置 = this.n無限管理PAN[ this.n内部番号WAV1to ],
-	        			n音量 = this.n無限管理VOL[ this.n内部番号WAV1to ],
         				strファイル名 = this.strBGM_PATH,
     				    strコメント文 = "TJA BGM",
                     };
@@ -6809,9 +6797,6 @@ namespace DTXMania
 		private int n内部番号BRANCH1to;
 		private int n内部番号WAV1to;
 		private int[] n無限管理BPM;
-		private int[] n無限管理PAN;
-		private int[] n無限管理SIZE;
-		private int[] n無限管理VOL;
 		private int[] n無限管理WAV;
 		private int[] nRESULTIMAGE用優先順位;
 		private int[] nRESULTMOVIE用優先順位;
@@ -7599,15 +7584,6 @@ namespace DTXMania
 
 			#region [ nWAV番号で示されるサイズ未設定のWAVチップがあれば、そのサイズを変更する。無限管理に対応。]
 			//-----------------
-			if( this.n無限管理SIZE[ nWAV番号 ] == -nWAV番号 )	// 初期状態では n無限管理SIZE[xx] = -xx である。この場合、#SIZExx がまだ出現していないことを意味する。
-			{
-				foreach( CWAV wav in this.listWAV.Values )		// これまでに出てきたWAVチップのうち、該当する（サイズが未設定の）チップのサイズを変更する（仕組み上、必ず後方参照となる）。
-				{
-					if( wav.nチップサイズ == -nWAV番号 )		// #SIZExx 行より前の行に出現した #WAVxx では、チップサイズは -xx に初期化されている。
-						wav.nチップサイズ = nサイズ値;
-				}
-			}
-			this.n無限管理SIZE[ nWAV番号 ] = nサイズ値;			// 次にこの nWAV番号を使うWAVチップが現れたら、負数の代わりに、このサイズ値が格納されることになる。
 			//-----------------
 			#endregion
 
@@ -7645,9 +7621,6 @@ namespace DTXMania
 			var wav = new CWAV() {
 				n内部番号 = this.n内部番号WAV1to,
 				n表記上の番号 = zz,
-				nチップサイズ = this.n無限管理SIZE[ zz ],
-				n位置 = this.n無限管理PAN[ zz ],
-				n音量 = this.n無限管理VOL[ zz ],
 				strファイル名 = strパラメータ,
 				strコメント文 = strコメント,
 			};
@@ -7716,16 +7689,6 @@ namespace DTXMania
 			if( int.TryParse( strパラメータ, out n位置 ) )
 			{
 				n位置 = Math.Min( Math.Max( n位置, -100 ), 100 );	// -100～+100 に丸める
-
-				if( this.n無限管理PAN[ zz ] == ( -10000 - zz ) )	// 初期状態では n無限管理PAN[zz] = -10000 - zz である。この場合、#WAVPANzz, #PANzz がまだ出現していないことを意味する。
-				{
-					foreach( CWAV wav in this.listWAV.Values )	// これまでに出てきたチップのうち、該当する（位置が未設定の）WAVチップの値を変更する（仕組み上、必ず後方参照となる）。
-					{
-						if( wav.n位置 == ( -10000 - zz ) )	// #WAVPANzz, #PANzz 行より前の行に出現した #WAVzz では、位置は -10000-zz に初期化されている。
-							wav.n位置 = n位置;
-					}
-				}
-				this.n無限管理PAN[ zz ] = n位置;			// 次にこの WAV番号 zz を使うWAVチップが現れたら、この位置が格納されることになる。
 			}
 			//-----------------
 			#endregion
@@ -7771,16 +7734,6 @@ namespace DTXMania
 			if( int.TryParse( strパラメータ, out n音量 ) )
 			{
 				n音量 = Math.Min( Math.Max( n音量, 0 ), 100 );	// 0～100に丸める。
-
-				if( this.n無限管理VOL[ zz ] == -zz )	// 初期状態では n無限管理VOL[zz] = - zz である。この場合、#WAVVOLzz, #VOLUMEzz がまだ出現していないことを意味する。
-				{
-					foreach( CWAV wav in this.listWAV.Values )	// これまでに出てきたチップのうち、該当する（音量が未設定の）WAVチップの値を変更する（仕組み上、必ず後方参照となる）。
-					{
-						if( wav.n音量 == -zz )	// #WAVVOLzz, #VOLUMEzz 行より前の行に出現した #WAVzz では、音量は -zz に初期化されている。
-							wav.n音量 = n音量;
-					}
-				}
-				this.n無限管理VOL[ zz ] = n音量;			// 次にこの WAV番号 zz を使うWAVチップが現れたら、この音量が格納されることになる。
 			}
 			//-----------------
 			#endregion
