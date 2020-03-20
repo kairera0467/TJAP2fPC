@@ -439,7 +439,7 @@ namespace DTXMania
                 this.bBranch = false;
                 this.bBranchLine = false;
 				this.nチャンネル番号 = 0;
-				this.n整数値 = 0; //整数値をList上の番号として用いる。
+				this.n整数値 = 0;
 				this.n整数値_内部番号 = 0;
                 this.nList上の位置 = 0;
 				this.db実数値 = 0.0;
@@ -2736,16 +2736,55 @@ namespace DTXMania
                         //    }
                         //}
                         this.listChip.Sort();
-                        int n整数値管理 = 0;
-                        foreach( CChip chip in this.listChip )
+                        // 2020.3.20 kairera0467 WASAPI/ASIO時のみこの後でさらにSortされてたらしく、ここで指定した値がズレていたため廃止。
+                        //int n整数値管理 = 0;
+                        //foreach( CChip chip in this.listChip )
+                        //{
+                        //    if( chip.nチャンネル番号 != 0x54 )
+                        //        chip.n整数値 = n整数値管理;
+                        //    n整数値管理++;
+                        //}
+
+                        #region[ ログ ]
+                        int nlinecount = 0;
+                        if( !CDTXMania.EnumSongs.IsEnumerating )
                         {
-                            if( chip.nチャンネル番号 != 0x54 )
-                                chip.n整数値 = n整数値管理;
-                            n整数値管理++;
+                            // 2020.3.20 kairera0467
+                            // 譜面分岐の動作確認のため、以下のチャンネルに限定。
+                            //  0x11～0x1A 通常ノーツ
+                            //  0x50       小節線
+                            //  0x9E～0x9F ゴーゴー
+                            //  0xDD～0xDF 譜面分岐
+                            Trace.TraceInformation("//--------------------------------------------------");
+                            Trace.TraceInformation( "//TJAログ(譜面分岐確認用)" );
+                            foreach ( CChip chip in this.listChip )
+                            {
+                                if (chip.nチャンネル番号 < 0x11)
+                                    continue;
+                                else if (chip.nチャンネル番号 > 0x1A && chip.nチャンネル番号 < 0x50)
+                                    continue;
+                                else if (chip.nチャンネル番号 > 0x50 && chip.nチャンネル番号 < 0x9E)
+                                    continue;
+                                else if (chip.nチャンネル番号 > 0x9F && chip.nチャンネル番号 < 0xDD)
+                                    continue;
+                                else if (chip.nチャンネル番号 > 0xDF)
+                                    continue;
+
+                                if (chip.nチャンネル番号 == 0x50 && chip.nコース == 0)
+                                    nlinecount++;
+
+                                // 出力内容
+                                //  チャンネル番号(hex)、発声時刻ms、発声位置
+                                Trace.WriteLine(string.Format("{4:00}| Ch:{0:00} Time:{1:00000}ms {2:00000} COURSE:{3}", chip.nチャンネル番号.ToString("x"), chip.n発声時刻ms, chip.n発声位置, chip.nコース, nlinecount));
+                            
+                            }
+                            Trace.TraceInformation("//--------------------------------------------------");
+
                         }
 
-					}
-				}
+                        #endregion
+                    }
+                }
 			}
 		}
 

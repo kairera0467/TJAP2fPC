@@ -1361,7 +1361,7 @@ namespace DTXMania
 
 #if DEBUG
                             if( CDTXMania.ConfigIni.b演奏情報を表示する )
-                                CDTXMania.act文字コンソール.tPrint( (int)x + 60, (int)(y - 42) - pChip.nコース * 16, C文字コンソール.Eフォント種別.白, pChip.n整数値.ToString() );
+                                CDTXMania.act文字コンソール.tPrint( (int)x + 60, (int)(y - 42) - pChip.nコース * 16, C文字コンソール.Eフォント種別.白, pChip.nList上の位置.ToString() );
 #endif
 
 
