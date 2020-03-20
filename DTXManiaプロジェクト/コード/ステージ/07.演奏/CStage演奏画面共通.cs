@@ -2749,7 +2749,7 @@ namespace DTXMania
                                         this.actChara.ctMAXゴーゴーモーション = new CCounter( 0, this.actChara.ar黄色ゴーゴーモーション番号.Length - 1, dbUnit_max_gogo * 2, CSound管理.rc演奏用タイマ );
                                     }
                                 }
-                                if( pChip.nコース == (int)this.n現在のコース[ nPlayer ] )
+                                if( pChip.nコース == (int)this.n現在のコース[ nPlayer ] && nPlayer == 0 )
                                     this.actPlayInfo.n小節番号++;
                                 pChip.bHit = true;
                             }
