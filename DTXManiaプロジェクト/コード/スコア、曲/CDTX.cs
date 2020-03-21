@@ -1164,6 +1164,9 @@ namespace DTXMania
 
         private int nNowRoll = 0;
         private int nNowRollCount = 0;
+        private float fLatestRollChipTime = 0; // 2020.3.21 kairera0467 連打チップの途中で最後に7のチップが配置された時間
+        private int nLatestRollChipPos = 0;
+        private float fLatestRollChipBMTime = 0;
 
         private int[] n連打チップ_temp = new int[3];
 
@@ -4106,6 +4109,9 @@ namespace DTXMania
                                 {
                                     this.dbNowTime += (15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m) * (16.0 / n文字数));
                                     this.dbNowBMScollTime += (double)((this.dbBarLength) * (16.0 / n文字数));
+                                    this.fLatestRollChipTime = (float)this.dbNowTime;
+                                    this.fLatestRollChipBMTime = (float)this.dbNowBMScollTime;
+                                    this.nLatestRollChipPos = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
                                     continue;
                                 }
                                 else
@@ -4113,6 +4119,46 @@ namespace DTXMania
                                     this.nNowRollCount = listChip.Count;
                                     nNowRoll = nObjectNum;
                                 }
+                            }
+                            else if( nObjectNum > 0 && nNowRoll != 0 )
+                            {
+                                // 最後に配置された連打チップの場所に連打終了チップを配置する
+                                var rollend = new CChip
+                                {
+                                    bBranch = this.bBranch中である,
+                                    bHit = false,
+                                    b可視 = true,
+                                    bShow = true,
+                                    nチャンネル番号 = 0x18,
+                                    n発声位置 = this.nLatestRollChipPos,
+                                    db発声位置 = this.nLatestRollChipPos,
+                                    n発声時刻ms = (int)this.fLatestRollChipTime,
+                                    db発声時刻ms = this.fLatestRollChipTime,
+                                    fBMSCROLLTime = this.fLatestRollChipBMTime,
+                                    n整数値 = 8,
+                                    n整数値_内部番号 = 1,
+                                    dbBPM = this.dbNowBPM,
+                                    dbSCROLL = this.dbNowScroll,
+                                    dbSCROLL_Y = this.dbNowScrollY,
+                                    nコース = this.n現在のコース,
+                                    e楽器パート = E楽器パート.TAIKO,
+                                    nPlayerSide = this.nPlayerSide
+                                };
+
+                                rollend.nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
+                                rollend.nノーツ終了時刻ms = (int)this.dbNowTime;
+                                rollend.fBMSCROLLTime_end = (float)this.dbNowBMScollTime;
+
+                                rollend.nノーツ出現時刻ms = listChip[nNowRollCount].nノーツ出現時刻ms;
+                                rollend.nノーツ移動開始時刻ms = listChip[nNowRollCount].nノーツ移動開始時刻ms;
+
+                                rollend.n連打音符State = nNowRoll;
+                                listChip[nNowRollCount].nノーツ終了位置 = this.nLatestRollChipPos;
+                                listChip[nNowRollCount].nノーツ終了時刻ms = (int)this.fLatestRollChipTime;
+                                listChip[nNowRollCount].fBMSCROLLTime_end = this.fLatestRollChipBMTime;
+                                nNowRoll = 0;
+
+                                this.listChip.Add( rollend );
                             }
 
                             var chip = new CChip
