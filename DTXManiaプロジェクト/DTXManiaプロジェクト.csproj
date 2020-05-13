@@ -224,6 +224,7 @@
     <Compile Include="コード\全体\CDTXVersion.cs" />
     <Compile Include="コード\全体\CPad.cs" />
     <Compile Include="コード\全体\CPrivateFastFont.cs" />
+    <Compile Include="コード\全体\CUser.cs" />
     <Compile Include="コード\全体\CVeirticalSongNameFont.cs" />
     <Compile Include="コード\全体\CPrivateFont.cs" />
     <Compile Include="コード\全体\CSkin.cs" />

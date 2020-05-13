@@ -12,10 +12,10 @@ namespace DTXMania
     /// </summary>
     public class CSongRecord
     {
-
         // リザルト単位の記録
         public struct ST演奏記録
         {
+            public int UserID;
             public string str曲名;
             public long nスコア;
             public float fゲージ;
@@ -29,6 +29,9 @@ namespace DTXMania
             public int n全ノート数;
             public int n演奏速度分子;
             public int n演奏速度分母;
+
+            public bool bハイスコア更新;
+
             /// <summary>
             /// 演奏記録の正当性を証明するためのハッシュ値。
             /// </summary>
@@ -37,6 +40,18 @@ namespace DTXMania
             public int n判定範囲Perfect;
             public int n判定範囲Good;
             public int n判定範囲Miss;
+        }
+
+        /// <summary>
+        /// 曲リザルトテーブルに記録を挿入する
+        /// </summary>
+        /// <returns></returns>
+        public int InsertRecord()
+        {
+            CDTXMania.DBUtil.tノンクエリSQL実行("");
+
+
+            return 0;
         }
     }
 }
