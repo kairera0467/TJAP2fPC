@@ -60,15 +60,12 @@ namespace DTXMania
                 cmd.CommandText = sql;
 
                 ret = cmd.ExecuteNonQuery();
+
+                this.connection.Close();
             }
             catch( Exception ex )
             {
                 Trace.TraceError( ex.StackTrace );
-            }
-            finally
-            {
-                cmd?.Dispose();
-                this.connection?.Close();
             }
 
             return ret;
@@ -78,6 +75,20 @@ namespace DTXMania
         {
             SQLiteCommand cmd = null;
             DataTable ret = new DataTable();
+
+            try
+            {
+
+            }
+            catch( Exception ex )
+            {
+
+            }
+            finally
+            {
+                cmd?.Dispose();
+
+            }
 
 
             return ret;
@@ -95,7 +106,6 @@ namespace DTXMania
             {
                 string strCommand = "CREATE DATABASE tjap2fpc;";
                 this.tノンクエリSQL実行( strCommand );
-
 
 
             }

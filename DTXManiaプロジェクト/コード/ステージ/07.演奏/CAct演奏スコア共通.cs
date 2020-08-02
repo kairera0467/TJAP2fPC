@@ -18,6 +18,11 @@ namespace DTXMania
 		protected CTexture txScore;
         protected CCounter ctTimer;
 
+        // 2020.05.17 kairera0467
+        // EXスコア
+        // 常識的な譜面であれば理論値はノート数の2～4倍ぐらいにしかならないのでint型にした。
+        protected int[] n現在のEXスコア;
+
         protected STスコア[] stScore;
         protected int n現在表示中のAddScore;
 
@@ -196,18 +201,37 @@ namespace DTXMania
             this.Set( E楽器パート.TAIKO, this.Get( E楽器パート.TAIKO, player ) + 10000, player );
         }
 
-		// CActivity 実装
+        #region[ EX SCOREの実装 ]
+        //IIDXと同じく良=2点、可=1点
+        //TJAP2fPCでは大音符の両手/片手判定を導入しているため、大音符は両手良=4、両手可=3、片手良=2、片手可=1とする。
+        // -オプションで片手判定をオフにしている場合は必ず両手扱いになるので、良=4、可=3となる。
+        //連打が面倒なことになるが、風船連打はEXSCOREに含め(叩いた= 1)、黄色連打はEXSCOREに含めない。
 
-		public override void On活性化()
+        public long GetExScore(int player)
+        {
+            return this.n現在のEXスコア[ player ];
+        }
+
+        public void SetExScore(int player, int nScore)
+        {
+            this.n現在のEXスコア[ player ] += nScore;
+        }
+        #endregion
+
+        // CActivity 実装
+
+        public override void On活性化()
 		{
             this.n現在表示中のスコア = new STDGBVALUE<long>[ 4 ];
             this.n現在の本当のスコア = new STDGBVALUE<double>[ 4 ];
             this.nスコアの増分 = new STDGBVALUE<long>[ 4 ];
+            this.n現在のEXスコア = new int[ 4 ];
 			for( int i = 0; i < 4; i++ )
 			{
 				this.n現在表示中のスコア[ i ][ i ] = 0L;
 				this.n現在の本当のスコア[ i ][ i ] = 0L;
 				this.nスコアの増分[ i ][ i ] = 0L;
+                this.n現在のEXスコア[ i ] = 0;
 			}
             for( int sc = 0; sc < 256; sc++ )
             {

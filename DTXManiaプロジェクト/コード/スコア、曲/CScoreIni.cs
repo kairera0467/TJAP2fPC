@@ -213,6 +213,7 @@ namespace DTXMania
             public int[] n不可 = new int[5];
             public int[] n連打 = new int[5];
             public int[] nハイスコア = new int[5];
+            public int[] nEXScore = new int[5];
 
 			public C演奏記録()
 			{
@@ -1164,7 +1165,26 @@ namespace DTXMania
                                             //{
                                             //    c演奏記録.nハイスコア[ 4 ] = int.Parse( para );
                                             //}
-
+                                            else if( item.Equals( "EXScore1" ) )
+                                            {
+                                                c演奏記録.nEXScore[ 0 ] = int.Parse( para );
+                                            }
+                                            else if( item.Equals( "EXScore2" ) )
+                                            {
+                                                c演奏記録.nEXScore[ 1 ] = int.Parse( para );
+                                            }
+                                            else if( item.Equals( "EXScore3" ) )
+                                            {
+                                                c演奏記録.nEXScore[ 2 ] = int.Parse( para );
+                                            }
+                                            else if( item.Equals( "EXScore4" ) )
+                                            {
+                                                c演奏記録.nEXScore[ 3 ] = int.Parse( para );
+                                            }
+                                            else if( item.Equals( "EXScore5" ) )
+                                            {
+                                                c演奏記録.nEXScore[ 4 ] = int.Parse( para );
+                                            }
 
 										}
 									}
@@ -1288,6 +1308,11 @@ namespace DTXMania
                 writer.WriteLine( "Roll3={0}", this.stセクション[ i ].n連打[ 2 ] );
                 writer.WriteLine( "Roll4={0}", this.stセクション[ i ].n連打[ 3 ] );
                 writer.WriteLine( "Roll5={0}", this.stセクション[ i ].n連打[ 4 ] );
+                writer.WriteLine( "EXScore1={0}", this.stセクション[ i ].nEXScore[ 0 ] );
+                writer.WriteLine( "EXScore2={0}", this.stセクション[ i ].nEXScore[ 1 ] );
+                writer.WriteLine( "EXScore3={0}", this.stセクション[ i ].nEXScore[ 2 ] );
+                writer.WriteLine( "EXScore4={0}", this.stセクション[ i ].nEXScore[ 3 ] );
+                writer.WriteLine( "EXScore5={0}", this.stセクション[ i ].nEXScore[ 4 ] );
 			}
 
 			writer.Close();
