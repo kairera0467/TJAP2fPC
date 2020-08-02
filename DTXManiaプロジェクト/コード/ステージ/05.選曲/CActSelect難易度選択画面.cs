@@ -665,10 +665,16 @@ namespace DTXMania
                 if( this._プレイヤーカーソル[ player ].txカーソル != null )
                 {
                     int nY移動 = 0;
+                    int nX補正 = 0; // 2020.03.20
                     //if( CAnimationManager.b進行中( this._プレイヤーカーソル[ player ].ストーリーボード ) ) {
                     //    nY移動 = (int)this._プレイヤーカーソル[ player ].吹き出し左上位置X.Value;
                     //}
-                    this._プレイヤーカーソル[ player ].txカーソル.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行[ player ] ].ptパネル座標.X + this.list難易度選択項目[this.n現在の選択行[player]].rectパネル位置.Width / 2 - (this._プレイヤーカーソル[player].txカーソル.szテクスチャサイズ.Width / 2) + nY移動, 4 );
+                    if( this.n現在の選択行[ 0 ] == this.n現在の選択行[ 1 ] ) {
+                        // 1Pと2Pで同じ位置だった場合は少しずらす
+                        // (暫定)24px
+                        nX補正 = 24;
+                    }
+                    this._プレイヤーカーソル[ player ].txカーソル.t2D描画( CDTXMania.app.Device, this.list難易度選択項目[ this.n現在の選択行[ player ] ].ptパネル座標.X + this.list難易度選択項目[this.n現在の選択行[player]].rectパネル位置.Width / 2 - (this._プレイヤーカーソル[player].txカーソル.szテクスチャサイズ.Width / 2) + nY移動 + (player == 0 ? -nX補正 : nX補正 ), 4 );
                     
                 }
             }

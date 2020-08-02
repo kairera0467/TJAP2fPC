@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTXManiaプロジェクト", "DTXManiaプロジェクト\DTXManiaプロジェクト.csproj", "{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -27,5 +27,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {701CB468-4BD1-4FD5-821F-14929ACFEF56}
 	EndGlobalSection
 EndGlobal
