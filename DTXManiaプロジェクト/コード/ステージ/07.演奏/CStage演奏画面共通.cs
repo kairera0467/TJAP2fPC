@@ -3391,15 +3391,19 @@ namespace DTXMania
             }
             //2015.06.24 ソート処理で正確な番号が取得できなくなっていたので、とりあえずこれで対応。
             //2015.07.21 「卓球de脱臼」でバグが発生するのを修正完了。未ヒットチップを未来方向のみ検索して対応。
-            
+
+            // 2020.3.20 kairera0467 譜面分岐バグ検証用のログ
+            //Trace.TraceInformation("分岐処理発生 現在:{0} 次回:{1}", (E分岐コース)n現在のコース[nPlayer], (E分岐コース)n次回のコース[nPlayer]);
+            //Trace.TraceInformation("消去対象 {0} {1}", (E分岐コース)n消すコース1, (E分岐コース)n消すコース2);
 
             //ソート後の譜面分岐開始位置のchip番号を正常に取得できないため、ここで現在の時刻から一番近い位置の音符を消す処理を作る必要がある。
             //CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChip( CSound管理.rc演奏用タイマ.n現在時刻ms, 0xDF, 0, 10000 );
             CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChip( CSound管理.rc演奏用タイマ.n現在時刻ms + 1, 0xDF, 0, 10000, nPlayer ); //とりあえず検索開始を1ms後にして対応。
             if( chipNoHit == null )
                 return;
+            //Trace.TraceInformation("処理範囲基準チップ Time:{0}ms {1} chipNo:{2}", chipNoHit.n発声時刻ms, chipNoHit.n発声位置, chipNoHit.n整数値);
 
-            n分岐開始位置のChip番号 = chipNoHit.n整数値;
+            n分岐開始位置のChip番号 = chipNoHit.nList上の位置;
             
             //2017.08.15 kairera0467 複数譜面同時再生対応もどき
             CDTX dTX = CDTXMania.DTX;
@@ -3416,7 +3420,7 @@ namespace DTXMania
             for( int A = n分岐開始位置のChip番号; A < dTX.listChip.Count; A++ )
             {
                 //if( dTX.listChip[ A ].n発声時刻ms < dTX.listBRANCH[ this.n分岐した回数 ].db分岐時間ms )
-                if( dTX.listChip[ A ].n整数値 <= n分岐開始位置のChip番号 || !dTX.listChip[ A ].bBranch )
+                if( dTX.listChip[ A ].nList上の位置 <= n分岐開始位置のChip番号 || !dTX.listChip[ A ].bBranch )
                 {
                     dTX.listChip[ A ].b可視 = true;
                     continue;
@@ -3441,10 +3445,10 @@ namespace DTXMania
             }
 
             // 2018.03.31 過去方向にも調べる。本来はあまりよくないと思うのでこの実装はそのうち消す。
-            chipNoHit = this.r指定時刻に一番近いChipを過去方向優先で検索する( CSound管理.rc演奏用タイマ.n現在時刻ms, 0xDF, 0, nPlayer ); //とりあえず検索開始を1ms後にして対応。
+            //chipNoHit = this.r指定時刻に一番近いChipを過去方向優先で検索する( CSound管理.rc演奏用タイマ.n現在時刻ms, 0xDF, 0, nPlayer ); //とりあえず検索開始を1ms後にして対応。
 
-            if( chipNoHit == null )
-                return;
+            //if( chipNoHit == null )
+            //    return;
             //for( int A = n分岐開始位置のChip番号; A < chipNoHit.n整数値; A-- )
             //{
             //    //if( dTX.listChip[ A ].n発声時刻ms < dTX.listBRANCH[ this.n分岐した回数 ].db分岐時間ms )
@@ -3569,6 +3573,7 @@ namespace DTXMania
             this.t演奏位置の変更( 0, 0 );
             this.t演奏位置の変更( 0, 1 );
             CDTXMania.stage演奏ドラム画面.On活性化();
+            CDTXMania.stage演奏ドラム画面.actLaneTaiko.tリセット();
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
                 this.chip現在処理中の連打チップ[ i ] = null;

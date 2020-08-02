@@ -1361,7 +1361,7 @@ namespace DTXMania
 
 #if DEBUG
                             if( CDTXMania.ConfigIni.b演奏情報を表示する )
-                                CDTXMania.act文字コンソール.tPrint( (int)x + 60, (int)(y - 42) - pChip.nコース * 16, C文字コンソール.Eフォント種別.白, pChip.n整数値.ToString() );
+                                CDTXMania.act文字コンソール.tPrint( (int)x + 60, (int)(y - 42) - pChip.nコース * 16, C文字コンソール.Eフォント種別.白, pChip.nList上の位置.ToString() );
 #endif
 
 
@@ -1784,6 +1784,7 @@ namespace DTXMania
                                 if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                                 {
                                     #region[複素数スクロール対応テスト]
+#if DEBUG
                                     this.tx太鼓ノーツ.color4 = new Color4( 1.0f, fRet, fRet );
                                     if( body_draw == true ) {
                                         this.tx太鼓ノーツ.vc拡大縮小倍率.X = (index - 65.0f) / 130.0f;
@@ -1797,19 +1798,22 @@ namespace DTXMania
                                     //顔は色を変えない
                                     this.tx太鼓ノーツ.color4 = new Color4( 1.0f, 1.0f, 1.0f );
                                     this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 650, num9, 130, 130 ) );
+#endif
                                     #endregion
                                     #region[新方式]
-                                    //this.tx太鼓ノーツ.color4 = new Color4( 1.0f, fRet, fRet );
-                                    //if( body_draw == true ) {
-                                    //    this.tx太鼓ノーツ.vc拡大縮小倍率.X = (index - 65.0f) / 130.0f;
-                                    //    this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, (float)(x + 65.0f), (float)y, 0, new Rectangle( 780, 0, 130, 130 ) );
-                                    //}
-                                    //this.tx太鼓ノーツ.vc拡大縮小倍率.X = 1.0f;
-                                    //this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x末端, y, 0, new Rectangle( 910, 0, 130, 130 ) );
+#if !DEBUG
+                                    this.tx太鼓ノーツ.color4 = new Color4( 1.0f, fRet, fRet );
+                                    if( body_draw == true ) {
+                                        this.tx太鼓ノーツ.vc拡大縮小倍率.X = (index - 65.0f) / 130.0f;
+                                        this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, (float)(x + 65.0f), (float)y, 0, new Rectangle( 780, 0, 130, 130 ) );
+                                    }
+                                    this.tx太鼓ノーツ.vc拡大縮小倍率.X = 1.0f;
+                                    this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x末端, y, 0, new Rectangle( 910, 0, 130, 130 ) );
 
                                     //顔は色を変えない
-                                    //this.tx太鼓ノーツ.color4 = new Color4( 1.0f, 1.0f, 1.0f );
-                                    //this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 650, num9, 130, 130 ) );
+                                    this.tx太鼓ノーツ.color4 = new Color4(1.0f, 1.0f, 1.0f);
+                                    this.tx太鼓ノーツ.t2D描画(CDTXMania.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+#endif
                                     #endregion
                                     #region[旧方式]
                                     //this.tx太鼓ノーツ.vc拡大縮小倍率.X = index - 65;
@@ -1852,6 +1856,7 @@ namespace DTXMania
                                 if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                                 {
                                     #region[複素数スクロール対応テスト]
+#if DEBUG
                                     this.tx太鼓ノーツ.color4 = new Color4( 1.0f, fRet, fRet );
                                     if( body_draw == true ) {
                                         this.tx太鼓ノーツ.vc拡大縮小倍率.X = (index - 65.0f) / 130.0f;
@@ -1870,19 +1875,22 @@ namespace DTXMania
                                     y = CDTXMania.Skin.nScrollFieldY[ nPlayer ] + -( pChip.nバーからの距離dot.Taiko * (float)pChip.dbSCROLL_Y );
                                     this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 1040, num9, 130, 130 ) );
                                     CDTXMania.act文字コンソール.tPrint( (int)x, (int)y, C文字コンソール.Eフォント種別.白, "X:"+x+" y:"+y );
+#endif
                                     #endregion
                                     #region[新方式]
-                                    //this.tx太鼓ノーツ.color4 = new Color4( 1.0f, fRet, fRet );
-                                    //if( body_draw == true ) {
-                                    //    this.tx太鼓ノーツ.vc拡大縮小倍率.X = (index - 65.0f) / 130.0f;
-                                    //    this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x + 65, y, 0, new Rectangle( 1170, 0, 130, 130 ) );
-                                    //}
-                                    //this.tx太鼓ノーツ.vc拡大縮小倍率.X = 1.0f;
-                                    //this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x末端, y, 0, new Rectangle( 1300, num9, 130, 130 ) );
+#if !DEBUG
+                                    this.tx太鼓ノーツ.color4 = new Color4( 1.0f, fRet, fRet );
+                                    if( body_draw == true ) {
+                                        this.tx太鼓ノーツ.vc拡大縮小倍率.X = (index - 65.0f) / 130.0f;
+                                        this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x + 65, y, 0, new Rectangle( 1170, 0, 130, 130 ) );
+                                    }
+                                    this.tx太鼓ノーツ.vc拡大縮小倍率.X = 1.0f;
+                                    this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x末端, y, 0, new Rectangle( 1300, num9, 130, 130 ) );
 
-                                    ////顔は色を変えない
-                                    //this.tx太鼓ノーツ.color4 = new Color4( 1.0f, 1.0f, 1.0f );
-                                    //this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 1040, num9, 130, 130 ) );
+                                    //顔は色を変えない
+                                    this.tx太鼓ノーツ.color4 = new Color4( 1.0f, 1.0f, 1.0f );
+                                    this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( 1040, num9, 130, 130 ) );
+#endif
                                     #endregion
                                     #region[旧方式]
                                     //this.tx太鼓ノーツ.vc拡大縮小倍率.X = index - 65;
@@ -1948,23 +1956,23 @@ namespace DTXMania
                                 if( !CDTXMania.ConfigIni.bMonochlo )
                                 {
                                     #region[新方式]
-                                    //if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON && pChip.n連打音符State == 6 )
-                                        //this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
+                                    if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON && pChip.n連打音符State == 6 )
+                                        this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
                                     #endregion
                                     #region[旧方式]
                                     //if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
                                         //this.tx太鼓ノーツ.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
-                                    #endregion
+#endregion
                                 }
                                 else
                                 {
                                     #region[新方式]
-                                    //if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
-                                        //this.txモノクロノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
+                                    if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
+                                        this.txモノクロノーツ.t2D描画( CDTXMania.app.Device, x, y, 0, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
                                     #endregion
                                     #region[旧方式]
-                                    //if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
-                                        //this.txモノクロノーツ.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
+                                                                        //if( CDTXMania.ConfigIni.eSTEALTH != Eステルスモード.DORON )
+                                                                            //this.txモノクロノーツ.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
                                     #endregion
                                 }
                                 
@@ -1985,7 +1993,7 @@ namespace DTXMania
                 if( pChip.nチャンネル番号 != 0x18 && ( nPlayer == 0 ? CDTXMania.ConfigIni.b太鼓パートAutoPlay : CDTXMania.ConfigIni.b太鼓パートAutoPlay2P ) )
                     this.tチップのヒット処理( pChip.n発声時刻ms, pChip, E楽器パート.TAIKO, false, 0, nPlayer );
             }
-            #endregion
+#endregion
 		}
 
 		protected override void t進行描画_チップ_ドラムス( CConfigIni configIni, ref CDTX dTX, ref CDTX.CChip pChip )
@@ -2089,7 +2097,7 @@ namespace DTXMania
             }
             
 
-            #region[ 譜面分岐ガイド建設予定地 ]
+#region[ 譜面分岐ガイド建設予定地 ]
             //現在実験状態です。
             //画像などが完成したらメソッドorクラスとして分離します。
 
@@ -2166,9 +2174,9 @@ namespace DTXMania
                     CDTXMania.act文字コンソール.tPrint( 0, nY基準位置[ i ] + (16 * 1), C文字コンソール.Eフォント種別.白, strNext.ToString() );
                 }
             }
-            #endregion
+#endregion
 
-            #region[ 片手判定をこっちに持ってきてみる。]
+#region[ 片手判定をこっちに持ってきてみる。]
             //常時イベントが発生しているメソッドのほうがいいんじゃないかという予想。
             //CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChip((int)CSound管理.rc演奏用タイマ.n現在時刻ms, 0);
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
@@ -2190,9 +2198,9 @@ namespace DTXMania
                 }
             }
 
-            #endregion
+#endregion
 
-            #region[ 判定カウント(Debug用) ]
+#region[ 判定カウント(Debug用) ]
 #if DEBUG
             int count_y = 0;
             CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PG:{this.nヒット数[0].良:0000}") );
@@ -2216,10 +2224,10 @@ namespace DTXMania
             count_y += 16;
             CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PO:{this.nヒット数[1].見逃し不可:0000}") );
 #endif
-            #endregion
+#endregion
 
             string strNull = "Found"; // 不要?
-            #region[ ポーズメニュー ]
+#region[ ポーズメニュー ]
             if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F1 ) )
             {
                 if( !this.actPauseMenu.bIsActivePopupMenu )
@@ -2242,7 +2250,7 @@ namespace DTXMania
                     C共通.bToggleBoolian( ref this.bポーズメニューを表示する );
                 }
             }
-            #endregion
+#endregion
             //if( CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F8 ) )
             //{
             //this.actChipFireD.Start紙吹雪();
@@ -2299,7 +2307,7 @@ namespace DTXMania
 
                 // 2019.04.06 kairera0467
                 // 再生速度を仮設置
-                CDTXMania.act文字コンソール.tPrint( 0, 400, C文字コンソール.Eフォント種別.白, string.Format( "PlaySpeed x{0,4:#.00}", (double)(CDTXMania.ConfigIni.n演奏速度 / 20.0 ) ) );
+                //CDTXMania.act文字コンソール.tPrint( 0, 400, C文字コンソール.Eフォント種別.白, string.Format( "PlaySpeed x{0,4:#.00}", (double)(CDTXMania.ConfigIni.n演奏速度 / 20.0 ) ) );
             }
         }
 
@@ -2405,6 +2413,6 @@ namespace DTXMania
             return texture;
         }
 		//-----------------
-		#endregion
+#endregion
 	}
 }
