@@ -412,51 +412,6 @@ namespace DTXMania
 
 				this.actInformation.On進行描画();
 				this.tx下部パネル?.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.sz画像サイズ.Height );
-                #region[ 上部テキスト ]
-                if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
-                    CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL" );
-                if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛 )
-                    CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD" );
-                if( CDTXMania.ConfigIni.bSuperHard )
-                    CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON" );
-                if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL )
-                    CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON" );
-                else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
-                    CDTXMania.act文字コンソール.tPrint( 0, 32, C文字コンソール.Eフォント種別.赤, "HBSCROLL : ON" );
-
-                if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.IIDX )
-                    CDTXMania.act文字コンソール.tPrint( 240, 0, C文字コンソール.Eフォント種別.白, "GAUGE : IIDX" );
-                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
-                    CDTXMania.act文字コンソール.tPrint( 240, 0, C文字コンソール.Eフォント種別.白, "GAUGE : HARD" );
-                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD )
-                    CDTXMania.act文字コンソール.tPrint( 240, 0, C文字コンソール.Eフォント種別.白, "GAUGE : EX-HARD" );
-                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
-                    CDTXMania.act文字コンソール.tPrint( 240, 0, C文字コンソール.Eフォント種別.赤, "GAUGE : DEATH" );
-
-                if( CDTXMania.ConfigIni.nJustHIDDEN == 1 )
-                    CDTXMania.act文字コンソール.tPrint( 240, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-A" );
-                else if( CDTXMania.ConfigIni.nJustHIDDEN == 2 )
-                    CDTXMania.act文字コンソール.tPrint( 240, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-B" );
-                else if( CDTXMania.ConfigIni.nJustHIDDEN == 3 )
-                    CDTXMania.act文字コンソール.tPrint( 240, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-C" );
-
-                if( CDTXMania.ConfigIni.bMonochlo )
-                    CDTXMania.act文字コンソール.tPrint( 240, 32, C文字コンソール.Eフォント種別.赤, "NOTE : MONOCHRO" );
-
-                if( CDTXMania.ConfigIni.bZeroSpeed )
-                    CDTXMania.act文字コンソール.tPrint( 640, 0, C文字コンソール.Eフォント種別.赤, "ZERO-SPEED : ON" );
-                #endregion
-                #region[ 下部テキスト ]
-                if( this.tx下部テキスト != null )
-                {
-                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ) {
-                        this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 250 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
-                    }
-                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay2P ) {
-                        this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 1030 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
-                    }
-                }
-                #endregion
 
                 //this.actステータスパネル.On進行描画();
 
@@ -802,6 +757,55 @@ namespace DTXMania
                     }
                     //CDTXMania.act文字コンソール.tPrint(0, 48, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect戻り待ち?.n現在の値);
                 }
+
+				// 2021.3.13 kairera0467 一部表示は最前面に表示する
+                #region[ 上部テキスト ]
+				// 1列160px想定
+                if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
+                    CDTXMania.act文字コンソール.tPrint( 260, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL" );
+                if( CDTXMania.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛 )
+                    CDTXMania.act文字コンソール.tPrint( 260, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD" );
+                if( CDTXMania.ConfigIni.bSuperHard )
+                    CDTXMania.act文字コンソール.tPrint( 260, 16, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE" );
+                if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.BMSCROLL )
+                    CDTXMania.act文字コンソール.tPrint( 260, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON" );
+                else if( CDTXMania.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
+                    CDTXMania.act文字コンソール.tPrint( 260, 32, C文字コンソール.Eフォント種別.赤, "HBSCROLL : ON" );
+
+                if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.IIDX )
+                    CDTXMania.act文字コンソール.tPrint( 420, 0, C文字コンソール.Eフォント種別.白, "GAUGE : IIDX" );
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.HARD )
+                    CDTXMania.act文字コンソール.tPrint( 420, 0, C文字コンソール.Eフォント種別.白, "GAUGE : HARD" );
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.EXHARD )
+                    CDTXMania.act文字コンソール.tPrint( 420, 0, C文字コンソール.Eフォント種別.白, "GAUGE : EX-HARD" );
+                else if( CDTXMania.ConfigIni.eGaugeMode == Eゲージモード.DEATH )
+                    CDTXMania.act文字コンソール.tPrint( 420, 0, C文字コンソール.Eフォント種別.赤, "GAUGE : DEATH" );
+
+                if( CDTXMania.ConfigIni.nJustHIDDEN == 1 )
+                    CDTXMania.act文字コンソール.tPrint( 420, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-A" );
+                else if( CDTXMania.ConfigIni.nJustHIDDEN == 2 )
+                    CDTXMania.act文字コンソール.tPrint( 420, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-B" );
+                else if( CDTXMania.ConfigIni.nJustHIDDEN == 3 )
+                    CDTXMania.act文字コンソール.tPrint( 420, 16, C文字コンソール.Eフォント種別.赤, "JUSTHIDDEN : TYPE-C" );
+
+                if( CDTXMania.ConfigIni.bMonochlo )
+                    CDTXMania.act文字コンソール.tPrint( 420, 32, C文字コンソール.Eフォント種別.赤, "NOTE : MONOCHRO" );
+
+                if( CDTXMania.ConfigIni.bZeroSpeed )
+                    CDTXMania.act文字コンソール.tPrint( 600, 0, C文字コンソール.Eフォント種別.赤, "ZERO-SPEED : ON" );
+                #endregion
+                #region[ 下部テキスト ]
+                if( this.tx下部テキスト != null )
+                {
+                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay ) {
+                        this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 250 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
+                    }
+                    if( CDTXMania.ConfigIni.b太鼓パートAutoPlay2P ) {
+                        this.tx下部テキスト.t2D描画( CDTXMania.app.Device, 1030 - ( 184 / 2 ), 660, new Rectangle( 0, 0, 184, 60 ) );
+                    }
+                }
+                #endregion
+
                 //------------------------------
                 this.actQuickConfig.t進行描画(); // 2018.8.29 kairera0467 描画優先度が難易度選択より上になるよう修正
                 switch ( base.eフェーズID )
