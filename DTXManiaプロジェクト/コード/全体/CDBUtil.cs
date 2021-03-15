@@ -47,7 +47,7 @@ namespace DTXMania
         /// UPDATE INSERT DELETE等のSQLを実行する
         /// </summary>
         /// <param name="sql">SQLクエリ</param>
-        /// <returns></returns>
+        /// <returns>実行結果(件数)</returns>
         public int tノンクエリSQL実行( string sql )
         {
             int ret = 0;
@@ -66,28 +66,40 @@ namespace DTXMania
             catch( Exception ex )
             {
                 Trace.TraceError( ex.StackTrace );
+                ret = -1;
             }
 
             return ret;
         }
 
+        /// <summary>
+        /// SELECTのSQLを実行して結果をDataTable形式で返す
+        /// エラーの場合はnullで返される
+        /// </summary>
+        /// <param name="sql">SQLクエリ</param>
+        /// <returns>実行結果</returns>
         public DataTable tクエリSQL実行( string sql )
         {
-            SQLiteCommand cmd = null;
             DataTable ret = new DataTable();
 
             try
             {
+                this.connection.Open();
 
+                SQLiteDataAdapter dataAdapter;
+                dataAdapter = new SQLiteDataAdapter(sql, connection);
+                dataAdapter.Fill( ret );
+                dataAdapter?.Dispose();
+
+                this.connection?.Close();
             }
             catch( Exception ex )
             {
-
+                Trace.TraceError( ex.StackTrace );
             }
             finally
             {
-                cmd?.Dispose();
-
+                ret = null;
             }
 
 
