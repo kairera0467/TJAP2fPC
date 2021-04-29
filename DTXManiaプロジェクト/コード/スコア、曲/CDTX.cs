@@ -1149,6 +1149,7 @@ namespace DTXMania
 		public string strファイル名の絶対パス;
 		public string strフォルダ名;
         public string SUBTITLE;
+        public int nSubTitleDispType; // 2021.4.30 kairera0467 SUBTITLEの演奏画面での表示方法 0:演奏画面で表示しない 1:演奏画面でも表示する
 		public string TITLE;
 		public double dbDTXVPlaySpeed;
         public double dbScrollSpeed;
@@ -4556,8 +4557,14 @@ namespace DTXMania
                 }
                 else if( strCommandParam.StartsWith("++") )
                 {
-                //    //this.TITLE += strCommandParam.Remove( 0, 2 ); //このままだと選曲画面の表示がうまくいかない。
                     this.SUBTITLE = InputText.Substring( InputText.IndexOf(":") + 3 );
+                    this.nSubTitleDispType = 1; // 2021.04.30 kairera0467 記号「++」の対応
+                }
+                else
+                {
+                    // 2021.04.30 kairera0467 記号なし
+                    this.SUBTITLE = InputText.Substring( InputText.IndexOf(":") + 1 );
+                    this.nSubTitleDispType = 1;
                 }
             }
             else if( strCommandName.Equals( "LEVEL" ) )

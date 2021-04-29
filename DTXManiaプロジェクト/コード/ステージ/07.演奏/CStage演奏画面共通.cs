@@ -2410,7 +2410,15 @@ namespace DTXMania
 		}
 		protected void tパネル文字列の設定()
 		{
-			this.actPanel.SetPanelString( string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE : CDTXMania.DTX.PANEL );
+			// 2021.04.30 kairera0467 SUBTITLEの完全対応
+			string panel = string.IsNullOrEmpty( CDTXMania.DTX.PANEL ) ? CDTXMania.DTX.TITLE : CDTXMania.DTX.PANEL;
+
+			if( CDTXMania.DTX.nSubTitleDispType == 1 )
+            {
+				panel += string.Format( " {0}", CDTXMania.DTX.SUBTITLE );
+            }
+
+			this.actPanel.SetPanelString( panel );
 		}
 
 
