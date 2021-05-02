@@ -1113,7 +1113,8 @@ namespace DTXMania
                     CDTXMania.stage演奏ドラム画面.actChipFireTaiko.t虹( player );
                     CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, player );
                     this.actScore.Add( E楽器パート.TAIKO, this.bIsAutoPlay, 5000L, player );
-                    pChip.bHit = true;
+					this.actScore.AddExScore( player, 1 ); // 2021.05.02 kairera0467
+					pChip.bHit = true;
                     chip現在処理中の連打チップ[ player ].bHit = true;
                     //this.b連打中 = false;
                     //this.actChara.b風船連打中 = false;
@@ -1568,6 +1569,7 @@ namespace DTXMania
 
                         }
                         this.actScore.Add( E楽器パート.TAIKO, bIsAutoPlay, nAddScore, nPlayer );
+						this.actScore.AddExScore( nPlayer, eJudgeResult ); // 2021.05.02 kairera0467
                         //CDTXMania.act文字コンソール.tPrint( 50, 220, C文字コンソール.Eフォント種別.赤, nAddScore.ToString() );
 			        }
 					break;

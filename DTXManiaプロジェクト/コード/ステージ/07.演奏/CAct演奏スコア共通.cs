@@ -207,14 +207,35 @@ namespace DTXMania
         // -オプションで片手判定をオフにしている場合は必ず両手扱いになるので、良=4、可=3となる。
         //連打が面倒なことになるが、風船連打はEXSCOREに含め(叩いた= 1)、黄色連打はEXSCOREに含めない。
 
-        public long GetExScore(int player)
+        public int GetExScore(int player)
         {
             return this.n現在のEXスコア[ player ];
         }
 
-        public void SetExScore(int player, int nScore)
+        public void AddExScore(int player, E判定 e判定)
         {
-            this.n現在のEXスコア[ player ] += nScore;
+            int delta;
+
+            switch(e判定)
+            {
+                case E判定.Perfect:
+                case E判定.Great:
+                    delta = 2;
+                    break;
+                case E判定.Good:
+                    delta = 1;
+                    break;
+                default:
+                    delta = 0;
+                    break;
+            }
+
+            this.n現在のEXスコア[ player ] += delta;
+        }
+
+        public void AddExScore(int player, int delta)
+        {
+            this.n現在のEXスコア[ player ] += delta;
         }
         #endregion
 

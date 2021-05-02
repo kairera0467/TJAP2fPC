@@ -715,8 +715,10 @@ namespace DTXMania
         public EGame eGameMode;
         public bool bSuperHard = false;
         public bool bJust;
+		public int nScoreDispType1P;
+		public int nScoreDispType2P;
 
-        public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
+		public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
         
         public Eゲージモード eGaugeMode; //2018.03.26 kairera0467
 
@@ -1352,8 +1354,10 @@ namespace DTXMania
             this.eSTEALTH = Eステルスモード.OFF;
             this.bNoInfo = false;
             this.eGaugeMode = Eゲージモード.Normal;
-            
-            //this.bNoMP3Streaming = false;
+			this.nScoreDispType1P = 0;
+			this.nScoreDispType2P = 0;
+
+			//this.bNoMP3Streaming = false;
 			this.nMasterVolume = 100;					// #33700 2014.4.26 yyagi マスターボリュームの設定(WASAPI/ASIO用)
 
             this.bHispeedRandom = false;
@@ -1899,6 +1903,10 @@ namespace DTXMania
 			sw.WriteLine();
             sw.WriteLine( "; プレイ人数" );
             sw.WriteLine( "PlayerCount={0}", this.nPlayerCount );
+			sw.WriteLine();
+			sw.WriteLine( "; スコア表示(0:通常, 1:EX-SCORE)" );
+			sw.WriteLine( "ScoreDispType1P={0}", this.nScoreDispType1P );
+			sw.WriteLine( "ScoreDispType2P={0}", this.nScoreDispType2P );
 
 			sw.WriteLine( ";-------------------" );
 			#endregion
@@ -2913,6 +2921,14 @@ namespace DTXMania
                                             else if( str3.Equals( "PlayerCount" ) )
                                             {
                                                 this.nPlayerCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
+                                            }
+											else if( str3.Equals( "ScoreDispType1P" ) )
+                                            {
+                                                this.nScoreDispType1P = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, this.nScoreDispType1P );
+                                            }
+											else if( str3.Equals( "ScoreDispType2P" ) )
+                                            {
+                                                this.nScoreDispType2P = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, this.nScoreDispType2P );
                                             }
 											continue;
 										}

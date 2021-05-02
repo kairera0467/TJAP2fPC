@@ -37,8 +37,17 @@ namespace DTXMania
             else
                 this.pfMusicName = new CPrivateFastFont( new FontFamily( "MS PGothic" ), 30 );
 
+			string title = CDTXMania.DTX.TITLE;
+
+			#region[ タイトル文字列の生成 ]
+			if( CDTXMania.DTX.nSubTitleDispType == 1 )
+            {
+				title += string.Format( " {0}", CDTXMania.DTX.SUBTITLE );
+            }
+            #endregion
+
             Bitmap bmpSongTitle = new Bitmap(1, 1);
-            bmpSongTitle = pfMusicName.DrawPrivateFont( string.Format( "{0} {1}", CDTXMania.DTX.TITLE, CDTXMania.DTX.SUBTITLE ), Color.White, Color.Black ); // 2021.04.30 kairera0467 SUBTITLEの完全対応
+            bmpSongTitle = pfMusicName.DrawPrivateFont( title, Color.White, Color.Black ); // 2021.04.30 kairera0467 SUBTITLEの完全対応
 			this.txMusicName = CDTXMania.tテクスチャの生成( bmpSongTitle, false );
 
 			base.On活性化();

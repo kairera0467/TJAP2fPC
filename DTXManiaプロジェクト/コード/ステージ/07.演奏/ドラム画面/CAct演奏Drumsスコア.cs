@@ -48,8 +48,26 @@ namespace DTXMania
                     //base.t小文字表示( 20, 150, string.Format( "{0,7:######0}", this.nスコアの増分.Guitar ) );
                 }
 
-                base.t小文字表示( 20, 190, string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 );
-                if( CDTXMania.stage演奏ドラム画面.bDoublePlay ) base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 );
+                if( CDTXMania.ConfigIni.nScoreDispType1P == 0 )
+                {
+                    base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 0 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 0 ].Taiko ), 0 );
+                }
+                else if( CDTXMania.ConfigIni.nScoreDispType1P == 1 )
+                {
+                    base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 0 ], string.Format( "{0,7:######0}", this.n現在のEXスコア[ 0 ] ), 0 );
+                }
+
+                if( CDTXMania.stage演奏ドラム画面.bDoublePlay )
+                {
+                    if( CDTXMania.ConfigIni.nScoreDispType2P == 0 )
+                    {
+                        base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在表示中のスコア[ 1 ].Taiko ), 0 );
+                    }
+                    else if( CDTXMania.ConfigIni.nScoreDispType2P == 1 )
+                    {
+                        base.t小文字表示( 20, CDTXMania.Skin.nScoreY[ 1 ], string.Format( "{0,7:######0}", this.n現在のEXスコア[ 1 ] ), 0 );
+                    }
+                }
 
                 for( int i = 0; i < 256; i++ )
                 {
@@ -83,9 +101,11 @@ namespace DTXMania
                                 yAdd = 500 - this.stScore[i].ctTimer.n現在の値;
                             }
 
-                            if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false )
+                            bool bDisp = ( this.stScore[ i ].nPlayer == 0 ? CDTXMania.ConfigIni.nScoreDispType1P == 0 : CDTXMania.ConfigIni.nScoreDispType2P == 0 );
+
+                            if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == false && bDisp )
                                 base.t小文字表示( 20 + xAdd, this.stScore[ i ].nPlayer == 0 ? CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] + yAdd : CDTXMania.Skin.nScoreAddY[ this.stScore[ i ].nPlayer ] - yAdd, string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 );
-                            if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true )
+                            else if( this.n現在表示中のAddScore < 10 && this.stScore[ i ].bBonusScore == true && bDisp )
                                 base.t小文字表示( 20 + xAdd, CDTXMania.Skin.nScoreAddBonusY[ this.stScore[ i ].nPlayer ], string.Format( "{0,7:######0}", this.stScore[ i ].nAddScore ), this.stScore[ i ].nPlayer + 1 );
                             else
                             {

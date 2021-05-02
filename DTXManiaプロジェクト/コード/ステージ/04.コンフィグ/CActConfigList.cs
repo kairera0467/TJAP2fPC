@@ -706,6 +706,24 @@ namespace DTXMania
                 "Show the JudgeCount\n" +
                 "(SinglePlay Only)");
             this.list項目リスト.Add( this.iTaikoJudgeCountDisp );
+
+			this.iTaikoScoreDispMode1P = new CItemList("ScoreDispType 1P", CItemBase.Eパネル種別.通常, (int)CDTXMania.ConfigIni.nScoreDispType1P,
+				"演奏画面のスコア欄に表示するスコアの\n" +
+				"種類を変更します。\n" +
+				" DEFAULT: 通常のスコア\n" +
+				" EX-SCORE: EXスコア",
+				"",
+				new string[] { "DEFAULT", "EX-SCORE" });
+			this.list項目リスト.Add( this.iTaikoScoreDispMode1P );
+
+			this.iTaikoScoreDispMode2P = new CItemList("ScoreDispType 2P", CItemBase.Eパネル種別.通常, (int)CDTXMania.ConfigIni.nScoreDispType2P,
+				"演奏画面のスコア欄に表示するスコアの\n" +
+				"種類を変更します。\n" +
+				" DEFAULT: 通常のスコア\n" +
+				" EX-SCORE: EXスコア",
+				"",
+				new string[] { "DEFAULT", "EX-SCORE" });
+			this.list項目リスト.Add( this.iTaikoScoreDispMode2P );
             
 			this.iDrumsGoToKeyAssign = new CItemBase( "KEY CONFIG", CItemBase.Eパネル種別.通常,
 				"ドラムのキー入力に関する項目を設\n"+
@@ -1809,6 +1827,8 @@ namespace DTXMania
         private CItemInteger iTaikoPlayerCount;
         private CItemToggle iTaikoTight1P; // 2018.12.15 kairera0467
         private CItemToggle iTaikoTight2P;
+		private CItemList iTaikoScoreDispMode1P; // 2018.12.15 kairera0467
+        private CItemList iTaikoScoreDispMode2P;
 
         private CItemBase iGuitarReturnToMenu;
 		//private CItemToggle iGuitarSudden;
@@ -1987,6 +2007,9 @@ namespace DTXMania
             CDTXMania.ConfigIni.bJust = this.iTaikoJust.bON;
             CDTXMania.ConfigIni.bJudgeCountDisplay = this.iTaikoJudgeCountDisp.bON;
             CDTXMania.ConfigIni.b大音符判定 = this.iTaikoBigNotesJudge.bON;
+
+			CDTXMania.ConfigIni.nScoreDispType1P = this.iTaikoScoreDispMode1P.n現在選択されている項目番号;
+			CDTXMania.ConfigIni.nScoreDispType2P = this.iTaikoScoreDispMode2P.n現在選択されている項目番号;
 		}
 		private void tConfigIniへ記録する_Guitar()
 		{
