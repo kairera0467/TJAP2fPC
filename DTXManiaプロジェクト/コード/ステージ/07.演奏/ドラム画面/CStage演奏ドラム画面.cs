@@ -2181,7 +2181,12 @@ namespace DTXMania
             //CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChip((int)CSound管理.rc演奏用タイマ.n現在時刻ms, 0);
             for( int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++ )
             {
+                // TODO:常時発動は不具合の原因になるのでやめておきたい
                 CDTX.CChip chipNoHit = this.r指定時刻に一番近い未ヒットChipを過去方向優先で検索する( ( int ) CSound管理.rc演奏用タイマ.n現在時刻ms, 0, i );
+                // 取得した過去方向のチップが判定範囲に入らないならループを抜ける
+                if ((chipNoHit != null) ? chipNoHit.n発声時刻ms - CDTXMania.ConfigIni.nヒット範囲ms.Poor > CSound管理.rc演奏用タイマ.n現在時刻ms : false)
+                    break;
+
                 E判定 e判定 = (chipNoHit != null) ? this.e指定時刻からChipのJUDGEを返す(chipNoHit.nProcessTime, chipNoHit, 0) : E判定.Miss;
 
                 if( chipNoHit != null && ( chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B ) )
@@ -2203,26 +2208,26 @@ namespace DTXMania
 #region[ 判定カウント(Debug用) ]
 #if DEBUG
             int count_y = 0;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PG:{this.nヒット数[0].良:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"PG:{this.nヒット数[0].良:0000}" );
             count_y += 16;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"GR:{this.nヒット数[0].可:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"GR:{this.nヒット数[0].可:0000}" );
             count_y += 16;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"BP:{this.nヒット数[0].不可:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"BP:{this.nヒット数[0].不可:0000}" );
             count_y += 16;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"BA:{this.nヒット数[0].空打ち不可:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"BA:{this.nヒット数[0].空打ち不可:0000}" );
             count_y += 16;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PO:{this.nヒット数[0].見逃し不可:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"PO:{this.nヒット数[0].見逃し不可:0000}" );
 
             count_y = 640;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PG:{this.nヒット数[1].良:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"PG:{this.nヒット数[1].良:0000}" );
             count_y += 16;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"GR:{this.nヒット数[1].可:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"GR:{this.nヒット数[1].可:0000}" );
             count_y += 16;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"BP:{this.nヒット数[1].不可:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"BP:{this.nヒット数[1].不可:0000}" );
             count_y += 16;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"BA:{this.nヒット数[1].空打ち不可:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"BA:{this.nヒット数[1].空打ち不可:0000}" );
             count_y += 16;
-            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, string.Format($"PO:{this.nヒット数[1].見逃し不可:0000}") );
+            CDTXMania.act文字コンソール.tPrint( 0, count_y, C文字コンソール.Eフォント種別.白, $"PO:{this.nヒット数[1].見逃し不可:0000}" );
 #endif
 #endregion
 

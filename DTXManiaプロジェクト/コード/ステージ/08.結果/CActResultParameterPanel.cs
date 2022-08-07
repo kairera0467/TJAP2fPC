@@ -173,6 +173,9 @@ namespace DTXMania
 		{
 			this.sdDTXで指定されたフルコンボ音 = null;
 			this.bフルコンボ音再生済み = false;
+
+			// 2021.8.11 kairera0467 どちらかがEX-SCORE表示だった場合は初期表示をEX-SCOREにする
+			this._スコア表示 = (CDTXMania.ConfigIni.nScoreDispType1P == 1 || CDTXMania.ConfigIni.nScoreDispType2P == 1 ? 1 : 0 );
 			base.On活性化();
 		}
 		public override void On非活性化()
@@ -373,19 +376,34 @@ namespace DTXMania
                     this.tx炎.t2D描画( CDTXMania.app.Device, 1100, 34, new Rectangle( 0, 0, 230, 230 ) );
                 this.tx魂.t2D描画( CDTXMania.app.Device, 1174, 107, new Rectangle( 0, 0, 80, 80 ) );
             }
-            //演奏中のやつ使いまわせなかった。ファック。
-            this.tスコア文字表示( CDTXMania.Skin.nResultScoreP1X, CDTXMania.Skin.nResultScoreP1Y, string.Format( "{0,7:######0}",CDTXMania.stage結果.st演奏記録.Drums.nスコア ) );
+
+			int dif = CDTXMania.stage選曲.n確定された曲の難易度;
+
+            #region[ MAX比較表記 ]
+			// EXSCOREが理論値の95%(暫定)以上なら「MAX -###」を表示する。
+            // EX SCORE理論値計算
+            int max_exscore = CDTXMania.DTX.nノーツ数[3] * 2;
+			int max_border = (int)(max_exscore * 0.95);
+			if( this._スコア表示 == 1 )
+				CDTXMania.act文字コンソール.tPrint( CDTXMania.Skin.nResultScoreP1X + 160, CDTXMania.Skin.nResultScoreP1Y + 56, C文字コンソール.Eフォント種別.白, string.Format( "MAX -{0:0}", max_exscore - CDTXMania.stage結果.st演奏記録.Drums.nEXScore[ dif ]) );
+            #endregion
+
+            this.tスコア文字表示( CDTXMania.Skin.nResultScoreP1X, CDTXMania.Skin.nResultScoreP1Y, string.Format( "{0,7:######0}", this._スコア表示 == 0 ? CDTXMania.stage結果.st演奏記録.Drums.nスコア : CDTXMania.stage結果.st演奏記録.Drums.nEXScore[ dif ]) );
             this.t小文字表示( CDTXMania.Skin.nResultGreatP1X, CDTXMania.Skin.nResultGreatP1Y, string.Format( "{0,4:###0}", CDTXMania.stage結果.st演奏記録.Drums.nPerfect数.ToString() ) );
             this.t小文字表示( CDTXMania.Skin.nResultGoodP1X, CDTXMania.Skin.nResultGoodP1Y, string.Format( "{0,4:###0}", CDTXMania.stage結果.st演奏記録.Drums.nGreat数.ToString() ) );
             this.t小文字表示( CDTXMania.Skin.nResultBadP1X, CDTXMania.Skin.nResultBadP1Y, string.Format( "{0,4:###0}", CDTXMania.stage結果.st演奏記録.Drums.nMiss数.ToString() ) );
 
             this.t小文字表示( CDTXMania.Skin.nResultComboP1X, CDTXMania.Skin.nResultComboP1Y, string.Format( "{0,4:###0}", CDTXMania.stage結果.st演奏記録.Drums.n最大コンボ数.ToString() ) );
             this.t小文字表示( CDTXMania.Skin.nResultRollP1X, CDTXMania.Skin.nResultRollP1Y, string.Format( "{0,4:###0}", CDTXMania.stage結果.st演奏記録.Drums.n連打数.ToString() ) );
-            //CDTXMania.act文字コンソール.tPrint( 960, 200, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nPerfect数.ToString()) );
-            //CDTXMania.act文字コンソール.tPrint( 960, 236, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nGreat数.ToString()) );
-            //CDTXMania.act文字コンソール.tPrint( 960, 276, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nMiss数.ToString()) );
+			//CDTXMania.act文字コンソール.tPrint( 960, 200, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nPerfect数.ToString()) );
+			//CDTXMania.act文字コンソール.tPrint( 960, 236, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nGreat数.ToString()) );
+			//CDTXMania.act文字コンソール.tPrint( 960, 276, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.nMiss数.ToString()) );
 
-            //CDTXMania.act文字コンソール.tPrint( 1150, 200, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.n最大コンボ数.ToString()) );
+			//CDTXMania.act文字コンソール.tPrint( 1150, 200, C文字コンソール.Eフォント種別.白, string.Format( "{0,4:###0}",CDTXMania.stage結果.st演奏記録.Drums.n最大コンボ数.ToString()) );
+
+			CDTXMania.act文字コンソール.tPrint( 990, 276, C文字コンソール.Eフォント種別.白, string.Format( "FAST:{0,4:###0}", CDTXMania.stage結果.st演奏記録.Drums.nFast[dif].ToString()) );
+			CDTXMania.act文字コンソール.tPrint( 990, 276 + 16, C文字コンソール.Eフォント種別.白, string.Format( "SLOW:{0,4:###0}", CDTXMania.stage結果.st演奏記録.Drums.nSlow[dif].ToString()) );
+
 			int num = this.ct表示用.n現在の値;
 
             this.txネームプレート.t2D描画( CDTXMania.app.Device, 254, 93 );
@@ -396,9 +414,8 @@ namespace DTXMania
 			}
 			return 1;
 		}
-		
 
-		// その他
+
 
 		#region [ private ]
 		//-----------------
@@ -408,7 +425,6 @@ namespace DTXMania
 			public char ch;
 			public Point pt;
 		}
-
 		private bool bフルコンボ音再生済み;
 		private CCounter ct表示用;
 		private readonly Point[] ptFullCombo位置;
@@ -429,6 +445,7 @@ namespace DTXMania
         private CTextureAf tx炎;
 		private CTexture tx文字;
         private CTexture txネームプレート;
+		public int _スコア表示;
 
 		private void t小文字表示( int x, int y, string str )
 		{

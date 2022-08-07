@@ -18,6 +18,7 @@ namespace DTXMania
             public int UserID;
             public string str曲名;
             public long nスコア;
+            public long nEXSCORE;
             public float fゲージ;
             public int n良;
             public int n可;
@@ -29,6 +30,8 @@ namespace DTXMania
             public int n全ノート数;
             public int n演奏速度分子;
             public int n演奏速度分母;
+            public int nFast;
+            public int nSlow;
 
             public bool bハイスコア更新;
 

@@ -214,6 +214,8 @@ namespace DTXMania
             public int[] n連打 = new int[5];
             public int[] nハイスコア = new int[5];
             public int[] nEXScore = new int[5];
+			public int[] nSlow = new int[5];
+			public int[] nFast = new int[5];
 
 			public C演奏記録()
 			{

@@ -119,7 +119,10 @@ namespace DTXMania
                 string strCommand = "CREATE DATABASE tjap2fpc;";
                 this.tノンクエリSQL実行( strCommand );
 
-
+                // ユーザーデータ
+                strCommand = "CREATE TABLE playerdata " +
+                    "user_id INT NOT NULL" +
+                    "";
             }
             catch( Exception ex )
             {

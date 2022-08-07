@@ -411,6 +411,27 @@ namespace DTXMania
 					return false;
 				}
 			}
+            /// <summary>
+            /// 赤、青、赤(大)、青(大)、手つなぎ、AD-LIB
+            /// </summary>
+            public bool b単音符のチャンネルである
+            {
+                get
+                {
+                    switch( this.nチャンネル番号 )
+                    {
+                        case 0x11:
+                        case 0x12:
+                        case 0x13:
+                        case 0x14:
+                        case 0x1A:
+                        case 0x1B:
+                        case 0x1F:
+                            return true;
+                    }
+                    return false;
+                }
+            }
 			public bool b自動再生音チャンネルである
 			{
 				get
@@ -4100,6 +4121,14 @@ namespace DTXMania
 
 
                         int nObjectNum = this.CharConvertNote(InputText.Substring(n, 1));
+
+#if DEBUG
+                        // TODO: 0敷き詰め連打音符のパターン
+                        if(nNowRollCount >= 600)
+                        {
+                            Console.WriteLine("TEST");
+                        }
+#endif
 
                         if (nObjectNum != 0)
                         {

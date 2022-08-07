@@ -51,60 +51,70 @@ namespace DTXMania
 		{
 			Drums = new CScoreIni.C演奏記録();
 
-			//if (  )
+			Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, 0 );
+			Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( CDTXMania.DTX.LEVEL.Drums, CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数[ 0 ].良, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS, bIsAutoPlay );
+			Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数[ 0 ].良, this.nヒット数[ 0 ].可, 0, this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可, 0, E楽器パート.DRUMS, bIsAutoPlay );
+			Drums.nPerfect数 = this.nヒット数[ 0 ].良;
+			Drums.nGreat数 = this.nヒット数[ 0 ].可;
+			Drums.nMiss数 = this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可;
+			Drums.nPerfect数_Auto含まない = this.nヒット数[ 0 ].良;
+			Drums.nGreat数_Auto含まない = this.nヒット数[ 0 ].可;
+			Drums.nMiss数_Auto含まない = this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可;
+            Drums.n連打数 = this.n合計連打数[ 0 ];
+			Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
+			Drums.n全チップ数 = CDTXMania.DTX.n可視チップ数.Drums;
+			for ( int i = 0; i < (int) Eレーン.MAX;  i++ )
 			{
-				Drums.nスコア = (long) this.actScore.Get( E楽器パート.DRUMS, 0 );
-				Drums.dbゲーム型スキル値 = CScoreIni.tゲーム型スキルを計算して返す( CDTXMania.DTX.LEVEL.Drums, CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数[ 0 ].良, this.actCombo.n現在のコンボ数.P1最高値, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.db演奏型スキル値 = CScoreIni.t演奏型スキルを計算して返す( CDTXMania.DTX.n可視チップ数.Drums, this.nヒット数[ 0 ].良, this.nヒット数[ 0 ].可, 0, this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可, 0, E楽器パート.DRUMS, bIsAutoPlay );
-				Drums.nPerfect数 = this.nヒット数[ 0 ].良;
-				Drums.nGreat数 = this.nヒット数[ 0 ].可;
-				Drums.nMiss数 = this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可;
-				Drums.nPerfect数_Auto含まない = this.nヒット数[ 0 ].良;
-				Drums.nGreat数_Auto含まない = this.nヒット数[ 0 ].可;
-				Drums.nMiss数_Auto含まない = this.nヒット数[ 0 ].不可 + this.nヒット数[ 0 ].空打ち不可 + this.nヒット数[ 0 ].見逃し不可;
-                Drums.n連打数 = this.n合計連打数[ 0 ];
-				Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.P1最高値;
-				Drums.n全チップ数 = CDTXMania.DTX.n可視チップ数.Drums;
-				for ( int i = 0; i < (int) Eレーン.MAX;  i++ )
-				{
-					Drums.bAutoPlay[ i ] = bIsAutoPlay[ i ];
-				}
-				Drums.bTight = CDTXMania.ConfigIni.bTight;
-				for ( int i = 0; i < 3; i++ )
-				{
-					Drums.bSudden[ i ] = CDTXMania.ConfigIni.bSudden[ i ];
-					Drums.bHidden[ i ] = CDTXMania.ConfigIni.bHidden[ i ];
-					Drums.eInvisible[ i ] = CDTXMania.ConfigIni.eInvisible[ i ];
-					Drums.bReverse[ i ] = CDTXMania.ConfigIni.bReverse[ i ];
-					Drums.eRandom[ i ] = CDTXMania.ConfigIni.eRandom[ i ];
-					Drums.bLight[ i ] = CDTXMania.ConfigIni.bLight[ i ];
-					Drums.bLeft[ i ] = CDTXMania.ConfigIni.bLeft[ i ];
-					Drums.f譜面スクロール速度[ i ] = ( (float) ( CDTXMania.ConfigIni.n譜面スクロール速度[ i ] + 1 ) ) * 0.5f;
-				}
-				Drums.eDark = CDTXMania.ConfigIni.eDark;
-				Drums.n演奏速度分子 = CDTXMania.ConfigIni.n演奏速度;
-				Drums.n演奏速度分母 = 20;
-				Drums.bSTAGEFAILED有効 = CDTXMania.ConfigIni.bSTAGEFAILED有効;
-				Drums.eダメージレベル = CDTXMania.ConfigIni.eダメージレベル;
-				Drums.b演奏にキーボードを使用した = this.b演奏にキーボードを使った.Drums;
-				Drums.b演奏にMIDI入力を使用した = this.b演奏にMIDI入力を使った.Drums;
-				Drums.b演奏にジョイパッドを使用した = this.b演奏にジョイパッドを使った.Drums;
-				Drums.b演奏にマウスを使用した = this.b演奏にマウスを使った.Drums;
-				Drums.nPerfectになる範囲ms = CDTXMania.nPerfect範囲ms;
-				Drums.nGreatになる範囲ms = CDTXMania.nGreat範囲ms;
-				Drums.nGoodになる範囲ms = CDTXMania.nGood範囲ms;
-				Drums.nPoorになる範囲ms = CDTXMania.nPoor範囲ms;
-				Drums.strDTXManiaのバージョン = CDTXMania.VERSION;
-				Drums.最終更新日時 = DateTime.Now.ToString();
-				Drums.Hash = CScoreIni.t演奏セクションのMD5を求めて返す( Drums );
-                Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ 0 ];
-                if( !CDTXMania.ConfigIni.b太鼓パートAutoPlay )
-                {
-                    Drums.nハイスコア = CDTXMania.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
-                    if( CDTXMania.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ CDTXMania.stage選曲.n確定された曲の難易度 ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
-                        Drums.nハイスコア[ CDTXMania.stage選曲.n確定された曲の難易度 ] = (int)this.actScore.Get( E楽器パート.DRUMS, 0 );
-                }
+				Drums.bAutoPlay[ i ] = bIsAutoPlay[ i ];
 			}
+			Drums.bTight = CDTXMania.ConfigIni.bTight;
+			for ( int i = 0; i < 3; i++ )
+			{
+				Drums.bSudden[ i ] = CDTXMania.ConfigIni.bSudden[ i ];
+				Drums.bHidden[ i ] = CDTXMania.ConfigIni.bHidden[ i ];
+				Drums.eInvisible[ i ] = CDTXMania.ConfigIni.eInvisible[ i ];
+				Drums.bReverse[ i ] = CDTXMania.ConfigIni.bReverse[ i ];
+				Drums.eRandom[ i ] = CDTXMania.ConfigIni.eRandom[ i ];
+				Drums.bLight[ i ] = CDTXMania.ConfigIni.bLight[ i ];
+				Drums.bLeft[ i ] = CDTXMania.ConfigIni.bLeft[ i ];
+				Drums.f譜面スクロール速度[ i ] = ( (float) ( CDTXMania.ConfigIni.n譜面スクロール速度[ i ] + 1 ) ) * 0.5f;
+			}
+			Drums.eDark = CDTXMania.ConfigIni.eDark;
+			Drums.n演奏速度分子 = CDTXMania.ConfigIni.n演奏速度;
+			Drums.n演奏速度分母 = 20;
+			Drums.bSTAGEFAILED有効 = CDTXMania.ConfigIni.bSTAGEFAILED有効;
+			Drums.eダメージレベル = CDTXMania.ConfigIni.eダメージレベル;
+			Drums.b演奏にキーボードを使用した = this.b演奏にキーボードを使った.Drums;
+			Drums.b演奏にMIDI入力を使用した = this.b演奏にMIDI入力を使った.Drums;
+			Drums.b演奏にジョイパッドを使用した = this.b演奏にジョイパッドを使った.Drums;
+			Drums.b演奏にマウスを使用した = this.b演奏にマウスを使った.Drums;
+			Drums.nPerfectになる範囲ms = CDTXMania.nPerfect範囲ms;
+			Drums.nGreatになる範囲ms = CDTXMania.nGreat範囲ms;
+			Drums.nGoodになる範囲ms = CDTXMania.nGood範囲ms;
+			Drums.nPoorになる範囲ms = CDTXMania.nPoor範囲ms;
+			Drums.strDTXManiaのバージョン = CDTXMania.VERSION;
+			Drums.最終更新日時 = DateTime.Now.ToString();
+			Drums.Hash = CScoreIni.t演奏セクションのMD5を求めて返す( Drums );
+            Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ 0 ];
+            if( !CDTXMania.ConfigIni.b太鼓パートAutoPlay )
+            {
+                Drums.nハイスコア = CDTXMania.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
+                if( CDTXMania.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ CDTXMania.stage選曲.n確定された曲の難易度 ] < (int)this.actScore.Get( E楽器パート.DRUMS, 0 ) )
+                {
+                    Drums.nハイスコア[ CDTXMania.stage選曲.n確定された曲の難易度 ] = (int)this.actScore.Get( E楽器パート.DRUMS, 0 );
+                }
+            }
+			Drums.nEXScore[ CDTXMania.stage選曲.n確定された曲の難易度 ] = this.actScore.GetExScore( 0 ); //2021.8.15 kairera0467 試験段階
+
+			// FAST-SLOW
+			int fslengeMin = CDTXMania.ConfigIni.nヒット範囲ms.Perfect;
+			int fslengeMax = CDTXMania.ConfigIni.nヒット範囲ms.Good;
+			Drums.nFast[CDTXMania.stage選曲.n確定された曲の難易度] = listChip[0].FindAll(x =>
+				x.b単音符のチャンネルである && x.nLag < -fslengeMin && x.nLag > -fslengeMax
+			).Count;
+			Drums.nSlow[CDTXMania.stage選曲.n確定された曲の難易度] = listChip[0].FindAll(x =>
+				x.b単音符のチャンネルである && x.nLag > fslengeMin && x.nLag <= fslengeMax
+			).Count;
 		}
 		#endregion
 		#region [ t演奏結果を格納する_太鼓() ]
@@ -262,7 +272,9 @@ namespace DTXMania
             this.nBranch_Good = new int[]{ 0, 0, 0, 0 };
             this.nBranch_Miss = new int[]{ 0, 0, 0, 0 };
             this.nBranch_roll = new int[]{ 0, 0, 0, 0 };
-            #endregion
+			#endregion
+
+			this.listFastSlow = new List<int>();
 
             this.bIsAutoPlay = CDTXMania.ConfigIni.bAutoPlay;									// #24239 2011.1.23 yyagi
 
@@ -647,7 +659,6 @@ namespace DTXMania
         protected CSound soundAdlib;
 
 
-
         public bool bDoublePlay; // 2016.08.21 kairera0467 表示だけ。
         public bool[] bMiss中;
         protected bool bポーズメニューを表示する = true; // 2018.10.08 kairera0467
@@ -670,6 +681,8 @@ namespace DTXMania
             public bool b譜面分岐中;
             public int n分岐した回数;
         }
+
+		protected List<int> listFastSlow;
 
 		public void AddMixer( CSound cs, bool _b演奏終了後も再生が続くチップである )
 		{
@@ -724,7 +737,7 @@ namespace DTXMania
 		{
 			if ( pChip != null )
 			{
-				pChip.nLag = (int) ( nTime + nInputAdjustTime - pChip.n発声時刻ms );		// #23580 2011.1.3 yyagi: add "nInputAdjustTime" to add input timing adjust feature
+				pChip.nLag = (int) ( nTime + nInputAdjustTime - pChip.n発声時刻ms );        // #23580 2011.1.3 yyagi: add "nInputAdjustTime" to add input timing adjust feature
 				int nDeltaTime = Math.Abs( pChip.nLag );
 				//Debug.WriteLine("nAbsTime=" + (nTime - pChip.n発声時刻ms) + ", nDeltaTime=" + (nTime + nInputAdjustTime - pChip.n発声時刻ms));
 
@@ -1294,7 +1307,12 @@ namespace DTXMania
                                     else if( pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B )
                                         CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 1, nPlayer );
                                 }
-                            }
+
+								if (pChip.b単音符のチャンネルである)
+								{
+									this.listFastSlow.Add((int)(nHitTime + nInputAdjustTime - pChip.n発声時刻ms));
+								}
+							}
                         }
 
                         if ( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
@@ -3883,15 +3901,11 @@ namespace DTXMania
 			}
 			while( ( num - this.n制御タイマ ) >= 1000 )
 			{
-				if( this.n現在の音符の顔番号 == 0 )
-				{
-					this.n現在の音符の顔番号 = 1;
-		        }
-				else if( this.n現在の音符の顔番号 == 1 )
-				{
-					this.n現在の音符の顔番号 = 0;
-		        }
+				// 表示するコマの切り替え
+				this.n現在の音符の顔番号 = (this.n現在の音符の顔番号 == 0) ? 1 : 0;
 
+				// コマ切り替えの速さ
+				// TODO: 暫定値
                 if( this.actCombo.n現在のコンボ数.P1 < 50 )
                 {
                     this.n制御タイマ += 500;

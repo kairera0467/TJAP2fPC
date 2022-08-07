@@ -384,6 +384,13 @@ namespace DTXMania
 							base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
 							this.eフェードアウト完了時の戻り値 = E戻り値.完了;
 						}
+						if(CDTXMania.Input管理.Keyboard.bキーが押された( (int)SlimDX.DirectInput.Key.F2 ) )
+                        {
+							// 未定(F2に仮置) スコア表示切り替え
+							// 0:通常 1:EX-SCORE
+							CDTXMania.Skin.sound変更音.t再生する();
+							this.actParameterPanel._スコア表示 = (this.actParameterPanel._スコア表示 == 0 ? 1 : 0);
+						}
 						if ( ( ( CDTXMania.Pad.b押されたDGB( Eパッド.CY ) || CDTXMania.Pad.b押された( E楽器パート.DRUMS, Eパッド.RD ) ) || ( CDTXMania.Pad.b押された( E楽器パート.DRUMS, Eパッド.LC ) || CDTXMania.Input管理.Keyboard.bキーが押された( (int) SlimDX.DirectInput.Key.Return ) ) ) && this.bアニメが完了 )
 						{
 							CDTXMania.Skin.sound取消音.t再生する();
