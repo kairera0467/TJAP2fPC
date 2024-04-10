@@ -137,7 +137,8 @@ namespace DTXMania
 		private CSound sound;
 		private string str現在のファイル名;
         private CancellationTokenSource token; // 2019.03.23 kairera0467 マルチスレッドの中断処理を行うためのトークン
-		
+		private Task<CSound> task;
+
 		private void tBGMフェードアウト開始()
 		{
 			if( this.ctBGMフェードイン用 != null )
@@ -235,11 +236,22 @@ namespace DTXMania
 			            {
                             string strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
 
-                            // 2019.03.22 kairera0467 簡易マルチスレッド化
-                            Task<CSound> task = Task.Run<CSound>( () => {
+							// 2019.03.22 kairera0467 簡易マルチスレッド化
+							this.token = new CancellationTokenSource();
+							task = Task.Run<CSound>( () => {
                                 return this.tプレビューサウンドの作成MT( strPreviewFilename, token.Token );
                             });
                             this.sound = await task;
+
+							// 2024.04.10 kairera0467 サウンドの生成がキャンセルされていたら再生せず抜ける
+							if (token.IsCancellationRequested)
+                            {
+#if DEBUG
+								Trace.TraceInformation( "プレビューサウンドの生成後に中断しました({0})", strPreviewFilename );
+#endif
+								return;
+                            }
+
                             if( this.sound != null )
                             {
                                 this.sound.n音量 = 80;
@@ -266,13 +278,14 @@ namespace DTXMania
 
         public void tサウンドの停止MT()
         {
+			// 2024.04.10 kairera0467 サウンド生成Taskに中止トークンを飛ばす
+			if ( token != null )
+            {
+				token?.Cancel();
+			}
+
             if( this.sound != null )
 			{
-                if( token != null )
-                {
-                    token.Token.ThrowIfCancellationRequested();
-                    //token.Cancel();
-                }
 				this.sound.t再生を停止する();
 				CDTXMania.Sound管理.tサウンドを破棄する( this.sound );
 				this.sound = null;
@@ -289,7 +302,15 @@ namespace DTXMania
         {
             try
             {
-                return CDTXMania.Sound管理.tサウンドを生成する( path );
+				var sound = CDTXMania.Sound管理.tサウンドを生成する(path);
+				if (token.IsCancellationRequested)
+                {
+					Trace.TraceInformation( $"プレビューサウンドの生成が中止されました。({path})" );
+					sound?.t解放する();
+					return null;
+                }
+
+				return sound;
             }
             catch
             {
